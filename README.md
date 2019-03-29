@@ -4,11 +4,9 @@ A simple game with lasers and bots
 
 [![License: Apache2](https://img.shields.io/badge/license-Apache%202-blue.svg)](/LICENSE)
 
-[![Youtube Example](https://img.youtube.com/vi/q9uSgISUODM/0.jpg)](https://www.youtube.com/watch?v=q9uSgISUODM "Youtube Example")
-
 ## info
 
-TBC
+This is an experimental game
 
 # requirements
 
