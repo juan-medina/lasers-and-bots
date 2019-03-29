@@ -152,6 +152,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\Launcher.cpp" />
     <ClCompile Include="..\Classes\scenes\LauncherScene.cpp" />
+    <ClCompile Include="..\Classes\scenes\MainScene.cpp" />
     <ClCompile Include="..\Classes\utils\audio\AudioHelper.cpp" />
     <ClCompile Include="..\Classes\utils\base\app\BasicApp.cpp" />
     <ClCompile Include="..\Classes\utils\base\app\LauncherApp.cpp" />
@@ -165,6 +166,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\Launcher.h" />
     <ClInclude Include="..\Classes\scenes\LauncherScene.h" />
+    <ClInclude Include="..\Classes\scenes\MainScene.h" />
     <ClInclude Include="..\Classes\utils\audio\AudioHelper.h" />
     <ClInclude Include="..\Classes\utils\base\app\BasicApp.h" />
     <ClInclude Include="..\Classes\utils\base\app\LauncherApp.h" />

@@ -21,12 +21,6 @@
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Launcher.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\scenes\LauncherScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -51,16 +45,19 @@
     <ClCompile Include="..\Classes\utils\utils.cpp">
       <Filter>src\utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\scenes\MainScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>src\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Launcher.cpp">
+      <Filter>src\app</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
       <Filter>win32</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Launcher.h">
-      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\scenes\LauncherScene.h">
       <Filter>src</Filter>
@@ -85,6 +82,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\utils\utils.h">
       <Filter>src\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\MainScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>src\app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Launcher.h">
+      <Filter>src\app</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

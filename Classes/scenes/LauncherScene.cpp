@@ -83,7 +83,7 @@ bool LauncherScene::init()
 		//////////////////////////////////////////////////////////////////////////
 
 		// create the text for the title
-		auto titleFont = Label::createWithTTF("Dice Master : Launcher", "fonts/Marker Felt.ttf", 40);
+		auto titleFont = Label::createWithTTF("Lasers and Bots : Launcher", "fonts/Marker Felt.ttf", 40);
 		UTILS_BREAK_IF(!titleFont);
 
 		titleFont->setPosition(Vec2(_screenSize.width / 2, _screenSize.height - 50));

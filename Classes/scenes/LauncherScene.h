@@ -29,7 +29,7 @@ public:
 	// parent
 	typedef BasicScene parent;
 
-	// create with size
+	// create object
 	static LauncherScene* create();
 
 	// create the scene

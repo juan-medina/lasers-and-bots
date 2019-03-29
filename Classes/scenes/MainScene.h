@@ -17,20 +17,38 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
+#ifndef _MAIN_SCENE__
+#define _MAIN_SCENE__
 
-#include "AppDelegate.h"
-#include "scenes/MainScene.h"
+#include "../utils/utils.h"
+#include "../utils/base/scene/BasicScene.h"
 
-AppDelegate::AppDelegate()
-	: parent("Lasers and Bots")
+class MainScene : public BasicScene
 {
-}
+public:
+	// parent
+	typedef BasicScene parent;
 
-AppDelegate::~AppDelegate()
-{
-}
+	// constructor
+	MainScene();
 
-Scene* AppDelegate::initScene()
-{
-	return MainScene::scene();
-}
+	// destructor
+	~MainScene();
+
+	// create the object
+	static MainScene* create();
+
+	// create the scene
+	static Scene* scene();
+
+	// init this object
+	virtual bool init();
+
+protected:
+
+private:
+
+};
+
+#endif // _MAIN_SCENE__
+
