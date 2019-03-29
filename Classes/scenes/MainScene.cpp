@@ -10,64 +10,64 @@ MainScene::~MainScene()
 
 MainScene* MainScene::create()
 {
-	MainScene* ret = nullptr;
+  MainScene* ret = nullptr;
 
-	do
-	{
-		auto object = new MainScene();
-		UTILS_BREAK_IF(object == nullptr);
+  do
+  {
+    auto object = new MainScene();
+    UTILS_BREAK_IF(object == nullptr);
 
-		if (object->init())
-		{
-			object->autorelease();
-		}
-		else
-		{
-			delete object;
-		}
+    if (object->init())
+    {
+      object->autorelease();
+    }
+    else
+    {
+      delete object;
+    }
 
-		ret = object;
-	} while (0);
+    ret = object;
+  } while (0);
 
-	// return the object
-	return ret;
+  // return the object
+  return ret;
 }
 
 // on "init" you need to initialize your instance
 bool MainScene::init()
 {
-	bool ret = false;
+  bool ret = false;
 
-	do
-	{
-		//////////////////////////////
-		// 1. super init first
-		UTILS_BREAK_IF(!parent::init());
+  do
+  {
+    //////////////////////////////
+    // 1. super init first
+    UTILS_BREAK_IF(!parent::init());
 
-		ret = true;
+    ret = true;
 
-	} while (0);
+  } while (0);
 
-	return ret;
+  return ret;
 }
 
 Scene* MainScene::scene()
 {
-	Scene* result = nullptr;
+  Scene* result = nullptr;
 
-	do
-	{
-		// 'layer' is an autorelease object
-		auto layer = MainScene::create();
-		UTILS_BREAK_IF(layer == nullptr);
+  do
+  {
+    // 'layer' is an autorelease object
+    auto layer = MainScene::create();
+    UTILS_BREAK_IF(layer == nullptr);
 
-		// 'scene' is an autorelease object
-		auto scene = parent::createScene(layer);
-		UTILS_BREAK_IF(scene == nullptr);
+    // 'scene' is an autorelease object
+    auto scene = parent::createScene(layer);
+    UTILS_BREAK_IF(scene == nullptr);
 
-		result = scene;
-	} while (0);
+    result = scene;
+  } while (0);
 
-	// return the scene
-	return result;
+  // return the scene
+  return result;
 }

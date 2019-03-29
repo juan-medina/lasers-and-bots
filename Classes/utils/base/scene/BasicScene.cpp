@@ -22,66 +22,66 @@
 
 Scene* BasicScene::createScene(BasicScene* layer)
 {
-    Scene* ret = nullptr;
+  Scene* ret = nullptr;
 
-    do
-    {
-        // 'scene' is an autorelease object
-        auto scene = Scene::create();
-        UTILS_BREAK_IF(scene == nullptr);
+  do
+  {
+    // 'scene' is an autorelease object
+    auto scene = Scene::create();
+    UTILS_BREAK_IF(scene == nullptr);
 
-        // add layer as a child to scene
-        scene->addChild(layer);
+    // add layer as a child to scene
+    scene->addChild(layer);
 
-        // add the foreground layer
-        bool initOk = layer->initFgLayer();
-        UTILS_BREAK_IF(!initOk);
+    // add the foreground layer
+    bool initOk = layer->initFgLayer();
+    UTILS_BREAK_IF(!initOk);
 
-        ret = scene;
-    } while (0);
+    ret = scene;
+  } while (0);
 
-    // return the scene
-    return ret;
+  // return the scene
+  return ret;
 }
 
 // on "init" you need to initialize your instance
 bool BasicScene::init()
 {
-    bool ret = false;
+  bool ret = false;
 
-    do
-    {
-        //////////////////////////////
-        // 1. super init first
+  do
+  {
+    //////////////////////////////
+    // 1. super init first
 
-        ret = parent::init();
+    ret = parent::init();
 
-        UTILS_BREAK_IF(!ret);
+    UTILS_BREAK_IF(!ret);
 
-        // store the screen size
-        _screenSize = Director::getInstance()->getWinSize();
+    // store the screen size
+    _screenSize = Director::getInstance()->getWinSize();
 
-        ret = true;
-    } while (0);
+    ret = true;
+  } while (0);
 
-    return ret;
+  return ret;
 }
 
 bool BasicScene::initFgLayer()
 {
-    bool ret = false;
+  bool ret = false;
 
-    do
-    {
-        // create a foreground layer
-        auto foreground = Layer::create();
-        UTILS_BREAK_IF(foreground == nullptr);
+  do
+  {
+    // create a foreground layer
+    auto foreground = Layer::create();
+    UTILS_BREAK_IF(foreground == nullptr);
 
-        _foregroundLayer = foreground;
-        this->getScene()->addChild(foreground);
+    _foregroundLayer = foreground;
+    this->getScene()->addChild(foreground);
 
-        ret = true;
-    } while (0);
+    ret = true;
+  } while (0);
 
-    return ret;
+  return ret;
 }

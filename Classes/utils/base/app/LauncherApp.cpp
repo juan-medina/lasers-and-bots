@@ -21,10 +21,10 @@
 #include "LauncherApp.h"
 
 LauncherApp::LauncherApp(const char* applicationName, float width, float height)
-	: parent(applicationName), _wantToPlay(false)
+  : parent(applicationName), _wantToPlay(false)
 {
-	_screenSize = cocos2d::Size(width, height);
-	_designResolution = cocos2d::Size(width, height);
+  _screenSize = cocos2d::Size(width, height);
+  _designResolution = cocos2d::Size(width, height);
 }
 
 LauncherApp::~LauncherApp()
@@ -34,43 +34,43 @@ LauncherApp::~LauncherApp()
 bool LauncherApp::applicationDidFinishLaunching()
 {
 
-	bool ret = false;
+  bool ret = false;
 
-	do
-	{
-		// init vars
+  do
+  {
+    // init vars
 
-		// initialize director
-		auto director = Director::getInstance();
-		auto glview = director->getOpenGLView();
+    // initialize director
+    auto director = Director::getInstance();
+    auto glview = director->getOpenGLView();
 
-		if (!glview)
-		{
+    if (!glview)
+    {
 
-			glview = GLViewImpl::createWithRect(_name, Rect(0, 0, _screenSize.width, _screenSize.height));
+      glview = GLViewImpl::createWithRect(_name, Rect(0, 0, _screenSize.width, _screenSize.height));
 
-			director->setOpenGLView(glview);
-		}
+      director->setOpenGLView(glview);
+    }
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-		this->CenterWin32Window();
+    this->CenterWin32Window();
 #endif
 
-		// set FPS. the default value is 1.0/60 if you don't call this
-		director->setAnimationInterval(1.0f / 60.0f);
+    // set FPS. the default value is 1.0/60 if you don't call this
+    director->setAnimationInterval(1.0f / 60.0f);
 
-		glview->setDesignResolutionSize(_designResolution.width, _designResolution.height, ResolutionPolicy::FIXED_WIDTH);
+    glview->setDesignResolutionSize(_designResolution.width, _designResolution.height, ResolutionPolicy::FIXED_WIDTH);
 
-		// create a scene. it's an autorelease object
-		auto scene = this->initScene();
+    // create a scene. it's an autorelease object
+    auto scene = this->initScene();
 
-		UTILS_BREAK_IF(scene == nullptr);
+    UTILS_BREAK_IF(scene == nullptr);
 
-		// run
-		director->runWithScene(scene);
+    // run
+    director->runWithScene(scene);
 
-		ret = true;
-	} while (0);
+    ret = true;
+  } while (0);
 
-	return ret;
+  return ret;
 }

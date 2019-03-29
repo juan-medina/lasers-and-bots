@@ -26,45 +26,45 @@
 class LauncherScene : public BasicScene
 {
 public:
-	// parent
-	typedef BasicScene parent;
+  // parent
+  typedef BasicScene parent;
 
-	// create object
-	static LauncherScene* create();
+  // create object
+  static LauncherScene* create();
 
-	// create the scene
-	static Scene* scene();
+  // create the scene
+  static Scene* scene();
 
-	bool init();
+  bool init();
 
-	void play(Ref* sender);
+  void play(Ref* sender);
 
-	void screenModeClick(Ref* sender);
+  void screenModeClick(Ref* sender);
 
-	void resolutionClick(Ref* sender);
+  void resolutionClick(Ref* sender);
 
-	void effectsMutedClick(Ref* sender);
+  void effectsMutedClick(Ref* sender);
 
-	void musicMutedClick(Ref* sender);
+  void musicMutedClick(Ref* sender);
 
 private:
-	void updateLabels();
+  void updateLabels();
 
-	bool _fullScreen;
-	Label* _screenModeLabel;
+  bool _fullScreen;
+  Label* _screenModeLabel;
 
-	int _screenWidth;
-	int _screenHeight;
-	Label* _resolutionLabel;
+  int _screenWidth;
+  int _screenHeight;
+  Label* _resolutionLabel;
 
-	bool _effectsMuted;
-	Label* _effectsMutedLabel;
+  bool _effectsMuted;
+  Label* _effectsMutedLabel;
 
-	bool _musicMuted;
-	Label* _musicMutedLabel;
+  bool _musicMuted;
+  Label* _musicMutedLabel;
 
-	void loadSettings();
-	void saveSettings();
+  void loadSettings();
+  void saveSettings();
 };
 
 #endif // __LAUNCHER_SCENE_H__

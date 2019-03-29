@@ -26,24 +26,24 @@
 class BasicScene : public Layer
 {
 public:
-	// parent
-	typedef Layer parent;
+  // parent
+  typedef Layer parent;
 
-	// create the scene
-	static Scene* createScene(BasicScene* layer);
+  // create the scene
+  static Scene* createScene(BasicScene* layer);
 
-	// init this scene
-	virtual bool init();
+  // init this scene
+  virtual bool init();
 
-	// foreground layer
-	CC_SYNTHESIZE_READONLY(Layer*, _foregroundLayer, FgLayer);
+  // foreground layer
+  CC_SYNTHESIZE_READONLY(Layer*, _foregroundLayer, FgLayer);
 
 protected:
-	// init the foreground layer
-	virtual bool initFgLayer();
+  // init the foreground layer
+  virtual bool initFgLayer();
 
-	// store the screen size
-	Size _screenSize;
+  // store the screen size
+  Size _screenSize;
 };
 
 #endif // __BASIC_SCENE_H__

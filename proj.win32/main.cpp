@@ -26,25 +26,25 @@
 USING_NS_CC;
 
 int WINAPI _tWinMain(HINSTANCE hInstance,
-	HINSTANCE hPrevInstance,
-	LPTSTR    lpCmdLine,
-	int       nCmdShow)
+  HINSTANCE hPrevInstance,
+  LPTSTR    lpCmdLine,
+  int       nCmdShow)
 {
-	UNREFERENCED_PARAMETER(hPrevInstance);
-	UNREFERENCED_PARAMETER(lpCmdLine);
+  UNREFERENCED_PARAMETER(hPrevInstance);
+  UNREFERENCED_PARAMETER(lpCmdLine);
 
-	auto launcherApp = new Launcher();
-	auto result = Application::getInstance()->run();
-	auto wantToPlay = launcherApp->getWantToPlay();
-	delete launcherApp;
+  auto launcherApp = new Launcher();
+  auto result = Application::getInstance()->run();
+  auto wantToPlay = launcherApp->getWantToPlay();
+  delete launcherApp;
 
 
-	if (wantToPlay)
-	{
-		auto app = new AppDelegate();
-		result = Application::getInstance()->run();
-		delete app;
-	}
+  if (wantToPlay)
+  {
+    auto app = new AppDelegate();
+    result = Application::getInstance()->run();
+    delete app;
+  }
 
-	return result;
+  return result;
 }

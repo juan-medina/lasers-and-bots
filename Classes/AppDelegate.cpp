@@ -22,7 +22,7 @@
 #include "scenes/MainScene.h"
 
 AppDelegate::AppDelegate()
-	: parent("Lasers and Bots")
+  : parent("Lasers and Bots")
 {
 }
 
@@ -32,5 +32,5 @@ AppDelegate::~AppDelegate()
 
 Scene* AppDelegate::initScene()
 {
-	return MainScene::scene();
+  return MainScene::scene();
 }

@@ -27,20 +27,20 @@
 class LauncherApp : private BasicApp
 {
 public:
-	// parent
-	typedef BasicApp parent;
+  // parent
+  typedef BasicApp parent;
 
-	// constructor
-	LauncherApp(const char* applicationName, float width, float height);
+  // constructor
+  LauncherApp(const char* applicationName, float width, float height);
 
-	// destructor
-	virtual ~LauncherApp();
+  // destructor
+  virtual ~LauncherApp();
 
-	// launch application
-	virtual bool applicationDidFinishLaunching();
+  // launch application
+  virtual bool applicationDidFinishLaunching();
 
-	// do we want to play
-	CC_SYNTHESIZE(bool, _wantToPlay, WantToPlay);
+  // do we want to play
+  CC_SYNTHESIZE(bool, _wantToPlay, WantToPlay);
 };
 
 #endif // _LAUNCHER_APP_H_

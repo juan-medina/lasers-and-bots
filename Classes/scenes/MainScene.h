@@ -26,23 +26,23 @@
 class MainScene : public BasicScene
 {
 public:
-	// parent
-	typedef BasicScene parent;
+  // parent
+  typedef BasicScene parent;
 
-	// constructor
-	MainScene();
+  // constructor
+  MainScene();
 
-	// destructor
-	~MainScene();
+  // destructor
+  ~MainScene();
 
-	// create the object
-	static MainScene* create();
+  // create the object
+  static MainScene* create();
 
-	// create the scene
-	static Scene* scene();
+  // create the scene
+  static Scene* scene();
 
-	// init this object
-	virtual bool init();
+  // init this object
+  virtual bool init();
 
 protected:
 

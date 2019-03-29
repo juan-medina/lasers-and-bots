@@ -27,17 +27,17 @@
 class Launcher : public LauncherApp
 {
 public:
-	// parent
-	typedef LauncherApp parent;
+  // parent
+  typedef LauncherApp parent;
 
-	// constructor
-	Launcher();
+  // constructor
+  Launcher();
 
-	// destructor
-	virtual ~Launcher();
+  // destructor
+  virtual ~Launcher();
 
-	// init this scene
-	Scene* initScene();
+  // init this scene
+  Scene* initScene();
 };
 
 #endif // _APP_DELEGATE_H_

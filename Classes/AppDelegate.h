@@ -27,17 +27,17 @@
 class AppDelegate : private BasicApp
 {
 public:
-	// parent
-	typedef BasicApp parent;
+  // parent
+  typedef BasicApp parent;
 
-	// constructor
-	AppDelegate();
+  // constructor
+  AppDelegate();
 
-	// destructor
-	virtual ~AppDelegate();
+  // destructor
+  virtual ~AppDelegate();
 
-	// init this scene
-	Scene* initScene();
+  // init this scene
+  Scene* initScene();
 };
 
 #endif // _APP_DELEGATE_H_

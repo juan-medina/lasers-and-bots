@@ -26,26 +26,26 @@
 class BaseButton : public MenuItemLabel
 {
 public:
-	// parent
-	typedef MenuItemLabel parent;
+  // parent
+  typedef MenuItemLabel parent;
 
-	// constructor
-	BaseButton();
+  // constructor
+  BaseButton();
 
-	// destructor
-	~BaseButton();
+  // destructor
+  ~BaseButton();
 
-	// create the object
-	static BaseButton* create(Sprite* sprite, const ccMenuCallback& selector);
+  // create the object
+  static BaseButton* create(Sprite* sprite, const ccMenuCallback& selector);
 
-	// create the object
-	static BaseButton* createWithSpriteFrameName(const string& spriteFrameName, const ccMenuCallback& selector);
+  // create the object
+  static BaseButton* createWithSpriteFrameName(const string& spriteFrameName, const ccMenuCallback& selector);
 
-	// init this object
-	virtual bool init(Sprite* sprite, const ccMenuCallback& selector);
+  // init this object
+  virtual bool init(Sprite* sprite, const ccMenuCallback& selector);
 
-	// enable / disable button
-	virtual void setEnabled(bool value);
+  // enable / disable button
+  virtual void setEnabled(bool value);
 
 private:
 };

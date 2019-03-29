@@ -22,7 +22,7 @@
 #include "scenes/LauncherScene.h"
 
 Launcher::Launcher()
-	: parent("Lasers and Bots : Launcher", 500, 450)
+  : parent("Lasers and Bots : Launcher", 500, 450)
 {
 }
 
@@ -32,5 +32,5 @@ Launcher::~Launcher()
 
 Scene* Launcher::initScene()
 {
-	return LauncherScene::scene();
+  return LauncherScene::scene();
 }

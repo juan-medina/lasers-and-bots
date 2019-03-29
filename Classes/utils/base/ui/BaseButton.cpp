@@ -30,77 +30,77 @@ BaseButton::~BaseButton()
 
 BaseButton* BaseButton::create(Sprite* sprite, const ccMenuCallback& selector)
 {
-	BaseButton* ret = nullptr;
+  BaseButton* ret = nullptr;
 
-	do
-	{
-		auto obj = new BaseButton();
-		UTILS_BREAK_IF(obj == nullptr);
+  do
+  {
+    auto obj = new BaseButton();
+    UTILS_BREAK_IF(obj == nullptr);
 
-		if (obj->init(sprite, selector))
-		{
-			obj->autorelease();
-		}
-		else
-		{
-			delete obj;
-		}
+    if (obj->init(sprite, selector))
+    {
+      obj->autorelease();
+    }
+    else
+    {
+      delete obj;
+    }
 
-		ret = obj;
-	} while (0);
+    ret = obj;
+  } while (0);
 
-	// return the object
-	return ret;
+  // return the object
+  return ret;
 }
 
 BaseButton* BaseButton::createWithSpriteFrameName(const string& spriteFrameName, const ccMenuCallback& selector)
 {
-	BaseButton* ret = nullptr;
+  BaseButton* ret = nullptr;
 
-	do
-	{
-		auto sprite = Sprite::createWithSpriteFrameName(spriteFrameName);
-		UTILS_BREAK_IF(sprite == nullptr);
+  do
+  {
+    auto sprite = Sprite::createWithSpriteFrameName(spriteFrameName);
+    UTILS_BREAK_IF(sprite == nullptr);
 
-		auto obj = BaseButton::create(sprite, selector);
-		UTILS_BREAK_IF(obj == nullptr);
+    auto obj = BaseButton::create(sprite, selector);
+    UTILS_BREAK_IF(obj == nullptr);
 
-		ret = obj;
+    ret = obj;
 
-	} while (0);
+  } while (0);
 
-	// return the object
-	return ret;
+  // return the object
+  return ret;
 }
 
 // on "init" you need to initialize your instance
 bool BaseButton::init(Sprite* sprite, const ccMenuCallback& selector)
 {
-	bool ret = false;
+  bool ret = false;
 
-	do
-	{
-		//////////////////////////////
-		// 1. super init first
+  do
+  {
+    //////////////////////////////
+    // 1. super init first
 
-		ret = parent::initWithLabel(sprite, selector);
-		UTILS_BREAK_IF(!ret);
+    ret = parent::initWithLabel(sprite, selector);
+    UTILS_BREAK_IF(!ret);
 
-	} while (0);
+  } while (0);
 
-	return ret;
+  return ret;
 }
 
 void BaseButton::setEnabled(bool value)
 {
-	parent::setEnabled(value);
+  parent::setEnabled(value);
 
-	if (value)
-	{
-		this->setOpacity(255);
-	}
-	else
-	{
-		this->setOpacity(64);
-	}
+  if (value)
+  {
+    this->setOpacity(255);
+  }
+  else
+  {
+    this->setOpacity(64);
+  }
 }

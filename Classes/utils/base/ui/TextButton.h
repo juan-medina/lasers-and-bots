@@ -26,35 +26,35 @@
 class TextButton : public BaseButton
 {
 public:
-	// parent
-	typedef BaseButton parent;
+  // parent
+  typedef BaseButton parent;
 
-	// constructor
-	TextButton();
+  // constructor
+  TextButton();
 
-	// destructor
-	~TextButton();
+  // destructor
+  ~TextButton();
 
-	// create the object
-	static TextButton* create(Sprite* sprite, Label* label, const ccMenuCallback& selector);
+  // create the object
+  static TextButton* create(Sprite* sprite, Label* label, const ccMenuCallback& selector);
 
-	// create the object
-	static TextButton* createWithSpriteFrameName(const string& spriteFrameName, Label* label, const ccMenuCallback& selector);
+  // create the object
+  static TextButton* createWithSpriteFrameName(const string& spriteFrameName, Label* label, const ccMenuCallback& selector);
 
-	// create the object
-	static TextButton* createWithSpriteFrameNameAndBMFont(const string& spriteFrameName, const string& bmfontPath, const string& text, const TextHAlignment& hAlignment, const ccMenuCallback& selector);
+  // create the object
+  static TextButton* createWithSpriteFrameNameAndBMFont(const string& spriteFrameName, const string& bmfontPath, const string& text, const TextHAlignment& hAlignment, const ccMenuCallback& selector);
 
-	// init this object
-	virtual bool init(Sprite* sprite, Label* label, const ccMenuCallback& selector);
+  // init this object
+  virtual bool init(Sprite* sprite, Label* label, const ccMenuCallback& selector);
 
-	// enable / disable button
-	virtual void setEnabled(bool value);
+  // enable / disable button
+  virtual void setEnabled(bool value);
 
-	// change the button text
-	void setString(const string& string);
+  // change the button text
+  void setString(const string& string);
 
 private:
-	Label* _label;
+  Label* _label;
 };
 
 #endif //__TEXT_BUTTON_H__

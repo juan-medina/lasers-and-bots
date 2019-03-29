@@ -27,43 +27,43 @@
 class BasicApp : Application
 {
 public:
-	// parent
-	typedef Layer parent;
+  // parent
+  typedef Layer parent;
 
-	// constructor
-	BasicApp(const char* applicationName);
+  // constructor
+  BasicApp(const char* applicationName);
 
-	// destructor
-	~BasicApp();
+  // destructor
+  ~BasicApp();
 
-	virtual void initGLContextAttrs();
+  virtual void initGLContextAttrs();
 
-	// Implement Director and Scene init code here.
-	virtual bool applicationDidFinishLaunching();
+  // Implement Director and Scene init code here.
+  virtual bool applicationDidFinishLaunching();
 
-	// The application enter in background
-	virtual void applicationDidEnterBackground();
+  // The application enter in background
+  virtual void applicationDidEnterBackground();
 
-	// the application enter foreground
-	virtual void applicationWillEnterForeground();
+  // the application enter foreground
+  virtual void applicationWillEnterForeground();
 
-	// init our scene
-	virtual Scene* initScene() = 0;
+  // init our scene
+  virtual Scene* initScene() = 0;
 
-	// scene name
-	CC_SYNTHESIZE_READONLY(string, _name, Name);
+  // scene name
+  CC_SYNTHESIZE_READONLY(string, _name, Name);
 
 protected:
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	// center on screen in windows 32 client
-	void CenterWin32Window();
+  // center on screen in windows 32 client
+  void CenterWin32Window();
 #endif
 
-	// our design resolution
-	cocos2d::Size _designResolution;
+  // our design resolution
+  cocos2d::Size _designResolution;
 
-	// our screen size
-	cocos2d::Size _screenSize;
+  // our screen size
+  cocos2d::Size _screenSize;
 };
 
 #endif // __BASIC_APP_H__

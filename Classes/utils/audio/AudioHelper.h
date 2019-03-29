@@ -27,70 +27,70 @@
 class AudioHelper : public Ref
 {
 public:
-	// parent
-	typedef Ref parent;
+  // parent
+  typedef Ref parent;
 
-	// constructor & destructor
-	AudioHelper();
-	~AudioHelper();
+  // constructor & destructor
+  AudioHelper();
+  ~AudioHelper();
 
-	// play an effect
-	unsigned int playEffect(const char* fileName);
+  // play an effect
+  unsigned int playEffect(const char* fileName);
 
-	// play music
-	void playMusic(const char* fileName);
+  // play music
+  void playMusic(const char* fileName);
 
-	// preload an effect
-	void preLoadEffect(const char* fileName);
+  // preload an effect
+  void preLoadEffect(const char* fileName);
 
-	// preload music
-	void preLoadMusic(const char* fileName);
+  // preload music
+  void preLoadMusic(const char* fileName);
 
-	// toggle sound
-	void toggleSound();
+  // toggle sound
+  void toggleSound();
 
-	// toggle music
-	void toggleMusic();
+  // toggle music
+  void toggleMusic();
 
-	// app is going to background
-	void appToBG();
+  // app is going to background
+  void appToBG();
 
-	// app is going to foreground
-	void appToFG();
+  // app is going to foreground
+  void appToFG();
 
-	// the application is going to exit
-	void appExit();
+  // the application is going to exit
+  void appExit();
 
-	// get default audioo helper
-	static AudioHelper* getInstance();
+  // get default audioo helper
+  static AudioHelper* getInstance();
 
-	// stops all sounds
-	void stopAllSounds();
+  // stops all sounds
+  void stopAllSounds();
 
-	// is music muted
-	CC_SYNTHESIZE(bool, _musicMuted, MusicMuted);
+  // is music muted
+  CC_SYNTHESIZE(bool, _musicMuted, MusicMuted);
 
-	// is effects muted
-	CC_SYNTHESIZE(bool, _effectsMuted, EffectsMuted);
+  // is effects muted
+  CC_SYNTHESIZE(bool, _effectsMuted, EffectsMuted);
 
-	// last music requested to play
-	CC_SYNTHESIZE_READONLY(string, _lastMusic, LastMusic);
+  // last music requested to play
+  CC_SYNTHESIZE_READONLY(string, _lastMusic, LastMusic);
 
-	// unload and effect
-	void unloadEffect(const char* file);
+  // unload and effect
+  void unloadEffect(const char* file);
 
 protected:
-	// save values in userconfig
-	void saveValues();
+  // save values in userconfig
+  void saveValues();
 
-	// is the object initialized ?
-	bool _inited;
+  // is the object initialized ?
+  bool _inited;
 
-	// init helper
-	bool init();
+  // init helper
+  bool init();
 
-	// end helper
-	void end();
+  // end helper
+  void end();
 };
 
 #endif // __BUTTON_H__
