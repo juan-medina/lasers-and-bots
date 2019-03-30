@@ -203,6 +203,7 @@ void LauncherScene::saveSettings()
   UserDefault::getInstance()->setIntegerForKey("screenHeight", _screenHeight);
   UserDefault::getInstance()->setBoolForKey("effectsMuted", _effectsMuted);
   UserDefault::getInstance()->setBoolForKey("musicMuted", _musicMuted);
+  UserDefault::getInstance()->setBoolForKey("fitAll", false);
 }
 
 void LauncherScene::play(Ref* sender)

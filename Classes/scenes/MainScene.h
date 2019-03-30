@@ -48,6 +48,18 @@ protected:
 
 private:
 
+  bool createKeybordListener();
+  void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+  void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+
+  bool moveLeft;
+  bool moveRight;
+  bool moveUp;
+  bool moveDown;
+  virtual void update(float delta);
+
+  Sprite *bot;
+
 };
 
 #endif // _MAIN_SCENE__
