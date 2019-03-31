@@ -54,6 +54,12 @@
     <ClCompile Include="..\Classes\Launcher.cpp">
       <Filter>src\app</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\utils\base\scene\GridScene.cpp">
+      <Filter>src\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utils\base\scene\TiledScene.cpp">
+      <Filter>src\utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -91,6 +97,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Launcher.h">
       <Filter>src\app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\base\scene\GridScene.h">
+      <Filter>src\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\base\scene\TiledScene.h">
+      <Filter>src\utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

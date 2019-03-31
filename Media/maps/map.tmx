@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="256" tileheight="256" infinite="0" nextobjectid="1">
+<map version="1.0" tiledversion="1.1.0" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="256" tileheight="256" infinite="0" nextobjectid="1">
  <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256" tilecount="24" columns="8">
   <image source="tilesheet.png" width="2048" height="768"/>
  </tileset>
- <layer name="walk" width="20" height="20">
+ <layer name="walk" width="40" height="40">
   <data encoding="base64" compression="zlib">
-   eJxjZWBgYB3Fo3gUj+JRPOiwMJWxGJUxAD6PCj0=
+   eJztzqENADAMA7CQXlBp/5+6JwIKDMw9SQYAAAAAADhly9q/V9b+feTwIa0=
   </data>
  </layer>
 </map>

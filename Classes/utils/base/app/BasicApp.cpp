@@ -58,8 +58,8 @@ bool BasicApp::applicationDidFinishLaunching()
   {
     // read settings
 
-    auto designWidth = UserDefault::getInstance()->getIntegerForKey("designWidth", 1920);
-    auto designHeight = UserDefault::getInstance()->getIntegerForKey("designHeight", 1080);
+    auto designWidth = UserDefault::getInstance()->getIntegerForKey("designWidth", 1920*4.0f);
+    auto designHeight = UserDefault::getInstance()->getIntegerForKey("designHeight", 1080*4.0f);
 
     UserDefault::getInstance()->setIntegerForKey("designWidth", designWidth);
     UserDefault::getInstance()->setIntegerForKey("designHeight", designHeight);

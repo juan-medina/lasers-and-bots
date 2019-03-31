@@ -21,13 +21,13 @@
 #define _MAIN_SCENE__
 
 #include "../utils/utils.h"
-#include "../utils/base/scene/BasicScene.h"
+#include "../utils/base/scene/TiledScene.h"
 
-class MainScene : public BasicScene
+class MainScene : public TiledScene
 {
 public:
   // parent
-  typedef BasicScene parent;
+  typedef TiledScene parent;
 
   // constructor
   MainScene();
@@ -44,6 +44,8 @@ public:
   // init this object
   virtual bool init();
 
+  virtual void onEnter() override;
+
 protected:
 
 private:
@@ -59,6 +61,9 @@ private:
   virtual void update(float delta);
 
   Sprite *bot;
+
+  //cpSpace* _space; // strong ref
+  void initPhysics();
 
 };
 

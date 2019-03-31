@@ -27,7 +27,7 @@ Scene* BasicScene::createScene(BasicScene* layer)
   do
   {
     // 'scene' is an autorelease object
-    auto scene = Scene::create();
+    auto scene = Scene::createWithPhysics();
     UTILS_BREAK_IF(scene == nullptr);
 
     // add layer as a child to scene

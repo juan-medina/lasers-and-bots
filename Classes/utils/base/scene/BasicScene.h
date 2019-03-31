@@ -23,11 +23,11 @@
 
 #include "../../utils.h"
 
-class BasicScene : public Layer
+class BasicScene : public Scene
 {
 public:
   // parent
-  typedef Layer parent;
+  typedef Scene parent;
 
   // create the scene
   static Scene* createScene(BasicScene* layer);

@@ -42,42 +42,64 @@ bool MainScene::init()
   {
     //////////////////////////////
     // 1. super init first
-    UTILS_BREAK_IF(!parent::init());
+    UTILS_BREAK_IF(!parent::init("maps/map.tmx"));
 
     moveLeft = false;
     moveRight = false;
     moveUp = false;
     moveDown = false;
 
-    // cache
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("robot/robot.plist");
-
-    // map
-    auto map = TMXTiledMap::create("maps/map.tmx");
-    UTILS_BREAK_IF(map == nullptr);
-    map->setPosition(0.0f, 0.0f);
-    map->setScale(0.5f);
-    this->addChild(map);
-
-    bot = Sprite::createWithSpriteFrameName("Idle_01.png");
-    UTILS_BREAK_IF(bot == nullptr);
-
-    bot->setScale(0.5f);
-    bot->setAnchorPoint(Vec2(0.5f, 0.0f));
-    bot->setPosition(128.0f, -22.0f + (256.0f));
-
-    this->addChild(bot);
-
-    auto follow = Follow::create(bot);
-    this->runAction(follow);
-
     ret = createKeybordListener();
-
     scheduleUpdate();
 
   } while (0);
 
   return ret;
+}
+
+void MainScene::onEnter()
+{
+  parent::onEnter();
+
+  // cache
+  SpriteFrameCache::getInstance()->addSpriteFramesWithFile("robot/robot.plist");
+
+  // map
+  do
+  {
+    auto map = TMXTiledMap::create("maps/map.tmx");
+    UTILS_BREAK_IF(map == nullptr);
+    map->setPosition(0.0f, 0.0f);
+    this->addChild(map);
+
+    bot = Sprite::createWithSpriteFrameName("Idle_01.png");
+    UTILS_BREAK_IF(bot == nullptr);
+    this->addChild(bot);
+
+    bot->setAnchorPoint(Vec2(0.5f, 0.0f));
+    auto pos = this->getblockPossition(0, 2);
+    auto robotPos = Vec2(pos.getMidX(), pos.getMinY());
+    auto width = bot->getContentSize().width;
+    auto height = bot->getContentSize().height;
+
+    auto body = PhysicsBody::createBox(bot->getContentSize(), PhysicsMaterial(0.1, 0.0, 0.5));
+    UTILS_BREAK_IF(body == nullptr);
+
+    body->setDynamic(true);    
+    body->setRotationEnable(false);
+    body->setMass(1.0);
+    body->setMoment(PHYSICS_INFINITY);
+    bot->setPhysicsBody(body);
+
+    bot->setPosition(robotPos);
+    this->moveTo(robotPos);
+
+    auto edge = PhysicsBody::createEdgeBox(map->getContentSize());
+    map->addComponent(edge);
+
+    initPhysics();
+  } while (0);
+
 }
 
 Scene* MainScene::scene()
@@ -153,6 +175,7 @@ void MainScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
   case EventKeyboard::KeyCode::KEY_UP_ARROW:
   case EventKeyboard::KeyCode::KEY_W:
     moveUp = false;
+    bot->getPhysicsBody()->applyImpulse(Vec2(0.0f, 300.0f));
     break;
   case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
   case EventKeyboard::KeyCode::KEY_S:
@@ -173,17 +196,32 @@ void MainScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 
 void MainScene::update(float delta)
 {
+  /*
   auto savedPos = bot->getPosition();
   auto pos = savedPos;
 
   float moveX = (moveLeft ? 0.0f : 1.0f) - (moveRight ? 0.0f : 1.0f);
   float moveY = (moveDown ? 0.0f : 1.0f) - (moveUp ? 0.0f : 1.0f);
-  auto move = Vec2(moveX, moveY) * (delta * 500.f);
+  auto move = Vec2(moveX, moveY) * (delta * 1000.f);
 
   pos += move;
 
   if (pos != savedPos)
   {
     bot->setPosition(pos);
-  }
+
+  }*/
+
+  auto scene = Director::getInstance()->getRunningScene();
+  scene->getPhysicsWorld()->step(delta);
+  this->moveTo(bot->getPosition());
+
+}
+
+void MainScene::initPhysics()
+{
+  auto scene = Director::getInstance()->getRunningScene();
+
+  scene->getPhysicsWorld()->setGravity(Vec2(0.0f, -100.0f));
+  scene->getPhysicsWorld()->setAutoStep(false);
 }
