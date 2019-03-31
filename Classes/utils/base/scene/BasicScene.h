@@ -30,17 +30,12 @@ public:
   typedef Scene parent;
 
   // create the scene
-  static Scene* createScene(BasicScene* layer);
+  static Scene* createScene();
 
   // init this scene
   virtual bool init();
 
-  // foreground layer
-  CC_SYNTHESIZE_READONLY(Layer*, _foregroundLayer, FgLayer);
-
 protected:
-  // init the foreground layer
-  virtual bool initFgLayer();
 
   // store the screen size
   Size _screenSize;

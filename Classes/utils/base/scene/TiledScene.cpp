@@ -25,23 +25,25 @@ TiledScene* TiledScene::create(const char* tmxFile, float minimumInchPerBlock)
 
 Scene* TiledScene::scene(const char* tmxFile, float minimumInchPerBlock)
 {
-  Scene* result = nullptr;
+  // create the grid
+  auto scene = new TiledScene();
 
-  do
+  // init the scene and auto release
+  if (scene)
   {
-    // 'layer' is an autorelease object
-    TiledScene* layer = TiledScene::create(tmxFile, minimumInchPerBlock);
-    UTILS_BREAK_IF(layer == nullptr);
-
-    // 'scene' is an autorelease object
-    auto scene = parent::createScene(layer);
-    UTILS_BREAK_IF(scene == nullptr);
-
-    result = scene;
-  } while (0);
+    if (scene->init(tmxFile, minimumInchPerBlock))
+    {
+      scene->autorelease();
+    }
+    else
+    {
+      delete scene;
+      scene = nullptr;
+    }
+  }
 
   // return the scene
-  return result;
+  return scene;
 }
 
 // on "init" you need to initialize your instance

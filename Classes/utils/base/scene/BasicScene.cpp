@@ -20,22 +20,24 @@
 
 #include "BasicScene.h"
 
-Scene* BasicScene::createScene(BasicScene* layer)
+Scene* BasicScene::createScene()
 {
   Scene* ret = nullptr;
 
   do
   {
-    // 'scene' is an autorelease object
-    auto scene = Scene::createWithPhysics();
-    UTILS_BREAK_IF(scene == nullptr);
+    auto scene = new BasicScene();
+    UTILS_BREAK_IF(scene==nullptr);
 
-    // add layer as a child to scene
-    scene->addChild(layer);
-
-    // add the foreground layer
-    bool initOk = layer->initFgLayer();
-    UTILS_BREAK_IF(!initOk);
+    if (scene->init())
+    {
+      scene->autorelease();
+    }
+    else
+    {
+      delete scene;
+      scene = nullptr;
+    }
 
     ret = scene;
   } while (0);
@@ -54,31 +56,12 @@ bool BasicScene::init()
     //////////////////////////////
     // 1. super init first
 
-    ret = parent::init();
+    ret = parent::initWithPhysics();
 
     UTILS_BREAK_IF(!ret);
 
     // store the screen size
     _screenSize = Director::getInstance()->getWinSize();
-
-    ret = true;
-  } while (0);
-
-  return ret;
-}
-
-bool BasicScene::initFgLayer()
-{
-  bool ret = false;
-
-  do
-  {
-    // create a foreground layer
-    auto foreground = Layer::create();
-    UTILS_BREAK_IF(foreground == nullptr);
-
-    _foregroundLayer = foreground;
-    this->getScene()->addChild(foreground);
 
     ret = true;
   } while (0);

@@ -41,24 +41,25 @@ GridScene* GridScene::create(Size blocks, Size blockSize, float minimumInchPerBl
 
 Scene* GridScene::scene(Size blocks, Size blockSize, float minimumInchPerBlock)
 {
-  // the scene
-  Scene* result = nullptr;
+  // create the grid
+  auto scene = new GridScene();
 
-  do
+  // init the scene and auto release
+  if (scene)
   {
-    // 'layer' is an autorelease object
-    GridScene* layer = GridScene::create(blocks, blockSize, minimumInchPerBlock);
-    UTILS_BREAK_IF(layer == nullptr);
-
-    // 'scene' is an autorelease object
-    auto scene = parent::createScene(layer);
-    UTILS_BREAK_IF(scene == nullptr);
-
-    result = scene;
-  } while (0);
+    if (scene->init(blocks, blockSize, minimumInchPerBlock))
+    {
+      scene->autorelease();
+    }
+    else
+    {
+      delete scene;
+      scene = nullptr;
+    }
+  }
 
   // return the scene
-  return result;
+  return scene;
 }
 
 // on "init" you need to initialize your instance
