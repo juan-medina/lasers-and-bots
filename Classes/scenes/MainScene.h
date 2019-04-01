@@ -62,11 +62,34 @@ private:
 
   bool addPhysicsToMap();
   bool addBodyToSprite(Sprite* sprite);
+  void createEmitter(Vec2 point);
 
   float _angle;
   DrawNode* _draw;
 
-  void createEmitter(Vec2 point);
+  bool _toLeft;
+  bool _toRight;
+
+  const float _Gravity = -1000.0f;
+  const Vec2 _NormalMovement = Vec2(700.0f, 1200.0f);
+
+  bool fuzzyEquals(const float a, const float b, const float var = 5.0f) const;
+
+  Action* _animation;
+
+  void createAnim(const char* pattern, int maxFrame, float speed, const char* name, unsigned int loops = -1);
+  void changeAnim(const char* name);
+
+  enum State
+  {
+    eFalling,
+    eJumping,
+    eIdle,
+    eRunning
+  };
+
+  State _currentState;
+
 };
 
 #endif // _MAIN_SCENE__

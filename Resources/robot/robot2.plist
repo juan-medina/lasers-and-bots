@@ -4,142 +4,142 @@
 	<dict>
 		<key>frames</key>
 		<dict>
-			<key>Idle_01.png</key>
+			<key>Jump_01.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,0},{273,468}}</string>
+				<string>{{1447,482},{285,462}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{127,53},{273,468}}</string>
+				<string>{{161,66},{285,462}}</string>
 				<key>sourceSize</key>
 				<string>{567,556}</string>
 			</dict>
 
-			<key>Idle_02.png</key>
+			<key>Jump_02.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,469},{273,466}}</string>
+				<string>{{1446,0},{325,481}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{127,55},{273,466}}</string>
+				<string>{{131,59},{325,481}}</string>
 				<key>sourceSize</key>
 				<string>{567,556}</string>
 			</dict>
 
-			<key>Idle_03.png</key>
+			<key>Jump_03.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{274,0},{273,465}}</string>
+				<string>{{1106,498},{340,449}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{127,56},{273,465}}</string>
+				<string>{{96,57},{340,449}}</string>
 				<key>sourceSize</key>
 				<string>{567,556}</string>
 			</dict>
 
-			<key>Idle_04.png</key>
+			<key>Jump_04.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{274,466},{273,463}}</string>
+				<string>{{764,498},{341,444}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{127,58},{273,463}}</string>
+				<string>{{90,57},{341,444}}</string>
 				<key>sourceSize</key>
 				<string>{567,556}</string>
 			</dict>
 
-			<key>Idle_05.png</key>
+			<key>Jump_05.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{1096,467},{273,463}}</string>
+				<string>{{385,0},{351,428}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{127,58},{273,463}}</string>
+				<string>{{83,58},{351,428}}</string>
 				<key>sourceSize</key>
 				<string>{567,556}</string>
 			</dict>
 
-			<key>Idle_06.png</key>
+			<key>Jump_06.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{548,468},{273,463}}</string>
+				<string>{{384,475},{379,411}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{127,58},{273,463}}</string>
+				<string>{{77,58},{379,411}}</string>
 				<key>sourceSize</key>
 				<string>{567,556}</string>
 			</dict>
 
-			<key>Idle_07.png</key>
+			<key>Jump_07.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{822,0},{273,464}}</string>
+				<string>{{0,0},{384,474}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{127,57},{273,464}}</string>
+				<string>{{70,58},{384,474}}</string>
 				<key>sourceSize</key>
 				<string>{567,556}</string>
 			</dict>
 
-			<key>Idle_08.png</key>
+			<key>Jump_08.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{822,465},{273,465}}</string>
+				<string>{{0,475},{383,471}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{127,56},{273,465}}</string>
+				<string>{{63,58},{383,471}}</string>
 				<key>sourceSize</key>
 				<string>{567,556}</string>
 			</dict>
 
-			<key>Idle_09.png</key>
+			<key>Jump_09.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{1096,0},{273,466}}</string>
+				<string>{{764,0},{353,497}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{127,55},{273,466}}</string>
+				<string>{{98,58},{353,497}}</string>
 				<key>sourceSize</key>
 				<string>{567,556}</string>
 			</dict>
 
-			<key>Idle_10.png</key>
+			<key>Jump_10.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{548,0},{273,467}}</string>
+				<string>{{1118,0},{327,494}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{127,54},{273,467}}</string>
+				<string>{{136,60},{327,494}}</string>
 				<key>sourceSize</key>
 				<string>{567,556}</string>
 			</dict>
@@ -153,7 +153,7 @@
 			<key>size</key>
 			<string>{2048,1024}</string>
 			<key>textureFileName</key>
-			<string>robot.png</string>
+			<string>robot2.png</string>
 			</dict>
 		</dict>
 </plist>

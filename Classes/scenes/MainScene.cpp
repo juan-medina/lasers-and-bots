@@ -2,7 +2,11 @@
 
 MainScene::MainScene() :
   _angle(0.0f),
-  _draw(nullptr)
+  _draw(nullptr),
+  _toLeft(false),
+  _toRight(false),
+  _animation(nullptr),
+  _currentState(eFalling)
 {
 }
 
@@ -47,7 +51,8 @@ bool MainScene::init()
     UTILS_BREAK_IF(!parent::init("maps/map.tmx"));
 
     // cache
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("robot/robot.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("robot/robot1.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("robot/robot2.plist");
 
     //create bot
     UTILS_BREAK_IF(!this->createBot());
@@ -114,21 +119,32 @@ bool MainScene::createKeybordListener()
   return result;
 }
 
+bool MainScene::fuzzyEquals(const float a, const float b, float var/*=5.0f*/) const
+{
+  if (a - var <= b && b <= a + var)
+    return true;
+  return false;
+}
 void MainScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
+  auto y = bot->getPhysicsBody()->getVelocity().y;
   switch (keyCode)
   {
   case EventKeyboard::KeyCode::KEY_UP_ARROW:
   case EventKeyboard::KeyCode::KEY_W:
-    break;
-  case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-  case EventKeyboard::KeyCode::KEY_S:
+    if (fuzzyEquals(y, 0.0f)) {
+      bot->getPhysicsBody()->applyImpulse(Vec2(0.0f, _NormalMovement.y));
+    }
     break;
   case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
   case EventKeyboard::KeyCode::KEY_A:
+    bot->setFlippedX(true);
+    _toLeft = true;
     break;
   case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
   case EventKeyboard::KeyCode::KEY_D:
+    bot->setFlippedX(false);
+    _toRight = true;
     break;
   default:
     break;
@@ -139,30 +155,75 @@ void MainScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
   switch (keyCode)
   {
-  case EventKeyboard::KeyCode::KEY_UP_ARROW:
-  case EventKeyboard::KeyCode::KEY_W:
-    bot->getPhysicsBody()->applyImpulse(Vec2(0.0f, 1000.0f));
-    break;
-  case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-  case EventKeyboard::KeyCode::KEY_S:
-    break;
   case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
   case EventKeyboard::KeyCode::KEY_A:
-    bot->getPhysicsBody()->applyImpulse(Vec2(-300.0f, 0.0f));
+    _toLeft = false;
     break;
   case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
   case EventKeyboard::KeyCode::KEY_D:
-    bot->getPhysicsBody()->applyImpulse(Vec2(300.0f, 0.0f));
+    _toRight = false;
     break;
   default:
     break;
   }
 }
 
+void MainScene::changeAnim(const char* name)
+{
+  if (_animation != nullptr)
+  {
+    bot->stopAction(_animation);
+    _animation = nullptr;
+  }
+  _animation = Animate::create(AnimationCache::getInstance()->getAnimation(name));
+  bot->runAction(_animation);
+}
+
 void MainScene::update(float delta)
 {
+  float moveX = (_toLeft ? 0.0f : 1.0f) - (_toRight ? 0.0f : 1.0f);
+  auto move = moveX * _NormalMovement.x;
 
-  //moveTo(Point(0,0));
+  auto yVelocity = bot->getPhysicsBody()->getVelocity().y;
+  auto xVelocity = bot->getPhysicsBody()->getVelocity().x;
+  bot->getPhysicsBody()->setVelocity(Vec2(move, yVelocity));
+
+  State wantedState = _currentState;
+
+
+  if (fuzzyEquals(yVelocity, 0.0f) && fuzzyEquals(xVelocity, 0.0f))
+  {
+    wantedState = eIdle;
+  }
+  else
+  {
+    if ((fabs(yVelocity) > 10.0f) || (fabs(xVelocity) > 10.0f))
+    {
+      wantedState = eRunning;
+      if (yVelocity > 10.0f)
+      {
+        wantedState = eJumping;
+      }
+    }
+  }
+  if (wantedState != _currentState)
+  {
+    _currentState = wantedState;
+    switch (_currentState)
+    {
+    case eJumping:
+      changeAnim("jump");
+      break;
+    case eIdle:
+      changeAnim("idle");
+      break;
+    case eRunning:
+      changeAnim("run");
+      break;
+    default:
+      break;
+    }
+  }
 
   this->removeChild(_draw);
   _draw = DrawNode::create();
@@ -210,7 +271,7 @@ void MainScene::initPhysics()
   this->getTiledMap()->addComponent(edge);
 
   //getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
-  getPhysicsWorld()->setGravity(Vec2(0.0f, -1000.0f));
+  getPhysicsWorld()->setGravity(Vec2(0.0f, _Gravity));
 }
 
 bool MainScene::createBot()
@@ -233,8 +294,8 @@ bool MainScene::createBot()
 
     auto botSize = bot->getContentSize();
 
-    botSize.width *= 0.4;
-    botSize.height *= 0.85;
+    botSize.width *= 0.4f;
+    botSize.height *= 0.85f;
 
     auto body = PhysicsBody::createBox(botSize, PhysicsMaterial(0.1f, 0.0f, 0.5f));
     UTILS_BREAK_IF(body == nullptr);
@@ -246,13 +307,38 @@ bool MainScene::createBot()
     bot->setPhysicsBody(body);
 
     bot->setPosition(robotPos);
-    //this->moveTo(robotPos);
+
+    createAnim("Idle_%02d.png", 10, 0.05f, "idle");
+    createAnim("Run_%02d.png", 8, 0.15f, "run");
+    createAnim("Jump_%02d.png", 10, 0.15f, "jump", 1);
 
     result = true;
 
   } while (0);
 
   return result;
+}
+
+void MainScene::createAnim(const char* pattern, int maxFrame, float speed, const char* name, unsigned int loops/* = -1*/)
+{
+  auto cache = SpriteFrameCache::getInstance();
+  Vector<SpriteFrame *> frames(maxFrame);
+  for (unsigned short int num = 1; num <= maxFrame; num++)
+  {
+    char name[255];
+    std::snprintf(name, 255, pattern, num);
+
+    auto frame = cache->getSpriteFrameByName(name);
+    frame->setAnchorPoint(Vec2(0.5f, 0.0f));
+    frames.pushBack(frame);
+  }
+
+  auto anim = Animation::createWithSpriteFrames(frames);
+
+  anim->setLoops(loops);
+  anim->setDelayPerUnit(speed);
+
+  AnimationCache::getInstance()->addAnimation(anim, name);
 }
 
 bool MainScene::addPhysicsToMap()
@@ -290,7 +376,7 @@ bool MainScene::addBodyToSprite(Sprite* sprite)
 
   do
   {
-    auto mat = PhysicsMaterial(0.1f, 0.5f, 0.5f);
+    auto mat = PhysicsMaterial(0.0f, 0.0f, 0.0f);
     auto body = PhysicsBody::createBox(sprite->getContentSize(), mat);
     UTILS_BREAK_IF(body == nullptr);
 
@@ -314,5 +400,7 @@ void MainScene::createEmitter(Vec2 point)
   emitter->setOpacity(127);
   emitter->setPosition(point);
   emitter->setEmissionRate(10);
+  emitter->setGravity(this->getPhysicsWorld()->getGravity());
+  emitter->setAutoRemoveOnFinish(true);
   addChild(emitter);
 }
