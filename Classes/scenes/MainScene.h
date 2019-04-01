@@ -63,6 +63,10 @@ private:
   bool addPhysicsToMap();
   bool addBodyToSprite(Sprite* sprite);
 
+  float _angle;
+  DrawNode* _draw;
+
+  void MainScene::createEmitter(Vec2 point);
 };
 
 #endif // _MAIN_SCENE__

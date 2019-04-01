@@ -1,6 +1,8 @@
 #include "MainScene.h"
 
-MainScene::MainScene()
+MainScene::MainScene() :
+  _angle(0.0f),
+  _draw(nullptr)
 {
 }
 
@@ -159,9 +161,47 @@ void MainScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 
 void MainScene::update(float delta)
 {
-  getPhysicsWorld()->step(delta);
-  this->moveTo(bot->getPosition());
 
+  //moveTo(Point(0,0));
+
+  this->removeChild(_draw);
+  _draw = DrawNode::create();
+  _draw->setOpacity(180);
+
+  float L = 10000.0f;
+  Vec2 point1 = Vec2(_totalSize.width / 2, _totalSize.height / 2);
+  Vec2 d(L * cosf(_angle), L * sinf(_angle));
+  Vec2 point2 = point1 + d;
+
+  Vec2 point3 = point2;
+
+  PhysicsRayCastCallbackFunc func = [point1, &point3](PhysicsWorld& /*world*/, const PhysicsRayCastInfo& info, void* /*data*/)->bool
+  {
+    auto origin = Point(point1);
+    auto newPoint = Point(info.contact);
+    auto savedPoint = Point(point3);
+    if (origin.distance(newPoint) < origin.distance(savedPoint))
+    {
+      point3 = info.contact;
+    }
+    return true;
+  };
+
+
+  getPhysicsWorld()->rayCast(func, point1, point2, &point3);
+  _draw->drawSegment(point1, point3, 2, Color4F::RED);
+
+  if ((point3.x != point2.x) & (point3.y != point2.y))
+  {
+    _draw->drawDot(point3, 10, Color4F::RED);
+    this->createEmitter(point3);
+  }
+
+  this->addChild(_draw);
+
+  _angle += 0.25f * (float)M_PI / 180.0f;
+
+  //moveTo(bot->getPosition());
 }
 
 void MainScene::initPhysics()
@@ -171,7 +211,6 @@ void MainScene::initPhysics()
 
   //getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
   getPhysicsWorld()->setGravity(Vec2(0.0f, -1000.0f));
-  getPhysicsWorld()->setAutoStep(false);
 }
 
 bool MainScene::createBot()
@@ -207,7 +246,7 @@ bool MainScene::createBot()
     bot->setPhysicsBody(body);
 
     bot->setPosition(robotPos);
-    this->moveTo(robotPos);
+    //this->moveTo(robotPos);
 
     result = true;
 
@@ -251,7 +290,8 @@ bool MainScene::addBodyToSprite(Sprite* sprite)
 
   do
   {
-    auto body = PhysicsBody::createBox(sprite->getContentSize(), PhysicsMaterial(0.1f, 0.0f, 0.5f));
+    auto mat = PhysicsMaterial(0.1f, 0.5f, 0.5f);
+    auto body = PhysicsBody::createBox(sprite->getContentSize(), mat);
     UTILS_BREAK_IF(body == nullptr);
 
     body->setDynamic(false);
@@ -261,4 +301,18 @@ bool MainScene::addBodyToSprite(Sprite* sprite)
   } while (0);
 
   return result;
+}
+
+
+void MainScene::createEmitter(Vec2 point)
+{
+  auto emitter = ParticleFire::create();
+  emitter->setDuration(1);
+  emitter->setBlendFunc(BlendFunc::ADDITIVE);
+  emitter->setColor(Color3B::RED);
+  emitter->setOpacityModifyRGB(true);
+  emitter->setOpacity(127);
+  emitter->setPosition(point);
+  emitter->setEmissionRate(10);
+  addChild(emitter);
 }
