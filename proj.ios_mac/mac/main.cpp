@@ -25,11 +25,24 @@
 
 #include "AppDelegate.h"
 #include "cocos2d.h"
+#include "Launcher.h"
 
 USING_NS_CC;
 
 int main(int argc, char *argv[])
 {
-    AppDelegate app;
-    return Application::getInstance()->run();
+    auto launcherApp = new Launcher();
+    auto result = Application::getInstance()->run();
+    auto wantToPlay = launcherApp->getWantToPlay();
+    delete launcherApp;
+    
+    
+    if (wantToPlay)
+    {
+        auto app = new AppDelegate();
+        result = Application::getInstance()->run();
+        delete app;
+    }
+    
+    return result;
 }

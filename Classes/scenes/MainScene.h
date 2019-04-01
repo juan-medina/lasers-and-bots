@@ -66,7 +66,7 @@ private:
   float _angle;
   DrawNode* _draw;
 
-  void MainScene::createEmitter(Vec2 point);
+  void createEmitter(Vec2 point);
 };
 
 #endif // _MAIN_SCENE__
