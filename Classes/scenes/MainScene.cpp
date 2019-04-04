@@ -26,6 +26,7 @@ MainScene* MainScene::create()
     else
     {
       delete object;
+      object = nullptr;
     }
 
     ret = object;

@@ -44,6 +44,7 @@ BaseButton* BaseButton::create(Sprite* sprite, const ccMenuCallback& selector)
     else
     {
       delete obj;
+      obj = nullptr;
     }
 
     ret = obj;

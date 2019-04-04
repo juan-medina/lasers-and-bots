@@ -44,6 +44,7 @@ TextButton* TextButton::create(Sprite* sprite, Label* label, const ccMenuCallbac
     else
     {
       delete obj;
+      obj = nullptr;
     }
 
     ret = obj;
