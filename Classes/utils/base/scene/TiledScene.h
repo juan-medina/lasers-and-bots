@@ -18,7 +18,7 @@ public:
   // init the scene
   bool init(const char* tmxFile);
 
-  CC_SYNTHESIZE_READONLY(TMXTiledMap*, _tiledMap, TiledMap);
+  CC_SYNTHESIZE_READONLY(experimental::TMXTiledMap*, _tiledMap, TiledMap);
 };
 
 #endif // __TILED_SCENE_H__

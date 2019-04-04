@@ -53,7 +53,7 @@ bool TiledScene::init(const char* tmxFile)
 
   do
   {
-    auto map = TMXTiledMap::create(tmxFile);
+    auto map = experimental::TMXTiledMap::create(tmxFile);
     ret = (map != nullptr);
     UTILS_BREAK_IF(!ret);
 
