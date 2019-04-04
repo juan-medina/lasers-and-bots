@@ -6,7 +6,7 @@ MainScene::MainScene() :
   _toLeft(false),
   _toRight(false),
   _animation(nullptr),
-  _currentState(eFalling)
+  _currentState(eIdle)
 {
 }
 
@@ -262,12 +262,19 @@ void MainScene::update(float delta)
 
   _angle += 0.25f * (float)M_PI / 180.0f;
 
-  //moveTo(bot->getPosition());
+  // calculate the maximum point that we could move  
+  auto minPos = Vec2(_screenSize.width / 2, _screenSize.height / 2);
+  auto maxPos = Vec2(_totalSize.width - minPos.x, _totalSize.height - minPos.y);
+
+  // clamp to our position
+  auto finalPos = bot->getPosition().getClampPoint(minPos, maxPos);
+
+  this->getDefaultCamera()->setPosition(finalPos);
 }
 
 void MainScene::initPhysics()
 {
-  auto edge = PhysicsBody::createEdgeBox(this->_totalSize);
+  auto edge = PhysicsBody::createEdgeBox(this->_totalSize, PhysicsMaterial(0.1f, 0.0f, 0.5f), 5);
   this->getTiledMap()->addComponent(edge);
 
   //getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
@@ -285,10 +292,11 @@ bool MainScene::createBot()
     this->addChild(bot);
 
     bot->setAnchorPoint(Vec2(0.5f, 0.0f));
-    auto startRow = (_blocks.width / 2.0f) - 1;
-    auto startCol = (_blocks.height / 2.0f) - 1;
+    auto startRow = 2;
+    auto startCol = 1;
     auto pos = this->getblockPossition(startRow, startCol);
-    auto robotPos = Vec2(pos.getMidX(), pos.getMinY());
+    auto robotPos = Vec2(pos.getMinX(), pos.getMaxY()+1);
+    bot->setPosition(robotPos);
     auto width = bot->getContentSize().width;
     auto height = bot->getContentSize().height;
 
@@ -306,7 +314,7 @@ bool MainScene::createBot()
     body->setMoment(PHYSICS_INFINITY);
     bot->setPhysicsBody(body);
 
-    bot->setPosition(robotPos);
+    
 
     createAnim("Idle_%02d.png", 10, 0.05f, "idle");
     createAnim("Run_%02d.png", 8, 0.15f, "run");

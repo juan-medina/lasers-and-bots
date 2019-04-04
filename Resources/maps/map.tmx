@@ -8,9 +8,14 @@
    eJztzrEJACAQBLBr1N9/Yl3AUngwRfpUkuIb45gNHjerwQEAgHc2SOwY+w==
   </data>
  </layer>
+ <layer name="walkback" width="40" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztzqEBAAAIwzDg/6O5YH4iUZWdAQCAXhu6xYVu0fb3FuQACw==
+  </data>
+ </layer>
  <layer name="walk" width="40" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgF1ADCUDxYgRgU4wJD3f3UArQIB2LNJEYdLcKBWDOpaTe90hu59uDzKzXdTkqYEmsvvfIKPe0dyeXTUPQ7tdxMijmkqKVWfJFizkDly1FAOyA8yLHYIMcA6CYK5Q==
+   eJxjYBgFo2AUDEcgAMRCQCxIYz3UBANp/0D7fSABvf0+WMJ6sLiDGmA4+WUwgJFWFvECsQgd7SMViAKxOBAzQvFgcy/MfUxQDOPDAC73gsSFcchRCpDNlsDhPh4oRufzQPWD9IkxoPqFWgAAgBIEbQ==
   </data>
  </layer>
 </map>

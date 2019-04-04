@@ -81,6 +81,11 @@ protected:
   // create a debug grid with a label text in the center
   bool createDebugGrid(const char* fontName);
 
+  // Min position to move, used to clip movement
+  Point _minPos;
+
+  // Max position to move, used to clip movement
+  Point _maxPos;
 private:
   // set the minimum inchs per block
   void minimunInchsPerBlock(float minimun);
@@ -117,12 +122,6 @@ private:
 
   // handle taps
   virtual void tapHandler(float dt);
-
-  // Min position to move, used to clip movement
-  Point _minPos;
-
-  // Max position to move, used to clip movement
-  Point _maxPos;
 };
 
 #endif // __GRID_SCENE_H__
