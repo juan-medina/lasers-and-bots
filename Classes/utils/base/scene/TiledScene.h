@@ -9,13 +9,14 @@ public:
   // parent
   typedef GridScene parent;
 
-  // create with size
-  static TiledScene* create(const char* tmxFile, float minimumInchPerBlock);
+  // create with a tmx file
+  static TiledScene* create(const char* tmxFile);
 
   // create the scene
-  static Scene* scene(const char* tmxFile, float minimumInchPerBlock);
+  static Scene* scene(const char* tmxFile);
 
-  bool init(const char* tmxFile, float minimumInchPerBlock = 0.0f);
+  // init the scene
+  bool init(const char* tmxFile);
 
   CC_SYNTHESIZE_READONLY(TMXTiledMap*, _tiledMap, TiledMap);
 };

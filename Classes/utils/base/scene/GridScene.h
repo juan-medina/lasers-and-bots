@@ -16,112 +16,59 @@ public:
   typedef BasicScene parent;
 
   // create with size
-  static GridScene* create(Size blocks, Size blockSize, float minimumInchPerBlock);
+  static GridScene* create(const Size blocks, const Size blockSize);
 
   // create the scene
-  static Scene* scene(Size blocks, Size blockSize, float minimumInchPerBlock);
+  static Scene* scene(const Size blocks, const Size blockSize);
 
   // init this class
-  bool init(Size blocks, Size blockSize, float minimumInchPerBlock = 0.0f);
+  bool init(const Size blocks, const Size blockSize);
 
   // get the position of a giving block in a col/row
-  inline Rect getblockPossition(int col, int row)
+  inline Rect getblockPossition(const int col, const int row)
   {
     return Rect(col * _blockSize.width, row * _blockSize.height, _blockSize.width, _blockSize.height);
   }
 
   // get the block center for a giving block in a col/row
-  inline Vec2 getBlockCenter(int col, int row)
+  inline Vec2 getBlockCenter(const int col, const int row)
   {
     Rect possition = this->getblockPossition(col, row);
 
     return Vec2(possition.getMidX(), possition.getMidY());
   }
 
-  // enter scene
-  virtual void onEnter();
-
-  // exit scene
-  virtual void onExit();
-
-  // process tocuh events
-  CC_PROPERTY(bool, _enableTocuh, EnableTouch);
-
-  // number of blocks
-  CC_SYNTHESIZE(Size, _blocks, Blocks);
-
-  // size of a block
-  CC_SYNTHESIZE(Size, _blockSize, BlockSize);
-
-  // total size of the area
-  CC_SYNTHESIZE(Size, _totalSize, totalSize);
-
-  // can we scroll?
-  CC_SYNTHESIZE(bool, _canScroll, CanScroll);
-
-protected:
-  // center the grid
-  void center(float time = 0.0f);
-
-  // move by a distance
-  void moveBy(Point distance, float time);
-
-  // move to a point
-  void moveTo(Point to, float time = 0.0f);
-
-  // move to a block in a col/row
-  inline void moveToBlock(int col, int row, float time)
+  // get a block in a giving location
+  inline Vec2 GridScene::getBlockAtLocation(const Point location)
   {
-    this->moveTo(this->getBlockCenter(col, row), time);
+    // calculate row and col
+    int col = (int)(location.x / _blockSize.width);
+    int row = (int)(location.y / _blockSize.height);
+
+    return Vec2(col, row);
   }
 
-  // block tap event
-  virtual void onBlockTap(int col, int row, int numTaps) {};
+
+  // enter scene
+  virtual void onEnter() override;
+
+  // exit scene
+  virtual void onExit() override;
+
+  // number of blocks
+  CC_SYNTHESIZE_READONLY(Size, _blocks, Blocks);
+
+  // size of a block
+  CC_SYNTHESIZE_READONLY(Size, _blockSize, BlockSize);
+
+  // total size of the area
+  CC_SYNTHESIZE_READONLY(Size, _totalSize, totalSize);
+
+protected:
 
   // create a debug grid with a label text in the center
   bool createDebugGrid(const char* fontName);
 
-  // Min position to move, used to clip movement
-  Point _minPos;
-
-  // Max position to move, used to clip movement
-  Point _maxPos;
-private:
-  // set the minimum inchs per block
-  void minimunInchsPerBlock(float minimun);
-
-  // the col/row for the last block touched
-  Vec2 _blockTouched;
-
-  // get the block on a giving location
-  Vec2 getBlockAtLocation(Point location);
-
-  // location of first tap
-  Point _firstTapLocation;
-
-  // number of taps
-  int _numberOfTaps;
-
-  // begin touch event
-  virtual bool onTouchBegan(Touch* touch, Event* unused_event);
-
-  // touch moved event
-  virtual void onTouchMoved(Touch* touch, Event* unused_event);
-
-  // touch end event
-  virtual void onTouchEnded(Touch* touch, Event* unused_event);
-
-  // listener for touch events
-  EventListenerTouchOneByOne* _listener;
-
-  // stop current movement
-  void stopMovement();
-
-  // action for movements
-  Action* moveAction;
-
-  // handle taps
-  virtual void tapHandler(float dt);
 };
 
 #endif // __GRID_SCENE_H__

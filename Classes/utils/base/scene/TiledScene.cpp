@@ -1,6 +1,6 @@
 #include "TiledScene.h"
 
-TiledScene* TiledScene::create(const char* tmxFile, float minimumInchPerBlock)
+TiledScene* TiledScene::create(const char* tmxFile)
 {
   // create the game
   auto scene = new TiledScene();
@@ -8,7 +8,7 @@ TiledScene* TiledScene::create(const char* tmxFile, float minimumInchPerBlock)
   // init the scene and auto release
   if (scene)
   {
-    if (scene->init(tmxFile, minimumInchPerBlock))
+    if (scene->init(tmxFile))
     {
       scene->autorelease();
     }
@@ -23,7 +23,7 @@ TiledScene* TiledScene::create(const char* tmxFile, float minimumInchPerBlock)
   return scene;
 }
 
-Scene* TiledScene::scene(const char* tmxFile, float minimumInchPerBlock)
+Scene* TiledScene::scene(const char* tmxFile)
 {
   // create the grid
   auto scene = new TiledScene();
@@ -31,7 +31,7 @@ Scene* TiledScene::scene(const char* tmxFile, float minimumInchPerBlock)
   // init the scene and auto release
   if (scene)
   {
-    if (scene->init(tmxFile, minimumInchPerBlock))
+    if (scene->init(tmxFile))
     {
       scene->autorelease();
     }
@@ -47,7 +47,7 @@ Scene* TiledScene::scene(const char* tmxFile, float minimumInchPerBlock)
 }
 
 // on "init" you need to initialize your instance
-bool TiledScene::init(const char* tmxFile, float minimumInchPerBlock/* = 0.0f*/)
+bool TiledScene::init(const char* tmxFile)
 {
   bool ret = false;
 
@@ -63,12 +63,13 @@ bool TiledScene::init(const char* tmxFile, float minimumInchPerBlock/* = 0.0f*/)
     auto tileSize = map->getTileSize();
     auto size = map->getMapSize();
 
-    // init with a grid of 50/50 and 0.5f of mimium block inchs
-    ret = parent::init(size, tileSize, minimumInchPerBlock);
+    // init with a grid
+    ret = parent::init(size, tileSize);
     UTILS_BREAK_IF(!ret);
 
     // add the title map to the scene
     this->addChild(map);
+
   } while (0);
 
   return ret;

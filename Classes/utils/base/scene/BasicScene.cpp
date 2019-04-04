@@ -27,7 +27,7 @@ Scene* BasicScene::createScene()
   do
   {
     auto scene = new BasicScene();
-    UTILS_BREAK_IF(scene==nullptr);
+    UTILS_BREAK_IF(scene == nullptr);
 
     if (scene->init())
     {

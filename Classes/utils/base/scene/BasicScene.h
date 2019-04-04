@@ -35,10 +35,8 @@ public:
   // init this scene
   virtual bool init();
 
-protected:
-
   // store the screen size
-  Size _screenSize;
+  CC_SYNTHESIZE_READONLY(Size, _screenSize, ScreenSize);
 };
 
 #endif // __BASIC_SCENE_H__

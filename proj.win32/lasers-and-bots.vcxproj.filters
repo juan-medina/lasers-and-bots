@@ -16,6 +16,12 @@
     <Filter Include="src\app">
       <UniqueIdentifier>{6c4e833f-e4a9-4db6-8ba8-b67b6aa8642c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\utils\base">
+      <UniqueIdentifier>{2dbcf811-9027-4d90-9ea4-f9edd463c194}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\utils\base\scene">
+      <UniqueIdentifier>{14a64151-ca02-4579-a9c1-ccdfdce87143}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -31,9 +37,6 @@
       <Filter>src\utils</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\utils\base\app\BasicApp.cpp">
-      <Filter>src\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\utils\base\scene\BasicScene.cpp">
       <Filter>src\utils</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\utils\base\app\LauncherApp.cpp">
@@ -54,11 +57,14 @@
     <ClCompile Include="..\Classes\Launcher.cpp">
       <Filter>src\app</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\utils\base\scene\BasicScene.cpp">
+      <Filter>src\utils\base\scene</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\utils\base\scene\GridScene.cpp">
-      <Filter>src\utils</Filter>
+      <Filter>src\utils\base\scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\utils\base\scene\TiledScene.cpp">
-      <Filter>src\utils</Filter>
+      <Filter>src\utils\base\scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -75,9 +81,6 @@
       <Filter>src\utils</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\utils\base\app\BasicApp.h">
-      <Filter>src\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\utils\base\scene\BasicScene.h">
       <Filter>src\utils</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\utils\base\app\LauncherApp.h">
@@ -98,11 +101,14 @@
     <ClInclude Include="..\Classes\Launcher.h">
       <Filter>src\app</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\utils\base\scene\BasicScene.h">
+      <Filter>src\utils\base\scene</Filter>
+    </ClInclude>
     <ClInclude Include="..\Classes\utils\base\scene\GridScene.h">
-      <Filter>src\utils</Filter>
+      <Filter>src\utils\base\scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\utils\base\scene\TiledScene.h">
-      <Filter>src\utils</Filter>
+      <Filter>src\utils\base\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
