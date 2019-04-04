@@ -17,81 +17,46 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __ROBOT_CLASS__
-#define __ROBOT_CLASS__
+#ifndef __GAME_OBJECT__
+#define __GAME_OBJECT__
 
 #include "../utils/utils.h"
-#include "../utils/base/sprite/GameObject.h"
 
-class Robot : public GameObject
+class GameObject : public Sprite
 {
 public:
   // parent
-  typedef GameObject parent;
+  typedef Sprite parent;
 
   // constructor
-  Robot();
+  GameObject();
 
   // destructor
-  ~Robot();
+  ~GameObject();
 
   // create the object
-  static Robot* create();
+  static GameObject* create(const std::string& spriteFrameName);
 
   // init this object
-  virtual bool init();
+  virtual bool init(const std::string& spriteFrameName);
 
-  // update our robot
-  virtual void update(float delta);
+protected:
+
+  // helper for fuzzy equals
+  bool fuzzyEquals(const float a, const float b, const float var = 5.0f) const;
+
+  // create a animation
+  bool createAnim(const char* pattern, const int maxFrame, const float speed, const char* name, unsigned const int loops = -1);
+
+  // change animation
+  void changeAnim(const char* name);
 
 private:
 
-  // robot states
-  enum State
-  {
-    eFalling,
-    eJumping,
-    eIdle,
-    eRunning
-  };
-
-  // we need to move to the left
-  void toLeft(bool toLeft);
-
-  // we need to move to the right
-  void toRight(bool toRight);
-
-  // we jump
-  void jump();
-
-  //we like to move to left
-  bool _toLeft;
-
-  //we like to move to right
-  bool _toRight;
-
-  // our normal movement
-  const Vec2 _NormalMovement = Vec2(700.0f, 1200.0f);
-
-  // our current state
-  State _currentState;
-
-  // calculate our state
-  State decideState();
-
-  // change our state
-  void changeState(State wantedState);
-  
-  // create a keyboard listener
-  bool Robot::createKeybordListener();
-
-  // on key press
-  void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
-
-  // on key released
-  void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+ 
+  // our current animation
+  Action* _animation;
 
 };
 
-#endif // __ROBOT_CLASS__
-
+#endif // __GAME_OBJECT__

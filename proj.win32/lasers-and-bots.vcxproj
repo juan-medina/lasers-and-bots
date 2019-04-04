@@ -160,6 +160,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\utils\base\scene\BasicScene.cpp" />
     <ClCompile Include="..\Classes\utils\base\scene\GridScene.cpp" />
     <ClCompile Include="..\Classes\utils\base\scene\TiledScene.cpp" />
+    <ClCompile Include="..\Classes\utils\base\sprite\GameObject.cpp" />
     <ClCompile Include="..\Classes\utils\base\ui\BaseButton.cpp" />
     <ClCompile Include="..\Classes\utils\base\ui\TextButton.cpp" />
     <ClCompile Include="..\Classes\utils\utils.cpp" />
@@ -177,6 +178,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\utils\base\scene\BasicScene.h" />
     <ClInclude Include="..\Classes\utils\base\scene\GridScene.h" />
     <ClInclude Include="..\Classes\utils\base\scene\TiledScene.h" />
+    <ClInclude Include="..\Classes\utils\base\sprite\GameObject.h" />
     <ClInclude Include="..\Classes\utils\base\ui\BaseButton.h" />
     <ClInclude Include="..\Classes\utils\base\ui\TextButton.h" />
     <ClInclude Include="..\Classes\utils\utils.h" />

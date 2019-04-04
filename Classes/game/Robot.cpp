@@ -21,7 +21,6 @@
 #include "Robot.h"
 
 Robot::Robot() :
-  _animation(nullptr),
   _currentState(eIdle),
   _toLeft(false),
   _toRight(false)
@@ -46,8 +45,9 @@ Robot* Robot::create()
       object->autorelease();
     }
     else
-    {
+    {      
       delete object;
+      object = nullptr;
     }
 
     ret = object;
@@ -71,7 +71,7 @@ bool Robot::init()
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("robot/robot1.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("robot/robot2.plist");
 
-    UTILS_BREAK_IF(!parent::initWithSpriteFrameName("Idle_01.png"));
+    UTILS_BREAK_IF(!parent::init("Idle_01.png"));
 
     setAnchorPoint(Vec2(0.5f, 0.0f));
 
@@ -91,9 +91,9 @@ bool Robot::init()
     body->setMoment(PHYSICS_INFINITY);
     setPhysicsBody(body);
 
-    createAnim("Idle_%02d.png", 10, 0.05f, "idle");
-    createAnim("Run_%02d.png", 8, 0.15f, "run");
-    createAnim("Jump_%02d.png", 10, 0.15f, "jump", 1);
+    UTILS_BREAK_IF(!createAnim("Idle_%02d.png", 10, 0.05f, "idle"));
+    UTILS_BREAK_IF(!createAnim("Run_%02d.png", 8, 0.15f, "run"));
+    UTILS_BREAK_IF(!createAnim("Jump_%02d.png", 10, 0.15f, "jump", 1));
 
     UTILS_BREAK_IF(!createKeybordListener());
 
@@ -102,39 +102,6 @@ bool Robot::init()
   } while (0);
 
   return ret;
-}
-
-void Robot::createAnim(const char* pattern, const int maxFrame, const float speed, const char* name, unsigned const int loops/* = -1*/)
-{
-  auto cache = SpriteFrameCache::getInstance();
-  Vector<SpriteFrame *> frames(maxFrame);
-  for (unsigned short int num = 1; num <= maxFrame; num++)
-  {
-    char name[255];
-    std::snprintf(name, 255, pattern, num);
-
-    auto frame = cache->getSpriteFrameByName(name);
-    frame->setAnchorPoint(Vec2(0.5f, 0.0f));
-    frames.pushBack(frame);
-  }
-
-  auto anim = Animation::createWithSpriteFrames(frames);
-
-  anim->setLoops(loops);
-  anim->setDelayPerUnit(speed);
-
-  AnimationCache::getInstance()->addAnimation(anim, name);
-}
-
-void Robot::changeAnim(const char* name)
-{
-  if (_animation != nullptr)
-  {
-    stopAction(_animation);
-    _animation = nullptr;
-  }
-  _animation = Animate::create(AnimationCache::getInstance()->getAnimation(name));
-  runAction(_animation);
 }
 
 void Robot::update(float delta)
@@ -220,13 +187,6 @@ void Robot::jump()
   if (fuzzyEquals(y, 0.0f)) {
     getPhysicsBody()->applyImpulse(Vec2(0.0f, _NormalMovement.y));
   }
-}
-
-bool Robot::fuzzyEquals(const float a, const float b, float var/*=5.0f*/) const
-{
-  if (a - var <= b && b <= a + var)
-    return true;
-  return false;
 }
 
 bool Robot::createKeybordListener()

@@ -37,6 +37,9 @@
     <Filter Include="src\game">
       <UniqueIdentifier>{1a5eeb40-d030-43a7-83ae-e509aeed957e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\utils\base\sprite">
+      <UniqueIdentifier>{30b84e4f-dce8-4b52-97db-d935e3a37d35}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -84,6 +87,9 @@
     <ClCompile Include="..\Classes\game\Robot.cpp">
       <Filter>src\game</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\utils\base\sprite\GameObject.cpp">
+      <Filter>src\utils\base\sprite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -130,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\game\Robot.h">
       <Filter>src\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\base\sprite\GameObject.h">
+      <Filter>src\utils\base\sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
