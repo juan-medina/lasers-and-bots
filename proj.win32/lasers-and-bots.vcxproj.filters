@@ -22,34 +22,25 @@
     <Filter Include="src\utils\base\scene">
       <UniqueIdentifier>{14a64151-ca02-4579-a9c1-ccdfdce87143}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\utils\base\ui">
+      <UniqueIdentifier>{3720f484-46d4-495a-bb38-584c198af1f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\utils\base\app">
+      <UniqueIdentifier>{9a2193e8-b031-4eb4-9c55-a865dccb3ac4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\utils\audio">
+      <UniqueIdentifier>{db260611-377e-4594-acbf-d03ef15fa52c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scene">
+      <UniqueIdentifier>{62b547de-2749-4a97-b72b-a268980a00b2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\scenes\LauncherScene.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\utils\audio\AudioHelper.cpp">
-      <Filter>src\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\utils\base\ui\BaseButton.cpp">
-      <Filter>src\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\utils\base\app\BasicApp.cpp">
-      <Filter>src\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\utils\base\app\LauncherApp.cpp">
-      <Filter>src\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\utils\base\ui\TextButton.cpp">
-      <Filter>src\utils</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\utils\utils.cpp">
       <Filter>src\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\scenes\MainScene.cpp">
-      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>src\app</Filter>
@@ -66,34 +57,34 @@
     <ClCompile Include="..\Classes\utils\base\scene\TiledScene.cpp">
       <Filter>src\utils\base\scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\utils\audio\AudioHelper.cpp">
+      <Filter>src\utils\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utils\base\ui\TextButton.cpp">
+      <Filter>src\utils\base\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utils\base\ui\BaseButton.cpp">
+      <Filter>src\utils\base\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utils\base\app\BasicApp.cpp">
+      <Filter>src\utils\base\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utils\base\app\LauncherApp.cpp">
+      <Filter>src\utils\base\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\LauncherScene.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\MainScene.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
       <Filter>win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\scenes\LauncherScene.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\utils\audio\AudioHelper.h">
-      <Filter>src\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\utils\base\ui\BaseButton.h">
-      <Filter>src\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\utils\base\app\BasicApp.h">
-      <Filter>src\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\utils\base\app\LauncherApp.h">
-      <Filter>src\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\utils\base\ui\TextButton.h">
-      <Filter>src\utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\utils\utils.h">
       <Filter>src\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\scenes\MainScene.h">
-      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>src\app</Filter>
@@ -109,6 +100,27 @@
     </ClInclude>
     <ClInclude Include="..\Classes\utils\base\scene\TiledScene.h">
       <Filter>src\utils\base\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\audio\AudioHelper.h">
+      <Filter>src\utils\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\base\ui\TextButton.h">
+      <Filter>src\utils\base\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\base\ui\BaseButton.h">
+      <Filter>src\utils\base\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\base\app\BasicApp.h">
+      <Filter>src\utils\base\app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\base\app\LauncherApp.h">
+      <Filter>src\utils\base\app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\LauncherScene.h">
+      <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\MainScene.h">
+      <Filter>src\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
