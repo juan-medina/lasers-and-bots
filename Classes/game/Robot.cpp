@@ -95,6 +95,8 @@ bool Robot::init()
     createAnim("Run_%02d.png", 8, 0.15f, "run");
     createAnim("Jump_%02d.png", 10, 0.15f, "jump", 1);
 
+    UTILS_BREAK_IF(!createKeybordListener());
+
     ret = true;
 
   } while (0);
@@ -194,13 +196,21 @@ void Robot::changeState(Robot::State wantedState)
 
 void Robot::toLeft(bool toLeft)
 {
-  setFlippedX(toLeft);
+  if(toLeft)
+  {
+    setFlippedX(true);
+  }
+  
   _toLeft = toLeft;
 }
 
 void Robot::toRight(bool toRight)
 {
-  setFlippedX(!toRight);
+  if (toRight)
+  {
+    setFlippedX(false);
+  }
+  
   _toRight = toRight;
 }
 
@@ -217,4 +227,62 @@ bool Robot::fuzzyEquals(const float a, const float b, float var/*=5.0f*/) const
   if (a - var <= b && b <= a + var)
     return true;
   return false;
+}
+
+bool Robot::createKeybordListener()
+{
+  bool result = false;
+
+  do
+  {
+    auto listener = EventListenerKeyboard::create();
+    UTILS_BREAK_IF(listener == nullptr);
+
+    listener->onKeyPressed = CC_CALLBACK_2(Robot::onKeyPressed, this);
+    listener->onKeyReleased = CC_CALLBACK_2(Robot::onKeyReleased, this);
+
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+    result = true;
+  } while (0);
+
+  return result;
+}
+
+void Robot::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
+{
+  switch (keyCode)
+  {
+  case EventKeyboard::KeyCode::KEY_UP_ARROW:
+  case EventKeyboard::KeyCode::KEY_W:
+    jump();
+    break;
+  case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+  case EventKeyboard::KeyCode::KEY_A:
+    toLeft(true);
+    break;
+  case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+  case EventKeyboard::KeyCode::KEY_D:
+    toRight(true);;
+    break;
+  default:
+    break;
+  }
+}
+
+void Robot::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
+{
+  switch (keyCode)
+  {
+  case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+  case EventKeyboard::KeyCode::KEY_A:
+    toLeft(false);
+    break;
+  case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+  case EventKeyboard::KeyCode::KEY_D:
+    toRight(false);
+    break;
+  default:
+    break;
+  }
 }

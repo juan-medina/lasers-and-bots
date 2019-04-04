@@ -40,6 +40,11 @@ public:
   // init this object
   virtual bool init();
 
+  
+  virtual void update(float delta);
+
+private:
+
   // change robot anim
   void changeAnim(const char* name);
 
@@ -52,15 +57,14 @@ public:
     eRunning
   };
 
-  virtual void update(float delta);
-
+  // we need to move to the left
   void toLeft(bool toLeft);
+
+  // we need to move to the right
   void toRight(bool toRight);
+
+  // we jump
   void jump();
-
-protected:
-
-private:
 
   //we like to move to left
   bool _toLeft;
@@ -88,6 +92,16 @@ private:
 
   // change our state
   void changeState(State wantedState);
+  
+  // create a keyboard listener
+  bool Robot::createKeybordListener();
+
+  // on key press
+  void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+
+  // on key released
+  void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+
 };
 
 #endif // __ROBOT_CLASS__

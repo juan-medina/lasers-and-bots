@@ -55,9 +55,6 @@ bool MainScene::init()
     // add physics to map
     UTILS_BREAK_IF(!addPhysicsToMap());
 
-    // init keyboard
-    UTILS_BREAK_IF(!createKeybordListener());
-
     //get updates
     scheduleUpdate();
 
@@ -95,64 +92,6 @@ Scene* MainScene::scene()
 
   // return the scene
   return scene;
-}
-
-bool MainScene::createKeybordListener()
-{
-  bool result = false;
-
-  do
-  {
-    auto listener = EventListenerKeyboard::create();
-    UTILS_BREAK_IF(listener == nullptr);
-
-    listener->onKeyPressed = CC_CALLBACK_2(MainScene::onKeyPressed, this);
-    listener->onKeyReleased = CC_CALLBACK_2(MainScene::onKeyReleased, this);
-
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-
-    result = true;
-  } while (0);
-
-  return result;
-}
-
-void MainScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
-{
-  switch (keyCode)
-  {
-  case EventKeyboard::KeyCode::KEY_UP_ARROW:
-  case EventKeyboard::KeyCode::KEY_W:
-    _robot->jump();
-    break;
-  case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-  case EventKeyboard::KeyCode::KEY_A:
-    _robot->toLeft(true);
-    break;
-  case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-  case EventKeyboard::KeyCode::KEY_D:
-    _robot->toRight(true);;
-    break;
-  default:
-    break;
-  }
-}
-
-void MainScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
-{
-  switch (keyCode)
-  {
-  case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-  case EventKeyboard::KeyCode::KEY_A:
-    _robot->toLeft(false);
-    break;
-  case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-  case EventKeyboard::KeyCode::KEY_D:
-    _robot->toRight(false);
-    break;
-  default:
-    break;
-  }
 }
 
 void MainScene::update(float delta)

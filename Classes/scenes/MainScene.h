@@ -49,10 +49,6 @@ protected:
 
 private:
 
-  bool createKeybordListener();
-  void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
-  void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
-
   virtual void update(float delta);
 
   Robot *_robot;
@@ -62,10 +58,13 @@ private:
   bool createBot();
 
   bool addPhysicsToMap();
+
   bool addBodyToSprite(Sprite* sprite);
+
   void createEmitter(Vec2 point);
 
   float _angle;
+
   DrawNode* _draw;
 
   const float _Gravity = -1000.0f;
