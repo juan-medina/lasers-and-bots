@@ -2,11 +2,7 @@
 
 MainScene::MainScene() :
   _angle(0.0f),
-  _draw(nullptr),
-  _toLeft(false),
-  _toRight(false),
-  _animation(nullptr),
-  _currentState(eIdle)
+  _draw(nullptr)
 {
 }
 
@@ -49,10 +45,6 @@ bool MainScene::init()
     //////////////////////////////
     // 1. super init first
     UTILS_BREAK_IF(!parent::init("maps/map.tmx"));
-
-    // cache
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("robot/robot1.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("robot/robot2.plist");
 
     //create bot
     UTILS_BREAK_IF(!this->createBot());
@@ -125,32 +117,21 @@ bool MainScene::createKeybordListener()
   return result;
 }
 
-bool MainScene::fuzzyEquals(const float a, const float b, float var/*=5.0f*/) const
-{
-  if (a - var <= b && b <= a + var)
-    return true;
-  return false;
-}
 void MainScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
-  auto y = bot->getPhysicsBody()->getVelocity().y;
   switch (keyCode)
   {
   case EventKeyboard::KeyCode::KEY_UP_ARROW:
   case EventKeyboard::KeyCode::KEY_W:
-    if (fuzzyEquals(y, 0.0f)) {
-      bot->getPhysicsBody()->applyImpulse(Vec2(0.0f, _NormalMovement.y));
-    }
+    _robot->jump();
     break;
   case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
   case EventKeyboard::KeyCode::KEY_A:
-    bot->setFlippedX(true);
-    _toLeft = true;
+    _robot->toLeft(true);
     break;
   case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
   case EventKeyboard::KeyCode::KEY_D:
-    bot->setFlippedX(false);
-    _toRight = true;
+    _robot->toRight(true);;
     break;
   default:
     break;
@@ -163,73 +144,20 @@ void MainScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
   {
   case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
   case EventKeyboard::KeyCode::KEY_A:
-    _toLeft = false;
+    _robot->toLeft(false);
     break;
   case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
   case EventKeyboard::KeyCode::KEY_D:
-    _toRight = false;
+    _robot->toRight(false);
     break;
   default:
     break;
   }
 }
 
-void MainScene::changeAnim(const char* name)
-{
-  if (_animation != nullptr)
-  {
-    bot->stopAction(_animation);
-    _animation = nullptr;
-  }
-  _animation = Animate::create(AnimationCache::getInstance()->getAnimation(name));
-  bot->runAction(_animation);
-}
-
 void MainScene::update(float delta)
 {
-  float moveX = (_toLeft ? 0.0f : 1.0f) - (_toRight ? 0.0f : 1.0f);
-  auto move = moveX * _NormalMovement.x;
-
-  auto yVelocity = bot->getPhysicsBody()->getVelocity().y;
-  auto xVelocity = bot->getPhysicsBody()->getVelocity().x;
-  bot->getPhysicsBody()->setVelocity(Vec2(move, yVelocity));
-
-  State wantedState = _currentState;
-
-
-  if (fuzzyEquals(yVelocity, 0.0f) && fuzzyEquals(xVelocity, 0.0f))
-  {
-    wantedState = eIdle;
-  }
-  else
-  {
-    if ((fabs(yVelocity) > 10.0f) || (fabs(xVelocity) > 10.0f))
-    {
-      wantedState = eRunning;
-      if (yVelocity > 10.0f)
-      {
-        wantedState = eJumping;
-      }
-    }
-  }
-  if (wantedState != _currentState)
-  {
-    _currentState = wantedState;
-    switch (_currentState)
-    {
-    case eJumping:
-      changeAnim("jump");
-      break;
-    case eIdle:
-      changeAnim("idle");
-      break;
-    case eRunning:
-      changeAnim("run");
-      break;
-    default:
-      break;
-    }
-  }
+  _robot->update(delta);
 
   this->removeChild(_draw);
   _draw = DrawNode::create();
@@ -268,13 +196,12 @@ void MainScene::update(float delta)
 
   _angle += 0.25f * (float)M_PI / 180.0f;
 
-  // calculate the maximum point that we could move  
+  // calculate the maximum position that we could move  
   auto minPos = Vec2(_screenSize.width / 2, _screenSize.height / 2);
   auto maxPos = Vec2(_totalSize.width - minPos.x, _totalSize.height - minPos.y);
 
-  // clamp to our position
-  auto finalPos = bot->getPosition().getClampPoint(minPos, maxPos);
-
+  // move the camara to the clamped position
+  auto finalPos = _robot->getPosition().getClampPoint(minPos, maxPos);
   this->getDefaultCamera()->setPosition(finalPos);
 }
 
@@ -298,66 +225,21 @@ bool MainScene::createBot()
 
   do
   {
-    bot = Sprite::createWithSpriteFrameName("Idle_01.png");
-    UTILS_BREAK_IF(bot == nullptr);
-    this->addChild(bot);
+    _robot = Robot::create();
+    UTILS_BREAK_IF(_robot == nullptr);
+    this->addChild(_robot);
 
-    bot->setAnchorPoint(Vec2(0.5f, 0.0f));
     auto startRow = 2;
     auto startCol = 1;
     auto pos = this->getblockPossition(startRow, startCol);
     auto robotPos = Vec2(pos.getMinX(), pos.getMaxY()+1);
-    bot->setPosition(robotPos);
-    auto width = bot->getContentSize().width;
-    auto height = bot->getContentSize().height;
-
-    auto botSize = bot->getContentSize();
-
-    botSize.width *= 0.4f;
-    botSize.height *= 0.85f;
-
-    auto body = PhysicsBody::createBox(botSize, PhysicsMaterial(0.1f, 0.0f, 0.5f));
-    UTILS_BREAK_IF(body == nullptr);
-
-    body->setDynamic(true);
-    body->setRotationEnable(false);
-    body->setMass(1.0);
-    body->setMoment(PHYSICS_INFINITY);
-    bot->setPhysicsBody(body);
-
-    
-
-    createAnim("Idle_%02d.png", 10, 0.05f, "idle");
-    createAnim("Run_%02d.png", 8, 0.15f, "run");
-    createAnim("Jump_%02d.png", 10, 0.15f, "jump", 1);
+    _robot->setPosition(robotPos);
 
     result = true;
 
   } while (0);
 
   return result;
-}
-
-void MainScene::createAnim(const char* pattern, int maxFrame, float speed, const char* name, unsigned int loops/* = -1*/)
-{
-  auto cache = SpriteFrameCache::getInstance();
-  Vector<SpriteFrame *> frames(maxFrame);
-  for (unsigned short int num = 1; num <= maxFrame; num++)
-  {
-    char name[255];
-    std::snprintf(name, 255, pattern, num);
-
-    auto frame = cache->getSpriteFrameByName(name);
-    frame->setAnchorPoint(Vec2(0.5f, 0.0f));
-    frames.pushBack(frame);
-  }
-
-  auto anim = Animation::createWithSpriteFrames(frames);
-
-  anim->setLoops(loops);
-  anim->setDelayPerUnit(speed);
-
-  AnimationCache::getInstance()->addAnimation(anim, name);
 }
 
 bool MainScene::addPhysicsToMap()

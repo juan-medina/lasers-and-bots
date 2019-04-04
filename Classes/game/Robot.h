@@ -17,59 +17,78 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef _MAIN_SCENE__
-#define _MAIN_SCENE__
+#ifndef __ROBOT_CLASS__
+#define __ROBOT_CLASS__
 
 #include "../utils/utils.h"
-#include "../utils/base/scene/TiledScene.h"
-#include "../game/Robot.h"
 
-class MainScene : public TiledScene
+class Robot : public Sprite
 {
 public:
   // parent
-  typedef TiledScene parent;
+  typedef Sprite parent;
 
   // constructor
-  MainScene();
+  Robot();
 
   // destructor
-  ~MainScene();
+  ~Robot();
 
   // create the object
-  static MainScene* create();
-
-  // create the scene
-  static Scene* scene();
+  static Robot* create();
 
   // init this object
   virtual bool init();
+
+  // change robot anim
+  void changeAnim(const char* name);
+
+  // robot states
+  enum State
+  {
+    eFalling,
+    eJumping,
+    eIdle,
+    eRunning
+  };
+
+  virtual void update(float delta);
+
+  void toLeft(bool toLeft);
+  void toRight(bool toRight);
+  void jump();
 
 protected:
 
 private:
 
-  bool createKeybordListener();
-  void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
-  void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+  //we like to move to left
+  bool _toLeft;
 
-  virtual void update(float delta);
+  //we like to move to right
+  bool _toRight;
 
-  Robot *_robot;
+  // our normal movement
+  const Vec2 _NormalMovement = Vec2(700.0f, 1200.0f);
 
-  void initPhysics();
+  // helper for fuzzy equals
+  bool fuzzyEquals(const float a, const float b, const float var = 5.0f) const;
 
-  bool createBot();
+  // our current animation
+  Action* _animation;
 
-  bool addPhysicsToMap();
-  bool addBodyToSprite(Sprite* sprite);
-  void createEmitter(Vec2 point);
+  // our current state
+  State _currentState;
 
-  float _angle;
-  DrawNode* _draw;
+  // create a animation
+  void createAnim(const char* pattern, const int maxFrame, const float speed, const char* name, unsigned const int loops = -1);
 
-  const float _Gravity = -1000.0f;
+  // calculate our state
+  State decideState();
+
+  // change our state
+  void changeState(State wantedState);
 };
 
-#endif // _MAIN_SCENE__
+#endif // __ROBOT_CLASS__
 
