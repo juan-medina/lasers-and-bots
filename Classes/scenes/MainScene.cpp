@@ -69,6 +69,12 @@ bool MainScene::init()
     //get updates
     scheduleUpdate();
 
+    auto debugGrid = UserDefault::getInstance()->getBoolForKey("debugGrid", false);
+    if (debugGrid)
+    {
+      UTILS_BREAK_IF(!createDebugGrid("fonts/Marker Felt.ttf"));
+    }
+    
     ret = true;
 
   } while (0);

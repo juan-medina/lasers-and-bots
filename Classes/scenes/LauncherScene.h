@@ -46,6 +46,8 @@ public:
   void effectsMutedClick(Ref* sender);
 
   void musicMutedClick(Ref* sender);
+  
+  void debugGridClick(Ref* sender);
 
 private:
   void updateLabels();
@@ -56,6 +58,9 @@ private:
   int _screenWidth;
   int _screenHeight;
   Label* _resolutionLabel;
+
+  bool _debugGrid;
+  Label* _debugGridLabel;
 
   bool _effectsMuted;
   Label* _effectsMutedLabel;

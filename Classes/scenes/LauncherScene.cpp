@@ -153,6 +153,21 @@ bool LauncherScene::init()
     musicMutedItem->setPosition(Vec2(_screenSize.width / 2, _screenSize.height - 250));
 
     //////////////////////////////////////////////////////////////////////////
+    // Debug grid
+    //////////////////////////////////////////////////////////////////////////
+
+    // create the text for the label
+    _debugGridLabel = Label::createWithTTF("Debug Grid: true ", "fonts/Marker Felt.ttf", 20);
+    UTILS_BREAK_IF(!_debugGridLabel);
+
+    // create the label menu item
+    auto debugGridItem = MenuItemLabel::create(_debugGridLabel, CC_CALLBACK_1(LauncherScene::debugGridClick, this));
+    UTILS_BREAK_IF(!debugGridItem);
+
+    // position menu item
+    debugGridItem->setPosition(Vec2(_screenSize.width / 2, _screenSize.height - 300));
+
+    //////////////////////////////////////////////////////////////////////////
     // Menu Play
     //////////////////////////////////////////////////////////////////////////
 
@@ -172,7 +187,7 @@ bool LauncherScene::init()
     //////////////////////////////////////////////////////////////////////////
 
     // Create a menu with the items
-    auto OptionsMenu = Menu::create(screenModeItem, resolutionItem, effectsMutedItem, musicMutedItem, playItem, NULL);
+    auto OptionsMenu = Menu::create(screenModeItem, resolutionItem, effectsMutedItem, musicMutedItem, debugGridItem, playItem, NULL);
     UTILS_BREAK_IF(!OptionsMenu);
 
     OptionsMenu->setPosition(Point::ZERO);
@@ -196,6 +211,7 @@ void LauncherScene::loadSettings()
   _screenHeight = UserDefault::getInstance()->getIntegerForKey("screenHeight", 1080);
   _effectsMuted = UserDefault::getInstance()->getBoolForKey("effectsMuted", false);
   _musicMuted = UserDefault::getInstance()->getBoolForKey("musicMuted", false);
+  _debugGrid = UserDefault::getInstance()->getBoolForKey("debugGrid", false);
 }
 
 void LauncherScene::saveSettings()
@@ -205,7 +221,7 @@ void LauncherScene::saveSettings()
   UserDefault::getInstance()->setIntegerForKey("screenHeight", _screenHeight);
   UserDefault::getInstance()->setBoolForKey("effectsMuted", _effectsMuted);
   UserDefault::getInstance()->setBoolForKey("musicMuted", _musicMuted);
-  UserDefault::getInstance()->setBoolForKey("fitAll", false);
+  UserDefault::getInstance()->setBoolForKey("debugGrid", _debugGrid);
 }
 
 void LauncherScene::play(Ref* sender)
@@ -275,6 +291,12 @@ void LauncherScene::musicMutedClick(Ref* sender)
   this->updateLabels();
 }
 
+void LauncherScene::debugGridClick(Ref * sender)
+{
+  _debugGrid = !_debugGrid;
+  this->updateLabels();
+}
+
 void LauncherScene::updateLabels()
 {
 
@@ -291,8 +313,9 @@ void LauncherScene::updateLabels()
 
   _resolutionLabel->setString(string_format("Size : %d x %d", _screenWidth, _screenHeight));
 
-
   _effectsMutedLabel->setString(string_format("Sfx Sound : %s", _effectsMuted ? "false" : "true"));
 
   _musicMutedLabel->setString(string_format("Music : %s", _musicMuted ? "false" : "true"));
+
+  _debugGridLabel->setString(string_format("Debug Grid : %s", _debugGrid ? "true" : "false"));
 }
