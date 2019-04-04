@@ -283,7 +283,12 @@ void MainScene::initPhysics()
   auto edge = PhysicsBody::createEdgeBox(this->_totalSize, PhysicsMaterial(0.1f, 0.0f, 0.5f), 5);
   this->getTiledMap()->addComponent(edge);
 
-  //getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+  auto debugPhysics = UserDefault::getInstance()->getBoolForKey("debugPhysics", false);
+  if (debugPhysics)
+  {
+    getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+  }
+  
   getPhysicsWorld()->setGravity(Vec2(0.0f, _Gravity));
 }
 

@@ -49,6 +49,8 @@ public:
   
   void debugGridClick(Ref* sender);
 
+  void debugPhysicsClick(Ref* sender);
+
 private:
   void updateLabels();
 
@@ -61,6 +63,9 @@ private:
 
   bool _debugGrid;
   Label* _debugGridLabel;
+
+  bool _debugPhysics;
+  Label* _debugPhysicsLabel;
 
   bool _effectsMuted;
   Label* _effectsMutedLabel;

@@ -168,6 +168,21 @@ bool LauncherScene::init()
     debugGridItem->setPosition(Vec2(_screenSize.width / 2, _screenSize.height - 300));
 
     //////////////////////////////////////////////////////////////////////////
+    // Debug Physics
+    //////////////////////////////////////////////////////////////////////////
+
+    // create the text for the label
+    _debugPhysicsLabel = Label::createWithTTF("Debug Physics: true ", "fonts/Marker Felt.ttf", 20);
+    UTILS_BREAK_IF(!_debugPhysicsLabel);
+
+    // create the label menu item
+    auto debugPhysicsItem = MenuItemLabel::create(_debugPhysicsLabel, CC_CALLBACK_1(LauncherScene::debugPhysicsClick, this));
+    UTILS_BREAK_IF(!debugPhysicsItem);
+
+    // position menu item
+    debugPhysicsItem->setPosition(Vec2(_screenSize.width / 2, _screenSize.height - 350));
+
+    //////////////////////////////////////////////////////////////////////////
     // Menu Play
     //////////////////////////////////////////////////////////////////////////
 
@@ -180,14 +195,14 @@ bool LauncherScene::init()
     UTILS_BREAK_IF(!playItem);
 
     // position menu item
-    playItem->setPosition(Vec2(_screenSize.width / 2, _screenSize.height - 350));
+    playItem->setPosition(Vec2(_screenSize.width / 2, _screenSize.height - 400));
 
     //////////////////////////////////////////////////////////////////////////
     // Menu
     //////////////////////////////////////////////////////////////////////////
 
     // Create a menu with the items
-    auto OptionsMenu = Menu::create(screenModeItem, resolutionItem, effectsMutedItem, musicMutedItem, debugGridItem, playItem, NULL);
+    auto OptionsMenu = Menu::create(screenModeItem, resolutionItem, effectsMutedItem, musicMutedItem, debugGridItem, debugPhysicsItem, playItem, NULL);
     UTILS_BREAK_IF(!OptionsMenu);
 
     OptionsMenu->setPosition(Point::ZERO);
@@ -212,6 +227,7 @@ void LauncherScene::loadSettings()
   _effectsMuted = UserDefault::getInstance()->getBoolForKey("effectsMuted", false);
   _musicMuted = UserDefault::getInstance()->getBoolForKey("musicMuted", false);
   _debugGrid = UserDefault::getInstance()->getBoolForKey("debugGrid", false);
+  _debugPhysics = UserDefault::getInstance()->getBoolForKey("debugPhysics", false);
 }
 
 void LauncherScene::saveSettings()
@@ -222,6 +238,7 @@ void LauncherScene::saveSettings()
   UserDefault::getInstance()->setBoolForKey("effectsMuted", _effectsMuted);
   UserDefault::getInstance()->setBoolForKey("musicMuted", _musicMuted);
   UserDefault::getInstance()->setBoolForKey("debugGrid", _debugGrid);
+  UserDefault::getInstance()->setBoolForKey("debugPhysics", _debugPhysics);
 }
 
 void LauncherScene::play(Ref* sender)
@@ -297,6 +314,12 @@ void LauncherScene::debugGridClick(Ref * sender)
   this->updateLabels();
 }
 
+void LauncherScene::debugPhysicsClick(Ref * sender)
+{
+  _debugPhysics = !_debugPhysics;
+  this->updateLabels();
+}
+
 void LauncherScene::updateLabels()
 {
 
@@ -318,4 +341,6 @@ void LauncherScene::updateLabels()
   _musicMutedLabel->setString(string_format("Music : %s", _musicMuted ? "false" : "true"));
 
   _debugGridLabel->setString(string_format("Debug Grid : %s", _debugGrid ? "true" : "false"));
+
+  _debugPhysicsLabel->setString(string_format("Debug Physics : %s", _debugPhysics ? "true" : "false"));
 }
