@@ -18,7 +18,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "launcher.h"
+#include "laser_and_bots_launcher.h"
 #include "scenes/launcher_scene.h"
 
 laser_and_bots_launcher::laser_and_bots_launcher():
