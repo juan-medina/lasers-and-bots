@@ -97,6 +97,7 @@ bool Robot::init()
 
     UTILS_BREAK_IF(!createKeybordListener());
 
+    changeAnim("idle");
     ret = true;
 
   } while (0);
