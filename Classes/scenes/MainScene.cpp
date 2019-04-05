@@ -1,8 +1,29 @@
+/****************************************************************************
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+ ****************************************************************************/
+
 #include "MainScene.h"
+#include "../game/Robot.h"
+#include "../game/Laser.h"
 
 MainScene::MainScene() :
-  _angle(0.0f),
-  _draw(nullptr)
+  _robot(nullptr)
 {
 }
 
@@ -56,6 +77,9 @@ bool MainScene::init()
     // add physics to map
     UTILS_BREAK_IF(!addPhysicsToMap());
 
+    // add a laser
+    UTILS_BREAK_IF(!addLaserAtBlock(getBlocks().width / 2, getBlocks().height / 2));
+
     //get updates
     scheduleUpdate();
 
@@ -99,42 +123,6 @@ void MainScene::update(float delta)
 {
   _robot->update(delta);
 
-  this->removeChild(_draw);
-  _draw = DrawNode::create();
-  _draw->setOpacity(180);
-
-  float L = 10000.0f;
-  Vec2 point1 = Vec2(_totalSize.width / 2, _totalSize.height / 2);
-  Vec2 d(L * cosf(_angle), L * sinf(_angle));
-  Vec2 point2 = point1 + d;
-
-  Vec2 point3 = point2;
-
-  PhysicsRayCastCallbackFunc func = [point1, &point3](PhysicsWorld& /*world*/, const PhysicsRayCastInfo& info, void* /*data*/)->bool
-  {
-    auto origin = Point(point1);
-    auto newPoint = Point(info.contact);
-    auto savedPoint = Point(point3);
-    if (origin.distance(newPoint) < origin.distance(savedPoint))
-    {
-      point3 = info.contact;
-    }
-    return true;
-  };
-
-
-  getPhysicsWorld()->rayCast(func, point1, point2, &point3);
-  _draw->drawSegment(point1, point3, 2, Color4F::RED);
-
-  if ((point3.x != point2.x) & (point3.y != point2.y))
-  {
-    _draw->drawDot(point3, 10, Color4F::RED);
-    this->createEmitter(point3);
-  }
-
-  this->addChild(_draw);
-
-  _angle += 0.25f * (float)M_PI / 180.0f;
 
   updateCamera();
 }
@@ -166,7 +154,7 @@ bool MainScene::createBot()
 
     auto startRow = getTiledMap()->getProperty("startX").asInt();
     auto startCol = getTiledMap()->getProperty("startY").asInt();
-    auto pos = this->getblockPossition(startCol+1, startRow);
+    auto pos = this->getblockPossition(startCol + 1, startRow);
     auto blockSize = getBlockSize();
     auto robotPos = Vec2(pos.getMinX() - (blockSize.width / 2), pos.getMinY() - (blockSize.height / 4));
     _robot->setPosition(robotPos);
@@ -226,23 +214,6 @@ bool MainScene::addBodyToSprite(Sprite* sprite)
   return result;
 }
 
-
-void MainScene::createEmitter(Vec2 point)
-{
-  auto emitter = ParticleFire::create();
-  emitter->setDuration(1);
-  emitter->setBlendFunc(BlendFunc::ADDITIVE);
-  emitter->setColor(Color3B::RED);
-  emitter->setOpacityModifyRGB(true);
-  emitter->setOpacity(127);
-  emitter->setPosition(point);
-  emitter->setEmissionRate(10);
-  emitter->setGravity(this->getPhysicsWorld()->getGravity());
-  emitter->setAutoRemoveOnFinish(true);
-  addChild(emitter);
-}
-
-// move the camera following the robot clamping on the map
 void MainScene::updateCamera()
 {
   // calculate the maximum position that we could move  
@@ -252,4 +223,28 @@ void MainScene::updateCamera()
   // move the camara to the clamped position
   auto finalPos = _robot->getPosition().getClampPoint(minPos, maxPos);
   this->getDefaultCamera()->setPosition(finalPos);
+}
+
+
+bool MainScene::addLaserAtBlock(const int col, const int row)
+{
+  bool ret = false;
+
+  do
+  {
+    auto pos = getblockPossition(col, row);
+
+    auto laserOrigin = Vec2(pos.getMinX() + getBlockSize().width / 2, pos.getMinY() + +getBlockSize().height / 2);
+
+    auto laser = Laser::create();
+    UTILS_BREAK_IF(laser == nullptr);
+    laser->setPosition(laserOrigin);
+
+    addChild(laser);
+    
+    ret = true;
+
+  } while (0);
+
+  return ret;
 }

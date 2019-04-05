@@ -90,6 +90,9 @@
     <ClCompile Include="..\Classes\utils\base\sprite\GameObject.cpp">
       <Filter>src\utils\base\sprite</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\game\Laser.cpp">
+      <Filter>src\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -139,6 +142,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\utils\base\sprite\GameObject.h">
       <Filter>src\utils\base\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\Laser.h">
+      <Filter>src\game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

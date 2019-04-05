@@ -17,68 +17,52 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef _MAIN_SCENE__
-#define _MAIN_SCENE__
+
+#ifndef __LASER_CLASS__
+#define __LASER_CLASS__
 
 #include "../utils/utils.h"
-#include "../utils/base/scene/TiledScene.h"
 
-//foward declarations
-class Robot;
-
-class MainScene : public TiledScene
+class Laser : public Node
 {
 public:
   // parent
-  typedef TiledScene parent;
+  typedef Node parent;
 
   // constructor
-  MainScene();
+  Laser();
 
   // destructor
-  ~MainScene();
+  ~Laser();
 
   // create the object
-  static MainScene* create();
-
-  // create the scene
-  static Scene* scene();
+  static Laser* create();
 
   // init this object
   virtual bool init();
+
+  // update our laser
+  virtual void update(float delta);
 
 protected:
 
 private:
 
-  // update our game
-  virtual void update(float delta);
+  // create a emiter
+  void createEmitter(const Vec2 point);
 
-  // move the camera following the robot clamping on the map
-  void updateCamera();
+  // laser angle
+  float _angle;
 
-  //our robot
-  Robot *_robot;
+  // laser draw node
+  DrawNode* _draw;
 
-  // init physics
-  void initPhysics();
+  // the physics world
+  PhysicsWorld* _physicsWorld;
 
-  // create robot
-  bool createBot();
+  // maximum laser length
+  const float _maxLaserLength = 10000.0f;
 
-  // add physics to our game
-  bool addPhysicsToMap();
+};
 
-  // add a body to sprites
-  bool addBodyToSprite(Sprite* sprite);
-
-  // our game gravity
-  const float _Gravity = -1000.0f;
-
-  // add a laser in the center of a giving block
-  bool addLaserAtBlock(const int row, const int col);
-  
- };
-
-#endif // _MAIN_SCENE__
-
+#endif // __LASER_CLASS__
