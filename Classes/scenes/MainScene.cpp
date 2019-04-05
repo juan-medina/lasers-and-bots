@@ -64,7 +64,7 @@ bool MainScene::init()
     {
       UTILS_BREAK_IF(!createDebugGrid("fonts/Marker Felt.ttf"));
     }
-    
+
     ret = true;
 
   } while (0);
@@ -149,7 +149,7 @@ void MainScene::initPhysics()
   {
     getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
   }
-  
+
   getPhysicsWorld()->setGravity(Vec2(0.0f, _Gravity));
   getPhysicsWorld()->setSubsteps(4);
 }
@@ -164,10 +164,11 @@ bool MainScene::createBot()
     UTILS_BREAK_IF(_robot == nullptr);
     this->addChild(_robot);
 
-    auto startRow = 2;
-    auto startCol = 1;
-    auto pos = this->getblockPossition(startRow, startCol);
-    auto robotPos = Vec2(pos.getMinX(), pos.getMaxY()+1);
+    auto startRow = getTiledMap()->getProperty("startX").asInt();
+    auto startCol = getTiledMap()->getProperty("startY").asInt();
+    auto pos = this->getblockPossition(startCol+1, startRow);
+    auto blockSize = getBlockSize();
+    auto robotPos = Vec2(pos.getMinX() - (blockSize.width / 2), pos.getMinY() - (blockSize.height / 4));
     _robot->setPosition(robotPos);
 
     result = true;
