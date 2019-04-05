@@ -35,7 +35,7 @@ Now you could open the project folder for the platform you like to use:
 - proj.ios_mac
 - proj.win32
 
-## credits
+## resources
 
 - Game art : [Game Art 2D](https://www.gameart2d.com/)
 - Game engine: [Cocox2d-x Github](https://github.com/cocos2d/cocos2d-x)
