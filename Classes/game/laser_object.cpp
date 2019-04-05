@@ -21,10 +21,10 @@
 #include "laser_object.h"
 
 laser_object::laser_object() :
-  angle_(0.0f),
   draw_(nullptr),
   physics_world_(nullptr)
 {
+  angle_ = RandomHelper::random_real<float>(0.f, 360.f);
 }
 
 laser_object* laser_object::create()

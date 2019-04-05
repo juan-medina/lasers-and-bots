@@ -74,8 +74,8 @@ bool game_scene::init()
     // add physics to map
     UTILS_BREAK_IF(!add_physics_to_map());
 
-    // add a laser
-    UTILS_BREAK_IF(!add_laser_at_block(get_blocks().width / 2, get_blocks().height / 2));
+    // add the lasers
+    UTILS_BREAK_IF(!add_lasers_to_game());
 
     //get updates
     scheduleUpdate();
@@ -168,7 +168,7 @@ bool game_scene::add_physics_to_map() const
 
   do
   {
-    const auto map = this->get_tiled_map();
+    const auto map = get_tiled_map();
 
     auto layer = map->getLayer("walk");
     UTILS_BREAK_IF(layer == nullptr);
@@ -185,6 +185,35 @@ bool game_scene::add_physics_to_map() const
       }
     }
 
+    result = true;
+  }
+  while (false);
+
+  return result;
+}
+
+bool game_scene::add_lasers_to_game()
+{
+  auto result = false;
+
+  do
+  {
+    const auto map = get_tiled_map();
+
+    auto layer = map->getLayer("laser");
+    UTILS_BREAK_IF(layer == nullptr);
+
+    for (auto col = 0; col < this->blocks_.height; col++)
+    {
+      for (auto row = 0; row < this->blocks_.width; row++)
+      {
+        const auto sprite = layer->getTileAt(Vec2(row, col));
+        if (sprite != nullptr)
+        {
+          add_laser_at_sprite(sprite);
+        }
+      }
+    }
 
     result = true;
   }
@@ -225,13 +254,16 @@ void game_scene::update_camera() const
 }
 
 
-bool game_scene::add_laser_at_block(const int col, const int row)
+bool game_scene::add_laser_at_sprite(Sprite* sprite)
 {
   auto ret = false;
 
   do
   {
-    const auto pos = get_block_center(col, row);
+    auto pos = sprite->getPosition();
+
+    pos.x += sprite->getContentSize().width / 2;
+    pos.y += sprite->getContentSize().height / 2;
 
     auto laser = laser_object::create();
     UTILS_BREAK_IF(laser == nullptr);
@@ -239,6 +271,12 @@ bool game_scene::add_laser_at_block(const int col, const int row)
 
     addChild(laser);
 
+    sprite->setBlendFunc(BlendFunc::ADDITIVE);
+
+    const auto blink = Sequence::create(FadeTo::create(0.5f, 20), FadeTo::create(0.5f, 255), nullptr);
+    const auto repeat = RepeatForever::create(blink);
+    sprite->runAction(repeat);
+    
     ret = true;
   }
   while (false);

@@ -45,20 +45,22 @@ def join_images(folder, outFile):
         rows = 1
         cols = num_files
 
-    width = img_width * cols
-    height = img_height * rows
+    width = img_width * (cols + 1)
+    height = img_height * (rows + 1)
 
     img = Image.new('RGBA', (width, height), 255)
     row = 0
     col = 0
+    counter = 1
     for file in files:
+        log.info("processing %d: %s [%d, %d]", counter, file, col+1,  row+1)
         im = Image.open(file)
         img.paste(im, (col * img_width, row * img_height))
         col = col + 1
         if col > cols:
             row = row + 1
             col = 0
-        log.info("processing : %s", file)
+        counter = counter + 1
 
     img.save(outFile)
     log.info("file saved : %s", outFile)

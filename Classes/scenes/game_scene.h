@@ -64,14 +64,17 @@ private:
   // add physics to our game
   bool add_physics_to_map() const;
 
+  // add lasers to the game
+  bool add_lasers_to_game();
+
   // add a body to sprites
   static bool add_body_to_sprite(Sprite* sprite);
 
   // our game gravity
   static constexpr float gravity = -1000.0f;
 
-  // add a laser in the center of a giving block
-  bool add_laser_at_block(int col, int row);
+  // add a laser in a sprite
+  bool add_laser_at_sprite(Sprite* sprite);
 };
 
 #endif // _MAIN_SCENE__
