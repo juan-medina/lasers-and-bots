@@ -18,53 +18,15 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "BasicScene.h"
+#include "laser_and_bots_app.h"
+#include "scenes/game_scene.h"
 
-Scene* BasicScene::createScene()
+laser_and_bots_app::laser_and_bots_app()
+  : base_class("Lasers and Bots")
 {
-  Scene* ret = nullptr;
-
-  do
-  {
-    auto scene = new BasicScene();
-    UTILS_BREAK_IF(scene == nullptr);
-
-    if (scene->init())
-    {
-      scene->autorelease();
-    }
-    else
-    {
-      delete scene;
-      scene = nullptr;
-    }
-
-    ret = scene;
-  } while (0);
-
-  // return the scene
-  return ret;
 }
 
-// on "init" you need to initialize your instance
-bool BasicScene::init()
+Scene* laser_and_bots_app::init_scene()
 {
-  bool ret = false;
-
-  do
-  {
-    //////////////////////////////
-    // 1. super init first
-
-    ret = parent::initWithPhysics();
-
-    UTILS_BREAK_IF(!ret);
-
-    // store the screen size
-    _screenSize = Director::getInstance()->getWinSize();
-
-    ret = true;
-  } while (0);
-
-  return ret;
+  return game_scene::scene();
 }

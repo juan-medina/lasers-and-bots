@@ -18,29 +18,32 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef _LAUNCHER_APP_H_
-#define _LAUNCHER_APP_H_
+#ifndef __BASIC_SCENE_H__
+#define __BASIC_SCENE_H__
 
-#include "BasicApp.h"
+#include "../../utils.h"
 
-// launcher appplication for desktop clients
-class LauncherApp : private BasicApp
+class basic_scene : public Scene
 {
 public:
-  // parent
-  typedef BasicApp parent;
+  // base_class
+  using base_class = Scene;
 
-  // constructor
-  LauncherApp(const char* applicationName, float width, float height);
+  // create the scene
+  static base_class* create_scene();
 
-  // destructor
-  virtual ~LauncherApp();
+  // init this scene
+  bool init() override;
 
-  // launch application
-  virtual bool applicationDidFinishLaunching();
+  // return the screen size
+  Size get_screen_size() const noexcept
+  {
+    return screen_size_;
+  }
 
-  // do we want to play
-  CC_SYNTHESIZE(bool, _wantToPlay, WantToPlay);
+protected:
+  // store the screen size
+  Size screen_size_;
 };
 
-#endif // _LAUNCHER_APP_H_
+#endif // __BASIC_SCENE_H__

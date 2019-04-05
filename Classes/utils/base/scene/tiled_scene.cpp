@@ -18,90 +18,79 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "BaseButton.h"
+#include "tiled_scene.h"
 
-BaseButton::BaseButton()
+tiled_scene* tiled_scene::create(const std::string& tmx_file)
 {
-}
+  // create the game
+  auto scene = new tiled_scene();
 
-BaseButton::~BaseButton()
-{
-}
-
-BaseButton* BaseButton::create(Sprite* sprite, const ccMenuCallback& selector)
-{
-  BaseButton* ret = nullptr;
-
-  do
+  // init the scene and auto release
+  if (scene)
   {
-    auto obj = new BaseButton();
-    UTILS_BREAK_IF(obj == nullptr);
-
-    if (obj->init(sprite, selector))
+    if (scene->init(tmx_file))
     {
-      obj->autorelease();
+      scene->autorelease();
     }
     else
     {
-      delete obj;
-      obj = nullptr;
+      delete scene;
+      scene = nullptr;
     }
+  }
 
-    ret = obj;
-  } while (0);
-
-  // return the object
-  return ret;
+  // return the scene
+  return scene;
 }
 
-BaseButton* BaseButton::createWithSpriteFrameName(const string& spriteFrameName, const ccMenuCallback& selector)
+Scene* tiled_scene::scene(const std::string& tmx_file)
 {
-  BaseButton* ret = nullptr;
+  // create the grid
+  auto scene = new tiled_scene();
 
-  do
+  // init the scene and auto release
+  if (scene)
   {
-    auto sprite = Sprite::createWithSpriteFrameName(spriteFrameName);
-    UTILS_BREAK_IF(sprite == nullptr);
+    if (scene->init(tmx_file))
+    {
+      scene->autorelease();
+    }
+    else
+    {
+      delete scene;
+      scene = nullptr;
+    }
+  }
 
-    auto obj = BaseButton::create(sprite, selector);
-    UTILS_BREAK_IF(obj == nullptr);
-
-    ret = obj;
-
-  } while (0);
-
-  // return the object
-  return ret;
+  // return the scene
+  return scene;
 }
 
 // on "init" you need to initialize your instance
-bool BaseButton::init(Sprite* sprite, const ccMenuCallback& selector)
+bool tiled_scene::init(const std::string& tmx_file)
 {
-  bool ret = false;
+  auto ret = false;
 
   do
   {
-    //////////////////////////////
-    // 1. super init first
-
-    ret = parent::initWithLabel(sprite, selector);
+    const auto map = experimental::TMXTiledMap::create(tmx_file);
+    ret = (map != nullptr);
     UTILS_BREAK_IF(!ret);
 
-  } while (0);
+    // store the map
+    tiled_map_ = map;
+
+    const auto tile_size = map->getTileSize();
+    const auto size = map->getMapSize();
+
+    // init with a grid
+    ret = base_class::init(size, tile_size);
+    UTILS_BREAK_IF(!ret);
+
+    // add the title map to the scene
+    addChild(map);
+  }
+  while (false);
 
   return ret;
-}
-
-void BaseButton::setEnabled(bool value)
-{
-  parent::setEnabled(value);
-
-  if (value)
-  {
-    this->setOpacity(255);
-  }
-  else
-  {
-    this->setOpacity(64);
-  }
 }

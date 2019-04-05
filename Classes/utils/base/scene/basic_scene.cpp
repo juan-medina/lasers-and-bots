@@ -17,46 +17,56 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __GAME_OBJECT__
-#define __GAME_OBJECT__
 
-#include "../utils/utils.h"
+#include "basic_scene.h"
 
-class GameObject : public Sprite
+basic_scene::base_class* basic_scene::create_scene()
 {
-public:
-  // parent
-  typedef Sprite parent;
+  base_class* ret = nullptr;
 
-  // constructor
-  GameObject();
+  do
+  {
+    auto scene = new basic_scene();
+    UTILS_BREAK_IF(scene == nullptr);
 
-  // destructor
-  ~GameObject();
+    if (scene->init())
+    {
+      scene->autorelease();
+    }
+    else
+    {
+      delete scene;
+      scene = nullptr;
+    }
 
-  // create the object
-  static GameObject* create(const std::string& spriteFrameName);
+    ret = scene;
+  }
+  while (false);
 
-  // init this object
-  virtual bool init(const std::string& spriteFrameName);
+  // return the scene
+  return ret;
+}
 
-protected:
+// on "init" you need to initialize your instance
+bool basic_scene::init()
+{
+  auto ret = false;
 
-  // helper for fuzzy equals
-  bool fuzzyEquals(const float a, const float b, const float var = 5.0f) const;
+  do
+  {
+    //////////////////////////////
+    // 1. super init first
 
-  // create a animation
-  bool createAnim(const char* pattern, const int maxFrame, const float speed, const char* name, unsigned const int loops = -1);
+    ret = base_class::initWithPhysics();
 
-  // change animation
-  void changeAnim(const char* name);
+    UTILS_BREAK_IF(!ret);
 
-private:
+    // store the screen size
+    screen_size_ = Director::getInstance()->getWinSize();
 
- 
-  // our current animation
-  Action* _animation;
+    ret = true;
+  }
+  while (false);
 
-};
-
-#endif // __GAME_OBJECT__
+  return ret;
+}

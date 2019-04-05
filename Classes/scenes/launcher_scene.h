@@ -18,43 +18,66 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __TEXT_BUTTON_H__
-#define __TEXT_BUTTON_H__
+#ifndef __LAUNCHER_SCENE_H__
+#define __LAUNCHER_SCENE_H__
 
-#include "BaseButton.h"
+#include "../utils/base/scene/basic_scene.h"
 
-class TextButton : public BaseButton
+class launcher_scene final : public basic_scene
 {
 public:
-  // parent
-  typedef BaseButton parent;
+  // base_class
+  using parent = basic_scene;
+
+  // create object
+  static launcher_scene* create();
+
+  // create the scene
+  static Scene* scene();
 
   // constructor
-  TextButton();
+  launcher_scene();
 
-  // destructor
-  ~TextButton();
+  bool init() override;
 
-  // create the object
-  static TextButton* create(Sprite* sprite, Label* label, const ccMenuCallback& selector);
+  void play(Ref* sender) const;
 
-  // create the object
-  static TextButton* createWithSpriteFrameName(const string& spriteFrameName, Label* label, const ccMenuCallback& selector);
+  void screen_mode_click(Ref* sender);
 
-  // create the object
-  static TextButton* createWithSpriteFrameNameAndBMFont(const string& spriteFrameName, const string& bmfontPath, const string& text, const TextHAlignment& hAlignment, const ccMenuCallback& selector);
+  void resolution_click(Ref* sender);
 
-  // init this object
-  virtual bool init(Sprite* sprite, Label* label, const ccMenuCallback& selector);
+  void effects_muted_click(Ref* sender);
 
-  // enable / disable button
-  virtual void setEnabled(bool value);
+  void music_muted_click(Ref* sender);
 
-  // change the button text
-  void setString(const string& string);
+  void debug_grid_click(Ref* sender);
+
+  void debug_physics_click(Ref* sender);
 
 private:
-  Label* _label;
+  void update_labels() const;
+
+  bool full_screen_;
+  Label* screen_mode_label_;
+
+  int screen_width_;
+  int screen_height_;
+  Label* resolution_label_;
+
+  bool debug_grid_;
+  Label* debug_grid_label_;
+
+  bool debug_physics_;
+  Label* debug_physics_label_;
+
+  bool effects_muted_;
+  Label* effects_muted_label_;
+
+  bool music_muted_;
+  Label* music_muted_label_;
+
+  void load_settings();
+  void save_settings() const;
 };
 
-#endif //__TEXT_BUTTON_H__
+#endif // __LAUNCHER_SCENE_H__

@@ -18,26 +18,38 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef _LAUNCHER_H_
-#define _LAUNCHER_H_
+#ifndef __LAUNCHER_APP_H__
+#define __LAUNCHER_APP_H__
 
-#include "utils/base/app/LauncherApp.h"
+#include "basic_app.h"
 
-// this game launcher
-class Launcher : public LauncherApp
+// launcher application for desktop clients
+class launcher_app : basic_app
 {
 public:
-  // parent
-  typedef LauncherApp parent;
+  // base_class
+  using base_class = basic_app;
 
   // constructor
-  Launcher();
+  launcher_app(std::string application_name, float width, float height);
 
-  // destructor
-  virtual ~Launcher();
+  // launch application
+  bool applicationDidFinishLaunching() override;
 
-  // init this scene
-  Scene* initScene();
+  virtual bool get_want_to_play() const
+  {
+    return want_to_play_;
+  }
+
+  virtual void set_want_to_play(const bool var)
+  {
+    want_to_play_ = var;
+  }
+
+protected:
+
+  // do we want to play
+  bool want_to_play_;
 };
 
-#endif // _APP_DELEGATE_H_
+#endif // __LAUNCHER_APP_H__

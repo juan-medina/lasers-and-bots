@@ -22,9 +22,6 @@
     <Filter Include="src\utils\base\scene">
       <UniqueIdentifier>{14a64151-ca02-4579-a9c1-ccdfdce87143}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\utils\base\ui">
-      <UniqueIdentifier>{3720f484-46d4-495a-bb38-584c198af1f9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\utils\base\app">
       <UniqueIdentifier>{9a2193e8-b031-4eb4-9c55-a865dccb3ac4}</UniqueIdentifier>
     </Filter>
@@ -48,50 +45,44 @@
     <ClCompile Include="..\Classes\utils\utils.cpp">
       <Filter>src\utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>src\app</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Launcher.cpp">
-      <Filter>src\app</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\utils\base\scene\BasicScene.cpp">
+    <ClCompile Include="..\Classes\utils\base\scene\basic_scene.cpp">
       <Filter>src\utils\base\scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\utils\base\scene\GridScene.cpp">
+    <ClCompile Include="..\Classes\utils\base\scene\grid_scene.cpp">
       <Filter>src\utils\base\scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\utils\base\scene\TiledScene.cpp">
+    <ClCompile Include="..\Classes\utils\base\scene\tiled_scene.cpp">
       <Filter>src\utils\base\scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\utils\audio\AudioHelper.cpp">
-      <Filter>src\utils\audio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\utils\base\ui\TextButton.cpp">
-      <Filter>src\utils\base\ui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\utils\base\ui\BaseButton.cpp">
-      <Filter>src\utils\base\ui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\utils\base\app\BasicApp.cpp">
-      <Filter>src\utils\base\app</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\utils\base\app\LauncherApp.cpp">
-      <Filter>src\utils\base\app</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\scenes\LauncherScene.cpp">
-      <Filter>src\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\scenes\MainScene.cpp">
-      <Filter>src\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\game\Robot.cpp">
-      <Filter>src\game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\utils\base\sprite\GameObject.cpp">
+    <ClCompile Include="..\Classes\utils\base\sprite\game_object.cpp">
       <Filter>src\utils\base\sprite</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\game\Laser.cpp">
+    <ClCompile Include="..\Classes\utils\base\app\basic_app.cpp">
+      <Filter>src\utils\base\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utils\base\app\launcher_app.cpp">
+      <Filter>src\utils\base\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utils\audio\audio_helper.cpp">
+      <Filter>src\utils\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\laser_and_bots_launcher.cpp">
+      <Filter>src\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\laser_and_bots_app.cpp">
+      <Filter>src\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\launcher_scene.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\game\laser_object.cpp">
       <Filter>src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\game\robot_object.cpp">
+      <Filter>src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\game_scene.cpp">
+      <Filter>src\scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -101,50 +92,44 @@
     <ClInclude Include="..\Classes\utils\utils.h">
       <Filter>src\utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>src\app</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Launcher.h">
-      <Filter>src\app</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\utils\base\scene\BasicScene.h">
+    <ClInclude Include="..\Classes\utils\base\scene\basic_scene.h">
       <Filter>src\utils\base\scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\utils\base\scene\GridScene.h">
+    <ClInclude Include="..\Classes\utils\base\scene\grid_scene.h">
       <Filter>src\utils\base\scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\utils\base\scene\TiledScene.h">
+    <ClInclude Include="..\Classes\utils\base\scene\tiled_scene.h">
       <Filter>src\utils\base\scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\utils\audio\AudioHelper.h">
-      <Filter>src\utils\audio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\utils\base\ui\TextButton.h">
-      <Filter>src\utils\base\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\utils\base\ui\BaseButton.h">
-      <Filter>src\utils\base\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\utils\base\app\BasicApp.h">
-      <Filter>src\utils\base\app</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\utils\base\app\LauncherApp.h">
-      <Filter>src\utils\base\app</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\scenes\LauncherScene.h">
-      <Filter>src\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\scenes\MainScene.h">
-      <Filter>src\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\game\Robot.h">
-      <Filter>src\game</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\utils\base\sprite\GameObject.h">
+    <ClInclude Include="..\Classes\utils\base\sprite\game_object.h">
       <Filter>src\utils\base\sprite</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\game\Laser.h">
+    <ClInclude Include="..\Classes\utils\base\app\basic_app.h">
+      <Filter>src\utils\base\app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\base\app\launcher_app.h">
+      <Filter>src\utils\base\app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\audio\audio_helper.h">
+      <Filter>src\utils\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\laser_and_bots_launcher.h">
+      <Filter>src\app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\laser_and_bots_app.h">
+      <Filter>src\app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\launcher_scene.h">
+      <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\laser_object.h">
       <Filter>src\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\robot_object.h">
+      <Filter>src\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\game_scene.h">
+      <Filter>src\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

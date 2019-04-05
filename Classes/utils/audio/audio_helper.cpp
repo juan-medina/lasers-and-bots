@@ -18,140 +18,132 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "AudioHelper.h"
+#include "audio_helper.h"
 
 #include "SimpleAudioEngine.h"
 using namespace CocosDenshion;
 
-AudioHelper* AudioHelper::getInstance()
+audio_helper::audio_helper():
+  initiated_(false),
+  music_muted_(false),
+  effects_muted_(false),
+  last_music_("")
 {
-  // create if not create default heper and return it
-  static AudioHelper helper;
-
-  return &helper;
-}
-
-AudioHelper::AudioHelper()
-{
-  // not created yet
-  _inited = false;
-
   // init object
   init();
 }
 
-AudioHelper::~AudioHelper()
+audio_helper::~audio_helper()
 {
   // if we are init we need to end
-  if (_inited)
+  if (initiated_)
   {
     end();
   }
 }
 
-bool AudioHelper::init()
+bool audio_helper::init()
 {
   // get configuration
-  this->setEffectsMuted(UserDefault::getInstance()->getBoolForKey("effectsMuted", false));
-  this->setMusicMuted(UserDefault::getInstance()->getBoolForKey("musicMuted", false));
+  set_effects_muted(UserDefault::getInstance()->getBoolForKey("effects_muted", effects_muted_));
+  set_music_muted(UserDefault::getInstance()->getBoolForKey("music_muted", music_muted_));
 
   // not music played, yet
-  _lastMusic = "";
+  last_music_ = "";
 
   // object is init
-  _inited = true;
+  initiated_ = true;
 
   return true;
 }
 
-void AudioHelper::end()
+void audio_helper::end()
 {
   // end audio engine
   SimpleAudioEngine::end();
 
   // save config values
-  this->saveValues();
+  this->save_values();
 
   // we are not init
-  _inited = false;
+  initiated_ = false;
 }
 
-unsigned int AudioHelper::playEffect(const char* fileName)
+unsigned int audio_helper::play_effect(const char* file_name) const
 {
   // if we are muted exit
-  if (this->getEffectsMuted())
+  if (get_effects_muted())
   {
     return 0;
   }
-  else
-  {
-    // play effect
-    return SimpleAudioEngine::getInstance()->playEffect(fileName);
-  }
+  // play effect
+  return SimpleAudioEngine::getInstance()->playEffect(file_name);
 }
 
-void AudioHelper::playMusic(const char* fileName)
+void audio_helper::play_music(const char* file_name)
 {
   // store music name
-  _lastMusic = std::string(fileName);
+  last_music_ = std::string(file_name);
 
   // if we are muted exit
-  if (this->getMusicMuted())
+  if (this->get_music_muted())
   {
     return;
   }
-  else
-  {
-    // play music
-    SimpleAudioEngine::getInstance()->playBackgroundMusic(_lastMusic.c_str(), true);
-  }
+  // play music
+  SimpleAudioEngine::getInstance()->playBackgroundMusic(last_music_.c_str(), true);
 }
 
-void AudioHelper::preLoadEffect(const char* fileName)
+void audio_helper::pre_load_effect(const char* file_name)
 {
-  // preload effect
-  SimpleAudioEngine::getInstance()->preloadEffect(fileName);
+  // pre-load effect
+  SimpleAudioEngine::getInstance()->preloadEffect(file_name);
 }
 
-void AudioHelper::preLoadMusic(const char* fileName)
+void audio_helper::pre_load_music(const char* file_name)
 {
-  // preload music
-  SimpleAudioEngine::getInstance()->preloadBackgroundMusic(fileName);
+  // pre-load music
+  SimpleAudioEngine::getInstance()->preloadBackgroundMusic(file_name);
 }
 
-void AudioHelper::toggleSound()
+void audio_helper::unload_effect(const char* file_name)
+{
+  SimpleAudioEngine::getInstance()->unloadEffect(file_name);
+}
+
+void audio_helper::toggle_sound()
 {
   // if we are muted
-  if (this->getEffectsMuted())
+  if (this->get_effects_muted())
   {
-    // unmute
-    this->setEffectsMuted(false);
+    // un mute
+    this->set_effects_muted(false);
   }
 
   else
   {
     // stop all effects and set to mute
     SimpleAudioEngine::getInstance()->stopAllEffects();
-    this->setEffectsMuted(true);
+    this->set_effects_muted(true);
   }
 
   // save config values
-  this->saveValues();
+  this->save_values();
 }
 
-void AudioHelper::toggleMusic()
+void audio_helper::toggle_music()
 {
   // if we are mute
-  if (this->getMusicMuted())
+  if (this->get_music_muted())
   {
-    // unmute
-    this->setMusicMuted(false);
+    // un mute
+    this->set_music_muted(false);
 
     // if we have last music
-    if (_lastMusic.length())
+    if (last_music_.length())
     {
       // play again
-      this->playMusic(_lastMusic.c_str());
+      this->play_music(last_music_.c_str());
     }
   }
 
@@ -159,52 +151,47 @@ void AudioHelper::toggleMusic()
   {
     // stop music and mute
     SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-    this->setMusicMuted(true);
+    this->set_music_muted(true);
   }
 
   // save config values
-  this->saveValues();
+  this->save_values();
 }
 
-void AudioHelper::appToBG()
+void audio_helper::app_to_bg() const
 {
   // if we wasn't muted pause music
-  if (!this->getMusicMuted())
+  if (!this->get_music_muted())
   {
     SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
   }
 }
 
-void AudioHelper::appToFG()
+void audio_helper::app_to_fg() const
 {
   // if we wasn't muted resume music
-  if (!this->getMusicMuted())
+  if (!this->get_music_muted())
   {
     SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
   }
 }
 
-void AudioHelper::saveValues()
+void audio_helper::save_values() const
 {
-  // save config vlaues
-  UserDefault::getInstance()->setBoolForKey("effectsMuted", this->getEffectsMuted());
-  UserDefault::getInstance()->setBoolForKey("musicMuted", this->getMusicMuted());
+  // save config values
+  UserDefault::getInstance()->setBoolForKey("effects_muted", effects_muted_);
+  UserDefault::getInstance()->setBoolForKey("music_muted_", music_muted_);
 
   UserDefault::getInstance()->flush();
 }
 
-void AudioHelper::appExit()
+void audio_helper::app_exit()
 {
   this->end();
 }
 
-void AudioHelper::stopAllSounds()
+void audio_helper::stop_all_sounds()
 {
   SimpleAudioEngine::getInstance()->stopAllEffects();
   SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-}
-
-void AudioHelper::unloadEffect(const char* file)
-{
-  SimpleAudioEngine::getInstance()->unloadEffect(file);
 }

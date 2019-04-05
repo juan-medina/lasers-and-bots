@@ -18,26 +18,24 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "Robot.h"
+#include "robot_object.h"
 
-Robot::Robot() :
-  _currentState(eIdle),
-  _toLeft(false),
-  _toRight(false)
+const Vec2 robot_object::normal_movement = Vec2(700.0f, 1200.0f);
+
+robot_object::robot_object() :
+  to_left_(false),
+  to_right_(false),
+  current_state_(e_idle)
 {
 }
 
-Robot::~Robot()
+robot_object* robot_object::create()
 {
-}
-
-Robot* Robot::create()
-{
-  Robot* ret = nullptr;
+  robot_object* ret = nullptr;
 
   do
   {
-    auto object = new Robot();
+    auto object = new robot_object();
     UTILS_BREAK_IF(object == nullptr);
 
     if (object->init())
@@ -45,22 +43,23 @@ Robot* Robot::create()
       object->autorelease();
     }
     else
-    {      
+    {
       delete object;
       object = nullptr;
     }
 
     ret = object;
-  } while (0);
+  }
+  while (false);
 
   // return the object
   return ret;
 }
 
 // on "init" you need to initialize your instance
-bool Robot::init()
+bool robot_object::init()
 {
-  bool ret = false;
+  auto ret = false;
 
   do
   {
@@ -71,18 +70,16 @@ bool Robot::init()
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("robot/robot1.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("robot/robot2.plist");
 
-    UTILS_BREAK_IF(!parent::init("Idle_01.png"));
+    UTILS_BREAK_IF(!base_class::init("Idle_01.png"));
 
     setAnchorPoint(Vec2(0.5f, 0.0f));
 
-    auto botSize = getContentSize();
-    auto width = botSize.width;
-    auto height = botSize.height;
+    auto bot_size = getContentSize();
 
-    botSize.width *= 0.4f;
-    botSize.height *= 0.85f;
+    bot_size.width *= 0.4f;
+    bot_size.height *= 0.85f;
 
-    auto body = PhysicsBody::createBox(botSize, PhysicsMaterial(0.1f, 0.0f, 0.5f));
+    auto body = PhysicsBody::createBox(bot_size, PhysicsMaterial(0.1f, 0.0f, 0.5f));
     UTILS_BREAK_IF(body == nullptr);
 
     body->setDynamic(true);
@@ -91,70 +88,70 @@ bool Robot::init()
     body->setMoment(PHYSICS_INFINITY);
     setPhysicsBody(body);
 
-    UTILS_BREAK_IF(!createAnim("Idle_%02d.png", 10, 0.05f, "idle"));
-    UTILS_BREAK_IF(!createAnim("Run_%02d.png", 8, 0.15f, "run"));
-    UTILS_BREAK_IF(!createAnim("Jump_%02d.png", 10, 0.15f, "jump", 1));
+    UTILS_BREAK_IF(!create_anim("Idle_%02d.png", 10, 0.05f, "idle"));
+    UTILS_BREAK_IF(!create_anim("Run_%02d.png", 8, 0.15f, "run"));
+    UTILS_BREAK_IF(!create_anim("Jump_%02d.png", 10, 0.15f, "jump", 1));
 
-    UTILS_BREAK_IF(!createKeybordListener());
+    UTILS_BREAK_IF(!create_keyboard_listener());
 
-    changeAnim("idle");
+    change_anim("idle");
     ret = true;
-
-  } while (0);
+  }
+  while (false);
 
   return ret;
 }
 
-void Robot::update(float delta)
+void robot_object::update(float delta)
 {
-  auto moveX = ((_toLeft ? 0.0f : 1.0f) - (_toRight ? 0.0f : 1.0f)) * _NormalMovement.x;
-  auto moveY = getPhysicsBody()->getVelocity().y;
+  const auto move_x = ((to_left_ ? 0.0f : 1.0f) - (to_right_ ? 0.0f : 1.0f)) * normal_movement.x;
+  const auto move_y = getPhysicsBody()->getVelocity().y;
 
-  getPhysicsBody()->setVelocity(Vec2(moveX, moveY));
+  getPhysicsBody()->setVelocity(Vec2(move_x, move_y));
 
-  changeState(decideState());
+  change_state(decide_state());
 }
 
-Robot::State Robot::decideState()
+robot_object::state robot_object::decide_state() const
 {
-  auto velocity = getPhysicsBody()->getVelocity();
+  const auto velocity = getPhysicsBody()->getVelocity();
 
-  auto wantedState = _currentState;
+  auto wanted_state = current_state_;
 
-  if (fuzzyEquals(velocity.y, 0.0f) && fuzzyEquals(velocity.x, 0.0f))
+  if (fuzzy_equals(velocity.y, 0.0f) && fuzzy_equals(velocity.x, 0.0f))
   {
-    wantedState = eIdle;
+    wanted_state = e_idle;
   }
   else
   {
     if ((fabs(velocity.y) > 10.0f) || (fabs(velocity.x) > 10.0f))
     {
-      wantedState = eRunning;
+      wanted_state = e_running;
       if (velocity.y > 10.0f)
       {
-        wantedState = eJumping;
+        wanted_state = e_jumping;
       }
     }
   }
 
-  return wantedState;
+  return wanted_state;
 }
 
-void Robot::changeState(Robot::State wantedState)
+void robot_object::change_state(const state wanted_state)
 {
-  if (wantedState != _currentState)
+  if (wanted_state != current_state_)
   {
-    _currentState = wantedState;
-    switch (_currentState)
+    current_state_ = wanted_state;
+    switch (current_state_)
     {
-    case eJumping:
-      changeAnim("jump");
+    case e_jumping:
+      change_anim("jump");
       break;
-    case eIdle:
-      changeAnim("idle");
+    case e_idle:
+      change_anim("idle");
       break;
-    case eRunning:
-      changeAnim("run");
+    case e_running:
+      change_anim("run");
       break;
     default:
       break;
@@ -162,57 +159,59 @@ void Robot::changeState(Robot::State wantedState)
   }
 }
 
-void Robot::toLeft(bool toLeft)
+void robot_object::move_to_left(const bool to_left)
 {
-  if(toLeft)
+  if (to_left)
   {
     setFlippedX(true);
   }
-  
-  _toLeft = toLeft;
+
+  to_left_ = to_left;
 }
 
-void Robot::toRight(bool toRight)
+void robot_object::move_to_right(const bool to_right)
 {
-  if (toRight)
+  if (to_right)
   {
     setFlippedX(false);
   }
-  
-  _toRight = toRight;
+
+  to_right_ = to_right;
 }
 
-void Robot::jump()
+void robot_object::jump() const
 {
-  auto y = getPhysicsBody()->getVelocity().y;
-  if (fuzzyEquals(y, 0.0f)) {
-    getPhysicsBody()->applyImpulse(Vec2(0.0f, _NormalMovement.y));
+  const auto y = getPhysicsBody()->getVelocity().y;
+  if (fuzzy_equals(y, 0.0f))
+  {
+    getPhysicsBody()->applyImpulse(Vec2(0.0f, normal_movement.y));
   }
 }
 
-bool Robot::createKeybordListener()
+bool robot_object::create_keyboard_listener()
 {
-  bool result = false;
+  auto result = false;
 
   do
   {
     auto listener = EventListenerKeyboard::create();
     UTILS_BREAK_IF(listener == nullptr);
 
-    listener->onKeyPressed = CC_CALLBACK_2(Robot::onKeyPressed, this);
-    listener->onKeyReleased = CC_CALLBACK_2(Robot::onKeyReleased, this);
+    listener->onKeyPressed = CC_CALLBACK_2(robot_object::on_key_pressed, this);
+    listener->onKeyReleased = CC_CALLBACK_2(robot_object::on_key_released, this);
 
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
     result = true;
-  } while (0);
+  }
+  while (false);
 
   return result;
 }
 
-void Robot::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
+void robot_object::on_key_pressed(const EventKeyboard::KeyCode key_code, Event*)
 {
-  switch (keyCode)
+  switch (key_code)
   {
   case EventKeyboard::KeyCode::KEY_UP_ARROW:
   case EventKeyboard::KeyCode::KEY_W:
@@ -220,28 +219,28 @@ void Robot::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
     break;
   case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
   case EventKeyboard::KeyCode::KEY_A:
-    toLeft(true);
+    move_to_left(true);
     break;
   case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
   case EventKeyboard::KeyCode::KEY_D:
-    toRight(true);;
+    move_to_right(true);;
     break;
   default:
     break;
   }
 }
 
-void Robot::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
+void robot_object::on_key_released(const EventKeyboard::KeyCode key_code, Event*)
 {
-  switch (keyCode)
+  switch (key_code)
   {
   case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
   case EventKeyboard::KeyCode::KEY_A:
-    toLeft(false);
+    move_to_left(false);
     break;
   case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
   case EventKeyboard::KeyCode::KEY_D:
-    toRight(false);
+    move_to_right(false);
     break;
   default:
     break;

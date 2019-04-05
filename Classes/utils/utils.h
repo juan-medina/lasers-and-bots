@@ -24,14 +24,14 @@
 // include cocos2d headers
 #include "cocos2d.h"
 
-// usign cocos2d namespace
+// using cocos2d namespace
 USING_NS_CC;
 using namespace std;
 
-// log a line with the format <class::function> : <data to be loged> -> <file>(<line number>)
+// log a line with the format <class::function> : <data to be logged> -> <file>(<line number>)
 #define UTILS_LOG(s, ...) CCLOG(string(string("%s : ") + string(s) + string(" -> %s (%d)")).c_str(), __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__)
 
-// Replace for CC_BREAK_IF that logs when condintion is true
+// Replace for CC_BREAK_IF that logs when condition is true
 #define UTILS_BREAK_IF(cond)            \
     if (cond)                           \
     {                                   \
@@ -39,18 +39,6 @@ using namespace std;
         break;                          \
     }
 
-// subtract color2 from color 1
-#define COLORS3_SUB(color1, color2) Color3B(color1.r - color2.r, color1.g - color2.g, color1.b - color2.b)
-
-// add color 2 to color 1
-#define COLORS3_ADD(color1, color2) Color3B(color1.r + color2.r, color1.g + color2.g, color1.b + color2.b)
-
-// multiplies color components by a factor
-#define COLORS3_MUL(color, factor) Color3B(color.r* factor, color.g* factor, color.b* factor)
-
-// interpolate two colors by a factor
-#define COLORS3_INTERPOLATE(color1, color2, factor) Color3B(color1.r + (color2.r - color1.r) * factor, color1.g + (color2.g - color1.g) * factor, color1.b + (color2.b - color1.b) * factor)
-
-std::string string_format(const std::string fmt_str, ...);
+std::string string_format(std::string fmt_str, ...);
 
 #endif // __UTILS_H__

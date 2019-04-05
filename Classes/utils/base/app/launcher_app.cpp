@@ -18,51 +18,46 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "LauncherApp.h"
+#include "launcher_app.h"
 
-LauncherApp::LauncherApp(const char* applicationName, float width, float height)
-  : parent(applicationName), _wantToPlay(false)
+launcher_app::launcher_app(const std::string application_name, const float width, const float height):
+  base_class(application_name),
+  want_to_play_(false)
 {
-  _screenSize = cocos2d::Size(width, height);
-  _designResolution = cocos2d::Size(width, height);
+  screen_size_ = Size(width, height);
+  design_resolution_ = Size(width, height);
+  screen_size_ = Size(width, height);
 }
 
-LauncherApp::~LauncherApp()
+bool launcher_app::applicationDidFinishLaunching()
 {
-}
-
-bool LauncherApp::applicationDidFinishLaunching()
-{
-
-  bool ret = false;
+  auto ret = false;
 
   do
   {
-    // init vars
-
     // initialize director
     auto director = Director::getInstance();
-    auto glview = director->getOpenGLView();
+    auto open_gl_view = director->getOpenGLView();
 
-    if (!glview)
+    if (!open_gl_view)
     {
+      open_gl_view = GLViewImpl::createWithRect(name_, Rect(0, 0, screen_size_.width, screen_size_.height));
 
-      glview = GLViewImpl::createWithRect(_name, Rect(0, 0, _screenSize.width, _screenSize.height));
-
-      director->setOpenGLView(glview);
+      director->setOpenGLView(open_gl_view);
     }
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-    this->CenterWin32Window();
+    center_win32_window();
 #endif
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0f / 60.0f);
 
-    glview->setDesignResolutionSize(_designResolution.width, _designResolution.height, ResolutionPolicy::FIXED_WIDTH);
+    open_gl_view->setDesignResolutionSize(design_resolution_.width, design_resolution_.height,
+                                          ResolutionPolicy::FIXED_WIDTH);
 
     // create a scene. it's an autorelease object
-    auto scene = this->initScene();
+    const auto scene = this->init_scene();
 
     UTILS_BREAK_IF(scene == nullptr);
 
@@ -70,7 +65,8 @@ bool LauncherApp::applicationDidFinishLaunching()
     director->runWithScene(scene);
 
     ret = true;
-  } while (0);
+  }
+  while (false);
 
   return ret;
 }

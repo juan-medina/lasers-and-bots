@@ -21,23 +21,20 @@
 #ifndef _APP_DELEGATE_H_
 #define _APP_DELEGATE_H_
 
-#include "utils/base/app/BasicApp.h"
+#include "utils/base/app/basic_app.h"
 
 // this game application
-class AppDelegate : private BasicApp
+class laser_and_bots_app final : basic_app
 {
 public:
-  // parent
-  typedef BasicApp parent;
+  // base_class
+  using base_class = basic_app;
 
   // constructor
-  AppDelegate();
-
-  // destructor
-  virtual ~AppDelegate();
+  laser_and_bots_app();
 
   // init this scene
-  Scene* initScene();
+  Scene* init_scene() override;
 };
 
 #endif // _APP_DELEGATE_H_

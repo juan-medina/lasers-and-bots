@@ -18,25 +18,23 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __BASIC_SCENE_H__
-#define __BASIC_SCENE_H__
+#ifndef __LAUNCHER_H__
+#define __LAUNCHER_H__
 
-#include "../../utils.h"
+#include "utils/base/app/launcher_app.h"
 
-class BasicScene : public Scene
+// this game laser_and_bots_launcher
+class laser_and_bots_launcher final : public launcher_app
 {
 public:
-  // parent
-  typedef Scene parent;
+  // base_class
+  using base_class = launcher_app;
 
-  // create the scene
-  static Scene* createScene();
+  // constructor
+  laser_and_bots_launcher();
 
   // init this scene
-  virtual bool init();
-
-  // store the screen size
-  CC_SYNTHESIZE_READONLY(Size, _screenSize, ScreenSize);
+  Scene* init_scene() override;
 };
 
-#endif // __BASIC_SCENE_H__
+#endif // __LAUNCHER_H__

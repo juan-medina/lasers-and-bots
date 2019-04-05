@@ -18,52 +18,39 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __BASIC_APP_H__
-#define __BASIC_APP_H__
+#ifndef __TILED_SCENE_H__
+#define __TILED_SCENE_H__
 
-#include "../../utils.h"
+#include "grid_scene.h"
 
-// application base class
-class BasicApp : Application
+class tiled_scene : public grid_scene
 {
 public:
-  // parent
-  typedef Layer parent;
+  // base_class
+  using base_class = grid_scene;
 
-  // constructor
-  BasicApp(const char* applicationName);
+  tiled_scene()
+    : tiled_map_(nullptr)
+  {
+  }
 
-  // destructor
-  ~BasicApp();
+  // create with a tmx file
+  static tiled_scene* create(const std::string& tmx_file);
 
-  virtual void initGLContextAttrs();
+  // create the scene
+  static Scene* scene(const std::string& tmx_file);
 
-  // Implement Director and Scene init code here.
-  virtual bool applicationDidFinishLaunching();
+  // init the scene
+  bool init(const std::string& tmx_file);
 
-  // The application enter in background
-  virtual void applicationDidEnterBackground();
-
-  // the application enter foreground
-  virtual void applicationWillEnterForeground();
-
-  // init our scene
-  virtual Scene* initScene() = 0;
-
-  // scene name
-  CC_SYNTHESIZE_READONLY(string, _name, Name);
+  virtual experimental::TMXTiledMap* get_tiled_map() const noexcept
+  {
+    return tiled_map_;
+  };
 
 protected:
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-  // center on screen in windows 32 client
-  void CenterWin32Window();
-#endif
-
-  // our design resolution
-  cocos2d::Size _designResolution;
-
-  // our screen size
-  cocos2d::Size _screenSize;
+  //our title map
+  experimental::TMXTiledMap* tiled_map_;
 };
 
-#endif // __BASIC_APP_H__
+#endif // __TILED_SCENE_H__

@@ -18,19 +18,59 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "AppDelegate.h"
-#include "scenes/MainScene.h"
+#ifndef __BASIC_APP_H__
+#define __BASIC_APP_H__
 
-AppDelegate::AppDelegate()
-  : parent("Lasers and Bots")
-{
-}
+#include "../../utils.h"
 
-AppDelegate::~AppDelegate()
+// application base class
+class basic_app : Application
 {
-}
+public:
+  // base_class
+  using base_class = Layer;
 
-Scene* AppDelegate::initScene()
-{
-  return MainScene::scene();
-}
+  // constructor
+  explicit basic_app(std::string application_name);
+
+  // destructor
+  ~basic_app();
+
+  // init OpenGL attributes
+  void initGLContextAttrs() override;
+
+  // Implement Director and Scene init code here.
+  bool applicationDidFinishLaunching() override;
+
+  // The application enter in background
+  void applicationDidEnterBackground() override;
+
+  // the application enter foreground
+  void applicationWillEnterForeground() override;
+
+  // init our scene
+  virtual Scene* init_scene() = 0;
+
+  virtual string get_name() const
+  {
+    return name_;
+  };
+
+protected:
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+  // center on screen in windows 32 client
+  static void center_win32_window();
+#endif
+
+  // our design resolution
+  Size design_resolution_;
+
+  // our screen size
+  Size screen_size_;
+
+  // scene name
+protected:
+  string name_;
+};
+
+#endif // __BASIC_APP_H__

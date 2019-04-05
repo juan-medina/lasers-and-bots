@@ -18,19 +18,15 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "Launcher.h"
-#include "scenes/LauncherScene.h"
+#include "launcher.h"
+#include "scenes/launcher_scene.h"
 
-Launcher::Launcher()
-  : parent("Lasers and Bots : Launcher", 500, 450)
+laser_and_bots_launcher::laser_and_bots_launcher():
+  base_class("Lasers and Bots : Launcher", 500, 450)
 {
 }
 
-Launcher::~Launcher()
+Scene* laser_and_bots_launcher::init_scene()
 {
-}
-
-Scene* Launcher::initScene()
-{
-  return LauncherScene::scene();
+  return launcher_scene::scene();
 }

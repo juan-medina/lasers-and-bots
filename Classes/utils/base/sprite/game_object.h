@@ -17,37 +17,52 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-
-#ifndef __BASE_BUTTON_H__
-#define __BASE_BUTTON_H__
+#ifndef __GAME_OBJECT__
+#define __GAME_OBJECT__
 
 #include "../../utils.h"
 
-class BaseButton : public MenuItemLabel
+class game_object : public Sprite
 {
 public:
-  // parent
-  typedef MenuItemLabel parent;
+  // base_class
+  using base_class = Sprite;
 
   // constructor
-  BaseButton();
-
-  // destructor
-  ~BaseButton();
-
-  // create the object
-  static BaseButton* create(Sprite* sprite, const ccMenuCallback& selector);
+  game_object() :
+    animation_(nullptr)
+  {
+  }
 
   // create the object
-  static BaseButton* createWithSpriteFrameName(const string& spriteFrameName, const ccMenuCallback& selector);
+  static game_object* create(const std::string& sprite_frame_name);
 
   // init this object
-  virtual bool init(Sprite* sprite, const ccMenuCallback& selector);
+  virtual bool init(const std::string& sprite_frame_name);
 
-  // enable / disable button
-  virtual void setEnabled(bool value);
+protected:
+
+  // helper for fuzzy equals
+  static constexpr bool fuzzy_equals(const float a, const float b, const float var = fuzzy_range) noexcept
+  {
+    return a - var <= b && b <= a + var;
+  }
+
+
+  // create a animation
+  static bool create_anim(const char* pattern, int max_frame, float speed, const char* name,
+                          unsigned int loops = infinite_loops);
+
+  // change animation
+  void change_anim(const std::string& name);
 
 private:
+
+  static constexpr int infinite_loops = -1;
+  static constexpr float fuzzy_range = 5.f;
+
+  // our current animation
+  Action* animation_;
 };
 
-#endif //__BASE_BUTTON_H__
+#endif // __GAME_OBJECT__

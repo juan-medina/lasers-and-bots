@@ -17,64 +17,61 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
+#ifndef _MAIN_SCENE__
+#define _MAIN_SCENE__
 
-#ifndef __LAUNCHER_SCENE_H__
-#define __LAUNCHER_SCENE_H__
+#include "../utils/utils.h"
+#include "../utils/base/scene/tiled_scene.h"
 
-#include "../utils/base/scene/BasicScene.h"
+//foward declarations
+class robot_object;
 
-class LauncherScene : public BasicScene
+class game_scene final : public tiled_scene
 {
 public:
-  // parent
-  typedef BasicScene parent;
+  // base_class
+  using base_class = tiled_scene;
 
-  // create object
-  static LauncherScene* create();
+  // constructor
+  game_scene();
+
+  // create the object
+  static game_scene* create();
 
   // create the scene
   static Scene* scene();
 
-  bool init();
-
-  void play(Ref* sender);
-
-  void screenModeClick(Ref* sender);
-
-  void resolutionClick(Ref* sender);
-
-  void effectsMutedClick(Ref* sender);
-
-  void musicMutedClick(Ref* sender);
-  
-  void debugGridClick(Ref* sender);
-
-  void debugPhysicsClick(Ref* sender);
+  // init this object
+  bool init() override;
 
 private:
-  void updateLabels();
 
-  bool _fullScreen;
-  Label* _screenModeLabel;
+  // update our game
+  void update(float delta) override;
 
-  int _screenWidth;
-  int _screenHeight;
-  Label* _resolutionLabel;
+  // move the camera following the robot clamping on the map
+  void update_camera() const;
 
-  bool _debugGrid;
-  Label* _debugGridLabel;
+  //our robot
+  robot_object* robot_;
 
-  bool _debugPhysics;
-  Label* _debugPhysicsLabel;
+  // init physics
+  void init_physics() const;
 
-  bool _effectsMuted;
-  Label* _effectsMutedLabel;
+  // create robot
+  bool add_robot();
 
-  bool _musicMuted;
-  Label* _musicMutedLabel;
+  // add physics to our game
+  bool add_physics_to_map() const;
 
-  void loadSettings();
-  void saveSettings();
+  // add a body to sprites
+  static bool add_body_to_sprite(Sprite* sprite);
+
+  // our game gravity
+  static constexpr float gravity = -1000.0f;
+
+  // add a laser in the center of a giving block
+  bool add_laser_at_block(int col, int row);
 };
 
-#endif // __LAUNCHER_SCENE_H__
+#endif // _MAIN_SCENE__

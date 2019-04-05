@@ -17,52 +17,76 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-
-#ifndef __LASER_CLASS__
-#define __LASER_CLASS__
+#ifndef __ROBOT_CLASS__
+#define __ROBOT_CLASS__
 
 #include "../utils/utils.h"
+#include "../utils/base/sprite/game_object.h"
 
-class Laser : public Node
+class robot_object final : public game_object
 {
 public:
-  // parent
-  typedef Node parent;
+  // base_class
+  using base_class = game_object;
 
   // constructor
-  Laser();
-
-  // destructor
-  ~Laser();
+  robot_object();
 
   // create the object
-  static Laser* create();
+  static robot_object* create();
 
   // init this object
-  virtual bool init();
+  bool init() override;
 
-  // update our laser
-  virtual void update(float delta);
-
-protected:
+  // update our robot
+  void update(float delta) override;
 
 private:
 
-  // create a emiter
-  void createEmitter(const Vec2 point);
+  // robot states
+  enum state
+  {
+    e_falling,
+    e_jumping,
+    e_idle,
+    e_running
+  };
 
-  // laser angle
-  float _angle;
+  // we need to move to the left
+  void move_to_left(bool to_left);
 
-  // laser draw node
-  DrawNode* _draw;
+  // we need to move to the right
+  void move_to_right(bool to_right);
 
-  // the physics world
-  PhysicsWorld* _physicsWorld;
+  // we jump
+  void jump() const;
 
-  // maximum laser length
-  const float _maxLaserLength = 10000.0f;
+  //we like to move to left
+  bool to_left_;
 
+  //we like to move to right
+  bool to_right_;
+
+  // our normal movement
+  static const Vec2 normal_movement;
+
+  // our current state
+  state current_state_;
+
+  // calculate our state
+  state decide_state() const;
+
+  // change our state
+  void change_state(state wanted_state);
+
+  // create a keyboard listener
+  bool create_keyboard_listener();
+
+  // on key press
+  void on_key_pressed(EventKeyboard::KeyCode key_code, Event* event);
+
+  // on key released
+  void on_key_released(EventKeyboard::KeyCode key_code, Event* event);
 };
 
-#endif // __LASER_CLASS__
+#endif // __ROBOT_CLASS__

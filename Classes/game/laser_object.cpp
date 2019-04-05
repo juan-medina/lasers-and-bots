@@ -18,26 +18,22 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "Laser.h"
+#include "laser_object.h"
 
-Laser::Laser() :
-  _angle(0.0f),
-  _draw(nullptr),
-  _physicsWorld(nullptr)
+laser_object::laser_object() :
+  angle_(0.0f),
+  draw_(nullptr),
+  physics_world_(nullptr)
 {
 }
 
-Laser::~Laser()
+laser_object* laser_object::create()
 {
-}
-
-Laser* Laser::create()
-{
-  Laser* ret = nullptr;
+  laser_object* ret = nullptr;
 
   do
   {
-    auto object = new Laser();
+    auto object = new laser_object();
     UTILS_BREAK_IF(object == nullptr);
 
     if (object->init())
@@ -51,98 +47,99 @@ Laser* Laser::create()
     }
 
     ret = object;
-  } while (0);
+  }
+  while (false);
 
   // return the object
   return ret;
 }
 
 // on "init" you need to initialize your instance
-bool Laser::init()
+bool laser_object::init()
 {
-  bool ret = false;
+  auto ret = false;
 
   do
   {
     //////////////////////////////
     // 1. super init first
-    UTILS_BREAK_IF(!parent::init());
+    UTILS_BREAK_IF(!base_class::init());
 
-    _draw = DrawNode::create();
-    UTILS_BREAK_IF(_draw == nullptr);
+    draw_ = DrawNode::create();
+    UTILS_BREAK_IF(draw_ == nullptr);
 
-    _draw->setOpacity(180);
+    draw_->setOpacity(180);
 
-    addChild(_draw);
+    addChild(draw_);
 
     scheduleUpdate();
 
     ret = true;
-
-  } while (0);
+  }
+  while (false);
 
   return ret;
 }
 
-void Laser::update(float delta)
+void laser_object::update(float delta)
 {
   // get the physicsWorld
-  if (_physicsWorld == nullptr)
+  if (physics_world_ == nullptr)
   {
-    _physicsWorld = Director::getInstance()->getRunningScene()->getPhysicsWorld();
+    physics_world_ = Director::getInstance()->getRunningScene()->getPhysicsWorld();
   }
 
   // clear our laser
-  _draw->clear();
+  draw_->clear();
 
   // we star where the laser is
-  const auto originPoint = Vec2::ZERO;
-  auto originInPointInWorld = convertToWorldSpace(originPoint);
+  const auto origin_point = Vec2::ZERO;
+  auto origin_in_point_in_world = convertToWorldSpace(origin_point);
 
   // calculate distance base on the angle
-  auto distance = Vec2(_maxLaserLength * cosf(_angle), _maxLaserLength * sinf(_angle));
+  const auto distance = Vec2(max_laser_length * cosf(angle_), max_laser_length * sinf(angle_));
 
   // where the laser will reach
-  auto destinationPointInWorld = originInPointInWorld + distance;
+  const auto destination_point_in_world = origin_in_point_in_world + distance;
 
   // final point of the laser
-  auto finalPointInWorld = destinationPointInWorld;
+  auto final_point_in_world = destination_point_in_world;
 
-  // lambda that check all bodys that the laser touch and save the one closer to the origin
-  PhysicsRayCastCallbackFunc intersectCloserBodyFunc = [originInPointInWorld, &finalPointInWorld]
-  (PhysicsWorld& /*world*/, const PhysicsRayCastInfo& info, void* /*data*/)->bool
+  // lambda that check all bodies that the laser touch and save the one closer to the origin
+  const PhysicsRayCastCallbackFunc intersect_closer_body_func = [origin_in_point_in_world, &final_point_in_world]
+  (PhysicsWorld& /*world*/, const PhysicsRayCastInfo& info, void* /*data*/)-> bool
   {
-    auto origin = Point(originInPointInWorld);
-    auto newPoint = Point(info.contact);
-    auto savedPoint = Point(finalPointInWorld);
-    if (origin.distance(newPoint) < origin.distance(savedPoint))
+    auto origin = Point(origin_in_point_in_world);
+    const auto new_point = Point(info.contact);
+    const auto saved_point = Point(final_point_in_world);
+    if (origin.distance(new_point) < origin.distance(saved_point))
     {
-      finalPointInWorld = info.contact;
+      final_point_in_world = info.contact;
     }
     // we need to check all bodies that touch so return true to continue
     return true;
   };
 
   // do the ray cast
-  _physicsWorld->rayCast(intersectCloserBodyFunc, originInPointInWorld, destinationPointInWorld, nullptr);
-  
-  // conver the point into node space and draw it
-  auto finalPoint = convertToNodeSpace(finalPointInWorld);
-  _draw->drawSegment(originPoint, finalPoint, 2, Color4F::RED);
+  physics_world_->rayCast(intersect_closer_body_func, origin_in_point_in_world, destination_point_in_world, nullptr);
 
-  // if we have actually hit something draw a dot and create an emiter
-  if ((finalPointInWorld.x != destinationPointInWorld.x) & (finalPointInWorld.y != destinationPointInWorld.y))
+  // convert the point into node space and draw it
+  const auto final_point = convertToNodeSpace(final_point_in_world);
+  draw_->drawSegment(origin_point, final_point, 2, Color4F::RED);
+
+  // if we have actually hit something draw a dot and create an emitter
+  if ((final_point_in_world.x != destination_point_in_world.x) & (final_point_in_world.y != destination_point_in_world.y
+  ))
   {
-    _draw->drawDot(finalPoint, 10, Color4F::RED);
-    createEmitter(finalPoint);
+    draw_->drawDot(final_point, 10, Color4F::RED);
+    create_emitter(final_point);
   }
 
   // rotate the laser angle
-  _angle += 0.25f * (float)M_PI / 180.0f;
-
+  angle_ += 0.25f * static_cast<float>(M_PI) / 180.0f;
 }
 
-void Laser::createEmitter(const Vec2 point)
+void laser_object::create_emitter(const Vec2& point)
 {
   auto emitter = ParticleFire::create();
   emitter->setDuration(1);
@@ -152,7 +149,7 @@ void Laser::createEmitter(const Vec2 point)
   emitter->setOpacity(127);
   emitter->setPosition(point);
   emitter->setEmissionRate(10);
-  emitter->setGravity(_physicsWorld->getGravity());
+  emitter->setGravity(physics_world_->getGravity());
   emitter->setAutoRemoveOnFinish(true);
   addChild(emitter);
 }

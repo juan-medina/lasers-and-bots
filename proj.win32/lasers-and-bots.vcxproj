@@ -149,40 +149,36 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Classes\AppDelegate.cpp" />
-    <ClCompile Include="..\Classes\game\Laser.cpp" />
-    <ClCompile Include="..\Classes\game\Robot.cpp" />
-    <ClCompile Include="..\Classes\Launcher.cpp" />
-    <ClCompile Include="..\Classes\scenes\LauncherScene.cpp" />
-    <ClCompile Include="..\Classes\scenes\MainScene.cpp" />
-    <ClCompile Include="..\Classes\utils\audio\AudioHelper.cpp" />
-    <ClCompile Include="..\Classes\utils\base\app\BasicApp.cpp" />
-    <ClCompile Include="..\Classes\utils\base\app\LauncherApp.cpp" />
-    <ClCompile Include="..\Classes\utils\base\scene\BasicScene.cpp" />
-    <ClCompile Include="..\Classes\utils\base\scene\GridScene.cpp" />
-    <ClCompile Include="..\Classes\utils\base\scene\TiledScene.cpp" />
-    <ClCompile Include="..\Classes\utils\base\sprite\GameObject.cpp" />
-    <ClCompile Include="..\Classes\utils\base\ui\BaseButton.cpp" />
-    <ClCompile Include="..\Classes\utils\base\ui\TextButton.cpp" />
+    <ClCompile Include="..\Classes\laser_and_bots_app.cpp" />
+    <ClCompile Include="..\Classes\game\laser_object.cpp" />
+    <ClCompile Include="..\Classes\game\robot_object.cpp" />
+    <ClCompile Include="..\Classes\laser_and_bots_launcher.cpp" />
+    <ClCompile Include="..\Classes\scenes\launcher_scene.cpp" />
+    <ClCompile Include="..\Classes\scenes\game_scene.cpp" />
+    <ClCompile Include="..\Classes\utils\audio\audio_helper.cpp" />
+    <ClCompile Include="..\Classes\utils\base\app\basic_app.cpp" />
+    <ClCompile Include="..\Classes\utils\base\app\launcher_app.cpp" />
+    <ClCompile Include="..\Classes\utils\base\scene\basic_scene.cpp" />
+    <ClCompile Include="..\Classes\utils\base\scene\grid_scene.cpp" />
+    <ClCompile Include="..\Classes\utils\base\scene\tiled_scene.cpp" />
+    <ClCompile Include="..\Classes\utils\base\sprite\game_object.cpp" />
     <ClCompile Include="..\Classes\utils\utils.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Classes\AppDelegate.h" />
-    <ClInclude Include="..\Classes\game\Laser.h" />
-    <ClInclude Include="..\Classes\game\Robot.h" />
-    <ClInclude Include="..\Classes\Launcher.h" />
-    <ClInclude Include="..\Classes\scenes\LauncherScene.h" />
-    <ClInclude Include="..\Classes\scenes\MainScene.h" />
-    <ClInclude Include="..\Classes\utils\audio\AudioHelper.h" />
-    <ClInclude Include="..\Classes\utils\base\app\BasicApp.h" />
-    <ClInclude Include="..\Classes\utils\base\app\LauncherApp.h" />
-    <ClInclude Include="..\Classes\utils\base\scene\BasicScene.h" />
-    <ClInclude Include="..\Classes\utils\base\scene\GridScene.h" />
-    <ClInclude Include="..\Classes\utils\base\scene\TiledScene.h" />
-    <ClInclude Include="..\Classes\utils\base\sprite\GameObject.h" />
-    <ClInclude Include="..\Classes\utils\base\ui\BaseButton.h" />
-    <ClInclude Include="..\Classes\utils\base\ui\TextButton.h" />
+    <ClInclude Include="..\Classes\laser_and_bots_app.h" />
+    <ClInclude Include="..\Classes\game\laser_object.h" />
+    <ClInclude Include="..\Classes\game\robot_object.h" />
+    <ClInclude Include="..\Classes\laser_and_bots_launcher.h" />
+    <ClInclude Include="..\Classes\scenes\launcher_scene.h" />
+    <ClInclude Include="..\Classes\scenes\game_scene.h" />
+    <ClInclude Include="..\Classes\utils\audio\audio_helper.h" />
+    <ClInclude Include="..\Classes\utils\base\app\basic_app.h" />
+    <ClInclude Include="..\Classes\utils\base\app\launcher_app.h" />
+    <ClInclude Include="..\Classes\utils\base\scene\basic_scene.h" />
+    <ClInclude Include="..\Classes\utils\base\scene\grid_scene.h" />
+    <ClInclude Include="..\Classes\utils\base\scene\tiled_scene.h" />
+    <ClInclude Include="..\Classes\utils\base\sprite\game_object.h" />
     <ClInclude Include="..\Classes\utils\utils.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
