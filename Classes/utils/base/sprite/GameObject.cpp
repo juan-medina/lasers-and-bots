@@ -72,7 +72,6 @@ bool GameObject::createAnim(const char* pattern, const int maxFrame, const float
       auto frame = cache->getSpriteFrameByName(name);
       UTILS_BREAK_IF(frame == nullptr);
 
-      frame->setAnchorPoint(Vec2(0.5f, 0.0f));
       frames.pushBack(frame);
       loaded++;
     }
