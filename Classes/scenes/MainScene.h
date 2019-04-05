@@ -49,26 +49,40 @@ protected:
 
 private:
 
+  // update our game
   virtual void update(float delta);
 
+  // move the camera following the robot clamping on the map
+  void updateCamera();
+
+  //our robot
   Robot *_robot;
 
+  // init physics
   void initPhysics();
 
+  // create robot
   bool createBot();
 
+  // add physics to our game
   bool addPhysicsToMap();
 
+  // add a body to sprites
   bool addBodyToSprite(Sprite* sprite);
 
+  // create a emiter
   void createEmitter(Vec2 point);
 
+  // laser angle
   float _angle;
 
+  // laser draw node
   DrawNode* _draw;
 
+  // our game gravity
   const float _Gravity = -1000.0f;
-};
+  
+ };
 
 #endif // _MAIN_SCENE__
 

@@ -5,7 +5,7 @@
  </tileset>
  <layer name="back" width="40" height="20">
   <data encoding="base64" compression="zlib">
-   eJztzrEJACAQBLBr1N9/Yl3AUngwRfpUkuIb45gNHjerwQEAgHc2SOwY+w==
+   eJztzikOADAMA0FLTY//v7gBpWWJZLBgZMMNSZHGW7d/UGqmZdDxsw0aAAAA0OcCCsQYTg==
   </data>
  </layer>
  <layer name="walkback" width="40" height="20">
@@ -15,7 +15,7 @@
  </layer>
  <layer name="walk" width="40" height="20">
   <data encoding="base64" compression="zlib">
-   eJztkN0KgCAMRq1rg7Lf93/SJmxQwSBwtiU7cC5Upt9nCI7jtMgIJnCqPCOJ5vva3TX5uruVv7aSQ4I3XVrqW8qf/6JG9gFcBO+TZgV3sEOt5aV8PUprgsub92fmrJTr3QeTL6LPdcT5PLeFexcpTmgBBKA=
+   eJztkEsKgDAMBaPrCv7t/U9qignE4ieLVqHNwCwiKM8BMGqkR0d0+HtIYVhXPdZKh3VKz1NT650HTVdrf/DWocZOHTqjDcm3JL6/ZEE3tCX5ZsJef/FeeD5Bnu3y2/5mnyPj24nNK5z/JRU70CcEWQ==
   </data>
  </layer>
 </map>

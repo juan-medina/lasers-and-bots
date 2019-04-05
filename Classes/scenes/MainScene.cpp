@@ -136,13 +136,7 @@ void MainScene::update(float delta)
 
   _angle += 0.25f * (float)M_PI / 180.0f;
 
-  // calculate the maximum position that we could move  
-  auto minPos = Vec2(_screenSize.width / 2, _screenSize.height / 2);
-  auto maxPos = Vec2(_totalSize.width - minPos.x, _totalSize.height - minPos.y);
-
-  // move the camara to the clamped position
-  auto finalPos = _robot->getPosition().getClampPoint(minPos, maxPos);
-  this->getDefaultCamera()->setPosition(finalPos);
+  updateCamera();
 }
 
 void MainScene::initPhysics()
@@ -157,6 +151,7 @@ void MainScene::initPhysics()
   }
   
   getPhysicsWorld()->setGravity(Vec2(0.0f, _Gravity));
+  getPhysicsWorld()->setSubsteps(4);
 }
 
 bool MainScene::createBot()
@@ -244,4 +239,16 @@ void MainScene::createEmitter(Vec2 point)
   emitter->setGravity(this->getPhysicsWorld()->getGravity());
   emitter->setAutoRemoveOnFinish(true);
   addChild(emitter);
+}
+
+// move the camera following the robot clamping on the map
+void MainScene::updateCamera()
+{
+  // calculate the maximum position that we could move  
+  auto minPos = Vec2(_screenSize.width / 2, _screenSize.height / 2);
+  auto maxPos = Vec2(_totalSize.width - minPos.x, _totalSize.height - minPos.y);
+
+  // move the camara to the clamped position
+  auto finalPos = _robot->getPosition().getClampPoint(minPos, maxPos);
+  this->getDefaultCamera()->setPosition(finalPos);
 }
