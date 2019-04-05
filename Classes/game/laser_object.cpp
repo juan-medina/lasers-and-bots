@@ -136,7 +136,7 @@ void laser_object::update(float delta)
   }
 
   // rotate the laser angle
-  angle_ += 0.25f * static_cast<float>(M_PI) / 180.0f;
+  angle_ += (10.f * static_cast<float>(M_PI) / 180.0f) * delta;
 }
 
 void laser_object::create_emitter(const Vec2& point)
