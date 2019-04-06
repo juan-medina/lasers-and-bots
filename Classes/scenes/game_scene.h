@@ -62,19 +62,32 @@ private:
   bool add_robot();
 
   // add physics to our game
-  bool add_physics_to_map() const;
+  bool add_physics_to_map();
+
+  // get the shape string from a tile
+  string get_shape_from_tile_gid(const int gid);
+
+  // add a body to sprites
+  bool add_body_to_sprite(Sprite* sprite, const string& shape);
+
+  // get a physics body from a shape
+  PhysicsBody* get_body_from_shape(const string& shape, const PhysicsMaterial& material,
+                                   const float scale_x, const float scale_y);
 
   // add lasers to the game
   bool add_lasers_to_game();
-
-  // add a body to sprites
-  static bool add_body_to_sprite(Sprite* sprite);
 
   // our game gravity
   static constexpr float gravity = -1000.0f;
 
   // add a laser in a sprite
   bool add_laser_at_sprite(Sprite* sprite);
+
+  // gid shapes cache type
+  using gid_shape_cache = std::map<int, string>;
+
+  // gid shapes cache
+  gid_shape_cache gid_to_shapes_;
 };
 
 #endif // _MAIN_SCENE__

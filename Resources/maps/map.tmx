@@ -6,6 +6,71 @@
  </properties>
  <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256" tilecount="36" columns="9">
   <image source="tilesheet.png" width="2304" height="1024"/>
+  <tile id="0">
+   <properties>
+    <property name="shape" value="002_Acid"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="shape" value="014_Spike"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="shape" value="015_Tile"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="shape" value="017_Tile"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="shape" value="018_Tile"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="shape" value="020_Tile"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="shape" value="023_Tile"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="shape" value="024_Tile"/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="shape" value="025_Tile"/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="shape" value="026_Tile"/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="shape" value="027_Tile"/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="shape" value="028_Tile"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="shape" value="029_Tile"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="back" width="40" height="20">
   <data encoding="base64" compression="zlib">
@@ -19,7 +84,7 @@
  </layer>
  <layer name="walk" width="40" height="20">
   <data encoding="base64" compression="zlib">
-   eJztlVsKgCAQRa0F2FN67n+dzYADkxRhZNOQB86HH8rNqZsxmYx+ZnAB15xDFRVYg410EAZlQh3Ygb1ooj0DOAZOD5x759394vw4rYmf35vfMM2S5qetP2Lyans2Sa7u6o93iV2DPVN4ac2R7CHsGuyZ0ktrAvO6g30pO5Sf7U7yWW+4tixzqn/gBssbBuc=
+   eJztlVsKgCAQRa0F2FN62P7X2Qw4MEkSRmZDHjgffig3p25KFQryWUELbiWHKBqwBbvcQRiUCTXgAI5ZEx2ZwNlzeeDcO+/uF+fH6VX8/N78hmmWND9p/RGTV9qz5eTqrv54l9g12DOVk9acUA/phLkI7BrsmdpJawLzmpN9KTuUn20C+bTTX2uWOdU/cAfhawb1
   </data>
  </layer>
  <layer name="front" width="40" height="20">

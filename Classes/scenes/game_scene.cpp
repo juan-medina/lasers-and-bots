@@ -21,6 +21,7 @@
 #include "game_scene.h"
 #include "../game/robot_object.h"
 #include "../game/laser_object.h"
+#include "rapidjson/document.h"
 
 game_scene::game_scene() :
   robot_(nullptr)
@@ -162,7 +163,7 @@ bool game_scene::add_robot()
   return result;
 }
 
-bool game_scene::add_physics_to_map() const
+bool game_scene::add_physics_to_map()
 {
   auto result = false;
 
@@ -177,10 +178,15 @@ bool game_scene::add_physics_to_map() const
     {
       for (auto row = 0; row < this->blocks_.width; row++)
       {
-        const auto sprite = layer->getTileAt(Vec2(row, col));
+        const auto tile_pos = Vec2(row, col);
+        const auto sprite = layer->getTileAt(tile_pos);
+
         if (sprite != nullptr)
         {
-          add_body_to_sprite(sprite);
+          const auto gid = layer->getTileGIDAt(tile_pos);
+          const auto shape = get_shape_from_tile_gid(gid);
+
+          add_body_to_sprite(sprite, shape);
         }
       }
     }
@@ -190,6 +196,134 @@ bool game_scene::add_physics_to_map() const
   while (false);
 
   return result;
+}
+
+string game_scene::get_shape_from_tile_gid(int gid)
+{
+  if (gid_to_shapes_.count(gid) == 0)
+  {
+    string shape;
+    const auto map = get_tiled_map();
+    if (map->getPropertiesForGID(gid).getType() == Value::Type::MAP)
+    {
+      const auto properties = map->getPropertiesForGID(gid).asValueMap();
+      if (properties.count("shape") == 1)
+      {
+        shape = properties.at("shape").asString();
+      }
+    }
+    gid_to_shapes_[gid] = shape;
+    return shape;
+  }
+
+  return gid_to_shapes_[gid];
+}
+
+bool game_scene::add_body_to_sprite(Sprite* sprite, const string& shape)
+{
+  auto result = false;
+
+  do
+  {
+    const auto mat = PhysicsMaterial(0.0f, 0.0f, 0.0f);
+    PhysicsBody* body = nullptr;
+    if (shape.empty())
+    {
+      body = PhysicsBody::createBox(sprite->getContentSize(), mat);
+    }
+    else
+    {
+      const auto size = sprite->getContentSize();
+      body = get_body_from_shape(shape, mat, size.width, size.height);
+    }
+
+    UTILS_BREAK_IF(body == nullptr);
+
+    body->setDynamic(false);
+    sprite->setPhysicsBody(body);
+
+    result = true;
+  }
+  while (false);
+
+  return result;
+}
+
+PhysicsBody* game_scene::get_body_from_shape(const string& shape, const PhysicsMaterial& material,
+                                             const float scale_x, const float scale_y)
+{
+  const auto body = PhysicsBody::create();
+  body->setPositionOffset(Vec2(-scale_x / 2, -scale_y / 2));
+
+  auto document = rapidjson::Document();
+
+  const auto full_path = FileUtils::getInstance()->fullPathForFilename("shapes/shapes.json");
+  const auto json = FileUtils::getInstance()->getStringFromFile(full_path);
+
+  document.Parse(json.c_str());
+  if (!document.HasParseError())
+  {
+    if (document.HasMember("rigidBodies"))
+    {
+      if (document["rigidBodies"].IsArray())
+      {
+        const auto bodies = document["rigidBodies"].GetArray();
+        for (rapidjson::Value::ConstValueIterator bodies_iterator = bodies.Begin(); bodies_iterator != bodies.End();
+             ++bodies_iterator)
+        {
+          if (bodies_iterator->HasMember("name"))
+          {
+            const auto name = (*bodies_iterator)["name"].GetString();
+            if (name == shape)
+            {
+              if (bodies_iterator->HasMember("polygons"))
+              {
+                if ((*bodies_iterator)["polygons"].IsArray())
+                {
+                  const auto polygons = (*bodies_iterator)["polygons"].GetArray();
+                  for (rapidjson::Value::ConstValueIterator polygon_iterator = polygons.Begin(); polygon_iterator !=
+                       polygons.End(); ++polygon_iterator)
+                  {
+                    if ((*polygon_iterator).IsArray())
+                    {
+                      const auto vertex_def = (*polygon_iterator).GetArray();
+                      const auto size = vertex_def.Size();
+                      const auto vertex = new Vec2[size];
+                      for (rapidjson::SizeType i = 0; i < size; i++)
+                      {
+                        vertex[i].x = 0.f;
+                        vertex[i].y = 0.f;
+                        if (vertex_def[i].HasMember("x"))
+                        {
+                          if (vertex_def[i]["x"].IsFloat())
+                          {
+                            vertex[i].x = vertex_def[i]["x"].GetFloat() * scale_x;
+                          }
+                        }
+                        if (vertex_def[i].HasMember("y"))
+                        {
+                          if (vertex_def[i]["y"].IsFloat())
+                          {
+                            vertex[i].y = vertex_def[i]["y"].GetFloat() * scale_y;
+                          }
+                        }
+                      }
+                      const auto polygon_shape = PhysicsShapePolygon::create(vertex, size, material);
+
+                      body->addShape(polygon_shape);
+                      delete[] vertex;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return body;
 }
 
 bool game_scene::add_lasers_to_game()
@@ -214,26 +348,6 @@ bool game_scene::add_lasers_to_game()
         }
       }
     }
-
-    result = true;
-  }
-  while (false);
-
-  return result;
-}
-
-bool game_scene::add_body_to_sprite(Sprite* sprite)
-{
-  auto result = false;
-
-  do
-  {
-    const auto mat = PhysicsMaterial(0.0f, 0.0f, 0.0f);
-    auto body = PhysicsBody::createBox(sprite->getContentSize(), mat);
-    UTILS_BREAK_IF(body == nullptr);
-
-    body->setDynamic(false);
-    sprite->setPhysicsBody(body);
 
     result = true;
   }
@@ -276,7 +390,7 @@ bool game_scene::add_laser_at_sprite(Sprite* sprite)
     const auto blink = Sequence::create(FadeTo::create(0.5f, 20), FadeTo::create(0.5f, 255), nullptr);
     const auto repeat = RepeatForever::create(blink);
     sprite->runAction(repeat);
-    
+
     ret = true;
   }
   while (false);
