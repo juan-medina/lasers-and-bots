@@ -81,7 +81,7 @@ bool laser_object::init()
   return ret;
 }
 
-void laser_object::update(float delta)
+void laser_object::update(const float delta)
 {
   // get the physicsWorld
   if (physics_world_ == nullptr)
@@ -136,7 +136,7 @@ void laser_object::update(float delta)
   }
 
   // rotate the laser angle
-  angle_ += (10.f * static_cast<float>(M_PI) / 180.0f) * delta;
+  angle_ += (5.f * static_cast<float>(M_PI) / 180.0f) * delta;
 }
 
 void laser_object::create_emitter(const Vec2& point)
