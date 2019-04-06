@@ -38,7 +38,7 @@ Now you could open the project folder for the platform you like to use:
 ## resources
 
 - Game art : [Game Art 2D](https://www.gameart2d.com/)
-- Game engine : [Cocox2d-x Github](https://github.com/cocos2d/cocos2d-x)
-- JSON Parse : [Rapid JSON](https://github.com/Tencent/rapidjson)
 - Map Editor : [Tiled](https://www.mapeditor.org/)
-- Physics Editor : [Physics Body Editor](https://code.google.com/archive/p/box2d-editor/)
+- Game engine : [Cocox2d-x](https://cocos2d-x.org/)
+- JSON Parse : [Rapid JSON](http://rapidjson.org/)
+- Physics Editor : [Physics Body Editor, formerly box2d-editor](https://code.google.com/archive/p/box2d-editor/)
