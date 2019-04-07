@@ -205,10 +205,11 @@ bool game_scene::add_laser_at_sprite(Sprite* sprite)
 
     sprite->setBlendFunc(BlendFunc::ADDITIVE);
 
-    const auto blink = Sequence::create(FadeTo::create(0.5f, 20), FadeTo::create(0.5f, 255), nullptr);
-    const auto repeat = RepeatForever::create(blink);
-    sprite->runAction(repeat);
-
+    const auto blink = Sequence::create(FadeTo::create(0.5f, 64), FadeTo::create(0.5f, 255), nullptr);
+    const auto repeat_blink = RepeatForever::create(blink);
+    sprite->runAction(repeat_blink);
+    laser->runAction(repeat_blink->clone());
+    laser->setCascadeOpacityEnabled(true);
     ret = true;
   }
   while (false);

@@ -68,8 +68,6 @@ bool laser_object::init()
     draw_ = DrawNode::create();
     UTILS_BREAK_IF(draw_ == nullptr);
 
-    draw_->setOpacity(180);
-
     addChild(draw_);
 
     scheduleUpdate();
