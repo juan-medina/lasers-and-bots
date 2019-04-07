@@ -17,56 +17,52 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __MAIN_SCENE__
-#define __MAIN_SCENE__
 
-#include "../utils/utils.h"
-#include "../utils/base/scene/physics_tiled_scene.h"
+#ifndef __PHYSICS_TILED_SCENE_H__
+#define __PHYSICS_TILED_SCENE_H__
 
-//foward declarations
-class robot_object;
+#include "tiled_scene.h"
 
-class game_scene final : public physics_tiled_scene
+class physics_tiled_scene : public tiled_scene
 {
 public:
   // base_class
-  using base_class = physics_tiled_scene;
+  using base_class = tiled_scene;
 
-  // constructor
-  game_scene();
-
-  // create the object
-  static game_scene* create();
+  // create with a tmx file
+  static physics_tiled_scene* create(const std::string& tmx_file, const float gravity, const bool debug_physics);
 
   // create the scene
-  static Scene* scene();
+  static Scene* scene(const std::string& tmx_file, const float gravity, const bool debug_physics);
 
-  // init this object
-  bool init() override;
+  // init the scene
+  bool init(const std::string& tmx_file, const float gravity, const bool debug_physics);
 
 private:
 
-  // update our game
-  void update(float delta) override;
+  // get the shape string from a tile
+  string get_shape_from_tile_gid(const int gid);
 
-  // move the camera following the robot clamping on the map
-  void update_camera() const;
+  // get a physics body from a shape
+  PhysicsBody* get_body_from_shape(const string& shape, const PhysicsMaterial& material,
+    const float scale_x, const float scale_y);
 
-  //our robot
-  robot_object* robot_;
+  // add a body to sprites
+  bool add_body_to_sprite(Sprite* sprite, const string& shape);
 
-  // create robot
-  bool add_robot();
+  // add physics to our game
+  bool add_physics_to_map();
 
-  // add lasers to the game
-  bool add_lasers_to_game();
+  float gravity_ = 0.0f;
 
-  // our game gravity
-  static constexpr float gravity = -1000.0f;
+  // init physics
+  virtual void init_physics(const bool debug_physics) const;
 
-  // add a laser in a sprite
-  bool add_laser_at_sprite(Sprite* sprite);
+  // gid shapes cache type
+  using gid_shape_cache = std::map<int, string>;
 
+  // gid shapes cache
+  gid_shape_cache gid_to_shapes_;
 };
 
-#endif // __MAIN_SCENE__
+#endif // __PHYSICS_TILED_SCENE_H__

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="1.1.0" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="256" tileheight="256" infinite="0" nextobjectid="1">
  <properties>
+  <property name="shapes" value="shapes/shapes.json"/>
   <property name="startX" type="int" value="1"/>
   <property name="startY" type="int" value="1"/>
  </properties>
@@ -83,6 +84,9 @@
   </data>
  </layer>
  <layer name="walk" width="40" height="20">
+  <properties>
+   <property name="physics" type="bool" value="true"/>
+  </properties>
   <data encoding="base64" compression="zlib">
    eJztlVsKgCAQRa0F2FN62P7X2Qw4MEkSRmZDHjgffig3p25KFQryWUELbiWHKBqwBbvcQRiUCTXgAI5ZEx2ZwNlzeeDcO+/uF+fH6VX8/N78hmmWND9p/RGTV9qz5eTqrv54l9g12DOVk9acUA/phLkI7BrsmdpJawLzmpN9KTuUn20C+bTTX2uWOdU/cAfhawb1
   </data>
