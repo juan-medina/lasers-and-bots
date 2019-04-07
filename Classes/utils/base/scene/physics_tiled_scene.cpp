@@ -19,7 +19,7 @@
  ****************************************************************************/
 
 #include "physics_tiled_scene.h"
-#include "rapidjson/document.h"
+#include "../../physics/physics_body_cache.h"
 
 physics_tiled_scene* physics_tiled_scene::create(const std::string& tmx_file, const float gravity,
                                                  const bool debug_physics)
@@ -126,83 +126,6 @@ string physics_tiled_scene::get_shape_from_tile_gid(int gid)
   return gid_to_shapes_[gid];
 }
 
-PhysicsBody* physics_tiled_scene::get_body_from_shape(const string& shape, const PhysicsMaterial& material,
-                                                      const float scale_x, const float scale_y)
-{
-  const auto body = PhysicsBody::create();
-  body->setPositionOffset(Vec2(-scale_x / 2, -scale_y / 2));
-
-  auto document = rapidjson::Document();
-
-  const auto full_path = FileUtils::getInstance()->fullPathForFilename("shapes/shapes.json");
-  const auto json = FileUtils::getInstance()->getStringFromFile(full_path);
-
-  document.Parse(json.c_str());
-  if (!document.HasParseError())
-  {
-    if (document.HasMember("rigidBodies"))
-    {
-      if (document["rigidBodies"].IsArray())
-      {
-        const auto bodies = document["rigidBodies"].GetArray();
-        for (rapidjson::Value::ConstValueIterator bodies_iterator = bodies.Begin(); bodies_iterator != bodies.End();
-             ++bodies_iterator)
-        {
-          if (bodies_iterator->HasMember("name"))
-          {
-            const auto name = (*bodies_iterator)["name"].GetString();
-            if (name == shape)
-            {
-              if (bodies_iterator->HasMember("polygons"))
-              {
-                if ((*bodies_iterator)["polygons"].IsArray())
-                {
-                  const auto polygons = (*bodies_iterator)["polygons"].GetArray();
-                  for (rapidjson::Value::ConstValueIterator polygon_iterator = polygons.Begin(); polygon_iterator !=
-                       polygons.End(); ++polygon_iterator)
-                  {
-                    if ((*polygon_iterator).IsArray())
-                    {
-                      const auto vertex_def = (*polygon_iterator).GetArray();
-                      const auto size = vertex_def.Size();
-                      const auto vertex = new Vec2[size];
-                      for (rapidjson::SizeType i = 0; i < size; i++)
-                      {
-                        vertex[i].x = 0.f;
-                        vertex[i].y = 0.f;
-                        if (vertex_def[i].HasMember("x"))
-                        {
-                          if (vertex_def[i]["x"].IsFloat())
-                          {
-                            vertex[i].x = vertex_def[i]["x"].GetFloat() * scale_x;
-                          }
-                        }
-                        if (vertex_def[i].HasMember("y"))
-                        {
-                          if (vertex_def[i]["y"].IsFloat())
-                          {
-                            vertex[i].y = vertex_def[i]["y"].GetFloat() * scale_y;
-                          }
-                        }
-                      }
-                      const auto polygon_shape = PhysicsShapePolygon::create(vertex, size, material);
-
-                      body->addShape(polygon_shape);
-                      delete[] vertex;
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  return body;
-}
-
 bool physics_tiled_scene::add_body_to_sprite(Sprite* sprite, const string& shape)
 {
   auto result = false;
@@ -217,8 +140,8 @@ bool physics_tiled_scene::add_body_to_sprite(Sprite* sprite, const string& shape
     }
     else
     {
-      const auto size = sprite->getContentSize();
-      body = get_body_from_shape(shape, mat, size.width, size.height);
+      const auto cache = physics_body_cache::get_instance();
+      body = cache->get_body(shape, mat);
     }
 
     UTILS_BREAK_IF(body == nullptr);
@@ -241,10 +164,15 @@ bool physics_tiled_scene::add_physics_to_map()
   {
     const auto map = get_tiled_map();
 
+    const auto shapes = map->getProperty("shapes").asString();
+
+    auto cache = physics_body_cache::get_instance();
+    cache->load(shapes, block_size_.width - 1, block_size_.height - 1);
+
     for (auto& child : map->getChildren())
     {
       const auto layer = dynamic_cast<experimental::TMXLayer*>(child);
-      if (layer!=nullptr)
+      if (layer != nullptr)
       {
         auto physics = layer->getProperty("physics");
         if ((physics.getType() == Value::Type::STRING) && (physics.asBool()))
@@ -268,7 +196,6 @@ bool physics_tiled_scene::add_physics_to_map()
         }
       }
     }
-
 
     result = true;
   }

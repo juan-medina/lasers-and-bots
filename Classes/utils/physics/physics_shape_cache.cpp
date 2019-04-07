@@ -18,47 +18,44 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __PHYSICS_TILED_SCENE_H__
-#define __PHYSICS_TILED_SCENE_H__
+#include "physics_body_cache.h"
 
-#include "tiled_scene.h"
-
-class physics_tiled_scene : public tiled_scene
+physics_body_cache::physics_body_cache() :
+  initiated_(false)
 {
-public:
-  // base_class
-  using base_class = tiled_scene;
+  // init object
+  init();
+}
 
-  // create with a tmx file
-  static physics_tiled_scene* create(const std::string& tmx_file, const float gravity, const bool debug_physics);
+physics_body_cache::~physics_body_cache()
+{
+  // if we are init we need to end
+  if (initiated_)
+  {
+    end();
+  }
+}
 
-  // create the scene
-  static Scene* scene(const std::string& tmx_file, const float gravity, const bool debug_physics);
+bool physics_body_cache::init()
+{
+  // object is init
+  initiated_ = true;
 
-  // init the scene
-  bool init(const std::string& tmx_file, const float gravity, const bool debug_physics);
+  return true;
+}
 
-private:
+void physics_body_cache::end()
+{
+  // we are not init
+  initiated_ = false;
+}
 
-  // get the shape string from a tile
-  string get_shape_from_tile_gid(const int gid);
+physics_body_cache::saved_shape::saved_shape(const unsigned short int num_vertex)
+{
+  vertex_ = new Vec2[num_vertex];
+}
 
-  // add a body to sprites
-  static bool add_body_to_sprite(Sprite* sprite, const string& shape);
-
-  // add physics to our game
-  bool add_physics_to_map();
-
-  float gravity_ = 0.0f;
-
-  // init physics
-  virtual void init_physics(const bool debug_physics) const;
-
-  // gid shapes cache type
-  using gid_shape_cache = std::map<int, string>;
-
-  // gid shapes cache
-  gid_shape_cache gid_to_shapes_;
-};
-
-#endif // __PHYSICS_TILED_SCENE_H__
+physics_body_cache::saved_shape::~saved_shape()
+{
+  delete[] vertex_;
+}

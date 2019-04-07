@@ -18,47 +18,59 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __PHYSICS_TILED_SCENE_H__
-#define __PHYSICS_TILED_SCENE_H__
+#ifndef __PHYSICS_SHAPE_CACHE_H__
+#define __PHYSICS_SHAPE_CACHE_H__
 
-#include "tiled_scene.h"
+#include "../utils.h"
 
-class physics_tiled_scene : public tiled_scene
+// class that store physics body shapes cache
+class physics_body_cache final
 {
 public:
-  // base_class
-  using base_class = tiled_scene;
 
-  // create with a tmx file
-  static physics_tiled_scene* create(const std::string& tmx_file, const float gravity, const bool debug_physics);
+  // constructor
+  physics_body_cache();
 
-  // create the scene
-  static Scene* scene(const std::string& tmx_file, const float gravity, const bool debug_physics);
+  // destructor
+  ~physics_body_cache();
 
-  // init the scene
-  bool init(const std::string& tmx_file, const float gravity, const bool debug_physics);
+  // get default audio helper
+  static physics_body_cache* get_instance()
+  {
+    // create if not create default helper and return it
+    static physics_body_cache cache;
+
+    return &cache;
+  }
+
+  // init helper
+  bool init();
+
+  // end helper
+  void end();
 
 private:
+  // is the object initiated ?
+  bool initiated_;
 
-  // get the shape string from a tile
-  string get_shape_from_tile_gid(const int gid);
+  class saved_shape
+  {
+  protected:
+    // constructor
+    saved_shape(const unsigned short int num_vertex);
 
-  // add a body to sprites
-  static bool add_body_to_sprite(Sprite* sprite, const string& shape);
+    // destructor
+    ~saved_shape();
 
-  // add physics to our game
-  bool add_physics_to_map();
-
-  float gravity_ = 0.0f;
-
-  // init physics
-  virtual void init_physics(const bool debug_physics) const;
+    Vec2* vertex_ = nullptr;
+    unsigned short int num_vertex_ = 0;
+  };
 
   // gid shapes cache type
-  using gid_shape_cache = std::map<int, string>;
+  using string_shape_cache = std::map<string, saved_shape*>;
 
   // gid shapes cache
-  gid_shape_cache gid_to_shapes_;
+  string_shape_cache cache_;
 };
 
-#endif // __PHYSICS_TILED_SCENE_H__
+#endif // __PHYSICS_SHAPE_CACHE_H__

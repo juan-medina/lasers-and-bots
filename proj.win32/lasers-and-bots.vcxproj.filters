@@ -37,6 +37,9 @@
     <Filter Include="src\utils\base\sprite">
       <UniqueIdentifier>{30b84e4f-dce8-4b52-97db-d935e3a37d35}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\utils\physics">
+      <UniqueIdentifier>{4d75a38c-cda0-4220-a25a-d1aea8a0c20b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -87,6 +90,9 @@
     <ClCompile Include="..\Classes\utils\base\scene\physics_tiled_scene.cpp">
       <Filter>src\utils\base\scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\utils\physics\physics_body_cache.cpp">
+      <Filter>src\utils\physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -136,6 +142,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\utils\base\scene\physics_tiled_scene.h">
       <Filter>src\utils\base\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\physics\physics_body_cache.h">
+      <Filter>src\utils\physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
