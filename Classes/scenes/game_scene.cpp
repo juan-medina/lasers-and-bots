@@ -129,11 +129,16 @@ bool game_scene::add_robot()
     UTILS_BREAK_IF(robot_ == nullptr);
     addChild(robot_);
 
-    const auto start_row = get_tiled_map()->getProperty("startX").asInt();
-    const auto start_col = get_tiled_map()->getProperty("startY").asInt();
-    auto pos = get_block_position(start_col + 1, start_row);
-    const auto block_size = get_block_size();
-    const auto robot_pos = Vec2(pos.getMinX() - (block_size.width / 2), pos.getMinY() - (block_size.height / 4));
+    const auto objects = get_tiled_map()->getObjectGroup("objects");
+    UTILS_BREAK_IF(objects == nullptr);
+
+    const auto map_robot_object = objects->getObject("robot");
+    UTILS_BREAK_IF(map_robot_object.empty());
+
+    const auto robot_x = map_robot_object.at("x").asFloat() + block_size_.width / 2;
+    const auto robot_y = map_robot_object.at("y").asFloat() + block_size_.height / 2;
+    const auto robot_pos = Vec2(robot_x, robot_y);
+
     robot_->setPosition(robot_pos);
 
     result = true;

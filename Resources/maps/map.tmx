@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.0" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="256" tileheight="256" infinite="0" nextobjectid="1">
+<map version="1.0" tiledversion="1.1.0" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="256" tileheight="256" infinite="0" nextobjectid="3">
  <properties>
   <property name="shapes" value="shapes/shapes.json"/>
-  <property name="startX" type="int" value="1"/>
-  <property name="startY" type="int" value="1"/>
  </properties>
  <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256" tilecount="36" columns="9">
   <image source="tilesheet.png" width="2304" height="1024"/>
@@ -83,6 +81,9 @@
    eJztzqEBAAAIwzDg/6O5YH4iUZWdAQCAXhu6xYVu0fb3FuQACw==
   </data>
  </layer>
+ <objectgroup name="objects">
+  <object id="1" name="robot" gid="30" x="260" y="4873.33" width="256" height="256"/>
+ </objectgroup>
  <layer name="walk" width="40" height="20">
   <properties>
    <property name="physics" type="bool" value="true"/>
