@@ -125,9 +125,13 @@ bool game_scene::add_robot()
 
   do
   {
+    const auto walk_layer = get_tiled_map()->getLayer("walk");
+    UTILS_BREAK_IF(walk_layer == nullptr);
+
     robot_ = robot_object::create();
     UTILS_BREAK_IF(robot_ == nullptr);
-    addChild(robot_);
+
+    walk_layer->addChild(robot_);
 
     const auto objects = get_tiled_map()->getObjectGroup("objects");
     UTILS_BREAK_IF(objects == nullptr);
