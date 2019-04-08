@@ -159,7 +159,7 @@ bool physics_tiled_scene::add_body_to_node(Node* node, const string& shape)
 Node* physics_tiled_scene::create_dummy_node(experimental::TMXLayer* const layer, const Vec2& tile_pos) const
 {
   const auto node = Node::create();
-  node->setContentSize(this->block_size_);
+  node->setContentSize(block_size_);
   node->setPosition(layer->getPositionAt(tile_pos));
   node->setVisible(false);
   layer->addChild(node);
