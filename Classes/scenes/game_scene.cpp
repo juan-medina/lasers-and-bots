@@ -68,7 +68,7 @@ bool game_scene::init()
     UTILS_BREAK_IF(!base_class::init("maps/map.tmx", gravity, debug_physics));
 
     //create bot
-    UTILS_BREAK_IF(!this->add_robot());
+    UTILS_BREAK_IF(!add_robot());
 
     // add the lasers
     UTILS_BREAK_IF(!add_lasers_to_game());
@@ -127,11 +127,11 @@ bool game_scene::add_robot()
   {
     robot_ = robot_object::create();
     UTILS_BREAK_IF(robot_ == nullptr);
-    this->addChild(robot_);
+    addChild(robot_);
 
     const auto start_row = get_tiled_map()->getProperty("startX").asInt();
     const auto start_col = get_tiled_map()->getProperty("startY").asInt();
-    auto pos = this->get_block_position(start_col + 1, start_row);
+    auto pos = get_block_position(start_col + 1, start_row);
     const auto block_size = get_block_size();
     const auto robot_pos = Vec2(pos.getMinX() - (block_size.width / 2), pos.getMinY() - (block_size.height / 4));
     robot_->setPosition(robot_pos);
@@ -155,9 +155,9 @@ bool game_scene::add_lasers_to_game()
     auto layer = map->getLayer("laser");
     UTILS_BREAK_IF(layer == nullptr);
 
-    for (auto col = 0; col < this->blocks_.height; col++)
+    for (auto col = 0; col < blocks_.height; col++)
     {
-      for (auto row = 0; row < this->blocks_.width; row++)
+      for (auto row = 0; row < blocks_.width; row++)
       {
         const auto sprite = layer->getTileAt(Vec2(row, col));
         if (sprite != nullptr)
@@ -182,7 +182,7 @@ void game_scene::update_camera() const
 
   // move the camera to the clamped position
   const auto final_pos = robot_->getPosition().getClampPoint(min_pos, max_pos);
-  this->getDefaultCamera()->setPosition(final_pos);
+  getDefaultCamera()->setPosition(final_pos);
 }
 
 

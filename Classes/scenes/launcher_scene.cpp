@@ -95,7 +95,7 @@ bool launcher_scene::init()
     UTILS_BREAK_IF(!ret);
 
     // init vars
-    this->load_settings();
+    load_settings();
 
     //////////////////////////////////////////////////////////////////////////
     // Menu Tittle
@@ -106,7 +106,7 @@ bool launcher_scene::init()
     UTILS_BREAK_IF(!title_font);
 
     title_font->setPosition(Vec2(screen_size_.width / 2, screen_size_.height - 50));
-    this->addChild(title_font);
+    addChild(title_font);
 
     //////////////////////////////////////////////////////////////////////////
     // Menu Screen Mode
@@ -280,7 +280,7 @@ void launcher_scene::play(Ref* sender) const
 void launcher_scene::screen_mode_click(Ref* sender)
 {
   full_screen_ = !full_screen_;
-  this->update_labels();
+  update_labels();
 }
 
 void launcher_scene::resolution_click(Ref* sender)
@@ -317,7 +317,7 @@ void launcher_scene::resolution_click(Ref* sender)
       screen_width_ = 1920;
       screen_height_ = 1080;
     }
-    this->update_labels();
+    update_labels();
   }
 }
 
@@ -325,25 +325,25 @@ void launcher_scene::resolution_click(Ref* sender)
 void launcher_scene::effects_muted_click(Ref* sender)
 {
   effects_muted_ = !effects_muted_;
-  this->update_labels();
+  update_labels();
 }
 
 void launcher_scene::music_muted_click(Ref* sender)
 {
   music_muted_ = !music_muted_;
-  this->update_labels();
+  update_labels();
 }
 
 void launcher_scene::debug_grid_click(Ref* sender)
 {
   debug_grid_ = !debug_grid_;
-  this->update_labels();
+  update_labels();
 }
 
 void launcher_scene::debug_physics_click(Ref* sender)
 {
   debug_physics_ = !debug_physics_;
-  this->update_labels();
+  update_labels();
 }
 
 void launcher_scene::update_labels() const

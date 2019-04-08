@@ -63,7 +63,7 @@ void audio_helper::end()
   SimpleAudioEngine::end();
 
   // save config values
-  this->save_values();
+  save_values();
 
   // we are not init
   initiated_ = false;
@@ -86,7 +86,7 @@ void audio_helper::play_music(const char* file_name)
   last_music_ = std::string(file_name);
 
   // if we are muted exit
-  if (this->get_music_muted())
+  if (get_music_muted())
   {
     return;
   }
@@ -114,36 +114,36 @@ void audio_helper::unload_effect(const char* file_name)
 void audio_helper::toggle_sound()
 {
   // if we are muted
-  if (this->get_effects_muted())
+  if (get_effects_muted())
   {
     // un mute
-    this->set_effects_muted(false);
+    set_effects_muted(false);
   }
 
   else
   {
     // stop all effects and set to mute
     SimpleAudioEngine::getInstance()->stopAllEffects();
-    this->set_effects_muted(true);
+    set_effects_muted(true);
   }
 
   // save config values
-  this->save_values();
+  save_values();
 }
 
 void audio_helper::toggle_music()
 {
   // if we are mute
-  if (this->get_music_muted())
+  if (get_music_muted())
   {
     // un mute
-    this->set_music_muted(false);
+    set_music_muted(false);
 
     // if we have last music
     if (last_music_.length())
     {
       // play again
-      this->play_music(last_music_.c_str());
+      play_music(last_music_.c_str());
     }
   }
 
@@ -151,17 +151,17 @@ void audio_helper::toggle_music()
   {
     // stop music and mute
     SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-    this->set_music_muted(true);
+    set_music_muted(true);
   }
 
   // save config values
-  this->save_values();
+  save_values();
 }
 
 void audio_helper::app_to_bg() const
 {
   // if we wasn't muted pause music
-  if (!this->get_music_muted())
+  if (!get_music_muted())
   {
     SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
   }
@@ -170,7 +170,7 @@ void audio_helper::app_to_bg() const
 void audio_helper::app_to_fg() const
 {
   // if we wasn't muted resume music
-  if (!this->get_music_muted())
+  if (!get_music_muted())
   {
     SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
   }
@@ -187,7 +187,7 @@ void audio_helper::save_values() const
 
 void audio_helper::app_exit()
 {
-  this->end();
+  end();
 }
 
 void audio_helper::stop_all_sounds()

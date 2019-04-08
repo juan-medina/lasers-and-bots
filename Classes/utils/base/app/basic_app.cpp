@@ -149,7 +149,7 @@ bool basic_app::applicationDidFinishLaunching()
     register_all_packages();
 
     // create a scene. it's an autorelease object
-    const auto scene = this->init_scene();
+    const auto scene = init_scene();
     UTILS_BREAK_IF(scene == nullptr);
 
     // run

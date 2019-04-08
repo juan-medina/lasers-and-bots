@@ -93,8 +93,8 @@ bool physics_tiled_scene::init(const std::string& tmx_file, const float gravity,
 
 void physics_tiled_scene::init_physics(const bool debug_physics) const
 {
-  const auto edge = PhysicsBody::createEdgeBox(this->total_size_, PhysicsMaterial(0.1f, 0.0f, 0.5f), 5);
-  this->get_tiled_map()->addComponent(edge);
+  const auto edge = PhysicsBody::createEdgeBox(total_size_, PhysicsMaterial(0.1f, 0.0f, 0.5f), 5);
+  get_tiled_map()->addComponent(edge);
 
   if (debug_physics)
   {
@@ -177,9 +177,9 @@ bool physics_tiled_scene::add_physics_to_map()
         auto physics = layer->getProperty("physics");
         if ((physics.getType() == Value::Type::STRING) && (physics.asBool()))
         {
-          for (auto col = 0; col < this->blocks_.height; col++)
+          for (auto col = 0; col < blocks_.height; col++)
           {
-            for (auto row = 0; row < this->blocks_.width; row++)
+            for (auto row = 0; row < blocks_.width; row++)
             {
               const auto tile_pos = Vec2(row, col);
               const auto sprite = layer->getTileAt(tile_pos);

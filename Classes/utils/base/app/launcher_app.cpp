@@ -57,7 +57,7 @@ bool launcher_app::applicationDidFinishLaunching()
                                           ResolutionPolicy::FIXED_WIDTH);
 
     // create a scene. it's an autorelease object
-    const auto scene = this->init_scene();
+    const auto scene = init_scene();
 
     UTILS_BREAK_IF(scene == nullptr);
 
