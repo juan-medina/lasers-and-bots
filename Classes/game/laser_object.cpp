@@ -70,6 +70,10 @@ bool laser_object::init()
 
     addChild(draw_);
 
+    const auto blink = Sequence::create(FadeTo::create(0.5f, 64), FadeTo::create(0.5f, 185.f), nullptr);
+    const auto repeat_blink = RepeatForever::create(blink);
+    draw_->runAction(repeat_blink);
+
     scheduleUpdate();
 
     ret = true;
@@ -123,13 +127,13 @@ void laser_object::update(const float delta)
 
   // convert the point into node space and draw it
   const auto final_point = convertToNodeSpace(final_point_in_world);
-  draw_->drawSegment(origin_point, final_point, 2, Color4F::RED);
+  draw_->drawSegment(origin_point, final_point, 8, Color4F::RED);
 
   // if we have actually hit something draw a dot and create an emitter
-  if ((final_point_in_world.x != destination_point_in_world.x) & (final_point_in_world.y != destination_point_in_world.y
-  ))
+  if ((final_point_in_world.x != destination_point_in_world.x) &
+    (final_point_in_world.y != destination_point_in_world.y))
   {
-    draw_->drawDot(final_point, 10, Color4F::RED);
+    draw_->drawDot(final_point, 12, Color4F::RED);
     create_emitter(final_point);
   }
 

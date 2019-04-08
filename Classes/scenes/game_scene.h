@@ -59,14 +59,10 @@ private:
   bool add_robot();
 
   // add lasers to the game
-  bool add_lasers_to_game();
+  bool add_lasers_to_game() const;
 
   // our game gravity
   static constexpr float gravity = -1000.0f;
-
-  // add a laser in a sprite
-  bool add_laser_at_sprite(Sprite* sprite);
-
 };
 
 #endif // __MAIN_SCENE__

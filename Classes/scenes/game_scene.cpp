@@ -149,13 +149,16 @@ bool game_scene::add_robot()
 }
 
 
-bool game_scene::add_lasers_to_game()
+bool game_scene::add_lasers_to_game() const
 {
   auto result = false;
 
   do
   {
     const auto map = get_tiled_map();
+
+    auto layer_back = map->getLayer("back");
+    UTILS_BREAK_IF(layer_back == nullptr);
 
     auto layer = map->getLayer("laser");
     UTILS_BREAK_IF(layer == nullptr);
@@ -164,10 +167,18 @@ bool game_scene::add_lasers_to_game()
     {
       for (auto row = 0; row < blocks_.width; row++)
       {
-        const auto sprite = layer->getTileAt(Vec2(row, col));
-        if (sprite != nullptr)
+        auto tile_pos = Vec2(row, col);
+        const auto guid = layer->getTileGIDAt(tile_pos);
+        if (guid)
         {
-          add_laser_at_sprite(sprite);
+          auto position = layer->getPositionAt(tile_pos);
+          position.x += block_size_.width / 2;
+          position.y += block_size_.height / 2;
+          auto laser = laser_object::create();
+          UTILS_BREAK_IF(laser == nullptr);
+
+          laser->setPosition(position);
+          layer_back->addChild(laser);
         }
       }
     }
@@ -188,36 +199,4 @@ void game_scene::update_camera() const
   // move the camera to the clamped position
   const auto final_pos = robot_->getPosition().getClampPoint(min_pos, max_pos);
   getDefaultCamera()->setPosition(final_pos);
-}
-
-
-bool game_scene::add_laser_at_sprite(Sprite* sprite)
-{
-  auto ret = false;
-
-  do
-  {
-    auto pos = sprite->getPosition();
-
-    pos.x += sprite->getContentSize().width / 2;
-    pos.y += sprite->getContentSize().height / 2;
-
-    auto laser = laser_object::create();
-    UTILS_BREAK_IF(laser == nullptr);
-    laser->setPosition(pos);
-
-    addChild(laser);
-
-    sprite->setBlendFunc(BlendFunc::ADDITIVE);
-
-    const auto blink = Sequence::create(FadeTo::create(0.5f, 64), FadeTo::create(0.5f, 255), nullptr);
-    const auto repeat_blink = RepeatForever::create(blink);
-    sprite->runAction(repeat_blink);
-    laser->runAction(repeat_blink->clone());
-    laser->setCascadeOpacityEnabled(true);
-    ret = true;
-  }
-  while (false);
-
-  return ret;
 }
