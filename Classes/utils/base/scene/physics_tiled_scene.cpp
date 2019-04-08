@@ -126,7 +126,7 @@ string physics_tiled_scene::get_shape_from_tile_gid(int gid)
   return gid_to_shapes_[gid];
 }
 
-bool physics_tiled_scene::add_body_to_sprite(Sprite* sprite, const string& shape)
+bool physics_tiled_scene::add_body_to_node(Node* node, const string& shape)
 {
   auto result = false;
 
@@ -136,7 +136,7 @@ bool physics_tiled_scene::add_body_to_sprite(Sprite* sprite, const string& shape
     PhysicsBody* body = nullptr;
     if (shape.empty())
     {
-      body = PhysicsBody::createBox(sprite->getContentSize(), mat);
+      body = PhysicsBody::createBox(node->getContentSize(), mat);
     }
     else
     {
@@ -147,13 +147,23 @@ bool physics_tiled_scene::add_body_to_sprite(Sprite* sprite, const string& shape
     UTILS_BREAK_IF(body == nullptr);
 
     body->setDynamic(false);
-    sprite->setPhysicsBody(body);
+    node->setPhysicsBody(body);
 
     result = true;
   }
   while (false);
 
   return result;
+}
+
+Node* physics_tiled_scene::create_dummy_node(experimental::TMXLayer* const layer, const Vec2& tile_pos) const
+{
+  const auto node = Node::create();
+  node->setContentSize(this->block_size_);
+  node->setPosition(layer->getPositionAt(tile_pos));
+  node->setVisible(false);
+  layer->addChild(node);
+  return node;
 }
 
 bool physics_tiled_scene::add_physics_to_map()
@@ -175,21 +185,19 @@ bool physics_tiled_scene::add_physics_to_map()
       if (layer != nullptr)
       {
         auto physics = layer->getProperty("physics");
-        if ((physics.getType() == Value::Type::STRING) && (physics.asBool()))
+        if (physics.asBool())
         {
           for (auto col = 0; col < blocks_.height; col++)
           {
             for (auto row = 0; row < blocks_.width; row++)
             {
               const auto tile_pos = Vec2(row, col);
-              const auto sprite = layer->getTileAt(tile_pos);
-
-              if (sprite != nullptr)
+              const auto gid = layer->getTileGIDAt(tile_pos);
+              if (gid != 0)
               {
-                const auto gid = layer->getTileGIDAt(tile_pos);
+                const auto node = create_dummy_node(layer, tile_pos);
                 const auto shape = get_shape_from_tile_gid(gid);
-
-                add_body_to_sprite(sprite, shape);
+                add_body_to_node(node, shape);
               }
             }
           }

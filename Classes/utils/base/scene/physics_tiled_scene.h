@@ -44,7 +44,10 @@ private:
   string get_shape_from_tile_gid(const int gid);
 
   // add a body to sprites
-  static bool add_body_to_sprite(Sprite* sprite, const string& shape);
+  static bool add_body_to_node(Node* node, const string& shape);
+
+  // create a dummy node to hold physic body
+  Node* create_dummy_node(experimental::TMXLayer* layer, const Vec2& tile_pos) const;
 
   // add physics to our game
   bool add_physics_to_map();
