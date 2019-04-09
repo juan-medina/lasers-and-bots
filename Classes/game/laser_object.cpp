@@ -21,13 +21,13 @@
 #include "laser_object.h"
 
 laser_object::laser_object() :
+  angle_(0.f),
   draw_(nullptr),
   physics_world_(nullptr)
 {
-  angle_ = RandomHelper::random_real<float>(0.f, 360.f);
 }
 
-laser_object* laser_object::create()
+laser_object* laser_object::create(const float initial_angle)
 {
   laser_object* ret = nullptr;
 
@@ -36,7 +36,7 @@ laser_object* laser_object::create()
     auto object = new laser_object();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init())
+    if (object->init(initial_angle))
     {
       object->autorelease();
     }
@@ -55,12 +55,14 @@ laser_object* laser_object::create()
 }
 
 // on "init" you need to initialize your instance
-bool laser_object::init()
+bool laser_object::init(const float initial_angle)
 {
   auto ret = false;
 
   do
   {
+    angle_ = CC_DEGREES_TO_RADIANS(90-initial_angle);
+
     //////////////////////////////
     // 1. super init first
     UTILS_BREAK_IF(!base_class::init());

@@ -136,12 +136,14 @@ bool game_scene::add_robot()
     const auto objects = get_tiled_map()->getObjectGroup("objects");
     UTILS_BREAK_IF(objects == nullptr);
 
-    const auto map_robot_object = objects->getObject("robot");
+    auto map_robot_object = objects->getObject("robot");
     UTILS_BREAK_IF(map_robot_object.empty());
 
     const auto robot_x = map_robot_object.at("x").asFloat() + block_size_.width / 2;
     const auto robot_y = map_robot_object.at("y").asFloat() + block_size_.height / 2;
     const auto robot_pos = Vec2(robot_x, robot_y);
+
+    const auto position = get_object_position(map_robot_object);
 
     robot_->setPosition(robot_pos);
 
@@ -152,6 +154,27 @@ bool game_scene::add_robot()
   return result;
 }
 
+Vec2 game_scene::get_object_position(const ValueMap& values)
+{
+  const auto width = values.at("width").asFloat();
+  const auto height = values.at("height").asFloat();
+  const auto x = values.at("x").asFloat() + width;
+  const auto y = values.at("y").asFloat() + height;
+  const auto rotation = values.at("rotation").asFloat();
+
+  const auto angle = CC_DEGREES_TO_RADIANS(-rotation);
+
+  const auto center_x = width / 2;
+  const auto center_y = height / 2;
+
+  const auto cos_rotation = cosf(angle);
+  const auto sin_rotation = sinf(angle);
+
+  const auto rotated_center_x = center_x * cos_rotation - center_y * sin_rotation;
+  const auto rotated_center_y = center_x * sin_rotation + center_y * cos_rotation;
+
+  return Vec2(x + rotated_center_x - width, y + rotated_center_y);
+}
 
 bool game_scene::add_lasers_to_game() const
 {
@@ -161,29 +184,23 @@ bool game_scene::add_lasers_to_game() const
   {
     const auto map = get_tiled_map();
 
-    auto layer_back = map->getLayer("back");
+    auto layer_back = map->getLayer("walk");
     UTILS_BREAK_IF(layer_back == nullptr);
 
-    auto layer = map->getLayer("laser");
-    UTILS_BREAK_IF(layer == nullptr);
-
-    for (auto col = 0; col < blocks_.height; col++)
+    const auto objects = map->getObjectGroup("objects");
+    for (const auto& object : objects->getObjects())
     {
-      for (auto row = 0; row < blocks_.width; row++)
+      const auto& values = object.asValueMap();
+      if (values.at("type").asString() == "laser")
       {
-        auto tile_pos = Vec2(row, col);
-        const auto guid = layer->getTileGIDAt(tile_pos);
-        if (guid)
-        {
-          auto position = layer->getPositionAt(tile_pos);
-          position.x += block_size_.width / 2;
-          position.y += block_size_.height / 2;
-          auto laser = laser_object::create();
-          UTILS_BREAK_IF(laser == nullptr);
+        const auto rotation = values.at("rotation").asFloat();
+        const auto position = get_object_position(values);
 
-          laser->setPosition(position);
-          layer_back->addChild(laser);
-        }
+        auto laser = laser_object::create(rotation);
+        UTILS_BREAK_IF(laser == nullptr);
+
+        laser->setPosition(position);
+        layer_back->addChild(laser);
       }
     }
 

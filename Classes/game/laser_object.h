@@ -33,10 +33,10 @@ public:
   laser_object();
 
   // create the object
-  static laser_object* create();
+  static laser_object* create(const float initial_angle);
 
   // init this object
-  bool init() override;
+  bool init(const float initial_angle);
 
   // update our laser
   void update(float delta) override;

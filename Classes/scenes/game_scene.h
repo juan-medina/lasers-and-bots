@@ -58,6 +58,8 @@ private:
   // create robot
   bool add_robot();
 
+  static Vec2 get_object_position(const ValueMap& values);
+
   // add lasers to the game
   bool add_lasers_to_game() const;
 
