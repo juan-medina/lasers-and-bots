@@ -23,23 +23,22 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "AppDelegate.h"
 #include "cocos2d.h"
-#include "Launcher.h"
+#include "laser_and_bots_app.h"
+#include "laser_and_bots_launcher.h"
 
 USING_NS_CC;
 
 int main(int argc, char *argv[])
 {
-    auto launcherApp = new Launcher();
+    const auto launcher_app = new laser_and_bots_launcher();
     auto result = Application::getInstance()->run();
-    auto wantToPlay = launcherApp->getWantToPlay();
-    delete launcherApp;
+    const auto want_to_play = launcher_app->get_want_to_play();
+    delete launcher_app;
     
-    
-    if (wantToPlay)
+    if (want_to_play)
     {
-        auto app = new AppDelegate();
+        const auto app = new laser_and_bots_app();
         result = Application::getInstance()->run();
         delete app;
     }

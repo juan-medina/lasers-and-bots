@@ -35,38 +35,46 @@
 		521A8EA919F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		521A8EAA19F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
+		5896715E225D2D0C0015ACCB /* laser_and_bots_launcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58967134225D2D0C0015ACCB /* laser_and_bots_launcher.cpp */; };
+		5896715F225D2D0C0015ACCB /* laser_and_bots_launcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58967134225D2D0C0015ACCB /* laser_and_bots_launcher.cpp */; };
+		58967160225D2D0C0015ACCB /* cocos2dClass.snippet in Resources */ = {isa = PBXBuildFile; fileRef = 58967136225D2D0C0015ACCB /* cocos2dClass.snippet */; };
+		58967161225D2D0C0015ACCB /* cocos2dClass.snippet in Resources */ = {isa = PBXBuildFile; fileRef = 58967136225D2D0C0015ACCB /* cocos2dClass.snippet */; };
+		58967162225D2D0C0015ACCB /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58967138225D2D0C0015ACCB /* utils.cpp */; };
+		58967163225D2D0C0015ACCB /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58967138225D2D0C0015ACCB /* utils.cpp */; };
+		58967164225D2D0C0015ACCB /* audio_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5896713B225D2D0C0015ACCB /* audio_helper.cpp */; };
+		58967165225D2D0C0015ACCB /* audio_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5896713B225D2D0C0015ACCB /* audio_helper.cpp */; };
+		58967166225D2D0C0015ACCB /* physics_body_cache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5896713E225D2D0C0015ACCB /* physics_body_cache.cpp */; };
+		58967167225D2D0C0015ACCB /* physics_body_cache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5896713E225D2D0C0015ACCB /* physics_body_cache.cpp */; };
+		58967168225D2D0C0015ACCB /* basic_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58967141225D2D0C0015ACCB /* basic_app.cpp */; };
+		58967169225D2D0C0015ACCB /* basic_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58967141225D2D0C0015ACCB /* basic_app.cpp */; };
+		5896716A225D2D0C0015ACCB /* launcher_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58967142225D2D0C0015ACCB /* launcher_app.cpp */; };
+		5896716B225D2D0C0015ACCB /* launcher_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58967142225D2D0C0015ACCB /* launcher_app.cpp */; };
+		5896716C225D2D0C0015ACCB /* game_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58967147225D2D0C0015ACCB /* game_object.cpp */; };
+		5896716D225D2D0C0015ACCB /* game_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58967147225D2D0C0015ACCB /* game_object.cpp */; };
+		5896716E225D2D0C0015ACCB /* grid_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58967149225D2D0C0015ACCB /* grid_scene.cpp */; };
+		5896716F225D2D0C0015ACCB /* grid_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58967149225D2D0C0015ACCB /* grid_scene.cpp */; };
+		58967170225D2D0C0015ACCB /* basic_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5896714D225D2D0C0015ACCB /* basic_scene.cpp */; };
+		58967171225D2D0C0015ACCB /* basic_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5896714D225D2D0C0015ACCB /* basic_scene.cpp */; };
+		58967172225D2D0C0015ACCB /* physics_tiled_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5896714F225D2D0C0015ACCB /* physics_tiled_scene.cpp */; };
+		58967173225D2D0C0015ACCB /* physics_tiled_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5896714F225D2D0C0015ACCB /* physics_tiled_scene.cpp */; };
+		58967174225D2D0C0015ACCB /* tiled_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58967150225D2D0C0015ACCB /* tiled_scene.cpp */; };
+		58967175225D2D0C0015ACCB /* tiled_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58967150225D2D0C0015ACCB /* tiled_scene.cpp */; };
+		58967176225D2D0C0015ACCB /* launcher_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58967154225D2D0C0015ACCB /* launcher_scene.cpp */; };
+		58967177225D2D0C0015ACCB /* launcher_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58967154225D2D0C0015ACCB /* launcher_scene.cpp */; };
+		58967178225D2D0C0015ACCB /* game_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58967155225D2D0C0015ACCB /* game_scene.cpp */; };
+		58967179225D2D0C0015ACCB /* game_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58967155225D2D0C0015ACCB /* game_scene.cpp */; };
+		5896717A225D2D0C0015ACCB /* laser_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58967158225D2D0C0015ACCB /* laser_object.cpp */; };
+		5896717B225D2D0C0015ACCB /* laser_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58967158225D2D0C0015ACCB /* laser_object.cpp */; };
+		5896717C225D2D0C0015ACCB /* robot_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5896715B225D2D0C0015ACCB /* robot_object.cpp */; };
+		5896717D225D2D0C0015ACCB /* robot_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5896715B225D2D0C0015ACCB /* robot_object.cpp */; };
+		5896717E225D2D0C0015ACCB /* laser_and_bots_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5896715C225D2D0C0015ACCB /* laser_and_bots_app.cpp */; };
+		5896717F225D2D0C0015ACCB /* laser_and_bots_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5896715C225D2D0C0015ACCB /* laser_and_bots_app.cpp */; };
+		58967181225D30870015ACCB /* shapes in Resources */ = {isa = PBXBuildFile; fileRef = 58967180225D30870015ACCB /* shapes */; };
+		58967182225D30870015ACCB /* shapes in Resources */ = {isa = PBXBuildFile; fileRef = 58967180225D30870015ACCB /* shapes */; };
 		58FE2F82225207FE00C55C1F /* maps in Resources */ = {isa = PBXBuildFile; fileRef = 58FE2F81225207FE00C55C1F /* maps */; };
 		58FE2F83225207FE00C55C1F /* maps in Resources */ = {isa = PBXBuildFile; fileRef = 58FE2F81225207FE00C55C1F /* maps */; };
 		58FE2F852252080800C55C1F /* robot in Resources */ = {isa = PBXBuildFile; fileRef = 58FE2F842252080800C55C1F /* robot */; };
 		58FE2F862252080800C55C1F /* robot in Resources */ = {isa = PBXBuildFile; fileRef = 58FE2F842252080800C55C1F /* robot */; };
-		58FE2FA92252094800C55C1F /* Launcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2F872252094700C55C1F /* Launcher.cpp */; };
-		58FE2FAA2252094800C55C1F /* Launcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2F872252094700C55C1F /* Launcher.cpp */; };
-		58FE2FAB2252094800C55C1F /* MainScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2F892252094700C55C1F /* MainScene.cpp */; };
-		58FE2FAC2252094800C55C1F /* MainScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2F892252094700C55C1F /* MainScene.cpp */; };
-		58FE2FAD2252094800C55C1F /* LauncherScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2F8B2252094700C55C1F /* LauncherScene.cpp */; };
-		58FE2FAE2252094800C55C1F /* LauncherScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2F8B2252094700C55C1F /* LauncherScene.cpp */; };
-		58FE2FAF2252094800C55C1F /* cocos2dClass.snippet in Resources */ = {isa = PBXBuildFile; fileRef = 58FE2F8E2252094700C55C1F /* cocos2dClass.snippet */; };
-		58FE2FB02252094800C55C1F /* cocos2dClass.snippet in Resources */ = {isa = PBXBuildFile; fileRef = 58FE2F8E2252094700C55C1F /* cocos2dClass.snippet */; };
-		58FE2FB12252094800C55C1F /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2F902252094700C55C1F /* utils.cpp */; };
-		58FE2FB22252094800C55C1F /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2F902252094700C55C1F /* utils.cpp */; };
-		58FE2FB32252094800C55C1F /* AudioHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2F932252094700C55C1F /* AudioHelper.cpp */; };
-		58FE2FB42252094800C55C1F /* AudioHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2F932252094700C55C1F /* AudioHelper.cpp */; };
-		58FE2FB52252094800C55C1F /* TextButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2F982252094700C55C1F /* TextButton.cpp */; };
-		58FE2FB62252094800C55C1F /* TextButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2F982252094700C55C1F /* TextButton.cpp */; };
-		58FE2FB72252094800C55C1F /* BaseButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2F992252094700C55C1F /* BaseButton.cpp */; };
-		58FE2FB82252094800C55C1F /* BaseButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2F992252094700C55C1F /* BaseButton.cpp */; };
-		58FE2FB92252094800C55C1F /* BasicApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2F9C2252094700C55C1F /* BasicApp.cpp */; };
-		58FE2FBA2252094800C55C1F /* BasicApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2F9C2252094700C55C1F /* BasicApp.cpp */; };
-		58FE2FBB2252094800C55C1F /* LauncherApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2F9E2252094700C55C1F /* LauncherApp.cpp */; };
-		58FE2FBC2252094800C55C1F /* LauncherApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2F9E2252094700C55C1F /* LauncherApp.cpp */; };
-		58FE2FBD2252094800C55C1F /* GridScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2FA02252094700C55C1F /* GridScene.cpp */; };
-		58FE2FBE2252094800C55C1F /* GridScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2FA02252094700C55C1F /* GridScene.cpp */; };
-		58FE2FBF2252094800C55C1F /* TiledScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2FA22252094700C55C1F /* TiledScene.cpp */; };
-		58FE2FC02252094800C55C1F /* TiledScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2FA22252094700C55C1F /* TiledScene.cpp */; };
-		58FE2FC12252094800C55C1F /* BasicScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2FA52252094700C55C1F /* BasicScene.cpp */; };
-		58FE2FC22252094800C55C1F /* BasicScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2FA52252094700C55C1F /* BasicScene.cpp */; };
-		58FE2FC32252094800C55C1F /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2FA62252094700C55C1F /* AppDelegate.cpp */; };
-		58FE2FC42252094800C55C1F /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58FE2FA62252094700C55C1F /* AppDelegate.cpp */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
@@ -147,35 +155,42 @@
 		5087E78A17EB975400C73F5D /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		521A8EA819F11F5000D177D7 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		58967134225D2D0C0015ACCB /* laser_and_bots_launcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = laser_and_bots_launcher.cpp; sourceTree = "<group>"; };
+		58967136225D2D0C0015ACCB /* cocos2dClass.snippet */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = cocos2dClass.snippet; sourceTree = "<group>"; };
+		58967137225D2D0C0015ACCB /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
+		58967138225D2D0C0015ACCB /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
+		5896713A225D2D0C0015ACCB /* audio_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = audio_helper.h; sourceTree = "<group>"; };
+		5896713B225D2D0C0015ACCB /* audio_helper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = audio_helper.cpp; sourceTree = "<group>"; };
+		5896713D225D2D0C0015ACCB /* physics_body_cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = physics_body_cache.h; sourceTree = "<group>"; };
+		5896713E225D2D0C0015ACCB /* physics_body_cache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = physics_body_cache.cpp; sourceTree = "<group>"; };
+		58967141225D2D0C0015ACCB /* basic_app.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = basic_app.cpp; sourceTree = "<group>"; };
+		58967142225D2D0C0015ACCB /* launcher_app.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = launcher_app.cpp; sourceTree = "<group>"; };
+		58967143225D2D0C0015ACCB /* launcher_app.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = launcher_app.h; sourceTree = "<group>"; };
+		58967144225D2D0C0015ACCB /* basic_app.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = basic_app.h; sourceTree = "<group>"; };
+		58967146225D2D0C0015ACCB /* game_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_object.h; sourceTree = "<group>"; };
+		58967147225D2D0C0015ACCB /* game_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_object.cpp; sourceTree = "<group>"; };
+		58967149225D2D0C0015ACCB /* grid_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = grid_scene.cpp; sourceTree = "<group>"; };
+		5896714A225D2D0C0015ACCB /* grid_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = grid_scene.h; sourceTree = "<group>"; };
+		5896714B225D2D0C0015ACCB /* physics_tiled_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = physics_tiled_scene.h; sourceTree = "<group>"; };
+		5896714C225D2D0C0015ACCB /* basic_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = basic_scene.h; sourceTree = "<group>"; };
+		5896714D225D2D0C0015ACCB /* basic_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = basic_scene.cpp; sourceTree = "<group>"; };
+		5896714E225D2D0C0015ACCB /* tiled_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiled_scene.h; sourceTree = "<group>"; };
+		5896714F225D2D0C0015ACCB /* physics_tiled_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = physics_tiled_scene.cpp; sourceTree = "<group>"; };
+		58967150225D2D0C0015ACCB /* tiled_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tiled_scene.cpp; sourceTree = "<group>"; };
+		58967152225D2D0C0015ACCB /* game_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_scene.h; sourceTree = "<group>"; };
+		58967153225D2D0C0015ACCB /* launcher_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = launcher_scene.h; sourceTree = "<group>"; };
+		58967154225D2D0C0015ACCB /* launcher_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = launcher_scene.cpp; sourceTree = "<group>"; };
+		58967155225D2D0C0015ACCB /* game_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_scene.cpp; sourceTree = "<group>"; };
+		58967156225D2D0C0015ACCB /* laser_and_bots_launcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = laser_and_bots_launcher.h; sourceTree = "<group>"; };
+		58967158225D2D0C0015ACCB /* laser_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = laser_object.cpp; sourceTree = "<group>"; };
+		58967159225D2D0C0015ACCB /* laser_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = laser_object.h; sourceTree = "<group>"; };
+		5896715A225D2D0C0015ACCB /* robot_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = robot_object.h; sourceTree = "<group>"; };
+		5896715B225D2D0C0015ACCB /* robot_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = robot_object.cpp; sourceTree = "<group>"; };
+		5896715C225D2D0C0015ACCB /* laser_and_bots_app.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = laser_and_bots_app.cpp; sourceTree = "<group>"; };
+		5896715D225D2D0C0015ACCB /* laser_and_bots_app.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = laser_and_bots_app.h; sourceTree = "<group>"; };
+		58967180225D30870015ACCB /* shapes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = shapes; sourceTree = "<group>"; };
 		58FE2F81225207FE00C55C1F /* maps */ = {isa = PBXFileReference; lastKnownFileType = folder; path = maps; sourceTree = "<group>"; };
 		58FE2F842252080800C55C1F /* robot */ = {isa = PBXFileReference; lastKnownFileType = folder; path = robot; sourceTree = "<group>"; };
-		58FE2F872252094700C55C1F /* Launcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Launcher.cpp; sourceTree = "<group>"; };
-		58FE2F892252094700C55C1F /* MainScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainScene.cpp; sourceTree = "<group>"; };
-		58FE2F8A2252094700C55C1F /* MainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScene.h; sourceTree = "<group>"; };
-		58FE2F8B2252094700C55C1F /* LauncherScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LauncherScene.cpp; sourceTree = "<group>"; };
-		58FE2F8C2252094700C55C1F /* LauncherScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherScene.h; sourceTree = "<group>"; };
-		58FE2F8E2252094700C55C1F /* cocos2dClass.snippet */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = cocos2dClass.snippet; sourceTree = "<group>"; };
-		58FE2F8F2252094700C55C1F /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
-		58FE2F902252094700C55C1F /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
-		58FE2F922252094700C55C1F /* AudioHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioHelper.h; sourceTree = "<group>"; };
-		58FE2F932252094700C55C1F /* AudioHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioHelper.cpp; sourceTree = "<group>"; };
-		58FE2F962252094700C55C1F /* BaseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseButton.h; sourceTree = "<group>"; };
-		58FE2F972252094700C55C1F /* TextButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextButton.h; sourceTree = "<group>"; };
-		58FE2F982252094700C55C1F /* TextButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextButton.cpp; sourceTree = "<group>"; };
-		58FE2F992252094700C55C1F /* BaseButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaseButton.cpp; sourceTree = "<group>"; };
-		58FE2F9B2252094700C55C1F /* BasicApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicApp.h; sourceTree = "<group>"; };
-		58FE2F9C2252094700C55C1F /* BasicApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BasicApp.cpp; sourceTree = "<group>"; };
-		58FE2F9D2252094700C55C1F /* LauncherApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherApp.h; sourceTree = "<group>"; };
-		58FE2F9E2252094700C55C1F /* LauncherApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LauncherApp.cpp; sourceTree = "<group>"; };
-		58FE2FA02252094700C55C1F /* GridScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GridScene.cpp; sourceTree = "<group>"; };
-		58FE2FA12252094700C55C1F /* GridScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridScene.h; sourceTree = "<group>"; };
-		58FE2FA22252094700C55C1F /* TiledScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TiledScene.cpp; sourceTree = "<group>"; };
-		58FE2FA32252094700C55C1F /* BasicScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicScene.h; sourceTree = "<group>"; };
-		58FE2FA42252094700C55C1F /* TiledScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiledScene.h; sourceTree = "<group>"; };
-		58FE2FA52252094700C55C1F /* BasicScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BasicScene.cpp; sourceTree = "<group>"; };
-		58FE2FA62252094700C55C1F /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
-		58FE2FA72252094700C55C1F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		58FE2FA82252094700C55C1F /* Launcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Launcher.h; sourceTree = "<group>"; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -312,6 +327,7 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				58967180225D30870015ACCB /* shapes */,
 				58FE2F842252080800C55C1F /* robot */,
 				58FE2F81225207FE00C55C1F /* maps */,
 				521A8EA819F11F5000D177D7 /* fonts */,
@@ -324,12 +340,13 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				58FE2FA62252094700C55C1F /* AppDelegate.cpp */,
-				58FE2FA72252094700C55C1F /* AppDelegate.h */,
-				58FE2F872252094700C55C1F /* Launcher.cpp */,
-				58FE2FA82252094700C55C1F /* Launcher.h */,
-				58FE2F882252094700C55C1F /* scenes */,
-				58FE2F8D2252094700C55C1F /* utils */,
+				58967157225D2D0C0015ACCB /* game */,
+				5896715C225D2D0C0015ACCB /* laser_and_bots_app.cpp */,
+				5896715D225D2D0C0015ACCB /* laser_and_bots_app.h */,
+				58967134225D2D0C0015ACCB /* laser_and_bots_launcher.cpp */,
+				58967156225D2D0C0015ACCB /* laser_and_bots_launcher.h */,
+				58967151225D2D0C0015ACCB /* scenes */,
+				58967135225D2D0C0015ACCB /* utils */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -355,81 +372,102 @@
 			name = mac;
 			sourceTree = "<group>";
 		};
-		58FE2F882252094700C55C1F /* scenes */ = {
+		58967135225D2D0C0015ACCB /* utils */ = {
 			isa = PBXGroup;
 			children = (
-				58FE2F892252094700C55C1F /* MainScene.cpp */,
-				58FE2F8A2252094700C55C1F /* MainScene.h */,
-				58FE2F8B2252094700C55C1F /* LauncherScene.cpp */,
-				58FE2F8C2252094700C55C1F /* LauncherScene.h */,
-			);
-			path = scenes;
-			sourceTree = "<group>";
-		};
-		58FE2F8D2252094700C55C1F /* utils */ = {
-			isa = PBXGroup;
-			children = (
-				58FE2F8E2252094700C55C1F /* cocos2dClass.snippet */,
-				58FE2F8F2252094700C55C1F /* utils.h */,
-				58FE2F902252094700C55C1F /* utils.cpp */,
-				58FE2F912252094700C55C1F /* audio */,
-				58FE2F942252094700C55C1F /* base */,
+				58967136225D2D0C0015ACCB /* cocos2dClass.snippet */,
+				58967137225D2D0C0015ACCB /* utils.h */,
+				58967138225D2D0C0015ACCB /* utils.cpp */,
+				58967139225D2D0C0015ACCB /* audio */,
+				5896713C225D2D0C0015ACCB /* physics */,
+				5896713F225D2D0C0015ACCB /* base */,
 			);
 			path = utils;
 			sourceTree = "<group>";
 		};
-		58FE2F912252094700C55C1F /* audio */ = {
+		58967139225D2D0C0015ACCB /* audio */ = {
 			isa = PBXGroup;
 			children = (
-				58FE2F922252094700C55C1F /* AudioHelper.h */,
-				58FE2F932252094700C55C1F /* AudioHelper.cpp */,
+				5896713A225D2D0C0015ACCB /* audio_helper.h */,
+				5896713B225D2D0C0015ACCB /* audio_helper.cpp */,
 			);
 			path = audio;
 			sourceTree = "<group>";
 		};
-		58FE2F942252094700C55C1F /* base */ = {
+		5896713C225D2D0C0015ACCB /* physics */ = {
 			isa = PBXGroup;
 			children = (
-				58FE2F952252094700C55C1F /* ui */,
-				58FE2F9A2252094700C55C1F /* app */,
-				58FE2F9F2252094700C55C1F /* scene */,
+				5896713D225D2D0C0015ACCB /* physics_body_cache.h */,
+				5896713E225D2D0C0015ACCB /* physics_body_cache.cpp */,
+			);
+			path = physics;
+			sourceTree = "<group>";
+		};
+		5896713F225D2D0C0015ACCB /* base */ = {
+			isa = PBXGroup;
+			children = (
+				58967140225D2D0C0015ACCB /* app */,
+				58967145225D2D0C0015ACCB /* sprite */,
+				58967148225D2D0C0015ACCB /* scene */,
 			);
 			path = base;
 			sourceTree = "<group>";
 		};
-		58FE2F952252094700C55C1F /* ui */ = {
+		58967140225D2D0C0015ACCB /* app */ = {
 			isa = PBXGroup;
 			children = (
-				58FE2F962252094700C55C1F /* BaseButton.h */,
-				58FE2F972252094700C55C1F /* TextButton.h */,
-				58FE2F982252094700C55C1F /* TextButton.cpp */,
-				58FE2F992252094700C55C1F /* BaseButton.cpp */,
-			);
-			path = ui;
-			sourceTree = "<group>";
-		};
-		58FE2F9A2252094700C55C1F /* app */ = {
-			isa = PBXGroup;
-			children = (
-				58FE2F9B2252094700C55C1F /* BasicApp.h */,
-				58FE2F9C2252094700C55C1F /* BasicApp.cpp */,
-				58FE2F9D2252094700C55C1F /* LauncherApp.h */,
-				58FE2F9E2252094700C55C1F /* LauncherApp.cpp */,
+				58967141225D2D0C0015ACCB /* basic_app.cpp */,
+				58967142225D2D0C0015ACCB /* launcher_app.cpp */,
+				58967143225D2D0C0015ACCB /* launcher_app.h */,
+				58967144225D2D0C0015ACCB /* basic_app.h */,
 			);
 			path = app;
 			sourceTree = "<group>";
 		};
-		58FE2F9F2252094700C55C1F /* scene */ = {
+		58967145225D2D0C0015ACCB /* sprite */ = {
 			isa = PBXGroup;
 			children = (
-				58FE2FA02252094700C55C1F /* GridScene.cpp */,
-				58FE2FA12252094700C55C1F /* GridScene.h */,
-				58FE2FA22252094700C55C1F /* TiledScene.cpp */,
-				58FE2FA32252094700C55C1F /* BasicScene.h */,
-				58FE2FA42252094700C55C1F /* TiledScene.h */,
-				58FE2FA52252094700C55C1F /* BasicScene.cpp */,
+				58967146225D2D0C0015ACCB /* game_object.h */,
+				58967147225D2D0C0015ACCB /* game_object.cpp */,
+			);
+			path = sprite;
+			sourceTree = "<group>";
+		};
+		58967148225D2D0C0015ACCB /* scene */ = {
+			isa = PBXGroup;
+			children = (
+				58967149225D2D0C0015ACCB /* grid_scene.cpp */,
+				5896714A225D2D0C0015ACCB /* grid_scene.h */,
+				5896714B225D2D0C0015ACCB /* physics_tiled_scene.h */,
+				5896714C225D2D0C0015ACCB /* basic_scene.h */,
+				5896714D225D2D0C0015ACCB /* basic_scene.cpp */,
+				5896714E225D2D0C0015ACCB /* tiled_scene.h */,
+				5896714F225D2D0C0015ACCB /* physics_tiled_scene.cpp */,
+				58967150225D2D0C0015ACCB /* tiled_scene.cpp */,
 			);
 			path = scene;
+			sourceTree = "<group>";
+		};
+		58967151225D2D0C0015ACCB /* scenes */ = {
+			isa = PBXGroup;
+			children = (
+				58967152225D2D0C0015ACCB /* game_scene.h */,
+				58967153225D2D0C0015ACCB /* launcher_scene.h */,
+				58967154225D2D0C0015ACCB /* launcher_scene.cpp */,
+				58967155225D2D0C0015ACCB /* game_scene.cpp */,
+			);
+			path = scenes;
+			sourceTree = "<group>";
+		};
+		58967157225D2D0C0015ACCB /* game */ = {
+			isa = PBXGroup;
+			children = (
+				58967158225D2D0C0015ACCB /* laser_object.cpp */,
+				58967159225D2D0C0015ACCB /* laser_object.h */,
+				5896715A225D2D0C0015ACCB /* robot_object.h */,
+				5896715B225D2D0C0015ACCB /* robot_object.cpp */,
+			);
+			path = game;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -539,7 +577,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				58FE2FAF2252094800C55C1F /* cocos2dClass.snippet in Resources */,
+				58967181225D30870015ACCB /* shapes in Resources */,
+				58967160225D2D0C0015ACCB /* cocos2dClass.snippet in Resources */,
 				1A88B2641FC3D9C9005C14AE /* Images.xcassets in Resources */,
 				521A8EA919F11F5000D177D7 /* fonts in Resources */,
 				3EACC98F19EE6D4300EB3C5E /* res in Resources */,
@@ -556,9 +595,10 @@
 			files = (
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
 				58FE2F862252080800C55C1F /* robot in Resources */,
-				58FE2FB02252094800C55C1F /* cocos2dClass.snippet in Resources */,
+				58967161225D2D0C0015ACCB /* cocos2dClass.snippet in Resources */,
 				58FE2F83225207FE00C55C1F /* maps in Resources */,
 				3EACC99019EE6D4300EB3C5E /* res in Resources */,
+				58967182225D30870015ACCB /* shapes in Resources */,
 				521A8EAA19F11F5000D177D7 /* fonts in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -570,22 +610,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5896716E225D2D0C0015ACCB /* grid_scene.cpp in Sources */,
+				58967168225D2D0C0015ACCB /* basic_app.cpp in Sources */,
 				1AF87B781F6F77F7007BE51C /* AppController.mm in Sources */,
-				58FE2FAB2252094800C55C1F /* MainScene.cpp in Sources */,
-				58FE2FBD2252094800C55C1F /* GridScene.cpp in Sources */,
-				58FE2FB72252094800C55C1F /* BaseButton.cpp in Sources */,
-				58FE2FB32252094800C55C1F /* AudioHelper.cpp in Sources */,
+				58967174225D2D0C0015ACCB /* tiled_scene.cpp in Sources */,
+				58967172225D2D0C0015ACCB /* physics_tiled_scene.cpp in Sources */,
+				5896717A225D2D0C0015ACCB /* laser_object.cpp in Sources */,
+				5896716C225D2D0C0015ACCB /* game_object.cpp in Sources */,
+				58967178225D2D0C0015ACCB /* game_scene.cpp in Sources */,
+				58967166225D2D0C0015ACCB /* physics_body_cache.cpp in Sources */,
+				58967162225D2D0C0015ACCB /* utils.cpp in Sources */,
+				58967164225D2D0C0015ACCB /* audio_helper.cpp in Sources */,
+				5896717C225D2D0C0015ACCB /* robot_object.cpp in Sources */,
+				5896715E225D2D0C0015ACCB /* laser_and_bots_launcher.cpp in Sources */,
 				1AF87B8B1F6F782A007BE51C /* RootViewController.mm in Sources */,
+				5896716A225D2D0C0015ACCB /* launcher_app.cpp in Sources */,
 				1AF87B8A1F6F7822007BE51C /* main.m in Sources */,
-				58FE2FBF2252094800C55C1F /* TiledScene.cpp in Sources */,
-				58FE2FB92252094800C55C1F /* BasicApp.cpp in Sources */,
-				58FE2FBB2252094800C55C1F /* LauncherApp.cpp in Sources */,
-				58FE2FAD2252094800C55C1F /* LauncherScene.cpp in Sources */,
-				58FE2FC12252094800C55C1F /* BasicScene.cpp in Sources */,
-				58FE2FC32252094800C55C1F /* AppDelegate.cpp in Sources */,
-				58FE2FA92252094800C55C1F /* Launcher.cpp in Sources */,
-				58FE2FB12252094800C55C1F /* utils.cpp in Sources */,
-				58FE2FB52252094800C55C1F /* TextButton.cpp in Sources */,
+				58967176225D2D0C0015ACCB /* launcher_scene.cpp in Sources */,
+				5896717E225D2D0C0015ACCB /* laser_and_bots_app.cpp in Sources */,
+				58967170225D2D0C0015ACCB /* basic_scene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,20 +636,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				58FE2FB62252094800C55C1F /* TextButton.cpp in Sources */,
-				58FE2FBA2252094800C55C1F /* BasicApp.cpp in Sources */,
-				58FE2FB42252094800C55C1F /* AudioHelper.cpp in Sources */,
-				58FE2FBC2252094800C55C1F /* LauncherApp.cpp in Sources */,
-				58FE2FC42252094800C55C1F /* AppDelegate.cpp in Sources */,
+				5896716D225D2D0C0015ACCB /* game_object.cpp in Sources */,
+				58967169225D2D0C0015ACCB /* basic_app.cpp in Sources */,
+				58967163225D2D0C0015ACCB /* utils.cpp in Sources */,
+				58967167225D2D0C0015ACCB /* physics_body_cache.cpp in Sources */,
+				5896717B225D2D0C0015ACCB /* laser_object.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
-				58FE2FB22252094800C55C1F /* utils.cpp in Sources */,
-				58FE2FAA2252094800C55C1F /* Launcher.cpp in Sources */,
-				58FE2FAE2252094800C55C1F /* LauncherScene.cpp in Sources */,
-				58FE2FB82252094800C55C1F /* BaseButton.cpp in Sources */,
-				58FE2FAC2252094800C55C1F /* MainScene.cpp in Sources */,
-				58FE2FBE2252094800C55C1F /* GridScene.cpp in Sources */,
-				58FE2FC22252094800C55C1F /* BasicScene.cpp in Sources */,
-				58FE2FC02252094800C55C1F /* TiledScene.cpp in Sources */,
+				58967171225D2D0C0015ACCB /* basic_scene.cpp in Sources */,
+				5896716B225D2D0C0015ACCB /* launcher_app.cpp in Sources */,
+				5896716F225D2D0C0015ACCB /* grid_scene.cpp in Sources */,
+				58967173225D2D0C0015ACCB /* physics_tiled_scene.cpp in Sources */,
+				58967165225D2D0C0015ACCB /* audio_helper.cpp in Sources */,
+				5896715F225D2D0C0015ACCB /* laser_and_bots_launcher.cpp in Sources */,
+				58967175225D2D0C0015ACCB /* tiled_scene.cpp in Sources */,
+				5896717D225D2D0C0015ACCB /* robot_object.cpp in Sources */,
+				5896717F225D2D0C0015ACCB /* laser_and_bots_app.cpp in Sources */,
+				58967179225D2D0C0015ACCB /* game_scene.cpp in Sources */,
+				58967177225D2D0C0015ACCB /* launcher_scene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -773,6 +819,7 @@
 					"$(SRCROOT)/../cocos2d/external",
 					"$(SRCROOT)/../cocos2d/external/chipmunk/include/chipmunk",
 					"$(SRCROOT)/../cocos2d/cocos/editor-support",
+					"$(SRCROOT)/../rapidjson/include",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
@@ -797,6 +844,7 @@
 					"$(SRCROOT)/../cocos2d/external",
 					"$(SRCROOT)/../cocos2d/external/chipmunk/include/chipmunk",
 					"$(SRCROOT)/../cocos2d/cocos/editor-support",
+					"$(SRCROOT)/../rapidjson/include",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
