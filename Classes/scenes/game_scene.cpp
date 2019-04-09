@@ -21,6 +21,7 @@
 #include "game_scene.h"
 #include "../game/robot_object.h"
 #include "../game/laser_object.h"
+#include "../utils/physics/physics_body_cache.h"
 
 game_scene::game_scene() :
   robot_(nullptr)
@@ -72,6 +73,9 @@ bool game_scene::init()
 
     // add the lasers
     UTILS_BREAK_IF(!add_lasers_to_game());
+
+    // clear the cache
+    physics_body_cache::get_instance()->clear();
 
     //get updates
     scheduleUpdate();
