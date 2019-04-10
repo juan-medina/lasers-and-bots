@@ -22,9 +22,11 @@
 #include "../game/robot_object.h"
 #include "../game/laser_object.h"
 #include "../utils/physics/physics_body_cache.h"
+#include "../ui/game_ui.h"
 
 game_scene::game_scene() :
-  robot_(nullptr)
+  robot_(nullptr),
+  game_ui_(nullptr)
 {
 }
 
@@ -85,6 +87,13 @@ bool game_scene::init()
     {
       UTILS_BREAK_IF(!create_debug_grid("fonts/Marker Felt.ttf"));
     }
+
+    game_ui_ = game_ui::create();
+    UTILS_BREAK_IF(game_ui_==nullptr);
+
+    game_ui_->setAnchorPoint(Vec2(0.f, 0.f));
+
+    addChild(game_ui_);
 
     ret = true;
   }
@@ -224,4 +233,7 @@ void game_scene::update_camera() const
   // move the camera to the clamped position
   const auto final_pos = robot_->getPosition().getClampPoint(min_pos, max_pos);
   getDefaultCamera()->setPosition(final_pos);
+
+  const auto ui_pos = Vec2(final_pos.x - (screen_size_.width / 2), final_pos.y - (screen_size_.height/ 2));
+  game_ui_->setPosition(ui_pos);
 }

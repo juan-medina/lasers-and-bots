@@ -17,57 +17,29 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __MAIN_SCENE__
-#define __MAIN_SCENE__
+
+#ifndef __GAME_UI__CLASS__
+#define __GAME_UI__CLASS__
 
 #include "../utils/utils.h"
-#include "../utils/base/scene/physics_tiled_scene.h"
 
-//foward declarations
-class robot_object;
-class game_ui;
-
-class game_scene final : public physics_tiled_scene
+class game_ui final : public Node
 {
 public:
   // base_class
-  using base_class = physics_tiled_scene;
+  using base_class = Node;
 
   // constructor
-  game_scene();
+  game_ui();
 
   // create the object
-  static game_scene* create();
-
-  // create the scene
-  static Scene* scene();
+  static game_ui* create();
 
   // init this object
   bool init() override;
 
-private:
-
-  // update our game
-  void update(float delta) override;
-
-  // move the camera following the robot clamping on the map
-  void update_camera() const;
-
-  //our robot
-  robot_object* robot_;
-
-  // create robot
-  bool add_robot();
-
-  static Vec2 get_object_position(const ValueMap& values);
-
-  // add lasers to the game
-  bool add_lasers_to_game() const;
-
-  // our game gravity
-  static constexpr float gravity = -1000.0f;
-
-  game_ui* game_ui_;
+  // when close
+  void on_close(Ref* sender);
 };
 
-#endif // __MAIN_SCENE__
+#endif // __GAME_UI__CLASS__
