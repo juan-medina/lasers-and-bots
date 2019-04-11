@@ -122,6 +122,9 @@ bool basic_app::applicationDidFinishLaunching()
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0f / 60.0f);
 
+    // get the real screen scale
+    const auto real_screen = open_gl_view->getVisibleSize();
+
     // Set the design resolution, we scale to our design with so aspect ratio is maintained
     if (fit_all)
     {
@@ -130,7 +133,10 @@ bool basic_app::applicationDidFinishLaunching()
     }
     else
     {
-      if (design_resolution_.width > design_resolution_.height)
+      const auto ratio_x = real_screen.width / design_resolution_.width;
+      const auto ratio_y = real_screen.height / design_resolution_.height;
+
+      if (ratio_x >= ratio_y)
       {
         open_gl_view->setDesignResolutionSize(design_resolution_.width, design_resolution_.height,
                                               ResolutionPolicy::FIXED_WIDTH);
@@ -141,9 +147,6 @@ bool basic_app::applicationDidFinishLaunching()
                                               ResolutionPolicy::FIXED_HEIGHT);
       }
     }
-
-    // get the real screen scale
-    auto real_screen = Vec2(open_gl_view->getScaleX(), open_gl_view->getScaleY());
 
     // for plugins
     register_all_packages();
