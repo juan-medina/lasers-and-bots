@@ -70,11 +70,11 @@ bool game_scene::init()
 
     UTILS_BREAK_IF(!base_class::init("maps/map.tmx", gravity, debug_physics));
 
-    //create bot
-    UTILS_BREAK_IF(!add_robot());
+    //load objects
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("objects/objects.plist");
 
     // add the lasers
-    UTILS_BREAK_IF(!add_lasers_to_game());
+    UTILS_BREAK_IF(!add_objects_to_game());
 
     // clear the cache
     physics_body_cache::get_instance()->clear();
@@ -132,42 +132,7 @@ void game_scene::update(float delta)
   update_camera();
 }
 
-bool game_scene::add_robot()
-{
-  auto result = false;
-
-  do
-  {
-    const auto walk_layer = get_tiled_map()->getLayer("walk");
-    UTILS_BREAK_IF(walk_layer == nullptr);
-
-    robot_ = robot_object::create();
-    UTILS_BREAK_IF(robot_ == nullptr);
-
-    walk_layer->addChild(robot_);
-
-    const auto objects = get_tiled_map()->getObjectGroup("objects");
-    UTILS_BREAK_IF(objects == nullptr);
-
-    auto map_robot_object = objects->getObject("robot");
-    UTILS_BREAK_IF(map_robot_object.empty());
-
-    const auto robot_x = map_robot_object.at("x").asFloat() + block_size_.width / 2;
-    const auto robot_y = map_robot_object.at("y").asFloat() + block_size_.height / 2;
-    const auto robot_pos = Vec2(robot_x, robot_y);
-
-    const auto position = get_object_position(map_robot_object);
-
-    robot_->setPosition(robot_pos);
-
-    result = true;
-  }
-  while (false);
-
-  return result;
-}
-
-Vec2 game_scene::get_object_position(const ValueMap& values)
+Vec2 game_scene::get_object_center_position(const ValueMap& values)
 {
   const auto width = values.at("width").asFloat();
   const auto height = values.at("height").asFloat();
@@ -189,7 +154,17 @@ Vec2 game_scene::get_object_position(const ValueMap& values)
   return Vec2(x + rotated_center_x - width, y + rotated_center_y);
 }
 
-bool game_scene::add_lasers_to_game() const
+Vec2 game_scene::get_object_position(const ValueMap& values)
+{
+  const auto width = values.at("width").asFloat();
+  const auto height = values.at("height").asFloat();
+  const auto x = values.at("x").asFloat() + width / 2;
+  const auto y = values.at("y").asFloat() + height / 2;
+
+  return Vec2(x, y);
+}
+
+bool game_scene::add_objects_to_game()
 {
   auto result = false;
 
@@ -200,6 +175,9 @@ bool game_scene::add_lasers_to_game() const
     auto layer_back = map->getLayer("walk");
     UTILS_BREAK_IF(layer_back == nullptr);
 
+    auto layer_walk_back = map->getLayer("walk_back");
+    UTILS_BREAK_IF(layer_walk_back == nullptr);
+
     const auto objects = map->getObjectGroup("objects");
     for (const auto& object : objects->getObjects())
     {
@@ -207,13 +185,46 @@ bool game_scene::add_lasers_to_game() const
       if (values.at("type").asString() == "laser")
       {
         const auto rotation = values.at("rotation").asFloat();
-        const auto position = get_object_position(values);
+        const auto position = get_object_center_position(values);
 
         auto laser = laser_object::create(rotation);
         UTILS_BREAK_IF(laser == nullptr);
 
         laser->setPosition(position);
         layer_back->addChild(laser);
+      }
+      else if (values.at("type").asString() == "robot")
+      {
+        robot_ = robot_object::create();
+        UTILS_BREAK_IF(robot_ == nullptr);
+
+        const auto position = get_object_position(values);
+
+        robot_->setPosition(position);
+        layer_back->addChild(robot_);
+      }
+      else if (values.at("type").asString() == "scenery")
+      {
+        const auto image = values.at("image").asString();
+        const auto name = values.at("name").asString();
+
+        auto sprite = Sprite::createWithSpriteFrameName(image);
+        UTILS_BREAK_IF(sprite == nullptr);
+
+        sprite->setAnchorPoint(Vec2(0.5f, 0.f));
+
+        auto position = get_object_position(values);
+        position.y += (values.at("height").asFloat() / 2);
+
+        sprite->setPosition(position);
+        if (name == "switch")
+        {
+          layer_back->addChild(sprite);
+        }
+        else
+        {
+          layer_walk_back->addChild(sprite);
+        }        
       }
     }
 
@@ -234,6 +245,6 @@ void game_scene::update_camera() const
   const auto final_pos = robot_->getPosition().getClampPoint(min_pos, max_pos);
   getDefaultCamera()->setPosition(final_pos);
 
-  const auto ui_pos = Vec2(final_pos.x - (screen_size_.width / 2), final_pos.y - (screen_size_.height/ 2));
+  const auto ui_pos = Vec2(final_pos.x - (screen_size_.width / 2), final_pos.y - (screen_size_.height / 2));
   game_ui_->setPosition(ui_pos);
 }

@@ -56,13 +56,15 @@ private:
   //our robot
   robot_object* robot_;
 
-  // create robot
-  bool add_robot();
+  // get the object center position
+  static Vec2 get_object_center_position(const ValueMap& values);
 
+  // get the object position
   static Vec2 get_object_position(const ValueMap& values);
 
+
   // add lasers to the game
-  bool add_lasers_to_game() const;
+  bool add_objects_to_game();
 
   // our game gravity
   static constexpr float gravity = -1000.0f;

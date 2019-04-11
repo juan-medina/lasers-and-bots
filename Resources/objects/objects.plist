@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>frames</key>
+		<dict>
+			<key>01_Barrel (1).png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{358,0},{177,238}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{177,238}}</string>
+				<key>sourceSize</key>
+				<string>{177,238}</string>
+			</dict>
+
+			<key>02_Barrel (2).png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{563,722},{177,238}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{177,238}}</string>
+				<key>sourceSize</key>
+				<string>{177,238}</string>
+			</dict>
+
+			<key>03_Box.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{563,465},{256,256}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{256,256}}</string>
+				<key>sourceSize</key>
+				<string>{256,256}</string>
+			</dict>
+
+			<key>04_DoorLocked.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{563,0},{280,464}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{280,464}}</string>
+				<key>sourceSize</key>
+				<string>{280,464}</string>
+			</dict>
+
+			<key>05_DoorOpen.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{282,362},{280,464}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{280,464}}</string>
+				<key>sourceSize</key>
+				<string>{280,464}</string>
+			</dict>
+
+			<key>06_DoorUnlocked.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,362},{281,464}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{281,464}}</string>
+				<key>sourceSize</key>
+				<string>{281,464}</string>
+			</dict>
+
+			<key>07_Saw.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,0},{357,361}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{357,361}}</string>
+				<key>sourceSize</key>
+				<string>{357,361}</string>
+			</dict>
+
+			<key>08_Switch (1).png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{741,722},{72,257}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{72,257}}</string>
+				<key>sourceSize</key>
+				<string>{72,257}</string>
+			</dict>
+
+			<key>09_Switch (2).png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{814,722},{72,257}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{72,257}}</string>
+				<key>sourceSize</key>
+				<string>{72,257}</string>
+			</dict>
+
+		</dict>
+
+		<key>metadata</key>
+		<dict>
+			<key>format</key>
+			<integer>2</integer>
+			<key>size</key>
+			<string>{1024,1024}</string>
+			<key>textureFileName</key>
+			<string>objects.png</string>
+			</dict>
+		</dict>
+</plist>
