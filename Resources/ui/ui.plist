@@ -7,7 +7,7 @@
 			<key>01_Exit_1.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{148,0},{147,147}}</string>
+				<string>{{0,600},{147,147}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
@@ -21,7 +21,7 @@
 			<key>01_Exit_2.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,0},{147,147}}</string>
+				<string>{{0,748},{147,147}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
@@ -32,6 +32,34 @@
 				<string>{147,147}</string>
 			</dict>
 
+			<key>02_joystick_background.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,0},{449,448}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{1,2},{449,448}}</string>
+				<key>sourceSize</key>
+				<string>{450,450}</string>
+			</dict>
+
+			<key>02_joystick_thumb.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,449},{150,150}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{150,150}}</string>
+				<key>sourceSize</key>
+				<string>{150,150}</string>
+			</dict>
+
 		</dict>
 
 		<key>metadata</key>
@@ -39,7 +67,7 @@
 			<key>format</key>
 			<integer>2</integer>
 			<key>size</key>
-			<string>{512,256}</string>
+			<string>{512,1024}</string>
 			<key>textureFileName</key>
 			<string>ui.png</string>
 			</dict>
