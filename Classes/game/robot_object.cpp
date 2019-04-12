@@ -79,7 +79,7 @@ bool robot_object::init()
     bot_size.width *= 0.4f;
     bot_size.height *= 0.85f;
 
-    auto body = PhysicsBody::createBox(bot_size, PhysicsMaterial(0.1f, 0.0f, 0.5f));
+    auto body = PhysicsBody::createBox(bot_size, PhysicsMaterial(0.1f, 0.5f, 0.5f));
     UTILS_BREAK_IF(body == nullptr);
 
     body->setDynamic(true);

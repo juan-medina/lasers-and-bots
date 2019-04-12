@@ -105,7 +105,7 @@ void physics_tiled_scene::init_physics(const bool debug_physics) const
   getPhysicsWorld()->setSubsteps(4);
 }
 
-string physics_tiled_scene::get_shape_from_tile_gid(int gid)
+string physics_tiled_scene::get_shape_from_tile_gid(const int gid)
 {
   if (gid_to_shapes_.count(gid) == 0)
   {
@@ -126,13 +126,28 @@ string physics_tiled_scene::get_shape_from_tile_gid(int gid)
   return gid_to_shapes_[gid];
 }
 
-bool physics_tiled_scene::add_body_to_node(Node* node, const string& shape)
+float physics_tiled_scene::get_restitution_from_tile_gid(const int gid) const
+{
+  auto restitution = 0.0f;
+  const auto map = get_tiled_map();
+  if (map->getPropertiesForGID(gid).getType() == Value::Type::MAP)
+  {
+    const auto properties = map->getPropertiesForGID(gid).asValueMap();
+    if (properties.count("restitution") == 1)
+    {
+      restitution = properties.at("restitution").asFloat();
+    }
+  }
+  return restitution;
+}
+
+bool physics_tiled_scene::add_body_to_node(Node* node, const string& shape, const float restitution)
 {
   auto result = false;
 
   do
   {
-    const auto mat = PhysicsMaterial(0.0f, 0.0f, 0.0f);
+    const auto mat = PhysicsMaterial(0.0f, restitution, 0.0f);
     PhysicsBody* body = nullptr;
     if (shape.empty())
     {
@@ -197,7 +212,8 @@ bool physics_tiled_scene::add_physics_to_map()
               {
                 const auto node = create_dummy_node(layer, tile_pos);
                 const auto shape = get_shape_from_tile_gid(gid);
-                add_body_to_node(node, shape);
+                const auto restitution = get_restitution_from_tile_gid(gid);
+                add_body_to_node(node, shape, restitution);
               }
             }
           }

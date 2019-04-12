@@ -12,6 +12,7 @@
   </tile>
   <tile id="13">
    <properties>
+    <property name="restitution" type="float" value="0.5"/>
     <property name="shape" value="014_Spike"/>
    </properties>
   </tile>
