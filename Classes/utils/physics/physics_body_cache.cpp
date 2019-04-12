@@ -62,16 +62,12 @@ void physics_body_cache::clear()
   bodies_.clear();
 }
 
-bool physics_body_cache::load(const string& physics_editor_json_file, const float shapes_width,
-                              const float shapes_height)
+bool physics_body_cache::load(const string& physics_editor_json_file)
 {
   auto ret = false;
 
   do
   {
-    const auto scale_x = shapes_width - 1;
-    const auto scale_y = shapes_height - 1;
-
     auto document = rapidjson::Document();
 
     const auto full_path = FileUtils::getInstance()->fullPathForFilename(physics_editor_json_file);
@@ -91,7 +87,12 @@ bool physics_body_cache::load(const string& physics_editor_json_file, const floa
             if (bodies_iterator->HasMember("name"))
             {
               const auto name = (*bodies_iterator)["name"].GetString();
-              auto saved_body = new physics_body_cache::saved_body(shapes_width, shapes_height);
+              const auto width = (*bodies_iterator)["width"].GetInt();
+              const auto height = (*bodies_iterator)["height"].GetInt();
+              const auto scale_x = width - 1;
+              const auto scale_y = height - 1;
+
+              auto saved_body = new physics_body_cache::saved_body(width, height);
 
               if (bodies_iterator->HasMember("polygons"))
               {
@@ -159,16 +160,16 @@ PhysicsBody* physics_body_cache::get_body(const string& name, const PhysicsMater
   if (bodies_.count(name) != 0)
   {
     auto saved_body = bodies_[name];
+    const auto offset = Vec2(-saved_body->body_width_ / 2, -saved_body->body_height_ / 2);
+
     body = PhysicsBody::create();
 
     for (auto shape : saved_body->shapes_)
     {
-      const auto polygon_shape = PhysicsShapePolygon::create(shape->vertex_, shape->num_vertex_, mat);
+      const auto polygon_shape = PhysicsShapePolygon::create(shape->vertex_, shape->num_vertex_, mat, offset);
       body->addShape(polygon_shape);
     }
-    body->setPositionOffset(Vec2(-saved_body->body_width_ / 2, -saved_body->body_height_ / 2));
   }
-
   return body;
 }
 

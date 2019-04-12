@@ -192,7 +192,7 @@ bool physics_tiled_scene::add_physics_to_map()
     const auto shapes = map->getProperty("shapes").asString();
 
     auto cache = physics_body_cache::get_instance();
-    cache->load(shapes, block_size_.width - 1, block_size_.height - 1);
+    cache->load(shapes);
 
     for (auto& child : map->getChildren())
     {

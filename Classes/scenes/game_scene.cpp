@@ -221,10 +221,39 @@ bool game_scene::add_objects_to_game()
         {
           layer_back->addChild(sprite);
         }
+        else if (name == "saw")
+        {
+          const auto rotation_time = values.at("rotation_time").asFloat();
+          const auto movement = values.at("movement").asFloat();
+          const auto movement_time = values.at("movement_time").asFloat();
+          const auto stop_time = values.at("stop_time").asFloat();
+
+          position = get_object_center_position(values);
+          sprite->setPosition(position);
+          sprite->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+          const auto move_right = MoveBy::create(movement_time, Vec2(movement, 0.f));
+          const auto move_left = MoveBy::create(movement_time, Vec2(-movement, 0.f));
+          const auto delay = DelayTime::create(stop_time);
+          const auto movement_sequence = Sequence::create(move_right, delay, move_left, delay, nullptr);
+          const auto repeat_movement = RepeatForever::create(movement_sequence);
+          sprite->runAction(repeat_movement);
+
+          const auto rotation = RotateBy::create(rotation_time, 360.f);
+          const auto repeat_rotation = RepeatForever::create(rotation);
+          sprite->runAction(repeat_rotation);
+
+          const auto shape = values.at("shape").asString();
+          const auto restitution = values.at("restitution").asFloat();
+          add_body_to_node(sprite, shape, restitution);
+
+
+          layer_walk_back->addChild(sprite);
+        }
         else
         {
           layer_walk_back->addChild(sprite);
-        }        
+        }
       }
     }
 

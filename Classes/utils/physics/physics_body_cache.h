@@ -53,7 +53,7 @@ public:
   void clear();
 
   // load a file into the cache
-  bool load(const string& physics_editor_json_file, const float shapes_width, const float shapes_height);
+  bool load(const string& physics_editor_json_file);
 
   // get a body
   PhysicsBody* get_body(const string& name, const PhysicsMaterial& mat = PHYSICSSHAPE_MATERIAL_DEFAULT);
