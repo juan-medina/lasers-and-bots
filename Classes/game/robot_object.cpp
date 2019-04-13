@@ -92,7 +92,7 @@ bool robot_object::init(virtual_joy_stick* virtual_joy_stick)
 
     UTILS_BREAK_IF(!create_anim("Idle_%02d.png", 10, 0.05f, "idle"));
     UTILS_BREAK_IF(!create_anim("Run_%02d.png", 8, 0.15f, "run"));
-    UTILS_BREAK_IF(!create_anim("Jump_%02d.png", 10, 0.15f, "jump", 1));    
+    UTILS_BREAK_IF(!create_anim("Jump_%02d.png", 10, 0.15f, "jump", 1));
 
     change_anim("idle");
 
@@ -105,10 +105,10 @@ bool robot_object::init(virtual_joy_stick* virtual_joy_stick)
 }
 
 void robot_object::update(float delta)
-{    
+{
   move_to_left(virtual_joy_stick_->get_left());
   move_to_right(virtual_joy_stick_->get_right());
-  
+
   if (virtual_joy_stick_->get_up())
   {
     jump();
@@ -128,20 +128,9 @@ robot_object::state robot_object::decide_state() const
 
   auto wanted_state = current_state_;
 
-  if (fuzzy_equals(velocity.y, 0.0f) && fuzzy_equals(velocity.x, 0.0f))
+  if (fuzzy_equals(velocity.y, 0.0f, 0.1f) && fuzzy_equals(velocity.x, 0.0f, 0.1f))
   {
     wanted_state = e_idle;
-  }
-  else
-  {
-    if ((fabs(velocity.y) > 10.0f) || (fabs(velocity.x) > 10.0f))
-    {
-      wanted_state = e_running;
-      if (velocity.y > 10.0f)
-      {
-        wanted_state = e_jumping;
-      }
-    }
   }
 
   return wanted_state;
@@ -174,6 +163,7 @@ void robot_object::move_to_left(const bool to_left)
   if (to_left)
   {
     setFlippedX(true);
+    change_state(e_running);
   }
 
   to_left_ = to_left;
@@ -184,16 +174,20 @@ void robot_object::move_to_right(const bool to_right)
   if (to_right)
   {
     setFlippedX(false);
+    change_state(e_running);
   }
 
   to_right_ = to_right;
 }
 
-void robot_object::jump() const
+void robot_object::jump()
 {
-  const auto y = getPhysicsBody()->getVelocity().y;
-  if (fuzzy_equals(y, 0.0f))
+  if (current_state_ != e_jumping)
   {
-    getPhysicsBody()->applyImpulse(Vec2(0.0f, normal_movement.y));
+    if (fuzzy_equals(fabs(getPhysicsBody()->getVelocity().y), 0.1f))
+    {
+      getPhysicsBody()->applyImpulse(Vec2(0.0f, normal_movement.y));
+      change_state(e_jumping);
+    }
   }
 }

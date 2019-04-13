@@ -24,6 +24,7 @@
 #include "../utils/base/sprite/game_object.h"
 
 class virtual_joy_stick;
+
 class robot_object final : public game_object
 {
 public:
@@ -60,7 +61,7 @@ private:
   void move_to_right(bool to_right);
 
   // we jump
-  void jump() const;
+  void jump();
 
   //we like to move to left
   bool to_left_;
