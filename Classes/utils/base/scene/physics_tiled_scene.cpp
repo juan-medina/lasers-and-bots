@@ -19,7 +19,7 @@
  ****************************************************************************/
 
 #include "physics_tiled_scene.h"
-#include "../../physics/physics_body_cache.h"
+#include "../../physics/physics_shape_cache.h"
 
 physics_tiled_scene* physics_tiled_scene::create(const std::string& tmx_file, const float gravity,
                                                  const bool debug_physics)
@@ -85,6 +85,9 @@ bool physics_tiled_scene::init(const std::string& tmx_file, const float gravity,
 
     // add physics to map
     UTILS_BREAK_IF(!add_physics_to_map());
+
+    // convert transparent tiles
+    UTILS_BREAK_IF(!convert_transparent_tiles());
   }
   while (false);
 
@@ -126,37 +129,38 @@ string physics_tiled_scene::get_shape_from_tile_gid(const int gid)
   return gid_to_shapes_[gid];
 }
 
-float physics_tiled_scene::get_restitution_from_tile_gid(const int gid) const
+float physics_tiled_scene::get_opacity_from_tile_gid(const int gid) const
 {
-  auto restitution = 0.0f;
+  auto restitution = 1.0f;
   const auto map = get_tiled_map();
   if (map->getPropertiesForGID(gid).getType() == Value::Type::MAP)
   {
     const auto properties = map->getPropertiesForGID(gid).asValueMap();
-    if (properties.count("restitution") == 1)
+    if (properties.count("opacity") == 1)
     {
-      restitution = properties.at("restitution").asFloat();
+      restitution = properties.at("opacity").asFloat();
     }
   }
   return restitution;
 }
 
-bool physics_tiled_scene::add_body_to_node(Node* node, const string& shape, const float restitution)
+bool physics_tiled_scene::add_body_to_node(Node* node, const string& shape)
 {
   auto result = false;
 
   do
   {
-    const auto mat = PhysicsMaterial(0.0f, restitution, 0.0f);
     PhysicsBody* body = nullptr;
-    if (shape.empty())
+    if (!shape.empty())
     {
-      body = PhysicsBody::createBox(node->getContentSize(), mat);
+      const auto cache = physics_shape_cache::get_instance();
+      body = cache->create_body_with_name(shape);
     }
-    else
+
+    if (body == nullptr)
     {
-      const auto cache = physics_body_cache::get_instance();
-      body = cache->get_body(shape, mat);
+      const auto mat = PhysicsMaterial(0.0f, 0.0f, 0.0f);
+      body = PhysicsBody::createBox(node->getContentSize(), mat);
     }
 
     UTILS_BREAK_IF(body == nullptr);
@@ -191,8 +195,8 @@ bool physics_tiled_scene::add_physics_to_map()
 
     const auto shapes = map->getProperty("shapes").asString();
 
-    auto cache = physics_body_cache::get_instance();
-    cache->load(shapes);
+    auto cache = physics_shape_cache::get_instance();
+    UTILS_BREAK_IF(!cache->add_shapes_with_file(shapes));
 
     for (auto& child : map->getChildren())
     {
@@ -212,8 +216,48 @@ bool physics_tiled_scene::add_physics_to_map()
               {
                 const auto node = create_dummy_node(layer, tile_pos);
                 const auto shape = get_shape_from_tile_gid(gid);
-                const auto restitution = get_restitution_from_tile_gid(gid);
-                add_body_to_node(node, shape, restitution);
+                add_body_to_node(node, shape);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    result = true;
+  }
+  while (false);
+
+  return result;
+}
+
+bool physics_tiled_scene::convert_transparent_tiles()
+{
+  auto result = false;
+
+  do
+  {
+    const auto map = get_tiled_map();
+
+    for (auto& child : map->getChildren())
+    {
+      const auto layer = dynamic_cast<experimental::TMXLayer*>(child);
+      if (layer != nullptr)
+      {
+        for (auto col = 0; col < blocks_.height; col++)
+        {
+          for (auto row = 0; row < blocks_.width; row++)
+          {
+            const auto tile_pos = Vec2(row, col);
+            const auto gid = layer->getTileGIDAt(tile_pos);
+            if (gid != 0)
+            {
+              const auto shape = get_shape_from_tile_gid(gid);
+              const auto opacity = get_opacity_from_tile_gid(gid);
+              if (opacity != 1.f)
+              {
+                const auto sprite = layer->getTileAt(tile_pos);
+                sprite->setOpacity(255 * opacity);
               }
             }
           }

@@ -93,14 +93,14 @@
     <ClCompile Include="..\Classes\utils\base\scene\physics_tiled_scene.cpp">
       <Filter>src\utils\base\scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\utils\physics\physics_body_cache.cpp">
-      <Filter>src\utils\physics</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\ui\game_ui.cpp">
       <Filter>src\uit</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\ui\virtual_joy_stick.cpp">
       <Filter>src\uit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utils\physics\physics_shape_cache.cpp">
+      <Filter>src\utils\physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -152,14 +152,14 @@
     <ClInclude Include="..\Classes\utils\base\scene\physics_tiled_scene.h">
       <Filter>src\utils\base\scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\utils\physics\physics_body_cache.h">
-      <Filter>src\utils\physics</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\ui\game_ui.h">
       <Filter>src\uit</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ui\virtual_joy_stick.h">
       <Filter>src\uit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\physics\physics_shape_cache.h">
+      <Filter>src\utils\physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

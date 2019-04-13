@@ -21,7 +21,7 @@
 #include "game_scene.h"
 #include "../game/robot_object.h"
 #include "../game/laser_object.h"
-#include "../utils/physics/physics_body_cache.h"
+#include "../utils/physics/physics_shape_cache.h"
 #include "../ui/game_ui.h"
 
 game_scene::game_scene() :
@@ -81,11 +81,11 @@ bool game_scene::init()
 
     addChild(game_ui_);
 
-    // add the lasers
+    // add the objects
     UTILS_BREAK_IF(!add_objects_to_game());
 
     // clear the cache
-    physics_body_cache::get_instance()->clear();
+    physics_shape_cache::get_instance()->remove_all_shapes();
 
     //get updates
     scheduleUpdate();
@@ -95,7 +95,6 @@ bool game_scene::init()
     {
       UTILS_BREAK_IF(!create_debug_grid("fonts/Marker Felt.ttf"));
     }
-
 
     ret = true;
   }
@@ -166,6 +165,280 @@ Vec2 game_scene::get_object_position(const ValueMap& values)
   return Vec2(x, y);
 }
 
+bool game_scene::add_laser(const ValueMap& values, Node* layer)
+{
+  auto ret = false;
+
+  do
+  {
+    const auto rotation = values.at("rotation").asFloat();
+    const auto position = get_object_center_position(values);
+
+    auto laser = laser_object::create(rotation);
+    UTILS_BREAK_IF(laser == nullptr);
+
+    laser->setPosition(position);
+    layer->addChild(laser);
+
+    ret = true;
+  }
+  while (false);
+
+
+  return ret;
+}
+
+bool game_scene::add_robot(const ValueMap& values, Node* layer)
+{
+  auto ret = false;
+  do
+  {
+    robot_ = robot_object::create(game_ui_->get_virtual_joy_stick());
+    UTILS_BREAK_IF(robot_ == nullptr);
+
+    const auto position = get_object_position(values);
+
+    robot_->setPosition(position);
+    layer->addChild(robot_);
+
+    ret = true;
+  }
+  while (false);
+
+  return ret;
+}
+
+bool game_scene::add_object(const vector<Value>::value_type& object)
+{
+  auto ret = false;
+  do
+  {
+    const auto map = get_tiled_map();
+    UTILS_BREAK_IF(map == nullptr);
+
+    const auto layer_walk = map->getLayer("walk");
+    UTILS_BREAK_IF(layer_walk == nullptr);
+
+    const auto layer_walk_back = map->getLayer("walk_back");
+    UTILS_BREAK_IF(layer_walk_back == nullptr);
+
+    const auto& values = object.asValueMap();
+    if (values.at("type").asString() == "laser")
+    {
+      UTILS_BREAK_IF(!add_laser(values, layer_walk));
+    }
+    else if (values.at("type").asString() == "robot")
+    {
+      UTILS_BREAK_IF(!add_robot(values, layer_walk));
+    }
+    else if (values.at("type").asString() == "scenery")
+    {
+      UTILS_BREAK_IF(!add_scenery_object(values, layer_walk, layer_walk_back));
+    }
+
+    ret = true;
+  }
+  while (false);
+  return ret;
+}
+
+bool game_scene::add_scenery_object(const ValueMap& values, Node* layer_walk, Node* layer_walk_back) const
+{
+  auto ret = false;
+  do
+  {
+    const auto name = values.at("name").asString();
+    const auto front = (values.count("front") != 0) && values.at("front").asBool();
+
+    const auto layer = front ? layer_walk : layer_walk_back;
+
+    if (name == "saw")
+    {
+      UTILS_BREAK_IF(!add_saw(values, layer));
+    }
+    else if (name == "switch")
+    {
+      UTILS_BREAK_IF(!add_switch(values, layer));
+    }
+    else if (name == "barrel")
+    {
+      UTILS_BREAK_IF(!add_barrel(values, layer));
+    }
+    else
+    {
+      UTILS_BREAK_IF(!add_standard_scenery_object(values, layer));
+    }
+
+    ret = true;
+  }
+  while (false);
+
+  return ret;
+}
+
+bool game_scene::add_standard_scenery_object(const ValueMap& values, Node* layer)
+{
+  auto ret = false;
+
+  do
+  {
+    const auto image = values.at("image").asString();
+
+    auto sprite = Sprite::createWithSpriteFrameName(image);
+    UTILS_BREAK_IF(sprite == nullptr);
+
+    sprite->setAnchorPoint(Vec2(0.5f, 0.f));
+
+    auto position = get_object_position(values);
+    position.y += (values.at("height").asFloat() / 2);
+
+    sprite->setPosition(position);
+
+    layer->addChild(sprite);
+
+    ret = true;
+  }
+  while (false);
+
+  return ret;
+}
+
+bool game_scene::add_switch(const ValueMap& values, Node* layer)
+{
+  auto ret = false;
+
+  do
+  {
+    const auto image = values.at("image").asString();
+    const auto name = values.at("name").asString();
+
+    auto sprite = Sprite::createWithSpriteFrameName(image);
+    UTILS_BREAK_IF(sprite == nullptr);
+
+    sprite->setAnchorPoint(Vec2(0.5f, 0.f));
+
+    auto position = get_object_position(values);
+    position.y += (values.at("height").asFloat() / 2);
+
+    sprite->setPosition(position);
+
+    layer->addChild(sprite);
+
+    ret = true;
+  }
+  while (false);
+
+  return ret;
+}
+
+bool game_scene::add_barrel(const ValueMap& values, Node* layer)
+{
+  auto ret = false;
+
+  do
+  {
+    const auto image = values.at("image").asString();
+    auto sprite = Sprite::createWithSpriteFrameName(image);
+    UTILS_BREAK_IF(sprite == nullptr);
+
+    sprite->setAnchorPoint(Vec2(0.5f, 0.f));
+
+    const auto position = get_object_center_position(values);
+    sprite->setPosition(position);
+    sprite->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+    // making look like random but is not, base on how may barrels we add
+    static auto barrel_count = 0;
+    barrel_count++;
+
+    const auto gap = barrel_count * 10.f;
+    auto step_time = 0.f;
+    auto step = 0.f;
+    auto amount = 0.f;
+
+    amount = 50.f;
+    step = amount + gap;
+    step_time = step / amount;
+    const auto move_down_step_1 = MoveBy::create(step_time, Vec3(0.0f, step, 0.0f));
+
+    amount = 40.f;
+    step = -(amount + gap);
+    step_time = step / -amount;
+    const auto move_up_step_1 = MoveBy::create(step_time, Vec3(0.0f, step, 0.0f));
+
+    amount = 30.f;
+    step = amount + gap;
+    step_time = step / amount;
+    const auto move_down_step_2 = MoveBy::create(step_time, Vec3(0.0f, step, 0.0f));
+
+    amount = 40.f;
+    step = -(amount + gap);
+    step_time = step / -amount;
+    const auto move_up_step_2 = MoveBy::create(step_time, Vec3(0.0f, step, 0.0f));
+
+    const auto movement = Sequence::create(move_down_step_1, move_up_step_1, move_down_step_2, move_up_step_2, nullptr);
+    const auto repeat_movement = RepeatForever::create(movement);
+    sprite->runAction(repeat_movement);
+
+    const auto shape = values.count("shape") == 1 ? values.at("shape").asString() : "";
+    add_body_to_node(sprite, shape);
+
+    const auto rotation = values.at("rotation").asFloat();
+    sprite->setRotation(rotation);
+
+    layer->addChild(sprite);
+
+    ret = true;
+  }
+  while (false);
+
+  return ret;
+}
+
+bool game_scene::add_saw(const ValueMap& values, Node* layer) const
+{
+  auto ret = false;
+
+  do
+  {
+    const auto image = values.at("image").asString();
+    auto sprite = Sprite::createWithSpriteFrameName(image);
+    UTILS_BREAK_IF(sprite == nullptr);
+
+    sprite->setAnchorPoint(Vec2(0.5f, 0.f));
+
+    const auto rotation_time = values.at("rotation_time").asFloat();
+    const auto movement = values.at("movement").asFloat();
+    const auto movement_time = values.at("movement_time").asFloat();
+    const auto stop_time = values.at("stop_time").asFloat();
+
+    const auto position = get_object_center_position(values);
+    sprite->setPosition(position);
+    sprite->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+    const auto move_right = MoveBy::create(movement_time, Vec2(movement, 0.f));
+    const auto move_left = MoveBy::create(movement_time, Vec2(-movement, 0.f));
+    const auto delay = DelayTime::create(stop_time);
+    const auto movement_sequence = Sequence::create(move_right, delay, move_left, delay, nullptr);
+    const auto repeat_movement = RepeatForever::create(movement_sequence);
+    sprite->runAction(repeat_movement);
+
+    const auto rotation = RotateBy::create(rotation_time, 360.f);
+    const auto repeat_rotation = RepeatForever::create(rotation);
+    sprite->runAction(repeat_rotation);
+
+    const auto shape = values.at("shape").asString();
+    add_body_to_node(sprite, shape);
+
+    layer->addChild(sprite);
+
+    ret = true;
+  }
+  while (false);
+
+  return ret;
+}
+
 bool game_scene::add_objects_to_game()
 {
   auto result = false;
@@ -173,90 +446,11 @@ bool game_scene::add_objects_to_game()
   do
   {
     const auto map = get_tiled_map();
-
-    auto layer_back = map->getLayer("walk");
-    UTILS_BREAK_IF(layer_back == nullptr);
-
-    auto layer_walk_back = map->getLayer("walk_back");
-    UTILS_BREAK_IF(layer_walk_back == nullptr);
-
     const auto objects = map->getObjectGroup("objects");
+
     for (const auto& object : objects->getObjects())
     {
-      const auto& values = object.asValueMap();
-      if (values.at("type").asString() == "laser")
-      {
-        const auto rotation = values.at("rotation").asFloat();
-        const auto position = get_object_center_position(values);
-
-        auto laser = laser_object::create(rotation);
-        UTILS_BREAK_IF(laser == nullptr);
-
-        laser->setPosition(position);
-        layer_back->addChild(laser);
-      }
-      else if (values.at("type").asString() == "robot")
-      {
-        robot_ = robot_object::create(game_ui_->get_virtual_joy_stick());
-        UTILS_BREAK_IF(robot_ == nullptr);
-
-        const auto position = get_object_position(values);
-
-        robot_->setPosition(position);
-        layer_back->addChild(robot_);
-      }
-      else if (values.at("type").asString() == "scenery")
-      {
-        const auto image = values.at("image").asString();
-        const auto name = values.at("name").asString();
-
-        auto sprite = Sprite::createWithSpriteFrameName(image);
-        UTILS_BREAK_IF(sprite == nullptr);
-
-        sprite->setAnchorPoint(Vec2(0.5f, 0.f));
-
-        auto position = get_object_position(values);
-        position.y += (values.at("height").asFloat() / 2);
-
-        sprite->setPosition(position);
-        if (name == "switch")
-        {
-          layer_back->addChild(sprite);
-        }
-        else if (name == "saw")
-        {
-          const auto rotation_time = values.at("rotation_time").asFloat();
-          const auto movement = values.at("movement").asFloat();
-          const auto movement_time = values.at("movement_time").asFloat();
-          const auto stop_time = values.at("stop_time").asFloat();
-
-          position = get_object_center_position(values);
-          sprite->setPosition(position);
-          sprite->setAnchorPoint(Vec2(0.5f, 0.5f));
-
-          const auto move_right = MoveBy::create(movement_time, Vec2(movement, 0.f));
-          const auto move_left = MoveBy::create(movement_time, Vec2(-movement, 0.f));
-          const auto delay = DelayTime::create(stop_time);
-          const auto movement_sequence = Sequence::create(move_right, delay, move_left, delay, nullptr);
-          const auto repeat_movement = RepeatForever::create(movement_sequence);
-          sprite->runAction(repeat_movement);
-
-          const auto rotation = RotateBy::create(rotation_time, 360.f);
-          const auto repeat_rotation = RepeatForever::create(rotation);
-          sprite->runAction(repeat_rotation);
-
-          const auto shape = values.at("shape").asString();
-          const auto restitution = values.at("restitution").asFloat();
-          add_body_to_node(sprite, shape, restitution);
-
-
-          layer_walk_back->addChild(sprite);
-        }
-        else
-        {
-          layer_walk_back->addChild(sprite);
-        }
-      }
+      UTILS_BREAK_IF(!add_object(object));
     }
 
     result = true;

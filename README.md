@@ -41,4 +41,3 @@ Now you could open the project folder for the platform you like to use:
 - Map Editor : [Tiled](https://www.mapeditor.org/)
 - Game engine : [Cocox2d-x](https://cocos2d-x.org/)
 - JSON Parse : [Rapid JSON](http://rapidjson.org/)
-- Physics Editor : [Physics Body Editor, formerly box2d-editor](https://code.google.com/archive/p/box2d-editor/)

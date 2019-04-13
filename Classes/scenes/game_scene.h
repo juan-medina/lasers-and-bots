@@ -62,6 +62,29 @@ private:
   // get the object position
   static Vec2 get_object_position(const ValueMap& values);
 
+  // add a laser
+  static bool add_laser(const ValueMap& values, Node* layer);
+
+  // add a robot
+  bool add_robot(const ValueMap& values, Node* layer);
+
+  // add scenery to the map
+  bool add_scenery_object(const ValueMap& values, Node* layer_walk, Node* layer_walk_back) const;
+
+  // add standard scenery item
+  static bool add_standard_scenery_object(const ValueMap& values, Node* layer);
+
+  // add switch scenery item
+  static bool add_switch(const ValueMap& values, Node* layer);
+
+  // add barrel scenery item
+  static bool add_barrel(const ValueMap& values, Node* layer);
+
+  // add saw to the map
+  bool add_saw(const ValueMap& values, Node* layer) const;
+
+  // add an object to the map
+  bool add_object(const vector<Value>::value_type& object);  
 
   // add lasers to the game
   bool add_objects_to_game();

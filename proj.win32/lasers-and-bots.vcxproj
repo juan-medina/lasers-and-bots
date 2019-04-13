@@ -165,7 +165,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\utils\base\scene\physics_tiled_scene.cpp" />
     <ClCompile Include="..\Classes\utils\base\scene\tiled_scene.cpp" />
     <ClCompile Include="..\Classes\utils\base\sprite\game_object.cpp" />
-    <ClCompile Include="..\Classes\utils\physics\physics_body_cache.cpp" />
+    <ClCompile Include="..\Classes\utils\physics\physics_shape_cache.cpp" />
     <ClCompile Include="..\Classes\utils\utils.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -186,7 +186,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\utils\base\scene\physics_tiled_scene.h" />
     <ClInclude Include="..\Classes\utils\base\scene\tiled_scene.h" />
     <ClInclude Include="..\Classes\utils\base\sprite\game_object.h" />
-    <ClInclude Include="..\Classes\utils\physics\physics_body_cache.h" />
+    <ClInclude Include="..\Classes\utils\physics\physics_shape_cache.h" />
     <ClInclude Include="..\Classes\utils\utils.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>

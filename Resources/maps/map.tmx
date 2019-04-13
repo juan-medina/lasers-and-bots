@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.0" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="256" tileheight="256" infinite="0" nextobjectid="17">
+<map version="1.0" tiledversion="1.1.0" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="256" tileheight="256" infinite="0" nextobjectid="47">
  <properties>
-  <property name="shapes" value="shapes/shapes.json"/>
+  <property name="shapes" value="shapes/shapes.plist"/>
  </properties>
  <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256" tilecount="36" columns="9">
   <image source="tilesheet.png" width="2304" height="1024"/>
   <tile id="0">
    <properties>
-    <property name="shape" value="002_Acid"/>
+    <property name="opacity" type="float" value="0.7"/>
+    <property name="shape" value="001_Acid"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="opacity" type="float" value="0.7"/>
    </properties>
   </tile>
   <tile id="13">
    <properties>
-    <property name="restitution" type="float" value="0.5"/>
     <property name="shape" value="014_Spike"/>
    </properties>
   </tile>
@@ -96,7 +101,7 @@
   </data>
  </layer>
  <objectgroup name="objects">
-  <object id="1" name="robot" type="robot" gid="30" x="260" y="4873.33" width="256" height="256"/>
+  <object id="1" name="robot" type="robot" gid="30" x="260" y="4862.33" width="256" height="256"/>
   <object id="7" name="laser" type="laser" gid="31" x="3636.4" y="2655.11" width="256" height="256" rotation="-144.645"/>
   <object id="8" name="laser" type="laser" gid="31" x="1798" y="770" width="256" height="256" rotation="180"/>
   <object id="9" name="laser" type="laser" gid="31" x="7300" y="4400" width="256" height="256" rotation="-45"/>
@@ -108,11 +113,13 @@
   </object>
   <object id="14" name="switch" type="scenery" gid="31" x="9474.27" y="4607.92" width="256" height="256">
    <properties>
+    <property name="front" type="bool" value="true"/>
     <property name="image" value="09_Switch (2).png"/>
    </properties>
   </object>
   <object id="15" name="switch" type="scenery" gid="31" x="512" y="2560" width="256" height="256">
    <properties>
+    <property name="front" type="bool" value="true"/>
     <property name="image" value="09_Switch (2).png"/>
    </properties>
   </object>
@@ -123,8 +130,32 @@
     <property name="movement_time" type="float" value="3"/>
     <property name="restitution" type="float" value="0.5"/>
     <property name="rotation_time" type="float" value="2"/>
-    <property name="shape" value="saw"/>
+    <property name="shape" value="07_Saw"/>
     <property name="stop_time" type="float" value="1"/>
+   </properties>
+  </object>
+  <object id="17" name="barrel" type="scenery" gid="31" x="1513.21" y="5108.83" width="256" height="256" rotation="-30">
+   <properties>
+    <property name="image" value="02_Barrel (2).png"/>
+    <property name="shape" value="02_Barrel"/>
+   </properties>
+  </object>
+  <object id="44" name="barrel" type="scenery" gid="31" x="5246.51" y="4749.11" width="256" height="256" rotation="15.504">
+   <properties>
+    <property name="image" value="02_Barrel (2).png"/>
+    <property name="shape" value="02_Barrel"/>
+   </properties>
+  </object>
+  <object id="45" name="barrel" type="scenery" gid="31" x="5888.93" y="5023.21" width="256" height="256" rotation="-56.7525">
+   <properties>
+    <property name="image" value="02_Barrel (2).png"/>
+    <property name="shape" value="02_Barrel"/>
+   </properties>
+  </object>
+  <object id="46" name="barrel" type="scenery" gid="31" x="6339.88" y="4818.58" width="256" height="256" rotation="-101.998">
+   <properties>
+    <property name="image" value="02_Barrel (2).png"/>
+    <property name="shape" value="02_Barrel"/>
    </properties>
   </object>
  </objectgroup>
