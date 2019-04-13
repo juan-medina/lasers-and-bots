@@ -23,6 +23,7 @@
 
 #include "../utils/utils.h"
 
+class virtual_joy_stick;
 class game_ui final : public Node
 {
 public:
@@ -44,39 +45,13 @@ public:
   // when close
   void on_close(Ref* sender);
 
+  // get the joystick
+  inline virtual_joy_stick* get_virtual_joy_stick() const
+  {
+    return virtual_joy_stick_;
+  }
 private:
-  // get a touch location in node space
-  Vec2 get_location_in_node_space(Touch* touch) const;
-
-  // begin touch event
-  bool on_touch_began(Touch* touch, Event* unused_event) const;
-
-  // touch moved event
-  void on_touch_moved(Touch* touch, Event* unused_event);
-
-  // touch end event
-  void on_touch_ended(Touch* touch, Event* unused_event);
-
-  // touch cancel
-  void on_touch_cancel(Touch* touch, Event* unused_event);
-
-  // register touch events
-  void register_touch();
-
-  // update velocity
-  void update_velocity(Point point);
-
-  // listener for touch events
-  EventListenerTouchOneByOne* listener_;
-
-  // joystick
-  Sprite* joy_stick_;
-
-  // thumb
-  Sprite* thumb_;
-
-  // velocity
-  Vec2 velocity_;
+  virtual_joy_stick* virtual_joy_stick_;
 };
 
 #endif // __GAME_UI__CLASS__

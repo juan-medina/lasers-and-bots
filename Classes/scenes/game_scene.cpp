@@ -73,6 +73,14 @@ bool game_scene::init()
     //load objects
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("objects/objects.plist");
 
+    // game ui
+    game_ui_ = game_ui::create();
+    UTILS_BREAK_IF(game_ui_ == nullptr);
+
+    game_ui_->setAnchorPoint(Vec2(0.f, 0.f));
+
+    addChild(game_ui_);
+
     // add the lasers
     UTILS_BREAK_IF(!add_objects_to_game());
 
@@ -88,12 +96,6 @@ bool game_scene::init()
       UTILS_BREAK_IF(!create_debug_grid("fonts/Marker Felt.ttf"));
     }
 
-    game_ui_ = game_ui::create();
-    UTILS_BREAK_IF(game_ui_==nullptr);
-
-    game_ui_->setAnchorPoint(Vec2(0.f, 0.f));
-
-    addChild(game_ui_);
 
     ret = true;
   }
@@ -195,7 +197,7 @@ bool game_scene::add_objects_to_game()
       }
       else if (values.at("type").asString() == "robot")
       {
-        robot_ = robot_object::create();
+        robot_ = robot_object::create(game_ui_->get_virtual_joy_stick());
         UTILS_BREAK_IF(robot_ == nullptr);
 
         const auto position = get_object_position(values);

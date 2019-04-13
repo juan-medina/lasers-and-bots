@@ -87,7 +87,7 @@
    <property name="physics" type="bool" value="true"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJztVosOgjAQG3wA8lBU4P+/011CY7ns5pgBNKFJQ4Cxa3rQw7kTJ/Jw8WyOFmFAtN08rzvXHTxHzymyRrTV7hh9MYiukbiHPnjRqNog7sMvRruRPl2zi9QRDQ+ipa+i65VaV83kurHv6q5qCp/G2pg/sk/v3l5P6hjyv3NLP7h/OWgznwNCXrAfsn+sf5+w9fsP/ehDSn5Y0L3cA2v0/lLWhWC9i9/0JBehmv/qXwicK/WKZyRnipmh/w8rhyRf1/iH3BD2iVqR9+VMPZ/wT6LBGVokkvUxe7fMY94b81zrw/zR55hJPAPLRFr6eH7I/i8FPg4r
+   eJztVosOgyAQQz+A+diYm/7/d45LuKy7cAgu4pbYpDEicLWQgjEnTmzDxbM/WoQC0nbzvFau+/ScPZdEH9LWmWP0pUC6ZmANfexFL2oz+Tv7hRh20idrjok6pGECavostFvRzwaiF6XQ9KX8uXs68/Z6Ec+Y/9KLXM0PpX1YGbcG+odJEGvR/Kn1W8Pe+5/18zrk5IcGuZY1UKL3l7IuBm0vfrMmWxGr+a/+xYC50hWMoZxpAmP3Dy2HKF9L/OPcILpMrZz3baA8n/hOIoEZ2mQS9SGd+cxjnJvPc6mPzx/5zmcS5n6bSU3fCHPR/C/pEw2N
   </data>
  </layer>
  <layer name="front" width="40" height="20">

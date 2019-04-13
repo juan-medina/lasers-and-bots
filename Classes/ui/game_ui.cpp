@@ -20,24 +20,15 @@
 
 #include "game_ui.h"
 #include "utils/audio/audio_helper.h"
+#include "virtual_joy_stick.h"
 
-game_ui::game_ui() :
-  listener_(nullptr),
-  joy_stick_(nullptr),
-  thumb_(nullptr)
+game_ui::game_ui():
+  virtual_joy_stick_(nullptr)
 {
 }
 
 game_ui::~game_ui()
 {
-  // if we have a listener
-  if (listener_ != nullptr)
-  {
-    // remove the listener and release it
-    _eventDispatcher->removeEventListener(listener_);
-    listener_->release();
-    listener_ = nullptr;
-  }
 }
 
 game_ui* game_ui::create()
@@ -103,28 +94,8 @@ bool game_ui::init()
     addChild(menu);
 
     // joystick
-    const auto scale = 1.0f;
-    joy_stick_ = Sprite::createWithSpriteFrameName("02_joystick_background.png");
-    UTILS_BREAK_IF(joy_stick_ == nullptr);
-
-    joy_stick_->setOpacity(127);
-    joy_stick_->setPosition(size.width / 2, size.height / 2);
-    joy_stick_->setVisible(false);
-    joy_stick_->setScale(scale);
-
-    addChild(joy_stick_, 0);
-
-    thumb_ = Sprite::createWithSpriteFrameName("02_joystick_thumb.png");
-    UTILS_BREAK_IF(thumb_ == nullptr);
-
-    thumb_->setOpacity(127);
-    thumb_->setPosition(size.width / 2, size.height / 2);
-    thumb_->setVisible(false);
-    thumb_->setScale(scale);
-
-    addChild(thumb_, 1);
-
-    register_touch();
+    virtual_joy_stick_ = virtual_joy_stick::create(size.height - 500.f);
+    addChild(virtual_joy_stick_);
 
     ret = true;
   }
@@ -139,88 +110,4 @@ void game_ui::on_close(Ref* sender)
   Director::getInstance()->end();
 
   audio_helper::get_instance()->play_effect("sounds/select.wav");
-}
-
-Vec2 game_ui::get_location_in_node_space(Touch* touch) const
-{
-  const auto point_one = Director::getInstance()->convertToUI(touch->getLocationInView());
-  const auto location = convertToNodeSpace(point_one) + getPosition();
-  return location;
-}
-
-bool game_ui::on_touch_began(Touch* touch, Event* unused_event) const
-{
-  const auto location = get_location_in_node_space(touch);
-
-  joy_stick_->setVisible(true);
-  joy_stick_->setPosition(location);
-  thumb_->setVisible(true);
-  thumb_->setPosition(location);
-
-  return true;
-}
-
-void game_ui::on_touch_moved(Touch* touch, Event* unused_event)
-{
-  const auto location = get_location_in_node_space(touch);
-  update_velocity(location);
-}
-
-void game_ui::on_touch_ended(Touch* touch, Event* unused_event)
-{
-  joy_stick_->setVisible(false);
-  thumb_->setVisible(false);
-  velocity_ = Vec2::ZERO;
-}
-
-void game_ui::on_touch_cancel(Touch* touch, Event* unused_event)
-{
-  on_touch_ended(touch, unused_event);
-}
-
-void game_ui::register_touch()
-{
-  // Register Touch Event
-  listener_ = EventListenerTouchOneByOne::create();
-  listener_->retain();
-  listener_->setSwallowTouches(false);
-
-  listener_->onTouchBegan = CC_CALLBACK_2(game_ui::on_touch_began, this);
-  listener_->onTouchEnded = CC_CALLBACK_2(game_ui::on_touch_ended, this);
-  listener_->onTouchMoved = CC_CALLBACK_2(game_ui::on_touch_moved, this);
-  listener_->onTouchCancelled = CC_CALLBACK_2(game_ui::on_touch_cancel, this);
-
-  _eventDispatcher->addEventListenerWithSceneGraphPriority(listener_, this);
-}
-
-void game_ui::update_velocity(Point point)
-{
-  const auto first_tap_location = joy_stick_->getPosition();
-
-  // calculate Angle and length
-  auto distance_x = point.x - first_tap_location.x;
-  auto distance_y = point.y - first_tap_location.y;
-
-  const auto distance = sqrtf(distance_x * distance_x + distance_y * distance_y);
-  const auto angle = atan2f(distance_y, distance_x); // in radians
-
-  const auto joy_stick_radius = joy_stick_->getContentSize().width * joy_stick_->getScale();
-
-  if (distance > joy_stick_radius)
-  {
-    distance_x = cosf(angle) * joy_stick_radius;
-    distance_y = sinf(angle) * joy_stick_radius;
-  }
-
-  velocity_ = Vec2(distance_x / joy_stick_radius, distance_y / joy_stick_radius);
-
-  const auto thumb_radius = thumb_->getContentSize().width * thumb_->getScale();
-
-  if (distance > thumb_radius)
-  {
-    point.x = first_tap_location.x + cosf(angle) * thumb_radius;
-    point.y = first_tap_location.y + sinf(angle) * thumb_radius;
-  }
-
-  thumb_->setPosition(point);
 }

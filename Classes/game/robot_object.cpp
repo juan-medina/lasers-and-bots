@@ -19,17 +19,19 @@
  ****************************************************************************/
 
 #include "robot_object.h"
+#include "../ui/virtual_joy_stick.h"
 
 const Vec2 robot_object::normal_movement = Vec2(700.0f, 1200.0f);
 
 robot_object::robot_object() :
   to_left_(false),
   to_right_(false),
-  current_state_(e_idle)
+  current_state_(e_idle),
+  virtual_joy_stick_(nullptr)
 {
 }
 
-robot_object* robot_object::create()
+robot_object* robot_object::create(virtual_joy_stick* virtual_joy_stick)
 {
   robot_object* ret = nullptr;
 
@@ -38,7 +40,7 @@ robot_object* robot_object::create()
     auto object = new robot_object();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init())
+    if (object->init(virtual_joy_stick))
     {
       object->autorelease();
     }
@@ -57,7 +59,7 @@ robot_object* robot_object::create()
 }
 
 // on "init" you need to initialize your instance
-bool robot_object::init()
+bool robot_object::init(virtual_joy_stick* virtual_joy_stick)
 {
   auto ret = false;
 
@@ -90,11 +92,11 @@ bool robot_object::init()
 
     UTILS_BREAK_IF(!create_anim("Idle_%02d.png", 10, 0.05f, "idle"));
     UTILS_BREAK_IF(!create_anim("Run_%02d.png", 8, 0.15f, "run"));
-    UTILS_BREAK_IF(!create_anim("Jump_%02d.png", 10, 0.15f, "jump", 1));
-
-    UTILS_BREAK_IF(!create_keyboard_listener());
+    UTILS_BREAK_IF(!create_anim("Jump_%02d.png", 10, 0.15f, "jump", 1));    
 
     change_anim("idle");
+
+    virtual_joy_stick_ = virtual_joy_stick;
     ret = true;
   }
   while (false);
@@ -103,7 +105,15 @@ bool robot_object::init()
 }
 
 void robot_object::update(float delta)
-{
+{    
+  move_to_left(virtual_joy_stick_->get_left());
+  move_to_right(virtual_joy_stick_->get_right());
+  
+  if (virtual_joy_stick_->get_up())
+  {
+    jump();
+  }
+
   const auto move_x = ((to_left_ ? 0.0f : 1.0f) - (to_right_ ? 0.0f : 1.0f)) * normal_movement.x;
   const auto move_y = getPhysicsBody()->getVelocity().y;
 
@@ -185,64 +195,5 @@ void robot_object::jump() const
   if (fuzzy_equals(y, 0.0f))
   {
     getPhysicsBody()->applyImpulse(Vec2(0.0f, normal_movement.y));
-  }
-}
-
-bool robot_object::create_keyboard_listener()
-{
-  auto result = false;
-
-  do
-  {
-    auto listener = EventListenerKeyboard::create();
-    UTILS_BREAK_IF(listener == nullptr);
-
-    listener->onKeyPressed = CC_CALLBACK_2(robot_object::on_key_pressed, this);
-    listener->onKeyReleased = CC_CALLBACK_2(robot_object::on_key_released, this);
-
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-
-    result = true;
-  }
-  while (false);
-
-  return result;
-}
-
-void robot_object::on_key_pressed(const EventKeyboard::KeyCode key_code, Event*)
-{
-  switch (key_code)
-  {
-  case EventKeyboard::KeyCode::KEY_UP_ARROW:
-  case EventKeyboard::KeyCode::KEY_W:
-    jump();
-    break;
-  case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-  case EventKeyboard::KeyCode::KEY_A:
-    move_to_left(true);
-    break;
-  case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-  case EventKeyboard::KeyCode::KEY_D:
-    move_to_right(true);;
-    break;
-  default:
-    break;
-  }
-}
-
-void robot_object::on_key_released(const EventKeyboard::KeyCode key_code, Event*)
-{
-  switch (key_code)
-  {
-  case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-  case EventKeyboard::KeyCode::KEY_A:
-    move_to_left(false);
-    break;
-  case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-  case EventKeyboard::KeyCode::KEY_D:
-    move_to_right(false);
-    break;
-  default:
-    break;
   }
 }

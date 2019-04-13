@@ -23,6 +23,7 @@
 #include "../utils/utils.h"
 #include "../utils/base/sprite/game_object.h"
 
+class virtual_joy_stick;
 class robot_object final : public game_object
 {
 public:
@@ -33,10 +34,10 @@ public:
   robot_object();
 
   // create the object
-  static robot_object* create();
+  static robot_object* create(virtual_joy_stick* virtual_joy_stick);
 
   // init this object
-  bool init() override;
+  bool init(virtual_joy_stick* virtual_joy_stick);
 
   // update our robot
   void update(float delta) override;
@@ -79,14 +80,8 @@ private:
   // change our state
   void change_state(state wanted_state);
 
-  // create a keyboard listener
-  bool create_keyboard_listener();
-
-  // on key press
-  void on_key_pressed(EventKeyboard::KeyCode key_code, Event* event);
-
-  // on key released
-  void on_key_released(EventKeyboard::KeyCode key_code, Event* event);
+  // the joystick
+  virtual_joy_stick* virtual_joy_stick_;
 };
 
 #endif // __ROBOT_CLASS__
