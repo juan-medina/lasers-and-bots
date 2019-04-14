@@ -38,6 +38,9 @@ def join_images(folder, outFile):
     im = Image.open(files[0])
     img_width, img_height = im.size
 
+    img_width = img_width + 2
+    img_height = img_width + 2
+
     cols = 2048 / img_width
     rows = num_files / cols
 
