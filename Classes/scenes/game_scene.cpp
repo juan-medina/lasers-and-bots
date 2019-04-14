@@ -28,7 +28,11 @@
 
 game_scene::game_scene() :
   robot_(nullptr),
-  game_ui_(nullptr)
+  game_ui_(nullptr),
+  last_robot_position_(Vec2::ZERO),
+  last_camera_position_(Vec2::ZERO),
+  min_camera_pos_(Vec2::ZERO),
+  max_camera_pos_(Vec2::ZERO)
 {
 }
 
@@ -71,6 +75,10 @@ bool game_scene::init()
     const auto debug_physics = UserDefault::getInstance()->getBoolForKey("debug_physics", false);
 
     UTILS_BREAK_IF(!base_class::init("maps/map.tmx", gravity, debug_physics));
+
+    // calculate the maximum position that we could move  
+    min_camera_pos_ = Vec2(screen_size_.width / 2, screen_size_.height / 2);
+    max_camera_pos_ = Vec2(total_size_.width - min_camera_pos_.x, total_size_.height - min_camera_pos_.y);
 
     //load objects
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("objects/objects.plist");
@@ -131,10 +139,15 @@ Scene* game_scene::scene()
 void game_scene::update(float delta)
 {
   robot_->update(delta);
+  const auto new_position = robot_->getPosition();
 
-  update_camera();
+  if (last_robot_position_ != new_position)
+  {
+    update_camera(delta);
+    check_game_objects();
 
-  check_game_objects();
+    last_robot_position_ = new_position;
+  }
 }
 
 Vec2 game_scene::get_object_center_position(const ValueMap& values)
@@ -445,18 +458,20 @@ bool game_scene::add_objects_to_game()
   return result;
 }
 
-void game_scene::update_camera() const
+void game_scene::update_camera(const float delta)
 {
-  // calculate the maximum position that we could move  
-  const auto min_pos = Vec2(screen_size_.width / 2, screen_size_.height / 2);
-  const auto max_pos = Vec2(total_size_.width - min_pos.x, total_size_.height - min_pos.y);
-
   // move the camera to the clamped position
-  const auto final_pos = robot_->getPosition().getClampPoint(min_pos, max_pos);
-  getDefaultCamera()->setPosition(final_pos);
+  const auto final_pos = robot_->getPosition().getClampPoint(min_camera_pos_, max_camera_pos_);
+  if (final_pos != last_camera_position_)
+  {
+    getDefaultCamera()->setPosition(final_pos);
+    getDefaultCamera()->update(delta);
 
-  const auto ui_pos = Vec2(final_pos.x - (screen_size_.width / 2), final_pos.y - (screen_size_.height / 2));
-  game_ui_->setPosition(ui_pos);
+    const auto ui_pos = Vec2(final_pos.x - (screen_size_.width / 2), final_pos.y - (screen_size_.height / 2));
+    game_ui_->setPosition(ui_pos);
+
+    last_camera_position_ = final_pos;
+  }
 }
 
 void game_scene::handle_switch(switch_object* switch_game_object)
@@ -498,9 +513,9 @@ void game_scene::handle_switch(switch_object* switch_game_object)
 
 void game_scene::handle_door(door_object* door_game_object) const
 {
-  if(door_game_object->is_on())
+  if (door_game_object->is_on())
   {
-    if(door_game_object->is_closed())
+    if (door_game_object->is_closed())
     {
       if (robot_->getBoundingBox().intersectsRect(door_game_object->getBoundingBox()))
       {

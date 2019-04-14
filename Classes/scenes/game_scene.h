@@ -54,7 +54,7 @@ private:
   void update(float delta) override;
 
   // move the camera following the robot clamping on the map
-  void update_camera() const;
+  void update_camera(const float delta);
 
   // handle switch
   void handle_switch(switch_object* switch_game_object);
@@ -106,6 +106,18 @@ private:
 
   // game objects
   std::map<std::string, game_object *> game_objects_;
+
+  // last position for the robot
+  Vec2 last_robot_position_;
+
+  // last position for the camera
+  Vec2 last_camera_position_;
+
+  // min camera pos
+  Vec2 min_camera_pos_;
+
+  // max camera pos
+  Vec2 max_camera_pos_;
 };
 
 #endif // __MAIN_SCENE__
