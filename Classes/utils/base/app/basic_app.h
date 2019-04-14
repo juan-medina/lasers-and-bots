@@ -63,10 +63,10 @@ protected:
 #endif
 
   // our design resolution
-  Size design_resolution_;
+  cocos2d::Size design_resolution_;
 
   // our screen size
-  Size screen_size_;
+  cocos2d::Size screen_size_;
 
   // scene name
 protected:

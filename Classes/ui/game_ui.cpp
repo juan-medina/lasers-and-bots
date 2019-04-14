@@ -19,7 +19,7 @@
  ****************************************************************************/
 
 #include "game_ui.h"
-#include "utils/audio/audio_helper.h"
+#include "../utils/audio/audio_helper.h"
 #include "virtual_joy_stick.h"
 
 game_ui::game_ui():

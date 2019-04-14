@@ -26,7 +26,7 @@
 
 #import "AppController.h"
 #import "cocos2d.h"
-#import "AppDelegate.h"
+#import "laser_and_bots_app.h"
 #import "RootViewController.h"
 
 @implementation AppController
@@ -37,7 +37,7 @@
 #pragma mark Application lifecycle
 
 // cocos2d application instance
-static AppDelegate s_sharedApplication;
+static laser_and_bots_app s_sharedApplication;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
