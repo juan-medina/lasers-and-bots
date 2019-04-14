@@ -17,65 +17,61 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __GAME_OBJECT__
-#define __GAME_OBJECT__
+#ifndef __DOOR_CLASS__
+#define __DOOR_CLASS__
 
-#include "../../utils.h"
+#include "../utils/base/sprite/game_object.h"
 
-class game_object : public Sprite
+class door_object final : public game_object
 {
 public:
   // base_class
-  using base_class = Sprite;
+  using base_class = game_object;
 
   // constructor
-  game_object() :
-    animation_(nullptr)
-  {
-  }
+  door_object();
 
   // create the object
-  static game_object* create(const std::string& sprite_frame_name, const std::string& type);
+  static door_object* create();
 
   // init this object
-  virtual bool init(const std::string& sprite_frame_name, const std::string& type);
+  bool init();
 
-  // get type
-  string get_type() const
+  // is on
+  bool is_on() const
   {
-    return type_;
+    return on_;
   }
 
-protected:
-
-  // helper for fuzzy equals
-  static constexpr bool fuzzy_equals(const float a, const float b, const float var = fuzzy_range) noexcept
+  // is on
+  bool is_off() const
   {
-    return a - var <= b && b <= a + var;
+    return !on_;
   }
 
+  // is open
+  bool is_open() const
+  {
+    return open_;
+  }
 
-  // create a animation
-  static bool create_anim(const char* pattern, int max_frame, float speed, const char* name,
-                          unsigned int loops = infinite_loops);
+  // is close
+  bool is_closed() const
+  {
+    return !open_;
+  }
 
-  // change animation
-  void change_anim(const std::string& name);
+  // set on
+  void on();
 
-  // change the frame
-  void change_frame(const string& name);
+  // open the door
+  void open();
 
 private:
 
-  static constexpr int infinite_loops = -1;
-  static constexpr float fuzzy_range = 5.f;
-
-  // our current animation
-  Action* animation_;
-
-  // object type
-  string type_;
+  bool on_;
+  bool open_;
 
 };
 
-#endif // __GAME_OBJECT__
+#endif // __DOOR_CLASS__

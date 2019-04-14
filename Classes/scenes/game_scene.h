@@ -24,7 +24,10 @@
 #include "../utils/base/scene/physics_tiled_scene.h"
 
 //foward declarations
+class game_object;
 class robot_object;
+class switch_object;
+class door_object;
 class game_ui;
 
 class game_scene final : public physics_tiled_scene
@@ -45,13 +48,22 @@ public:
   // init this object
   bool init() override;
 
-private:
+private:  
 
   // update our game
   void update(float delta) override;
 
   // move the camera following the robot clamping on the map
   void update_camera() const;
+
+  // handle switch
+  void handle_switch(switch_object* switch_game_object);
+
+  // handle switch
+  void handle_door(door_object* door_game_object) const;
+
+  // check game objects
+  void check_game_objects();
 
   //our robot
   robot_object* robot_;
@@ -68,14 +80,11 @@ private:
   // add a robot
   bool add_robot(const ValueMap& values, Node* layer);
 
-  // add scenery to the map
-  bool add_scenery_object(const ValueMap& values, Node* layer_walk, Node* layer_walk_back) const;
-
-  // add standard scenery item
-  static bool add_standard_scenery_object(const ValueMap& values, Node* layer);
-
   // add switch scenery item
-  static bool add_switch(const ValueMap& values, Node* layer);
+  bool add_switch(const ValueMap& values, Node* layer);
+
+  // add door scenery item
+  bool add_door(const ValueMap& values, Node* layer);
 
   // add barrel scenery item
   static bool add_barrel(const ValueMap& values, Node* layer);
@@ -92,7 +101,11 @@ private:
   // our game gravity
   static constexpr float gravity = -1000.0f;
 
+  // the game ui
   game_ui* game_ui_;
+
+  // game objects
+  std::map<std::string, game_object *> game_objects_;
 };
 
 #endif // __MAIN_SCENE__

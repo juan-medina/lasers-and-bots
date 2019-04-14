@@ -21,6 +21,8 @@
 #include "game_scene.h"
 #include "../game/robot_object.h"
 #include "../game/laser_object.h"
+#include "../game/switch_object.h"
+#include "../game/door_object.h"
 #include "../utils/physics/physics_shape_cache.h"
 #include "../ui/game_ui.h"
 
@@ -131,6 +133,8 @@ void game_scene::update(float delta)
   robot_->update(delta);
 
   update_camera();
+
+  check_game_objects();
 }
 
 Vec2 game_scene::get_object_center_position(const ValueMap& values)
@@ -231,75 +235,26 @@ bool game_scene::add_object(const vector<Value>::value_type& object)
     {
       UTILS_BREAK_IF(!add_robot(values, layer_walk));
     }
-    else if (values.at("type").asString() == "scenery")
+    else if (values.at("type").asString() == "saw")
     {
-      UTILS_BREAK_IF(!add_scenery_object(values, layer_walk, layer_walk_back));
+      UTILS_BREAK_IF(!add_saw(values, layer_walk_back));
+    }
+    else if (values.at("type").asString() == "barrel")
+    {
+      UTILS_BREAK_IF(!add_barrel(values, layer_walk_back));
+    }
+    else if (values.at("type").asString() == "switch")
+    {
+      UTILS_BREAK_IF(!add_switch(values, layer_walk));
+    }
+    else if (values.at("type").asString() == "door")
+    {
+      UTILS_BREAK_IF(!add_door(values, layer_walk_back));
     }
 
     ret = true;
   }
   while (false);
-  return ret;
-}
-
-bool game_scene::add_scenery_object(const ValueMap& values, Node* layer_walk, Node* layer_walk_back) const
-{
-  auto ret = false;
-  do
-  {
-    const auto name = values.at("name").asString();
-    const auto front = (values.count("front") != 0) && values.at("front").asBool();
-
-    const auto layer = front ? layer_walk : layer_walk_back;
-
-    if (name == "saw")
-    {
-      UTILS_BREAK_IF(!add_saw(values, layer));
-    }
-    else if (name == "switch")
-    {
-      UTILS_BREAK_IF(!add_switch(values, layer));
-    }
-    else if (name == "barrel")
-    {
-      UTILS_BREAK_IF(!add_barrel(values, layer));
-    }
-    else
-    {
-      UTILS_BREAK_IF(!add_standard_scenery_object(values, layer));
-    }
-
-    ret = true;
-  }
-  while (false);
-
-  return ret;
-}
-
-bool game_scene::add_standard_scenery_object(const ValueMap& values, Node* layer)
-{
-  auto ret = false;
-
-  do
-  {
-    const auto image = values.at("image").asString();
-
-    auto sprite = Sprite::createWithSpriteFrameName(image);
-    UTILS_BREAK_IF(sprite == nullptr);
-
-    sprite->setAnchorPoint(Vec2(0.5f, 0.f));
-
-    auto position = get_object_position(values);
-    position.y += (values.at("height").asFloat() / 2);
-
-    sprite->setPosition(position);
-
-    layer->addChild(sprite);
-
-    ret = true;
-  }
-  while (false);
-
   return ret;
 }
 
@@ -309,20 +264,50 @@ bool game_scene::add_switch(const ValueMap& values, Node* layer)
 
   do
   {
-    const auto image = values.at("image").asString();
     const auto name = values.at("name").asString();
+    const auto target = values.at("target").asString();
 
-    auto sprite = Sprite::createWithSpriteFrameName(image);
-    UTILS_BREAK_IF(sprite == nullptr);
+    auto switch_game_object = switch_object::create(target);
+    UTILS_BREAK_IF(switch_game_object == nullptr);
 
-    sprite->setAnchorPoint(Vec2(0.5f, 0.f));
+    switch_game_object->setAnchorPoint(Vec2(0.5f, 0.f));
 
     auto position = get_object_position(values);
     position.y += (values.at("height").asFloat() / 2);
 
-    sprite->setPosition(position);
+    switch_game_object->setPosition(position);
 
-    layer->addChild(sprite);
+    layer->addChild(switch_game_object);
+
+    game_objects_[name] = switch_game_object;
+
+    ret = true;
+  }
+  while (false);
+
+  return ret;
+}
+
+bool game_scene::add_door(const ValueMap& values, Node* layer)
+{
+  auto ret = false;
+
+  do
+  {
+    const auto name = values.at("name").asString();
+    auto door_game_object = door_object::create();
+    UTILS_BREAK_IF(door_game_object == nullptr);
+
+    door_game_object->setAnchorPoint(Vec2(0.5f, 0.f));
+
+    auto position = get_object_position(values);
+    position.y += (values.at("height").asFloat() / 2);
+
+    door_game_object->setPosition(position);
+
+    layer->addChild(door_game_object);
+
+    game_objects_[name] = door_game_object;
 
     ret = true;
   }
@@ -472,4 +457,72 @@ void game_scene::update_camera() const
 
   const auto ui_pos = Vec2(final_pos.x - (screen_size_.width / 2), final_pos.y - (screen_size_.height / 2));
   game_ui_->setPosition(ui_pos);
+}
+
+void game_scene::handle_switch(switch_object* switch_game_object)
+{
+  if (switch_game_object->is_off())
+  {
+    const auto target = switch_game_object->get_target();
+    if (game_objects_.count(target) == 1)
+    {
+      const auto target_object = game_objects_.at(target);
+
+      if (target_object->get_type() == "switch")
+      {
+        if (robot_->getBoundingBox().intersectsRect(switch_game_object->getBoundingBox()))
+        {
+          switch_game_object->on();
+
+          const auto target_switch = dynamic_cast<switch_object*>(target_object);
+          target_switch->on();
+
+          const auto target_target = target_switch->get_target();
+          if (game_objects_.count(target_target) == 1)
+          {
+            const auto target_target_object = game_objects_.at(target_target);
+            if (target_target_object->get_type() == "door")
+            {
+              const auto target_door = dynamic_cast<door_object*>(target_target_object);
+              if (target_door->is_off())
+              {
+                target_door->on();
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+void game_scene::handle_door(door_object* door_game_object) const
+{
+  if(door_game_object->is_on())
+  {
+    if(door_game_object->is_closed())
+    {
+      if (robot_->getBoundingBox().intersectsRect(door_game_object->getBoundingBox()))
+      {
+        door_game_object->open();
+      }
+    }
+  }
+}
+
+void game_scene::check_game_objects()
+{
+  for (auto it = game_objects_.begin(); it != game_objects_.end(); ++it)
+  {
+    const auto object = it->second;
+    const auto type = object->get_type();
+    if (type == "switch")
+    {
+      handle_switch(dynamic_cast<switch_object*>(object));
+    }
+    else if (type == "door")
+    {
+      handle_door(dynamic_cast<door_object*>(object));
+    }
+  }
 }

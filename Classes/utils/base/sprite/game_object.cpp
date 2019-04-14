@@ -1,6 +1,6 @@
 #include "game_object.h"
 
-game_object* game_object::create(const std::string& sprite_frame_name)
+game_object* game_object::create(const std::string& sprite_frame_name, const std::string& type)
 {
   game_object* ret = nullptr;
 
@@ -9,7 +9,7 @@ game_object* game_object::create(const std::string& sprite_frame_name)
     auto object = new game_object();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(sprite_frame_name))
+    if (object->init(sprite_frame_name, type))
     {
       object->autorelease();
     }
@@ -28,7 +28,7 @@ game_object* game_object::create(const std::string& sprite_frame_name)
 }
 
 // on "init" you need to initialize your instance
-bool game_object::init(const std::string& sprite_frame_name)
+bool game_object::init(const std::string& sprite_frame_name, const std::string& type)
 {
   auto ret = false;
 
@@ -37,6 +37,8 @@ bool game_object::init(const std::string& sprite_frame_name)
     //////////////////////////////
     // 1. super init first
     UTILS_BREAK_IF(!base_class::initWithSpriteFrameName(sprite_frame_name))
+
+    type_ = type;
 
     ret = true;
   }
@@ -90,4 +92,10 @@ void game_object::change_anim(const std::string& name)
   }
   animation_ = Animate::create(AnimationCache::getInstance()->getAnimation(name));
   runAction(animation_);
+}
+
+void game_object::change_frame(const string& name)
+{
+  const auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(name);
+  setSpriteFrame(frame);
 }

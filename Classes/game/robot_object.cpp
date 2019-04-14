@@ -69,10 +69,10 @@ bool robot_object::init(virtual_joy_stick* virtual_joy_stick)
     // 1. super init first
 
     // cache
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("robot/robot1.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("robot/robot2.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("robot/robot_0.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("robot/robot_1.plist");
 
-    UTILS_BREAK_IF(!base_class::init("Idle_01.png"));
+    UTILS_BREAK_IF(!base_class::init("Idle_01.png", "robot"));
 
     setAnchorPoint(Vec2(0.5f, 0.0f));
 

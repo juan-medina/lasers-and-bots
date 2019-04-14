@@ -18,26 +18,22 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "game_ui.h"
+#include "door_object.h"
 #include "utils/audio/audio_helper.h"
-#include "virtual_joy_stick.h"
 
-game_ui::game_ui():
-  virtual_joy_stick_(nullptr)
+door_object::door_object() :
+  on_(false),
+  open_(false)
 {
 }
 
-game_ui::~game_ui()
+door_object* door_object::create()
 {
-}
-
-game_ui* game_ui::create()
-{
-  game_ui* ret = nullptr;
+  door_object* ret = nullptr;
 
   do
   {
-    auto object = new game_ui();
+    auto object = new door_object();
     UTILS_BREAK_IF(object == nullptr);
 
     if (object->init())
@@ -59,7 +55,7 @@ game_ui* game_ui::create()
 }
 
 // on "init" you need to initialize your instance
-bool game_ui::init()
+bool door_object::init()
 {
   auto ret = false;
 
@@ -67,35 +63,11 @@ bool game_ui::init()
   {
     //////////////////////////////
     // 1. super init first
-    UTILS_BREAK_IF(!base_class::init());
 
-    audio_helper::pre_load_effect("sounds/select.wav");
+    UTILS_BREAK_IF(!base_class::init("04_DoorLocked.png", "door"));
 
-    const auto& size = Director::getInstance()->getVisibleSize();
-
-    // cache
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ui/ui.plist");
-
-    const auto close = Sprite::createWithSpriteFrameName("01_Exit_1.png");
-    UTILS_BREAK_IF(close==nullptr);
-
-    const auto close_click = Sprite::createWithSpriteFrameName("01_Exit_2.png");
-    UTILS_BREAK_IF(close_click == nullptr);
-
-    const auto close_item = MenuItemSprite::create(close, close_click, CC_CALLBACK_1(game_ui::on_close, this));
-    UTILS_BREAK_IF(close_item == nullptr);
-
-    close_item->setPosition(size.width / 2 - close->getContentSize().width,
-                            size.height / 2 - close->getContentSize().height);
-
-    const auto menu = Menu::create(close_item, nullptr);
-    UTILS_BREAK_IF(menu == nullptr);
-
-    addChild(menu);
-
-    // joystick
-    virtual_joy_stick_ = virtual_joy_stick::create(size.height - 500.f);
-    addChild(virtual_joy_stick_);
+    audio_helper::pre_load_effect("sounds/metal_click.wav");
+    audio_helper::pre_load_effect("sounds/slide.wav");
 
     ret = true;
   }
@@ -104,10 +76,22 @@ bool game_ui::init()
   return ret;
 }
 
-void game_ui::on_close(Ref* sender)
+void door_object::on()
 {
-  //Close the cocos2d-x game scene and quit the application
-  Director::getInstance()->end();
+  if (is_off())
+  {
+    change_frame("06_DoorUnlocked.png");
+    audio_helper::get_instance()->play_effect("sounds/metal_click.wav");
+    on_ = true;
+  }
+}
 
-  audio_helper::get_instance()->play_effect("sounds/select.wav");
+void door_object::open()
+{
+  if (is_closed())
+  {
+    change_frame("05_DoorOpen.png");
+    audio_helper::get_instance()->play_effect("sounds/slide.wav");
+    open_ = true;
+  }
 }

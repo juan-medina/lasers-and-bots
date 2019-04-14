@@ -17,65 +17,51 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __GAME_OBJECT__
-#define __GAME_OBJECT__
+#ifndef __SWITCH_CLASS__
+#define __SWITCH_CLASS__
 
-#include "../../utils.h"
+#include "../utils/base/sprite/game_object.h"
 
-class game_object : public Sprite
+class switch_object final : public game_object
 {
 public:
   // base_class
-  using base_class = Sprite;
+  using base_class = game_object;
 
   // constructor
-  game_object() :
-    animation_(nullptr)
-  {
-  }
+  switch_object();
 
   // create the object
-  static game_object* create(const std::string& sprite_frame_name, const std::string& type);
-
+  static switch_object* create(const string& target);
+  
   // init this object
-  virtual bool init(const std::string& sprite_frame_name, const std::string& type);
+  bool init(const string& target);
 
-  // get type
-  string get_type() const
+  // is on
+  bool is_on() const
   {
-    return type_;
+    return on_;
   }
 
-protected:
-
-  // helper for fuzzy equals
-  static constexpr bool fuzzy_equals(const float a, const float b, const float var = fuzzy_range) noexcept
+  // is on
+  bool is_off() const
   {
-    return a - var <= b && b <= a + var;
+    return !on_;
   }
 
+  // set on
+  void on();
 
-  // create a animation
-  static bool create_anim(const char* pattern, int max_frame, float speed, const char* name,
-                          unsigned int loops = infinite_loops);
-
-  // change animation
-  void change_anim(const std::string& name);
-
-  // change the frame
-  void change_frame(const string& name);
+  string get_target() const
+  {
+    return target_;
+  }
 
 private:
 
-  static constexpr int infinite_loops = -1;
-  static constexpr float fuzzy_range = 5.f;
-
-  // our current animation
-  Action* animation_;
-
-  // object type
-  string type_;
+  bool on_;
+  string target_;
 
 };
 
-#endif // __GAME_OBJECT__
+#endif // __SWITCH_CLASS__

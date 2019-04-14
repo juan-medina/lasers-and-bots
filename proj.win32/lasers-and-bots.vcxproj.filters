@@ -102,6 +102,12 @@
     <ClCompile Include="..\Classes\utils\physics\physics_shape_cache.cpp">
       <Filter>src\utils\physics</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\game\switch_object.cpp">
+      <Filter>src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\game\door_object.cpp">
+      <Filter>src\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -160,6 +166,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\utils\physics\physics_shape_cache.h">
       <Filter>src\utils\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\switch_object.h">
+      <Filter>src\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\door_object.h">
+      <Filter>src\game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

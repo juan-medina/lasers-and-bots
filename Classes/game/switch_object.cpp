@@ -18,29 +18,24 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "game_ui.h"
-#include "utils/audio/audio_helper.h"
-#include "virtual_joy_stick.h"
+#include "switch_object.h"
 
-game_ui::game_ui():
-  virtual_joy_stick_(nullptr)
+
+switch_object::switch_object():
+  on_(false)
 {
 }
 
-game_ui::~game_ui()
+switch_object* switch_object::create(const string& target)
 {
-}
-
-game_ui* game_ui::create()
-{
-  game_ui* ret = nullptr;
+  switch_object* ret = nullptr;
 
   do
   {
-    auto object = new game_ui();
+    auto object = new switch_object();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init())
+    if (object->init(target))
     {
       object->autorelease();
     }
@@ -59,7 +54,7 @@ game_ui* game_ui::create()
 }
 
 // on "init" you need to initialize your instance
-bool game_ui::init()
+bool switch_object::init(const string& target)
 {
   auto ret = false;
 
@@ -67,35 +62,10 @@ bool game_ui::init()
   {
     //////////////////////////////
     // 1. super init first
-    UTILS_BREAK_IF(!base_class::init());
 
-    audio_helper::pre_load_effect("sounds/select.wav");
+    UTILS_BREAK_IF(!base_class::init("09_Switch (2).png", "switch"));
 
-    const auto& size = Director::getInstance()->getVisibleSize();
-
-    // cache
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ui/ui.plist");
-
-    const auto close = Sprite::createWithSpriteFrameName("01_Exit_1.png");
-    UTILS_BREAK_IF(close==nullptr);
-
-    const auto close_click = Sprite::createWithSpriteFrameName("01_Exit_2.png");
-    UTILS_BREAK_IF(close_click == nullptr);
-
-    const auto close_item = MenuItemSprite::create(close, close_click, CC_CALLBACK_1(game_ui::on_close, this));
-    UTILS_BREAK_IF(close_item == nullptr);
-
-    close_item->setPosition(size.width / 2 - close->getContentSize().width,
-                            size.height / 2 - close->getContentSize().height);
-
-    const auto menu = Menu::create(close_item, nullptr);
-    UTILS_BREAK_IF(menu == nullptr);
-
-    addChild(menu);
-
-    // joystick
-    virtual_joy_stick_ = virtual_joy_stick::create(size.height - 500.f);
-    addChild(virtual_joy_stick_);
+    target_ = target;
 
     ret = true;
   }
@@ -104,10 +74,11 @@ bool game_ui::init()
   return ret;
 }
 
-void game_ui::on_close(Ref* sender)
+void switch_object::on()
 {
-  //Close the cocos2d-x game scene and quit the application
-  Director::getInstance()->end();
-
-  audio_helper::get_instance()->play_effect("sounds/select.wav");
+  if(is_off())
+  {
+    change_frame("08_Switch (1).png");
+    on_ = true;
+  }
 }
