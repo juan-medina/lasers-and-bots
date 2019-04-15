@@ -44,7 +44,7 @@ public:
 private:
 
   // create a emitter
-  void create_emitter(const Vec2& point);
+  void update_spark(const Vec2& point) const;
 
   // laser angle
   float angle_;
@@ -57,6 +57,8 @@ private:
 
   // maximum laser length
   static constexpr float max_laser_length = 10000.0f;
+
+  ParticleSystemQuad* spark_;
 };
 
 #endif // __LASER_CLASS__

@@ -23,7 +23,8 @@
 laser_object::laser_object() :
   angle_(0.f),
   draw_(nullptr),
-  physics_world_(nullptr)
+  physics_world_(nullptr),
+  spark_(nullptr)
 {
 }
 
@@ -76,6 +77,19 @@ bool laser_object::init(const float initial_angle)
     const auto repeat_blink = RepeatForever::create(blink);
     draw_->runAction(repeat_blink);
 
+
+    spark_ = ParticleFire::create();
+    spark_->setDuration(ParticleSystem::DURATION_INFINITY);
+    spark_->setBlendAdditive(true);
+    spark_->setColor(Color3B::RED);
+    spark_->setOpacityModifyRGB(true);
+    spark_->setOpacity(127);
+    spark_->setTotalParticles(5000);
+    spark_->setPosition(this->getPosition());
+    spark_->setEmissionRate(200.f);
+
+    addChild(spark_);
+
     scheduleUpdate();
 
     ret = true;
@@ -91,6 +105,7 @@ void laser_object::update(const float delta)
   if (physics_world_ == nullptr)
   {
     physics_world_ = Director::getInstance()->getRunningScene()->getPhysicsWorld();
+    spark_->setGravity(physics_world_->getGravity());
   }
 
   // clear our laser
@@ -136,24 +151,14 @@ void laser_object::update(const float delta)
     (final_point_in_world.y != destination_point_in_world.y))
   {
     draw_->drawDot(final_point, 12, Color4F::RED);
-    create_emitter(final_point);
+    update_spark(final_point);
   }
 
   // rotate the laser angle
   angle_ += (5.f * static_cast<float>(M_PI) / 180.0f) * delta;
 }
 
-void laser_object::create_emitter(const Vec2& point)
+void laser_object::update_spark(const Vec2& point) const
 {
-  auto emitter = ParticleFire::create();
-  emitter->setDuration(1);
-  emitter->setBlendFunc(BlendFunc::ADDITIVE);
-  emitter->setColor(Color3B::RED);
-  emitter->setOpacityModifyRGB(true);
-  emitter->setOpacity(127);
-  emitter->setPosition(point);
-  emitter->setEmissionRate(10);
-  emitter->setGravity(physics_world_->getGravity());
-  emitter->setAutoRemoveOnFinish(true);
-  addChild(emitter);
+  spark_->setPosition(point);
 }
