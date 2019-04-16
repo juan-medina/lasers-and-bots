@@ -3,8 +3,8 @@
  <properties>
   <property name="shapes" value="shapes/shapes.plist"/>
  </properties>
- <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256" spacing="2" tilecount="35" columns="7">
-  <image source="tilesheet.png" width="1806" height="1290"/>
+ <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256" spacing="4" margin="2" tilecount="35" columns="7">
+  <image source="tilesheet.png" width="1822" height="1302"/>
   <tile id="0">
    <properties>
     <property name="opacity" type="float" value="0.7"/>
