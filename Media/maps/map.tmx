@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.0" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="256" tileheight="256" infinite="0" nextobjectid="47">
+<map version="v0.18.2-347-gd8250dd" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="256" tileheight="256" nextobjectid="47">
  <properties>
   <property name="shapes" value="shapes/shapes.plist"/>
  </properties>
- <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256" spacing="4" margin="2" tilecount="35" columns="7">
-  <image source="tilesheet.png" width="1822" height="1302"/>
+ <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256" margin="1" spacing="2" tilecount="35" columns="7">
+  <image source="tilesheet.png" width="1820" height="1300"/>
   <tile id="0">
    <properties>
     <property name="opacity" type="float" value="0.7"/>
