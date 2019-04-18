@@ -20,6 +20,7 @@
 
 #include "robot_object.h"
 #include "../ui/virtual_joy_stick.h"
+#include "../utils/physics/physics_shape_cache.h"
 
 const Vec2 robot_object::normal_movement = Vec2(1000.0f, 2600.0f);
 
@@ -74,21 +75,13 @@ bool robot_object::init(virtual_joy_stick* virtual_joy_stick)
 
     UTILS_BREAK_IF(!base_class::init("Idle_01.png", "robot"));
 
+    const auto cache = physics_shape_cache::get_instance();
+    cache->set_body_on_sprite("Idle_01", this);
+    auto body = getPhysicsBody();
     setAnchorPoint(Vec2(0.5f, 0.0f));
 
-    auto bot_size = getContentSize();
-
-    bot_size.width *= 0.4f;
-    bot_size.height *= 0.85f;
-
-    auto body = PhysicsBody::createBox(bot_size, PhysicsMaterial(0.1f, 0.5f, 0.5f));
-    UTILS_BREAK_IF(body == nullptr);
-
-    body->setDynamic(true);
-    body->setRotationEnable(false);
     body->setMass(1.0);
     body->setMoment(PHYSICS_INFINITY);
-    setPhysicsBody(body);
 
     UTILS_BREAK_IF(!create_anim("Idle_%02d.png", 10, 0.05f, "idle"));
     UTILS_BREAK_IF(!create_anim("Run_%02d.png", 8, 0.15f, "run"));
@@ -115,7 +108,7 @@ void robot_object::update(float delta)
     if(next_jump<=0)
     {
       jump();
-      next_jump = 0.15;
+      next_jump = 0.15f;
     }
     else
     {
@@ -184,6 +177,7 @@ void robot_object::move_to_left(const bool to_left)
   if (to_left)
   {
     setFlippedX(true);
+    getPhysicsBody()->setPositionOffset(Vec2(40.0f, 0.0f));
   }
 
   to_left_ = to_left;
@@ -194,6 +188,7 @@ void robot_object::move_to_right(const bool to_right)
   if (to_right)
   {
     setFlippedX(false);
+    getPhysicsBody()->setPositionOffset(Vec2::ZERO);    
   }
 
   to_right_ = to_right;
