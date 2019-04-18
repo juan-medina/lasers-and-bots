@@ -21,7 +21,7 @@
 #include "robot_object.h"
 #include "../ui/virtual_joy_stick.h"
 
-const Vec2 robot_object::normal_movement = Vec2(700.0f, 1200.0f);
+const Vec2 robot_object::normal_movement = Vec2(1000.0f, 2600.0f);
 
 robot_object::robot_object() :
   to_left_(false),
@@ -111,7 +111,17 @@ void robot_object::update(float delta)
 
   if (virtual_joy_stick_->get_up())
   {
-    jump();
+    static auto next_jump = -1.f;
+    if(next_jump<=0)
+    {
+      jump();
+      next_jump = 0.15;
+    }
+    else
+    {
+      next_jump -= delta;
+    }
+    
   }
 
   const auto move_x = ((to_left_ ? 0.0f : 1.0f) - (to_right_ ? 0.0f : 1.0f)) * normal_movement.x;
@@ -124,13 +134,24 @@ void robot_object::update(float delta)
 
 robot_object::state robot_object::decide_state() const
 {
-  const auto velocity = getPhysicsBody()->getVelocity();
+  const auto velocity = getPhysicsBody()->getVelocityAtLocalPoint(Vec2::ZERO);
 
   auto wanted_state = current_state_;
 
-  if (fuzzy_equals(velocity.y, 0.0f, 0.1f) && fuzzy_equals(velocity.x, 0.0f, 0.1f))
+  if (fuzzy_equals(velocity.y, 0.0f, 0.1f) && fuzzy_equals(velocity.x, 0.0f, 0.f))
   {
     wanted_state = e_idle;
+  }
+  else
+  {
+    if (!fuzzy_equals(fabs(velocity.y), 0.0f))
+    {
+      wanted_state = e_jumping;
+    }
+    else
+    {
+      wanted_state = e_running;
+    }
   }
 
   return wanted_state;
@@ -163,7 +184,6 @@ void robot_object::move_to_left(const bool to_left)
   if (to_left)
   {
     setFlippedX(true);
-    change_state(e_running);
   }
 
   to_left_ = to_left;
@@ -174,7 +194,6 @@ void robot_object::move_to_right(const bool to_right)
   if (to_right)
   {
     setFlippedX(false);
-    change_state(e_running);
   }
 
   to_right_ = to_right;
@@ -184,10 +203,6 @@ void robot_object::jump()
 {
   if (current_state_ != e_jumping)
   {
-    if (fuzzy_equals(fabs(getPhysicsBody()->getVelocity().y), 0.1f))
-    {
-      getPhysicsBody()->applyImpulse(Vec2(0.0f, normal_movement.y));
-      change_state(e_jumping);
-    }
+      getPhysicsBody()->applyImpulse(Vec2(0.0f, normal_movement.y));    
   }
 }

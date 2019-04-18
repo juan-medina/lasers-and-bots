@@ -99,7 +99,7 @@ private:
   bool add_objects_to_game();
 
   // our game gravity
-  static constexpr float gravity = -1000.0f;
+  static constexpr float gravity = -5000.0f;
 
   // the game ui
   game_ui* game_ui_;

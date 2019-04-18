@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="v0.18.2-347-gd8250dd" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="256" tileheight="256" nextobjectid="47">
+<map version="1.0" tiledversion="1.1.0" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="256" tileheight="256" infinite="0" nextobjectid="47">
  <properties>
   <property name="shapes" value="shapes/shapes.plist"/>
  </properties>
- <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256" margin="1" spacing="2" tilecount="35" columns="7">
-  <image source="tilesheet.png" width="1820" height="1300"/>
+ <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256" spacing="2" margin="1" tilecount="35" columns="7">
+  <image source="tilesheet.png" width="1806" height="1290"/>
   <tile id="0">
    <properties>
     <property name="opacity" type="float" value="0.7"/>
@@ -84,7 +84,7 @@
  </layer>
  <layer name="walk_back" width="40" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFIxHwDnHzR8EoGAVDE4yWDaNgFIxMQGneZ8TBHiyACQebGECKf8j1OyXuI0U9sWoBkAMARQ==
+   eJxjYBgFIxHwDnHzR8EoGAXYwWjeGwWjYBQMRkBp2cSIgz1YABMONjGAFP+Q63dK3EeKemLVAgCYIwBF
   </data>
  </layer>
  <layer name="walk" width="40" height="20">
@@ -92,7 +92,7 @@
    <property name="physics" type="bool" value="true"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJztVosOgyAQQz+A+diYm/7/d45LuKy7cAgu4pbYpDEicLWQgjEnTmzDxbM/WoQC0nbzvFau+/ScPZdEH9LWmWP0pUC6ZmANfexFL2oz+Tv7hRh20idrjok6pGECavostFvRzwaiF6XQ9KX8uXs68/Z6Ec+Y/9KLXM0PpX1YGbcG+odJEGvR/Kn1W8Pe+5/18zrk5IcGuZY1UKL3l7IuBm0vfrMmWxGr+a/+xYC50hWMoZxpAmP3Dy2HKF9L/OPcILpMrZz3baA8n/hOIoEZ2mQS9SGd+cxjnJvPc6mPzx/5zmcS5n6bSU3fCHPR/C/pEw2N
+   eJztlgsKgzAQRKMHSP206Ufvf85maQbWJZsmEbUFB4bS1mQfo0w05tSpOl28+6MhFBHbzfu689yX9+Q9J64hts4cw5cScU3Me/Ahi17MhvE/8uIaNuKTM8fEHGJ4MGt8lv1uxXU2mGdRKo0vJx9kPYvPWP4yizXMpKFyHXQ3y/zJT7F/6v5909bPP/id+eSd0x+asEft+hqV8P5S18WkPYtr7kmtYjP/Nb+YeK90BWuoZ5rg2PuH1kPUryX5oTfILpMVfd8Gy/MJ7yRSvEObTHM+bmeWfSz7O8aH80d+x5nEe7/NtMY3sr1o/zcrOA1G
   </data>
  </layer>
  <layer name="front" width="40" height="20">
@@ -102,7 +102,7 @@
  </layer>
  <objectgroup name="objects">
   <object id="1" name="robot" type="robot" gid="30" x="260" y="4862.33" width="256" height="256"/>
-  <object id="7" name="laser" type="laser" gid="31" x="3636.4" y="2655.11" width="256" height="256" rotation="-144.645"/>
+  <object id="7" name="laser" type="laser" gid="31" x="3636.4" y="2396.11" width="256" height="256" rotation="-144.645"/>
   <object id="8" name="laser" type="laser" gid="31" x="1798" y="770" width="256" height="256" rotation="180"/>
   <object id="9" name="laser" type="laser" gid="31" x="7300" y="4400" width="256" height="256" rotation="-45"/>
   <object id="11" name="laser" type="laser" gid="31" x="7938.67" y="764.833" width="256" height="256" rotation="180"/>
