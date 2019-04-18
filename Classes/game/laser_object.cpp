@@ -87,7 +87,7 @@ bool laser_object::init(const float initial_angle)
     spark_->setTotalParticles(5000);
     spark_->setPosition(this->getPosition());
     spark_->setEmissionRate(200.f);
-
+    spark_->setGravity(Vec2(0.f, -1000.f));
     addChild(spark_);
 
     scheduleUpdate();
@@ -105,7 +105,6 @@ void laser_object::update(const float delta)
   if (physics_world_ == nullptr)
   {
     physics_world_ = Director::getInstance()->getRunningScene()->getPhysicsWorld();
-    spark_->setGravity(physics_world_->getGravity());
   }
 
   // clear our laser
