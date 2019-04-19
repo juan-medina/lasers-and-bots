@@ -69,7 +69,7 @@ bool game_ui::init()
     // 1. super init first
     UTILS_BREAK_IF(!base_class::init());
 
-    audio_helper::pre_load_effect("sounds/select.wav");
+    audio_helper::pre_load_effect("sounds/select.ogg");
 
     const auto& size = Director::getInstance()->getVisibleSize();
 
@@ -109,5 +109,5 @@ void game_ui::on_close(Ref* sender)
   //Close the cocos2d-x game scene and quit the application
   Director::getInstance()->end();
 
-  audio_helper::get_instance()->play_effect("sounds/select.wav");
+  audio_helper::get_instance()->play_effect("sounds/select.ogg");
 }

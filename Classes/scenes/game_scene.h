@@ -38,6 +38,8 @@ public:
 
   // constructor
   game_scene();
+  
+  ~game_scene();
 
   // create the object
   static game_scene* create();

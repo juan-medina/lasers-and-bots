@@ -67,8 +67,8 @@ bool door_object::init()
 
     UTILS_BREAK_IF(!base_class::init("04_DoorLocked.png", "door"));
 
-    audio_helper::pre_load_effect("sounds/metal_click.wav");
-    audio_helper::pre_load_effect("sounds/slide.wav");
+    audio_helper::pre_load_effect("sounds/metal_click.ogg");
+    audio_helper::pre_load_effect("sounds/slide.ogg");
 
     const auto body = physics_shape_cache::get_instance()->create_body_with_name("04_Door");
     setPhysicsBody(body);
@@ -85,7 +85,7 @@ void door_object::on()
   if (is_off())
   {
     change_frame("06_DoorUnlocked.png");
-    audio_helper::get_instance()->play_effect("sounds/metal_click.wav");
+    audio_helper::get_instance()->play_effect("sounds/metal_click.ogg");
     on_ = true;
   }
 }
@@ -95,7 +95,7 @@ void door_object::open()
   if (is_closed())
   {
     change_frame("05_DoorOpen.png");
-    audio_helper::get_instance()->play_effect("sounds/slide.wav");
+    audio_helper::get_instance()->play_effect("sounds/slide.ogg");
     open_ = true;
   }
 }

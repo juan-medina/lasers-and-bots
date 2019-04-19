@@ -25,6 +25,7 @@
 #include "../game/door_object.h"
 #include "../utils/physics/physics_shape_cache.h"
 #include "../ui/game_ui.h"
+#include "utils/audio/audio_helper.h"
 
 game_scene::game_scene() :
   robot_(nullptr),
@@ -34,6 +35,11 @@ game_scene::game_scene() :
   min_camera_pos_(Vec2::ZERO),
   max_camera_pos_(Vec2::ZERO)
 {
+}
+
+game_scene::~game_scene()
+{
+  audio_helper::get_instance()->end();
 }
 
 game_scene* game_scene::create()

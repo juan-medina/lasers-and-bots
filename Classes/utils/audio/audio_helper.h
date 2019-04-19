@@ -37,19 +37,19 @@ public:
   ~audio_helper();
 
   // play an effect
-  unsigned int play_effect(const char* file_name) const;
+  int play_effect(const std::string& file_name) const;
 
   // play music
-  void play_music(const char* file_name);
+  void play_music(const std::string& file_name);
 
   // pre-load an effect
-  static void pre_load_effect(const char* file_name);
+  static void pre_load_effect(const std::string& file_name);
 
   // pre-load music
-  static void pre_load_music(const char* file_name);
+  static void pre_load_music(const std::string& file_name);
 
   // unload and effect
-  static void unload_effect(const char* file_name);
+  static void unload_effect(const std::string& file_name);
 
   // toggle sound
   void toggle_sound();
@@ -98,10 +98,14 @@ public:
     effects_muted_ = var;
   };
 
-  string get_last_music() const noexcept
+  int get_last_music() const noexcept
   {
     return last_music_;
   };
+
+  // end helper
+  void end();
+
 
 protected:
   // save values in user config
@@ -113,8 +117,6 @@ protected:
   // init helper
   bool init();
 
-  // end helper
-  void end();
 
   // is music muted
   bool music_muted_;
@@ -123,7 +125,7 @@ protected:
   bool effects_muted_;
 
   // last music requested to play
-  std::string last_music_;
+  int last_music_;
 };
 
 #endif // __AUDIO_HELPER_H__

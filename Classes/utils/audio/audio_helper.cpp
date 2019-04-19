@@ -19,15 +19,14 @@
  ****************************************************************************/
 
 #include "audio_helper.h"
+#include "audio/include/AudioEngine.h"
 
-#include "SimpleAudioEngine.h"
-using namespace CocosDenshion;
-
+using namespace experimental;
 audio_helper::audio_helper():
   initiated_(false),
   music_muted_(false),
   effects_muted_(false),
-  last_music_("")
+  last_music_(AudioEngine::INVALID_AUDIO_ID)
 {
   // init object
   init();
@@ -49,7 +48,9 @@ bool audio_helper::init()
   set_music_muted(UserDefault::getInstance()->getBoolForKey("music_muted", music_muted_));
 
   // not music played, yet
-  last_music_ = "";
+  last_music_ = AudioEngine::INVALID_AUDIO_ID;
+
+  AudioEngine::lazyInit();
 
   // object is init
   initiated_ = true;
@@ -59,8 +60,11 @@ bool audio_helper::init()
 
 void audio_helper::end()
 {
+  AudioEngine::stopAll();
+  AudioEngine::uncacheAll();
+
   // end audio engine
-  SimpleAudioEngine::end();
+  AudioEngine::end();
 
   // save config values
   save_values();
@@ -69,46 +73,45 @@ void audio_helper::end()
   initiated_ = false;
 }
 
-unsigned int audio_helper::play_effect(const char* file_name) const
+int audio_helper::play_effect(const std::string& file_name) const
 {
   // if we are muted exit
   if (get_effects_muted())
   {
-    return 0;
+    return AudioEngine::INVALID_AUDIO_ID;
   }
   // play effect
-  return SimpleAudioEngine::getInstance()->playEffect(file_name);
+  const auto id = AudioEngine::play2d(file_name);
+  AudioEngine::setVolume(id, .5f);
+  return id;
 }
 
-void audio_helper::play_music(const char* file_name)
+void audio_helper::play_music(const std::string& file_name)
 {
-  // store music name
-  last_music_ = std::string(file_name);
-
   // if we are muted exit
   if (get_music_muted())
   {
     return;
   }
   // play music
-  SimpleAudioEngine::getInstance()->playBackgroundMusic(last_music_.c_str(), true);
+  last_music_ = AudioEngine::play2d(file_name, true);
 }
 
-void audio_helper::pre_load_effect(const char* file_name)
+void audio_helper::pre_load_effect(const std::string& file_name)
 {
   // pre-load effect
-  SimpleAudioEngine::getInstance()->preloadEffect(file_name);
+  AudioEngine::preload(file_name);
 }
 
-void audio_helper::pre_load_music(const char* file_name)
+void audio_helper::pre_load_music(const std::string& file_name)
 {
   // pre-load music
-  SimpleAudioEngine::getInstance()->preloadBackgroundMusic(file_name);
+  AudioEngine::preload(file_name);
 }
 
-void audio_helper::unload_effect(const char* file_name)
+void audio_helper::unload_effect(const std::string& file_name)
 {
-  SimpleAudioEngine::getInstance()->unloadEffect(file_name);
+  AudioEngine::uncache(file_name);
 }
 
 void audio_helper::toggle_sound()
@@ -123,7 +126,7 @@ void audio_helper::toggle_sound()
   else
   {
     // stop all effects and set to mute
-    SimpleAudioEngine::getInstance()->stopAllEffects();
+    AudioEngine::stopAll();
     set_effects_muted(true);
   }
 
@@ -140,17 +143,20 @@ void audio_helper::toggle_music()
     set_music_muted(false);
 
     // if we have last music
-    if (last_music_.length())
+    if (last_music_ != AudioEngine::INVALID_AUDIO_ID)
     {
       // play again
-      play_music(last_music_.c_str());
+      AudioEngine::resume(last_music_);
     }
   }
 
   else
   {
-    // stop music and mute
-    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+    if (last_music_ != AudioEngine::INVALID_AUDIO_ID)
+    {
+      // stop music and mute
+      AudioEngine::pause(last_music_);
+    }
     set_music_muted(true);
   }
 
@@ -163,7 +169,10 @@ void audio_helper::app_to_bg() const
   // if we wasn't muted pause music
   if (!get_music_muted())
   {
-    SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+    if (last_music_ != AudioEngine::INVALID_AUDIO_ID)
+    {
+      AudioEngine::pause(last_music_);
+    }
   }
 }
 
@@ -172,7 +181,10 @@ void audio_helper::app_to_fg() const
   // if we wasn't muted resume music
   if (!get_music_muted())
   {
-    SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+    if (last_music_ != AudioEngine::INVALID_AUDIO_ID)
+    {
+      AudioEngine::resume(last_music_);
+    }
   }
 }
 
@@ -192,6 +204,5 @@ void audio_helper::app_exit()
 
 void audio_helper::stop_all_sounds()
 {
-  SimpleAudioEngine::getInstance()->stopAllEffects();
-  SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+  AudioEngine::stopAll();
 }
