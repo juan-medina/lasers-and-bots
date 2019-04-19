@@ -18,7 +18,7 @@
             <string>switch</string>
             <string>blocks</string>
             <string>barrel</string>
-            <string>bit_9</string>
+            <string>bit_09</string>
             <string>bit_10</string>
             <string>bit_11</string>
             <string>bit_12</string>
@@ -50,7 +50,7 @@
                 <key>anchorpoint</key>
                 <string>{ 0.50300,0.50000 }</string>
                 <key>is_dynamic</key>
-                <true/>
+                <false/>
                 <key>affected_by_gravity</key>
                 <false/>
                 <key>allows_rotation</key>
@@ -176,7 +176,7 @@
                 <key>anchorpoint</key>
                 <string>{ 0.50100,0.49900 }</string>
                 <key>is_dynamic</key>
-                <true/>
+                <false/>
                 <key>affected_by_gravity</key>
                 <false/>
                 <key>allows_rotation</key>
@@ -1338,9 +1338,9 @@
                 <key>anchorpoint</key>
                 <string>{ 0.50000,0.50000 }</string>
                 <key>is_dynamic</key>
-                <true/>
+                <false/>
                 <key>affected_by_gravity</key>
-                <true/>
+                <false/>
                 <key>allows_rotation</key>
                 <true/>
                 <key>linear_damping</key>
@@ -1394,11 +1394,11 @@
                 <key>anchorpoint</key>
                 <string>{ 0.50000,0.50000 }</string>
                 <key>is_dynamic</key>
-                <true/>
+                <false/>
                 <key>affected_by_gravity</key>
-                <true/>
+                <false/>
                 <key>allows_rotation</key>
-                <true/>
+                <false/>
                 <key>linear_damping</key>
                 <real>0</real>
                 <key>velocity_limit</key>
@@ -1450,11 +1450,11 @@
                 <key>anchorpoint</key>
                 <string>{ 0.50000,0.50000 }</string>
                 <key>is_dynamic</key>
-                <true/>
+                <false/>
                 <key>affected_by_gravity</key>
-                <true/>
+                <false/>
                 <key>allows_rotation</key>
-                <true/>
+                <false/>
                 <key>linear_damping</key>
                 <real>0</real>
                 <key>velocity_limit</key>
@@ -1506,11 +1506,11 @@
                 <key>anchorpoint</key>
                 <string>{ 0.50000,0.50000 }</string>
                 <key>is_dynamic</key>
-                <true/>
+                <false/>
                 <key>affected_by_gravity</key>
-                <true/>
+                <false/>
                 <key>allows_rotation</key>
-                <true/>
+                <false/>
                 <key>linear_damping</key>
                 <real>0</real>
                 <key>velocity_limit</key>
@@ -1562,11 +1562,11 @@
                 <key>anchorpoint</key>
                 <string>{ 0.50000,0.50000 }</string>
                 <key>is_dynamic</key>
-                <true/>
+                <false/>
                 <key>affected_by_gravity</key>
-                <true/>
+                <false/>
                 <key>allows_rotation</key>
-                <true/>
+                <false/>
                 <key>linear_damping</key>
                 <real>0</real>
                 <key>velocity_limit</key>
@@ -1618,11 +1618,11 @@
                 <key>anchorpoint</key>
                 <string>{ 0.50000,0.50000 }</string>
                 <key>is_dynamic</key>
-                <true/>
+                <false/>
                 <key>affected_by_gravity</key>
-                <true/>
+                <false/>
                 <key>allows_rotation</key>
-                <true/>
+                <false/>
                 <key>linear_damping</key>
                 <real>0</real>
                 <key>velocity_limit</key>
@@ -1674,11 +1674,11 @@
                 <key>anchorpoint</key>
                 <string>{ 0.50000,0.50000 }</string>
                 <key>is_dynamic</key>
-                <true/>
+                <false/>
                 <key>affected_by_gravity</key>
-                <true/>
+                <false/>
                 <key>allows_rotation</key>
-                <true/>
+                <false/>
                 <key>linear_damping</key>
                 <real>0</real>
                 <key>velocity_limit</key>
@@ -1730,11 +1730,11 @@
                 <key>anchorpoint</key>
                 <string>{ 0.50000,0.50000 }</string>
                 <key>is_dynamic</key>
-                <true/>
+                <false/>
                 <key>affected_by_gravity</key>
-                <true/>
+                <false/>
                 <key>allows_rotation</key>
-                <true/>
+                <false/>
                 <key>linear_damping</key>
                 <real>0</real>
                 <key>velocity_limit</key>
@@ -1786,9 +1786,9 @@
                 <key>anchorpoint</key>
                 <string>{ 0.50000,0.50000 }</string>
                 <key>is_dynamic</key>
-                <true/>
+                <false/>
                 <key>affected_by_gravity</key>
-                <true/>
+                <false/>
                 <key>allows_rotation</key>
                 <true/>
                 <key>linear_damping</key>
@@ -1842,9 +1842,9 @@
                 <key>anchorpoint</key>
                 <string>{ 0.50000,0.50000 }</string>
                 <key>is_dynamic</key>
-                <true/>
+                <false/>
                 <key>affected_by_gravity</key>
-                <true/>
+                <false/>
                 <key>allows_rotation</key>
                 <true/>
                 <key>linear_damping</key>
@@ -1898,9 +1898,9 @@
                 <key>anchorpoint</key>
                 <string>{ 0.50000,0.50000 }</string>
                 <key>is_dynamic</key>
-                <true/>
+                <false/>
                 <key>affected_by_gravity</key>
-                <true/>
+                <false/>
                 <key>allows_rotation</key>
                 <true/>
                 <key>linear_damping</key>
@@ -1954,9 +1954,9 @@
                 <key>anchorpoint</key>
                 <string>{ 0.50000,0.50000 }</string>
                 <key>is_dynamic</key>
-                <true/>
+                <false/>
                 <key>affected_by_gravity</key>
-                <true/>
+                <false/>
                 <key>allows_rotation</key>
                 <true/>
                 <key>linear_damping</key>
@@ -1997,6 +1997,157 @@
                                 <string>{ -128.00000,128.00000 }</string>
                                 <string>{ 128.00000,128.00000 }</string>
                                 <string>{ 128.00000,-128.00000 }</string>
+                            </array>
+                        </array>
+                        
+                    </dict>
+
+                </array>
+            </dict>
+
+            <key>08_Switch</key>
+            <dict>
+                <key>anchorpoint</key>
+                <string>{ 0.50000,0.50200 }</string>
+                <key>is_dynamic</key>
+                <false/>
+                <key>affected_by_gravity</key>
+                <false/>
+                <key>allows_rotation</key>
+                <true/>
+                <key>linear_damping</key>
+                <real>0</real>
+                <key>velocity_limit</key>
+                <real>1e+06</real>
+                <key>angular_damping</key>
+                <real>0</real>
+                <key>angular_velocity_limit</key>
+                <real>1e+06</real>
+                <key>fixtures</key>
+                <array>
+
+                    <dict>
+                        <key>density</key>
+                        <real>1</real>
+                        <key>restitution</key>
+                        <real>0.20000000298023224</real>
+                        <key>friction</key>
+                        <real>0.699999988079071</real>
+                        <key>tag</key>
+                        <integer>0</integer>
+                        <key>group</key>
+                        <integer>0</integer>
+                        <key>category_mask</key>
+                        <integer>64</integer>
+                        <key>collision_mask</key>
+                        <integer>0</integer>
+                        <key>contact_test_mask</key>
+                        <integer>0</integer>
+                        <key>fixture_type</key>
+                        <string>POLYGON</string>
+                        
+                        <key>polygons</key>
+                        <array>
+                            <array>
+                                <string>{ 36.00000,128.50000 }</string>
+                                <string>{ 36.00000,43.50000 }</string>
+                                <string>{ -36.00000,43.50000 }</string>
+                                <string>{ -36.00000,128.50000 }</string>
+                            </array>
+                            <array>
+                                <string>{ -19.00000,43.50000 }</string>
+                                <string>{ 17.00000,43.50000 }</string>
+                                <string>{ 17.00000,33.50000 }</string>
+                                <string>{ -19.00000,33.50000 }</string>
+                            </array>
+                            <array>
+                                <string>{ -12.00000,-128.50000 }</string>
+                                <string>{ -12.00000,33.50000 }</string>
+                                <string>{ 11.00000,33.50000 }</string>
+                                <string>{ 11.00000,-128.50000 }</string>
+                            </array>
+                            <array>
+                                <string>{ -12.00000,-32.50000 }</string>
+                                <string>{ -12.00000,-72.50000 }</string>
+                                <string>{ -21.00000,-69.50000 }</string>
+                                <string>{ -21.00000,-34.50000 }</string>
+                            </array>
+                            <array>
+                                <string>{ 11.00000,-72.50000 }</string>
+                                <string>{ 11.00000,-32.50000 }</string>
+                                <string>{ 18.00000,-34.50000 }</string>
+                                <string>{ 19.00000,-70.50000 }</string>
+                            </array>
+                        </array>
+                        
+                    </dict>
+
+                </array>
+            </dict>
+
+            <key>04_Door</key>
+            <dict>
+                <key>anchorpoint</key>
+                <string>{ 0.50000,0.50000 }</string>
+                <key>is_dynamic</key>
+                <false/>
+                <key>affected_by_gravity</key>
+                <false/>
+                <key>allows_rotation</key>
+                <false/>
+                <key>linear_damping</key>
+                <real>0</real>
+                <key>velocity_limit</key>
+                <real>1e+06</real>
+                <key>angular_damping</key>
+                <real>0</real>
+                <key>angular_velocity_limit</key>
+                <real>1e+06</real>
+                <key>fixtures</key>
+                <array>
+
+                    <dict>
+                        <key>density</key>
+                        <real>1</real>
+                        <key>restitution</key>
+                        <real>0.20000000298023224</real>
+                        <key>friction</key>
+                        <real>0.699999988079071</real>
+                        <key>tag</key>
+                        <integer>0</integer>
+                        <key>group</key>
+                        <integer>0</integer>
+                        <key>category_mask</key>
+                        <integer>32</integer>
+                        <key>collision_mask</key>
+                        <integer>0</integer>
+                        <key>contact_test_mask</key>
+                        <integer>0</integer>
+                        <key>fixture_type</key>
+                        <string>POLYGON</string>
+                        
+                        <key>polygons</key>
+                        <array>
+                            <array>
+                                <string>{ 140.00000,209.00000 }</string>
+                                <string>{ 140.00000,-213.00000 }</string>
+                                <string>{ 122.00000,-231.00000 }</string>
+                                <string>{ -58.00000,228.00000 }</string>
+                                <string>{ 121.00000,228.00000 }</string>
+                            </array>
+                            <array>
+                                <string>{ -58.00000,228.00000 }</string>
+                                <string>{ 122.00000,-231.00000 }</string>
+                                <string>{ -120.00000,-232.00000 }</string>
+                                <string>{ -138.00000,-214.00000 }</string>
+                                <string>{ -140.00000,208.00000 }</string>
+                                <string>{ -120.00000,227.00000 }</string>
+                            </array>
+                            <array>
+                                <string>{ 59.00000,229.00000 }</string>
+                                <string>{ -58.00000,228.00000 }</string>
+                                <string>{ -55.00000,231.00000 }</string>
+                                <string>{ 56.00000,232.00000 }</string>
                             </array>
                         </array>
                         

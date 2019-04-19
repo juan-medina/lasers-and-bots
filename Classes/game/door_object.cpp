@@ -20,6 +20,7 @@
 
 #include "door_object.h"
 #include "../utils/audio/audio_helper.h"
+#include "../utils/physics/physics_shape_cache.h"
 
 door_object::door_object() :
   on_(false),
@@ -68,6 +69,9 @@ bool door_object::init()
 
     audio_helper::pre_load_effect("sounds/metal_click.wav");
     audio_helper::pre_load_effect("sounds/slide.wav");
+
+    const auto body = physics_shape_cache::get_instance()->create_body_with_name("04_Door");
+    setPhysicsBody(body);
 
     ret = true;
   }

@@ -19,6 +19,7 @@
  ****************************************************************************/
 
 #include "switch_object.h"
+#include "../utils/physics/physics_shape_cache.h"
 
 
 switch_object::switch_object():
@@ -64,6 +65,9 @@ bool switch_object::init(const string& target)
     // 1. super init first
 
     UTILS_BREAK_IF(!base_class::init("09_Switch (2).png", "switch"));
+
+    const auto body = physics_shape_cache::get_instance()->create_body_with_name("08_Switch");
+    setPhysicsBody(body);
 
     target_ = target;
 
