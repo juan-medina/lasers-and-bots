@@ -48,7 +48,7 @@ public:
   // init this object
   bool init() override;
 
-private:  
+private:
 
   // update our game
   void update(float delta) override;
@@ -62,8 +62,12 @@ private:
   // handle switch
   void handle_door(door_object* door_game_object) const;
 
-  // check game objects
-  void check_game_objects();
+  // check contact from objects
+  bool on_contact_begin(PhysicsContact& contact);
+
+  // get an object from a contact
+  template <class Type>
+  Type* get_object_from_contact(PhysicsContact& contact, unsigned short category);
 
   //our robot
   robot_object* robot_;
@@ -93,7 +97,7 @@ private:
   bool add_saw(const ValueMap& values, Node* layer) const;
 
   // add an object to the map
-  bool add_object(const vector<Value>::value_type& object);  
+  bool add_object(const vector<Value>::value_type& object);
 
   // add lasers to the game
   bool add_objects_to_game();
@@ -118,6 +122,16 @@ private:
 
   // max camera pos
   Vec2 max_camera_pos_;
+
+  static constexpr short int bit_mask_world = 1;
+  static constexpr short int bit_mask_robot = 2;
+  static constexpr short int bit_mask_spikes = 4;
+  static constexpr short int bit_mask_saw = 8;
+  static constexpr short int bit_mask_acid = 16;
+  static constexpr short int bit_mask_door = 32;
+  static constexpr short int bit_mask_switch = 64;
+  static constexpr short int bit_mask_blocks = 128;
+  static constexpr short int bit_mask_barrel = 256;
 };
 
 #endif // __MAIN_SCENE__

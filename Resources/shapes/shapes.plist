@@ -1306,25 +1306,24 @@
                         <key>collision_mask</key>
                         <integer>413</integer>
                         <key>contact_test_mask</key>
-                        <integer>256</integer>
+                        <integer>96</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
                         <key>polygons</key>
                         <array>
                             <array>
-                                <string>{ -155.50000,-240.00000 }</string>
-                                <string>{ -123.50000,-4.00000 }</string>
-                                <string>{ 62.50000,-5.00000 }</string>
-                                <string>{ 113.50000,-241.00000 }</string>
+                                <string>{ -111.50000,-237.00000 }</string>
+                                <string>{ -110.50000,134.00000 }</string>
+                                <string>{ 72.50000,-6.00000 }</string>
+                                <string>{ 79.50000,-239.00000 }</string>
                             </array>
                             <array>
-                                <string>{ -120.50000,135.00000 }</string>
-                                <string>{ -64.50000,210.00000 }</string>
-                                <string>{ 35.50000,211.00000 }</string>
-                                <string>{ 66.50000,138.00000 }</string>
-                                <string>{ 62.50000,-5.00000 }</string>
-                                <string>{ -123.50000,-4.00000 }</string>
+                                <string>{ -110.50000,134.00000 }</string>
+                                <string>{ -54.50000,209.00000 }</string>
+                                <string>{ 30.50000,211.00000 }</string>
+                                <string>{ 76.50000,137.00000 }</string>
+                                <string>{ 72.50000,-6.00000 }</string>
                             </array>
                         </array>
                         
@@ -2042,7 +2041,7 @@
                         <key>collision_mask</key>
                         <integer>0</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -2110,7 +2109,7 @@
                         <key>density</key>
                         <real>1</real>
                         <key>restitution</key>
-                        <real>0.20000000298023224</real>
+                        <real>0.2</real>
                         <key>friction</key>
                         <real>0.699999988079071</real>
                         <key>tag</key>
@@ -2122,7 +2121,7 @@
                         <key>collision_mask</key>
                         <integer>0</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         

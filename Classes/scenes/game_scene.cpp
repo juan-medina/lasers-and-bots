@@ -106,6 +106,10 @@ bool game_scene::init()
       UTILS_BREAK_IF(!create_debug_grid("fonts/Marker Felt.ttf"));
     }
 
+    auto contact_listener = EventListenerPhysicsContact::create();
+    contact_listener->onContactBegin = CC_CALLBACK_1(game_scene::on_contact_begin, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(contact_listener, this);
+
     ret = true;
   }
   while (false);
@@ -144,7 +148,6 @@ void game_scene::update(float delta)
   if (last_robot_position_ != new_position)
   {
     update_camera(delta);
-    check_game_objects();
 
     last_robot_position_ = new_position;
   }
@@ -485,24 +488,21 @@ void game_scene::handle_switch(switch_object* switch_game_object)
 
       if (target_object->get_type() == "switch")
       {
-        if (robot_->getBoundingBox().intersectsRect(switch_game_object->getBoundingBox()))
+        switch_game_object->on();
+
+        const auto target_switch = dynamic_cast<switch_object*>(target_object);
+        target_switch->on();
+
+        const auto target_target = target_switch->get_target();
+        if (game_objects_.count(target_target) == 1)
         {
-          switch_game_object->on();
-
-          const auto target_switch = dynamic_cast<switch_object*>(target_object);
-          target_switch->on();
-
-          const auto target_target = target_switch->get_target();
-          if (game_objects_.count(target_target) == 1)
+          const auto target_target_object = game_objects_.at(target_target);
+          if (target_target_object->get_type() == "door")
           {
-            const auto target_target_object = game_objects_.at(target_target);
-            if (target_target_object->get_type() == "door")
+            const auto target_door = dynamic_cast<door_object*>(target_target_object);
+            if (target_door->is_off())
             {
-              const auto target_door = dynamic_cast<door_object*>(target_target_object);
-              if (target_door->is_off())
-              {
-                target_door->on();
-              }
+              target_door->on();
             }
           }
         }
@@ -517,27 +517,48 @@ void game_scene::handle_door(door_object* door_game_object) const
   {
     if (door_game_object->is_closed())
     {
-      if (robot_->getBoundingBox().intersectsRect(door_game_object->getBoundingBox()))
-      {
-        door_game_object->open();
-      }
+      door_game_object->open();
     }
   }
 }
 
-void game_scene::check_game_objects()
+bool game_scene::on_contact_begin(PhysicsContact& contact)
 {
-  for (auto it = game_objects_.begin(); it != game_objects_.end(); ++it)
+  const auto robot = get_object_from_contact<robot_object>(contact, bit_mask_robot);
+  if (robot != nullptr)
   {
-    const auto object = it->second;
-    const auto type = object->get_type();
-    if (type == "switch")
+    const auto door = get_object_from_contact<door_object>(contact, bit_mask_door);
+    if (door != nullptr)
     {
-      handle_switch(dynamic_cast<switch_object*>(object));
+      handle_door(door);
     }
-    else if (type == "door")
+    else
     {
-      handle_door(dynamic_cast<door_object*>(object));
+      const auto switch_game_object = get_object_from_contact<switch_object>(contact, bit_mask_switch);
+      if (switch_game_object != nullptr)
+      {
+        handle_switch(switch_game_object);
+      }
     }
   }
+
+  return true;
+}
+
+
+template <class Type>
+Type* game_scene::get_object_from_contact(PhysicsContact& contact, const unsigned short category)
+{
+  Type* object = nullptr;
+
+  if (contact.getShapeA()->getCategoryBitmask() == category)
+  {
+    object = dynamic_cast<Type*>(contact.getShapeA()->getBody()->getNode());
+  }
+  else if (contact.getShapeB()->getCategoryBitmask() == category)
+  {
+    object = dynamic_cast<Type*>(contact.getShapeB()->getBody()->getNode());
+  }
+
+  return object;
 }
