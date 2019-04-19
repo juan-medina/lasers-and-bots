@@ -61,13 +61,19 @@ private:
   void move_to_right(bool to_right);
 
   // we jump
-  void jump();
+  void jump(bool to_jump);
 
-  //we like to move to left
+  // are in top of a block
+  bool on_top_of_block(const Vec2& origin_point) const;
+
+  // we like to move to left
   bool to_left_;
 
-  //we like to move to right
+  // we like to move to right
   bool to_right_;
+
+  // we like to jump
+  bool jumping_;
 
   // our normal movement
   static const Vec2 normal_movement;
@@ -80,6 +86,9 @@ private:
 
   // change our state
   void change_state(state wanted_state);
+
+  // move the robot
+  void move_robot() const;
 
   // the joystick
   virtual_joy_stick* virtual_joy_stick_;

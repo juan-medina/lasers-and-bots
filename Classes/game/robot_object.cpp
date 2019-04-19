@@ -21,12 +21,14 @@
 #include "robot_object.h"
 #include "../ui/virtual_joy_stick.h"
 #include "../utils/physics/physics_shape_cache.h"
+#include "Particle3D/PU/CCPUColorAffector.h"
 
-const Vec2 robot_object::normal_movement = Vec2(1000.0f, 2600.0f);
+const Vec2 robot_object::normal_movement = Vec2(1000.0f, 400.0f);
 
 robot_object::robot_object() :
   to_left_(false),
   to_right_(false),
+  jumping_(false),
   current_state_(e_idle),
   virtual_joy_stick_(nullptr)
 {
@@ -90,6 +92,7 @@ bool robot_object::init(virtual_joy_stick* virtual_joy_stick)
     change_anim("idle");
 
     virtual_joy_stick_ = virtual_joy_stick;
+
     ret = true;
   }
   while (false);
@@ -101,50 +104,22 @@ void robot_object::update(float delta)
 {
   move_to_left(virtual_joy_stick_->get_left());
   move_to_right(virtual_joy_stick_->get_right());
-
-  if (virtual_joy_stick_->get_up())
-  {
-    static auto next_jump = -1.f;
-    if(next_jump<=0)
-    {
-      jump();
-      next_jump = 0.15f;
-    }
-    else
-    {
-      next_jump -= delta;
-    }
-    
-  }
-
-  const auto move_x = ((to_left_ ? 0.0f : 1.0f) - (to_right_ ? 0.0f : 1.0f)) * normal_movement.x;
-  const auto move_y = getPhysicsBody()->getVelocity().y;
-
-  getPhysicsBody()->setVelocity(Vec2(move_x, move_y));
+  jump(virtual_joy_stick_->get_up());
 
   change_state(decide_state());
 }
 
 robot_object::state robot_object::decide_state() const
 {
-  const auto velocity = getPhysicsBody()->getVelocityAtLocalPoint(Vec2::ZERO);
+  auto wanted_state = e_idle;
 
-  auto wanted_state = current_state_;
-
-  if (fuzzy_equals(velocity.y, 0.0f, 0.1f) && fuzzy_equals(velocity.x, 0.0f, 0.f))
+  if (jumping_)
   {
-    wanted_state = e_idle;
+    wanted_state = e_jumping;
   }
-  else
+  else if (to_left_ || to_right_)
   {
-    if (!fuzzy_equals(fabs(velocity.y), 0.0f))
-    {
-      wanted_state = e_jumping;
-    }
-    else
-    {
-      wanted_state = e_running;
-    }
+    wanted_state = e_running;
   }
 
   return wanted_state;
@@ -172,6 +147,13 @@ void robot_object::change_state(const state wanted_state)
   }
 }
 
+void robot_object::move_robot() const
+{
+  const auto move_x = ((to_left_ ? 0.0f : 1.0f) - (to_right_ ? 0.0f : 1.0f)) * normal_movement.x;
+  const auto move_y = getPhysicsBody()->getVelocity().y;
+  getPhysicsBody()->setVelocity(Vec2(move_x, move_y));
+}
+
 void robot_object::move_to_left(const bool to_left)
 {
   if (to_left)
@@ -181,6 +163,7 @@ void robot_object::move_to_left(const bool to_left)
   }
 
   to_left_ = to_left;
+  move_robot();
 }
 
 void robot_object::move_to_right(const bool to_right)
@@ -188,16 +171,89 @@ void robot_object::move_to_right(const bool to_right)
   if (to_right)
   {
     setFlippedX(false);
-    getPhysicsBody()->setPositionOffset(Vec2::ZERO);    
+    getPhysicsBody()->setPositionOffset(Vec2::ZERO);
   }
 
   to_right_ = to_right;
+  move_robot();
 }
 
-void robot_object::jump()
+void robot_object::jump(const bool to_jump)
 {
-  if (current_state_ != e_jumping)
+  if (to_jump)
   {
-      getPhysicsBody()->applyImpulse(Vec2(0.0f, normal_movement.y));    
+    if (!jumping_)
+    {
+      getPhysicsBody()->applyImpulse(Vec2(0.0f, normal_movement.y));
+      jumping_ = true;
+    }
   }
+
+  const auto center_point = Vec2(getContentSize().width / 2.f, getContentSize().height / 2);
+  const auto left_point = Vec2((getContentSize().width / 2.f) - 50, getContentSize().height / 2);
+  const auto right_point = Vec2((getContentSize().width / 2.f) + 50, getContentSize().height / 2);
+
+  if ((on_top_of_block(center_point)) || ((on_top_of_block(left_point))) || (on_top_of_block(right_point)))
+  {
+    jumping_ = false;
+  }
+}
+
+bool robot_object::on_top_of_block(const Vec2& origin_point) const
+{
+  auto result = false;
+  const auto world = Director::getInstance()->getRunningScene()->getPhysicsWorld();
+
+  if (world != nullptr)
+  {
+    if (jumping_)
+    {
+      // we star where the robot is      
+      auto origin_in_point_in_world = convertToWorldSpace(origin_point);
+
+      // we look down
+      const auto distance = Vec2(0.f, -1000.f);
+
+      // where  will reach
+      const auto destination_point_in_world = origin_in_point_in_world + distance;
+
+      // final point 
+      auto final_point_in_world = destination_point_in_world;
+
+      // we want only to find things that we could have collision
+      auto robot_mask = getPhysicsBody()->getCollisionBitmask();
+
+      // lambda that check all bodies that save the one closer to the origin
+      const PhysicsRayCastCallbackFunc intersect_closer_body_func = [origin_in_point_in_world, &final_point_in_world,
+          robot_mask]
+      (PhysicsWorld& /*world*/, const PhysicsRayCastInfo& info, void* /*data*/)-> bool
+      {
+        if (info.shape->getCategoryBitmask() & robot_mask)
+        {
+          auto origin = Point(origin_in_point_in_world);
+          const auto new_point = Point(info.contact);
+          const auto saved_point = Point(final_point_in_world);
+          if (origin.distance(new_point) < origin.distance(saved_point))
+          {
+            final_point_in_world = info.contact;
+          }
+        }
+        // we need to check all bodies that touch so return true to continue
+        return true;
+      };
+
+      // do the ray cast
+      world->rayCast(intersect_closer_body_func, origin_in_point_in_world, destination_point_in_world, nullptr);
+
+      // if we hit any point
+      const auto final_point = convertToNodeSpace(final_point_in_world);
+
+      const auto distance_to_anything = origin_point.distance(final_point);
+      if (distance_to_anything < (getContentSize().height / 2.f))
+      {
+        result = true;
+      }
+    }
+  }
+  return result;
 }
