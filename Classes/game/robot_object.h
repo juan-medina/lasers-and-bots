@@ -66,6 +66,9 @@ private:
   // are in top of a block
   bool on_top_of_block(const Vec2& origin_point) const;
 
+  // walk sound
+  void walk_sound(const bool active);
+
   // we like to move to left
   bool to_left_;
 
@@ -92,6 +95,9 @@ private:
 
   // the joystick
   virtual_joy_stick* virtual_joy_stick_;
+
+  // our repeatable walk sound
+  int walk_sound_;
 };
 
 #endif // __ROBOT_CLASS__

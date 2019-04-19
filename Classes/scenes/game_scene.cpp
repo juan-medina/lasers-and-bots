@@ -116,6 +116,8 @@ bool game_scene::init()
     contact_listener->onContactBegin = CC_CALLBACK_1(game_scene::on_contact_begin, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(contact_listener, this);
 
+    audio_helper::pre_load_music("sounds/music.ogg");
+    audio_helper::get_instance()->play_music("sounds/music.ogg", 0.30f);
     ret = true;
   }
   while (false);

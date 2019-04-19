@@ -21,6 +21,7 @@
 #include "robot_object.h"
 #include "../ui/virtual_joy_stick.h"
 #include "../utils/physics/physics_shape_cache.h"
+#include "../utils/audio/audio_helper.h"
 
 const Vec2 robot_object::normal_movement = Vec2(1000.0f, 400.0f);
 
@@ -29,7 +30,8 @@ robot_object::robot_object() :
   to_right_(false),
   jumping_(false),
   current_state_(e_idle),
-  virtual_joy_stick_(nullptr)
+  virtual_joy_stick_(nullptr),
+  walk_sound_(-1)
 {
 }
 
@@ -88,6 +90,8 @@ bool robot_object::init(virtual_joy_stick* virtual_joy_stick)
     UTILS_BREAK_IF(!create_anim("Run_%02d.png", 8, 0.15f, "run"));
     UTILS_BREAK_IF(!create_anim("Jump_%02d.png", 10, 0.15f, "jump", 1));
 
+    audio_helper::pre_load_effect("sounds/metal_footsteps.ogg");
+    audio_helper::pre_load_effect("sounds/jump.ogg");
     change_anim("idle");
 
     virtual_joy_stick_ = virtual_joy_stick;
@@ -133,12 +137,16 @@ void robot_object::change_state(const state wanted_state)
     {
     case e_jumping:
       change_anim("jump");
+      walk_sound(false);
+      audio_helper::get_instance()->play_effect("sounds/jump.ogg");
       break;
     case e_idle:
       change_anim("idle");
+      walk_sound(false);
       break;
     case e_running:
       change_anim("run");
+      walk_sound(true);
       break;
     default:
       break;
@@ -255,4 +263,26 @@ bool robot_object::on_top_of_block(const Vec2& origin_point) const
     }
   }
   return result;
+}
+
+void robot_object::walk_sound(const bool active)
+{
+  if (active)
+  {
+    if (walk_sound_ == -1)
+    {      
+      walk_sound_ = audio_helper::get_instance()->play_effect("sounds/metal_footsteps.ogg", true);
+    }
+    else
+    {
+      audio_helper::get_instance()->resume_sound(walk_sound_);
+    }
+  }
+  else
+  {
+    if (walk_sound_ != -1)
+    {
+      audio_helper::get_instance()->pause_sound(walk_sound_);
+    }
+  }
 }

@@ -37,10 +37,10 @@ public:
   ~audio_helper();
 
   // play an effect
-  int play_effect(const std::string& file_name) const;
+  int play_effect(const std::string& file_name, const bool loop = false, const float volume = 1.0f) const;
 
   // play music
-  void play_music(const std::string& file_name);
+  void play_music(const std::string& file_name, const float volume = 1.0f);
 
   // pre-load an effect
   static void pre_load_effect(const std::string& file_name);
@@ -77,6 +77,9 @@ public:
 
   // stops all sounds
   static void stop_all_sounds();
+  void stop_sound(int sound);
+  void pause_sound(int sound);
+  void resume_sound(int sound);
 
   bool get_music_muted() const noexcept
   {

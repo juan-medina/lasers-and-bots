@@ -1282,7 +1282,7 @@
                 <key>linear_damping</key>
                 <real>0</real>
                 <key>velocity_limit</key>
-                <real>1e+06</real>
+                <real>10000</real>
                 <key>angular_damping</key>
                 <real>0</real>
                 <key>angular_velocity_limit</key>
@@ -1313,10 +1313,10 @@
                         <key>polygons</key>
                         <array>
                             <array>
-                                <string>{ -111.50000,-237.00000 }</string>
-                                <string>{ -110.50000,134.00000 }</string>
+                                <string>{ -152.50000,-237.00000 }</string>
+                                <string>{ -113.50000,-5.00000 }</string>
                                 <string>{ 72.50000,-6.00000 }</string>
-                                <string>{ 79.50000,-239.00000 }</string>
+                                <string>{ 108.50000,-239.00000 }</string>
                             </array>
                             <array>
                                 <string>{ -110.50000,134.00000 }</string>
@@ -1324,6 +1324,7 @@
                                 <string>{ 30.50000,211.00000 }</string>
                                 <string>{ 76.50000,137.00000 }</string>
                                 <string>{ 72.50000,-6.00000 }</string>
+                                <string>{ -113.50000,-5.00000 }</string>
                             </array>
                         </array>
                         

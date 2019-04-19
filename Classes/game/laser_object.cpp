@@ -19,6 +19,7 @@
  ****************************************************************************/
 
 #include "laser_object.h"
+#include "../utils/audio/audio_helper.h"
 
 laser_object::laser_object() :
   angle_(0.f),
@@ -92,6 +93,8 @@ bool laser_object::init(const float initial_angle)
 
     scheduleUpdate();
 
+    audio_helper::pre_load_effect("sounds/laser.ogg");    
+
     ret = true;
   }
   while (false);
@@ -101,6 +104,12 @@ bool laser_object::init(const float initial_angle)
 
 void laser_object::update(const float delta)
 {
+  static auto sound_playing = false;
+  if(!sound_playing)
+  {
+    audio_helper::get_instance()->play_effect("sounds/laser.ogg", true, 0.7f);
+    sound_playing = true;
+  }
   // get the physicsWorld
   if (physics_world_ == nullptr)
   {

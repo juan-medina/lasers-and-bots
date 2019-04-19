@@ -73,7 +73,7 @@ void audio_helper::end()
   initiated_ = false;
 }
 
-int audio_helper::play_effect(const std::string& file_name) const
+int audio_helper::play_effect(const std::string& file_name, const bool loop /*= false*/, const float volume /*= 1.0f*/) const
 {
   // if we are muted exit
   if (get_effects_muted())
@@ -81,12 +81,11 @@ int audio_helper::play_effect(const std::string& file_name) const
     return AudioEngine::INVALID_AUDIO_ID;
   }
   // play effect
-  const auto id = AudioEngine::play2d(file_name);
-  AudioEngine::setVolume(id, .5f);
+  const auto id = AudioEngine::play2d(file_name, loop, volume);
   return id;
 }
 
-void audio_helper::play_music(const std::string& file_name)
+void audio_helper::play_music(const std::string& file_name, const float volume /*= 1.0f*/)
 {
   // if we are muted exit
   if (get_music_muted())
@@ -94,7 +93,7 @@ void audio_helper::play_music(const std::string& file_name)
     return;
   }
   // play music
-  last_music_ = AudioEngine::play2d(file_name, true);
+  last_music_ = AudioEngine::play2d(file_name, true, volume);
 }
 
 void audio_helper::pre_load_effect(const std::string& file_name)
@@ -205,4 +204,19 @@ void audio_helper::app_exit()
 void audio_helper::stop_all_sounds()
 {
   AudioEngine::stopAll();
+}
+
+void audio_helper::stop_sound(const int sound)
+{
+  AudioEngine::stop(sound);
+}
+
+void audio_helper::pause_sound(const int sound)
+{
+  AudioEngine::pause(sound);
+}
+
+void audio_helper::resume_sound(const int sound)
+{
+  AudioEngine::resume(sound);
 }
