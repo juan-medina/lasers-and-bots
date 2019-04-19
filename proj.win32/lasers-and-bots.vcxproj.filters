@@ -37,11 +37,11 @@
     <Filter Include="src\utils\physics">
       <UniqueIdentifier>{4d75a38c-cda0-4220-a25a-d1aea8a0c20b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\uit">
-      <UniqueIdentifier>{da36c100-c1f0-42e7-9828-13e6ceb10d26}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\scene">
       <UniqueIdentifier>{62b547de-2749-4a97-b72b-a268980a00b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ui">
+      <UniqueIdentifier>{da36c100-c1f0-42e7-9828-13e6ceb10d26}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -94,10 +94,10 @@
       <Filter>src\utils\base\scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\ui\game_ui.cpp">
-      <Filter>src\uit</Filter>
+      <Filter>src\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\ui\virtual_joy_stick.cpp">
-      <Filter>src\uit</Filter>
+      <Filter>src\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\utils\physics\physics_shape_cache.cpp">
       <Filter>src\utils\physics</Filter>
@@ -159,10 +159,10 @@
       <Filter>src\utils\base\scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ui\game_ui.h">
-      <Filter>src\uit</Filter>
+      <Filter>src\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ui\virtual_joy_stick.h">
-      <Filter>src\uit</Filter>
+      <Filter>src\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\utils\physics\physics_shape_cache.h">
       <Filter>src\utils\physics</Filter>
