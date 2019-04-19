@@ -75,13 +75,13 @@ bool robot_object::init(virtual_joy_stick* virtual_joy_stick)
 
     UTILS_BREAK_IF(!base_class::init("Idle_01.png", "robot"));
 
-    const auto cache = physics_shape_cache::get_instance();
-    cache->set_body_on_sprite("Idle_01", this);
-    auto body = getPhysicsBody();
     setAnchorPoint(Vec2(0.5f, 0.0f));
 
+    const auto cache = physics_shape_cache::get_instance();
+    auto body = cache->create_body_with_name("Robot");
     body->setMass(1.0);
     body->setMoment(PHYSICS_INFINITY);
+    setPhysicsBody(body);
 
     UTILS_BREAK_IF(!create_anim("Idle_%02d.png", 10, 0.05f, "idle"));
     UTILS_BREAK_IF(!create_anim("Run_%02d.png", 8, 0.15f, "run"));

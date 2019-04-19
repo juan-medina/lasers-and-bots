@@ -97,6 +97,7 @@ bool physics_tiled_scene::init(const std::string& tmx_file, const float gravity,
 void physics_tiled_scene::init_physics(const bool debug_physics) const
 {
   const auto edge = PhysicsBody::createEdgeBox(total_size_, PhysicsMaterial(0.1f, 0.0f, 0.5f), 5);
+  edge->setCategoryBitmask(0x0001);
   get_tiled_map()->addComponent(edge);
 
   if (debug_physics)
@@ -156,17 +157,12 @@ bool physics_tiled_scene::add_body_to_node(Node* node, const string& shape)
       const auto cache = physics_shape_cache::get_instance();
       body = cache->create_body_with_name(shape);
     }
-
-    if (body == nullptr)
+    
+    if (body != nullptr)
     {
-      const auto mat = PhysicsMaterial(0.0f, 0.0f, 0.0f);
-      body = PhysicsBody::createBox(node->getContentSize(), mat);
+      body->setDynamic(false);
+      node->setPhysicsBody(body);
     }
-
-    UTILS_BREAK_IF(body == nullptr);
-
-    body->setDynamic(false);
-    node->setPhysicsBody(body);
 
     result = true;
   }
@@ -216,7 +212,10 @@ bool physics_tiled_scene::add_physics_to_map()
               {
                 const auto node = create_dummy_node(layer, tile_pos);
                 const auto shape = get_shape_from_tile_gid(gid);
-                add_body_to_node(node, shape);
+                if (!shape.empty())
+                {
+                  add_body_to_node(node, shape);
+                }
               }
             }
           }

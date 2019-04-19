@@ -14,6 +14,42 @@
   <tile id="1">
    <properties>
     <property name="opacity" type="float" value="0.7"/>
+    <property name="shape" value="002_Acid"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="shape" value="003_BGTile"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="shape" value="004_BGTile"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="shape" value="005_BGTile"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="shape" value="006_BGTile"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="shape" value="007_BGTile"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="shape" value="008_BGTile"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="shape" value="009_BGTile"/>
    </properties>
   </tile>
   <tile id="13">
@@ -26,6 +62,11 @@
     <property name="shape" value="015_Tile"/>
    </properties>
   </tile>
+  <tile id="15">
+   <properties>
+    <property name="shape" value="016_Tile"/>
+   </properties>
+  </tile>
   <tile id="16">
    <properties>
     <property name="shape" value="017_Tile"/>
@@ -36,9 +77,24 @@
     <property name="shape" value="018_Tile"/>
    </properties>
   </tile>
+  <tile id="18">
+   <properties>
+    <property name="shape" value="019_Tile"/>
+   </properties>
+  </tile>
   <tile id="19">
    <properties>
     <property name="shape" value="020_Tile"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="shape" value="021_Tile"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="shape" value="022_Tile"/>
    </properties>
   </tile>
   <tile id="22">
