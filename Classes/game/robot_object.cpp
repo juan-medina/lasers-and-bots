@@ -21,7 +21,6 @@
 #include "robot_object.h"
 #include "../ui/virtual_joy_stick.h"
 #include "../utils/physics/physics_shape_cache.h"
-#include "Particle3D/PU/CCPUColorAffector.h"
 
 const Vec2 robot_object::normal_movement = Vec2(1000.0f, 400.0f);
 
