@@ -138,7 +138,7 @@ void robot_object::change_state(const state wanted_state)
     case e_jumping:
       change_anim("jump");
       walk_sound(false);
-      audio_helper::get_instance()->play_effect("sounds/jump.ogg");
+      audio_helper::get_instance()->play_effect("sounds/jump.ogg", false, 0.5f);
       break;
     case e_idle:
       change_anim("idle");
