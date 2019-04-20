@@ -50,6 +50,16 @@ public:
   // init this object
   bool init() override;
 
+  static constexpr short int bit_mask_world = 1;
+  static constexpr short int bit_mask_robot = 2;
+  static constexpr short int bit_mask_spikes = 4;
+  static constexpr short int bit_mask_saw = 8;
+  static constexpr short int bit_mask_acid = 16;
+  static constexpr short int bit_mask_door = 32;
+  static constexpr short int bit_mask_switch = 64;
+  static constexpr short int bit_mask_blocks = 128;
+  static constexpr short int bit_mask_barrel = 256;
+
 private:
 
   // update our game
@@ -124,16 +134,6 @@ private:
 
   // max camera pos
   Vec2 max_camera_pos_;
-
-  static constexpr short int bit_mask_world = 1;
-  static constexpr short int bit_mask_robot = 2;
-  static constexpr short int bit_mask_spikes = 4;
-  static constexpr short int bit_mask_saw = 8;
-  static constexpr short int bit_mask_acid = 16;
-  static constexpr short int bit_mask_door = 32;
-  static constexpr short int bit_mask_switch = 64;
-  static constexpr short int bit_mask_blocks = 128;
-  static constexpr short int bit_mask_barrel = 256;
 };
 
 #endif // __MAIN_SCENE__

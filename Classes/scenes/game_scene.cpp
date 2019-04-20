@@ -160,22 +160,8 @@ void game_scene::update(float delta)
     last_robot_position_ = new_position;
   }
 
-  //  HACK: for testing the UI until next issue
-  static auto percent = 100.0f;
-  static auto direction = -1.f;
 
-  percent += (delta * 10.f * direction);
-  if(percent<0.0f)
-  {
-    percent = 0.f;
-    direction = 1;
-  }
-  else if(percent > 100.f)
-  {
-    percent = 100.f;
-    direction = -1;
-  }
-  game_ui_->set_shield_percentage(percent);
+  game_ui_->set_shield_percentage(robot_->get_shield_percentage());
 }
 
 Vec2 game_scene::get_object_center_position(const ValueMap& values)
@@ -218,8 +204,9 @@ bool game_scene::add_laser(const ValueMap& values, Node* layer)
   {
     const auto rotation = values.at("rotation").asFloat();
     const auto position = get_object_center_position(values);
+    const auto damage = values.at("damage").asInt();
 
-    auto laser = laser_object::create(rotation);
+    auto laser = laser_object::create(rotation, damage);
     UTILS_BREAK_IF(laser == nullptr);
 
     laser->setPosition(position);
@@ -238,7 +225,8 @@ bool game_scene::add_robot(const ValueMap& values, Node* layer)
   auto ret = false;
   do
   {
-    robot_ = robot_object::create(game_ui_->get_virtual_joy_stick());
+    const auto shield = values.at("shield").asInt();
+    robot_ = robot_object::create(game_ui_->get_virtual_joy_stick(), shield);
     UTILS_BREAK_IF(robot_ == nullptr);
 
     const auto position = get_object_position(values);

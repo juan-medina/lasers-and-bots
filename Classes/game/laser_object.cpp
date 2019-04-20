@@ -20,6 +20,8 @@
 
 #include "laser_object.h"
 #include "../utils/audio/audio_helper.h"
+#include "../scenes/game_scene.h"
+#include "robot_object.h"
 
 laser_object::laser_object() :
   angle_(0.f),
@@ -29,7 +31,7 @@ laser_object::laser_object() :
 {
 }
 
-laser_object* laser_object::create(const float initial_angle)
+laser_object* laser_object::create(const float initial_angle, const int damage)
 {
   laser_object* ret = nullptr;
 
@@ -38,7 +40,7 @@ laser_object* laser_object::create(const float initial_angle)
     auto object = new laser_object();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(initial_angle))
+    if (object->init(initial_angle, damage))
     {
       object->autorelease();
     }
@@ -57,7 +59,7 @@ laser_object* laser_object::create(const float initial_angle)
 }
 
 // on "init" you need to initialize your instance
-bool laser_object::init(const float initial_angle)
+bool laser_object::init(const float initial_angle, const int damage)
 {
   auto ret = false;
 
@@ -93,7 +95,9 @@ bool laser_object::init(const float initial_angle)
 
     scheduleUpdate();
 
-    audio_helper::pre_load_effect("sounds/laser.ogg");    
+    audio_helper::pre_load_effect("sounds/laser.ogg");
+
+    damage_ = damage;
 
     ret = true;
   }
@@ -105,7 +109,7 @@ bool laser_object::init(const float initial_angle)
 void laser_object::update(const float delta)
 {
   static auto sound_playing = false;
-  if(!sound_playing)
+  if (!sound_playing)
   {
     audio_helper::get_instance()->play_effect("sounds/laser.ogg", true, 0.7f);
     sound_playing = true;
@@ -132,9 +136,12 @@ void laser_object::update(const float delta)
   // final point of the laser
   auto final_point_in_world = destination_point_in_world;
 
+  // save the touched shape
+  PhysicsShape* touch_shape = nullptr;
+
   // lambda that check all bodies that the laser touch and save the one closer to the origin
   const PhysicsRayCastCallbackFunc intersect_closer_body_func = [origin_in_point_in_world, &final_point_in_world]
-  (PhysicsWorld& /*world*/, const PhysicsRayCastInfo& info, void* /*data*/)-> bool
+  (PhysicsWorld& /*world*/, const PhysicsRayCastInfo& info, void* out)-> bool
   {
     auto origin = Point(origin_in_point_in_world);
     const auto new_point = Point(info.contact);
@@ -142,13 +149,28 @@ void laser_object::update(const float delta)
     if (origin.distance(new_point) < origin.distance(saved_point))
     {
       final_point_in_world = info.contact;
+
+      // save which shape we touch
+      const auto dest_shape = static_cast<PhysicsShape**>(out);
+      *dest_shape = info.shape;
     }
     // we need to check all bodies that touch so return true to continue
     return true;
   };
 
   // do the ray cast
-  physics_world_->rayCast(intersect_closer_body_func, origin_in_point_in_world, destination_point_in_world, nullptr);
+  physics_world_->rayCast(intersect_closer_body_func, origin_in_point_in_world, destination_point_in_world,
+                          &touch_shape);
+
+  if (touch_shape != nullptr)
+  {
+    if (touch_shape->getCategoryBitmask() == game_scene::bit_mask_robot)
+    {
+      const auto robot = dynamic_cast<robot_object*>(touch_shape->getBody()->getNode());
+      robot->damage_shield(damage_);
+    }
+  
+  }
 
   // convert the point into node space and draw it
   const auto final_point = convertToNodeSpace(final_point_in_world);

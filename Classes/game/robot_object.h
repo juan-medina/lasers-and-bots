@@ -35,16 +35,22 @@ public:
   robot_object();
 
   // create the object
-  static robot_object* create(virtual_joy_stick* virtual_joy_stick);
+  static robot_object* create(virtual_joy_stick* virtual_joy_stick, const int max_shield);
 
   // init this object
-  bool init(virtual_joy_stick* virtual_joy_stick);
+  bool init(virtual_joy_stick* virtual_joy_stick, const int max_shield);
 
   // update our robot
   void update(float delta) override;
 
   // land on a block
   void on_land_on_block();
+
+  // get the current shield
+  float get_shield_percentage() const;
+
+  // damage our shield
+  void damage_shield(const int amount);
 
 private:
 
@@ -98,6 +104,15 @@ private:
 
   // our repeatable walk sound
   int walk_sound_;
+
+  // our current shield
+  int current_shield_;
+
+  // our max shield
+  int max_shield_;
+
+  // tag for our blink action
+  static const int blink_on_damage_action_tag;
 };
 
 #endif // __ROBOT_CLASS__

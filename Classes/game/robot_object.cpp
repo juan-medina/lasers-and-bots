@@ -24,6 +24,8 @@
 #include "../utils/audio/audio_helper.h"
 
 const Vec2 robot_object::normal_movement = Vec2(1000.0f, 2600.f);
+const int robot_object::blink_on_damage_action_tag = 0xF0F0F;
+
 
 robot_object::robot_object() :
   to_left_(false),
@@ -31,11 +33,13 @@ robot_object::robot_object() :
   jumping_(false),
   current_state_(e_idle),
   virtual_joy_stick_(nullptr),
-  walk_sound_(-1)
+  walk_sound_(-1),
+  current_shield_(0),
+  max_shield_(0)
 {
 }
 
-robot_object* robot_object::create(virtual_joy_stick* virtual_joy_stick)
+robot_object* robot_object::create(virtual_joy_stick* virtual_joy_stick, const int max_shield)
 {
   robot_object* ret = nullptr;
 
@@ -44,7 +48,7 @@ robot_object* robot_object::create(virtual_joy_stick* virtual_joy_stick)
     auto object = new robot_object();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(virtual_joy_stick))
+    if (object->init(virtual_joy_stick, max_shield))
     {
       object->autorelease();
     }
@@ -63,7 +67,7 @@ robot_object* robot_object::create(virtual_joy_stick* virtual_joy_stick)
 }
 
 // on "init" you need to initialize your instance
-bool robot_object::init(virtual_joy_stick* virtual_joy_stick)
+bool robot_object::init(virtual_joy_stick* virtual_joy_stick, const int max_shield)
 {
   auto ret = false;
 
@@ -96,6 +100,9 @@ bool robot_object::init(virtual_joy_stick* virtual_joy_stick)
 
     virtual_joy_stick_ = virtual_joy_stick;
 
+    current_shield_ = max_shield;
+    max_shield_ = max_shield;
+
     ret = true;
   }
   while (false);
@@ -116,6 +123,14 @@ void robot_object::on_land_on_block()
 {
   jumping_ = false;
 }
+
+float robot_object::get_shield_percentage() const
+{
+  const auto ratio = static_cast<float>(current_shield_) / max_shield_;
+  const auto amount = ratio * 100.f;
+  return amount;
+}
+
 
 robot_object::state robot_object::decide_state() const
 {
@@ -164,6 +179,27 @@ void robot_object::move_robot() const
   const auto move_x = ((to_left_ ? 0.0f : 1.0f) - (to_right_ ? 0.0f : 1.0f)) * normal_movement.x;
   const auto move_y = getPhysicsBody()->getVelocity().y;
   getPhysicsBody()->setVelocity(Vec2(move_x, move_y));
+}
+
+void robot_object::damage_shield(const int amount)
+{
+  current_shield_ -= amount;
+  if (current_shield_ < 0)
+  {
+    current_shield_ = 0;
+  }
+  else
+  {
+    if (getActionByTag(blink_on_damage_action_tag) == nullptr)
+    {
+      const auto ink_to_damaged = TintTo::create(0.1f, Color3B::RED);
+      const auto ink_to_normal = TintTo::create(0.1f, Color3B::WHITE);
+      const auto sequence = Sequence::create(ink_to_damaged, ink_to_normal, nullptr);
+      const auto repeat = Repeat::create(sequence, 5);
+      repeat->setTag(blink_on_damage_action_tag);
+      runAction(repeat);
+    }
+  }
 }
 
 void robot_object::move_to_left(const bool to_left)

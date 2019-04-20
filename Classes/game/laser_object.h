@@ -33,10 +33,10 @@ public:
   laser_object();
 
   // create the object
-  static laser_object* create(const float initial_angle);
+  static laser_object* create(const float initial_angle, const int damage);
 
   // init this object
-  bool init(const float initial_angle);
+  bool init(const float initial_angle, const int damage);
 
   // update our laser
   void update(float delta) override;
@@ -58,7 +58,11 @@ private:
   // maximum laser length
   static constexpr float max_laser_length = 10000.0f;
 
+  // our spark
   ParticleSystemQuad* spark_;
+
+  // our damage
+  int damage_;
 };
 
 #endif // __LASER_CLASS__
