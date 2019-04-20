@@ -7,12 +7,14 @@
   <image source="tilesheet.png" width="1806" height="1290"/>
   <tile id="0">
    <properties>
+    <property name="damage" type="int" value="10"/>
     <property name="opacity" type="float" value="0.7"/>
     <property name="shape" value="001_Acid"/>
    </properties>
   </tile>
   <tile id="1">
    <properties>
+    <property name="damage" type="int" value="10"/>
     <property name="opacity" type="float" value="0.7"/>
     <property name="shape" value="002_Acid"/>
    </properties>
@@ -54,6 +56,7 @@
   </tile>
   <tile id="13">
    <properties>
+    <property name="damage" type="int" value="10"/>
     <property name="shape" value="014_Spike"/>
    </properties>
   </tile>
@@ -199,6 +202,7 @@
   </object>
   <object id="16" name="saw" type="saw" gid="31" x="2069.33" y="1950.33" width="256" height="256">
    <properties>
+    <property name="damage" type="int" value="10"/>
     <property name="image" value="07_Saw.png"/>
     <property name="movement" type="float" value="2500"/>
     <property name="movement_time" type="float" value="3"/>

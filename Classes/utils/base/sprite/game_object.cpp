@@ -1,6 +1,14 @@
 #include "game_object.h"
 
-game_object* game_object::create(const std::string& sprite_frame_name, const std::string& type)
+game_object::game_object() :
+  animation_(nullptr),
+  type_(""),
+  damage_(0)
+{
+}
+
+
+game_object* game_object::create(const std::string& sprite_frame_name, const std::string& type, const int damage/* = 0*/)
 {
   game_object* ret = nullptr;
 
@@ -9,7 +17,34 @@ game_object* game_object::create(const std::string& sprite_frame_name, const std
     auto object = new game_object();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(sprite_frame_name, type))
+    if (object->init(sprite_frame_name, type, damage))
+    {
+      object->autorelease();
+    }
+    else
+    {
+      delete object;
+      object = nullptr;
+    }
+
+    ret = object;
+  }
+  while (false);
+
+  // return the object
+  return ret;
+}
+
+game_object* game_object::create(const std::string& type, const int damage /*= 0*/)
+{
+  game_object* ret = nullptr;
+
+  do
+  {
+    auto object = new game_object();
+    UTILS_BREAK_IF(object == nullptr);
+
+    if (object->init(type, damage))
     {
       object->autorelease();
     }
@@ -28,7 +63,7 @@ game_object* game_object::create(const std::string& sprite_frame_name, const std
 }
 
 // on "init" you need to initialize your instance
-bool game_object::init(const std::string& sprite_frame_name, const std::string& type)
+bool game_object::init(const std::string& sprite_frame_name, const std::string& type, const int damage /*= 0*/)
 {
   auto ret = false;
 
@@ -39,6 +74,27 @@ bool game_object::init(const std::string& sprite_frame_name, const std::string& 
     UTILS_BREAK_IF(!base_class::initWithSpriteFrameName(sprite_frame_name))
 
     type_ = type;
+    damage_ = damage;
+
+    ret = true;
+  }
+  while (false);
+
+  return ret;
+}
+
+bool game_object::init(const std::string& type, const int damage /*= 0*/)
+{
+  auto ret = false;
+
+  do
+  {
+    //////////////////////////////
+    // 1. super init first
+    UTILS_BREAK_IF(!base_class::init())
+
+    type_ = type;
+    damage_ = damage;
 
     ret = true;
   }

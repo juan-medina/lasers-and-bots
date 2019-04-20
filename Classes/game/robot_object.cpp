@@ -26,7 +26,6 @@
 const Vec2 robot_object::normal_movement = Vec2(1000.0f, 2600.f);
 const int robot_object::blink_on_damage_action_tag = 0xF0F0F;
 
-
 robot_object::robot_object() :
   to_left_(false),
   to_right_(false),
@@ -190,15 +189,17 @@ void robot_object::damage_shield(const int amount)
   }
   else
   {
-    if (getActionByTag(blink_on_damage_action_tag) == nullptr)
-    {
-      const auto ink_to_damaged = TintTo::create(0.1f, Color3B::RED);
-      const auto ink_to_normal = TintTo::create(0.1f, Color3B::WHITE);
-      const auto sequence = Sequence::create(ink_to_damaged, ink_to_normal, nullptr);
-      const auto repeat = Repeat::create(sequence, 5);
-      repeat->setTag(blink_on_damage_action_tag);
-      runAction(repeat);
-    }
+    // TODO: implement death
+  }
+
+  if (getActionByTag(blink_on_damage_action_tag) == nullptr)
+  {
+    const auto ink_to_damaged = TintTo::create(0.1f, Color3B::RED);
+    const auto ink_to_normal = TintTo::create(0.1f, Color3B::WHITE);
+    const auto sequence = Sequence::create(ink_to_damaged, ink_to_normal, nullptr);
+    const auto repeat = Repeat::create(sequence, 5);
+    repeat->setTag(blink_on_damage_action_tag);
+    runAction(repeat);
   }
 }
 

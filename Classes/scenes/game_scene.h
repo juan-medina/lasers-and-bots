@@ -38,7 +38,7 @@ public:
 
   // constructor
   game_scene();
-  
+
   ~game_scene();
 
   // create the object
@@ -59,6 +59,10 @@ public:
   static constexpr short int bit_mask_switch = 64;
   static constexpr short int bit_mask_blocks = 128;
   static constexpr short int bit_mask_barrel = 256;
+
+protected:
+
+  virtual Node* provide_physics_node(const int gid) const override;
 
 private:
 

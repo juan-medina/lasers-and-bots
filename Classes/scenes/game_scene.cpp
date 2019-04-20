@@ -19,6 +19,7 @@
  ****************************************************************************/
 
 #include "game_scene.h"
+#include "../utils/base/sprite/game_object.h"
 #include "../game/robot_object.h"
 #include "../game/laser_object.h"
 #include "../game/switch_object.h"
@@ -146,6 +147,22 @@ Scene* game_scene::scene()
 
   // return the scene
   return scene;
+}
+
+Node* game_scene::provide_physics_node(const int gid) const
+{
+  auto damage = 0;
+  const auto map = get_tiled_map();
+  if (map->getPropertiesForGID(gid).getType() == Value::Type::MAP)
+  {
+    const auto properties = map->getPropertiesForGID(gid).asValueMap();
+    if (properties.count("damage") == 1)
+    {
+      damage = properties.at("damage").asInt();
+    }
+  }
+
+  return game_object::create("dummy", damage);
 }
 
 void game_scene::update(float delta)
@@ -352,7 +369,7 @@ bool game_scene::add_barrel(const ValueMap& values, Node* layer)
   do
   {
     const auto image = values.at("image").asString();
-    auto sprite = Sprite::createWithSpriteFrameName(image);
+    auto sprite = game_object::create(image, "barrel");
     UTILS_BREAK_IF(sprite == nullptr);
 
     sprite->setAnchorPoint(Vec2(0.5f, 0.f));
@@ -416,7 +433,8 @@ bool game_scene::add_saw(const ValueMap& values, Node* layer) const
   do
   {
     const auto image = values.at("image").asString();
-    auto sprite = Sprite::createWithSpriteFrameName(image);
+    const auto damage = values.at("damage").asInt();
+    auto sprite = game_object::create(image, "saw", damage);
     UTILS_BREAK_IF(sprite == nullptr);
 
     sprite->setAnchorPoint(Vec2(0.5f, 0.f));
@@ -554,56 +572,19 @@ bool game_scene::on_contact_begin(PhysicsContact& contact)
       }
       else
       {
-        const auto block_game_object = get_object_from_contact<Node>(contact, bit_mask_blocks);
+        const auto block_objects = bit_mask_blocks | bit_mask_spikes | bit_mask_acid | bit_mask_saw | bit_mask_barrel;
+
+        const auto block_game_object = get_object_from_contact<game_object>(contact, block_objects);
         if (block_game_object != nullptr)
         {
           if (block_game_object->getPositionY() < robot->getPositionY())
           {
             robot->on_land_on_block();
           }
-        }
-        else
-        {
-          const auto spike_game_object = get_object_from_contact<Node>(contact, bit_mask_spikes);
-          if (spike_game_object != nullptr)
+          const auto damage = block_game_object->get_damage();
+          if (damage != 0)
           {
-            if (spike_game_object->getPositionY() < robot->getPositionY())
-            {
-              robot->on_land_on_block();
-            }
-          }
-          else
-          {
-            const auto acid_game_object = get_object_from_contact<Node>(contact, bit_mask_acid);
-            if (acid_game_object != nullptr)
-            {
-              if (acid_game_object->getPositionY() < robot->getPositionY())
-              {
-                robot->on_land_on_block();
-              }
-            }
-            else
-            {
-              const auto saw_game_object = get_object_from_contact<Node>(contact, bit_mask_saw);
-              if (saw_game_object != nullptr)
-              {
-                if (saw_game_object->getPositionY() < robot->getPositionY())
-                {
-                  robot->on_land_on_block();
-                }
-              }
-              else
-              {
-                const auto barrel_game_object = get_object_from_contact<Node>(contact, bit_mask_barrel);
-                if (barrel_game_object != nullptr)
-                {
-                  if (barrel_game_object->getPositionY() < robot->getPositionY())
-                  {
-                    robot->on_land_on_block();
-                  }
-                }
-              }
-            }
+            robot->damage_shield(damage);
           }
         }
       }
@@ -619,11 +600,11 @@ Type* game_scene::get_object_from_contact(PhysicsContact& contact, const unsigne
 {
   Type* object = nullptr;
 
-  if (contact.getShapeA()->getCategoryBitmask() == category)
+  if (contact.getShapeA()->getCategoryBitmask() & category)
   {
     object = dynamic_cast<Type*>(contact.getShapeA()->getBody()->getNode());
   }
-  else if (contact.getShapeB()->getCategoryBitmask() == category)
+  else if (contact.getShapeB()->getCategoryBitmask() & category)
   {
     object = dynamic_cast<Type*>(contact.getShapeB()->getBody()->getNode());
   }

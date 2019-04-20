@@ -43,6 +43,9 @@ protected:
   // add a body to nodes
   static bool add_body_to_node(Node* node, const string& shape);
 
+  // provide a physics node
+  virtual Node* provide_physics_node(const int gid) const;
+
 private:
 
   // get the shape string from a tile
@@ -52,7 +55,7 @@ private:
   float get_opacity_from_tile_gid(const int gid) const;
 
   // create a dummy node to hold physic body
-  Node* create_dummy_node(experimental::TMXLayer* layer, const Vec2& tile_pos) const;
+  Node* create_dummy_node(experimental::TMXLayer* layer, const Vec2& tile_pos, const int gid) const;
 
   // add physics to our game
   bool add_physics_to_map();

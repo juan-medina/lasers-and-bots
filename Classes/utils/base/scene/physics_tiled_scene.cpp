@@ -145,6 +145,11 @@ float physics_tiled_scene::get_opacity_from_tile_gid(const int gid) const
   return restitution;
 }
 
+Node* physics_tiled_scene::provide_physics_node(const int /*gid*/) const
+{
+  return Node::create();
+}
+
 bool physics_tiled_scene::add_body_to_node(Node* node, const string& shape)
 {
   auto result = false;
@@ -157,7 +162,7 @@ bool physics_tiled_scene::add_body_to_node(Node* node, const string& shape)
       const auto cache = physics_shape_cache::get_instance();
       body = cache->create_body_with_name(shape);
     }
-    
+
     if (body != nullptr)
     {
       body->setDynamic(false);
@@ -171,13 +176,16 @@ bool physics_tiled_scene::add_body_to_node(Node* node, const string& shape)
   return result;
 }
 
-Node* physics_tiled_scene::create_dummy_node(experimental::TMXLayer* const layer, const Vec2& tile_pos) const
+Node* physics_tiled_scene::create_dummy_node(experimental::TMXLayer* const layer, const Vec2& tile_pos,
+                                             const int gid) const
 {
-  const auto node = Node::create();
+  const auto node = provide_physics_node(gid);
+  node->setAnchorPoint(Vec2(0, 0));
   node->setContentSize(block_size_);
   node->setPosition(layer->getPositionAt(tile_pos));
   node->setVisible(false);
   layer->addChild(node);
+
   return node;
 }
 
@@ -210,7 +218,7 @@ bool physics_tiled_scene::add_physics_to_map()
               const auto gid = layer->getTileGIDAt(tile_pos);
               if (gid != 0)
               {
-                const auto node = create_dummy_node(layer, tile_pos);
+                const auto node = create_dummy_node(layer, tile_pos, gid);
                 const auto shape = get_shape_from_tile_gid(gid);
                 if (!shape.empty())
                 {

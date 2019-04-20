@@ -29,21 +29,30 @@ public:
   using base_class = Sprite;
 
   // constructor
-  game_object() :
-    animation_(nullptr)
-  {
-  }
+  game_object();
 
   // create the object
-  static game_object* create(const std::string& sprite_frame_name, const std::string& type);
+  static game_object* create(const std::string& sprite_frame_name, const std::string& type, const int damage = 0);
+
+  // create empty
+  static game_object* create(const std::string& type, const int damage = 0);
 
   // init this object
-  virtual bool init(const std::string& sprite_frame_name, const std::string& type);
+  virtual bool init(const std::string& sprite_frame_name, const std::string& type, const int damage = 0);
+
+  // init empty
+  virtual bool init(const std::string& type, const int damage = 0);
 
   // get type
   string get_type() const
   {
     return type_;
+  }
+
+  // get damage
+  int get_damage() const
+  {
+    return damage_;
   }
 
 protected:
@@ -76,6 +85,8 @@ private:
   // object type
   string type_;
 
+  // damage
+  int damage_;
 };
 
 #endif // __GAME_OBJECT__
