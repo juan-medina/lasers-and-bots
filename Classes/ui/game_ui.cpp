@@ -108,7 +108,6 @@ bool game_ui::init()
     head->setPosition(head_pos);
     addChild(head);
 
-
     const auto bar_sprite = Sprite::createWithSpriteFrameName("04_bar.png");
     UTILS_BREAK_IF(bar_sprite == nullptr);
 
@@ -131,6 +130,8 @@ bool game_ui::init()
     shield_bar_->setBarChangeRate(Vec2(1, 0));
     shield_bar_->setPercentage(100.f);
     shield_bar_->setPosition(bar_pos);
+
+    shield_bar_->setOpacity(200);
 
     addChild(shield_bar_);
 
