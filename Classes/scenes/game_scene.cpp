@@ -159,6 +159,23 @@ void game_scene::update(float delta)
 
     last_robot_position_ = new_position;
   }
+
+  //  HACK: for testing the UI until next issue
+  static auto percent = 100.0f;
+  static auto direction = -1.f;
+
+  percent += (delta * 10.f * direction);
+  if(percent<0.0f)
+  {
+    percent = 0.f;
+    direction = 1;
+  }
+  else if(percent > 100.f)
+  {
+    percent = 100.f;
+    direction = -1;
+  }
+  game_ui_->set_shield_percentage(percent);
 }
 
 Vec2 game_scene::get_object_center_position(const ValueMap& values)

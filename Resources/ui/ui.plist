@@ -1,75 +1,152 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-	<dict>
-		<key>frames</key>
-		<dict>
-			<key>01_Exit_1.png</key>
-			<dict>
-				<key>frame</key>
-				<string>{{0,600},{147,147}}</string>
-				<key>offset</key>
-				<string>{0,0}</string>
-				<key>rotated</key>
-				<false/>
-				<key>sourceColorRect</key>
-				<string>{{0,0},{147,147}}</string>
-				<key>sourceSize</key>
-				<string>{147,147}</string>
-			</dict>
-
-			<key>01_Exit_2.png</key>
-			<dict>
-				<key>frame</key>
-				<string>{{0,748},{147,147}}</string>
-				<key>offset</key>
-				<string>{0,0}</string>
-				<key>rotated</key>
-				<false/>
-				<key>sourceColorRect</key>
-				<string>{{0,0},{147,147}}</string>
-				<key>sourceSize</key>
-				<string>{147,147}</string>
-			</dict>
-
-			<key>02_joystick_background.png</key>
-			<dict>
-				<key>frame</key>
-				<string>{{0,0},{449,448}}</string>
-				<key>offset</key>
-				<string>{0,0}</string>
-				<key>rotated</key>
-				<false/>
-				<key>sourceColorRect</key>
-				<string>{{1,2},{449,448}}</string>
-				<key>sourceSize</key>
-				<string>{450,450}</string>
-			</dict>
-
-			<key>02_joystick_thumb.png</key>
-			<dict>
-				<key>frame</key>
-				<string>{{0,449},{150,150}}</string>
-				<key>offset</key>
-				<string>{0,0}</string>
-				<key>rotated</key>
-				<false/>
-				<key>sourceColorRect</key>
-				<string>{{0,0},{150,150}}</string>
-				<key>sourceSize</key>
-				<string>{150,150}</string>
-			</dict>
-
-		</dict>
-
-		<key>metadata</key>
-		<dict>
-			<key>format</key>
-			<integer>2</integer>
-			<key>size</key>
-			<string>{512,1024}</string>
-			<key>textureFileName</key>
-			<string>ui.png</string>
-			</dict>
-		</dict>
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>01_Exit_1.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{147,147}</string>
+                <key>spriteSourceSize</key>
+                <string>{147,147}</string>
+                <key>textureRect</key>
+                <string>{{587,220},{147,147}}</string>
+                <key>textureRotated</key>
+                <false/>
+                <key>triangles</key>
+                <string>5 6 7 0 5 7 2 4 5 2 3 4 0 1 2 0 2 5</string>
+                <key>vertices</key>
+                <string>147 38 147 131 112 147 19 147 0 113 0 42 14 0 127 0</string>
+                <key>verticesUV</key>
+                <string>734 258 734 351 699 367 606 367 587 333 587 262 601 220 714 220</string>
+            </dict>
+            <key>01_Exit_2.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{147,147}</string>
+                <key>spriteSourceSize</key>
+                <string>{147,147}</string>
+                <key>textureRect</key>
+                <string>{{1,446},{147,147}}</string>
+                <key>textureRotated</key>
+                <false/>
+                <key>triangles</key>
+                <string>2 0 1 2 3 4 2 4 0 0 4 5</string>
+                <key>vertices</key>
+                <string>147 37 147 147 0 147 0 16 33 0 127 0</string>
+                <key>verticesUV</key>
+                <string>148 483 148 593 1 593 1 462 34 446 128 446</string>
+            </dict>
+            <key>02_joystick_background.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{450,450}</string>
+                <key>spriteSourceSize</key>
+                <string>{450,450}</string>
+                <key>textureRect</key>
+                <string>{{156,219},{450,450}}</string>
+                <key>textureRotated</key>
+                <false/>
+                <key>triangles</key>
+                <string>14 15 16 11 14 16 12 13 14 11 12 14 6 11 16 8 10 11 8 9 10 6 8 11 6 7 8 4 5 6 1 4 6 1 3 4 1 2 3 1 6 16 0 1 16</string>
+                <key>vertices</key>
+                <string>325 16 398 71 450 153 450 293 402 377 329 434 265 450 170 450 113 426 42 375 6 293 0 254 0 175 36 88 93 38 163 1 257 0</string>
+                <key>verticesUV</key>
+                <string>481 235 554 290 606 372 606 512 558 596 485 653 421 669 326 669 269 645 198 594 162 512 156 473 156 394 192 307 249 257 319 220 413 219</string>
+            </dict>
+            <key>02_joystick_thumb.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{150,150}</string>
+                <key>spriteSourceSize</key>
+                <string>{150,150}</string>
+                <key>textureRect</key>
+                <string>{{1,294},{150,150}}</string>
+                <key>textureRotated</key>
+                <false/>
+                <key>triangles</key>
+                <string>0 7 8 5 6 7 3 1 2 3 4 5 3 5 1 0 1 5 0 5 7</string>
+                <key>vertices</key>
+                <string>150 48 150 102 122 150 42 150 8 121 0 94 0 41 41 0 121 0</string>
+                <key>verticesUV</key>
+                <string>151 342 151 396 123 444 43 444 9 415 1 388 1 335 42 294 122 294</string>
+            </dict>
+            <key>03_head.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-2,-6.5}</string>
+                <key>spriteSize</key>
+                <string>{870,299}</string>
+                <key>spriteSourceSize</key>
+                <string>{874,316}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{870,299}}</string>
+                <key>textureRotated</key>
+                <false/>
+                <key>triangles</key>
+                <string>12 13 14 11 12 14 7 8 9 9 10 11 7 9 11 1 2 7 6 3 4 6 4 5 2 3 6 2 6 7 1 7 11 1 11 14 0 1 14</string>
+                <key>vertices</key>
+                <string>185 16 239 50 282 103 842 102 870 143 870 204 826 232 279 230 260 262 147 314 48 280 1 201 0 108 51 37 113 15</string>
+                <key>verticesUV</key>
+                <string>186 2 240 36 283 89 843 88 871 129 871 190 827 218 280 216 261 248 148 300 49 266 2 187 1 94 52 23 114 1</string>
+            </dict>
+            <key>04_bar.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{125,-4}</string>
+                <key>spriteSize</key>
+                <string>{536,46}</string>
+                <key>spriteSourceSize</key>
+                <string>{874,316}</string>
+                <key>textureRect</key>
+                <string>{{252,1},{536,46}}</string>
+                <key>textureRotated</key>
+                <false/>
+                <key>triangles</key>
+                <string>1 2 3 0 1 3</string>
+                <key>vertices</key>
+                <string>830 185 294 185 294 139 830 139</string>
+                <key>verticesUV</key>
+                <string>788 47 252 47 252 1 788 1</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>ui.png</string>
+            <key>size</key>
+            <string>{872,670}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:0c8dd298481ca31301e0d6c840b69e30:feff0396c598a8238ea51d0c5323f69d:e489eb72a1dac3e9a97caaf8aad1ac42$</string>
+            <key>textureFileName</key>
+            <string>ui.png</string>
+        </dict>
+    </dict>
 </plist>

@@ -50,8 +50,19 @@ public:
   {
     return virtual_joy_stick_;
   }
+
+  inline void set_shield_percentage(const float amount) const
+  {
+    shield_bar_->setPercentage(amount);
+  }
+
 private:
+
+  // our joy stick
   virtual_joy_stick* virtual_joy_stick_;
+
+  // the shield bar
+  ProgressTimer* shield_bar_;
 };
 
 #endif // __GAME_UI__CLASS__
