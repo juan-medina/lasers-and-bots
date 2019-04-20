@@ -24,7 +24,8 @@
 
 game_ui::game_ui():
   virtual_joy_stick_(nullptr),
-  shield_bar_(nullptr)
+  shield_bar_(nullptr),
+  shield_label_(nullptr)
 {
 }
 
@@ -107,22 +108,39 @@ bool game_ui::init()
     head->setPosition(head_pos);
     addChild(head);
 
+
     const auto bar_sprite = Sprite::createWithSpriteFrameName("04_bar.png");
     UTILS_BREAK_IF(bar_sprite == nullptr);
-    bar_sprite->setBlendFunc(BlendFunc::ADDITIVE);
-    bar_sprite->setOpacity(190);
 
-    shield_bar_ = ProgressTimer::create(bar_sprite);
+    const auto bar_pos = head_pos + Vec2(head->getContentSize().width + (bar_sprite->getContentSize().width / 2.f),
+                                         -head->getContentSize().height / 2.f);
+    bar_sprite->setPosition(bar_pos);
+
+    addChild(bar_sprite);
+
+    const auto bar_full_sprite = Sprite::createWithSpriteFrameName("05_bar_full.png");
+    UTILS_BREAK_IF(bar_full_sprite == nullptr);
+    bar_full_sprite->setOpacity(120);
+    bar_full_sprite->setBlendFunc(BlendFunc::ADDITIVE);
+
+    shield_bar_ = ProgressTimer::create(bar_full_sprite);
     UTILS_BREAK_IF(shield_bar_ == nullptr);
 
     shield_bar_->setType(ProgressTimer::Type::BAR);
     shield_bar_->setMidpoint(Vec2(0, 0));
     shield_bar_->setBarChangeRate(Vec2(1, 0));
     shield_bar_->setPercentage(100.f);
-    shield_bar_->setAnchorPoint(Vec2(0, 1));
-    shield_bar_->setPosition(head_pos);
+    shield_bar_->setPosition(bar_pos);
 
     addChild(shield_bar_);
+
+    shield_label_ = Label::createWithBMFont("fonts/general_72.fnt", "100 %", TextHAlignment::CENTER);
+    UTILS_BREAK_IF(shield_label_ == nullptr);
+
+    shield_label_->setColor(Color3B(0, 255, 255));
+    shield_label_->setPosition(bar_pos);
+
+    addChild(shield_label_);
 
     ret = true;
   }

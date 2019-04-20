@@ -54,6 +54,8 @@ public:
   inline void set_shield_percentage(const float amount) const
   {
     shield_bar_->setPercentage(amount);
+    const auto int_value = static_cast<int>(std::round(amount));
+    shield_label_->setString(string_format("%3d %%", int_value));
   }
 
 private:
@@ -63,6 +65,9 @@ private:
 
   // the shield bar
   ProgressTimer* shield_bar_;
+
+  // shield label
+  Label* shield_label_;
 };
 
 #endif // __GAME_UI__CLASS__
