@@ -547,6 +547,61 @@ bool game_scene::on_contact_begin(PhysicsContact& contact)
       {
         handle_switch(switch_game_object);
       }
+      else
+      {
+        const auto block_game_object = get_object_from_contact<Node>(contact, bit_mask_blocks);
+        if (block_game_object != nullptr)
+        {
+          if (block_game_object->getPositionY() < robot->getPositionY())
+          {
+            robot->on_land_on_block();
+          }
+        }
+        else
+        {
+          const auto spike_game_object = get_object_from_contact<Node>(contact, bit_mask_spikes);
+          if (spike_game_object != nullptr)
+          {
+            if (spike_game_object->getPositionY() < robot->getPositionY())
+            {
+              robot->on_land_on_block();
+            }
+          }
+          else
+          {
+            const auto acid_game_object = get_object_from_contact<Node>(contact, bit_mask_acid);
+            if (acid_game_object != nullptr)
+            {
+              if (acid_game_object->getPositionY() < robot->getPositionY())
+              {
+                robot->on_land_on_block();
+              }
+            }
+            else
+            {
+              const auto saw_game_object = get_object_from_contact<Node>(contact, bit_mask_saw);
+              if (saw_game_object != nullptr)
+              {
+                if (saw_game_object->getPositionY() < robot->getPositionY())
+                {
+                  robot->on_land_on_block();
+                }
+              }
+              else
+              {
+                const auto barrel_game_object = get_object_from_contact<Node>(contact, bit_mask_barrel);
+                if (barrel_game_object != nullptr)
+                {
+                  if (barrel_game_object->getPositionY() < robot->getPositionY())
+                  {
+                    robot->on_land_on_block();
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 

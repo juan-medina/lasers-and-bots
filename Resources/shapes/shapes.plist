@@ -82,7 +82,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -208,7 +208,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -396,7 +396,7 @@
                         <key>density</key>
                         <real>0</real>
                         <key>restitution</key>
-                        <real>0</real>
+                        <real>1</real>
                         <key>friction</key>
                         <real>0</real>
                         <key>tag</key>
@@ -408,7 +408,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -464,7 +464,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -548,7 +548,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -618,7 +618,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -693,7 +693,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -766,7 +766,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -839,7 +839,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -902,7 +902,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -958,7 +958,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -1021,7 +1021,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -1091,7 +1091,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -1147,7 +1147,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -1217,7 +1217,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -1306,7 +1306,7 @@
                         <key>collision_mask</key>
                         <integer>413</integer>
                         <key>contact_test_mask</key>
-                        <integer>96</integer>
+                        <integer>508</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -1358,7 +1358,7 @@
                         <key>density</key>
                         <real>1</real>
                         <key>restitution</key>
-                        <real>0.2</real>
+                        <real>1</real>
                         <key>friction</key>
                         <real>0.7</real>
                         <key>tag</key>
@@ -1370,7 +1370,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -1426,7 +1426,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -1482,7 +1482,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -1538,7 +1538,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -1594,7 +1594,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -1650,7 +1650,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -1706,7 +1706,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -1762,7 +1762,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -1818,7 +1818,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -1874,7 +1874,7 @@
                         <key>collision_mask</key>
                         <integer>2</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -1930,7 +1930,7 @@
                         <key>collision_mask</key>
                         <integer>4095</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -1986,7 +1986,7 @@
                         <key>collision_mask</key>
                         <integer>15</integer>
                         <key>contact_test_mask</key>
-                        <integer>0</integer>
+                        <integer>2</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         
@@ -2122,7 +2122,7 @@
                         <key>collision_mask</key>
                         <integer>0</integer>
                         <key>contact_test_mask</key>
-                        <integer>2</integer>
+                        <integer>6</integer>
                         <key>fixture_type</key>
                         <string>POLYGON</string>
                         

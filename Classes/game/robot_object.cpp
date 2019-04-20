@@ -23,7 +23,7 @@
 #include "../utils/physics/physics_shape_cache.h"
 #include "../utils/audio/audio_helper.h"
 
-const Vec2 robot_object::normal_movement = Vec2(1000.0f, 400.0f);
+const Vec2 robot_object::normal_movement = Vec2(1000.0f, 2600.f);
 
 robot_object::robot_object() :
   to_left_(false),
@@ -112,6 +112,11 @@ void robot_object::update(float delta)
   change_state(decide_state());
 }
 
+void robot_object::on_land_on_block()
+{
+  jumping_ = false;
+}
+
 robot_object::state robot_object::decide_state() const
 {
   auto wanted_state = e_idle;
@@ -187,82 +192,23 @@ void robot_object::move_to_right(const bool to_right)
 
 void robot_object::jump(const bool to_jump)
 {
+  static auto jump_pressed = false;
   if (to_jump)
   {
-    if (!jumping_)
+    if (!jump_pressed)
     {
-      getPhysicsBody()->applyImpulse(Vec2(0.0f, normal_movement.y));
-      jumping_ = true;
-    }
-  }
-
-  const auto center_point = Vec2(getContentSize().width / 2.f, getContentSize().height / 2);
-  const auto left_point = Vec2((getContentSize().width / 2.f) - 50, getContentSize().height / 2);
-  const auto right_point = Vec2((getContentSize().width / 2.f) + 50, getContentSize().height / 2);
-
-  if ((on_top_of_block(center_point)) || ((on_top_of_block(left_point))) || (on_top_of_block(right_point)))
-  {
-    jumping_ = false;
-  }
-}
-
-bool robot_object::on_top_of_block(const Vec2& origin_point) const
-{
-  auto result = false;
-  const auto world = Director::getInstance()->getRunningScene()->getPhysicsWorld();
-
-  if (world != nullptr)
-  {
-    if (jumping_)
-    {
-      // we star where the robot is      
-      auto origin_in_point_in_world = convertToWorldSpace(origin_point);
-
-      // we look down
-      const auto distance = Vec2(0.f, -1000.f);
-
-      // where  will reach
-      const auto destination_point_in_world = origin_in_point_in_world + distance;
-
-      // final point 
-      auto final_point_in_world = destination_point_in_world;
-
-      // we want only to find things that we could have collision
-      auto robot_mask = getPhysicsBody()->getCollisionBitmask();
-
-      // lambda that check all bodies that save the one closer to the origin
-      const PhysicsRayCastCallbackFunc intersect_closer_body_func = [origin_in_point_in_world, &final_point_in_world,
-          robot_mask]
-      (PhysicsWorld& /*world*/, const PhysicsRayCastInfo& info, void* /*data*/)-> bool
+      if (!jumping_)
       {
-        if (info.shape->getCategoryBitmask() & robot_mask)
-        {
-          auto origin = Point(origin_in_point_in_world);
-          const auto new_point = Point(info.contact);
-          const auto saved_point = Point(final_point_in_world);
-          if (origin.distance(new_point) < origin.distance(saved_point))
-          {
-            final_point_in_world = info.contact;
-          }
-        }
-        // we need to check all bodies that touch so return true to continue
-        return true;
-      };
-
-      // do the ray cast
-      world->rayCast(intersect_closer_body_func, origin_in_point_in_world, destination_point_in_world, nullptr);
-
-      // if we hit any point
-      const auto final_point = convertToNodeSpace(final_point_in_world);
-
-      const auto distance_to_anything = origin_point.distance(final_point);
-      if (distance_to_anything < (getContentSize().height / 2.f))
-      {
-        result = true;
+        getPhysicsBody()->applyImpulse(Vec2(0.0f, normal_movement.y));
+        jumping_ = true;
       }
+      jump_pressed = true;
     }
   }
-  return result;
+  else
+  {
+    jump_pressed = false;
+  }
 }
 
 void robot_object::walk_sound(const bool active)
@@ -270,7 +216,7 @@ void robot_object::walk_sound(const bool active)
   if (active)
   {
     if (walk_sound_ == -1)
-    {      
+    {
       walk_sound_ = audio_helper::get_instance()->play_effect("sounds/metal_footsteps.ogg", true);
     }
     else

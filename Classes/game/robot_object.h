@@ -43,6 +43,9 @@ public:
   // update our robot
   void update(float delta) override;
 
+  // land on a block
+  void on_land_on_block();
+
 private:
 
   // robot states
@@ -62,9 +65,6 @@ private:
 
   // we jump
   void jump(bool to_jump);
-
-  // are in top of a block
-  bool on_top_of_block(const Vec2& origin_point) const;
 
   // walk sound
   void walk_sound(const bool active);
