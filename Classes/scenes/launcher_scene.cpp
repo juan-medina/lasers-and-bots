@@ -102,7 +102,7 @@ bool launcher_scene::init()
     //////////////////////////////////////////////////////////////////////////
 
     // create the text for the title
-    auto title_font = Label::createWithTTF("Lasers and Bots : Launcher", "fonts/Marker Felt.ttf", 40);
+    auto title_font = Label::createWithTTF("Lasers and Bots : Launcher", "fonts/tahoma.ttf", 40);
     UTILS_BREAK_IF(!title_font);
 
     title_font->setPosition(Vec2(screen_size_.width / 2, screen_size_.height - 50));
@@ -113,7 +113,7 @@ bool launcher_scene::init()
     //////////////////////////////////////////////////////////////////////////
 
     // create the text for the label
-    screen_mode_label_ = Label::createWithTTF("Screen Mode: Windowed", "fonts/Marker Felt.ttf", 20);
+    screen_mode_label_ = Label::createWithTTF("Screen Mode: Windowed", "fonts/tahoma.ttf", 20);
     UTILS_BREAK_IF(!screen_mode_label_);
 
     // create the label menu item
@@ -129,7 +129,7 @@ bool launcher_scene::init()
     //////////////////////////////////////////////////////////////////////////
 
     // create the text for the label
-    resolution_label_ = Label::createWithTTF("Size : 9999 x 9999", "fonts/Marker Felt.ttf", 20);
+    resolution_label_ = Label::createWithTTF("Size : 9999 x 9999", "fonts/tahoma.ttf", 20);
     UTILS_BREAK_IF(!resolution_label_);
 
     // create the label menu item
@@ -146,7 +146,7 @@ bool launcher_scene::init()
     //////////////////////////////////////////////////////////////////////////
 
     // create the text for the label
-    effects_muted_label_ = Label::createWithTTF("Sfx Sound: true ", "fonts/Marker Felt.ttf", 20);
+    effects_muted_label_ = Label::createWithTTF("Sfx Sound: true ", "fonts/tahoma.ttf", 20);
     UTILS_BREAK_IF(!effects_muted_label_);
 
     // create the label menu item
@@ -162,7 +162,7 @@ bool launcher_scene::init()
     //////////////////////////////////////////////////////////////////////////
 
     // create the text for the label
-    music_muted_label_ = Label::createWithTTF("Music: true ", "fonts/Marker Felt.ttf", 20);
+    music_muted_label_ = Label::createWithTTF("Music: true ", "fonts/tahoma.ttf", 20);
     UTILS_BREAK_IF(!music_muted_label_);
 
     // create the label menu item
@@ -178,7 +178,7 @@ bool launcher_scene::init()
     //////////////////////////////////////////////////////////////////////////
 
     // create the text for the label
-    debug_grid_label_ = Label::createWithTTF("Debug Grid: true ", "fonts/Marker Felt.ttf", 20);
+    debug_grid_label_ = Label::createWithTTF("Debug Grid: true ", "fonts/tahoma.ttf", 20);
     UTILS_BREAK_IF(!debug_grid_label_);
 
     // create the label menu item
@@ -194,7 +194,7 @@ bool launcher_scene::init()
     //////////////////////////////////////////////////////////////////////////
 
     // create the text for the label
-    debug_physics_label_ = Label::createWithTTF("Debug Physics: true ", "fonts/Marker Felt.ttf", 20);
+    debug_physics_label_ = Label::createWithTTF("Debug Physics: true ", "fonts/tahoma.ttf", 20);
     UTILS_BREAK_IF(!debug_physics_label_);
 
     // create the label menu item
@@ -210,7 +210,7 @@ bool launcher_scene::init()
     //////////////////////////////////////////////////////////////////////////
 
     // create the text for the label
-    const auto play_label = Label::createWithTTF("PLAY!", "fonts/Marker Felt.ttf", 30);
+    const auto play_label = Label::createWithTTF("PLAY!", "fonts/tahoma.ttf", 30);
     UTILS_BREAK_IF(!play_label);
 
     // create the label menu item
