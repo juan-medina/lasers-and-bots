@@ -259,3 +259,145 @@ void game_ui::update_time(const float time) const
   const auto milliseconds = static_cast<int>(fractional * 100);
   time_label_->setString(string_format("%02d:%02d%c%02d", minutes, seconds, '.', milliseconds));
 }
+
+void game_ui::display_message(const std::string& message, const bool extended)
+{
+  do
+  {
+    const auto& size = Director::getInstance()->getVisibleSize();
+
+    //////////////////////////////
+    // background
+
+    const auto horizontal_segment = size.width / 2;
+    const auto vertical_segment = size.height / (extended ? 2 : 4);
+
+    const auto dark_all = LayerColor::create(Color4B(0, 0, 0, 127));
+    UTILS_BREAK_IF(dark_all == nullptr);
+    addChild(dark_all);
+
+    auto area = Rect(horizontal_segment, vertical_segment, 100, 100);
+
+    const auto background = LayerColor::create(Color4B(0, 255, 255, 127), horizontal_segment, vertical_segment);
+    UTILS_BREAK_IF(background == nullptr);
+
+    background->setPosition((size.width - horizontal_segment) / 2, (size.height - vertical_segment) / 2);
+
+    addChild(background);
+
+    //////////////////////////////
+    // border
+
+    const auto draw = DrawNode::create(4.f);
+    draw->drawRect(Vec2(0.f, 0.f), Vec2(horizontal_segment, vertical_segment), Color4F(0, 1.f, 1.f, 0.5f));
+    background->addChild(draw);
+
+    //////////////////////////////
+    // label
+
+    const auto label = Label::createWithTTF(message, "fonts/tahoma.ttf", 200);
+    UTILS_BREAK_IF(label == nullptr);
+
+    label->setTextColor(Color4B(0, 255, 255, 255));
+
+    // position the label
+    label->setPosition(horizontal_segment / 2, vertical_segment - label->getContentSize().height);
+
+    background->addChild(label);
+
+    //////////////////////////////
+    // button
+
+    const auto continue_sprite = Sprite::createWithSpriteFrameName("08_Text_1.png");
+    UTILS_BREAK_IF(continue_sprite == nullptr);
+
+    const auto continue_sprite_click = Sprite::createWithSpriteFrameName("08_Text_2.png");
+    UTILS_BREAK_IF(continue_sprite_click == nullptr);
+
+    const auto continue_item = MenuItemSprite::create(continue_sprite, continue_sprite_click,
+                                                      CC_CALLBACK_1(game_ui::on_reload, this));
+    UTILS_BREAK_IF(continue_item == nullptr);
+
+    continue_item->setPosition(-horizontal_segment / 2,
+                               (-size.height / 2) + (continue_sprite->getContentSize().height));
+
+    const auto label_button = Label::createWithTTF("Continue", "fonts/tahoma.ttf", 60);
+    UTILS_BREAK_IF(label_button == nullptr);
+
+    label_button->setPosition(continue_sprite->getContentSize().width / 2,
+                              continue_sprite->getContentSize().height / 2);
+    label_button->setTextColor(Color4B(0, 64, 64, 255));
+
+    continue_item->addChild(label_button);
+    continue_item->setScale(2.f);
+
+    //////////////////////////////
+    // menu
+    const auto menu = Menu::create(continue_item, nullptr);
+    UTILS_BREAK_IF(menu == nullptr);
+
+    background->addChild(menu);
+
+    if (!extended)
+    {
+      break;
+    }
+
+    //////////////////////////////
+    // time label
+
+    const auto label_time = Label::createWithTTF("Time :", "fonts/tahoma.ttf", 150);
+    UTILS_BREAK_IF(label_time == nullptr);
+
+    label_time->setAnchorPoint(Vec2(0.f, 0.f));
+    label_time->setHorizontalAlignment(TextHAlignment::LEFT);
+    label_time->setTextColor(Color4B(255, 255, 255, 255));
+
+    // position the label
+    label_time->setPosition(50, label->getPosition().y - 600);
+
+    background->addChild(label_time);
+
+    const auto label_time_value = Label::createWithTTF(time_label_->getString(), "fonts/tahoma.ttf", 150);
+    UTILS_BREAK_IF(label_time_value == nullptr);
+
+    label_time_value->setAnchorPoint(Vec2(0.f, 0.f));
+    label_time_value->setHorizontalAlignment(TextHAlignment::LEFT);
+    label_time_value->setTextColor(Color4B(255, 255, 255, 255));
+
+    // position the label
+    label_time_value->setPosition(650, label_time->getPosition().y);
+
+    background->addChild(label_time_value);
+
+    //////////////////////////////
+    // shield label
+
+    const auto label_shield = Label::createWithTTF("Shield :", "fonts/tahoma.ttf", 150);
+    UTILS_BREAK_IF(label_shield == nullptr);
+
+    label_shield->setAnchorPoint(Vec2(0.f, 0.f));
+    label_shield->setHorizontalAlignment(TextHAlignment::LEFT);
+    label_shield->setTextColor(Color4B(255, 255, 255, 255));
+
+    // position the label
+    label_shield->setPosition(50, label->getPosition().y - 900);
+
+    background->addChild(label_shield);
+
+    const auto shield_value = string_format("%d %%", static_cast<int>(shield_bar_->getPercentage()));
+
+    const auto label_shield_value = Label::createWithTTF(shield_value, "fonts/tahoma.ttf", 150);
+    UTILS_BREAK_IF(label_shield_value == nullptr);
+
+    label_shield_value->setAnchorPoint(Vec2(0.f, 0.f));
+    label_shield_value->setHorizontalAlignment(TextHAlignment::LEFT);
+    label_shield_value->setTextColor(Color4B(255, 255, 255, 255));
+
+    // position the label
+    label_shield_value->setPosition(650, label_shield->getPosition().y);
+
+    background->addChild(label_shield_value);
+  }
+  while (false);
+}

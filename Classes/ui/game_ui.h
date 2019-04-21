@@ -71,7 +71,11 @@ public:
     pause_item_->setEnabled(false);
   }
 
+  // update our time
   void update_time(const float time) const;
+
+  // display a message
+  void display_message(const std::string& message, const bool extended);
 
 private:
 

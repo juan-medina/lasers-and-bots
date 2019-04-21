@@ -134,7 +134,7 @@ private:
   static constexpr float gravity = -5000.0f;
 
   // the game is over
-  void game_over();
+  void game_over(const bool win);
 
   // the game ui
   game_ui* game_ui_;
@@ -159,6 +159,9 @@ private:
 
   // the total time
   float total_time_;
+
+  // count barrels
+  unsigned short int barrel_count_;
 };
 
 #endif // __MAIN_SCENE__

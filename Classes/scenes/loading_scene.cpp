@@ -134,8 +134,7 @@ void loading_scene::go_to_scene() const
 
     UTILS_BREAK_IF(scene==nullptr);
 
-    const auto fade = TransitionFadeTR::create(1.0f, scene);
-    Director::getInstance()->replaceScene(fade);
+    Director::getInstance()->replaceScene(scene);
   }
   while (false);
 }

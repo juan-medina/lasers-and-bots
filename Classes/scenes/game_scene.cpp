@@ -26,7 +26,7 @@
 #include "../game/door_object.h"
 #include "../utils/physics/physics_shape_cache.h"
 #include "../ui/game_ui.h"
-#include "../ui/virtual_joy_stick.h""
+#include "../ui/virtual_joy_stick.h"
 #include "../utils/audio/audio_helper.h"
 #include "loading_scene.h"
 
@@ -38,7 +38,8 @@ game_scene::game_scene() :
   min_camera_pos_(Vec2::ZERO),
   max_camera_pos_(Vec2::ZERO),
   paused_(false),
-  total_time_(0.f)
+  total_time_(0.f),
+  barrel_count_(0)
 {
 }
 
@@ -122,6 +123,9 @@ bool game_scene::init()
     _eventDispatcher->addEventListenerWithSceneGraphPriority(contact_listener, this);
 
     audio_helper::pre_load_music("sounds/music.ogg");
+    audio_helper::pre_load_effect("sounds/fail.ogg");
+    audio_helper::pre_load_effect("sounds/victory.ogg");
+
     audio_helper::get_instance()->play_music("sounds/music.ogg", 0.30f);
     ret = true;
   }
@@ -173,6 +177,18 @@ void game_scene::update(float delta)
 {
   if (!paused_)
   {
+    total_time_ += delta;
+    game_ui_->update_time(total_time_);
+
+    const auto shield = robot_->get_shield_percentage();
+    game_ui_->set_shield_percentage(shield);
+
+    if (shield == 0.0f)
+    {
+      game_over(false);
+      return;
+    }
+
     robot_->update(delta);
     const auto new_position = robot_->getPosition();
 
@@ -182,15 +198,6 @@ void game_scene::update(float delta)
 
       last_robot_position_ = new_position;
     }
-
-    const auto shield = robot_->get_shield_percentage();
-    if (shield == 0.0f)
-    {
-      game_over();
-    }
-    game_ui_->set_shield_percentage(shield);
-    total_time_ += delta;
-    game_ui_->update_time(total_time_);
   }
 }
 
@@ -395,11 +402,10 @@ bool game_scene::add_barrel(const ValueMap& values, Node* layer)
     sprite->setPosition(position);
     sprite->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-    // making look like random but is not, base on how may barrels we add
-    static auto barrel_count = 0;
-    barrel_count++;
+    // making look like random but is not, base on how may barrels we add    
+    barrel_count_++;
 
-    const auto gap = barrel_count * 10.f;
+    const auto gap = barrel_count_ * 10.f;
     auto step_time = 0.f;
     auto step = 0.f;
     auto amount = 0.f;
@@ -514,29 +520,30 @@ bool game_scene::add_objects_to_game()
   return result;
 }
 
-void game_scene::game_over()
+void game_scene::game_over(const bool win)
 {
   do
   {
-    const auto delay_exit = DelayTime::create(0.5f);
-    UTILS_BREAK_IF(delay_exit == nullptr);
+    pause();
+    game_ui_->disable_pause();
 
-    // function call in the event chain to go to the menu
-    const auto func = CallFunc::create(CC_CALLBACK_0(game_scene::reload, this));
-    UTILS_BREAK_IF(func == nullptr);
-
-    // create the sequence of effects and go to the menu
-    const auto sequence = Sequence::create(delay_exit, func, NULL);
-    UTILS_BREAK_IF(sequence == nullptr);
-
-    // run effects
-    runAction(sequence);
+    if (win)
+    {
+      audio_helper::get_instance()->play_effect("sounds/victory.ogg");
+      game_ui_->display_message("Level Completed", true);
+    }
+    else
+    {
+      audio_helper::get_instance()->play_effect("sounds/fail.ogg");
+      game_ui_->display_message("Game Over", false);
+    }
   }
   while (false);
 }
 
 void game_scene::pause()
 {
+  paused_ = true;
   base_class::pause();
   getPhysicsWorld()->setAutoStep(false);
   robot_->pause();
@@ -547,8 +554,6 @@ void game_scene::pause()
   audio_helper::get_instance()->pause_music();
 
   game_ui_->get_virtual_joy_stick()->pause();
-
-  paused_ = true;
 }
 
 void game_scene::resume()
@@ -645,7 +650,7 @@ void game_scene::handle_door(door_object* door_game_object)
     }
     else
     {
-      game_over();
+      game_over(true);
     }
   }
 }

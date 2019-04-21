@@ -95,6 +95,8 @@ bool robot_object::init(virtual_joy_stick* virtual_joy_stick, const int max_shie
 
     audio_helper::pre_load_effect("sounds/metal_footsteps.ogg");
     audio_helper::pre_load_effect("sounds/jump.ogg");
+    audio_helper::pre_load_effect("sounds/land.ogg");
+
     change_anim("idle");
 
     virtual_joy_stick_ = virtual_joy_stick;
