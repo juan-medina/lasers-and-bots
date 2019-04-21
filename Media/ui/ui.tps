@@ -192,8 +192,8 @@
             <key type="filename">05_Pause_1.png</key>
             <key type="filename">05_Pause_2.png</key>
             <key type="filename">05_Pause_4.png</key>
-            <key type="filename">06_Reload_1.png</key>
-            <key type="filename">06_Reload_2.png</key>
+            <key type="filename">07_Reload_1.png</key>
+            <key type="filename">07_Reload_2.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -273,6 +273,7 @@
             </struct>
             <key type="filename">06_Play_1.png</key>
             <key type="filename">06_Play_2.png</key>
+            <key type="filename">06_Play_3.png</key>
             <key type="filename">06_Play_4.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>

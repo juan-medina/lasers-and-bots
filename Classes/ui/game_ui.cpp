@@ -111,7 +111,7 @@ bool game_ui::init()
     const auto pause_item = MenuItemSprite::create(pause, pause_click, pause_disable);
     UTILS_BREAK_IF(pause_item == nullptr);
 
-    const auto play = Sprite::createWithSpriteFrameName("06_Play_1.png");
+    const auto play = Sprite::createWithSpriteFrameName("06_Play_3.png");
     UTILS_BREAK_IF(play == nullptr);
 
     const auto play_click = Sprite::createWithSpriteFrameName("06_Play_2.png");
@@ -133,10 +133,10 @@ bool game_ui::init()
 
     //////////////////////////////
     // reload
-    const auto reload = Sprite::createWithSpriteFrameName("06_Reload_1.png");
+    const auto reload = Sprite::createWithSpriteFrameName("07_Reload_1.png");
     UTILS_BREAK_IF(reload == nullptr);
 
-    const auto reload_click = Sprite::createWithSpriteFrameName("06_Reload_2.png");
+    const auto reload_click = Sprite::createWithSpriteFrameName("07_Reload_2.png");
     UTILS_BREAK_IF(reload_click == nullptr);
 
     const auto reload_item = MenuItemSprite::create(reload, reload_click, CC_CALLBACK_1(game_ui::on_reload, this));
