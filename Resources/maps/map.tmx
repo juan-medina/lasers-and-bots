@@ -160,7 +160,7 @@
   </data>
  </layer>
  <objectgroup name="objects">
-  <object id="1" name="robot" type="robot" gid="30" x="260" y="4862.33" width="256" height="256">
+  <object id="1" name="robot" type="robot" gid="30" x="265.917" y="4877.58" width="256" height="256">
    <properties>
     <property name="shield" type="int" value="1000"/>
    </properties>

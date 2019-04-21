@@ -19,7 +19,7 @@
  ****************************************************************************/
 
 #include "laser_and_bots_app.h"
-#include "scenes/game_scene.h"
+#include "scenes/loading_scene.h"
 
 laser_and_bots_app::laser_and_bots_app()
   : base_class("Lasers and Bots")
@@ -28,5 +28,5 @@ laser_and_bots_app::laser_and_bots_app()
 
 Scene* laser_and_bots_app::init_scene()
 {
-  return game_scene::scene();
+  return loading_scene::game();
 }

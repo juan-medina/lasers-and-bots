@@ -27,6 +27,7 @@
 #include "../utils/physics/physics_shape_cache.h"
 #include "../ui/game_ui.h"
 #include "../utils/audio/audio_helper.h"
+#include "loading_scene.h"
 
 game_scene::game_scene() :
   robot_(nullptr),
@@ -183,8 +184,7 @@ void game_scene::update(float delta)
     const auto shield = robot_->get_shield_percentage();
     if (shield == 0.0f)
     {
-      pause();
-      game_ui_->disable_pause();
+      game_over();
     }
     game_ui_->set_shield_percentage(shield);
   }
@@ -258,8 +258,8 @@ bool game_scene::add_robot(const ValueMap& values, Node* layer)
     robot_ = robot_object::create(game_ui_->get_virtual_joy_stick(), shield);
     UTILS_BREAK_IF(robot_ == nullptr);
 
-    const auto position = get_object_position(values);
-
+    auto position = get_object_center_position(values);
+    position.y -= (robot_->getContentSize().height - block_size_.height) / 2;
     robot_->setPosition(position);
     layer->addChild(robot_);
 
@@ -510,6 +510,27 @@ bool game_scene::add_objects_to_game()
   return result;
 }
 
+void game_scene::game_over()
+{
+  do
+  {
+    const auto delay_exit = DelayTime::create(0.5f);
+    UTILS_BREAK_IF(delay_exit == nullptr);
+
+    // function call in the event chain to go to the menu
+    const auto func = CallFunc::create(CC_CALLBACK_0(game_scene::reload, this));
+    UTILS_BREAK_IF(func == nullptr);
+
+    // create the sequence of effects and go to the menu
+    const auto sequence = Sequence::create(delay_exit, func, NULL);
+    UTILS_BREAK_IF(sequence == nullptr);
+
+    // run effects
+    runAction(sequence);
+  }
+  while (false);
+}
+
 void game_scene::pause()
 {
   base_class::pause();
@@ -548,6 +569,13 @@ void game_scene::toggle_pause()
   {
     pause();
   }
+}
+
+void game_scene::reload()
+{
+  pause();
+  game_ui_->disable_pause();
+  Director::getInstance()->replaceScene(loading_scene::game());
 }
 
 void game_scene::update_camera(const float delta)
@@ -600,13 +628,17 @@ void game_scene::handle_switch(switch_object* switch_game_object)
   }
 }
 
-void game_scene::handle_door(door_object* door_game_object) const
+void game_scene::handle_door(door_object* door_game_object)
 {
   if (door_game_object->is_on())
   {
     if (door_game_object->is_closed())
     {
       door_game_object->open();
+    }
+    else
+    {
+      game_over();
     }
   }
 }

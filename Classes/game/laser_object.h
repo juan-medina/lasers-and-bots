@@ -51,7 +51,7 @@ public:
 private:
 
   // create a emitter
-  void update_spark(const Vec2& point) const;
+  void update_spark(const Vec2& point);
 
   // laser angle
   float angle_;

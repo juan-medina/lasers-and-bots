@@ -49,6 +49,9 @@ public:
   // when pause
   void on_close(Ref* sender);
 
+  // when reload
+  void on_reload(Ref* sender);
+
   // get the joystick
   inline virtual_joy_stick* get_virtual_joy_stick() const
   {

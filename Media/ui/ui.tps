@@ -155,7 +155,7 @@
             <string></string>
         </struct>
         <key>autoAliasEnabled</key>
-        <false/>
+        <true/>
         <key>trimSpriteNames</key>
         <false/>
         <key>prependSmartFolderName</key>
@@ -192,6 +192,8 @@
             <key type="filename">05_Pause_1.png</key>
             <key type="filename">05_Pause_2.png</key>
             <key type="filename">05_Pause_4.png</key>
+            <key type="filename">06_Reload_1.png</key>
+            <key type="filename">06_Reload_2.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>

@@ -82,19 +82,6 @@ bool laser_object::init(const float initial_angle, const int damage)
     const auto repeat_blink = RepeatForever::create(blink);
     draw_->runAction(repeat_blink);
 
-
-    spark_ = ParticleFire::create();
-    spark_->setDuration(ParticleSystem::DURATION_INFINITY);
-    spark_->setBlendAdditive(true);
-    spark_->setColor(Color3B::RED);
-    spark_->setOpacityModifyRGB(true);
-    spark_->setOpacity(127);
-    spark_->setTotalParticles(5000);
-    spark_->setPosition(this->getPosition());
-    spark_->setEmissionRate(200.f);
-    spark_->setGravity(Vec2(0.f, -1000.f));
-    addChild(spark_);
-
     scheduleUpdate();
 
     audio_helper::pre_load_effect("sounds/laser.ogg");
@@ -112,6 +99,7 @@ void laser_object::update(const float delta)
   if (physics_world_ == nullptr)
   {
     physics_world_ = Director::getInstance()->getRunningScene()->getPhysicsWorld();
+    return;
   }
 
   // clear our laser
@@ -184,7 +172,12 @@ void laser_object::update(const float delta)
 void laser_object::pause()
 {
   base_class::pause();
-  spark_->pause();
+
+  if (spark_ != nullptr)
+  {
+    spark_->pause();
+  }
+
   draw_->pause();
   if (loop_sound_ != -1)
   {
@@ -196,15 +189,40 @@ void laser_object::pause()
 void laser_object::resume()
 {
   base_class::resume();
-  spark_->resume();
-  draw_->resume();
+
+  if (spark_ != nullptr)
+  {
+    spark_->resume();
+  }
   if (loop_sound_ == -1)
   {
     loop_sound_ = audio_helper::get_instance()->play_effect("sounds/laser.ogg", true, 0.7f);
   }
+
+
+  draw_->resume();
 }
 
-void laser_object::update_spark(const Vec2& point) const
+void laser_object::update_spark(const Vec2& point)
 {
+  if (spark_ == nullptr)
+  {
+    spark_ = ParticleFire::create();
+    spark_->setDuration(ParticleSystem::DURATION_INFINITY);
+    spark_->setBlendAdditive(true);
+    spark_->setColor(Color3B::RED);
+    spark_->setOpacityModifyRGB(true);
+    spark_->setOpacity(127);
+    spark_->setTotalParticles(5000);
+    spark_->setEmissionRate(200.f);
+    spark_->setGravity(Vec2(0.f, -1000.f));
+    spark_->pause();
+    addChild(spark_);
+
+    if (loop_sound_ == -1)
+    {
+      loop_sound_ = audio_helper::get_instance()->play_effect("sounds/laser.ogg", true, 0.7f);
+    }
+  }
   spark_->setPosition(point);
 }

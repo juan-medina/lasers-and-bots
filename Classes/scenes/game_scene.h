@@ -66,8 +66,11 @@ public:
   // resume game
   void resume() override;
 
-  // toogle pause
+  // toggle pause
   void toggle_pause();
+
+  // reload the level
+  void reload();
 
 protected:
 
@@ -85,7 +88,7 @@ private:
   void handle_switch(switch_object* switch_game_object);
 
   // handle switch
-  void handle_door(door_object* door_game_object) const;
+  void handle_door(door_object* door_game_object);
 
   // check contact from objects
   bool on_contact_begin(PhysicsContact& contact);
@@ -129,6 +132,9 @@ private:
 
   // our game gravity
   static constexpr float gravity = -5000.0f;
+
+  // the game is over
+  void game_over();
 
   // the game ui
   game_ui* game_ui_;

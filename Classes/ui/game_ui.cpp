@@ -78,9 +78,12 @@ bool game_ui::init()
 
     const auto& size = Director::getInstance()->getVisibleSize();
 
+    //////////////////////////////
     // cache
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ui/ui.plist");
 
+    //////////////////////////////
+    // close
     const auto close = Sprite::createWithSpriteFrameName("01_Exit_1.png");
     UTILS_BREAK_IF(close==nullptr);
 
@@ -93,6 +96,8 @@ bool game_ui::init()
     close_item->setPosition(size.width / 2 - close->getContentSize().width,
                             size.height / 2 - close->getContentSize().height);
 
+    //////////////////////////////
+    // pause
     const auto pause = Sprite::createWithSpriteFrameName("05_Pause_1.png");
     UTILS_BREAK_IF(pause == nullptr);
 
@@ -118,20 +123,40 @@ bool game_ui::init()
     const auto play_item = MenuItemSprite::create(play, play_click, play_disable);
     UTILS_BREAK_IF(play_item == nullptr);
 
-    pause_item_ = MenuItemToggle::createWithCallback(
-      CC_CALLBACK_1(game_ui::on_pause, this), pause_item, play_item, nullptr);
+    pause_item_ = MenuItemToggle::createWithCallback(CC_CALLBACK_1(game_ui::on_pause, this),
+                                                     pause_item, play_item, nullptr);
+    UTILS_BREAK_IF(pause_item_ == nullptr);
+
 
     pause_item_->setPosition(close_item->getPosition() - Vec2(close->getContentSize().width + 10.f, 0.f));
 
-    const auto menu = Menu::create(close_item, pause_item_, nullptr);
+    //////////////////////////////
+    // reload
+    const auto reload = Sprite::createWithSpriteFrameName("06_Reload_1.png");
+    UTILS_BREAK_IF(reload == nullptr);
+
+    const auto reload_click = Sprite::createWithSpriteFrameName("06_Reload_2.png");
+    UTILS_BREAK_IF(reload_click == nullptr);
+
+    const auto reload_item = MenuItemSprite::create(reload, reload_click, CC_CALLBACK_1(game_ui::on_reload, this));
+    UTILS_BREAK_IF(reload_item == nullptr);
+
+    reload_item->setPosition(pause_item_->getPosition() - Vec2(pause->getContentSize().width + 10.f, 0.f));
+
+    //////////////////////////////
+    // menu
+    const auto menu = Menu::create(close_item, pause_item_, reload_item, nullptr);
     UTILS_BREAK_IF(menu == nullptr);
 
     addChild(menu);
 
+    //////////////////////////////
     // joystick
     virtual_joy_stick_ = virtual_joy_stick::create(size.height - 500.f);
     addChild(virtual_joy_stick_);
 
+    //////////////////////////////
+    // head
     const auto head_pos = Vec2(50.f, size.height - 50);
 
     auto head = Sprite::createWithSpriteFrameName("03_head.png");
@@ -141,6 +166,8 @@ bool game_ui::init()
     head->setPosition(head_pos);
     addChild(head);
 
+    //////////////////////////////
+    // shield bar
     const auto bar_sprite = Sprite::createWithSpriteFrameName("04_bar.png");
     UTILS_BREAK_IF(bar_sprite == nullptr);
 
@@ -198,4 +225,11 @@ void game_ui::on_close(Ref* sender)
 
   //Close the cocos2d-x game scene and quit the application
   Director::getInstance()->end();
+}
+
+void game_ui::on_reload(Ref* sender)
+{
+  audio_helper::get_instance()->play_effect("sounds/select.ogg");
+  const auto scene = dynamic_cast<game_scene*>(Director::getInstance()->getRunningScene());
+  scene->reload();
 }
