@@ -60,6 +60,15 @@ public:
   static constexpr short int bit_mask_blocks = 128;
   static constexpr short int bit_mask_barrel = 256;
 
+  // pause our game
+  void pause() override;
+
+  // resume game
+  void resume() override;
+
+  // toogle pause
+  void toggle_pause();
+
 protected:
 
   virtual Node* provide_physics_node(const int gid) const override;
@@ -95,7 +104,7 @@ private:
   static Vec2 get_object_position(const ValueMap& values);
 
   // add a laser
-  static bool add_laser(const ValueMap& values, Node* layer);
+  bool add_laser(const ValueMap& values, Node* layer);
 
   // add a robot
   bool add_robot(const ValueMap& values, Node* layer);
@@ -107,10 +116,10 @@ private:
   bool add_door(const ValueMap& values, Node* layer);
 
   // add barrel scenery item
-  static bool add_barrel(const ValueMap& values, Node* layer);
+  bool add_barrel(const ValueMap& values, Node* layer);
 
   // add saw to the map
-  bool add_saw(const ValueMap& values, Node* layer) const;
+  bool add_saw(const ValueMap& values, Node* layer);
 
   // add an object to the map
   bool add_object(const vector<Value>::value_type& object);
@@ -138,6 +147,9 @@ private:
 
   // max camera pos
   Vec2 max_camera_pos_;
+
+  // game is paused
+  bool paused_;
 };
 
 #endif // __MAIN_SCENE__

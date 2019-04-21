@@ -163,15 +163,28 @@ void audio_helper::toggle_music()
   save_values();
 }
 
+void audio_helper::pause_music() const
+{
+  if (last_music_ != AudioEngine::INVALID_AUDIO_ID)
+  {
+    AudioEngine::pause(last_music_);
+  }
+}
+
+void audio_helper::resume_music() const
+{
+  if (last_music_ != AudioEngine::INVALID_AUDIO_ID)
+  {
+    AudioEngine::resume(last_music_);
+  }
+}
+
 void audio_helper::app_to_bg() const
 {
   // if we wasn't muted pause music
   if (!get_music_muted())
   {
-    if (last_music_ != AudioEngine::INVALID_AUDIO_ID)
-    {
-      AudioEngine::pause(last_music_);
-    }
+    pause_music();
   }
 }
 
@@ -180,10 +193,7 @@ void audio_helper::app_to_fg() const
   // if we wasn't muted resume music
   if (!get_music_muted())
   {
-    if (last_music_ != AudioEngine::INVALID_AUDIO_ID)
-    {
-      AudioEngine::resume(last_music_);
-    }
+    resume_music();
   }
 }
 

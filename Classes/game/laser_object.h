@@ -22,12 +22,13 @@
 #define __LASER_CLASS__
 
 #include "../utils/utils.h"
+#include "../utils/base/sprite/game_object.h"
 
-class laser_object final : public Node
+class laser_object final : public game_object
 {
 public:
   // base_class
-  using base_class = Node;
+  using base_class = game_object;
 
   // constructor
   laser_object();
@@ -40,6 +41,12 @@ public:
 
   // update our laser
   void update(float delta) override;
+
+  // object paused
+  void pause() override;
+
+  // object resume
+  void resume() override;
 
 private:
 
@@ -61,8 +68,8 @@ private:
   // our spark
   ParticleSystemQuad* spark_;
 
-  // our damage
-  int damage_;
+  // laser loop sound
+  static int loop_sound_;
 };
 
 #endif // __LASER_CLASS__

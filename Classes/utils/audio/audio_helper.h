@@ -57,6 +57,12 @@ public:
   // toggle music
   void toggle_music();
 
+  // pause the music
+  void pause_music() const;
+
+  // resume the music
+  void resume_music() const;
+
   // app is going to background
   void app_to_bg() const;
 

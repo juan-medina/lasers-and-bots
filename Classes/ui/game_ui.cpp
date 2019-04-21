@@ -20,12 +20,15 @@
 
 #include "game_ui.h"
 #include "../utils/audio/audio_helper.h"
+#include "../scenes/game_scene.h"
 #include "virtual_joy_stick.h"
+
 
 game_ui::game_ui():
   virtual_joy_stick_(nullptr),
   shield_bar_(nullptr),
-  shield_label_(nullptr)
+  shield_label_(nullptr),
+  pause_item_(nullptr)
 {
 }
 
@@ -90,7 +93,37 @@ bool game_ui::init()
     close_item->setPosition(size.width / 2 - close->getContentSize().width,
                             size.height / 2 - close->getContentSize().height);
 
-    const auto menu = Menu::create(close_item, nullptr);
+    const auto pause = Sprite::createWithSpriteFrameName("05_Pause_1.png");
+    UTILS_BREAK_IF(pause == nullptr);
+
+    const auto pause_click = Sprite::createWithSpriteFrameName("05_Pause_2.png");
+    UTILS_BREAK_IF(pause_click == nullptr);
+
+    const auto pause_disable = Sprite::createWithSpriteFrameName("05_Pause_4.png");
+    UTILS_BREAK_IF(pause_click == nullptr);
+
+    const auto pause_item = MenuItemSprite::create(pause, pause_click, pause_disable);
+    UTILS_BREAK_IF(pause_item == nullptr);
+
+    const auto play = Sprite::createWithSpriteFrameName("06_Play_1.png");
+    UTILS_BREAK_IF(play == nullptr);
+
+    const auto play_click = Sprite::createWithSpriteFrameName("06_Play_2.png");
+    UTILS_BREAK_IF(play_click == nullptr);
+
+    const auto play_disable = Sprite::createWithSpriteFrameName("06_Play_4.png");
+    UTILS_BREAK_IF(play_disable == nullptr);
+
+
+    const auto play_item = MenuItemSprite::create(play, play_click, play_disable);
+    UTILS_BREAK_IF(play_item == nullptr);
+
+    pause_item_ = MenuItemToggle::createWithCallback(
+      CC_CALLBACK_1(game_ui::on_pause, this), pause_item, play_item, nullptr);
+
+    pause_item_->setPosition(close_item->getPosition() - Vec2(close->getContentSize().width + 10.f, 0.f));
+
+    const auto menu = Menu::create(close_item, pause_item_, nullptr);
     UTILS_BREAK_IF(menu == nullptr);
 
     addChild(menu);
@@ -150,10 +183,19 @@ bool game_ui::init()
   return ret;
 }
 
+void game_ui::on_pause(Ref* sender)
+{
+  audio_helper::get_instance()->play_effect("sounds/select.ogg");
+  const auto scene = dynamic_cast<game_scene*>(Director::getInstance()->getRunningScene());
+  scene->toggle_pause();
+}
+
 void game_ui::on_close(Ref* sender)
 {
+  audio_helper::get_instance()->play_effect("sounds/select.ogg");
+  const auto scene = dynamic_cast<game_scene*>(Director::getInstance()->getRunningScene());
+  scene->pause();
+
   //Close the cocos2d-x game scene and quit the application
   Director::getInstance()->end();
-
-  audio_helper::get_instance()->play_effect("sounds/select.ogg");
 }

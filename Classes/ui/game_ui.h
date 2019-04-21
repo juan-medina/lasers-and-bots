@@ -24,6 +24,7 @@
 #include "../utils/utils.h"
 
 class virtual_joy_stick;
+
 class game_ui final : public Node
 {
 public:
@@ -43,6 +44,9 @@ public:
   bool init() override;
 
   // when close
+  void on_pause(Ref* sender);
+
+  // when pause
   void on_close(Ref* sender);
 
   // get the joystick
@@ -58,6 +62,12 @@ public:
     shield_label_->setString(string_format("%3d %%", int_value));
   }
 
+  // disable pause
+  inline void disable_pause() const
+  {
+    pause_item_->setEnabled(false);
+  }
+
 private:
 
   // our joy stick
@@ -68,6 +78,9 @@ private:
 
   // shield label
   Label* shield_label_;
+
+  // pause menu item
+  MenuItemToggle* pause_item_;
 };
 
 #endif // __GAME_UI__CLASS__

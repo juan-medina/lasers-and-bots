@@ -52,6 +52,12 @@ public:
   // damage our shield
   void damage_shield(const int amount);
 
+  // object paused
+  void pause() override;
+
+  // object resume
+  void resume() override;
+
 private:
 
   // robot states

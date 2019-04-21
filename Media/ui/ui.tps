@@ -189,6 +189,9 @@
         <map type="IndividualSpriteSettingsMap">
             <key type="filename">01_Exit_1.png</key>
             <key type="filename">01_Exit_2.png</key>
+            <key type="filename">05_Pause_1.png</key>
+            <key type="filename">05_Pause_2.png</key>
+            <key type="filename">05_Pause_4.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -263,6 +266,21 @@
                 <rect>250,52,500,105</rect>
                 <key>scale9Paddings</key>
                 <rect>250,52,500,105</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">06_Play_1.png</key>
+            <key type="filename">06_Play_2.png</key>
+            <key type="filename">06_Play_4.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>37,37,73,74</rect>
+                <key>scale9Paddings</key>
+                <rect>37,37,73,74</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>

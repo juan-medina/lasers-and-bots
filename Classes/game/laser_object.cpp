@@ -23,6 +23,8 @@
 #include "../scenes/game_scene.h"
 #include "robot_object.h"
 
+int laser_object::loop_sound_ = -1;
+
 laser_object::laser_object() :
   angle_(0.f),
   draw_(nullptr),
@@ -69,7 +71,7 @@ bool laser_object::init(const float initial_angle, const int damage)
 
     //////////////////////////////
     // 1. super init first
-    UTILS_BREAK_IF(!base_class::init());
+    UTILS_BREAK_IF(!base_class::init("laser", damage));
 
     draw_ = DrawNode::create();
     UTILS_BREAK_IF(draw_ == nullptr);
@@ -97,8 +99,6 @@ bool laser_object::init(const float initial_angle, const int damage)
 
     audio_helper::pre_load_effect("sounds/laser.ogg");
 
-    damage_ = damage;
-
     ret = true;
   }
   while (false);
@@ -108,12 +108,6 @@ bool laser_object::init(const float initial_angle, const int damage)
 
 void laser_object::update(const float delta)
 {
-  static auto sound_playing = false;
-  if (!sound_playing)
-  {
-    audio_helper::get_instance()->play_effect("sounds/laser.ogg", true, 0.7f);
-    sound_playing = true;
-  }
   // get the physicsWorld
   if (physics_world_ == nullptr)
   {
@@ -167,9 +161,8 @@ void laser_object::update(const float delta)
     if (touch_shape->getCategoryBitmask() == game_scene::bit_mask_robot)
     {
       const auto robot = dynamic_cast<robot_object*>(touch_shape->getBody()->getNode());
-      robot->damage_shield(damage_);
+      robot->damage_shield(get_damage());
     }
-  
   }
 
   // convert the point into node space and draw it
@@ -186,6 +179,29 @@ void laser_object::update(const float delta)
 
   // rotate the laser angle
   angle_ += (5.f * static_cast<float>(M_PI) / 180.0f) * delta;
+}
+
+void laser_object::pause()
+{
+  base_class::pause();
+  spark_->pause();
+  draw_->pause();
+  if (loop_sound_ != -1)
+  {
+    audio_helper::get_instance()->stop_sound(loop_sound_);
+    loop_sound_ = -1;
+  }
+}
+
+void laser_object::resume()
+{
+  base_class::resume();
+  spark_->resume();
+  draw_->resume();
+  if (loop_sound_ == -1)
+  {
+    loop_sound_ = audio_helper::get_instance()->play_effect("sounds/laser.ogg", true, 0.7f);
+  }
 }
 
 void laser_object::update_spark(const Vec2& point) const

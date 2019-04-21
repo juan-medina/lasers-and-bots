@@ -26,7 +26,7 @@
 #include "../game/door_object.h"
 #include "../utils/physics/physics_shape_cache.h"
 #include "../ui/game_ui.h"
-#include "utils/audio/audio_helper.h"
+#include "../utils/audio/audio_helper.h"
 
 game_scene::game_scene() :
   robot_(nullptr),
@@ -34,7 +34,8 @@ game_scene::game_scene() :
   last_robot_position_(Vec2::ZERO),
   last_camera_position_(Vec2::ZERO),
   min_camera_pos_(Vec2::ZERO),
-  max_camera_pos_(Vec2::ZERO)
+  max_camera_pos_(Vec2::ZERO),
+  paused_(false)
 {
 }
 
@@ -167,18 +168,26 @@ Node* game_scene::provide_physics_node(const int gid) const
 
 void game_scene::update(float delta)
 {
-  robot_->update(delta);
-  const auto new_position = robot_->getPosition();
-
-  if (last_robot_position_ != new_position)
+  if (!paused_)
   {
-    update_camera(delta);
+    robot_->update(delta);
+    const auto new_position = robot_->getPosition();
 
-    last_robot_position_ = new_position;
+    if (last_robot_position_ != new_position)
+    {
+      update_camera(delta);
+
+      last_robot_position_ = new_position;
+    }
+
+    const auto shield = robot_->get_shield_percentage();
+    if (shield == 0.0f)
+    {
+      pause();
+      game_ui_->disable_pause();
+    }
+    game_ui_->set_shield_percentage(shield);
   }
-
-
-  game_ui_->set_shield_percentage(robot_->get_shield_percentage());
 }
 
 Vec2 game_scene::get_object_center_position(const ValueMap& values)
@@ -219,6 +228,7 @@ bool game_scene::add_laser(const ValueMap& values, Node* layer)
 
   do
   {
+    const auto name = values.at("name").asString();
     const auto rotation = values.at("rotation").asFloat();
     const auto position = get_object_center_position(values);
     const auto damage = values.at("damage").asInt();
@@ -228,6 +238,8 @@ bool game_scene::add_laser(const ValueMap& values, Node* layer)
 
     laser->setPosition(position);
     layer->addChild(laser);
+
+    game_objects_[name] = laser;
 
     ret = true;
   }
@@ -368,6 +380,7 @@ bool game_scene::add_barrel(const ValueMap& values, Node* layer)
 
   do
   {
+    const auto name = values.at("name").asString();
     const auto image = values.at("image").asString();
     auto sprite = game_object::create(image, "barrel");
     UTILS_BREAK_IF(sprite == nullptr);
@@ -419,6 +432,8 @@ bool game_scene::add_barrel(const ValueMap& values, Node* layer)
 
     layer->addChild(sprite);
 
+    game_objects_[name] = sprite;
+
     ret = true;
   }
   while (false);
@@ -426,12 +441,13 @@ bool game_scene::add_barrel(const ValueMap& values, Node* layer)
   return ret;
 }
 
-bool game_scene::add_saw(const ValueMap& values, Node* layer) const
+bool game_scene::add_saw(const ValueMap& values, Node* layer)
 {
   auto ret = false;
 
   do
   {
+    const auto name = values.at("name").asString();
     const auto image = values.at("image").asString();
     const auto damage = values.at("damage").asInt();
     auto sprite = game_object::create(image, "saw", damage);
@@ -464,6 +480,8 @@ bool game_scene::add_saw(const ValueMap& values, Node* layer) const
 
     layer->addChild(sprite);
 
+    game_objects_[name] = sprite;
+
     ret = true;
   }
   while (false);
@@ -490,6 +508,46 @@ bool game_scene::add_objects_to_game()
   while (false);
 
   return result;
+}
+
+void game_scene::pause()
+{
+  base_class::pause();
+  getPhysicsWorld()->setAutoStep(false);
+  robot_->pause();
+  for (const auto& game_object : game_objects_)
+  {
+    game_object.second->pause();
+  }
+  audio_helper::get_instance()->pause_music();
+
+  paused_ = true;
+}
+
+void game_scene::resume()
+{
+  base_class::resume();
+  getPhysicsWorld()->setAutoStep(true);
+  robot_->resume();
+  for (const auto& game_object : game_objects_)
+  {
+    game_object.second->resume();
+  }
+  audio_helper::get_instance()->resume_music();
+
+  paused_ = false;
+}
+
+void game_scene::toggle_pause()
+{
+  if (paused_)
+  {
+    resume();
+  }
+  else
+  {
+    pause();
+  }
 }
 
 void game_scene::update_camera(const float delta)
@@ -555,36 +613,39 @@ void game_scene::handle_door(door_object* door_game_object) const
 
 bool game_scene::on_contact_begin(PhysicsContact& contact)
 {
-  const auto robot = get_object_from_contact<robot_object>(contact, bit_mask_robot);
-  if (robot != nullptr)
+  if (!paused_)
   {
-    const auto door = get_object_from_contact<door_object>(contact, bit_mask_door);
-    if (door != nullptr)
+    const auto robot = get_object_from_contact<robot_object>(contact, bit_mask_robot);
+    if (robot != nullptr)
     {
-      handle_door(door);
-    }
-    else
-    {
-      const auto switch_game_object = get_object_from_contact<switch_object>(contact, bit_mask_switch);
-      if (switch_game_object != nullptr)
+      const auto door = get_object_from_contact<door_object>(contact, bit_mask_door);
+      if (door != nullptr)
       {
-        handle_switch(switch_game_object);
+        handle_door(door);
       }
       else
       {
-        const auto block_objects = bit_mask_blocks | bit_mask_spikes | bit_mask_acid | bit_mask_saw | bit_mask_barrel;
-
-        const auto block_game_object = get_object_from_contact<game_object>(contact, block_objects);
-        if (block_game_object != nullptr)
+        const auto switch_game_object = get_object_from_contact<switch_object>(contact, bit_mask_switch);
+        if (switch_game_object != nullptr)
         {
-          if (block_game_object->getPositionY() < robot->getPositionY())
+          handle_switch(switch_game_object);
+        }
+        else
+        {
+          const auto block_objects = bit_mask_blocks | bit_mask_spikes | bit_mask_acid | bit_mask_saw | bit_mask_barrel;
+
+          const auto block_game_object = get_object_from_contact<game_object>(contact, block_objects);
+          if (block_game_object != nullptr)
           {
-            robot->on_land_on_block();
-          }
-          const auto damage = block_game_object->get_damage();
-          if (damage != 0)
-          {
-            robot->damage_shield(damage);
+            if (block_game_object->getPositionY() < robot->getPositionY())
+            {
+              robot->on_land_on_block();
+            }
+            const auto damage = block_game_object->get_damage();
+            if (damage != 0)
+            {
+              robot->damage_shield(damage);
+            }
           }
         }
       }

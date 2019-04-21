@@ -203,6 +203,21 @@ void robot_object::damage_shield(const int amount)
   }
 }
 
+void robot_object::pause()
+{
+  base_class::pause();
+  if (walk_sound_ != -1)
+  {
+    audio_helper::get_instance()->stop_sound(walk_sound_);
+    walk_sound_ = -1;
+  }
+}
+
+void robot_object::resume()
+{
+  base_class::resume();
+}
+
 void robot_object::move_to_left(const bool to_left)
 {
   if (to_left)
