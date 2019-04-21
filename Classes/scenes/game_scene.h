@@ -156,6 +156,9 @@ private:
 
   // game is paused
   bool paused_;
+
+  // the total time
+  float total_time_;
 };
 
 #endif // __MAIN_SCENE__

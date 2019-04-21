@@ -28,7 +28,8 @@ game_ui::game_ui():
   virtual_joy_stick_(nullptr),
   shield_bar_(nullptr),
   shield_label_(nullptr),
-  pause_item_(nullptr)
+  pause_item_(nullptr),
+  time_label_(nullptr)
 {
 }
 
@@ -195,13 +196,27 @@ bool game_ui::init()
 
     addChild(shield_bar_);
 
-    shield_label_ = Label::createWithBMFont("fonts/general_72.fnt", "100 %", TextHAlignment::CENTER);
+    shield_label_ = Label::createWithTTF("100%", "fonts/tahoma.ttf", 120);
     UTILS_BREAK_IF(shield_label_ == nullptr);
 
-    shield_label_->setColor(Color3B(0, 255, 255));
+    shield_label_->setTextColor(Color4B(0, 127, 127, 255));
     shield_label_->setPosition(bar_pos);
 
     addChild(shield_label_);
+
+    //////////////////////////////
+    // time label
+
+    // create the text for the label
+    time_label_ = Label::createWithTTF("00:00.00", "fonts/tahoma.ttf", 120);
+    UTILS_BREAK_IF(time_label_ == nullptr);
+
+    time_label_->setTextColor(Color4B(0, 255, 255, 255));
+
+    // position the label
+    time_label_->setPosition(Vec2(size.width / 2, size.height - close_item->getContentSize().height));
+
+    addChild(time_label_);
 
     ret = true;
   }
@@ -232,4 +247,15 @@ void game_ui::on_reload(Ref* sender)
   audio_helper::get_instance()->play_effect("sounds/select.ogg");
   const auto scene = dynamic_cast<game_scene*>(Director::getInstance()->getRunningScene());
   scene->reload();
+}
+
+void game_ui::update_time(const float time) const
+{
+  float whole;
+  const auto fractional = std::modf(time, &whole);
+
+  const auto minutes = static_cast<int>(whole / 60.f);
+  const auto seconds = static_cast<int>(time - (minutes * 60));
+  const auto milliseconds = static_cast<int>(fractional * 100);
+  time_label_->setString(string_format("%02d:%02d%c%02d", minutes, seconds, '.', milliseconds));
 }

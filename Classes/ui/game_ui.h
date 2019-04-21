@@ -71,6 +71,8 @@ public:
     pause_item_->setEnabled(false);
   }
 
+  void update_time(const float time) const;
+
 private:
 
   // our joy stick
@@ -84,6 +86,9 @@ private:
 
   // pause menu item
   MenuItemToggle* pause_item_;
+
+  // the time label
+  Label* time_label_;
 };
 
 #endif // __GAME_UI__CLASS__

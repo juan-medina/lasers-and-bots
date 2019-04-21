@@ -36,7 +36,8 @@ game_scene::game_scene() :
   last_camera_position_(Vec2::ZERO),
   min_camera_pos_(Vec2::ZERO),
   max_camera_pos_(Vec2::ZERO),
-  paused_(false)
+  paused_(false),
+  total_time_(0.f)
 {
 }
 
@@ -112,7 +113,7 @@ bool game_scene::init()
     const auto debug_grid = UserDefault::getInstance()->getBoolForKey("debug_grid", false);
     if (debug_grid)
     {
-      UTILS_BREAK_IF(!create_debug_grid("fonts/Marker Felt.ttf"));
+      UTILS_BREAK_IF(!create_debug_grid("fonts/tahoma.ttf"));
     }
 
     auto contact_listener = EventListenerPhysicsContact::create();
@@ -187,6 +188,8 @@ void game_scene::update(float delta)
       game_over();
     }
     game_ui_->set_shield_percentage(shield);
+    total_time_ += delta;
+    game_ui_->update_time(total_time_);
   }
 }
 

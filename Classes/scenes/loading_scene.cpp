@@ -68,11 +68,12 @@ bool loading_scene::init(const load_to_type type)
     addChild(background, 0);
 
     // create the text for the label
-    auto label = Label::createWithBMFont("fonts/general.fnt", "Loading..");
+    auto label = Label::createWithTTF("Loading...", "fonts/tahoma.ttf", 500);
     UTILS_BREAK_IF(label == nullptr);
 
     // position menu item
-    label->setPosition(Vec2(size.width / 2, size.height - 500));
+    label->setPosition(Vec2(size.width / 2, size.height / 2));
+    label->setTextColor(Color4B(0, 255, 255, 255));
 
     addChild(label, 0);
 
