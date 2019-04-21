@@ -120,6 +120,10 @@ void robot_object::update(float delta)
 
 void robot_object::on_land_on_block()
 {
+  if (jumping_)
+  {
+    audio_helper::get_instance()->play_effect("sounds/land.ogg", false, 0.35f);
+  }
   jumping_ = false;
 }
 
@@ -157,7 +161,6 @@ void robot_object::change_state(const state wanted_state)
     case e_jumping:
       change_anim("jump");
       walk_sound(false);
-      audio_helper::get_instance()->play_effect("sounds/jump.ogg", false, 0.5f);
       break;
     case e_idle:
       change_anim("idle");
@@ -251,6 +254,7 @@ void robot_object::jump(const bool to_jump)
     {
       if (!jumping_)
       {
+        audio_helper::get_instance()->play_effect("sounds/jump.ogg", false, 0.35f);
         getPhysicsBody()->applyImpulse(Vec2(0.0f, normal_movement.y));
         jumping_ = true;
       }
