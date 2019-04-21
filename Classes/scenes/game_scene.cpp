@@ -26,6 +26,7 @@
 #include "../game/door_object.h"
 #include "../utils/physics/physics_shape_cache.h"
 #include "../ui/game_ui.h"
+#include "../ui/virtual_joy_stick.h""
 #include "../utils/audio/audio_helper.h"
 #include "loading_scene.h"
 
@@ -545,6 +546,8 @@ void game_scene::pause()
   }
   audio_helper::get_instance()->pause_music();
 
+  game_ui_->get_virtual_joy_stick()->pause();
+
   paused_ = true;
 }
 
@@ -558,6 +561,7 @@ void game_scene::resume()
     game_object.second->resume();
   }
   audio_helper::get_instance()->resume_music();
+  game_ui_->get_virtual_joy_stick()->resume();
 
   paused_ = false;
 }
