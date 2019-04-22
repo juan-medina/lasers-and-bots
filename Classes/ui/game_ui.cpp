@@ -417,7 +417,7 @@ void game_ui::display_message(const std::string& message, const bool extended /*
     //////////////////////////////
     // stars
 
-    const auto first_start_pos = Vec2(750, label_button->getPosition().y + 700);
+    const auto first_start_pos = Vec2(horizontal_segment / 6, 750.f);
 
     for (unsigned short int start_counter = 0; start_counter < 3; ++start_counter)
     {
@@ -425,7 +425,7 @@ void game_ui::display_message(const std::string& message, const bool extended /*
 
       const auto star_gray = Sprite::createWithSpriteFrameName("09_star_02.png");
 
-      const auto star_pos = first_start_pos + Vec2((star_gray->getContentSize().width * 2.0f) * start_counter, 0.f);
+      const auto star_pos = first_start_pos + Vec2((horizontal_segment/3) * start_counter, 0.f);
       star_gray->setPosition(star_pos);
       background->addChild(star_gray);
 
