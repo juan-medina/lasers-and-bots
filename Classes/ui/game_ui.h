@@ -97,6 +97,9 @@ private:
 
   // the time label
   Label* time_label_;
+
+  // make a star sound
+  void star_sound();
 };
 
 #endif // __GAME_UI__CLASS__

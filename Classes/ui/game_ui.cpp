@@ -76,6 +76,7 @@ bool game_ui::init()
     UTILS_BREAK_IF(!base_class::init());
 
     audio_helper::pre_load_effect("sounds/select.ogg");
+    audio_helper::pre_load_effect("sounds/star.ogg");
 
     const auto& size = Director::getInstance()->getVisibleSize();
 
@@ -453,16 +454,16 @@ void game_ui::display_message(const std::string& message, const bool extended /*
 
         star_gold->setPosition(star_pos);
         star_gold->setOpacity(0);
+
+        const auto play_sound = CallFunc::create(CC_CALLBACK_0(game_ui::star_sound, this));
         const auto delay = DelayTime::create(0.5f + (1.f * start_counter));
         const auto fade_in = FadeIn::create(1.f);
         const auto appear = Sequence::create(delay, fade_in, nullptr);
-
         star_gold->runAction(appear);
 
         const auto scale_up = ScaleTo::create(0.5f, 1.5f, 1.5f);
         const auto scale_down = ScaleTo::create(0.5f, 1.0f, 1.0f);
-        const auto scale = Sequence::create(delay->clone(), scale_up, scale_down, nullptr);
-
+        const auto scale = Sequence::create(delay->clone(), scale_up, scale_down, play_sound, nullptr);
         star_gold->runAction(scale);
 
         background->addChild(star_gold);
@@ -470,4 +471,9 @@ void game_ui::display_message(const std::string& message, const bool extended /*
     }
   }
   while (false);
+}
+
+void game_ui::star_sound()
+{
+  audio_helper::get_instance()->play_effect("sounds/star.ogg");
 }
