@@ -34,10 +34,10 @@ public:
   laser_object();
 
   // create the object
-  static laser_object* create(const float initial_angle, const int damage);
+  static laser_object* create(const float initial_angle, const float speed_factor, const int damage);
 
   // init this object
-  bool init(const float initial_angle, const int damage);
+  bool init(const float initial_angle, const float speed_factor, const int damage);
 
   // update our laser
   void update(float delta) override;
@@ -70,6 +70,9 @@ private:
 
   // laser loop sound
   static int loop_sound_;
+
+  // the speed factor of the laser
+  float speed_factor_;
 };
 
 #endif // __LASER_CLASS__

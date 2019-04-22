@@ -29,11 +29,12 @@ laser_object::laser_object() :
   angle_(0.f),
   draw_(nullptr),
   physics_world_(nullptr),
-  spark_(nullptr)
+  spark_(nullptr),
+  speed_factor_(1.f)
 {
 }
 
-laser_object* laser_object::create(const float initial_angle, const int damage)
+laser_object* laser_object::create(const float initial_angle, const float speed_factor, const int damage)
 {
   laser_object* ret = nullptr;
 
@@ -42,7 +43,7 @@ laser_object* laser_object::create(const float initial_angle, const int damage)
     auto object = new laser_object();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(initial_angle, damage))
+    if (object->init(initial_angle, speed_factor, damage))
     {
       object->autorelease();
     }
@@ -61,13 +62,14 @@ laser_object* laser_object::create(const float initial_angle, const int damage)
 }
 
 // on "init" you need to initialize your instance
-bool laser_object::init(const float initial_angle, const int damage)
+bool laser_object::init(const float initial_angle, const float speed_factor, const int damage)
 {
   auto ret = false;
 
   do
   {
     angle_ = CC_DEGREES_TO_RADIANS(90-initial_angle);
+    speed_factor_ = speed_factor;
 
     //////////////////////////////
     // 1. super init first
@@ -166,7 +168,7 @@ void laser_object::update(const float delta)
   }
 
   // rotate the laser angle
-  angle_ += (5.f * static_cast<float>(M_PI) / 180.0f) * delta;
+  angle_ += (5.f * static_cast<float>(M_PI) / 180.0f) * (delta * speed_factor_);
 }
 
 void laser_object::pause()
