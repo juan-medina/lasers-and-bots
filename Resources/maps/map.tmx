@@ -2,6 +2,7 @@
 <map version="1.0" tiledversion="1.1.0" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="256" tileheight="256" infinite="0" nextobjectid="47">
  <properties>
   <property name="shapes" value="shapes/shapes.plist"/>
+  <property name="time_limit" type="int" value="50"/>
  </properties>
  <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256" spacing="2" margin="1" tilecount="35" columns="7">
   <image source="tilesheet.png" width="1806" height="1290"/>

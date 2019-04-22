@@ -260,7 +260,15 @@ void game_ui::update_time(const float time) const
   time_label_->setString(string_format("%02d:%02d%c%02d", minutes, seconds, '.', milliseconds));
 }
 
-void game_ui::display_message(const std::string& message, const bool extended)
+string game_ui::time_message(const unsigned int time)
+{
+  const auto minutes = static_cast<int>(time / 60.f);
+  const auto seconds = static_cast<int>(time - (minutes * 60));
+  return string_format("%02d:%02d%", minutes, seconds);
+}
+
+void game_ui::display_message(const std::string& message, const bool extended /*= false*/,
+                              const unsigned short int stars /*= 0*/, const unsigned int limit_seconds /*= 0*/)
 {
   do
   {
@@ -272,18 +280,21 @@ void game_ui::display_message(const std::string& message, const bool extended)
     const auto horizontal_segment = size.width / 2;
     const auto vertical_segment = size.height / (extended ? 2 : 4);
 
-    const auto dark_all = LayerColor::create(Color4B(0, 0, 0, 127));
+    const auto dark_all = LayerColor::create(Color4B(0, 0, 0, 0));
     UTILS_BREAK_IF(dark_all == nullptr);
+
     addChild(dark_all);
+    dark_all->runAction(FadeTo::create(0.5f, 127));
 
     auto area = Rect(horizontal_segment, vertical_segment, 100, 100);
 
-    const auto background = LayerColor::create(Color4B(0, 255, 255, 127), horizontal_segment, vertical_segment);
+    const auto background = LayerColor::create(Color4B(0, 255, 255, 0), horizontal_segment, vertical_segment);
     UTILS_BREAK_IF(background == nullptr);
 
     background->setPosition((size.width - horizontal_segment) / 2, (size.height - vertical_segment) / 2);
 
     addChild(background);
+    background->runAction(FadeTo::create(0.5f, 127));
 
     //////////////////////////////
     // border
@@ -330,6 +341,9 @@ void game_ui::display_message(const std::string& message, const bool extended)
 
     continue_item->addChild(label_button);
     continue_item->setScale(2.f);
+
+    continue_item->setOpacity(0);
+    continue_item->runAction(FadeTo::create(0.5f, 255));
 
     //////////////////////////////
     // menu
@@ -398,6 +412,62 @@ void game_ui::display_message(const std::string& message, const bool extended)
     label_shield_value->setPosition(650, label_shield->getPosition().y);
 
     background->addChild(label_shield_value);
+
+    //////////////////////////////
+    // stars
+
+    const auto first_start_pos = Vec2(750, label_button->getPosition().y + 700);
+
+    for (unsigned short int start_counter = 0; start_counter < 3; ++start_counter)
+    {
+      const auto is_gold = start_counter + 1 <= stars;
+
+      const auto star_gray = Sprite::createWithSpriteFrameName("09_star_02.png");
+
+      const auto star_pos = first_start_pos + Vec2((star_gray->getContentSize().width * 2.0f) * start_counter, 0.f);
+      star_gray->setPosition(star_pos);
+      background->addChild(star_gray);
+
+      auto star_tex = string("complete level");
+      if (start_counter == 1)
+      {
+        star_tex = "and under " + time_message(limit_seconds);
+      }
+      else if (start_counter == 2)
+      {
+        star_tex = "and with 100% shield";
+      }
+      const auto label_star = Label::createWithTTF(star_tex, "fonts/tahoma.ttf", 70);
+      UTILS_BREAK_IF(label_star == nullptr);
+
+      const auto label_pos = Vec2(star_gray->getContentSize().width / 2,
+                                  -(star_gray->getContentSize().height / 2) + 40.f);
+      label_star->setHorizontalAlignment(TextHAlignment::CENTER);
+      label_star->setPosition(label_pos);
+      label_star->setTextColor(Color4B(255, 255, 255, 255));
+      star_gray->addChild(label_star);
+
+      if (is_gold)
+      {
+        const auto star_gold = Sprite::createWithSpriteFrameName("09_star_01.png");
+
+        star_gold->setPosition(star_pos);
+        star_gold->setOpacity(0);
+        const auto delay = DelayTime::create(0.5f + (1.f * start_counter));
+        const auto fade_in = FadeIn::create(1.f);
+        const auto appear = Sequence::create(delay, fade_in, nullptr);
+
+        star_gold->runAction(appear);
+
+        const auto scale_up = ScaleTo::create(0.5f, 1.5f, 1.5f);
+        const auto scale_down = ScaleTo::create(0.5f, 1.0f, 1.0f);
+        const auto scale = Sequence::create(delay->clone(), scale_up, scale_down, nullptr);
+
+        star_gold->runAction(scale);
+
+        background->addChild(star_gold);
+      }
+    }
   }
   while (false);
 }

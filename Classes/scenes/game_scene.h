@@ -133,6 +133,9 @@ private:
   // our game gravity
   static constexpr float gravity = -5000.0f;
 
+  // calculate how many stars we got
+  unsigned short int calculate_stars() const;
+
   // the game is over
   void game_over(const bool win);
 
@@ -162,6 +165,9 @@ private:
 
   // count barrels
   unsigned short int barrel_count_;
+
+  // the time limit
+  unsigned int time_limit_;
 };
 
 #endif // __MAIN_SCENE__

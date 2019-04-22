@@ -39,7 +39,8 @@ game_scene::game_scene() :
   max_camera_pos_(Vec2::ZERO),
   paused_(false),
   total_time_(0.f),
-  barrel_count_(0)
+  barrel_count_(0),
+  time_limit_(0)
 {
 }
 
@@ -108,6 +109,9 @@ bool game_scene::init()
 
     // clear the cache
     physics_shape_cache::get_instance()->remove_all_shapes();
+
+    // get the time limit
+    time_limit_ = static_cast<unsigned int>(get_tiled_map()->getProperty("time_limit").asInt());
 
     //get updates
     scheduleUpdate();
@@ -520,6 +524,22 @@ bool game_scene::add_objects_to_game()
   return result;
 }
 
+unsigned short int game_scene::calculate_stars() const
+{
+  unsigned short int stars = 1;
+
+  if (total_time_ <= time_limit_)
+  {
+    stars = 2;
+    if (robot_->get_shield_percentage() == 100.f)
+    {
+      stars = 3;
+    }
+  }
+
+  return stars;
+}
+
 void game_scene::game_over(const bool win)
 {
   do
@@ -530,7 +550,7 @@ void game_scene::game_over(const bool win)
     if (win)
     {
       audio_helper::get_instance()->play_effect("sounds/victory.ogg");
-      game_ui_->display_message("Level Completed", true);
+      game_ui_->display_message("Level Completed", true, calculate_stars(), time_limit_);
     }
     else
     {

@@ -74,8 +74,12 @@ public:
   // update our time
   void update_time(const float time) const;
 
+  // get time  string for the message
+  static string time_message(const unsigned int time);
+
   // display a message
-  void display_message(const std::string& message, const bool extended);
+  void display_message(const std::string& message, const bool extended = false, const unsigned short int stars = 0,
+                       const unsigned int limit_seconds = 0);
 
 private:
 
