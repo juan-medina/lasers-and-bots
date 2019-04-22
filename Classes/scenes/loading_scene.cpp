@@ -97,21 +97,11 @@ bool loading_scene::init(const load_to_type type)
 
     addChild(label, 0);
 
-    // create node grid for effects
-    auto node_grid = NodeGrid::create();
-    addChild(node_grid, 0);
-
     // background color layer will cover our logo until its fade out
     const auto color_layer = LayerColor::create(Color4B(0, 0, 0, 255));
     UTILS_BREAK_IF(!color_layer);
 
-    node_grid->addChild(color_layer, 0);
-
-    const auto tiles = FadeOutTRTiles::create(0.2f, Size(20, 20));
-    UTILS_BREAK_IF(tiles==nullptr);
-
-    const auto hide = Hide::create();
-    UTILS_BREAK_IF(hide == nullptr);
+    addChild(color_layer, 0);
 
     const auto delay_exit = DelayTime::create(1.0f);
     UTILS_BREAK_IF(delay_exit == nullptr);
@@ -121,11 +111,11 @@ bool loading_scene::init(const load_to_type type)
     UTILS_BREAK_IF(func == nullptr);
 
     // create the sequence of effects and go to the menu
-    const auto sequence = Sequence::create(tiles, hide, delay_exit, func, NULL);
+    const auto sequence = Sequence::create(delay_exit, func, NULL);
     UTILS_BREAK_IF(sequence == nullptr);
 
     // run effects
-    node_grid->runAction(sequence);
+    runAction(sequence);
 
 
     ret = true;

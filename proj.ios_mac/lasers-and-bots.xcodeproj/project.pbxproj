@@ -31,64 +31,66 @@
 		5087E78917EB974C00C73F5D /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5087E78817EB974C00C73F5D /* AppKit.framework */; };
 		5087E78B17EB975400C73F5D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5087E78A17EB975400C73F5D /* OpenGL.framework */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
-		589671CE226384E60015ACCB /* launcher_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5896719E226384E60015ACCB /* launcher_scene.cpp */; };
-		589671CF226384E60015ACCB /* launcher_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5896719E226384E60015ACCB /* launcher_scene.cpp */; };
-		589671D0226384E60015ACCB /* game_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5896719F226384E60015ACCB /* game_scene.cpp */; };
-		589671D1226384E60015ACCB /* game_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5896719F226384E60015ACCB /* game_scene.cpp */; };
-		589671D2226384E60015ACCB /* game_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671A2226384E60015ACCB /* game_ui.cpp */; };
-		589671D3226384E60015ACCB /* game_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671A2226384E60015ACCB /* game_ui.cpp */; };
-		589671D4226384E60015ACCB /* virtual_joy_stick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671A5226384E60015ACCB /* virtual_joy_stick.cpp */; };
-		589671D5226384E60015ACCB /* virtual_joy_stick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671A5226384E60015ACCB /* virtual_joy_stick.cpp */; };
-		589671D6226384E60015ACCB /* laser_and_bots_launcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671A6226384E60015ACCB /* laser_and_bots_launcher.cpp */; };
-		589671D7226384E60015ACCB /* laser_and_bots_launcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671A6226384E60015ACCB /* laser_and_bots_launcher.cpp */; };
-		589671D8226384E60015ACCB /* laser_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671A8226384E60015ACCB /* laser_object.cpp */; };
-		589671D9226384E60015ACCB /* laser_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671A8226384E60015ACCB /* laser_object.cpp */; };
-		589671DA226384E60015ACCB /* door_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671AA226384E60015ACCB /* door_object.cpp */; };
-		589671DB226384E60015ACCB /* door_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671AA226384E60015ACCB /* door_object.cpp */; };
-		589671DC226384E60015ACCB /* switch_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671AB226384E60015ACCB /* switch_object.cpp */; };
-		589671DD226384E60015ACCB /* switch_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671AB226384E60015ACCB /* switch_object.cpp */; };
-		589671DE226384E60015ACCB /* robot_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671AF226384E60015ACCB /* robot_object.cpp */; };
-		589671DF226384E60015ACCB /* robot_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671AF226384E60015ACCB /* robot_object.cpp */; };
-		589671E0226384E60015ACCB /* cocos2dClass.snippet in Resources */ = {isa = PBXBuildFile; fileRef = 589671B1226384E60015ACCB /* cocos2dClass.snippet */; };
-		589671E1226384E60015ACCB /* cocos2dClass.snippet in Resources */ = {isa = PBXBuildFile; fileRef = 589671B1226384E60015ACCB /* cocos2dClass.snippet */; };
-		589671E2226384E60015ACCB /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671B3226384E60015ACCB /* utils.cpp */; };
-		589671E3226384E60015ACCB /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671B3226384E60015ACCB /* utils.cpp */; };
-		589671E4226384E60015ACCB /* audio_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671B6226384E60015ACCB /* audio_helper.cpp */; };
-		589671E5226384E60015ACCB /* audio_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671B6226384E60015ACCB /* audio_helper.cpp */; };
-		589671E6226384E60015ACCB /* physics_shape_cache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671B8226384E60015ACCB /* physics_shape_cache.cpp */; };
-		589671E7226384E60015ACCB /* physics_shape_cache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671B8226384E60015ACCB /* physics_shape_cache.cpp */; };
-		589671E8226384E60015ACCB /* basic_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671BC226384E60015ACCB /* basic_app.cpp */; };
-		589671E9226384E60015ACCB /* basic_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671BC226384E60015ACCB /* basic_app.cpp */; };
-		589671EA226384E60015ACCB /* launcher_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671BD226384E60015ACCB /* launcher_app.cpp */; };
-		589671EB226384E60015ACCB /* launcher_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671BD226384E60015ACCB /* launcher_app.cpp */; };
-		589671EC226384E60015ACCB /* game_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671C2226384E60015ACCB /* game_object.cpp */; };
-		589671ED226384E60015ACCB /* game_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671C2226384E60015ACCB /* game_object.cpp */; };
-		589671EE226384E60015ACCB /* grid_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671C4226384E60015ACCB /* grid_scene.cpp */; };
-		589671EF226384E60015ACCB /* grid_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671C4226384E60015ACCB /* grid_scene.cpp */; };
-		589671F0226384E60015ACCB /* basic_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671C8226384E60015ACCB /* basic_scene.cpp */; };
-		589671F1226384E60015ACCB /* basic_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671C8226384E60015ACCB /* basic_scene.cpp */; };
-		589671F2226384E60015ACCB /* physics_tiled_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671CA226384E60015ACCB /* physics_tiled_scene.cpp */; };
-		589671F3226384E60015ACCB /* physics_tiled_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671CA226384E60015ACCB /* physics_tiled_scene.cpp */; };
-		589671F4226384E70015ACCB /* tiled_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671CB226384E60015ACCB /* tiled_scene.cpp */; };
-		589671F5226384E70015ACCB /* tiled_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671CB226384E60015ACCB /* tiled_scene.cpp */; };
-		589671F6226384E70015ACCB /* laser_and_bots_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671CC226384E60015ACCB /* laser_and_bots_app.cpp */; };
-		589671F7226384E70015ACCB /* laser_and_bots_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 589671CC226384E60015ACCB /* laser_and_bots_app.cpp */; };
-		58967200226385750015ACCB /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 589671F8226385740015ACCB /* fonts */; };
-		58967201226385750015ACCB /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 589671F8226385740015ACCB /* fonts */; };
-		58967202226385750015ACCB /* maps in Resources */ = {isa = PBXBuildFile; fileRef = 589671F9226385740015ACCB /* maps */; };
-		58967203226385750015ACCB /* maps in Resources */ = {isa = PBXBuildFile; fileRef = 589671F9226385740015ACCB /* maps */; };
-		58967204226385750015ACCB /* robot in Resources */ = {isa = PBXBuildFile; fileRef = 589671FA226385740015ACCB /* robot */; };
-		58967205226385750015ACCB /* robot in Resources */ = {isa = PBXBuildFile; fileRef = 589671FA226385740015ACCB /* robot */; };
-		58967206226385750015ACCB /* objects in Resources */ = {isa = PBXBuildFile; fileRef = 589671FB226385750015ACCB /* objects */; };
-		58967207226385750015ACCB /* objects in Resources */ = {isa = PBXBuildFile; fileRef = 589671FB226385750015ACCB /* objects */; };
-		58967208226385750015ACCB /* res in Resources */ = {isa = PBXBuildFile; fileRef = 589671FC226385750015ACCB /* res */; };
-		58967209226385750015ACCB /* res in Resources */ = {isa = PBXBuildFile; fileRef = 589671FC226385750015ACCB /* res */; };
-		5896720A226385750015ACCB /* ui in Resources */ = {isa = PBXBuildFile; fileRef = 589671FD226385750015ACCB /* ui */; };
-		5896720B226385750015ACCB /* ui in Resources */ = {isa = PBXBuildFile; fileRef = 589671FD226385750015ACCB /* ui */; };
-		5896720C226385750015ACCB /* shapes in Resources */ = {isa = PBXBuildFile; fileRef = 589671FE226385750015ACCB /* shapes */; };
-		5896720D226385750015ACCB /* shapes in Resources */ = {isa = PBXBuildFile; fileRef = 589671FE226385750015ACCB /* shapes */; };
-		5896720E226385750015ACCB /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = 589671FF226385750015ACCB /* sounds */; };
-		5896720F226385750015ACCB /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = 589671FF226385750015ACCB /* sounds */; };
+		5867BEF1226DD9F200155E4F /* shapes in Resources */ = {isa = PBXBuildFile; fileRef = 5867BEE9226DD9F200155E4F /* shapes */; };
+		5867BEF2226DD9F200155E4F /* shapes in Resources */ = {isa = PBXBuildFile; fileRef = 5867BEE9226DD9F200155E4F /* shapes */; };
+		5867BEF3226DD9F200155E4F /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = 5867BEEA226DD9F200155E4F /* sounds */; };
+		5867BEF4226DD9F200155E4F /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = 5867BEEA226DD9F200155E4F /* sounds */; };
+		5867BEF5226DD9F200155E4F /* robot in Resources */ = {isa = PBXBuildFile; fileRef = 5867BEEB226DD9F200155E4F /* robot */; };
+		5867BEF6226DD9F200155E4F /* robot in Resources */ = {isa = PBXBuildFile; fileRef = 5867BEEB226DD9F200155E4F /* robot */; };
+		5867BEF7226DD9F200155E4F /* ui in Resources */ = {isa = PBXBuildFile; fileRef = 5867BEEC226DD9F200155E4F /* ui */; };
+		5867BEF8226DD9F200155E4F /* ui in Resources */ = {isa = PBXBuildFile; fileRef = 5867BEEC226DD9F200155E4F /* ui */; };
+		5867BEF9226DD9F200155E4F /* maps in Resources */ = {isa = PBXBuildFile; fileRef = 5867BEED226DD9F200155E4F /* maps */; };
+		5867BEFA226DD9F200155E4F /* maps in Resources */ = {isa = PBXBuildFile; fileRef = 5867BEED226DD9F200155E4F /* maps */; };
+		5867BEFB226DD9F200155E4F /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 5867BEEE226DD9F200155E4F /* fonts */; };
+		5867BEFC226DD9F200155E4F /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 5867BEEE226DD9F200155E4F /* fonts */; };
+		5867BEFD226DD9F200155E4F /* res in Resources */ = {isa = PBXBuildFile; fileRef = 5867BEEF226DD9F200155E4F /* res */; };
+		5867BEFE226DD9F200155E4F /* res in Resources */ = {isa = PBXBuildFile; fileRef = 5867BEEF226DD9F200155E4F /* res */; };
+		5867BEFF226DD9F200155E4F /* objects in Resources */ = {isa = PBXBuildFile; fileRef = 5867BEF0226DD9F200155E4F /* objects */; };
+		5867BF00226DD9F200155E4F /* objects in Resources */ = {isa = PBXBuildFile; fileRef = 5867BEF0226DD9F200155E4F /* objects */; };
+		5867BF36226DDA0C00155E4F /* loading_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF02226DDA0C00155E4F /* loading_scene.cpp */; };
+		5867BF37226DDA0C00155E4F /* loading_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF02226DDA0C00155E4F /* loading_scene.cpp */; };
+		5867BF38226DDA0C00155E4F /* launcher_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF06226DDA0C00155E4F /* launcher_scene.cpp */; };
+		5867BF39226DDA0C00155E4F /* launcher_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF06226DDA0C00155E4F /* launcher_scene.cpp */; };
+		5867BF3A226DDA0C00155E4F /* game_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF07226DDA0C00155E4F /* game_scene.cpp */; };
+		5867BF3B226DDA0C00155E4F /* game_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF07226DDA0C00155E4F /* game_scene.cpp */; };
+		5867BF3C226DDA0C00155E4F /* cocos2dClass.snippet in Resources */ = {isa = PBXBuildFile; fileRef = 5867BF0A226DDA0C00155E4F /* cocos2dClass.snippet */; };
+		5867BF3D226DDA0C00155E4F /* cocos2dClass.snippet in Resources */ = {isa = PBXBuildFile; fileRef = 5867BF0A226DDA0C00155E4F /* cocos2dClass.snippet */; };
+		5867BF3E226DDA0C00155E4F /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF0C226DDA0C00155E4F /* utils.cpp */; };
+		5867BF3F226DDA0C00155E4F /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF0C226DDA0C00155E4F /* utils.cpp */; };
+		5867BF40226DDA0C00155E4F /* audio_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF0F226DDA0C00155E4F /* audio_helper.cpp */; };
+		5867BF41226DDA0C00155E4F /* audio_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF0F226DDA0C00155E4F /* audio_helper.cpp */; };
+		5867BF42226DDA0C00155E4F /* physics_shape_cache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF11226DDA0C00155E4F /* physics_shape_cache.cpp */; };
+		5867BF43226DDA0C00155E4F /* physics_shape_cache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF11226DDA0C00155E4F /* physics_shape_cache.cpp */; };
+		5867BF44226DDA0C00155E4F /* basic_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF15226DDA0C00155E4F /* basic_app.cpp */; };
+		5867BF45226DDA0C00155E4F /* basic_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF15226DDA0C00155E4F /* basic_app.cpp */; };
+		5867BF46226DDA0C00155E4F /* launcher_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF16226DDA0C00155E4F /* launcher_app.cpp */; };
+		5867BF47226DDA0C00155E4F /* launcher_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF16226DDA0C00155E4F /* launcher_app.cpp */; };
+		5867BF48226DDA0C00155E4F /* game_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF1B226DDA0C00155E4F /* game_object.cpp */; };
+		5867BF49226DDA0C00155E4F /* game_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF1B226DDA0C00155E4F /* game_object.cpp */; };
+		5867BF4A226DDA0C00155E4F /* grid_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF1D226DDA0C00155E4F /* grid_scene.cpp */; };
+		5867BF4B226DDA0C00155E4F /* grid_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF1D226DDA0C00155E4F /* grid_scene.cpp */; };
+		5867BF4C226DDA0C00155E4F /* basic_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF21226DDA0C00155E4F /* basic_scene.cpp */; };
+		5867BF4D226DDA0C00155E4F /* basic_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF21226DDA0C00155E4F /* basic_scene.cpp */; };
+		5867BF4E226DDA0C00155E4F /* physics_tiled_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF23226DDA0C00155E4F /* physics_tiled_scene.cpp */; };
+		5867BF4F226DDA0C00155E4F /* physics_tiled_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF23226DDA0C00155E4F /* physics_tiled_scene.cpp */; };
+		5867BF50226DDA0C00155E4F /* tiled_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF24226DDA0C00155E4F /* tiled_scene.cpp */; };
+		5867BF51226DDA0C00155E4F /* tiled_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF24226DDA0C00155E4F /* tiled_scene.cpp */; };
+		5867BF52226DDA0C00155E4F /* laser_and_bots_launcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF26226DDA0C00155E4F /* laser_and_bots_launcher.cpp */; };
+		5867BF53226DDA0C00155E4F /* laser_and_bots_launcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF26226DDA0C00155E4F /* laser_and_bots_launcher.cpp */; };
+		5867BF54226DDA0C00155E4F /* laser_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF28226DDA0C00155E4F /* laser_object.cpp */; };
+		5867BF55226DDA0C00155E4F /* laser_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF28226DDA0C00155E4F /* laser_object.cpp */; };
+		5867BF56226DDA0C00155E4F /* door_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF2A226DDA0C00155E4F /* door_object.cpp */; };
+		5867BF57226DDA0C00155E4F /* door_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF2A226DDA0C00155E4F /* door_object.cpp */; };
+		5867BF58226DDA0C00155E4F /* switch_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF2B226DDA0C00155E4F /* switch_object.cpp */; };
+		5867BF59226DDA0C00155E4F /* switch_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF2B226DDA0C00155E4F /* switch_object.cpp */; };
+		5867BF5A226DDA0C00155E4F /* robot_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF2F226DDA0C00155E4F /* robot_object.cpp */; };
+		5867BF5B226DDA0C00155E4F /* robot_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF2F226DDA0C00155E4F /* robot_object.cpp */; };
+		5867BF5C226DDA0C00155E4F /* laser_and_bots_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF30226DDA0C00155E4F /* laser_and_bots_app.cpp */; };
+		5867BF5D226DDA0C00155E4F /* laser_and_bots_app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF30226DDA0C00155E4F /* laser_and_bots_app.cpp */; };
+		5867BF5E226DDA0C00155E4F /* game_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF32226DDA0C00155E4F /* game_ui.cpp */; };
+		5867BF5F226DDA0C00155E4F /* game_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF32226DDA0C00155E4F /* game_ui.cpp */; };
+		5867BF60226DDA0C00155E4F /* virtual_joy_stick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF35226DDA0C00155E4F /* virtual_joy_stick.cpp */; };
+		5867BF61226DDA0C00155E4F /* virtual_joy_stick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5867BF35226DDA0C00155E4F /* virtual_joy_stick.cpp */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
@@ -167,55 +169,57 @@
 		5087E78817EB974C00C73F5D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		5087E78A17EB975400C73F5D /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
-		5896719C226384E60015ACCB /* game_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_scene.h; sourceTree = "<group>"; };
-		5896719D226384E60015ACCB /* launcher_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = launcher_scene.h; sourceTree = "<group>"; };
-		5896719E226384E60015ACCB /* launcher_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = launcher_scene.cpp; sourceTree = "<group>"; };
-		5896719F226384E60015ACCB /* game_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_scene.cpp; sourceTree = "<group>"; };
-		589671A0226384E60015ACCB /* laser_and_bots_launcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = laser_and_bots_launcher.h; sourceTree = "<group>"; };
-		589671A2226384E60015ACCB /* game_ui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_ui.cpp; sourceTree = "<group>"; };
-		589671A3226384E60015ACCB /* virtual_joy_stick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = virtual_joy_stick.h; sourceTree = "<group>"; };
-		589671A4226384E60015ACCB /* game_ui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_ui.h; sourceTree = "<group>"; };
-		589671A5226384E60015ACCB /* virtual_joy_stick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = virtual_joy_stick.cpp; sourceTree = "<group>"; };
-		589671A6226384E60015ACCB /* laser_and_bots_launcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = laser_and_bots_launcher.cpp; sourceTree = "<group>"; };
-		589671A8226384E60015ACCB /* laser_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = laser_object.cpp; sourceTree = "<group>"; };
-		589671A9226384E60015ACCB /* laser_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = laser_object.h; sourceTree = "<group>"; };
-		589671AA226384E60015ACCB /* door_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = door_object.cpp; sourceTree = "<group>"; };
-		589671AB226384E60015ACCB /* switch_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = switch_object.cpp; sourceTree = "<group>"; };
-		589671AC226384E60015ACCB /* robot_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = robot_object.h; sourceTree = "<group>"; };
-		589671AD226384E60015ACCB /* switch_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = switch_object.h; sourceTree = "<group>"; };
-		589671AE226384E60015ACCB /* door_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = door_object.h; sourceTree = "<group>"; };
-		589671AF226384E60015ACCB /* robot_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = robot_object.cpp; sourceTree = "<group>"; };
-		589671B1226384E60015ACCB /* cocos2dClass.snippet */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = cocos2dClass.snippet; sourceTree = "<group>"; };
-		589671B2226384E60015ACCB /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
-		589671B3226384E60015ACCB /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
-		589671B5226384E60015ACCB /* audio_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = audio_helper.h; sourceTree = "<group>"; };
-		589671B6226384E60015ACCB /* audio_helper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = audio_helper.cpp; sourceTree = "<group>"; };
-		589671B8226384E60015ACCB /* physics_shape_cache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = physics_shape_cache.cpp; sourceTree = "<group>"; };
-		589671B9226384E60015ACCB /* physics_shape_cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = physics_shape_cache.h; sourceTree = "<group>"; };
-		589671BC226384E60015ACCB /* basic_app.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = basic_app.cpp; sourceTree = "<group>"; };
-		589671BD226384E60015ACCB /* launcher_app.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = launcher_app.cpp; sourceTree = "<group>"; };
-		589671BE226384E60015ACCB /* launcher_app.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = launcher_app.h; sourceTree = "<group>"; };
-		589671BF226384E60015ACCB /* basic_app.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = basic_app.h; sourceTree = "<group>"; };
-		589671C1226384E60015ACCB /* game_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_object.h; sourceTree = "<group>"; };
-		589671C2226384E60015ACCB /* game_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_object.cpp; sourceTree = "<group>"; };
-		589671C4226384E60015ACCB /* grid_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = grid_scene.cpp; sourceTree = "<group>"; };
-		589671C5226384E60015ACCB /* grid_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = grid_scene.h; sourceTree = "<group>"; };
-		589671C6226384E60015ACCB /* physics_tiled_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = physics_tiled_scene.h; sourceTree = "<group>"; };
-		589671C7226384E60015ACCB /* basic_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = basic_scene.h; sourceTree = "<group>"; };
-		589671C8226384E60015ACCB /* basic_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = basic_scene.cpp; sourceTree = "<group>"; };
-		589671C9226384E60015ACCB /* tiled_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiled_scene.h; sourceTree = "<group>"; };
-		589671CA226384E60015ACCB /* physics_tiled_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = physics_tiled_scene.cpp; sourceTree = "<group>"; };
-		589671CB226384E60015ACCB /* tiled_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tiled_scene.cpp; sourceTree = "<group>"; };
-		589671CC226384E60015ACCB /* laser_and_bots_app.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = laser_and_bots_app.cpp; sourceTree = "<group>"; };
-		589671CD226384E60015ACCB /* laser_and_bots_app.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = laser_and_bots_app.h; sourceTree = "<group>"; };
-		589671F8226385740015ACCB /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
-		589671F9226385740015ACCB /* maps */ = {isa = PBXFileReference; lastKnownFileType = folder; path = maps; sourceTree = "<group>"; };
-		589671FA226385740015ACCB /* robot */ = {isa = PBXFileReference; lastKnownFileType = folder; path = robot; sourceTree = "<group>"; };
-		589671FB226385750015ACCB /* objects */ = {isa = PBXFileReference; lastKnownFileType = folder; path = objects; sourceTree = "<group>"; };
-		589671FC226385750015ACCB /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
-		589671FD226385750015ACCB /* ui */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ui; sourceTree = "<group>"; };
-		589671FE226385750015ACCB /* shapes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = shapes; sourceTree = "<group>"; };
-		589671FF226385750015ACCB /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
+		5867BEE9226DD9F200155E4F /* shapes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = shapes; sourceTree = "<group>"; };
+		5867BEEA226DD9F200155E4F /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
+		5867BEEB226DD9F200155E4F /* robot */ = {isa = PBXFileReference; lastKnownFileType = folder; path = robot; sourceTree = "<group>"; };
+		5867BEEC226DD9F200155E4F /* ui */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ui; sourceTree = "<group>"; };
+		5867BEED226DD9F200155E4F /* maps */ = {isa = PBXFileReference; lastKnownFileType = folder; path = maps; sourceTree = "<group>"; };
+		5867BEEE226DD9F200155E4F /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
+		5867BEEF226DD9F200155E4F /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
+		5867BEF0226DD9F200155E4F /* objects */ = {isa = PBXFileReference; lastKnownFileType = folder; path = objects; sourceTree = "<group>"; };
+		5867BF02226DDA0C00155E4F /* loading_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = loading_scene.cpp; sourceTree = "<group>"; };
+		5867BF03226DDA0C00155E4F /* loading_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loading_scene.h; sourceTree = "<group>"; };
+		5867BF04226DDA0C00155E4F /* game_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_scene.h; sourceTree = "<group>"; };
+		5867BF05226DDA0C00155E4F /* launcher_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = launcher_scene.h; sourceTree = "<group>"; };
+		5867BF06226DDA0C00155E4F /* launcher_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = launcher_scene.cpp; sourceTree = "<group>"; };
+		5867BF07226DDA0C00155E4F /* game_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_scene.cpp; sourceTree = "<group>"; };
+		5867BF08226DDA0C00155E4F /* laser_and_bots_app.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = laser_and_bots_app.h; sourceTree = "<group>"; };
+		5867BF0A226DDA0C00155E4F /* cocos2dClass.snippet */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = cocos2dClass.snippet; sourceTree = "<group>"; };
+		5867BF0B226DDA0C00155E4F /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
+		5867BF0C226DDA0C00155E4F /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
+		5867BF0E226DDA0C00155E4F /* audio_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = audio_helper.h; sourceTree = "<group>"; };
+		5867BF0F226DDA0C00155E4F /* audio_helper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = audio_helper.cpp; sourceTree = "<group>"; };
+		5867BF11226DDA0C00155E4F /* physics_shape_cache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = physics_shape_cache.cpp; sourceTree = "<group>"; };
+		5867BF12226DDA0C00155E4F /* physics_shape_cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = physics_shape_cache.h; sourceTree = "<group>"; };
+		5867BF15226DDA0C00155E4F /* basic_app.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = basic_app.cpp; sourceTree = "<group>"; };
+		5867BF16226DDA0C00155E4F /* launcher_app.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = launcher_app.cpp; sourceTree = "<group>"; };
+		5867BF17226DDA0C00155E4F /* launcher_app.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = launcher_app.h; sourceTree = "<group>"; };
+		5867BF18226DDA0C00155E4F /* basic_app.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = basic_app.h; sourceTree = "<group>"; };
+		5867BF1A226DDA0C00155E4F /* game_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_object.h; sourceTree = "<group>"; };
+		5867BF1B226DDA0C00155E4F /* game_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_object.cpp; sourceTree = "<group>"; };
+		5867BF1D226DDA0C00155E4F /* grid_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = grid_scene.cpp; sourceTree = "<group>"; };
+		5867BF1E226DDA0C00155E4F /* grid_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = grid_scene.h; sourceTree = "<group>"; };
+		5867BF1F226DDA0C00155E4F /* physics_tiled_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = physics_tiled_scene.h; sourceTree = "<group>"; };
+		5867BF20226DDA0C00155E4F /* basic_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = basic_scene.h; sourceTree = "<group>"; };
+		5867BF21226DDA0C00155E4F /* basic_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = basic_scene.cpp; sourceTree = "<group>"; };
+		5867BF22226DDA0C00155E4F /* tiled_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiled_scene.h; sourceTree = "<group>"; };
+		5867BF23226DDA0C00155E4F /* physics_tiled_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = physics_tiled_scene.cpp; sourceTree = "<group>"; };
+		5867BF24226DDA0C00155E4F /* tiled_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tiled_scene.cpp; sourceTree = "<group>"; };
+		5867BF25226DDA0C00155E4F /* laser_and_bots_launcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = laser_and_bots_launcher.h; sourceTree = "<group>"; };
+		5867BF26226DDA0C00155E4F /* laser_and_bots_launcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = laser_and_bots_launcher.cpp; sourceTree = "<group>"; };
+		5867BF28226DDA0C00155E4F /* laser_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = laser_object.cpp; sourceTree = "<group>"; };
+		5867BF29226DDA0C00155E4F /* laser_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = laser_object.h; sourceTree = "<group>"; };
+		5867BF2A226DDA0C00155E4F /* door_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = door_object.cpp; sourceTree = "<group>"; };
+		5867BF2B226DDA0C00155E4F /* switch_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = switch_object.cpp; sourceTree = "<group>"; };
+		5867BF2C226DDA0C00155E4F /* robot_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = robot_object.h; sourceTree = "<group>"; };
+		5867BF2D226DDA0C00155E4F /* switch_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = switch_object.h; sourceTree = "<group>"; };
+		5867BF2E226DDA0C00155E4F /* door_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = door_object.h; sourceTree = "<group>"; };
+		5867BF2F226DDA0C00155E4F /* robot_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = robot_object.cpp; sourceTree = "<group>"; };
+		5867BF30226DDA0C00155E4F /* laser_and_bots_app.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = laser_and_bots_app.cpp; sourceTree = "<group>"; };
+		5867BF32226DDA0C00155E4F /* game_ui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_ui.cpp; sourceTree = "<group>"; };
+		5867BF33226DDA0C00155E4F /* virtual_joy_stick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = virtual_joy_stick.h; sourceTree = "<group>"; };
+		5867BF34226DDA0C00155E4F /* game_ui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_ui.h; sourceTree = "<group>"; };
+		5867BF35226DDA0C00155E4F /* virtual_joy_stick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = virtual_joy_stick.cpp; sourceTree = "<group>"; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -352,14 +356,14 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				589671F8226385740015ACCB /* fonts */,
-				589671F9226385740015ACCB /* maps */,
-				589671FB226385750015ACCB /* objects */,
-				589671FC226385750015ACCB /* res */,
-				589671FA226385740015ACCB /* robot */,
-				589671FE226385750015ACCB /* shapes */,
-				589671FF226385750015ACCB /* sounds */,
-				589671FD226385750015ACCB /* ui */,
+				5867BEEE226DD9F200155E4F /* fonts */,
+				5867BEED226DD9F200155E4F /* maps */,
+				5867BEF0226DD9F200155E4F /* objects */,
+				5867BEEF226DD9F200155E4F /* res */,
+				5867BEEB226DD9F200155E4F /* robot */,
+				5867BEE9226DD9F200155E4F /* shapes */,
+				5867BEEA226DD9F200155E4F /* sounds */,
+				5867BEEC226DD9F200155E4F /* ui */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -368,14 +372,14 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				589671A7226384E60015ACCB /* game */,
-				589671CC226384E60015ACCB /* laser_and_bots_app.cpp */,
-				589671CD226384E60015ACCB /* laser_and_bots_app.h */,
-				589671A6226384E60015ACCB /* laser_and_bots_launcher.cpp */,
-				589671A0226384E60015ACCB /* laser_and_bots_launcher.h */,
-				5896719B226384E60015ACCB /* scenes */,
-				589671A1226384E60015ACCB /* ui */,
-				589671B0226384E60015ACCB /* utils */,
+				5867BF27226DDA0C00155E4F /* game */,
+				5867BF30226DDA0C00155E4F /* laser_and_bots_app.cpp */,
+				5867BF08226DDA0C00155E4F /* laser_and_bots_app.h */,
+				5867BF26226DDA0C00155E4F /* laser_and_bots_launcher.cpp */,
+				5867BF25226DDA0C00155E4F /* laser_and_bots_launcher.h */,
+				5867BF01226DDA0C00155E4F /* scenes */,
+				5867BF31226DDA0C00155E4F /* ui */,
+				5867BF09226DDA0C00155E4F /* utils */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -401,117 +405,119 @@
 			name = mac;
 			sourceTree = "<group>";
 		};
-		5896719B226384E60015ACCB /* scenes */ = {
+		5867BF01226DDA0C00155E4F /* scenes */ = {
 			isa = PBXGroup;
 			children = (
-				5896719C226384E60015ACCB /* game_scene.h */,
-				5896719D226384E60015ACCB /* launcher_scene.h */,
-				5896719E226384E60015ACCB /* launcher_scene.cpp */,
-				5896719F226384E60015ACCB /* game_scene.cpp */,
+				5867BF02226DDA0C00155E4F /* loading_scene.cpp */,
+				5867BF03226DDA0C00155E4F /* loading_scene.h */,
+				5867BF04226DDA0C00155E4F /* game_scene.h */,
+				5867BF05226DDA0C00155E4F /* launcher_scene.h */,
+				5867BF06226DDA0C00155E4F /* launcher_scene.cpp */,
+				5867BF07226DDA0C00155E4F /* game_scene.cpp */,
 			);
 			path = scenes;
 			sourceTree = "<group>";
 		};
-		589671A1226384E60015ACCB /* ui */ = {
+		5867BF09226DDA0C00155E4F /* utils */ = {
 			isa = PBXGroup;
 			children = (
-				589671A2226384E60015ACCB /* game_ui.cpp */,
-				589671A3226384E60015ACCB /* virtual_joy_stick.h */,
-				589671A4226384E60015ACCB /* game_ui.h */,
-				589671A5226384E60015ACCB /* virtual_joy_stick.cpp */,
-			);
-			path = ui;
-			sourceTree = "<group>";
-		};
-		589671A7226384E60015ACCB /* game */ = {
-			isa = PBXGroup;
-			children = (
-				589671A8226384E60015ACCB /* laser_object.cpp */,
-				589671A9226384E60015ACCB /* laser_object.h */,
-				589671AA226384E60015ACCB /* door_object.cpp */,
-				589671AB226384E60015ACCB /* switch_object.cpp */,
-				589671AC226384E60015ACCB /* robot_object.h */,
-				589671AD226384E60015ACCB /* switch_object.h */,
-				589671AE226384E60015ACCB /* door_object.h */,
-				589671AF226384E60015ACCB /* robot_object.cpp */,
-			);
-			path = game;
-			sourceTree = "<group>";
-		};
-		589671B0226384E60015ACCB /* utils */ = {
-			isa = PBXGroup;
-			children = (
-				589671B1226384E60015ACCB /* cocos2dClass.snippet */,
-				589671B2226384E60015ACCB /* utils.h */,
-				589671B3226384E60015ACCB /* utils.cpp */,
-				589671B4226384E60015ACCB /* audio */,
-				589671B7226384E60015ACCB /* physics */,
-				589671BA226384E60015ACCB /* base */,
+				5867BF0A226DDA0C00155E4F /* cocos2dClass.snippet */,
+				5867BF0B226DDA0C00155E4F /* utils.h */,
+				5867BF0C226DDA0C00155E4F /* utils.cpp */,
+				5867BF0D226DDA0C00155E4F /* audio */,
+				5867BF10226DDA0C00155E4F /* physics */,
+				5867BF13226DDA0C00155E4F /* base */,
 			);
 			path = utils;
 			sourceTree = "<group>";
 		};
-		589671B4226384E60015ACCB /* audio */ = {
+		5867BF0D226DDA0C00155E4F /* audio */ = {
 			isa = PBXGroup;
 			children = (
-				589671B5226384E60015ACCB /* audio_helper.h */,
-				589671B6226384E60015ACCB /* audio_helper.cpp */,
+				5867BF0E226DDA0C00155E4F /* audio_helper.h */,
+				5867BF0F226DDA0C00155E4F /* audio_helper.cpp */,
 			);
 			path = audio;
 			sourceTree = "<group>";
 		};
-		589671B7226384E60015ACCB /* physics */ = {
+		5867BF10226DDA0C00155E4F /* physics */ = {
 			isa = PBXGroup;
 			children = (
-				589671B8226384E60015ACCB /* physics_shape_cache.cpp */,
-				589671B9226384E60015ACCB /* physics_shape_cache.h */,
+				5867BF11226DDA0C00155E4F /* physics_shape_cache.cpp */,
+				5867BF12226DDA0C00155E4F /* physics_shape_cache.h */,
 			);
 			path = physics;
 			sourceTree = "<group>";
 		};
-		589671BA226384E60015ACCB /* base */ = {
+		5867BF13226DDA0C00155E4F /* base */ = {
 			isa = PBXGroup;
 			children = (
-				589671BB226384E60015ACCB /* app */,
-				589671C0226384E60015ACCB /* sprite */,
-				589671C3226384E60015ACCB /* scene */,
+				5867BF14226DDA0C00155E4F /* app */,
+				5867BF19226DDA0C00155E4F /* sprite */,
+				5867BF1C226DDA0C00155E4F /* scene */,
 			);
 			path = base;
 			sourceTree = "<group>";
 		};
-		589671BB226384E60015ACCB /* app */ = {
+		5867BF14226DDA0C00155E4F /* app */ = {
 			isa = PBXGroup;
 			children = (
-				589671BC226384E60015ACCB /* basic_app.cpp */,
-				589671BD226384E60015ACCB /* launcher_app.cpp */,
-				589671BE226384E60015ACCB /* launcher_app.h */,
-				589671BF226384E60015ACCB /* basic_app.h */,
+				5867BF15226DDA0C00155E4F /* basic_app.cpp */,
+				5867BF16226DDA0C00155E4F /* launcher_app.cpp */,
+				5867BF17226DDA0C00155E4F /* launcher_app.h */,
+				5867BF18226DDA0C00155E4F /* basic_app.h */,
 			);
 			path = app;
 			sourceTree = "<group>";
 		};
-		589671C0226384E60015ACCB /* sprite */ = {
+		5867BF19226DDA0C00155E4F /* sprite */ = {
 			isa = PBXGroup;
 			children = (
-				589671C1226384E60015ACCB /* game_object.h */,
-				589671C2226384E60015ACCB /* game_object.cpp */,
+				5867BF1A226DDA0C00155E4F /* game_object.h */,
+				5867BF1B226DDA0C00155E4F /* game_object.cpp */,
 			);
 			path = sprite;
 			sourceTree = "<group>";
 		};
-		589671C3226384E60015ACCB /* scene */ = {
+		5867BF1C226DDA0C00155E4F /* scene */ = {
 			isa = PBXGroup;
 			children = (
-				589671C4226384E60015ACCB /* grid_scene.cpp */,
-				589671C5226384E60015ACCB /* grid_scene.h */,
-				589671C6226384E60015ACCB /* physics_tiled_scene.h */,
-				589671C7226384E60015ACCB /* basic_scene.h */,
-				589671C8226384E60015ACCB /* basic_scene.cpp */,
-				589671C9226384E60015ACCB /* tiled_scene.h */,
-				589671CA226384E60015ACCB /* physics_tiled_scene.cpp */,
-				589671CB226384E60015ACCB /* tiled_scene.cpp */,
+				5867BF1D226DDA0C00155E4F /* grid_scene.cpp */,
+				5867BF1E226DDA0C00155E4F /* grid_scene.h */,
+				5867BF1F226DDA0C00155E4F /* physics_tiled_scene.h */,
+				5867BF20226DDA0C00155E4F /* basic_scene.h */,
+				5867BF21226DDA0C00155E4F /* basic_scene.cpp */,
+				5867BF22226DDA0C00155E4F /* tiled_scene.h */,
+				5867BF23226DDA0C00155E4F /* physics_tiled_scene.cpp */,
+				5867BF24226DDA0C00155E4F /* tiled_scene.cpp */,
 			);
 			path = scene;
+			sourceTree = "<group>";
+		};
+		5867BF27226DDA0C00155E4F /* game */ = {
+			isa = PBXGroup;
+			children = (
+				5867BF28226DDA0C00155E4F /* laser_object.cpp */,
+				5867BF29226DDA0C00155E4F /* laser_object.h */,
+				5867BF2A226DDA0C00155E4F /* door_object.cpp */,
+				5867BF2B226DDA0C00155E4F /* switch_object.cpp */,
+				5867BF2C226DDA0C00155E4F /* robot_object.h */,
+				5867BF2D226DDA0C00155E4F /* switch_object.h */,
+				5867BF2E226DDA0C00155E4F /* door_object.h */,
+				5867BF2F226DDA0C00155E4F /* robot_object.cpp */,
+			);
+			path = game;
+			sourceTree = "<group>";
+		};
+		5867BF31226DDA0C00155E4F /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				5867BF32226DDA0C00155E4F /* game_ui.cpp */,
+				5867BF33226DDA0C00155E4F /* virtual_joy_stick.h */,
+				5867BF34226DDA0C00155E4F /* game_ui.h */,
+				5867BF35226DDA0C00155E4F /* virtual_joy_stick.cpp */,
+			);
+			path = ui;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -621,18 +627,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5896720A226385750015ACCB /* ui in Resources */,
-				58967208226385750015ACCB /* res in Resources */,
-				5896720E226385750015ACCB /* sounds in Resources */,
+				5867BEF7226DD9F200155E4F /* ui in Resources */,
+				5867BEFD226DD9F200155E4F /* res in Resources */,
+				5867BEFB226DD9F200155E4F /* fonts in Resources */,
+				5867BEF1226DD9F200155E4F /* shapes in Resources */,
+				5867BEF5226DD9F200155E4F /* robot in Resources */,
 				1A88B2641FC3D9C9005C14AE /* Images.xcassets in Resources */,
-				58967206226385750015ACCB /* objects in Resources */,
-				58967204226385750015ACCB /* robot in Resources */,
-				5896720C226385750015ACCB /* shapes in Resources */,
-				58967200226385750015ACCB /* fonts in Resources */,
+				5867BEF3226DD9F200155E4F /* sounds in Resources */,
 				1AF87B891F6F781D007BE51C /* LaunchScreenBackground.png in Resources */,
-				58967202226385750015ACCB /* maps in Resources */,
+				5867BF3C226DDA0C00155E4F /* cocos2dClass.snippet in Resources */,
+				5867BEF9226DD9F200155E4F /* maps in Resources */,
+				5867BEFF226DD9F200155E4F /* objects in Resources */,
 				1AF87B881F6F781D007BE51C /* LaunchScreen.storyboard in Resources */,
-				589671E0226384E60015ACCB /* cocos2dClass.snippet in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,16 +646,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5896720F226385750015ACCB /* sounds in Resources */,
-				5896720D226385750015ACCB /* shapes in Resources */,
-				5896720B226385750015ACCB /* ui in Resources */,
-				58967201226385750015ACCB /* fonts in Resources */,
-				58967205226385750015ACCB /* robot in Resources */,
-				58967203226385750015ACCB /* maps in Resources */,
-				58967207226385750015ACCB /* objects in Resources */,
-				58967209226385750015ACCB /* res in Resources */,
+				5867BEFE226DD9F200155E4F /* res in Resources */,
+				5867BEF2226DD9F200155E4F /* shapes in Resources */,
+				5867BF3D226DDA0C00155E4F /* cocos2dClass.snippet in Resources */,
+				5867BEF6226DD9F200155E4F /* robot in Resources */,
+				5867BF00226DD9F200155E4F /* objects in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
-				589671E1226384E60015ACCB /* cocos2dClass.snippet in Resources */,
+				5867BEFA226DD9F200155E4F /* maps in Resources */,
+				5867BEF4226DD9F200155E4F /* sounds in Resources */,
+				5867BEF8226DD9F200155E4F /* ui in Resources */,
+				5867BEFC226DD9F200155E4F /* fonts in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -660,29 +666,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				589671EC226384E60015ACCB /* game_object.cpp in Sources */,
-				589671E8226384E60015ACCB /* basic_app.cpp in Sources */,
-				589671F6226384E70015ACCB /* laser_and_bots_app.cpp in Sources */,
-				589671EE226384E60015ACCB /* grid_scene.cpp in Sources */,
-				589671DC226384E60015ACCB /* switch_object.cpp in Sources */,
+				5867BF48226DDA0C00155E4F /* game_object.cpp in Sources */,
+				5867BF44226DDA0C00155E4F /* basic_app.cpp in Sources */,
+				5867BF3A226DDA0C00155E4F /* game_scene.cpp in Sources */,
+				5867BF60226DDA0C00155E4F /* virtual_joy_stick.cpp in Sources */,
+				5867BF5E226DDA0C00155E4F /* game_ui.cpp in Sources */,
+				5867BF4A226DDA0C00155E4F /* grid_scene.cpp in Sources */,
 				1AF87B781F6F77F7007BE51C /* AppController.mm in Sources */,
-				589671E6226384E60015ACCB /* physics_shape_cache.cpp in Sources */,
-				589671E4226384E60015ACCB /* audio_helper.cpp in Sources */,
-				589671D8226384E60015ACCB /* laser_object.cpp in Sources */,
-				589671D2226384E60015ACCB /* game_ui.cpp in Sources */,
-				589671D0226384E60015ACCB /* game_scene.cpp in Sources */,
-				589671E2226384E60015ACCB /* utils.cpp in Sources */,
-				589671DE226384E60015ACCB /* robot_object.cpp in Sources */,
-				589671F2226384E60015ACCB /* physics_tiled_scene.cpp in Sources */,
+				5867BF42226DDA0C00155E4F /* physics_shape_cache.cpp in Sources */,
+				5867BF40226DDA0C00155E4F /* audio_helper.cpp in Sources */,
+				5867BF46226DDA0C00155E4F /* launcher_app.cpp in Sources */,
+				5867BF5A226DDA0C00155E4F /* robot_object.cpp in Sources */,
+				5867BF36226DDA0C00155E4F /* loading_scene.cpp in Sources */,
+				5867BF4E226DDA0C00155E4F /* physics_tiled_scene.cpp in Sources */,
+				5867BF54226DDA0C00155E4F /* laser_object.cpp in Sources */,
 				1AF87B8B1F6F782A007BE51C /* RootViewController.mm in Sources */,
-				589671D4226384E60015ACCB /* virtual_joy_stick.cpp in Sources */,
-				589671F4226384E70015ACCB /* tiled_scene.cpp in Sources */,
-				589671D6226384E60015ACCB /* laser_and_bots_launcher.cpp in Sources */,
-				589671F0226384E60015ACCB /* basic_scene.cpp in Sources */,
-				589671EA226384E60015ACCB /* launcher_app.cpp in Sources */,
-				589671CE226384E60015ACCB /* launcher_scene.cpp in Sources */,
-				589671DA226384E60015ACCB /* door_object.cpp in Sources */,
+				5867BF38226DDA0C00155E4F /* launcher_scene.cpp in Sources */,
+				5867BF4C226DDA0C00155E4F /* basic_scene.cpp in Sources */,
 				1AF87B8A1F6F7822007BE51C /* main.m in Sources */,
+				5867BF56226DDA0C00155E4F /* door_object.cpp in Sources */,
+				5867BF3E226DDA0C00155E4F /* utils.cpp in Sources */,
+				5867BF52226DDA0C00155E4F /* laser_and_bots_launcher.cpp in Sources */,
+				5867BF5C226DDA0C00155E4F /* laser_and_bots_app.cpp in Sources */,
+				5867BF58226DDA0C00155E4F /* switch_object.cpp in Sources */,
+				5867BF50226DDA0C00155E4F /* tiled_scene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -690,27 +697,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				589671ED226384E60015ACCB /* game_object.cpp in Sources */,
-				589671D1226384E60015ACCB /* game_scene.cpp in Sources */,
-				589671CF226384E60015ACCB /* launcher_scene.cpp in Sources */,
-				589671E5226384E60015ACCB /* audio_helper.cpp in Sources */,
-				589671DB226384E60015ACCB /* door_object.cpp in Sources */,
-				589671EB226384E60015ACCB /* launcher_app.cpp in Sources */,
-				589671DF226384E60015ACCB /* robot_object.cpp in Sources */,
+				5867BF4B226DDA0C00155E4F /* grid_scene.cpp in Sources */,
+				5867BF45226DDA0C00155E4F /* basic_app.cpp in Sources */,
+				5867BF5B226DDA0C00155E4F /* robot_object.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
-				589671F3226384E60015ACCB /* physics_tiled_scene.cpp in Sources */,
-				589671D9226384E60015ACCB /* laser_object.cpp in Sources */,
-				589671E3226384E60015ACCB /* utils.cpp in Sources */,
-				589671DD226384E60015ACCB /* switch_object.cpp in Sources */,
-				589671EF226384E60015ACCB /* grid_scene.cpp in Sources */,
-				589671D5226384E60015ACCB /* virtual_joy_stick.cpp in Sources */,
-				589671F7226384E70015ACCB /* laser_and_bots_app.cpp in Sources */,
-				589671E9226384E60015ACCB /* basic_app.cpp in Sources */,
-				589671D3226384E60015ACCB /* game_ui.cpp in Sources */,
-				589671E7226384E60015ACCB /* physics_shape_cache.cpp in Sources */,
-				589671D7226384E60015ACCB /* laser_and_bots_launcher.cpp in Sources */,
-				589671F1226384E60015ACCB /* basic_scene.cpp in Sources */,
-				589671F5226384E70015ACCB /* tiled_scene.cpp in Sources */,
+				5867BF5F226DDA0C00155E4F /* game_ui.cpp in Sources */,
+				5867BF51226DDA0C00155E4F /* tiled_scene.cpp in Sources */,
+				5867BF4F226DDA0C00155E4F /* physics_tiled_scene.cpp in Sources */,
+				5867BF49226DDA0C00155E4F /* game_object.cpp in Sources */,
+				5867BF3F226DDA0C00155E4F /* utils.cpp in Sources */,
+				5867BF41226DDA0C00155E4F /* audio_helper.cpp in Sources */,
+				5867BF53226DDA0C00155E4F /* laser_and_bots_launcher.cpp in Sources */,
+				5867BF39226DDA0C00155E4F /* launcher_scene.cpp in Sources */,
+				5867BF57226DDA0C00155E4F /* door_object.cpp in Sources */,
+				5867BF43226DDA0C00155E4F /* physics_shape_cache.cpp in Sources */,
+				5867BF3B226DDA0C00155E4F /* game_scene.cpp in Sources */,
+				5867BF47226DDA0C00155E4F /* launcher_app.cpp in Sources */,
+				5867BF5D226DDA0C00155E4F /* laser_and_bots_app.cpp in Sources */,
+				5867BF59226DDA0C00155E4F /* switch_object.cpp in Sources */,
+				5867BF37226DDA0C00155E4F /* loading_scene.cpp in Sources */,
+				5867BF55226DDA0C00155E4F /* laser_object.cpp in Sources */,
+				5867BF4D226DDA0C00155E4F /* basic_scene.cpp in Sources */,
+				5867BF61226DDA0C00155E4F /* virtual_joy_stick.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
