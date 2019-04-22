@@ -93,9 +93,9 @@ bool robot_object::init(virtual_joy_stick* virtual_joy_stick, const int max_shie
     UTILS_BREAK_IF(!create_anim("Run_%02d.png", 8, 0.15f, "run"));
     UTILS_BREAK_IF(!create_anim("Jump_%02d.png", 10, 0.15f, "jump", 1));
 
-    audio_helper::pre_load_effect("sounds/metal_footsteps.ogg");
-    audio_helper::pre_load_effect("sounds/jump.ogg");
-    audio_helper::pre_load_effect("sounds/land.ogg");
+    audio_helper::pre_load_effect("sounds/metal_footsteps.mp3");
+    audio_helper::pre_load_effect("sounds/jump.mp3");
+    audio_helper::pre_load_effect("sounds/land.mp3");
 
     change_anim("idle");
 
@@ -124,7 +124,7 @@ void robot_object::on_land_on_block()
 {
   if (jumping_)
   {
-    audio_helper::get_instance()->play_effect("sounds/land.ogg", false, 0.35f);
+    audio_helper::get_instance()->play_effect("sounds/land.mp3", false, 0.35f);
   }
   jumping_ = false;
 }
@@ -256,7 +256,7 @@ void robot_object::jump(const bool to_jump)
     {
       if (!jumping_)
       {
-        audio_helper::get_instance()->play_effect("sounds/jump.ogg", false, 0.35f);
+        audio_helper::get_instance()->play_effect("sounds/jump.mp3", false, 0.35f);
         getPhysicsBody()->applyImpulse(Vec2(0.0f, normal_movement.y));
         jumping_ = true;
       }
@@ -275,7 +275,7 @@ void robot_object::walk_sound(const bool active)
   {
     if (walk_sound_ == -1)
     {
-      walk_sound_ = audio_helper::get_instance()->play_effect("sounds/metal_footsteps.ogg", true);
+      walk_sound_ = audio_helper::get_instance()->play_effect("sounds/metal_footsteps.mp3", true);
     }
     else
     {

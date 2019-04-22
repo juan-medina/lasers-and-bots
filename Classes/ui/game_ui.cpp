@@ -75,8 +75,8 @@ bool game_ui::init()
     // 1. super init first
     UTILS_BREAK_IF(!base_class::init());
 
-    audio_helper::pre_load_effect("sounds/select.ogg");
-    audio_helper::pre_load_effect("sounds/star.ogg");
+    audio_helper::pre_load_effect("sounds/select.mp3");
+    audio_helper::pre_load_effect("sounds/star.mp3");
 
     const auto& size = Director::getInstance()->getVisibleSize();
 
@@ -228,14 +228,14 @@ bool game_ui::init()
 
 void game_ui::on_pause(Ref* sender)
 {
-  audio_helper::get_instance()->play_effect("sounds/select.ogg");
+  audio_helper::get_instance()->play_effect("sounds/select.mp3");
   const auto scene = dynamic_cast<game_scene*>(Director::getInstance()->getRunningScene());
   scene->toggle_pause();
 }
 
 void game_ui::on_close(Ref* sender)
 {
-  audio_helper::get_instance()->play_effect("sounds/select.ogg");
+  audio_helper::get_instance()->play_effect("sounds/select.mp3");
   const auto scene = dynamic_cast<game_scene*>(Director::getInstance()->getRunningScene());
   scene->pause();
 
@@ -245,7 +245,7 @@ void game_ui::on_close(Ref* sender)
 
 void game_ui::on_reload(Ref* sender)
 {
-  audio_helper::get_instance()->play_effect("sounds/select.ogg");
+  audio_helper::get_instance()->play_effect("sounds/select.mp3");
   const auto scene = dynamic_cast<game_scene*>(Director::getInstance()->getRunningScene());
   scene->reload();
 }
@@ -475,5 +475,5 @@ void game_ui::display_message(const std::string& message, const bool extended /*
 
 void game_ui::star_sound()
 {
-  audio_helper::get_instance()->play_effect("sounds/star.ogg");
+  audio_helper::get_instance()->play_effect("sounds/star.mp3");
 }

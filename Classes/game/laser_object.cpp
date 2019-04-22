@@ -86,7 +86,7 @@ bool laser_object::init(const float initial_angle, const float speed_factor, con
 
     scheduleUpdate();
 
-    audio_helper::pre_load_effect("sounds/laser.ogg");
+    audio_helper::pre_load_effect("sounds/laser.mp3");
 
     ret = true;
   }
@@ -198,7 +198,7 @@ void laser_object::resume()
   }
   if (loop_sound_ == -1)
   {
-    loop_sound_ = audio_helper::get_instance()->play_effect("sounds/laser.ogg", true, 0.7f);
+    loop_sound_ = audio_helper::get_instance()->play_effect("sounds/laser.mp3", true, 0.7f);
   }
 
 
@@ -223,7 +223,7 @@ void laser_object::update_spark(const Vec2& point)
 
     if (loop_sound_ == -1)
     {
-      loop_sound_ = audio_helper::get_instance()->play_effect("sounds/laser.ogg", true, 0.7f);
+      loop_sound_ = audio_helper::get_instance()->play_effect("sounds/laser.mp3", true, 0.7f);
     }
   }
   spark_->setPosition(point);

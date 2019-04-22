@@ -126,11 +126,11 @@ bool game_scene::init()
     contact_listener->onContactBegin = CC_CALLBACK_1(game_scene::on_contact_begin, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(contact_listener, this);
 
-    audio_helper::pre_load_music("sounds/music.ogg");
-    audio_helper::pre_load_effect("sounds/fail.ogg");
-    audio_helper::pre_load_effect("sounds/victory.ogg");
+    audio_helper::pre_load_music("sounds/music.mp3");
+    audio_helper::pre_load_effect("sounds/fail.mp3");
+    audio_helper::pre_load_effect("sounds/victory.mp3");
 
-    audio_helper::get_instance()->play_music("sounds/music.ogg", 0.30f);
+    audio_helper::get_instance()->play_music("sounds/music.mp3", 0.30f);
     ret = true;
   }
   while (false);
@@ -550,12 +550,12 @@ void game_scene::game_over(const bool win)
 
     if (win)
     {
-      audio_helper::get_instance()->play_effect("sounds/victory.ogg");
+      audio_helper::get_instance()->play_effect("sounds/victory.mp3");
       game_ui_->display_message("Level Completed", true, calculate_stars(), time_limit_);
     }
     else
     {
-      audio_helper::get_instance()->play_effect("sounds/fail.ogg");
+      audio_helper::get_instance()->play_effect("sounds/fail.mp3");
       game_ui_->display_message("Game Over", false);
     }
   }
