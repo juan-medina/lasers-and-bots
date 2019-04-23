@@ -144,7 +144,7 @@
  </layer>
  <layer name="walk_back" width="40" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFIxHwDnHzR8EoGAXYwWjeGwWjYBQMRkBp2cSIgz1YABMONjGAFP+Q63dK3EeKemLVAgCYIwBF
+   eJxjYBgFIxHwDnHzR8EoGAWYYDTfjYJRMAoGK6C0fGLEwR4sgAkHmxhAin/I9Tsl7iNFPbFqAZhXAEU=
   </data>
  </layer>
  <layer name="walk" width="40" height="20">
@@ -152,7 +152,7 @@
    <property name="physics" type="bool" value="true"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJztlgsKgzAQRKMHSP206Ufvf85maQbWJZsmEbUFB4bS1mQfo0w05tSpOl28+6MhFBHbzfu689yX9+Q9J64hts4cw5cScU3Me/Ahi17MhvE/8uIaNuKTM8fEHGJ4MGt8lv1uxXU2mGdRKo0vJx9kPYvPWP4yizXMpKFyHXQ3y/zJT7F/6v5909bPP/id+eSd0x+asEft+hqV8P5S18WkPYtr7kmtYjP/Nb+YeK90BWuoZ5rg2PuH1kPUryX5oTfILpMVfd8Gy/MJ7yRSvEObTHM+bmeWfSz7O8aH80d+x5nEe7/NtMY3sr1o/zcrOA1G
+   eJztlo0KgzAMhKsP0PmzdZv6/s+5BnqQhVSairqBB4comnyk9Kpzly7V6Rbdnw2REbE9ou8H952i5+hl5R1i69w5fGsirpn5CD7Mohe9JQt4uIad+MCENRqVPkNBHc7n2XMv3vPJfBZWST7LXDDfRVyxDmuzqGXm89uSI8/ol/Bb9NHWz6rg9sk68FN9mndJfuSEGrXf18jC+0tZpym3p7esSa20nv86P008VzrDN7QHm2QtN3J7lPLVMj/kBjkUsiLv22R5PuGfRIpnaFNozscd3Hcey/zW+HD+yHucSTz320Ln+EZWi+p/APVlDUc=
   </data>
  </layer>
  <layer name="front" width="40" height="20">
@@ -166,7 +166,7 @@
     <property name="shield" type="int" value="1000"/>
    </properties>
   </object>
-  <object id="7" name="laser4" type="laser" gid="31" x="3636.4" y="2396.11" width="256" height="256" rotation="-144.645">
+  <object id="7" name="laser4" type="laser" gid="31" x="3386.4" y="2394.11" width="256" height="256" rotation="-144.645">
    <properties>
     <property name="damage" type="int" value="10"/>
     <property name="speed" type="float" value="4.5"/>
