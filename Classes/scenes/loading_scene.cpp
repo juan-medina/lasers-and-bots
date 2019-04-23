@@ -101,7 +101,7 @@ bool loading_scene::init(const load_to_type type)
 
     addChild(label, 0);
 
-    const auto delay_exit = DelayTime::create(1.f);
+    const auto delay_exit = DelayTime::create(0.15f);
     UTILS_BREAK_IF(delay_exit == nullptr);
 
     // function call in the event chain to go to the menu
