@@ -209,10 +209,14 @@ bool game_ui::init()
     // time label
 
     // create the text for the label
-    time_label_ = Label::createWithTTF("00:00.00", "fonts/tahoma.ttf", 120);
+    time_label_ = Label::createWithTTF("00:00.00", "fonts/tahoma.ttf", 180);
     UTILS_BREAK_IF(time_label_ == nullptr);
 
     time_label_->setTextColor(Color4B(0, 255, 255, 255));
+
+    time_label_->enableGlow(Color4B(0, 127, 127, 127));
+    time_label_->enableShadow(Color4B(255, 255, 255, 127), Size(10, -10));
+    time_label_->enableOutline(Color4B(255, 255, 255, 255), 10);
 
     // position the label
     time_label_->setPosition(Vec2(size.width / 2, size.height - close_item->getContentSize().height));
