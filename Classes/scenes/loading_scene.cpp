@@ -91,14 +91,12 @@ bool loading_scene::init(const load_to_type type)
     auto label = Label::createWithTTF("Loading...", "fonts/tahoma.ttf", 500);
     UTILS_BREAK_IF(label == nullptr);
 
-
-
     // position menu item
     label->setPosition(Vec2(size.width / 2, size.height / 2));
     label->setTextColor(Color4B(0, 255, 255, 255));
 
     label->enableGlow(Color4B(0, 127, 127, 127));
-    label->enableShadow(Color4B(255, 255, 255, 127), Size(10,-10));
+    label->enableShadow(Color4B(255, 255, 255, 127), Size(10, -10));
     label->enableOutline(Color4B(255, 255, 255, 255), 10);
 
     addChild(label, 0);

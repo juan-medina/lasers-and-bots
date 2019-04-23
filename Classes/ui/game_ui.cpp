@@ -200,8 +200,10 @@ bool game_ui::init()
     shield_label_ = Label::createWithTTF("100%", "fonts/tahoma.ttf", 120);
     UTILS_BREAK_IF(shield_label_ == nullptr);
 
-    shield_label_->setTextColor(Color4B(0, 127, 127, 255));
+    shield_label_->setTextColor(Color4B(255, 255, 255, 255));
     shield_label_->setPosition(bar_pos);
+
+    shield_label_->enableOutline(Color4B(0, 0, 0, 255), 5);
 
     addChild(shield_label_);
 
@@ -315,6 +317,10 @@ void game_ui::display_message(const std::string& message, const bool extended /*
     UTILS_BREAK_IF(label == nullptr);
 
     label->setTextColor(Color4B(0, 255, 255, 255));
+    label->enableOutline(Color4B(0, 0, 0, 255), 5);
+    label->enableGlow(Color4B(0, 127, 127, 127));
+    label->enableShadow(Color4B(255, 255, 255, 127), Size(5, -5));
+
 
     // position the label
     label->setPosition(horizontal_segment / 2, vertical_segment - label->getContentSize().height);
@@ -342,7 +348,9 @@ void game_ui::display_message(const std::string& message, const bool extended /*
 
     label_button->setPosition(continue_sprite->getContentSize().width / 2,
                               continue_sprite->getContentSize().height / 2);
-    label_button->setTextColor(Color4B(0, 64, 64, 255));
+    label_button->setTextColor(Color4B(255, 255, 255, 255));
+    label_button->enableOutline(Color4B(0, 0, 0, 255), 5);
+
 
     continue_item->addChild(label_button);
     continue_item->setScale(2.f);
@@ -371,6 +379,7 @@ void game_ui::display_message(const std::string& message, const bool extended /*
     label_time->setAnchorPoint(Vec2(0.f, 0.f));
     label_time->setHorizontalAlignment(TextHAlignment::LEFT);
     label_time->setTextColor(Color4B(255, 255, 255, 255));
+    label_time->enableOutline(Color4B(0, 0, 0, 255), 5);
 
     // position the label
     label_time->setPosition(50, label->getPosition().y - 600);
@@ -383,6 +392,7 @@ void game_ui::display_message(const std::string& message, const bool extended /*
     label_time_value->setAnchorPoint(Vec2(0.f, 0.f));
     label_time_value->setHorizontalAlignment(TextHAlignment::LEFT);
     label_time_value->setTextColor(Color4B(255, 255, 255, 255));
+    label_time_value->enableOutline(Color4B(0, 0, 0, 255), 5);
 
     // position the label
     label_time_value->setPosition(650, label_time->getPosition().y);
@@ -398,6 +408,7 @@ void game_ui::display_message(const std::string& message, const bool extended /*
     label_shield->setAnchorPoint(Vec2(0.f, 0.f));
     label_shield->setHorizontalAlignment(TextHAlignment::LEFT);
     label_shield->setTextColor(Color4B(255, 255, 255, 255));
+    label_shield->enableOutline(Color4B(0, 0, 0, 255), 5);
 
     // position the label
     label_shield->setPosition(50, label->getPosition().y - 900);
@@ -412,6 +423,7 @@ void game_ui::display_message(const std::string& message, const bool extended /*
     label_shield_value->setAnchorPoint(Vec2(0.f, 0.f));
     label_shield_value->setHorizontalAlignment(TextHAlignment::LEFT);
     label_shield_value->setTextColor(Color4B(255, 255, 255, 255));
+    label_shield_value->enableOutline(Color4B(0, 0, 0, 255), 5);
 
     // position the label
     label_shield_value->setPosition(650, label_shield->getPosition().y);
@@ -429,11 +441,11 @@ void game_ui::display_message(const std::string& message, const bool extended /*
 
       const auto star_gray = Sprite::createWithSpriteFrameName("09_star_02.png");
 
-      const auto star_pos = first_start_pos + Vec2((horizontal_segment/3) * start_counter, 0.f);
+      const auto star_pos = first_start_pos + Vec2((horizontal_segment / 3) * start_counter, 0.f);
       star_gray->setPosition(star_pos);
       background->addChild(star_gray);
 
-      auto star_tex = string("complete level");
+      auto star_tex = string("level completed");
       if (start_counter == 1)
       {
         star_tex = "and under " + time_message(limit_seconds);
@@ -450,6 +462,8 @@ void game_ui::display_message(const std::string& message, const bool extended /*
       label_star->setHorizontalAlignment(TextHAlignment::CENTER);
       label_star->setPosition(label_pos);
       label_star->setTextColor(Color4B(255, 255, 255, 255));
+      label_star->enableOutline(Color4B(0, 0, 0, 255), 5);
+
       star_gray->addChild(label_star);
 
       if (is_gold)
