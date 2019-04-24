@@ -168,6 +168,9 @@ private:
 
   // the time limit
   unsigned int time_limit_;
+
+  // the level name
+  std::string level_name_;
 };
 
 #endif // __MAIN_SCENE__

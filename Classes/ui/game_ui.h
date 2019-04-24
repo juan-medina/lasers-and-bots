@@ -72,14 +72,14 @@ public:
   }
 
   // update our time
-  void update_time(const float time) const;
+  void update_time(const float time, const unsigned int time_limit);
 
   // get time  string for the message
-  static string time_message(const unsigned int time);
+  static string time_message(const float time);
 
   // display a message
-  void display_message(const std::string& message, const bool extended = false, const unsigned short int stars = 0,
-                       const unsigned int limit_seconds = 0);
+  void display_message(const std::string& message, const std::string& sub_message, const ccMenuCallback& callback,
+                       const short int stars = -1);
 
 private:
 
@@ -98,8 +98,14 @@ private:
   // the time label
   Label* time_label_;
 
+  // the sub time label
+  Label* sub_time_label_;
+
   // make a star sound
   void star_sound();
+
+  // the time limit
+  unsigned int time_limit_;
 };
 
 #endif // __GAME_UI__CLASS__

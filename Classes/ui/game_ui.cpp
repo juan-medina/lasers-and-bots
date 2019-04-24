@@ -29,7 +29,9 @@ game_ui::game_ui():
   shield_bar_(nullptr),
   shield_label_(nullptr),
   pause_item_(nullptr),
-  time_label_(nullptr)
+  time_label_(nullptr),
+  sub_time_label_(nullptr),
+  time_limit_(0)
 {
 }
 
@@ -226,6 +228,24 @@ bool game_ui::init()
 
     addChild(time_label_);
 
+    //////////////////////////////
+    // sub time label
+
+    // create the text for the label
+    sub_time_label_ = Label::createWithTTF("00:00.00", "fonts/tahoma.ttf", 90);
+    UTILS_BREAK_IF(sub_time_label_ == nullptr);
+
+    sub_time_label_->setTextColor(Color4B(0, 0, 255, 255));
+
+    sub_time_label_->enableShadow(Color4B(0, 0, 0, 127), Size(5, -5));
+    sub_time_label_->enableOutline(Color4B(0, 0, 0, 255), 5);
+
+    // position the label
+    sub_time_label_->setPosition(Vec2(time_label_->getPosition().x + time_label_->getContentSize().width,
+                                      time_label_->getPosition().y));
+
+    addChild(sub_time_label_);
+
     ret = true;
   }
   while (false);
@@ -257,7 +277,19 @@ void game_ui::on_reload(Ref* sender)
   scene->reload();
 }
 
-void game_ui::update_time(const float time) const
+void game_ui::update_time(const float time, const unsigned int time_limit)
+{
+  time_limit_ = time_limit;
+  const auto time_left = time_limit - time;
+  if (time_left < 0.f)
+  {
+    sub_time_label_->setTextColor(Color4B(255, 0, 0, 255));
+  }
+  sub_time_label_->setString(time_message(fabs(time_left)));
+  time_label_->setString(time_message(time));
+}
+
+string game_ui::time_message(const float time)
 {
   float whole;
   const auto fractional = std::modf(time, &whole);
@@ -265,18 +297,11 @@ void game_ui::update_time(const float time) const
   const auto minutes = static_cast<int>(whole / 60.f);
   const auto seconds = static_cast<int>(time - (minutes * 60));
   const auto milliseconds = static_cast<int>(fractional * 100);
-  time_label_->setString(string_format("%02d:%02d%c%02d", minutes, seconds, '.', milliseconds));
+  return string_format("%02d:%02d%c%02d", minutes, seconds, '.', milliseconds);
 }
 
-string game_ui::time_message(const unsigned int time)
-{
-  const auto minutes = static_cast<int>(time / 60.f);
-  const auto seconds = static_cast<int>(time - (minutes * 60));
-  return string_format("%02d:%02d%", minutes, seconds);
-}
-
-void game_ui::display_message(const std::string& message, const bool extended /*= false*/,
-                              const unsigned short int stars /*= 0*/, const unsigned int limit_seconds /*= 0*/)
+void game_ui::display_message(const std::string& message, const std::string& sub_message,
+                              const ccMenuCallback& callback, const short int stars /*= -1*/)
 {
   do
   {
@@ -297,12 +322,13 @@ void game_ui::display_message(const std::string& message, const bool extended /*
     const auto horizontal_segment = background->getContentSize().width;
     const auto vertical_segment = background->getContentSize().height;
 
+    background->setCascadeOpacityEnabled(true);
     background->setOpacity(0);
     background->setPosition(size.width / 2, size.height / 2);
     background->setColor(Color3B(0, 255, 255));
 
     addChild(background);
-    background->runAction(FadeTo::create(0.5f, 255));
+    background->runAction(FadeTo::create(0.5f, 190));
 
     const auto header = Sprite::createWithSpriteFrameName("11_message_header.png");
     UTILS_BREAK_IF(header == nullptr);
@@ -315,7 +341,7 @@ void game_ui::display_message(const std::string& message, const bool extended /*
     //////////////////////////////
     // label
 
-    const auto label = Label::createWithTTF(message, "fonts/tahoma.ttf", 200);
+    const auto label = Label::createWithTTF(message, "fonts/tahoma.ttf", 150);
     UTILS_BREAK_IF(label == nullptr);
 
     label->setTextColor(Color4B(0, 255, 255, 255));
@@ -328,6 +354,20 @@ void game_ui::display_message(const std::string& message, const bool extended /*
     header->addChild(label);
 
     //////////////////////////////
+    // sub label
+
+    const auto sub_label = Label::createWithTTF(sub_message, "fonts/tahoma.ttf", 100);
+    UTILS_BREAK_IF(sub_label == nullptr);
+
+    sub_label->setTextColor(Color4B(255, 255, 255, 255));
+    sub_label->enableOutline(Color4B(0, 0, 0, 255), 5);
+
+    // position the label
+    sub_label->setPosition(background->getContentSize().width / 2, (background->getContentSize().height) - 250);
+
+    background->addChild(sub_label);
+
+    //////////////////////////////
     // button
 
     const auto continue_sprite = Sprite::createWithSpriteFrameName("08_Text_1.png");
@@ -336,8 +376,7 @@ void game_ui::display_message(const std::string& message, const bool extended /*
     const auto continue_sprite_click = Sprite::createWithSpriteFrameName("08_Text_2.png");
     UTILS_BREAK_IF(continue_sprite_click == nullptr);
 
-    const auto continue_item = MenuItemSprite::create(continue_sprite, continue_sprite_click,
-                                                      CC_CALLBACK_1(game_ui::on_reload, this));
+    const auto continue_item = MenuItemSprite::create(continue_sprite, continue_sprite_click, callback);
     UTILS_BREAK_IF(continue_item == nullptr);
 
     continue_item->setPosition(horizontal_segment / 2, 0);
@@ -350,11 +389,7 @@ void game_ui::display_message(const std::string& message, const bool extended /*
     label_button->setTextColor(Color4B(255, 255, 255, 255));
     label_button->enableOutline(Color4B(0, 0, 0, 255), 5);
 
-
     continue_item->addChild(label_button);
-
-    continue_item->setOpacity(0);
-    continue_item->runAction(FadeTo::create(0.5f, 255));
 
     //////////////////////////////
     // menu
@@ -365,7 +400,7 @@ void game_ui::display_message(const std::string& message, const bool extended /*
 
     background->addChild(menu);
 
-    if (!extended)
+    if (stars < 0)
     {
       break;
     }
@@ -379,7 +414,7 @@ void game_ui::display_message(const std::string& message, const bool extended /*
     {
       const auto is_gold = start_counter + 1 <= stars;
 
-      const auto star_gray = Sprite::createWithSpriteFrameName("09_star_02.png");
+      const auto star_gray = Sprite::createWithSpriteFrameName("09_star_01.png");
 
       const auto star_pos = first_start_pos + Vec2((horizontal_segment / 3) * start_counter, 0.f);
       star_gray->setPosition(star_pos);
@@ -388,7 +423,7 @@ void game_ui::display_message(const std::string& message, const bool extended /*
       auto star_tex = string("level\ncompleted");
       if (start_counter == 1)
       {
-        star_tex = "under\n" + time_message(limit_seconds);
+        star_tex = "under\n" + time_message(time_limit_);
       }
       else if (start_counter == 2)
       {
@@ -412,6 +447,8 @@ void game_ui::display_message(const std::string& message, const bool extended /*
 
         star_gold->setPosition(star_pos);
         star_gold->setOpacity(0);
+
+        star_gold->setColor(Color3B(0, 255, 255));
 
         const auto play_sound = CallFunc::create(CC_CALLBACK_0(game_ui::star_sound, this));
         const auto delay = DelayTime::create(0.5f + (1.f * start_counter));

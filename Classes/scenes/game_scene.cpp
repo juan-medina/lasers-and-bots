@@ -40,7 +40,8 @@ game_scene::game_scene() :
   paused_(false),
   total_time_(0.f),
   barrel_count_(0),
-  time_limit_(0)
+  time_limit_(0),
+  level_name_("")
 {
 }
 
@@ -112,6 +113,7 @@ bool game_scene::init()
 
     // get the time limit
     time_limit_ = static_cast<unsigned int>(get_tiled_map()->getProperty("time_limit").asInt());
+    level_name_ = get_tiled_map()->getProperty("name").asString();
 
     //get updates
     scheduleUpdate();
@@ -182,7 +184,7 @@ void game_scene::update(float delta)
   if (!paused_)
   {
     total_time_ += delta;
-    game_ui_->update_time(total_time_);
+    game_ui_->update_time(total_time_, time_limit_);
 
     const auto shield = robot_->get_shield_percentage();
     game_ui_->set_shield_percentage(shield);
@@ -551,12 +553,14 @@ void game_scene::game_over(const bool win)
     if (win)
     {
       audio_helper::get_instance()->play_effect("sounds/victory.mp3");
-      game_ui_->display_message("Level Completed", true, calculate_stars(), time_limit_);
+      game_ui_->display_message("Level Completed", level_name_,
+                                CC_CALLBACK_0(game_scene::reload, this), calculate_stars());
     }
     else
     {
       audio_helper::get_instance()->play_effect("sounds/fail.mp3");
-      game_ui_->display_message("Game Over", false);
+      game_ui_->display_message("Game Over", "\n\n\n\n\nups, we are going to\nneed a new robot.",
+                                CC_CALLBACK_0(game_scene::reload, this));
     }
   }
   while (false);
