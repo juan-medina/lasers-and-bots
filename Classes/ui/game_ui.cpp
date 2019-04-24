@@ -285,31 +285,32 @@ void game_ui::display_message(const std::string& message, const bool extended /*
     //////////////////////////////
     // background
 
-    const auto horizontal_segment = size.width / 2;
-    const auto vertical_segment = size.height / (extended ? 2 : 4);
-
     const auto dark_all = LayerColor::create(Color4B(0, 0, 0, 0));
     UTILS_BREAK_IF(dark_all == nullptr);
 
     addChild(dark_all);
     dark_all->runAction(FadeTo::create(0.5f, 127));
 
-    auto area = Rect(horizontal_segment, vertical_segment, 100, 100);
-
-    const auto background = LayerColor::create(Color4B(0, 255, 255, 0), horizontal_segment, vertical_segment);
+    const auto background = Sprite::createWithSpriteFrameName("10_message.png");
     UTILS_BREAK_IF(background == nullptr);
 
-    background->setPosition((size.width - horizontal_segment) / 2, (size.height - vertical_segment) / 2);
+    const auto horizontal_segment = background->getContentSize().width;
+    const auto vertical_segment = background->getContentSize().height;
+
+    background->setOpacity(0);
+    background->setPosition(size.width / 2, size.height / 2);
+    background->setColor(Color3B(0, 255, 255));
 
     addChild(background);
-    background->runAction(FadeTo::create(0.5f, 127));
+    background->runAction(FadeTo::create(0.5f, 255));
 
-    //////////////////////////////
-    // border
+    const auto header = Sprite::createWithSpriteFrameName("11_message_header.png");
+    UTILS_BREAK_IF(header == nullptr);
 
-    const auto draw = DrawNode::create(4.f);
-    draw->drawRect(Vec2(0.f, 0.f), Vec2(horizontal_segment, vertical_segment), Color4F(0, 1.f, 1.f, 0.5f));
-    background->addChild(draw);
+    header->setPosition(horizontal_segment / 2, vertical_segment);
+    header->setColor(Color3B(0, 127, 127));
+
+    background->addChild(header);
 
     //////////////////////////////
     // label
@@ -321,11 +322,10 @@ void game_ui::display_message(const std::string& message, const bool extended /*
     label->enableOutline(Color4B(0, 0, 0, 255), 5);
     label->enableShadow(Color4B(255, 255, 255, 127), Size(5, -5));
 
-
     // position the label
-    label->setPosition(horizontal_segment / 2, vertical_segment - label->getContentSize().height);
+    label->setPosition(header->getContentSize().width / 2, (header->getContentSize().height / 2) + 100);
 
-    background->addChild(label);
+    header->addChild(label);
 
     //////////////////////////////
     // button
@@ -340,8 +340,7 @@ void game_ui::display_message(const std::string& message, const bool extended /*
                                                       CC_CALLBACK_1(game_ui::on_reload, this));
     UTILS_BREAK_IF(continue_item == nullptr);
 
-    continue_item->setPosition(-horizontal_segment / 2,
-                               (-size.height / 2) + (continue_sprite->getContentSize().height));
+    continue_item->setPosition(horizontal_segment / 2, 0);
 
     const auto label_button = Label::createWithTTF("Continue", "fonts/tahoma.ttf", 120);
     UTILS_BREAK_IF(label_button == nullptr);
@@ -362,72 +361,14 @@ void game_ui::display_message(const std::string& message, const bool extended /*
     const auto menu = Menu::create(continue_item, nullptr);
     UTILS_BREAK_IF(menu == nullptr);
 
+    menu->setPosition(0, 0);
+
     background->addChild(menu);
 
     if (!extended)
     {
       break;
     }
-
-    //////////////////////////////
-    // time label
-
-    const auto label_time = Label::createWithTTF("Time :", "fonts/tahoma.ttf", 150);
-    UTILS_BREAK_IF(label_time == nullptr);
-
-    label_time->setAnchorPoint(Vec2(0.f, 0.f));
-    label_time->setHorizontalAlignment(TextHAlignment::LEFT);
-    label_time->setTextColor(Color4B(255, 255, 255, 255));
-    label_time->enableOutline(Color4B(0, 0, 0, 255), 5);
-
-    // position the label
-    label_time->setPosition(50, label->getPosition().y - 600);
-
-    background->addChild(label_time);
-
-    const auto label_time_value = Label::createWithTTF(time_label_->getString(), "fonts/tahoma.ttf", 150);
-    UTILS_BREAK_IF(label_time_value == nullptr);
-
-    label_time_value->setAnchorPoint(Vec2(0.f, 0.f));
-    label_time_value->setHorizontalAlignment(TextHAlignment::LEFT);
-    label_time_value->setTextColor(Color4B(255, 255, 255, 255));
-    label_time_value->enableOutline(Color4B(0, 0, 0, 255), 5);
-
-    // position the label
-    label_time_value->setPosition(650, label_time->getPosition().y);
-
-    background->addChild(label_time_value);
-
-    //////////////////////////////
-    // shield label
-
-    const auto label_shield = Label::createWithTTF("Shield :", "fonts/tahoma.ttf", 150);
-    UTILS_BREAK_IF(label_shield == nullptr);
-
-    label_shield->setAnchorPoint(Vec2(0.f, 0.f));
-    label_shield->setHorizontalAlignment(TextHAlignment::LEFT);
-    label_shield->setTextColor(Color4B(255, 255, 255, 255));
-    label_shield->enableOutline(Color4B(0, 0, 0, 255), 5);
-
-    // position the label
-    label_shield->setPosition(50, label->getPosition().y - 900);
-
-    background->addChild(label_shield);
-
-    const auto shield_value = string_format("%d %%", static_cast<int>(shield_bar_->getPercentage()));
-
-    const auto label_shield_value = Label::createWithTTF(shield_value, "fonts/tahoma.ttf", 150);
-    UTILS_BREAK_IF(label_shield_value == nullptr);
-
-    label_shield_value->setAnchorPoint(Vec2(0.f, 0.f));
-    label_shield_value->setHorizontalAlignment(TextHAlignment::LEFT);
-    label_shield_value->setTextColor(Color4B(255, 255, 255, 255));
-    label_shield_value->enableOutline(Color4B(0, 0, 0, 255), 5);
-
-    // position the label
-    label_shield_value->setPosition(650, label_shield->getPosition().y);
-
-    background->addChild(label_shield_value);
 
     //////////////////////////////
     // stars
@@ -444,14 +385,14 @@ void game_ui::display_message(const std::string& message, const bool extended /*
       star_gray->setPosition(star_pos);
       background->addChild(star_gray);
 
-      auto star_tex = string("level completed");
+      auto star_tex = string("level\ncompleted");
       if (start_counter == 1)
       {
-        star_tex = "and under " + time_message(limit_seconds);
+        star_tex = "under\n" + time_message(limit_seconds);
       }
       else if (start_counter == 2)
       {
-        star_tex = "and with 100% shield";
+        star_tex = "with 100%\nshield";
       }
       const auto label_star = Label::createWithTTF(star_tex, "fonts/tahoma.ttf", 70);
       UTILS_BREAK_IF(label_star == nullptr);
