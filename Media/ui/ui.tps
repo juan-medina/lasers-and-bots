@@ -132,7 +132,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../../Resources/ui/ui.plist</filename>
+                <filename>../../Resources/ui/ui-{n}.plist</filename>
             </struct>
             <key>header</key>
             <key>source</key>
@@ -142,7 +142,7 @@
             </struct>
         </map>
         <key>multiPack</key>
-        <false/>
+        <true/>
         <key>forceIdenticalLayout</key>
         <false/>
         <key>outputFormat</key>
@@ -314,6 +314,32 @@
                 <rect>54,54,107,107</rect>
                 <key>scale9Paddings</key>
                 <rect>54,54,107,107</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">10_message.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>556,393,1111,786</rect>
+                <key>scale9Paddings</key>
+                <rect>556,393,1111,786</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">11_message_header.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>422,112,843,223</rect>
+                <key>scale9Paddings</key>
+                <rect>422,112,843,223</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
