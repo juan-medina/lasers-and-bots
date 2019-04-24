@@ -82,7 +82,8 @@ bool game_ui::init()
 
     //////////////////////////////
     // cache
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ui/ui.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ui/ui-0.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ui/ui-1.plist");
 
     //////////////////////////////
     // close
@@ -95,8 +96,8 @@ bool game_ui::init()
     const auto close_item = MenuItemSprite::create(close, close_click, CC_CALLBACK_1(game_ui::on_close, this));
     UTILS_BREAK_IF(close_item == nullptr);
 
-    close_item->setPosition(size.width / 2 - close->getContentSize().width,
-                            size.height / 2 - close->getContentSize().height);
+    close_item->setPosition(size.width / 2 - close->getContentSize().width / 2,
+                            size.height / 2 - close->getContentSize().height / 2);
 
     //////////////////////////////
     // pause
@@ -129,8 +130,8 @@ bool game_ui::init()
                                                      pause_item, play_item, nullptr);
     UTILS_BREAK_IF(pause_item_ == nullptr);
 
-
-    pause_item_->setPosition(close_item->getPosition() - Vec2(close->getContentSize().width + 10.f, 0.f));
+    const auto gap = Vec2(close->getContentSize().width * 1.25f, 0.f);
+    pause_item_->setPosition(close_item->getPosition() - gap);
 
     //////////////////////////////
     // reload
@@ -143,7 +144,7 @@ bool game_ui::init()
     const auto reload_item = MenuItemSprite::create(reload, reload_click, CC_CALLBACK_1(game_ui::on_reload, this));
     UTILS_BREAK_IF(reload_item == nullptr);
 
-    reload_item->setPosition(pause_item_->getPosition() - Vec2(pause->getContentSize().width + 10.f, 0.f));
+    reload_item->setPosition(pause_item_->getPosition() - gap);
 
     //////////////////////////////
     // menu
@@ -221,7 +222,7 @@ bool game_ui::init()
     time_label_->enableOutline(Color4B(0, 0, 0, 255), 5);
 
     // position the label
-    time_label_->setPosition(Vec2(size.width / 2, size.height - close_item->getContentSize().height));
+    time_label_->setPosition(Vec2(size.width / 2, size.height - close_item->getContentSize().height / 2));
 
     addChild(time_label_);
 
@@ -342,17 +343,16 @@ void game_ui::display_message(const std::string& message, const bool extended /*
     continue_item->setPosition(-horizontal_segment / 2,
                                (-size.height / 2) + (continue_sprite->getContentSize().height));
 
-    const auto label_button = Label::createWithTTF("Continue", "fonts/tahoma.ttf", 60);
+    const auto label_button = Label::createWithTTF("Continue", "fonts/tahoma.ttf", 120);
     UTILS_BREAK_IF(label_button == nullptr);
 
     label_button->setPosition(continue_sprite->getContentSize().width / 2,
-                              continue_sprite->getContentSize().height / 2);
+                              continue_sprite->getContentSize().height / 2 + 30);
     label_button->setTextColor(Color4B(255, 255, 255, 255));
     label_button->enableOutline(Color4B(0, 0, 0, 255), 5);
 
 
     continue_item->addChild(label_button);
-    continue_item->setScale(2.f);
 
     continue_item->setOpacity(0);
     continue_item->runAction(FadeTo::create(0.5f, 255));
