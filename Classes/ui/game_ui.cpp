@@ -218,7 +218,7 @@ bool game_ui::init()
 
     time_label_->enableGlow(Color4B(0, 127, 127, 127));
     time_label_->enableShadow(Color4B(255, 255, 255, 127), Size(5, -5));
-    time_label_->enableOutline(Color4B(255, 255, 255, 255), 5);
+    time_label_->enableOutline(Color4B(0, 0, 0, 255), 5);
 
     // position the label
     time_label_->setPosition(Vec2(size.width / 2, size.height - close_item->getContentSize().height));
@@ -318,7 +318,6 @@ void game_ui::display_message(const std::string& message, const bool extended /*
 
     label->setTextColor(Color4B(0, 255, 255, 255));
     label->enableOutline(Color4B(0, 0, 0, 255), 5);
-    label->enableGlow(Color4B(0, 127, 127, 127));
     label->enableShadow(Color4B(255, 255, 255, 127), Size(5, -5));
 
 
