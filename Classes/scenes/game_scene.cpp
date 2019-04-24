@@ -41,7 +41,8 @@ game_scene::game_scene() :
   total_time_(0.f),
   barrel_count_(0),
   time_limit_(0),
-  level_name_("")
+  level_name_(""),
+  delay_start_(false)
 {
 }
 
@@ -131,8 +132,10 @@ bool game_scene::init()
     audio_helper::pre_load_music("sounds/music.mp3");
     audio_helper::pre_load_effect("sounds/fail.mp3");
     audio_helper::pre_load_effect("sounds/victory.mp3");
+    audio_helper::pre_load_effect("sounds/countdown.mp3");
 
-    audio_helper::get_instance()->play_music("sounds/music.mp3", 0.30f);
+    delay_start_ = true;
+
     ret = true;
   }
   while (false);
@@ -566,6 +569,45 @@ void game_scene::game_over(const bool win)
   while (false);
 }
 
+void game_scene::delay_start()
+{
+  pause();
+  game_ui_->disable_pause();
+
+  const auto start = CallFunc::create(CC_CALLBACK_0(game_scene::start, this));
+  const auto delay = DelayTime::create(4.6f);
+  const auto delay_start_sequence = Sequence::create(delay, start, nullptr);
+
+  const auto count_3 = CallFuncN::create(CC_CALLBACK_1(game_scene::count, this, 3));
+  const auto count_2 = CallFuncN::create(CC_CALLBACK_1(game_scene::count, this, 2));
+  const auto count_1 = CallFuncN::create(CC_CALLBACK_1(game_scene::count, this, 1));
+  const auto count_0 = CallFuncN::create(CC_CALLBACK_1(game_scene::count, this, 0));
+  const auto count_go = CallFuncN::create(CC_CALLBACK_1(game_scene::count, this, -1));
+  const auto count_sequence = Sequence::create(count_3, DelayTime::create(1.f),
+                                               count_2, DelayTime::create(1.f),
+                                               count_1, DelayTime::create(1.f),
+                                               count_0, DelayTime::create(1.f),
+                                               count_go,
+                                               nullptr);
+
+  audio_helper::get_instance()->play_effect("sounds/countdown.mp3");
+
+  runAction(delay_start_sequence);
+  runAction(count_sequence);
+}
+
+void game_scene::count(Ref* sender, const int value)
+{
+  game_ui_->update_countdown(value);
+}
+
+void game_scene::start()
+{
+  audio_helper::get_instance()->play_music("sounds/music.mp3", 0.30f);
+  resume();
+  game_ui_->enable_pause();
+}
+
 void game_scene::pause()
 {
   paused_ = true;
@@ -613,6 +655,17 @@ void game_scene::reload()
   pause();
   game_ui_->disable_pause();
   Director::getInstance()->replaceScene(loading_scene::game());
+}
+
+void game_scene::onEnter()
+{
+  base_class::onEnter();
+
+  if (delay_start_)
+  {
+    delay_start();
+    delay_start_ = false;
+  }
 }
 
 void game_scene::update_camera(const float delta)

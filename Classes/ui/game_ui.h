@@ -66,6 +66,12 @@ public:
   }
 
   // disable pause
+  inline void enable_pause() const
+  {
+    pause_item_->setEnabled(true);
+  }
+
+  // disable pause
   inline void disable_pause() const
   {
     pause_item_->setEnabled(false);
@@ -80,6 +86,8 @@ public:
   // display a message
   void display_message(const std::string& message, const std::string& sub_message, const ccMenuCallback& callback,
                        const short int stars = -1);
+
+  void update_countdown(const int value) const;
 
 private:
 
@@ -100,6 +108,9 @@ private:
 
   // the sub time label
   Label* sub_time_label_;
+
+  // countdown label
+  Label* countdown_label_;
 
   // make a star sound
   void star_sound();

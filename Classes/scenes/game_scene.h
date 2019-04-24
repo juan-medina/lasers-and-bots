@@ -72,6 +72,8 @@ public:
   // reload the level
   void reload();
 
+  virtual void onEnter() override;
+
 protected:
 
   virtual Node* provide_physics_node(const int gid) const override;
@@ -139,6 +141,15 @@ private:
   // the game is over
   void game_over(const bool win);
 
+  // when to start
+  void delay_start();
+
+  // count a number
+  void count(Ref* sender, int value);
+
+  // start the game
+  void start();
+
   // the game ui
   game_ui* game_ui_;
 
@@ -171,6 +182,9 @@ private:
 
   // the level name
   std::string level_name_;
+
+  // start with delay
+  bool delay_start_;
 };
 
 #endif // __MAIN_SCENE__

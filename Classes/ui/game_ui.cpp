@@ -31,7 +31,8 @@ game_ui::game_ui():
   pause_item_(nullptr),
   time_label_(nullptr),
   sub_time_label_(nullptr),
-  time_limit_(0)
+  time_limit_(0),
+  countdown_label_(nullptr)
 {
 }
 
@@ -245,6 +246,21 @@ bool game_ui::init()
                                       time_label_->getPosition().y));
 
     addChild(sub_time_label_);
+
+    //////////////////////////////
+    // count down label
+
+    // create the text for the label
+    countdown_label_ = Label::createWithTTF("GO!", "fonts/tahoma.ttf", 500);
+    UTILS_BREAK_IF(countdown_label_ == nullptr);
+
+    countdown_label_->setTextColor(Color4B(0, 255, 255, 255));
+    countdown_label_->enableGlow(Color4B(0, 127, 127, 127));
+    countdown_label_->enableShadow(Color4B(255, 255, 255, 127), Size(10, -10));
+    countdown_label_->enableOutline(Color4B(0, 0, 0, 255), 5);
+    countdown_label_->setPosition(Vec2(size.width / 2, size.height / 2));
+    countdown_label_->setVisible(false);
+    addChild(countdown_label_);
 
     ret = true;
   }
@@ -466,6 +482,31 @@ void game_ui::display_message(const std::string& message, const std::string& sub
     }
   }
   while (false);
+}
+
+void game_ui::update_countdown(const int value) const
+{
+  const auto text = string_format("%d", value);
+  if (value >= 0)
+  {
+    countdown_label_->setString(text);
+    countdown_label_->setVisible(true);
+  }
+  else
+  {
+    countdown_label_->setString("GO!");
+
+    const auto delay = DelayTime::create(1.0f);
+    const auto fade_out = FadeOut::create(0.5);
+    const auto remove = RemoveSelf::create(true);
+    const auto vanish = Sequence::create(delay, fade_out, remove, nullptr);
+    countdown_label_->runAction(vanish);
+  }
+
+  const auto scale_up = ScaleTo::create(0.25f, 1.5f, 1.5f);
+  const auto scale_down = ScaleTo::create(0.25f, 1.0f, 1.0f);
+  const auto scale = Sequence::create(scale_up, scale_down, nullptr);
+  countdown_label_->runAction(scale);
 }
 
 void game_ui::star_sound()
