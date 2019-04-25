@@ -57,13 +57,6 @@ public:
 
 protected:
 
-  // helper for fuzzy equals
-  static constexpr bool fuzzy_equals(const float a, const float b, const float var = fuzzy_range) noexcept
-  {
-    return a - var <= b && b <= a + var;
-  }
-
-
   // create a animation
   static bool create_anim(const char* pattern, int max_frame, float speed, const char* name,
                           unsigned int loops = infinite_loops);
@@ -77,7 +70,7 @@ protected:
 private:
 
   static constexpr int infinite_loops = -1;
-  static constexpr float fuzzy_range = 5.f;
+  
 
   // our current animation
   Action* animation_;

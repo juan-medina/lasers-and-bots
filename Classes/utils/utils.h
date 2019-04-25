@@ -41,4 +41,9 @@ using namespace std;
 
 std::string string_format(std::string fmt_str, ...);
 
+static const float fuzzy_range = 5.f;
+
+// helper for fuzzy equals
+bool fuzzy_equals(const float a, const float b, const float var = fuzzy_range) noexcept;
+
 #endif // __UTILS_H__

@@ -129,6 +129,10 @@ bool game_scene::init()
     contact_listener->onContactBegin = CC_CALLBACK_1(game_scene::on_contact_begin, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(contact_listener, this);
 
+    const auto edge = get_tiled_map()->getPhysicsBody();
+    edge->setCategoryBitmask(bit_mask_world);
+    edge->setContactTestBitmask(bit_mask_robot);
+
     audio_helper::pre_load_music("sounds/music.mp3");
     audio_helper::pre_load_effect("sounds/fail.mp3");
     audio_helper::pre_load_effect("sounds/victory.mp3");
@@ -330,6 +334,10 @@ bool game_scene::add_object(const vector<Value>::value_type& object)
     {
       UTILS_BREAK_IF(!add_door(values, layer_walk_back));
     }
+    else if (values.at("type").asString() == "box")
+    {
+      UTILS_BREAK_IF(!add_box(values, layer_walk));
+    }
 
     ret = true;
   }
@@ -498,6 +506,42 @@ bool game_scene::add_saw(const ValueMap& values, Node* layer)
     const auto shape = values.at("shape").asString();
     add_body_to_node(sprite, shape);
 
+    sprite->getPhysicsBody()->setDynamic(true);
+
+    layer->addChild(sprite);
+
+    game_objects_[name] = sprite;
+
+    ret = true;
+  }
+  while (false);
+
+  return ret;
+}
+
+bool game_scene::add_box(const ValueMap& values, Node* layer)
+{
+  auto ret = false;
+
+  do
+  {
+    const auto name = values.at("name").asString();
+    const auto image = values.at("image").asString();
+    auto sprite = game_object::create(image, "barrel");
+    UTILS_BREAK_IF(sprite == nullptr);
+
+    sprite->setAnchorPoint(Vec2(0.5f, 0.f));
+
+    const auto position = get_object_center_position(values);
+    sprite->setPosition(position);
+    sprite->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+    const auto shape = values.count("shape") == 1 ? values.at("shape").asString() : "";
+    add_body_to_node(sprite, shape);
+
+    const auto rotation = values.at("rotation").asFloat();
+    sprite->setRotation(rotation);
+
     layer->addChild(sprite);
 
     game_objects_[name] = sprite;
@@ -562,7 +606,7 @@ void game_scene::game_over(const bool win)
     else
     {
       audio_helper::get_instance()->play_effect("sounds/fail.mp3");
-      game_ui_->display_message("Game Over", "\n\n\n\n\nups, we are going to\nneed a new robot.",
+      game_ui_->display_message("Game Over", "\n\n\n\n\nops, we are going to\nneed a new robot.",
                                 CC_CALLBACK_0(game_scene::reload, this));
     }
   }
@@ -754,12 +798,10 @@ bool game_scene::on_contact_begin(PhysicsContact& contact)
         }
         else
         {
-          const auto block_objects = bit_mask_blocks | bit_mask_spikes | bit_mask_acid | bit_mask_saw | bit_mask_barrel;
-
-          const auto block_game_object = get_object_from_contact<game_object>(contact, block_objects);
+          const auto block_game_object = get_object_from_contact<game_object>(contact, bit_mask_step_objects);
           if (block_game_object != nullptr)
           {
-            if (block_game_object->getPositionY() < robot->getPositionY())
+            if (block_game_object->getPositionY() <= robot->getPositionY())
             {
               robot->on_land_on_block();
             }
@@ -767,6 +809,17 @@ bool game_scene::on_contact_begin(PhysicsContact& contact)
             if (damage != 0)
             {
               robot->damage_shield(damage);
+            }
+          }
+          else
+          {
+            const auto edge = get_object_from_contact<experimental::TMXTiledMap>(contact, bit_mask_world);
+            if (edge != nullptr)
+            {
+              if (fuzzy_equals(robot->getPositionY(), 0.0f, 15.f))
+              {
+                robot->on_land_on_block();
+              }
             }
           }
         }

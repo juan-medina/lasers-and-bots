@@ -97,7 +97,6 @@ bool physics_tiled_scene::init(const std::string& tmx_file, const float gravity,
 void physics_tiled_scene::init_physics(const bool debug_physics) const
 {
   const auto edge = PhysicsBody::createEdgeBox(total_size_, PhysicsMaterial(0.1f, 0.0f, 0.5f), 5);
-  edge->setCategoryBitmask(0x0001);
   get_tiled_map()->addComponent(edge);
 
   if (debug_physics)
@@ -165,7 +164,6 @@ bool physics_tiled_scene::add_body_to_node(Node* node, const string& shape)
 
     if (body != nullptr)
     {
-      body->setDynamic(false);
       node->setPhysicsBody(body);
     }
 

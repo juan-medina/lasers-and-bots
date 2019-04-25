@@ -59,6 +59,9 @@ public:
   static constexpr short int bit_mask_switch = 64;
   static constexpr short int bit_mask_blocks = 128;
   static constexpr short int bit_mask_barrel = 256;
+  static constexpr short int bit_mask_box = 512;
+  static constexpr short int bit_mask_step_objects = bit_mask_blocks | bit_mask_spikes | bit_mask_acid | bit_mask_saw |
+    bit_mask_barrel | bit_mask_box;
 
   // pause our game
   void pause() override;
@@ -125,6 +128,9 @@ private:
 
   // add saw to the map
   bool add_saw(const ValueMap& values, Node* layer);
+
+  // add a box to the map
+  bool add_box(const ValueMap& values, Node* layer);
 
   // add an object to the map
   bool add_object(const vector<Value>::value_type& object);

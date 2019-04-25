@@ -40,3 +40,8 @@ std::string string_format(const std::string fmt_str, ...)
   }
   return std::string(formatted.get());
 }
+
+bool fuzzy_equals(const float a, const float b, const float var/* = fuzzy_range*/) noexcept
+{
+  return a - var <= b && b <= a + var;
+}

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.0" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="256" tileheight="256" infinite="0" nextobjectid="47">
+<map version="1.0" tiledversion="1.1.0" orientation="orthogonal" renderorder="right-down" width="45" height="20" tilewidth="256" tileheight="256" infinite="0" nextobjectid="49">
  <properties>
   <property name="name" value="demo level"/>
   <property name="shapes" value="shapes/shapes.plist"/>
@@ -138,27 +138,27 @@
    </properties>
   </tile>
  </tileset>
- <layer name="back" width="40" height="20">
+ <layer name="back" width="45" height="20">
   <data encoding="base64" compression="zlib">
-   eJztzisOACAQA9EmLJ+9/4VZgcUhSjLipZUTkqK0s25/4alehkHHzTRoAAAA+Fma2xeUGHY=
+   eJztzrsNACAMA1FLhE/2X5gULEBFIq54ssszSRba2Qp/4YkeRoKOGzNBAwAAAP7gBW1o6RuF
   </data>
  </layer>
- <layer name="walk_back" width="40" height="20">
+ <layer name="walk_back" width="45" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFIxHwDnHzR8EoGAWYYDTfjYJRMAoGK6C0fGLEwR4sgAkHmxhAin/I9Tsl7iNFPbFqAZhXAEU=
+   eJxjYBgFo4A0wDvEzR8Fo2AUDB4wmt9HwSgYBaOAMKBFWcmIgz2YARMONjGAFD9SMzwocTMp6kk1GxkAAM2zAEU=
   </data>
  </layer>
- <layer name="walk" width="40" height="20">
+ <layer name="walk" width="45" height="20">
   <properties>
    <property name="physics" type="bool" value="true"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJztlo0KgzAMhKsP0PmzdZv6/s+5BnqQhVSairqBB4comnyk9Kpzly7V6Rbdnw2REbE9ou8H952i5+hl5R1i69w5fGsirpn5CD7Mohe9JQt4uIad+MCENRqVPkNBHc7n2XMv3vPJfBZWST7LXDDfRVyxDmuzqGXm89uSI8/ol/Bb9NHWz6rg9sk68FN9mndJfuSEGrXf18jC+0tZpym3p7esSa20nv86P008VzrDN7QHm2QtN3J7lPLVMj/kBjkUsiLv22R5PuGfRIpnaFNozscd3Hcey/zW+HD+yHucSTz320Ln+EZWi+p/APVlDUc=
+   eJztVosKgzAMjH6A87GX0///zjXgsSwkrrWiMjw4xkrXXJN5J9GJE9vjEtjsLSIBrPcWeN1bSMArcAgcZ/aw3pqOo3kOrHUQ3EszetYoPVofNEq0tJ1m6MR8O6N2G3GO1FyJ9UrtqybKuvLZ9dZ/QWtO6R/mMKpPzEv3R/eoFesdfc8+BbLPOZ72CHwa7J09PX3ukPu/u9N2Xow7cE2eVYyXecAZS3+/FlLucHQvtuB5Sc7s1oSl45/6bEF6XJ1RE55VTLQ8zPMGzoSUPkvP5Wd3SWbgHK5bTtTZi3c1DenxRSR1TlhZ4kHnkKUZ2aq/I29lvpeR9DR3EZrf3RUOFg==
   </data>
  </layer>
- <layer name="front" width="40" height="20">
+ <layer name="front" width="45" height="20">
   <data encoding="base64" compression="zlib">
-   eJztzrEJAAAIwDB3/f9eF08QdEigeyMA+Cinuh4BgEUN9bQAIw==
+   eJztzqENAAAIwDA8/H8vhgMQJJg2mV8EANzIqb5HAICVBhSLACM=
   </data>
  </layer>
  <objectgroup name="objects">
@@ -185,7 +185,7 @@
     <property name="speed" type="float" value="4.5"/>
    </properties>
   </object>
-  <object id="11" name="laser1" type="laser" gid="31" x="7938.67" y="764.833" width="256" height="256" rotation="180">
+  <object id="11" name="laser1" type="laser" gid="31" x="7936.25" y="763.136" width="256" height="256" rotation="180">
    <properties>
     <property name="damage" type="int" value="10"/>
     <property name="speed" type="float" value="4.5"/>
@@ -196,7 +196,7 @@
     <property name="image" value="04_DoorLocked.png"/>
    </properties>
   </object>
-  <object id="14" name="open_switch" type="switch" gid="31" x="9601.66" y="4608.28" width="256" height="256">
+  <object id="14" name="open_switch" type="switch" gid="31" x="11189.5" y="5102.22" width="256" height="256">
    <properties>
     <property name="target" value="switch_mirrow"/>
    </properties>
@@ -240,6 +240,24 @@
    <properties>
     <property name="image" value="02_Barrel (2).png"/>
     <property name="shape" value="02_Barrel"/>
+   </properties>
+  </object>
+  <object id="47" name="box1" type="box" gid="31" x="9444.22" y="2042.73" width="256" height="256">
+   <properties>
+    <property name="image" value="03_Box.png"/>
+    <property name="shape" value="03_Box"/>
+   </properties>
+  </object>
+  <object id="48" name="saw2" type="saw" gid="31" x="10514.8" y="2171.54" width="256" height="256">
+   <properties>
+    <property name="damage" type="int" value="10"/>
+    <property name="image" value="07_Saw.png"/>
+    <property name="movement" type="float" value="-768"/>
+    <property name="movement_time" type="float" value="1.5"/>
+    <property name="restitution" type="float" value="0.5"/>
+    <property name="rotation_time" type="float" value="2"/>
+    <property name="shape" value="07_Saw"/>
+    <property name="stop_time" type="float" value="0.5"/>
    </properties>
   </object>
  </objectgroup>
