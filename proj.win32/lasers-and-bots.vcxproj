@@ -159,6 +159,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\scenes\game_scene.cpp" />
     <ClCompile Include="..\Classes\scenes\loading_scene.cpp" />
     <ClCompile Include="..\Classes\ui\game_ui.cpp" />
+    <ClCompile Include="..\Classes\ui\on_screen_button.cpp" />
     <ClCompile Include="..\Classes\ui\virtual_joy_stick.cpp" />
     <ClCompile Include="..\Classes\utils\audio\audio_helper.cpp" />
     <ClCompile Include="..\Classes\utils\base\app\basic_app.cpp" />
@@ -183,6 +184,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\scenes\game_scene.h" />
     <ClInclude Include="..\Classes\scenes\loading_scene.h" />
     <ClInclude Include="..\Classes\ui\game_ui.h" />
+    <ClInclude Include="..\Classes\ui\on_screen_button.h" />
     <ClInclude Include="..\Classes\ui\virtual_joy_stick.h" />
     <ClInclude Include="..\Classes\utils\audio\audio_helper.h" />
     <ClInclude Include="..\Classes\utils\base\app\basic_app.h" />

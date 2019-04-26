@@ -111,6 +111,9 @@
     <ClCompile Include="..\Classes\scenes\loading_scene.cpp">
       <Filter>src\scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ui\on_screen_button.cpp">
+      <Filter>src\ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -178,6 +181,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\scenes\loading_scene.h">
       <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui\on_screen_button.h">
+      <Filter>src\ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

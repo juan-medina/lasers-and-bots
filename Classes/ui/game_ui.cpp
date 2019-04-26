@@ -159,7 +159,7 @@ bool game_ui::init()
 
     //////////////////////////////
     // joystick
-    virtual_joy_stick_ = virtual_joy_stick::create(size.height - 500.f);
+    virtual_joy_stick_ = virtual_joy_stick::create();
     addChild(virtual_joy_stick_, 100);
 
     //////////////////////////////

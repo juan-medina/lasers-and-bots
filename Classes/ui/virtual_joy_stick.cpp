@@ -20,23 +20,21 @@
 
 #include "virtual_joy_stick.h"
 #include "game_ui.h"
+#include "on_screen_button.h"
 
 virtual_joy_stick::virtual_joy_stick():
-  joy_stick_(nullptr),
-  thumb_(nullptr),
-  joy_stick_radius_(0.f),
-  thumb_radius_(0.f),
   key_left_(false),
   key_right_(false),
   key_up_(false),
-  key_down_(false),
-  blind_y_(0.f),
   button_a_keyboard_(false),
-  button_b_keyboard_(false)
+  button_b_keyboard_(false),
+  on_screen_button_left_(nullptr),
+  on_screen_button_right_(nullptr),
+  on_screen_button_up_(nullptr)
 {
 }
 
-virtual_joy_stick* virtual_joy_stick::create(float blind_y)
+virtual_joy_stick* virtual_joy_stick::create()
 {
   virtual_joy_stick* ret = nullptr;
 
@@ -45,7 +43,7 @@ virtual_joy_stick* virtual_joy_stick::create(float blind_y)
     auto object = new virtual_joy_stick();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(blind_y))
+    if (object->init())
     {
       object->autorelease();
     }
@@ -63,44 +61,78 @@ virtual_joy_stick* virtual_joy_stick::create(float blind_y)
   return ret;
 }
 
-bool virtual_joy_stick::init(float blind_y)
+on_screen_button* virtual_joy_stick::add_on_screen_button(const std::string& normal_sprite_frame_name,
+                                                          const std::string& pushed_sprite_frame_name)
+{
+  on_screen_button* button = nullptr;
+  do
+  {
+    button = on_screen_button::create(normal_sprite_frame_name, pushed_sprite_frame_name);
+    UTILS_BREAK_IF(button == nullptr);
+
+    addChild(button);
+
+    on_screen_buttons_.push_back(button);
+  }
+  while (false);
+
+  return button;
+}
+
+bool virtual_joy_stick::add_on_screen_buttons()
+{
+  auto ret = false;
+  do
+  {
+    // left button
+    on_screen_button_left_ = add_on_screen_button("02_joystick_left_01.png", "02_joystick_left_02.png");
+    UTILS_BREAK_IF(on_screen_button_left_ == nullptr);
+
+    const auto left_button_pos = Vec2(on_screen_button_left_->getContentSize().width / 2,
+                                      on_screen_button_left_->getContentSize().height / 2);
+    on_screen_button_left_->setPosition(left_button_pos);
+
+    // right button
+    on_screen_button_right_ = add_on_screen_button("02_joystick_right_01.png", "02_joystick_right_02.png");
+    UTILS_BREAK_IF(on_screen_button_right_ == nullptr);
+
+    const auto right_button_pos = left_button_pos + Vec2(
+      on_screen_button_left_->getContentSize().width + (on_screen_button_left_->getContentSize().width / 2), 0.f);
+    on_screen_button_right_->setPosition(right_button_pos);
+
+    // up button
+    on_screen_button_up_ = add_on_screen_button("02_joystick_up_01.png", "02_joystick_up_02.png");
+    UTILS_BREAK_IF(on_screen_button_up_ == nullptr);
+
+    const auto size = Director::getInstance()->getOpenGLView()->getVisibleSize();
+    const auto up_button_pos = Vec2(size.width - (on_screen_button_up_->getContentSize().width / 2),
+                                    on_screen_button_up_->getContentSize().height / 2);
+    on_screen_button_up_->setPosition(up_button_pos);
+
+    ret = true;
+  }
+  while (false);
+
+  return ret;
+}
+
+bool virtual_joy_stick::init()
 {
   auto ret = false;
 
   do
   {
-    blind_y_ = blind_y;
-
     //////////////////////////////
     // 1. super init first
     UTILS_BREAK_IF(!base_class::init());
 
-    // joystick
-    const auto scale = 1.0f;
-    joy_stick_ = Sprite::createWithSpriteFrameName("02_joystick_background.png");
-    UTILS_BREAK_IF(joy_stick_ == nullptr);
+    // add on screen buttons
+    UTILS_BREAK_IF(!add_on_screen_buttons());
 
-    joy_stick_->setOpacity(127);
-    joy_stick_->setPosition(0.f, 0.f);
-    joy_stick_->setVisible(false);
-    joy_stick_->setScale(scale);
-    joy_stick_radius_ = joy_stick_->getContentSize().width * joy_stick_->getScale();
-
-    addChild(joy_stick_, 0);
-
-    thumb_ = Sprite::createWithSpriteFrameName("02_joystick_thumb.png");
-    UTILS_BREAK_IF(thumb_ == nullptr);
-
-    thumb_->setOpacity(127);
-    thumb_->setPosition(0.f, 0.f);
-    thumb_->setVisible(false);
-    thumb_->setScale(scale);
-    thumb_radius_ = thumb_->getContentSize().width * thumb_->getScale();
-
-    addChild(thumb_, 1);
-
+    // create touch listener
     UTILS_BREAK_IF(!create_touch_listener());
 
+    // create keyboard listener
     UTILS_BREAK_IF(!create_keyboard_listener());
 
     ret = true;
@@ -110,47 +142,56 @@ bool virtual_joy_stick::init(float blind_y)
   return ret;
 }
 
+void virtual_joy_stick::reset_on_screen_buttons()
+{
+  for (const auto button : on_screen_buttons_)
+  {
+    button->pushed(false);
+  }
+}
+
 Vec2 virtual_joy_stick::get_location_in_node_space(Touch* touch)
 {
   const auto point_one = Director::getInstance()->convertToUI(touch->getLocationInView());
   const auto ui = dynamic_cast<game_ui*>(getParent());
-  const auto location = convertToNodeSpace(point_one) + ui->getPosition();
+  const auto location = point_one + ui->getPosition();
   return location;
 }
 
-bool virtual_joy_stick::on_touch_began(Touch* touch, Event* unused_event)
+bool virtual_joy_stick::on_touches_began(const std::vector<Touch*>& touches, Event* unused_event)
 {
-  const auto location = get_location_in_node_space(touch);
+  reset_on_screen_buttons();
 
-  if (location.y > blind_y_)
+  for (const auto touch : touches)
   {
-    return false;
+    const auto location = get_location_in_node_space(touch);
+
+    for (const auto button : on_screen_buttons_)
+    {
+      if (button->is_touched_by_location(location))
+      {
+        button->pushed(true);
+        return true;
+      }
+    }
   }
 
-  joy_stick_->setVisible(true);
-  joy_stick_->setPosition(location);
-  thumb_->setVisible(true);
-  thumb_->setPosition(location);
-
-  return true;
+  return false;
 }
 
-void virtual_joy_stick::on_touch_moved(Touch* touch, Event* unused_event)
+void virtual_joy_stick::on_touches_moved(const std::vector<Touch*>& touches, Event* unused_event)
 {
-  const auto location = get_location_in_node_space(touch);
-  update_velocity(location);
+  on_touches_began(touches, unused_event);
 }
 
-void virtual_joy_stick::on_touch_ended(Touch* touch, Event* unused_event)
+void virtual_joy_stick::on_touches_ended(const std::vector<Touch*>& touches, Event* unused_event)
 {
-  joy_stick_->setVisible(false);
-  thumb_->setVisible(false);
-  velocity_ = Vec2::ZERO;
+  reset_on_screen_buttons();
 }
 
-void virtual_joy_stick::on_touch_cancel(Touch* touch, Event* unused_event)
+void virtual_joy_stick::on_touches_cancel(const std::vector<Touch*>& touches, Event* unused_event)
 {
-  on_touch_ended(touch, unused_event);
+  on_touches_ended(touches, unused_event);
 }
 
 bool virtual_joy_stick::create_touch_listener()
@@ -160,15 +201,13 @@ bool virtual_joy_stick::create_touch_listener()
   do
   {
     // Register Touch Event
-    const auto listener = EventListenerTouchOneByOne::create();
+    const auto listener = EventListenerTouchAllAtOnce::create();
     UTILS_BREAK_IF(listener == nullptr);
 
-    listener->setSwallowTouches(false);
-
-    listener->onTouchBegan = CC_CALLBACK_2(virtual_joy_stick::on_touch_began, this);
-    listener->onTouchEnded = CC_CALLBACK_2(virtual_joy_stick::on_touch_ended, this);
-    listener->onTouchMoved = CC_CALLBACK_2(virtual_joy_stick::on_touch_moved, this);
-    listener->onTouchCancelled = CC_CALLBACK_2(virtual_joy_stick::on_touch_cancel, this);
+    listener->onTouchesBegan = CC_CALLBACK_2(virtual_joy_stick::on_touches_began, this);
+    listener->onTouchesEnded = CC_CALLBACK_2(virtual_joy_stick::on_touches_ended, this);
+    listener->onTouchesMoved = CC_CALLBACK_2(virtual_joy_stick::on_touches_moved, this);
+    listener->onTouchesCancelled = CC_CALLBACK_2(virtual_joy_stick::on_touches_cancel, this);
 
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
@@ -177,38 +216,6 @@ bool virtual_joy_stick::create_touch_listener()
   while (false);
 
   return ret;
-}
-
-void virtual_joy_stick::update_velocity(Point point)
-{
-  const auto first_tap_location = joy_stick_->getPosition();
-
-  // calculate Angle and length
-  auto distance_x = point.x - first_tap_location.x;
-  auto distance_y = point.y - first_tap_location.y;
-
-  const auto distance = sqrtf(distance_x * distance_x + distance_y * distance_y);
-  const auto angle = atan2f(distance_y, distance_x); // in radians
-
-
-  if (distance > joy_stick_radius_)
-  {
-    distance_x = cosf(angle) * joy_stick_radius_;
-    distance_y = sinf(angle) * joy_stick_radius_;
-  }
-
-  if (distance > thumb_radius_)
-  {
-    point.x = first_tap_location.x + cosf(angle) * thumb_radius_;
-    point.y = first_tap_location.y + sinf(angle) * thumb_radius_;
-  }
-
-  thumb_->setPosition(point);
-
-  distance_x = point.x - first_tap_location.x;
-  distance_y = point.y - first_tap_location.y;
-
-  velocity_ = Vec2((point.x - first_tap_location.x) / thumb_radius_, (point.y - first_tap_location.y) / thumb_radius_);
 }
 
 bool virtual_joy_stick::create_keyboard_listener()
@@ -248,10 +255,6 @@ void virtual_joy_stick::on_key_pressed(const EventKeyboard::KeyCode key_code, Ev
   case EventKeyboard::KeyCode::KEY_D:
     key_right_ = true;
     break;
-  case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-  case EventKeyboard::KeyCode::KEY_S:
-    key_down_ = true;
-    break;
   case EventKeyboard::KeyCode::KEY_SPACE:
     button_a_keyboard_ = true;
     break;
@@ -280,10 +283,6 @@ void virtual_joy_stick::on_key_released(const EventKeyboard::KeyCode key_code, E
   case EventKeyboard::KeyCode::KEY_D:
     key_right_ = false;
     break;
-  case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-  case EventKeyboard::KeyCode::KEY_S:
-    key_down_ = false;
-    break;
   case EventKeyboard::KeyCode::KEY_SPACE:
     button_a_keyboard_ = false;
     break;
@@ -294,4 +293,29 @@ void virtual_joy_stick::on_key_released(const EventKeyboard::KeyCode key_code, E
   default:
     break;
   }
+}
+
+bool virtual_joy_stick::get_left() const
+{
+  return key_left_ || on_screen_button_left_->is_pushed();
+}
+
+bool virtual_joy_stick::get_right() const
+{
+  return key_right_ || on_screen_button_right_->is_pushed();
+}
+
+bool virtual_joy_stick::get_up() const
+{
+  return key_up_ || on_screen_button_up_->is_pushed();
+}
+
+bool virtual_joy_stick::button_a_down() const
+{
+  return button_a_keyboard_;
+}
+
+bool virtual_joy_stick::button_b_down() const
+{
+  return button_b_keyboard_;
 }

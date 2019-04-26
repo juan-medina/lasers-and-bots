@@ -22,6 +22,9 @@
 
 #include "../utils/utils.h"
 
+//foward declaration
+class on_screen_button;
+
 class virtual_joy_stick final : public Node
 {
 public:
@@ -32,83 +35,54 @@ public:
   virtual_joy_stick();
 
   // create the object
-  static virtual_joy_stick* create(float blind_y);
+  static virtual_joy_stick* create();
+
+  // add one button
+  on_screen_button* add_on_screen_button(const std::string& normal_sprite_frame_name,
+                                         const std::string& pushed_sprite_frame_name);
+
+  // add on screen buttons
+  bool add_on_screen_buttons();
 
   // init this object
-  bool init(float blind_y);
+  bool init() override;
 
-  // get joystick velocity
-  inline const Vec2& get_velocity() const
-  {
-    return velocity_;
-  }
+  // joystick left
+  bool get_left() const;
 
-  bool get_left() const
-  {
-    return (velocity_.x < -0.5f) || key_left_;
-  }
+  // joystick right
+  bool get_right() const;
 
-  constexpr bool get_right() const
-  {
-    return (velocity_.x > 0.5f) || key_right_;
-  }
+  // joystick up
+  bool get_up() const;
 
-  constexpr bool get_up() const
-  {
-    return (velocity_.y > 0.5f) || key_up_;
-  }
+  // joystick a button
+  bool button_a_down() const;
 
-  constexpr bool get_down() const
-  {
-    return (velocity_.y < -0.5f) || key_down_;
-  }
-
-  constexpr bool button_a_down() const
-  {
-    return button_a_keyboard_;
-  }
-
-  constexpr bool button_b_down() const
-  {
-    return button_b_keyboard_;
-  }
+  // joystick b button
+  bool button_b_down() const;
 
 private:
+  // reset on screen buttons
+  void reset_on_screen_buttons();
+
   // get a touch location in node space
   Vec2 get_location_in_node_space(Touch* touch);
 
-  // begin touch event
-  bool on_touch_began(Touch* touch, Event* unused_event);
+  // begin touches event
+  bool on_touches_began(const std::vector<Touch*>& touches, Event* unused_event);
 
-  // touch moved event
-  void on_touch_moved(Touch* touch, Event* unused_event);
+  // touches moved event
+  void on_touches_moved(const std::vector<Touch*>& touches, Event* unused_event);
 
-  // touch end event
-  void on_touch_ended(Touch* touch, Event* unused_event);
+  // touches end event
+  void on_touches_ended(const std::vector<Touch*>& touches, Event* unused_event);
 
-  // touch cancel
-  void on_touch_cancel(Touch* touch, Event* unused_event);
+  // touches cancel
+  void on_touches_cancel(const std::vector<Touch*>& touches, Event* unused_event);
 
   // register touch events
   bool create_touch_listener();
-
-  // update velocity
-  void update_velocity(Point point);
-
-  // joystick
-  Sprite* joy_stick_;
-
-  // thumb
-  Sprite* thumb_;
-
-  // velocity
-  Vec2 velocity_;
-
-  // joystick radius
-  float joy_stick_radius_;
-
-  // thumb radius
-  float thumb_radius_;
 
   // create a keyboard listener
   bool create_keyboard_listener();
@@ -128,17 +102,22 @@ private:
   // key up pressed
   bool key_up_;
 
-  // key down pressed
-  bool key_down_;
-
-  // blind y
-  float blind_y_;
-
   // button a in the keyboard
   bool button_a_keyboard_;
 
   // button b in the keyboard
   bool button_b_keyboard_;
+
+  // on screen button left
+  on_screen_button* on_screen_button_left_;
+
+  // on screen button right
+  on_screen_button* on_screen_button_right_;
+
+  // on screen button up
+  on_screen_button* on_screen_button_up_;
+
+  std::vector<on_screen_button*> on_screen_buttons_;
 };
 
 #endif // __VIRTUAL_JOY_STICK_CLASS__
