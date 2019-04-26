@@ -60,6 +60,7 @@ public:
   static constexpr short int bit_mask_blocks = 128;
   static constexpr short int bit_mask_barrel = 256;
   static constexpr short int bit_mask_box = 512;
+  static constexpr short int bit_mask_feet = 1024;
   static constexpr short int bit_mask_step_objects = bit_mask_blocks | bit_mask_spikes | bit_mask_acid | bit_mask_saw |
     bit_mask_barrel | bit_mask_box;
 

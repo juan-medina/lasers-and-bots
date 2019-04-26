@@ -131,7 +131,7 @@ bool game_scene::init()
 
     const auto edge = get_tiled_map()->getPhysicsBody();
     edge->setCategoryBitmask(bit_mask_world);
-    edge->setContactTestBitmask(bit_mask_robot);
+    edge->setContactTestBitmask(bit_mask_feet);
 
     audio_helper::pre_load_music("sounds/music.mp3");
     audio_helper::pre_load_effect("sounds/fail.mp3");
@@ -801,26 +801,31 @@ bool game_scene::on_contact_begin(PhysicsContact& contact)
           const auto block_game_object = get_object_from_contact<game_object>(contact, bit_mask_step_objects);
           if (block_game_object != nullptr)
           {
-            if (block_game_object->getPositionY() <= robot->getPositionY())
-            {
-              robot->on_land_on_block();
-            }
             const auto damage = block_game_object->get_damage();
             if (damage != 0)
             {
               robot->damage_shield(damage);
             }
           }
-          else
+        }
+      }
+    }
+    else
+    {
+      const auto feet_node = get_object_from_contact<robot_object>(contact, bit_mask_feet);
+      if (feet_node != nullptr)
+      {
+        const auto block_game_object = get_object_from_contact<game_object>(contact, bit_mask_step_objects);
+        if (block_game_object != nullptr)
+        {
+          robot_->on_land_on_block();
+        }
+        else
+        {
+          const auto map = get_object_from_contact<experimental::TMXTiledMap>(contact, bit_mask_world);
+          if (map != nullptr)
           {
-            const auto edge = get_object_from_contact<experimental::TMXTiledMap>(contact, bit_mask_world);
-            if (edge != nullptr)
-            {
-              if (fuzzy_equals(robot->getPositionY(), 0.0f, 15.f))
-              {
-                robot->on_land_on_block();
-              }
-            }
+            robot_->on_land_on_block();
           }
         }
       }
