@@ -113,9 +113,9 @@ bool robot_object::init(virtual_joy_stick* virtual_joy_stick, const int max_shie
 
 void robot_object::update(float delta)
 {
-  move_to_left(virtual_joy_stick_->get_left());
-  move_to_right(virtual_joy_stick_->get_right());
-  jump(virtual_joy_stick_->get_up() || virtual_joy_stick_->button_a_down());
+  move_to_left(virtual_joy_stick_->left());
+  move_to_right(virtual_joy_stick_->right());
+  jump(virtual_joy_stick_->up() || virtual_joy_stick_->button_a());
 
   change_state(decide_state());
 }

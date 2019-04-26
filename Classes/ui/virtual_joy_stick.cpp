@@ -26,8 +26,8 @@ virtual_joy_stick::virtual_joy_stick():
   key_left_(false),
   key_right_(false),
   key_up_(false),
-  button_a_keyboard_(false),
-  button_b_keyboard_(false),
+  key_button_a_(false),
+  key_button_b_(false),
   on_screen_button_left_(nullptr),
   on_screen_button_right_(nullptr),
   on_screen_button_up_(nullptr)
@@ -256,11 +256,11 @@ void virtual_joy_stick::on_key_pressed(const EventKeyboard::KeyCode key_code, Ev
     key_right_ = true;
     break;
   case EventKeyboard::KeyCode::KEY_SPACE:
-    button_a_keyboard_ = true;
+    key_button_a_ = true;
     break;
   case EventKeyboard::KeyCode::KEY_LEFT_CTRL:
   case EventKeyboard::KeyCode::KEY_RIGHT_CTRL:
-    button_b_keyboard_ = true;
+    key_button_b_ = true;
     break;
   default:
     break;
@@ -284,38 +284,38 @@ void virtual_joy_stick::on_key_released(const EventKeyboard::KeyCode key_code, E
     key_right_ = false;
     break;
   case EventKeyboard::KeyCode::KEY_SPACE:
-    button_a_keyboard_ = false;
+    key_button_a_ = false;
     break;
   case EventKeyboard::KeyCode::KEY_LEFT_CTRL:
   case EventKeyboard::KeyCode::KEY_RIGHT_CTRL:
-    button_b_keyboard_ = false;
+    key_button_b_ = false;
     break;
   default:
     break;
   }
 }
 
-bool virtual_joy_stick::get_left() const
+bool virtual_joy_stick::left() const
 {
   return key_left_ || on_screen_button_left_->is_pushed();
 }
 
-bool virtual_joy_stick::get_right() const
+bool virtual_joy_stick::right() const
 {
   return key_right_ || on_screen_button_right_->is_pushed();
 }
 
-bool virtual_joy_stick::get_up() const
+bool virtual_joy_stick::up() const
 {
   return key_up_ || on_screen_button_up_->is_pushed();
 }
 
-bool virtual_joy_stick::button_a_down() const
+bool virtual_joy_stick::button_a() const
 {
-  return button_a_keyboard_;
+  return key_button_a_;
 }
 
-bool virtual_joy_stick::button_b_down() const
+bool virtual_joy_stick::button_b() const
 {
-  return button_b_keyboard_;
+  return key_button_b_;
 }

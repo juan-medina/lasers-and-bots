@@ -48,19 +48,19 @@ public:
   bool init() override;
 
   // joystick left
-  bool get_left() const;
+  bool left() const;
 
   // joystick right
-  bool get_right() const;
+  bool right() const;
 
   // joystick up
-  bool get_up() const;
+  bool up() const;
 
   // joystick a button
-  bool button_a_down() const;
+  bool button_a() const;
 
   // joystick b button
-  bool button_b_down() const;
+  bool button_b() const;
 
 private:
   // reset on screen buttons
@@ -103,10 +103,10 @@ private:
   bool key_up_;
 
   // button a in the keyboard
-  bool button_a_keyboard_;
+  bool key_button_a_;
 
   // button b in the keyboard
-  bool button_b_keyboard_;
+  bool key_button_b_;
 
   // on screen button left
   on_screen_button* on_screen_button_left_;
