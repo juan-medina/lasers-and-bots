@@ -76,10 +76,12 @@ public:
   // reload the level
   void reload();
 
+  // enter scene
   virtual void onEnter() override;
 
 protected:
 
+  // provide a physics node for a titled gid
   virtual Node* provide_physics_node(const int gid) const override;
 
 private:

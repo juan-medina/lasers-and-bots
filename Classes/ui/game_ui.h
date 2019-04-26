@@ -117,6 +117,18 @@ private:
 
   // the time limit
   unsigned int time_limit_;
+
+  // continue callback
+  ccMenuCallback continue_callback_;
+
+  // on continue button click
+  void on_continue();
+
+  // create a keyboard listener
+  bool create_keyboard_listener();
+
+  // on key press
+  void on_key_pressed(EventKeyboard::KeyCode key_code, Event* event);
 };
 
 #endif // __GAME_UI__CLASS__

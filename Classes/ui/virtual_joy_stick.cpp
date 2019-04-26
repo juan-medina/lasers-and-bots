@@ -30,7 +30,9 @@ virtual_joy_stick::virtual_joy_stick():
   key_right_(false),
   key_up_(false),
   key_down_(false),
-  blind_y_(0.f)
+  blind_y_(0.f),
+  button_a_keyboard_(false),
+  button_b_keyboard_(false)
 {
 }
 
@@ -95,7 +97,7 @@ bool virtual_joy_stick::init(float blind_y)
     thumb_->setScale(scale);
     thumb_radius_ = thumb_->getContentSize().width * thumb_->getScale();
 
-    addChild(thumb_, 1);    
+    addChild(thumb_, 1);
 
     UTILS_BREAK_IF(!create_touch_listener());
 
@@ -250,6 +252,13 @@ void virtual_joy_stick::on_key_pressed(const EventKeyboard::KeyCode key_code, Ev
   case EventKeyboard::KeyCode::KEY_S:
     key_down_ = true;
     break;
+  case EventKeyboard::KeyCode::KEY_SPACE:
+    button_a_keyboard_ = true;
+    break;
+  case EventKeyboard::KeyCode::KEY_LEFT_CTRL:
+  case EventKeyboard::KeyCode::KEY_RIGHT_CTRL:
+    button_b_keyboard_ = true;
+    break;
   default:
     break;
   }
@@ -274,6 +283,13 @@ void virtual_joy_stick::on_key_released(const EventKeyboard::KeyCode key_code, E
   case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
   case EventKeyboard::KeyCode::KEY_S:
     key_down_ = false;
+    break;
+  case EventKeyboard::KeyCode::KEY_SPACE:
+    button_a_keyboard_ = false;
+    break;
+  case EventKeyboard::KeyCode::KEY_LEFT_CTRL:
+  case EventKeyboard::KeyCode::KEY_RIGHT_CTRL:
+    button_b_keyboard_ = false;
     break;
   default:
     break;

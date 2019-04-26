@@ -63,6 +63,16 @@ public:
     return (velocity_.y < -0.5f) || key_down_;
   }
 
+  constexpr bool button_a_down() const
+  {
+    return button_a_keyboard_;
+  }
+
+  constexpr bool button_b_down() const
+  {
+    return button_b_keyboard_;
+  }
+
 private:
   // get a touch location in node space
   Vec2 get_location_in_node_space(Touch* touch);
@@ -124,6 +134,11 @@ private:
   // blind y
   float blind_y_;
 
+  // button a in the keyboard
+  bool button_a_keyboard_;
+
+  // button b in the keyboard
+  bool button_b_keyboard_;
 };
 
 #endif // __VIRTUAL_JOY_STICK_CLASS__

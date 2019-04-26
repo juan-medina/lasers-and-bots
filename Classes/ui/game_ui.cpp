@@ -31,8 +31,9 @@ game_ui::game_ui():
   pause_item_(nullptr),
   time_label_(nullptr),
   sub_time_label_(nullptr),
+  countdown_label_(nullptr),
   time_limit_(0),
-  countdown_label_(nullptr)
+  continue_callback_(nullptr)
 {
 }
 
@@ -262,6 +263,9 @@ bool game_ui::init()
     countdown_label_->setVisible(false);
     addChild(countdown_label_, 100);
 
+    // ui keyboard
+    create_keyboard_listener();
+
     ret = true;
   }
   while (false);
@@ -392,7 +396,10 @@ void game_ui::display_message(const std::string& message, const std::string& sub
     const auto continue_sprite_click = Sprite::createWithSpriteFrameName("08_Text_2.png");
     UTILS_BREAK_IF(continue_sprite_click == nullptr);
 
-    const auto continue_item = MenuItemSprite::create(continue_sprite, continue_sprite_click, callback);
+    continue_callback_ = callback;
+    const auto continue_item = MenuItemSprite::create(continue_sprite, continue_sprite_click,
+                                                      CC_CALLBACK_0(game_ui::on_continue, this));
+
     UTILS_BREAK_IF(continue_item == nullptr);
 
     continue_item->setPosition(horizontal_segment / 2, 0);
@@ -512,4 +519,59 @@ void game_ui::update_countdown(const int value) const
 void game_ui::star_sound()
 {
   audio_helper::get_instance()->play_effect("sounds/star.mp3");
+}
+
+void game_ui::on_continue()
+{
+  if (continue_callback_ != nullptr)
+  {
+    audio_helper::get_instance()->play_effect("sounds/select.mp3");
+    continue_callback_(this);
+    continue_callback_ = nullptr;
+  }
+}
+
+bool game_ui::create_keyboard_listener()
+{
+  auto result = false;
+
+  do
+  {
+    auto listener = EventListenerKeyboard::create();
+    UTILS_BREAK_IF(listener == nullptr);
+
+    listener->onKeyPressed = CC_CALLBACK_2(game_ui::on_key_pressed, this);
+
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+    result = true;
+  }
+  while (false);
+
+  return result;
+}
+
+void game_ui::on_key_pressed(EventKeyboard::KeyCode key_code, Event* event)
+{
+  switch (key_code)
+  {
+  case EventKeyboard::KeyCode::KEY_ESCAPE:
+    if (pause_item_->isEnabled())
+    {
+      pause_item_->setSelectedIndex(pause_item_->getSelectedIndex() == 0 ? 1 : 0);
+      on_pause(this);
+    }
+    break;
+  case EventKeyboard::KeyCode::KEY_ENTER:
+    if (continue_callback_ != nullptr)
+    {
+      on_continue();
+    }
+    break;
+  case EventKeyboard::KeyCode::KEY_F5:
+    on_reload(this);
+    break;
+  default:
+    break;
+  }
 }

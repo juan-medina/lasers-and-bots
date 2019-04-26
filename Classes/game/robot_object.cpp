@@ -115,7 +115,7 @@ void robot_object::update(float delta)
 {
   move_to_left(virtual_joy_stick_->get_left());
   move_to_right(virtual_joy_stick_->get_right());
-  jump(virtual_joy_stick_->get_up());
+  jump(virtual_joy_stick_->get_up() || virtual_joy_stick_->button_a_down());
 
   change_state(decide_state());
 }

@@ -188,6 +188,8 @@ Node* game_scene::provide_physics_node(const int gid) const
 
 void game_scene::update(float delta)
 {
+  game_ui_->update(delta);
+
   if (!paused_)
   {
     total_time_ += delta;
