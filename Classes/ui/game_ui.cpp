@@ -154,12 +154,12 @@ bool game_ui::init()
     const auto menu = Menu::create(close_item, pause_item_, reload_item, nullptr);
     UTILS_BREAK_IF(menu == nullptr);
 
-    addChild(menu);
+    addChild(menu, 100);
 
     //////////////////////////////
     // joystick
     virtual_joy_stick_ = virtual_joy_stick::create(size.height - 500.f);
-    addChild(virtual_joy_stick_);
+    addChild(virtual_joy_stick_, 100);
 
     //////////////////////////////
     // head
@@ -170,7 +170,7 @@ bool game_ui::init()
 
     head->setAnchorPoint(Vec2(0, 1));
     head->setPosition(head_pos);
-    addChild(head);
+    addChild(head, 100);
 
     //////////////////////////////
     // shield bar
@@ -181,7 +181,7 @@ bool game_ui::init()
                                          -head->getContentSize().height / 2.f);
     bar_sprite->setPosition(bar_pos);
 
-    addChild(bar_sprite);
+    addChild(bar_sprite, 100);
 
     const auto bar_full_sprite = Sprite::createWithSpriteFrameName("05_bar_full.png");
     UTILS_BREAK_IF(bar_full_sprite == nullptr);
@@ -199,7 +199,7 @@ bool game_ui::init()
 
     shield_bar_->setOpacity(200);
 
-    addChild(shield_bar_);
+    addChild(shield_bar_, 100);
 
     shield_label_ = Label::createWithTTF("100%", "fonts/tahoma.ttf", 120);
     UTILS_BREAK_IF(shield_label_ == nullptr);
@@ -209,7 +209,7 @@ bool game_ui::init()
 
     shield_label_->enableOutline(Color4B(0, 0, 0, 255), 5);
 
-    addChild(shield_label_);
+    addChild(shield_label_, 100);
 
     //////////////////////////////
     // time label
@@ -227,7 +227,7 @@ bool game_ui::init()
     // position the label
     time_label_->setPosition(Vec2(size.width / 2, size.height - close_item->getContentSize().height / 2));
 
-    addChild(time_label_);
+    addChild(time_label_, 100);
 
     //////////////////////////////
     // sub time label
@@ -245,7 +245,7 @@ bool game_ui::init()
     sub_time_label_->setPosition(Vec2(time_label_->getPosition().x + time_label_->getContentSize().width,
                                       time_label_->getPosition().y));
 
-    addChild(sub_time_label_);
+    addChild(sub_time_label_, 100);
 
     //////////////////////////////
     // count down label
@@ -260,7 +260,7 @@ bool game_ui::init()
     countdown_label_->enableOutline(Color4B(0, 0, 0, 255), 5);
     countdown_label_->setPosition(Vec2(size.width / 2, size.height / 2));
     countdown_label_->setVisible(false);
-    addChild(countdown_label_);
+    addChild(countdown_label_, 100);
 
     ret = true;
   }
@@ -329,7 +329,7 @@ void game_ui::display_message(const std::string& message, const std::string& sub
     const auto dark_all = LayerColor::create(Color4B(0, 0, 0, 0));
     UTILS_BREAK_IF(dark_all == nullptr);
 
-    addChild(dark_all);
+    addChild(dark_all, 0);
     dark_all->runAction(FadeTo::create(0.5f, 127));
 
     const auto background = Sprite::createWithSpriteFrameName("10_message.png");
@@ -343,7 +343,7 @@ void game_ui::display_message(const std::string& message, const std::string& sub
     background->setPosition(size.width / 2, size.height / 2);
     background->setColor(Color3B(0, 255, 255));
 
-    addChild(background);
+    addChild(background, 100);
     background->runAction(FadeTo::create(0.5f, 190));
 
     const auto header = Sprite::createWithSpriteFrameName("11_message_header.png");
@@ -352,7 +352,7 @@ void game_ui::display_message(const std::string& message, const std::string& sub
     header->setPosition(horizontal_segment / 2, vertical_segment);
     header->setColor(Color3B(0, 127, 127));
 
-    background->addChild(header);
+    background->addChild(header, 100);
 
     //////////////////////////////
     // label
@@ -367,7 +367,7 @@ void game_ui::display_message(const std::string& message, const std::string& sub
     // position the label
     label->setPosition(header->getContentSize().width / 2, (header->getContentSize().height / 2) + 100);
 
-    header->addChild(label);
+    header->addChild(label, 100);
 
     //////////////////////////////
     // sub label
@@ -381,7 +381,7 @@ void game_ui::display_message(const std::string& message, const std::string& sub
     // position the label
     sub_label->setPosition(background->getContentSize().width / 2, (background->getContentSize().height) - 250);
 
-    background->addChild(sub_label);
+    background->addChild(sub_label, 100);
 
     //////////////////////////////
     // button
@@ -405,7 +405,7 @@ void game_ui::display_message(const std::string& message, const std::string& sub
     label_button->setTextColor(Color4B(255, 255, 255, 255));
     label_button->enableOutline(Color4B(0, 0, 0, 255), 5);
 
-    continue_item->addChild(label_button);
+    continue_item->addChild(label_button, 100);
 
     //////////////////////////////
     // menu
@@ -414,7 +414,7 @@ void game_ui::display_message(const std::string& message, const std::string& sub
 
     menu->setPosition(0, 0);
 
-    background->addChild(menu);
+    background->addChild(menu, 100);
 
     if (stars < 0)
     {
@@ -434,7 +434,7 @@ void game_ui::display_message(const std::string& message, const std::string& sub
 
       const auto star_pos = first_start_pos + Vec2((horizontal_segment / 3) * start_counter, 0.f);
       star_gray->setPosition(star_pos);
-      background->addChild(star_gray);
+      background->addChild(star_gray, 100);
 
       auto star_tex = string("level\ncompleted");
       if (start_counter == 1)
@@ -455,7 +455,7 @@ void game_ui::display_message(const std::string& message, const std::string& sub
       label_star->setTextColor(Color4B(255, 255, 255, 255));
       label_star->enableOutline(Color4B(0, 0, 0, 255), 5);
 
-      star_gray->addChild(label_star);
+      star_gray->addChild(label_star, 100);
 
       if (is_gold)
       {
@@ -477,7 +477,7 @@ void game_ui::display_message(const std::string& message, const std::string& sub
         const auto scale = Sequence::create(delay->clone(), scale_up, scale_down, play_sound, nullptr);
         star_gold->runAction(scale);
 
-        background->addChild(star_gold);
+        background->addChild(star_gold, 100);
       }
     }
   }
