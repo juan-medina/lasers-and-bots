@@ -85,7 +85,7 @@ bool basic_app::applicationDidFinishLaunching()
 
     if (!open_gl_view)
     {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
+#if (GAME_PLATFORM == DESKTOP_GAME)
       if (full_screen)
       {
         open_gl_view = GLViewImpl::createWithFullScreen(name_);

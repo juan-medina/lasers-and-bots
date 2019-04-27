@@ -134,11 +134,13 @@ bool virtual_joy_stick::init()
     // 1. super init first
     UTILS_BREAK_IF(!base_class::init());
 
-    // add on screen buttons
-    UTILS_BREAK_IF(!add_on_screen_buttons());
-
+#if (GAME_PLATFORM == DESKTOP_GAME)
     // create keyboard listener
     UTILS_BREAK_IF(!create_keyboard_listener());
+#else
+    // add on screen buttons
+    UTILS_BREAK_IF(!add_on_screen_buttons());
+#endif
 
     ret = true;
   }

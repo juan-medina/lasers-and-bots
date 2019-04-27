@@ -28,6 +28,14 @@
 USING_NS_CC;
 using namespace std;
 
+#ifndef GAME_PLATFORM
+  #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
+    #define GAME_PLATFORM DESKTOP_GAME
+  #else
+    #define GAME_PLATFORM MOBILE_GAME
+  #endif
+#endif
+
 // log a line with the format <class::function> : <data to be logged> -> <file>(<line number>)
 #define UTILS_LOG(s, ...) CCLOG(string(string("%s : ") + string(s) + string(" -> %s (%d)")).c_str(), __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__)
 

@@ -263,8 +263,10 @@ bool game_ui::init()
     countdown_label_->setVisible(false);
     addChild(countdown_label_, 100);
 
+#if (GAME_PLATFORM == DESKTOP_GAME)
     // ui keyboard
     create_keyboard_listener();
+#endif
 
     ret = true;
   }
@@ -569,6 +571,7 @@ void game_ui::on_key_pressed(EventKeyboard::KeyCode key_code, Event* event)
     }
     break;
   case EventKeyboard::KeyCode::KEY_ENTER:
+  case EventKeyboard::KeyCode::KEY_KP_ENTER:
     if (continue_callback_ != nullptr)
     {
       on_continue();
