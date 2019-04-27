@@ -35,14 +35,6 @@ public:
   // create the object
   static virtual_joy_stick* create();
 
-  // add one button
-  on_screen_button* add_on_screen_button(const on_screen_button::button_type& type,
-                                         const std::string& sprite_frame_name,
-                                         const std::string& label = "");
-
-  // add on screen buttons
-  bool add_on_screen_buttons();
-
   // init this object
   bool init() override;
 
@@ -65,6 +57,26 @@ public:
   void disabled(const bool disabled);
 
 private:
+
+  // add one button
+  on_screen_button* add_on_screen_button(const on_screen_button::button_type& type,
+                                         const std::string& sprite_frame_name,
+                                         const std::string& label = "");
+
+  // add on screen buttons
+  bool add_on_screen_buttons();
+
+  // controller listener control down
+  void on_controller_key_down(Controller* controller, int key_code, Event* event);
+
+  // controller listener control up
+  void on_controller_key_up(Controller* controller, int key_code, Event* event);
+
+  // controller listener axis move
+  void on_controller_axis(Controller* controller, int key_code, Event* event);
+
+  // create a controler listener
+  bool create_controller_listener();
 
   // create a keyboard listener
   bool create_keyboard_listener();
@@ -93,8 +105,50 @@ private:
   // button b in the keyboard
   bool key_button_b_;
 
+  // controller left pressed
+  bool controller_left_;
+
+  // controller right pressed
+  bool controller_right_;
+
+  // controller up pressed
+  bool controller_up_;
+
+  // controller left axis pushed
+  bool controller_axis_left_;
+
+  // controller right axis pushed
+  bool controller_axis_right_;
+
+  // controller up axis pushed
+  bool controller_axis_up_;
+
+  // controller button a
+  bool controller_button_a_;
+
+  // controller button b
+  bool controller_button_b_;
+
   // on screen buttons
   std::vector<on_screen_button*> on_screen_buttons_;
+
+  // key codes
+  enum controller_codes
+  {
+    controller_d_pad_up = 10,
+    controller_d_pad_down = 12,
+    controller_d_pad_left = 13,
+    controller_d_pad_right = 11,
+    controller_button_a = 0,
+    controller_button_b = 1,
+    controller_left_shoulder = 4,
+    controller_right_shoulder = 5,
+    controller_start = 7,
+    controller_left_axis_x = 0,
+    controller_left_axis_y = 1,
+    controller_right_axis_x = 2,
+    controller_right_axis_y = 3
+  };
 };
 
 #endif // __VIRTUAL_JOY_STICK_CLASS__

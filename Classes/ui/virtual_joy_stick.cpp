@@ -26,7 +26,15 @@ virtual_joy_stick::virtual_joy_stick():
   key_right_(false),
   key_up_(false),
   key_button_a_(false),
-  key_button_b_(false)
+  key_button_b_(false),
+  controller_left_(false),
+  controller_right_(false),
+  controller_up_(false),
+  controller_axis_left_(false),
+  controller_axis_right_(false),
+  controller_axis_up_(false),
+  controller_button_a_(false),
+  controller_button_b_(false)
 {
 }
 
@@ -124,6 +132,111 @@ bool virtual_joy_stick::add_on_screen_buttons()
   return ret;
 }
 
+void virtual_joy_stick::on_controller_key_down(Controller* controller, int key_code, Event* event)
+{
+  switch (key_code)
+  {
+  case controller_d_pad_up:
+    controller_up_ = true;
+    break;
+  case controller_d_pad_left:
+  case controller_left_shoulder:
+    controller_left_ = true;;
+    break;
+  case controller_d_pad_right:
+  case controller_right_shoulder:
+    controller_right_ = true;
+    break;
+  case controller_button_a:
+    controller_button_a_ = true;
+    break;
+  case controller_button_b:
+    controller_button_b_ = true;
+    break;
+  default:
+    break;
+  }
+}
+
+void virtual_joy_stick::on_controller_key_up(Controller* controller, int key_code, Event* event)
+{
+  switch (key_code)
+  {
+  case controller_d_pad_up:
+    controller_up_ = false;
+    break;
+  case controller_d_pad_left:
+  case controller_left_shoulder:
+    controller_left_ = false;;
+    break;
+  case controller_d_pad_right:
+  case controller_right_shoulder:
+    controller_right_ = false;
+    break;
+  case controller_button_a:
+    controller_button_a_ = false;
+    break;
+  case controller_button_b:
+    controller_button_b_ = false;
+    break;
+  default:
+    break;
+  }
+}
+
+void virtual_joy_stick::on_controller_axis(Controller* controller, int key_code, Event* event)
+{
+  const auto& value = controller->getKeyStatus(key_code).value;
+
+  if (key_code == controller_left_axis_x)
+  {
+    if (fabs(value) > 0.5f)
+    {
+      controller_axis_left_ = value < 0.5f;
+      controller_axis_right_ = value > 0.5f;
+    }
+    else
+    {
+      controller_axis_left_ = false;
+      controller_axis_right_ = false;
+    }
+  }
+  else if (key_code == controller_left_axis_y)
+  {
+    if (fabs(value) > 0.5f)
+    {
+      controller_axis_up_ = value > 0.5f;
+    }
+    else
+    {
+      controller_axis_up_ = false;
+    }
+  }
+}
+
+bool virtual_joy_stick::create_controller_listener()
+{
+  auto ret = false;
+
+  do
+  {
+    const auto listener = EventListenerController::create();
+
+    listener->onKeyDown = CC_CALLBACK_3(virtual_joy_stick::on_controller_key_down, this);
+    listener->onKeyUp = CC_CALLBACK_3(virtual_joy_stick::on_controller_key_up, this);
+    listener->onAxisEvent = CC_CALLBACK_3(virtual_joy_stick::on_controller_axis, this);
+
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+    Controller::startDiscoveryController();
+
+    ret = true;
+  }
+  while (false);
+
+  return ret;
+}
+
 bool virtual_joy_stick::init()
 {
   auto ret = false;
@@ -141,6 +254,8 @@ bool virtual_joy_stick::init()
     // add on screen buttons
     UTILS_BREAK_IF(!add_on_screen_buttons());
 #endif
+
+    UTILS_BREAK_IF(!create_controller_listener());
 
     ret = true;
   }
@@ -240,27 +355,27 @@ bool virtual_joy_stick::is_on_screen_pushed(const on_screen_button::button_type&
 
 bool virtual_joy_stick::left() const
 {
-  return key_left_ || is_on_screen_pushed(on_screen_button::left);
+  return key_left_ || controller_left_ || controller_axis_left_ || is_on_screen_pushed(on_screen_button::left);
 }
 
 bool virtual_joy_stick::right() const
 {
-  return key_right_ || is_on_screen_pushed(on_screen_button::right);
+  return key_right_ || controller_right_ || controller_axis_right_ || is_on_screen_pushed(on_screen_button::right);
 }
 
 bool virtual_joy_stick::up() const
 {
-  return key_up_ || is_on_screen_pushed(on_screen_button::up);
+  return key_up_ || controller_up_ || controller_axis_up_ || is_on_screen_pushed(on_screen_button::up);
 }
 
 bool virtual_joy_stick::button_a() const
 {
-  return key_button_a_ || is_on_screen_pushed(on_screen_button::button_a);
+  return key_button_a_ || controller_button_a_ || is_on_screen_pushed(on_screen_button::button_a);
 }
 
 bool virtual_joy_stick::button_b() const
 {
-  return key_button_b_ || is_on_screen_pushed(on_screen_button::button_b);
+  return key_button_b_ || controller_button_b_ || is_on_screen_pushed(on_screen_button::button_b);
 }
 
 void virtual_joy_stick::disabled(const bool disabled)
