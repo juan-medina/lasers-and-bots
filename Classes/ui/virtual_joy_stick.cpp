@@ -86,17 +86,18 @@ bool virtual_joy_stick::add_on_screen_buttons()
     // left button
     on_screen_button_left_ = add_on_screen_button("02_joystick_left_01.png", "02_joystick_left_02.png");
     UTILS_BREAK_IF(on_screen_button_left_ == nullptr);
-
+    const auto gap = Vec2(on_screen_button_left_->getContentSize().width / 4,
+                          on_screen_button_left_->getContentSize().height / 4);
     const auto left_button_pos = Vec2(on_screen_button_left_->getContentSize().width / 2,
-                                      on_screen_button_left_->getContentSize().height / 2);
+                                      on_screen_button_left_->getContentSize().height / 2) + gap;
     on_screen_button_left_->setPosition(left_button_pos);
 
     // right button
     on_screen_button_right_ = add_on_screen_button("02_joystick_right_01.png", "02_joystick_right_02.png");
     UTILS_BREAK_IF(on_screen_button_right_ == nullptr);
 
-    const auto right_button_pos = left_button_pos + Vec2(
-      on_screen_button_left_->getContentSize().width + (on_screen_button_left_->getContentSize().width / 2), 0.f);
+    const auto right_button_pos = left_button_pos + Vec2(on_screen_button_left_->getContentSize().width + gap.x,
+                                                         0.f);
     on_screen_button_right_->setPosition(right_button_pos);
 
     // up button
@@ -105,7 +106,7 @@ bool virtual_joy_stick::add_on_screen_buttons()
 
     const auto size = Director::getInstance()->getOpenGLView()->getVisibleSize();
     const auto up_button_pos = Vec2(size.width - (on_screen_button_up_->getContentSize().width / 2),
-                                    on_screen_button_up_->getContentSize().height / 2);
+                                    on_screen_button_up_->getContentSize().height / 2) + Vec2(-gap.x, gap.y);
     on_screen_button_up_->setPosition(up_button_pos);
 
     ret = true;
