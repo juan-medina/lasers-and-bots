@@ -79,6 +79,8 @@ bool on_screen_button::init(const std::string& normal_sprite_frame_name, const s
 
     pushed(false);
 
+    create_touch_listener();
+
     ret = true;
   }
   while (false);
@@ -91,16 +93,20 @@ const cocos2d::Size& on_screen_button::getContentSize() const
   return normal_sprite_->getContentSize();
 }
 
-Rect on_screen_button::getBoundingBox() const
-{
-  return normal_sprite_->getBoundingBox();
-}
-
 bool on_screen_button::is_touched_by_location(const Vec2& location) const
 {
-  const auto pos = convertToNodeSpace(location);
-  const auto box = normal_sprite_->getBoundingBox();
-  return box.containsPoint(pos);
+  const auto touch_location = location + Vec2(getContentSize().width / 2,
+                                              getContentSize().height / 2);
+
+  const auto camera = Camera::getVisitingCamera();
+  if (camera != nullptr)
+  {
+    Rect rect;
+    rect.size = getContentSize();
+    return isScreenPointInRect(touch_location, camera, getWorldToNodeTransform(), rect, nullptr);
+  }
+
+  return false;
 }
 
 void on_screen_button::pushed(const bool pushed)
@@ -109,4 +115,59 @@ void on_screen_button::pushed(const bool pushed)
   pushed_sprite_->setVisible(pushed);
 
   pushed_ = pushed;
+}
+
+bool on_screen_button::create_touch_listener()
+{
+  auto ret = false;
+
+  do
+  {
+    // Register Touch Event
+    const auto listener = EventListenerTouchOneByOne::create();
+    UTILS_BREAK_IF(listener == nullptr);
+
+    listener->onTouchBegan = CC_CALLBACK_2(on_screen_button::on_touch_began, this);
+    listener->onTouchEnded = CC_CALLBACK_2(on_screen_button::on_touch_ended, this);
+    listener->onTouchMoved = CC_CALLBACK_2(on_screen_button::on_touch_moved, this);
+    listener->onTouchCancelled = CC_CALLBACK_2(on_screen_button::on_touch_cancel, this);
+    listener->setSwallowTouches(true);
+
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+    ret = true;
+  }
+  while (false);
+
+  return ret;
+}
+
+bool on_screen_button::on_touch_began(Touch* touch, Event* unused_event)
+{
+  pushed(false);
+
+  const auto location = touch->getLocation();
+
+  if (is_touched_by_location(location))
+  {
+    pushed(true);
+    return true;
+  }
+
+  return false;
+}
+
+void on_screen_button::on_touch_moved(Touch* touch, Event* unused_event)
+{
+  on_touch_began(touch, unused_event);
+}
+
+void on_screen_button::on_touch_ended(Touch* touch, Event* unused_event)
+{
+  pushed(false);
+}
+
+void on_screen_button::on_touch_cancel(Touch* touch, Event* unused_event)
+{
+  on_touch_ended(touch, unused_event);
 }

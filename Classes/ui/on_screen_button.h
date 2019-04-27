@@ -41,12 +41,6 @@ public:
   // get this content size
   const cocos2d::Size& getContentSize() const override;
 
-  // get this object bounding box
-  Rect getBoundingBox() const override;
-
-  // does a location touch this button
-  bool is_touched_by_location(const Vec2& location) const;
-
   // the button is pushed
   void pushed(const bool pushed);
 
@@ -57,6 +51,24 @@ public:
   }
 
 private:
+
+  // does a location touch this button
+  bool is_touched_by_location(const Vec2& location) const;
+
+  // begin touches event
+  bool on_touch_began(Touch* touch, Event* unused_event);
+
+  // touches moved event
+  void on_touch_moved(Touch* touch, Event* unused_event);
+
+  // touches end event
+  void on_touch_ended(Touch* touch, Event* unused_event);
+
+  // touches cancel
+  void on_touch_cancel(Touch* touch, Event* unused_event);
+
+  // create touch listener
+  bool create_touch_listener();
 
   // normal sprite
   Sprite* normal_sprite_;

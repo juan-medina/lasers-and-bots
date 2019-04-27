@@ -19,7 +19,6 @@
  ****************************************************************************/
 
 #include "virtual_joy_stick.h"
-#include "game_ui.h"
 #include "on_screen_button.h"
 
 virtual_joy_stick::virtual_joy_stick():
@@ -129,87 +128,8 @@ bool virtual_joy_stick::init()
     // add on screen buttons
     UTILS_BREAK_IF(!add_on_screen_buttons());
 
-    // create touch listener
-    UTILS_BREAK_IF(!create_touch_listener());
-
     // create keyboard listener
     UTILS_BREAK_IF(!create_keyboard_listener());
-
-    ret = true;
-  }
-  while (false);
-
-  return ret;
-}
-
-void virtual_joy_stick::reset_on_screen_buttons()
-{
-  for (const auto button : on_screen_buttons_)
-  {
-    button->pushed(false);
-  }
-}
-
-Vec2 virtual_joy_stick::get_location_in_node_space(Touch* touch)
-{
-  const auto point_one = Director::getInstance()->convertToUI(touch->getLocationInView());
-  const auto ui = dynamic_cast<game_ui*>(getParent());
-  const auto location = point_one + ui->getPosition();
-  return location;
-}
-
-bool virtual_joy_stick::on_touches_began(const std::vector<Touch*>& touches, Event* unused_event)
-{
-  reset_on_screen_buttons();
-
-  for (const auto touch : touches)
-  {
-    const auto location = get_location_in_node_space(touch);
-
-    for (const auto button : on_screen_buttons_)
-    {
-      if (button->is_touched_by_location(location))
-      {
-        button->pushed(true);
-        return true;
-      }
-    }
-  }
-
-  return false;
-}
-
-void virtual_joy_stick::on_touches_moved(const std::vector<Touch*>& touches, Event* unused_event)
-{
-  on_touches_began(touches, unused_event);
-}
-
-void virtual_joy_stick::on_touches_ended(const std::vector<Touch*>& touches, Event* unused_event)
-{
-  reset_on_screen_buttons();
-}
-
-void virtual_joy_stick::on_touches_cancel(const std::vector<Touch*>& touches, Event* unused_event)
-{
-  on_touches_ended(touches, unused_event);
-}
-
-bool virtual_joy_stick::create_touch_listener()
-{
-  auto ret = false;
-
-  do
-  {
-    // Register Touch Event
-    const auto listener = EventListenerTouchAllAtOnce::create();
-    UTILS_BREAK_IF(listener == nullptr);
-
-    listener->onTouchesBegan = CC_CALLBACK_2(virtual_joy_stick::on_touches_began, this);
-    listener->onTouchesEnded = CC_CALLBACK_2(virtual_joy_stick::on_touches_ended, this);
-    listener->onTouchesMoved = CC_CALLBACK_2(virtual_joy_stick::on_touches_moved, this);
-    listener->onTouchesCancelled = CC_CALLBACK_2(virtual_joy_stick::on_touches_cancel, this);
-
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
     ret = true;
   }

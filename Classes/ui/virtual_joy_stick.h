@@ -63,26 +63,6 @@ public:
   bool button_b() const;
 
 private:
-  // reset on screen buttons
-  void reset_on_screen_buttons();
-
-  // get a touch location in node space
-  Vec2 get_location_in_node_space(Touch* touch);
-
-  // begin touches event
-  bool on_touches_began(const std::vector<Touch*>& touches, Event* unused_event);
-
-  // touches moved event
-  void on_touches_moved(const std::vector<Touch*>& touches, Event* unused_event);
-
-  // touches end event
-  void on_touches_ended(const std::vector<Touch*>& touches, Event* unused_event);
-
-  // touches cancel
-  void on_touches_cancel(const std::vector<Touch*>& touches, Event* unused_event);
-
-  // register touch events
-  bool create_touch_listener();
 
   // create a keyboard listener
   bool create_keyboard_listener();
