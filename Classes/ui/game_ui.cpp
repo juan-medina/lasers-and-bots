@@ -297,6 +297,12 @@ void game_ui::on_reload(Ref* sender)
   scene->reload();
 }
 
+void game_ui::disable_buttons(const bool disabled) const
+{
+  pause_item_->setEnabled(!disabled);
+  virtual_joy_stick_->disabled(disabled);
+}
+
 void game_ui::update_time(const float time, const unsigned int time_limit)
 {
   time_limit_ = time_limit;

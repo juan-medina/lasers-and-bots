@@ -32,11 +32,10 @@ public:
   on_screen_button();
 
   // create the object
-  static on_screen_button* create(const std::string& normal_sprite_frame_name,
-                                  const std::string& pushed_sprite_frame_name);
+  static on_screen_button* create(const std::string& sprite_frame_name);
 
   // init this object
-  bool init(const std::string& normal_sprite_frame_name, const std::string& pushed_sprite_frame_name);
+  bool init(const std::string& sprite_frame_name);
 
   // get this content size
   const cocos2d::Size& getContentSize() const override;
@@ -50,7 +49,13 @@ public:
     return pushed_;
   }
 
+  // disable the button
+  void disabled(const bool disabled);
+
 private:
+
+  // the status has change
+  void on_status_change() const;
 
   // does a location touch this button
   bool is_touched_by_location(const Vec2& location) const;
@@ -68,7 +73,7 @@ private:
   void on_touches_cancel(const std::vector<Touch*>& touches, Event* unused_event);
 
   // create touch listener
-  bool create_touch_listener();
+  bool enable_touch(const bool enabled);
 
   // normal sprite
   Sprite* normal_sprite_;
@@ -76,11 +81,20 @@ private:
   // normal sprite
   Sprite* pushed_sprite_;
 
+  // normal sprite
+  Sprite* disabled_sprite_;
+
   // is the button pushed
   bool pushed_;
-	
-	// the saved touch id
-	int saved_touch_id_;
+
+  // is the button disabled
+  bool disabled_;
+
+  // the saved touch id
+  int saved_touch_id_;
+
+  // the touch listener
+  EventListenerTouchAllAtOnce* touch_listener_;
 };
 
 #endif // __ON_SCREEN_BUTTON_CLASS__

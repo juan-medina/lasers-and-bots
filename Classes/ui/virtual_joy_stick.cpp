@@ -60,13 +60,12 @@ virtual_joy_stick* virtual_joy_stick::create()
   return ret;
 }
 
-on_screen_button* virtual_joy_stick::add_on_screen_button(const std::string& normal_sprite_frame_name,
-                                                          const std::string& pushed_sprite_frame_name)
+on_screen_button* virtual_joy_stick::add_on_screen_button(const std::string& sprite_frame_name)
 {
   on_screen_button* button = nullptr;
   do
   {
-    button = on_screen_button::create(normal_sprite_frame_name, pushed_sprite_frame_name);
+    button = on_screen_button::create(sprite_frame_name);
     UTILS_BREAK_IF(button == nullptr);
 
     addChild(button);
@@ -84,7 +83,7 @@ bool virtual_joy_stick::add_on_screen_buttons()
   do
   {
     // left button
-    on_screen_button_left_ = add_on_screen_button("02_joystick_left_01.png", "02_joystick_left_02.png");
+    on_screen_button_left_ = add_on_screen_button("02_joystick_left");
     UTILS_BREAK_IF(on_screen_button_left_ == nullptr);
     const auto gap = Vec2(on_screen_button_left_->getContentSize().width / 4,
                           on_screen_button_left_->getContentSize().height / 4);
@@ -93,7 +92,7 @@ bool virtual_joy_stick::add_on_screen_buttons()
     on_screen_button_left_->setPosition(left_button_pos);
 
     // right button
-    on_screen_button_right_ = add_on_screen_button("02_joystick_right_01.png", "02_joystick_right_02.png");
+    on_screen_button_right_ = add_on_screen_button("02_joystick_right");
     UTILS_BREAK_IF(on_screen_button_right_ == nullptr);
 
     const auto right_button_pos = left_button_pos + Vec2(on_screen_button_left_->getContentSize().width + gap.x,
@@ -101,7 +100,7 @@ bool virtual_joy_stick::add_on_screen_buttons()
     on_screen_button_right_->setPosition(right_button_pos);
 
     // up button
-    on_screen_button_up_ = add_on_screen_button("02_joystick_up_01.png", "02_joystick_up_02.png");
+    on_screen_button_up_ = add_on_screen_button("02_joystick_up");
     UTILS_BREAK_IF(on_screen_button_up_ == nullptr);
 
     const auto size = Director::getInstance()->getOpenGLView()->getVisibleSize();
@@ -239,4 +238,12 @@ bool virtual_joy_stick::button_a() const
 bool virtual_joy_stick::button_b() const
 {
   return key_button_b_;
+}
+
+void virtual_joy_stick::disabled(const bool disabled)
+{
+  for (const auto button : on_screen_buttons_)
+  {
+    button->disabled(disabled);
+  }
 }

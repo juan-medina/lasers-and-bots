@@ -196,7 +196,7 @@
     <property name="image" value="04_DoorLocked.png"/>
    </properties>
   </object>
-  <object id="14" name="open_switch" type="switch" gid="31" x="11189.5" y="5102.22" width="256" height="256">
+  <object id="14" name="open_switch" type="switch" gid="31" x="11009.5" y="5118.72" width="256" height="256">
    <properties>
     <property name="target" value="switch_mirrow"/>
    </properties>

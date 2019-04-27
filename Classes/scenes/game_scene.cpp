@@ -597,7 +597,7 @@ void game_scene::game_over(const bool win)
   do
   {
     pause();
-    game_ui_->disable_pause();
+    game_ui_->disable_buttons(true);
 
     if (win)
     {
@@ -618,7 +618,7 @@ void game_scene::game_over(const bool win)
 void game_scene::delay_start()
 {
   pause();
-  game_ui_->disable_pause();
+  game_ui_->disable_buttons(true);
 
   const auto start = CallFunc::create(CC_CALLBACK_0(game_scene::start, this));
   const auto delay = DelayTime::create(4.6f);
@@ -651,7 +651,7 @@ void game_scene::start()
 {
   audio_helper::get_instance()->play_music("sounds/music.mp3", 0.30f);
   resume();
-  game_ui_->enable_pause();
+  game_ui_->disable_buttons(false);
 }
 
 void game_scene::pause()
@@ -699,7 +699,7 @@ void game_scene::toggle_pause()
 void game_scene::reload()
 {
   pause();
-  game_ui_->disable_pause();
+  game_ui_->disable_buttons(true);
   Director::getInstance()->replaceScene(loading_scene::game());
 }
 

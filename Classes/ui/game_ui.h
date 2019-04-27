@@ -65,17 +65,8 @@ public:
     shield_label_->setString(string_format("%3d %%", int_value));
   }
 
-  // disable pause
-  inline void enable_pause() const
-  {
-    pause_item_->setEnabled(true);
-  }
-
-  // disable pause
-  inline void disable_pause() const
-  {
-    pause_item_->setEnabled(false);
-  }
+  // disable buttons
+  void disable_buttons(const bool disabled) const;
 
   // update our time
   void update_time(const float time, const unsigned int time_limit);

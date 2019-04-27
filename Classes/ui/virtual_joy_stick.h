@@ -38,8 +38,7 @@ public:
   static virtual_joy_stick* create();
 
   // add one button
-  on_screen_button* add_on_screen_button(const std::string& normal_sprite_frame_name,
-                                         const std::string& pushed_sprite_frame_name);
+  on_screen_button* add_on_screen_button(const std::string& sprite_frame_name);
 
   // add on screen buttons
   bool add_on_screen_buttons();
@@ -61,6 +60,9 @@ public:
 
   // joystick b button
   bool button_b() const;
+
+  // disable virtual joystick
+  void disabled(const bool disabled);
 
 private:
 
