@@ -31,11 +31,23 @@ public:
   // constructor
   on_screen_button();
 
+  enum button_type
+  {
+    none,
+    up,
+    down,
+    left,
+    right,
+    button_a,
+    button_b
+  };
+
   // create the object
-  static on_screen_button* create(const std::string& sprite_frame_name);
+  static on_screen_button* create(const button_type& type, const std::string& sprite_frame_name,
+                                  const std::string& label = "");
 
   // init this object
-  bool init(const std::string& sprite_frame_name);
+  bool init(const button_type& type, const std::string& sprite_frame_name, const std::string& label);
 
   // get this content size
   const cocos2d::Size& getContentSize() const override;
@@ -51,6 +63,11 @@ public:
 
   // disable the button
   void disabled(const bool disabled);
+
+  const button_type& type() const
+  {
+    return type_;
+  }
 
 private:
 
@@ -84,6 +101,9 @@ private:
   // normal sprite
   Sprite* disabled_sprite_;
 
+  // button label
+  Label* label_button_;
+
   // is the button pushed
   bool pushed_;
 
@@ -95,6 +115,8 @@ private:
 
   // the touch listener
   EventListenerTouchAllAtOnce* touch_listener_;
+
+  button_type type_;
 };
 
 #endif // __ON_SCREEN_BUTTON_CLASS__

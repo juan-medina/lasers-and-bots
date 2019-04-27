@@ -21,9 +21,7 @@
 #define __VIRTUAL_JOY_STICK_CLASS__
 
 #include "../utils/utils.h"
-
-//foward declaration
-class on_screen_button;
+#include "on_screen_button.h"
 
 class virtual_joy_stick final : public Node
 {
@@ -38,7 +36,9 @@ public:
   static virtual_joy_stick* create();
 
   // add one button
-  on_screen_button* add_on_screen_button(const std::string& sprite_frame_name);
+  on_screen_button* add_on_screen_button(const on_screen_button::button_type& type,
+                                         const std::string& sprite_frame_name,
+                                         const std::string& label = "");
 
   // add on screen buttons
   bool add_on_screen_buttons();
@@ -75,6 +75,9 @@ private:
   // on key released
   void on_key_released(EventKeyboard::KeyCode key_code, Event* event);
 
+  // is a on screen button pushed
+  bool is_on_screen_pushed(const on_screen_button::button_type& type) const;
+
   // key left pressed
   bool key_left_;
 
@@ -90,15 +93,7 @@ private:
   // button b in the keyboard
   bool key_button_b_;
 
-  // on screen button left
-  on_screen_button* on_screen_button_left_;
-
-  // on screen button right
-  on_screen_button* on_screen_button_right_;
-
-  // on screen button up
-  on_screen_button* on_screen_button_up_;
-
+  // on screen buttons
   std::vector<on_screen_button*> on_screen_buttons_;
 };
 

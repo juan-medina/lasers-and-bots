@@ -24,14 +24,17 @@ on_screen_button::on_screen_button():
   normal_sprite_(nullptr),
   pushed_sprite_(nullptr),
   disabled_sprite_(nullptr),
+  label_button_(nullptr),
   pushed_(false),
   disabled_(false),
   saved_touch_id_(-1),
-  touch_listener_(nullptr)
+  touch_listener_(nullptr),
+  type_(button_type::none)
 {
 }
 
-on_screen_button* on_screen_button::create(const std::string& sprite_frame_name)
+on_screen_button* on_screen_button::create(const button_type& type, const std::string& sprite_frame_name,
+                                           const std::string& label/* = ""*/)
 {
   on_screen_button* ret = nullptr;
 
@@ -40,7 +43,7 @@ on_screen_button* on_screen_button::create(const std::string& sprite_frame_name)
     auto object = new on_screen_button();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(sprite_frame_name))
+    if (object->init(type, sprite_frame_name, label))
     {
       object->autorelease();
     }
@@ -58,7 +61,7 @@ on_screen_button* on_screen_button::create(const std::string& sprite_frame_name)
   return ret;
 }
 
-bool on_screen_button::init(const std::string& sprite_frame_name)
+bool on_screen_button::init(const button_type& type, const std::string& sprite_frame_name, const std::string& label)
 {
   auto ret = false;
 
@@ -87,8 +90,20 @@ bool on_screen_button::init(const std::string& sprite_frame_name)
 
     addChild(disabled_sprite_);
 
+    if (!label.empty())
+    {
+      label_button_ = Label::createWithTTF(label, "fonts/tahoma.ttf", 120);
+      UTILS_BREAK_IF(label_button_ == nullptr);
+
+      label_button_->enableOutline(Color4B(0, 0, 0, 255), 5);
+
+      addChild(label_button_);
+    }
+
     pushed(false);
     disabled(false);
+
+    type_ = type;
 
     ret = true;
   }
@@ -114,6 +129,11 @@ void on_screen_button::on_status_change() const
   normal_sprite_->setVisible(!(pushed_ || disabled_));
   pushed_sprite_->setVisible(pushed_);
   disabled_sprite_->setVisible(disabled_);
+
+  if (label_button_ != nullptr)
+  {
+    label_button_->setOpacity(pushed_ ? 255 : 127);
+  }
 }
 
 bool on_screen_button::is_touched_by_location(const Vec2& location) const

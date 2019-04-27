@@ -145,7 +145,7 @@
  </layer>
  <layer name="walk_back" width="45" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo4A0wDvEzR8Fo2AUDB4wmt9HwSgYBaOAMKBFWcmIgz2YARMONjGAFD9SMzwocTMp6kk1GxkAAM2zAEU=
+   eJxjYBgFo4A0wDvEzR8Fo2C4gtG8MwpGwSgYBcMT0KJ8Z8TBHsyACQebGECKH6kZHpS4mRT1pJqNDADW1wBF
   </data>
  </layer>
  <layer name="walk" width="45" height="20">
@@ -153,7 +153,7 @@
    <property name="physics" type="bool" value="true"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJztVosKgzAMjH6A87GX0///zjXgsSwkrrWiMjw4xkrXXJN5J9GJE9vjEtjsLSIBrPcWeN1bSMArcAgcZ/aw3pqOo3kOrHUQ3EszetYoPVofNEq0tJ1m6MR8O6N2G3GO1FyJ9UrtqybKuvLZ9dZ/QWtO6R/mMKpPzEv3R/eoFesdfc8+BbLPOZ72CHwa7J09PX3ukPu/u9N2Xow7cE2eVYyXecAZS3+/FlLucHQvtuB5Sc7s1oSl45/6bEF6XJ1RE55VTLQ8zPMGzoSUPkvP5Wd3SWbgHK5bTtTZi3c1DenxRSR1TlhZ4kHnkKUZ2aq/I29lvpeR9DR3EZrf3RUOFg==
+   eJztlmEOgjAMhYsHQGGCItz/nK4JL9Smg82RwQ9e8kJcBv3WQivRpUvldfdujoZIEPN23s+jQbw+3qP3tLKHeR90HuY1MesofBQzctYoHs0HRqmWyjGDE/V1Ruw24jmSuRbrtdpXz5Zx5bcbWt+SZk7JH+owqSvqpfOjc9SKdUe/tU+RzHNOT3t5vw0PgT0DLWfIfe96KteLcQaOybWK6WUh4Rn/3r+XUs5w9l5sKdRLcmq3pyyO0r14j+8npmfruHCK0PN6Wtir2VYPC52NZ0JKnmXPRezY3DlljnubrWcv/qtpyVpVkdZzwpolOcyYrfo35m1n3LvlELOLYP4COUMOxQ==
   </data>
  </layer>
  <layer name="front" width="45" height="20">
@@ -162,12 +162,12 @@
   </data>
  </layer>
  <objectgroup name="objects">
-  <object id="1" name="robot" type="robot" gid="30" x="265.917" y="4877.58" width="256" height="256">
+  <object id="1" name="robot" type="robot" gid="30" x="253.917" y="4109.58" width="256" height="256">
    <properties>
     <property name="shield" type="int" value="1000"/>
    </properties>
   </object>
-  <object id="7" name="laser4" type="laser" gid="31" x="3386.4" y="2394.11" width="256" height="256" rotation="-144.645">
+  <object id="7" name="laser4" type="laser" gid="31" x="3384.4" y="2140.11" width="256" height="256" rotation="-144.645">
    <properties>
     <property name="damage" type="int" value="10"/>
     <property name="speed" type="float" value="4.5"/>

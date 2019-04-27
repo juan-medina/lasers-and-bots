@@ -206,6 +206,22 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">02_joystick_empty_01.png</key>
+            <key type="filename">02_joystick_empty_02.png</key>
+            <key type="filename">02_joystick_empty_03.png</key>
+            <key type="filename">02_joystick_empty_04.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>34,36,68,71</rect>
+                <key>scale9Paddings</key>
+                <rect>34,36,68,71</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">02_joystick_left_01.png</key>
             <key type="filename">02_joystick_left_02.png</key>
             <key type="filename">02_joystick_left_03_.png</key>

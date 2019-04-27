@@ -26,10 +26,7 @@ virtual_joy_stick::virtual_joy_stick():
   key_right_(false),
   key_up_(false),
   key_button_a_(false),
-  key_button_b_(false),
-  on_screen_button_left_(nullptr),
-  on_screen_button_right_(nullptr),
-  on_screen_button_up_(nullptr)
+  key_button_b_(false)
 {
 }
 
@@ -60,12 +57,14 @@ virtual_joy_stick* virtual_joy_stick::create()
   return ret;
 }
 
-on_screen_button* virtual_joy_stick::add_on_screen_button(const std::string& sprite_frame_name)
+on_screen_button* virtual_joy_stick::add_on_screen_button(const on_screen_button::button_type& type,
+                                                          const std::string& sprite_frame_name,
+                                                          const std::string& label/* = ""*/)
 {
   on_screen_button* button = nullptr;
   do
   {
-    button = on_screen_button::create(sprite_frame_name);
+    button = on_screen_button::create(type, sprite_frame_name, label);
     UTILS_BREAK_IF(button == nullptr);
 
     addChild(button);
@@ -83,30 +82,40 @@ bool virtual_joy_stick::add_on_screen_buttons()
   do
   {
     // left button
-    on_screen_button_left_ = add_on_screen_button("02_joystick_left");
-    UTILS_BREAK_IF(on_screen_button_left_ == nullptr);
-    const auto gap = Vec2(on_screen_button_left_->getContentSize().width / 4,
-                          on_screen_button_left_->getContentSize().height / 4);
-    const auto left_button_pos = Vec2(on_screen_button_left_->getContentSize().width / 2,
-                                      on_screen_button_left_->getContentSize().height / 2) + gap;
-    on_screen_button_left_->setPosition(left_button_pos);
+    const auto on_screen_button_left = add_on_screen_button(on_screen_button::button_type::left, "02_joystick_left");
+    UTILS_BREAK_IF(on_screen_button_left == nullptr);
+    const auto gap = Vec2(on_screen_button_left->getContentSize().width / 4,
+                          on_screen_button_left->getContentSize().height / 4);
+    const auto left_button_pos = Vec2(on_screen_button_left->getContentSize().width / 2,
+                                      on_screen_button_left->getContentSize().height / 2) + gap;
+    on_screen_button_left->setPosition(left_button_pos);
 
     // right button
-    on_screen_button_right_ = add_on_screen_button("02_joystick_right");
-    UTILS_BREAK_IF(on_screen_button_right_ == nullptr);
+    const auto on_screen_button_right = add_on_screen_button(on_screen_button::button_type::right, "02_joystick_right");
+    UTILS_BREAK_IF(on_screen_button_right == nullptr);
 
-    const auto right_button_pos = left_button_pos + Vec2(on_screen_button_left_->getContentSize().width + gap.x,
+    const auto right_button_pos = left_button_pos + Vec2(on_screen_button_left->getContentSize().width + gap.x,
                                                          0.f);
-    on_screen_button_right_->setPosition(right_button_pos);
+    on_screen_button_right->setPosition(right_button_pos);
 
     // up button
-    on_screen_button_up_ = add_on_screen_button("02_joystick_up");
-    UTILS_BREAK_IF(on_screen_button_up_ == nullptr);
+    const auto on_screen_button_up = add_on_screen_button(on_screen_button::button_type::up, "02_joystick_up");
+    UTILS_BREAK_IF(on_screen_button_up == nullptr);
+
+    const auto up_button_pos = Vec2((on_screen_button_up->getContentSize().width / 2) + gap.x,
+                                    on_screen_button_up->getContentSize().height / 2) + Vec2(gap.x * 2.5, gap.y * 5);
+    on_screen_button_up->setPosition(up_button_pos);
+
+
+    // a button
+    const auto on_screen_button_a = add_on_screen_button(on_screen_button::button_type::button_a, "02_joystick_empty",
+                                                         "A");
+    UTILS_BREAK_IF(on_screen_button_a == nullptr);
 
     const auto size = Director::getInstance()->getOpenGLView()->getVisibleSize();
-    const auto up_button_pos = Vec2(size.width - (on_screen_button_up_->getContentSize().width / 2),
-                                    on_screen_button_up_->getContentSize().height / 2) + Vec2(-gap.x, gap.y);
-    on_screen_button_up_->setPosition(up_button_pos);
+    const auto a_button_pos = Vec2(size.width - (on_screen_button_a->getContentSize().width / 2),
+                                   on_screen_button_a->getContentSize().height / 2) + Vec2(-gap.x, gap.y);
+    on_screen_button_a->setPosition(a_button_pos);
 
     ret = true;
   }
@@ -215,29 +224,41 @@ void virtual_joy_stick::on_key_released(const EventKeyboard::KeyCode key_code, E
   }
 }
 
+bool virtual_joy_stick::is_on_screen_pushed(const on_screen_button::button_type& type) const
+{
+  for (const auto button : on_screen_buttons_)
+  {
+    if (button->type() == type)
+    {
+      return button->is_pushed();
+    }
+  }
+  return false;
+}
+
 bool virtual_joy_stick::left() const
 {
-  return key_left_ || on_screen_button_left_->is_pushed();
+  return key_left_ || is_on_screen_pushed(on_screen_button::left);
 }
 
 bool virtual_joy_stick::right() const
 {
-  return key_right_ || on_screen_button_right_->is_pushed();
+  return key_right_ || is_on_screen_pushed(on_screen_button::right);
 }
 
 bool virtual_joy_stick::up() const
 {
-  return key_up_ || on_screen_button_up_->is_pushed();
+  return key_up_ || is_on_screen_pushed(on_screen_button::up);
 }
 
 bool virtual_joy_stick::button_a() const
 {
-  return key_button_a_;
+  return key_button_a_ || is_on_screen_pushed(on_screen_button::button_a);
 }
 
 bool virtual_joy_stick::button_b() const
 {
-  return key_button_b_;
+  return key_button_b_ || is_on_screen_pushed(on_screen_button::button_b);
 }
 
 void virtual_joy_stick::disabled(const bool disabled)
