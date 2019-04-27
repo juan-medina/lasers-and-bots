@@ -56,16 +56,16 @@ private:
   bool is_touched_by_location(const Vec2& location) const;
 
   // begin touches event
-  bool on_touch_began(Touch* touch, Event* unused_event);
+  void on_touches_began(const std::vector<Touch*>& touches, Event* unused_event);
 
   // touches moved event
-  void on_touch_moved(Touch* touch, Event* unused_event);
+  void on_touches_moved(const std::vector<Touch*>& touches, Event* unused_event);
 
   // touches end event
-  void on_touch_ended(Touch* touch, Event* unused_event);
+  void on_touches_ended(const std::vector<Touch*>& touches, Event* unused_event);
 
   // touches cancel
-  void on_touch_cancel(Touch* touch, Event* unused_event);
+  void on_touches_cancel(const std::vector<Touch*>& touches, Event* unused_event);
 
   // create touch listener
   bool create_touch_listener();
@@ -78,6 +78,9 @@ private:
 
   // is the button pushed
   bool pushed_;
+	
+	// the saved touch id
+	int saved_touch_id_;
 };
 
 #endif // __ON_SCREEN_BUTTON_CLASS__

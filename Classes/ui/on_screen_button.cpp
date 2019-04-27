@@ -23,7 +23,8 @@
 on_screen_button::on_screen_button():
   normal_sprite_(nullptr),
   pushed_sprite_(nullptr),
-  pushed_(false)
+  pushed_(false),
+	saved_touch_id_(-1)
 {
 }
 
@@ -124,14 +125,13 @@ bool on_screen_button::create_touch_listener()
   do
   {
     // Register Touch Event
-    const auto listener = EventListenerTouchOneByOne::create();
+		const auto listener = EventListenerTouchAllAtOnce::create();
     UTILS_BREAK_IF(listener == nullptr);
 
-    listener->onTouchBegan = CC_CALLBACK_2(on_screen_button::on_touch_began, this);
-    listener->onTouchEnded = CC_CALLBACK_2(on_screen_button::on_touch_ended, this);
-    listener->onTouchMoved = CC_CALLBACK_2(on_screen_button::on_touch_moved, this);
-    listener->onTouchCancelled = CC_CALLBACK_2(on_screen_button::on_touch_cancel, this);
-    listener->setSwallowTouches(true);
+    listener->onTouchesBegan = CC_CALLBACK_2(on_screen_button::on_touches_began, this);
+    listener->onTouchesEnded = CC_CALLBACK_2(on_screen_button::on_touches_ended, this);
+    listener->onTouchesMoved = CC_CALLBACK_2(on_screen_button::on_touches_moved, this);
+    listener->onTouchesCancelled = CC_CALLBACK_2(on_screen_button::on_touches_cancel, this);
 
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
@@ -142,32 +142,62 @@ bool on_screen_button::create_touch_listener()
   return ret;
 }
 
-bool on_screen_button::on_touch_began(Touch* touch, Event* unused_event)
+
+void on_screen_button::on_touches_began(const std::vector<Touch*>& touches, Event* unused_event)
 {
-  pushed(false);
-
-  const auto location = touch->getLocation();
-
-  if (is_touched_by_location(location))
-  {
-    pushed(true);
-    return true;
-  }
-
-  return false;
+	if(pushed_)
+	{
+		return;
+	}
+	
+	for(const auto touch : touches)
+	{
+		const auto location = touch->getLocation();
+		
+		if (is_touched_by_location(location))
+		{
+			saved_touch_id_ = touch->getID();
+			pushed(true);
+			return;
+		}
+	}
 }
 
-void on_screen_button::on_touch_moved(Touch* touch, Event* unused_event)
+void on_screen_button::on_touches_moved(const std::vector<Touch*>& touches, Event* unused_event)
 {
-  on_touch_began(touch, unused_event);
+	for(const auto touch : touches)
+	{
+		if(touch->getID()==saved_touch_id_)
+		{
+			const auto location = touch->getLocation();
+			
+			if (is_touched_by_location(location))
+			{
+				pushed(true);
+				return;
+			}
+			else
+			{
+				pushed(false);
+				return;
+			}
+		}
+	}
 }
 
-void on_screen_button::on_touch_ended(Touch* touch, Event* unused_event)
+void on_screen_button::on_touches_ended(const std::vector<Touch*>& touches, Event* unused_event)
 {
-  pushed(false);
+	for(const auto touch : touches)
+	{
+		if(touch->getID()==saved_touch_id_)
+		{
+			pushed(false);
+			return;
+		}
+	}
 }
 
-void on_screen_button::on_touch_cancel(Touch* touch, Event* unused_event)
+void on_screen_button::on_touches_cancel(const std::vector<Touch*>& touches, Event* unused_event)
 {
-  on_touch_ended(touch, unused_event);
+  on_touches_ended(touches, unused_event);
 }
