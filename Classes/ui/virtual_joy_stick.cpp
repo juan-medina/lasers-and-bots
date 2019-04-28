@@ -86,7 +86,8 @@ bool virtual_joy_stick::init()
     UTILS_BREAK_IF(!create_controller_listener());
 
     ret = true;
-  } while (false);
+  }
+  while (false);
 
   return ret;
 }

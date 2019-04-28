@@ -120,6 +120,12 @@ private:
 
   // on key press
   void on_key_pressed(EventKeyboard::KeyCode key_code, Event* event);
+
+  // controller listener control down
+  void on_controller_key_down(Controller* controller, int key_code, Event* event);
+
+  // create a controller listener
+  bool create_controller_listener();
 };
 
 #endif // __GAME_UI__CLASS__

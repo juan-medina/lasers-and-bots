@@ -265,8 +265,10 @@ bool game_ui::init()
 
 #if (GAME_PLATFORM == DESKTOP_GAME)
     // ui keyboard
-    create_keyboard_listener();
+    UTILS_BREAK_IF(!create_keyboard_listener());
 #endif
+
+    UTILS_BREAK_IF(!create_controller_listener());
 
     ret = true;
   }
@@ -583,4 +585,44 @@ void game_ui::on_key_pressed(EventKeyboard::KeyCode key_code, Event* event)
   default:
     break;
   }
+}
+
+void game_ui::on_controller_key_down(Controller* controller, int key_code, Event* event)
+{
+  switch (key_code)
+  {
+  case virtual_joy_stick::controller_start:
+    on_key_pressed(EventKeyboard::KeyCode::KEY_ESCAPE, nullptr);
+    break;
+  case virtual_joy_stick::controller_button_a:
+    on_key_pressed(EventKeyboard::KeyCode::KEY_ENTER, nullptr);
+    break;
+  case virtual_joy_stick::controller_back:
+    on_key_pressed(EventKeyboard::KeyCode::KEY_F5, nullptr);
+    break;
+  default:
+    break;
+  }
+}
+
+bool game_ui::create_controller_listener()
+{
+  auto ret = false;
+
+  do
+  {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+    const auto listener = EventListenerController::create();
+
+    listener->onKeyDown = CC_CALLBACK_3(game_ui::on_controller_key_down, this);
+
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+    Controller::startDiscoveryController();
+#endif
+    ret = true;
+  }
+  while (false);
+
+  return ret;
 }
