@@ -65,6 +65,32 @@ virtual_joy_stick* virtual_joy_stick::create()
   return ret;
 }
 
+bool virtual_joy_stick::init()
+{
+  auto ret = false;
+
+  do
+  {
+    //////////////////////////////
+    // 1. super init first
+    UTILS_BREAK_IF(!base_class::init());
+
+#if (GAME_PLATFORM == DESKTOP_GAME)
+    // create keyboard listener
+    UTILS_BREAK_IF(!create_keyboard_listener());
+#else
+    // add on screen buttons
+    UTILS_BREAK_IF(!add_on_screen_buttons());
+#endif
+
+    UTILS_BREAK_IF(!create_controller_listener());
+
+    ret = true;
+  } while (false);
+
+  return ret;
+}
+
 on_screen_button* virtual_joy_stick::add_on_screen_button(const on_screen_button::button_type& type,
                                                           const std::string& sprite_frame_name,
                                                           const std::string& label/* = ""*/)
@@ -220,6 +246,7 @@ bool virtual_joy_stick::create_controller_listener()
 
   do
   {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
     const auto listener = EventListenerController::create();
 
     listener->onKeyDown = CC_CALLBACK_3(virtual_joy_stick::on_controller_key_down, this);
@@ -229,34 +256,7 @@ bool virtual_joy_stick::create_controller_listener()
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
     Controller::startDiscoveryController();
-
-    ret = true;
-  }
-  while (false);
-
-  return ret;
-}
-
-bool virtual_joy_stick::init()
-{
-  auto ret = false;
-
-  do
-  {
-    //////////////////////////////
-    // 1. super init first
-    UTILS_BREAK_IF(!base_class::init());
-
-#if (GAME_PLATFORM == DESKTOP_GAME)
-    // create keyboard listener
-    UTILS_BREAK_IF(!create_keyboard_listener());
-#else
-    // add on screen buttons
-    UTILS_BREAK_IF(!add_on_screen_buttons());
 #endif
-
-    UTILS_BREAK_IF(!create_controller_listener());
-
     ret = true;
   }
   while (false);
