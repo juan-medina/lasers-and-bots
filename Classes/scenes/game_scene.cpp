@@ -596,6 +596,34 @@ unsigned short int game_scene::calculate_stars() const
   return stars;
 }
 
+void game_scene::move_fragments(const Vec2& position)
+{
+  robot_fragments_[5]->setPosition(position);
+  robot_fragments_[0]->setPosition(Vec2(
+    position.x,
+    position.y + robot_fragments_[5]->getContentSize().height / 2 +
+    (robot_fragments_[0]->getContentSize().height / 2)
+  ));
+  robot_fragments_[1]->setPosition(Vec2(
+    position.x - (robot_fragments_[5]->getContentSize().width / 2),
+    robot_fragments_[5]->getPosition().y
+  ));
+  robot_fragments_[2]->setPosition(Vec2(
+    position.x + (robot_fragments_[5]->getContentSize().width / 2),
+    robot_fragments_[5]->getPosition().y
+  ));
+  robot_fragments_[3]->setPosition(Vec2(
+    position.x - (robot_fragments_[5]->getContentSize().width / 2),
+    robot_fragments_[5]->getPosition().y -
+    (robot_fragments_[5]->getContentSize().height / 2)
+  ));
+  robot_fragments_[4]->setPosition(Vec2(
+    position.x + (robot_fragments_[5]->getContentSize().width / 2),
+    robot_fragments_[5]->getPosition().y -
+    (robot_fragments_[5]->getContentSize().height / 2)
+  ));
+}
+
 bool game_scene::cache_robot_explosion()
 {
   auto ret = false;
@@ -609,7 +637,7 @@ bool game_scene::cache_robot_explosion()
       const auto robot_fragment = Sprite::createWithSpriteFrameName(image_name);
       UTILS_BREAK_IF(robot_fragment == nullptr);
 
-      robot_fragment->setAnchorPoint(Vec2(0.5f, 0.0f));
+      robot_fragment->setAnchorPoint(Vec2(0.5f, 0.5f));
 
       const auto cache = physics_shape_cache::get_instance();
       const auto body = cache->create_body_with_name(shape_name);
@@ -621,19 +649,18 @@ bool game_scene::cache_robot_explosion()
       get_tiled_map()->getLayer("walk")->addChild(robot_fragment);
       robot_fragments_.push_back(robot_fragment);
 
-      const auto smoke = ParticleSmoke::create();
+      const auto smoke = ParticleFire::create();
       smoke->setDuration(3.f);
+      smoke->setScale(2.f);
       smoke->setBlendAdditive(true);
       smoke->setOpacityModifyRGB(true);
       smoke->setOpacity(127);
-      smoke->setTotalParticles(100);
-      smoke->setEmissionRate(10.f);
-      smoke->setGravity(Vec2(0.f, 100.f));
+
       smoke->stop();
       smoke->setTag(0xF0F0F0F);
       smoke->setAnchorPoint(Vec2(0.0f, 0.0f));
       const auto size = robot_fragment->getContentSize();
-      smoke->setPosition(Vec2(size.width / 2, 0.f));
+      smoke->setPosition(Vec2(size.width / 2, size.height / 2));
       robot_fragment->addChild(smoke);
     }
 
@@ -652,11 +679,12 @@ void game_scene::explode_robot()
 
   const auto velocity = robot_->getPhysicsBody()->getVelocity();
 
+  const auto pos = robot_->getPosition();
+  move_fragments(Vec2(pos.x, pos.y + robot_->getContentSize().height / 2.5));
+
   for (auto robot_fragment : robot_fragments_)
   {
-    const auto pos = robot_->getPosition();
     robot_fragment->setVisible(true);
-    robot_fragment->setPosition(pos);
 
     const auto body = robot_fragment->getPhysicsBody();
     body->setRotationEnable(true);
@@ -665,7 +693,7 @@ void game_scene::explode_robot()
     body->setMass(0.4f);
     body->setLinearDamping(0.5f);
     body->setAngularDamping(0.25f);
-    const auto angular_velocity = random(-0.5f, 0.5f);
+    const auto angular_velocity = random(-3.5f, 3.5f);
     body->setAngularVelocity(angular_velocity);
 
     const auto smoke = dynamic_cast<ParticleSystemQuad*>(robot_fragment->getChildByTag(0xF0F0F0F));
@@ -675,7 +703,7 @@ void game_scene::explode_robot()
   robot_->removeFromParent();
   robot_ = nullptr;
 
-  auto const delay = DelayTime::create(2.5f);
+  auto const delay = DelayTime::create(5.0f);
   auto const game_over_call = CallFunc::create(CC_CALLBACK_0(game_scene::game_over, this, false));
   auto const delay_call = Sequence::create(delay, game_over_call, nullptr);
   runAction(delay_call);

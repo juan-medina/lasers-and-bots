@@ -147,6 +147,9 @@ private:
   // calculate how many stars we got
   unsigned short int calculate_stars() const;
 
+  // move fragment to a position
+  void move_fragments(const Vec2& position);
+
   // cache the robot explosion
   bool cache_robot_explosion();
 
