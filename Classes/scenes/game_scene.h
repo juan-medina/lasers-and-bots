@@ -29,6 +29,7 @@ class robot_object;
 class switch_object;
 class door_object;
 class game_ui;
+class robot_fragment;
 
 class game_scene final : public physics_tiled_scene
 {
@@ -147,8 +148,8 @@ private:
   // calculate how many stars we got
   unsigned short int calculate_stars() const;
 
-  // move fragment to a position
-  void move_fragments(const Vec2& position);
+  // move fragment to the robot
+  void move_fragments();
 
   // cache the robot explosion
   bool cache_robot_explosion();
@@ -208,7 +209,7 @@ private:
   bool delay_start_;
 
   // robot_fragments
-  std::vector<Sprite*> robot_fragments_;
+  std::vector<robot_fragment*> robot_fragments_;
 };
 
 #endif // __MAIN_SCENE__

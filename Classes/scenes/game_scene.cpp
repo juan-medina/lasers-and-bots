@@ -24,6 +24,7 @@
 #include "../game/laser_object.h"
 #include "../game/switch_object.h"
 #include "../game/door_object.h"
+#include "../game/robot_fragment.h"
 #include "../utils/physics/physics_shape_cache.h"
 #include "../ui/game_ui.h"
 #include "../ui/virtual_joy_stick.h"
@@ -141,6 +142,7 @@ bool game_scene::init()
     audio_helper::pre_load_effect("sounds/fail.mp3");
     audio_helper::pre_load_effect("sounds/victory.mp3");
     audio_helper::pre_load_effect("sounds/countdown.mp3");
+    audio_helper::pre_load_effect("sounds/explosion.mp3");
 
     delay_start_ = true;
 
@@ -596,8 +598,11 @@ unsigned short int game_scene::calculate_stars() const
   return stars;
 }
 
-void game_scene::move_fragments(const Vec2& position)
+void game_scene::move_fragments()
 {
+  const auto pos = robot_->getPosition();
+  const auto position = Vec2(pos.x, pos.y + robot_->getContentSize().height / 2.5);
+
   robot_fragments_[5]->setPosition(position);
   robot_fragments_[0]->setPosition(Vec2(
     position.x,
@@ -631,39 +636,12 @@ bool game_scene::cache_robot_explosion()
   {
     for (auto fragment_number = 1; fragment_number <= 6; ++fragment_number)
     {
-      const auto shape_name = string_format("Fragment_%02d", fragment_number);
-      const auto image_name = shape_name + ".png";
-
-      const auto robot_fragment = Sprite::createWithSpriteFrameName(image_name);
+      const auto robot_fragment = robot_fragment::create(fragment_number);
       UTILS_BREAK_IF(robot_fragment == nullptr);
 
-      robot_fragment->setAnchorPoint(Vec2(0.5f, 0.5f));
-
-      const auto cache = physics_shape_cache::get_instance();
-      const auto body = cache->create_body_with_name(shape_name);
-      UTILS_BREAK_IF(body == nullptr);
-
-      robot_fragment->setPhysicsBody(body);
-      robot_fragment->setVisible(false);
-
-      get_tiled_map()->getLayer("walk")->addChild(robot_fragment);
       robot_fragments_.push_back(robot_fragment);
-
-      const auto smoke = ParticleFire::create();
-      smoke->setDuration(3.f);
-      smoke->setScale(2.f);
-      smoke->setBlendAdditive(true);
-      smoke->setOpacityModifyRGB(true);
-      smoke->setOpacity(127);
-
-      smoke->stop();
-      smoke->setTag(0xF0F0F0F);
-      smoke->setAnchorPoint(Vec2(0.0f, 0.0f));
-      const auto size = robot_fragment->getContentSize();
-      smoke->setPosition(Vec2(size.width / 2, size.height / 2));
-      robot_fragment->addChild(smoke);
+      get_tiled_map()->getLayer("walk")->addChild(robot_fragment);
     }
-
 
     ret = true;
   }
@@ -674,30 +652,16 @@ bool game_scene::cache_robot_explosion()
 
 void game_scene::explode_robot()
 {
+  audio_helper::get_instance()->play_effect("sounds/explosion.mp3");
+
   game_ui_->disable_buttons(true);
   final_anim_ = true;
 
-  const auto velocity = robot_->getPhysicsBody()->getVelocity();
-
-  const auto pos = robot_->getPosition();
-  move_fragments(Vec2(pos.x, pos.y + robot_->getContentSize().height / 2.5));
+  move_fragments();
 
   for (auto robot_fragment : robot_fragments_)
   {
-    robot_fragment->setVisible(true);
-
-    const auto body = robot_fragment->getPhysicsBody();
-    body->setRotationEnable(true);
-    body->setDynamic(true);
-    body->setVelocity(velocity);
-    body->setMass(0.4f);
-    body->setLinearDamping(0.5f);
-    body->setAngularDamping(0.25f);
-    const auto angular_velocity = random(-3.5f, 3.5f);
-    body->setAngularVelocity(angular_velocity);
-
-    const auto smoke = dynamic_cast<ParticleSystemQuad*>(robot_fragment->getChildByTag(0xF0F0F0F));
-    smoke->start();
+    robot_fragment->explode(robot_->getPhysicsBody()->getVelocity());
   }
 
   robot_->removeFromParent();
@@ -706,6 +670,7 @@ void game_scene::explode_robot()
   auto const delay = DelayTime::create(5.0f);
   auto const game_over_call = CallFunc::create(CC_CALLBACK_0(game_scene::game_over, this, false));
   auto const delay_call = Sequence::create(delay, game_over_call, nullptr);
+
   runAction(delay_call);
 }
 
@@ -725,7 +690,7 @@ void game_scene::game_over(const bool win)
     else
     {
       audio_helper::get_instance()->play_effect("sounds/fail.mp3");
-      game_ui_->display_message("Game Over", "\n\n\n\n\nops, we are going to\nneed a new robot.",
+      game_ui_->display_message("Game Over", "\n\n\n\n\nOops, we are going to\nneed a new robot.",
                                 CC_CALLBACK_0(game_scene::reload, this));
     }
   }
@@ -795,8 +760,6 @@ void game_scene::pause()
     for (auto robot_fragment : robot_fragments_)
     {
       robot_fragment->pause();
-      const auto smoke = dynamic_cast<ParticleSystemQuad*>(robot_fragment->getChildByTag(0xF0F0F0F));
-      smoke->pause();
     }
   }
 }

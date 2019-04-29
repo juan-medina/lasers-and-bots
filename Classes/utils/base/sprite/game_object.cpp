@@ -1,4 +1,5 @@
 #include "game_object.h"
+#include "utils/physics/physics_shape_cache.h"
 
 game_object::game_object() :
   animation_(nullptr),
@@ -8,7 +9,8 @@ game_object::game_object() :
 }
 
 
-game_object* game_object::create(const std::string& sprite_frame_name, const std::string& type, const int damage/* = 0*/)
+game_object* game_object::create(const std::string& sprite_frame_name, const std::string& type,
+                                 const int damage/* = 0*/)
 {
   game_object* ret = nullptr;
 
@@ -96,6 +98,25 @@ bool game_object::init(const std::string& type, const int damage /*= 0*/)
     type_ = type;
     damage_ = damage;
 
+    ret = true;
+  }
+  while (false);
+
+  return ret;
+}
+
+bool game_object::set_shape(const std::string& shape_name)
+{
+  auto ret = false;
+
+  do
+  {
+    const auto cache = physics_shape_cache::get_instance();
+
+    const auto body = cache->create_body_with_name(shape_name);
+    UTILS_BREAK_IF(body == nullptr);
+
+    setPhysicsBody(body);
     ret = true;
   }
   while (false);

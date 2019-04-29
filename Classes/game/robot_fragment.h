@@ -17,72 +17,48 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __GAME_OBJECT__
-#define __GAME_OBJECT__
+#ifndef __ROBOT_FRAGMENT_CLASS__
+#define __ROBOT_FRAGMENT_CLASS__
 
-#include "../../utils.h"
+#include "../utils/utils.h"
+#include "../utils/base/sprite/game_object.h"
 
-class game_object : public Sprite
+class robot_fragment final : public game_object
 {
 public:
   // base_class
-  using base_class = Sprite;
+  using base_class = game_object;
 
   // constructor
-  game_object();
+  robot_fragment();
 
   // create the object
-  static game_object* create(const std::string& sprite_frame_name, const std::string& type, const int damage = 0);
+  static robot_fragment* create(const int fragment_number);
 
-  // create empty
-  static game_object* create(const std::string& type, const int damage = 0);
+  // create the smoke emitter
+  bool create_smoke_emitter();
 
   // init this object
-  virtual bool init(const std::string& sprite_frame_name, const std::string& type, const int damage = 0);
+  bool init(const int fragment_number);
 
-  // init empty
-  virtual bool init(const std::string& type, const int damage = 0);
+  // explode the fragment
+  void explode(const Vec2& velocity);
 
-  // get type
-  string get_type() const
-  {
-    return type_;
-  }
-
-  // get damage
-  int get_damage() const
-  {
-    return damage_;
-  }
-
-  // add a physics shape
-  bool set_shape(const std::string& shape_name);
+  // pause our fragment
+  void pause() override;
 
 protected:
 
-  // create a animation
-  static bool create_anim(const char* pattern, int max_frame, float speed, const char* name,
-                          unsigned int loops = infinite_loops);
-
-  // change animation
-  void change_anim(const std::string& name);
-
-  // change the frame
-  void change_frame(const string& name);
+  // update our fragment
+  void update(float delta) override;
 
 private:
 
-  static constexpr int infinite_loops = -1;
+  // the smoke for this fragment
+  ParticleSystemQuad* smoke_;
 
-
-  // our current animation
-  Action* animation_;
-
-  // object type
-  string type_;
-
-  // damage
-  int damage_;
+  // are we exploding
+  bool exploding_;
 };
 
-#endif // __GAME_OBJECT__
+#endif // __ROBOT_FRAGMENT_CLASS__
