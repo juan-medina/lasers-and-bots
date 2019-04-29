@@ -119,6 +119,7 @@ private:
 
   // tag for our blink action
   static const int blink_on_damage_action_tag;
+
 };
 
 #endif // __ROBOT_CLASS__

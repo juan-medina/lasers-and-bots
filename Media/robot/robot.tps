@@ -187,6 +187,24 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">Fragment_01.png</key>
+            <key type="filename">Fragment_02.png</key>
+            <key type="filename">Fragment_03.png</key>
+            <key type="filename">Fragment_04.png</key>
+            <key type="filename">Fragment_05.png</key>
+            <key type="filename">Fragment_06.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>142,139,283,278</rect>
+                <key>scale9Paddings</key>
+                <rect>142,139,283,278</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">Idle_01.png</key>
             <key type="filename">Idle_02.png</key>
             <key type="filename">Idle_03.png</key>

@@ -38,6 +38,7 @@ game_scene::game_scene() :
   min_camera_pos_(Vec2::ZERO),
   max_camera_pos_(Vec2::ZERO),
   paused_(false),
+  final_anim_(false),
   total_time_(0.f),
   barrel_count_(0),
   time_limit_(0),
@@ -108,6 +109,9 @@ bool game_scene::init()
 
     // add the objects
     UTILS_BREAK_IF(!add_objects_to_game());
+
+    // cache the robot explosion
+    UTILS_BREAK_IF(!cache_robot_explosion());
 
     // clear the cache
     physics_shape_cache::get_instance()->remove_all_shapes();
@@ -190,7 +194,7 @@ void game_scene::update(float delta)
 {
   game_ui_->update(delta);
 
-  if (!paused_)
+  if (! (paused_ || final_anim_))
   {
     total_time_ += delta;
     game_ui_->update_time(total_time_, time_limit_);
@@ -200,7 +204,7 @@ void game_scene::update(float delta)
 
     if (shield == 0.0f)
     {
-      game_over(false);
+      explode_robot();
       return;
     }
 
@@ -592,6 +596,91 @@ unsigned short int game_scene::calculate_stars() const
   return stars;
 }
 
+bool game_scene::cache_robot_explosion()
+{
+  auto ret = false;
+  do
+  {
+    for (auto fragment_number = 1; fragment_number <= 6; ++fragment_number)
+    {
+      const auto shape_name = string_format("Fragment_%02d", fragment_number);
+      const auto image_name = shape_name + ".png";
+
+      const auto robot_fragment = Sprite::createWithSpriteFrameName(image_name);
+      UTILS_BREAK_IF(robot_fragment == nullptr);
+
+      robot_fragment->setAnchorPoint(Vec2(0.5f, 0.0f));
+
+      const auto cache = physics_shape_cache::get_instance();
+      const auto body = cache->create_body_with_name(shape_name);
+      UTILS_BREAK_IF(body == nullptr);
+
+      robot_fragment->setPhysicsBody(body);
+      robot_fragment->setVisible(false);
+
+      get_tiled_map()->getLayer("walk")->addChild(robot_fragment);
+      robot_fragments_.push_back(robot_fragment);
+
+      const auto smoke = ParticleSmoke::create();
+      smoke->setDuration(3.f);
+      smoke->setBlendAdditive(true);
+      smoke->setOpacityModifyRGB(true);
+      smoke->setOpacity(127);
+      smoke->setTotalParticles(100);
+      smoke->setEmissionRate(10.f);
+      smoke->setGravity(Vec2(0.f, 100.f));
+      smoke->stop();
+      smoke->setTag(0xF0F0F0F);
+      smoke->setAnchorPoint(Vec2(0.0f, 0.0f));
+      const auto size = robot_fragment->getContentSize();
+      smoke->setPosition(Vec2(size.width / 2, 0.f));
+      robot_fragment->addChild(smoke);
+    }
+
+
+    ret = true;
+  }
+  while (false);
+
+  return ret;
+}
+
+void game_scene::explode_robot()
+{
+  game_ui_->disable_buttons(true);
+  final_anim_ = true;
+
+  const auto velocity = robot_->getPhysicsBody()->getVelocity();
+
+  for (auto robot_fragment : robot_fragments_)
+  {
+    const auto pos = robot_->getPosition();
+    robot_fragment->setVisible(true);
+    robot_fragment->setPosition(pos);
+
+    const auto body = robot_fragment->getPhysicsBody();
+    body->setRotationEnable(true);
+    body->setDynamic(true);
+    body->setVelocity(velocity);
+    body->setMass(0.4f);
+    body->setLinearDamping(0.5f);
+    body->setAngularDamping(0.25f);
+    const auto angular_velocity = random(-0.5f, 0.5f);
+    body->setAngularVelocity(angular_velocity);
+
+    const auto smoke = dynamic_cast<ParticleSystemQuad*>(robot_fragment->getChildByTag(0xF0F0F0F));
+    smoke->start();
+  }
+
+  robot_->removeFromParent();
+  robot_ = nullptr;
+
+  auto const delay = DelayTime::create(2.5f);
+  auto const game_over_call = CallFunc::create(CC_CALLBACK_0(game_scene::game_over, this, false));
+  auto const delay_call = Sequence::create(delay, game_over_call, nullptr);
+  runAction(delay_call);
+}
+
 void game_scene::game_over(const bool win)
 {
   do
@@ -659,7 +748,12 @@ void game_scene::pause()
   paused_ = true;
   base_class::pause();
   getPhysicsWorld()->setAutoStep(false);
-  robot_->pause();
+
+  if (robot_ != nullptr)
+  {
+    robot_->pause();
+  }
+
   for (const auto& game_object : game_objects_)
   {
     game_object.second->pause();
@@ -667,13 +761,28 @@ void game_scene::pause()
   audio_helper::get_instance()->pause_music();
 
   game_ui_->get_virtual_joy_stick()->pause();
+
+  if (final_anim_)
+  {
+    for (auto robot_fragment : robot_fragments_)
+    {
+      robot_fragment->pause();
+      const auto smoke = dynamic_cast<ParticleSystemQuad*>(robot_fragment->getChildByTag(0xF0F0F0F));
+      smoke->pause();
+    }
+  }
 }
 
 void game_scene::resume()
 {
   base_class::resume();
   getPhysicsWorld()->setAutoStep(true);
-  robot_->resume();
+
+  if (robot_ != nullptr)
+  {
+    robot_->resume();
+  }
+
   for (const auto& game_object : game_objects_)
   {
     game_object.second->resume();
@@ -781,7 +890,7 @@ void game_scene::handle_door(door_object* door_game_object)
 
 bool game_scene::on_contact_begin(PhysicsContact& contact)
 {
-  if (!paused_)
+  if (! (paused_ || final_anim_))
   {
     const auto robot = get_object_from_contact<robot_object>(contact, bit_mask_robot);
     if (robot != nullptr)

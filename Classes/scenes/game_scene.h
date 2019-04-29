@@ -147,6 +147,12 @@ private:
   // calculate how many stars we got
   unsigned short int calculate_stars() const;
 
+  // cache the robot explosion
+  bool cache_robot_explosion();
+
+  // make our robot to explode
+  void explode_robot();
+
   // the game is over
   void game_over(const bool win);
 
@@ -180,6 +186,9 @@ private:
   // game is paused
   bool paused_;
 
+  // final animation
+  bool final_anim_;
+
   // the total time
   float total_time_;
 
@@ -194,6 +203,9 @@ private:
 
   // start with delay
   bool delay_start_;
+
+  // robot_fragments
+  std::vector<Sprite*> robot_fragments_;
 };
 
 #endif // __MAIN_SCENE__

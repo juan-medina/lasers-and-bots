@@ -85,7 +85,7 @@ bool robot_object::init(virtual_joy_stick* virtual_joy_stick, const int max_shie
 
     const auto cache = physics_shape_cache::get_instance();
     auto body = cache->create_body_with_name("Robot");
-    body->setMass(1.0);
+    body->setMass(1.0f);
     body->setMoment(PHYSICS_INFINITY);
     setPhysicsBody(body);
 
@@ -191,10 +191,6 @@ void robot_object::damage_shield(const int amount)
   if (current_shield_ < 0)
   {
     current_shield_ = 0;
-  }
-  else
-  {
-    // TODO: implement death
   }
 
   if (getActionByTag(blink_on_damage_action_tag) == nullptr)

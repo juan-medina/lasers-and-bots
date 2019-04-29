@@ -40,7 +40,7 @@
                 <key>spriteSourceSize</key>
                 <string>{567,556}</string>
                 <key>textureRect</key>
-                <string>{{289,1},{286,474}}</string>
+                <string>{{1,1},{286,474}}</string>
                 <key>textureRotated</key>
                 <false/>
                 <key>triangles</key>
@@ -48,55 +48,9 @@
                 <key>vertices</key>
                 <string>336 79 370 132 367 268 349 278 366 359 366 430 350 457 401 490 401 524 299 520 292 454 268 420 248 423 228 520 115 520 133 482 177 457 168 400 124 341 155 278 148 185 180 116 225 62 278 50</string>
                 <key>verticesUV</key>
-                <string>510 30 544 83 541 219 523 229 540 310 540 381 524 408 575 441 575 475 473 471 466 405 442 371 422 374 402 471 289 471 307 433 351 408 342 351 298 292 329 229 322 136 354 67 399 13 452 1</string>
-            </dict>
-            <key>Idle_05.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>anchor</key>
-                <string>{0.5,0}</string>
-                <key>spriteOffset</key>
-                <string>{-25.5,-8.5}</string>
-                <key>spriteSize</key>
-                <string>{286,475}</string>
-                <key>spriteSourceSize</key>
-                <string>{567,556}</string>
-                <key>textureRect</key>
-                <string>{{1,1},{286,475}}</string>
-                <key>textureRotated</key>
-                <false/>
-                <key>triangles</key>
-                <string>1 2 21 20 2 19 17 18 19 19 11 12 12 17 19 13 15 16 13 14 15 16 17 12 16 12 13 19 3 11 6 10 11 9 6 7 9 7 8 6 9 10 5 6 11 11 3 4 11 4 5 19 2 3 20 21 2 0 1 21 0 21 22</string>
-                <key>vertices</key>
-                <string>311 61 368 115 368 256 358 320 366 359 366 434 347 453 401 490 401 524 299 520 292 454 268 420 248 423 228 520 115 520 133 482 179 453 181 419 124 340 155 283 149 188 169 132 235 49</string>
-                <key>verticesUV</key>
-                <string>197 13 254 67 254 208 244 272 252 311 252 386 233 405 287 442 287 476 185 472 178 406 154 372 134 375 114 472 1 472 19 434 65 405 67 371 10 292 41 235 35 140 55 84 121 1</string>
+                <string>222 30 256 83 253 219 235 229 252 310 252 381 236 408 287 441 287 475 185 471 178 405 154 371 134 374 114 471 1 471 19 433 63 408 54 351 10 292 41 229 34 136 66 67 111 13 164 1</string>
             </dict>
             <key>Idle_07.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>anchor</key>
-                <string>{0.5,0}</string>
-                <key>spriteOffset</key>
-                <string>{-25.5,-9.5}</string>
-                <key>spriteSize</key>
-                <string>{286,473}</string>
-                <key>spriteSourceSize</key>
-                <string>{567,556}</string>
-                <key>textureRect</key>
-                <string>{{1153,1},{286,473}}</string>
-                <key>textureRotated</key>
-                <false/>
-                <key>triangles</key>
-                <string>0 19 20 19 0 1 15 16 17 2 9 17 17 9 10 11 13 14 11 12 13 14 15 10 14 10 11 17 10 15 3 4 8 4 6 7 4 5 6 4 7 8 3 8 9 2 3 9 18 1 2 18 2 17 19 1 18</string>
-                <key>vertices</key>
-                <string>311 60 371 117 366 316 366 430 353 461 401 488 401 524 299 520 292 454 267 420 248 424 228 520 115 520 133 482 177 460 169 406 124 339 152 290 152 184 170 129 236 51</string>
-                <key>verticesUV</key>
-                <string>1349 10 1409 67 1404 266 1404 380 1391 411 1439 438 1439 474 1337 470 1330 404 1305 370 1286 374 1266 470 1153 470 1171 432 1215 410 1207 356 1162 289 1190 240 1190 134 1208 79 1274 1</string>
-            </dict>
-            <key>Idle_08.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -113,11 +67,34 @@
                 <key>textureRotated</key>
                 <false/>
                 <key>triangles</key>
+                <string>0 19 20 19 0 1 15 16 17 2 9 17 17 9 10 11 13 14 11 12 13 14 15 10 14 10 11 17 10 15 3 4 8 4 6 7 4 5 6 4 7 8 3 8 9 2 3 9 18 1 2 18 2 17 19 1 18</string>
+                <key>vertices</key>
+                <string>311 60 371 117 366 316 366 430 353 461 401 488 401 524 299 520 292 454 267 420 248 424 228 520 115 520 133 482 177 460 169 406 124 339 152 290 152 184 170 129 236 51</string>
+                <key>verticesUV</key>
+                <string>1061 10 1121 67 1116 266 1116 380 1103 411 1151 438 1151 474 1049 470 1042 404 1017 370 998 374 978 470 865 470 883 432 927 410 919 356 874 289 902 240 902 134 920 79 986 1</string>
+            </dict>
+            <key>Idle_08.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>anchor</key>
+                <string>{0.5,0}</string>
+                <key>spriteOffset</key>
+                <string>{-25.5,-9.5}</string>
+                <key>spriteSize</key>
+                <string>{286,473}</string>
+                <key>spriteSourceSize</key>
+                <string>{567,556}</string>
+                <key>textureRect</key>
+                <string>{{289,1},{286,473}}</string>
+                <key>textureRotated</key>
+                <false/>
+                <key>triangles</key>
                 <string>21 22 23 0 1 21 21 1 2 17 18 19 3 11 19 12 17 19 13 15 16 13 14 15 16 17 12 16 12 13 11 12 19 11 5 10 6 9 10 6 7 8 6 8 9 5 6 10 11 3 4 11 4 5 2 3 19 2 19 20 21 2 20 0 21 23</string>
                 <key>vertices</key>
                 <string>313 61 371 116 367 264 354 307 366 359 366 434 347 456 401 490 401 524 299 520 292 454 268 420 248 423 228 520 115 520 133 482 179 459 181 419 125 342 151 288 152 178 184 113 225 62 265 51</string>
                 <key>verticesUV</key>
-                <string>1063 11 1121 66 1117 214 1104 257 1116 309 1116 384 1097 406 1151 440 1151 474 1049 470 1042 404 1018 370 998 373 978 470 865 470 883 432 929 409 931 369 875 292 901 238 902 128 934 63 975 12 1015 1</string>
+                <string>487 11 545 66 541 214 528 257 540 309 540 384 521 406 575 440 575 474 473 470 466 404 442 370 422 373 402 470 289 470 307 432 353 409 355 369 299 292 325 238 326 128 358 63 399 12 439 1</string>
             </dict>
             <key>Idle_09.png</key>
             <dict>
@@ -132,7 +109,7 @@
                 <key>spriteSourceSize</key>
                 <string>{567,556}</string>
                 <key>textureRect</key>
-                <string>{{1441,1},{286,471}}</string>
+                <string>{{1153,1},{286,471}}</string>
                 <key>textureRotated</key>
                 <false/>
                 <key>triangles</key>
@@ -140,7 +117,7 @@
                 <key>vertices</key>
                 <string>357 100 370 140 367 262 354 306 366 358 367 466 401 490 401 524 299 520 292 454 267 420 248 424 228 520 115 520 132 481 179 453 180 415 125 343 155 252 147 184 184 111 229 53 300 53</string>
                 <key>verticesUV</key>
-                <string>1683 48 1696 88 1693 210 1680 254 1692 306 1693 414 1727 438 1727 472 1625 468 1618 402 1593 368 1574 372 1554 468 1441 468 1458 429 1505 401 1506 363 1451 291 1481 200 1473 132 1510 59 1555 1 1626 1</string>
+                <string>1395 48 1408 88 1405 210 1392 254 1404 306 1405 414 1439 438 1439 472 1337 468 1330 402 1305 368 1286 372 1266 468 1153 468 1170 429 1217 401 1218 363 1163 291 1193 200 1185 132 1222 59 1267 1 1338 1</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -154,9 +131,9 @@
             <key>realTextureFileName</key>
             <string>robot_1.png</string>
             <key>size</key>
-            <string>{1728,477}</string>
+            <string>{1440,476}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:446dc64fb44eb219f84fc62bb076be2b:fef8a0ce8f85b82d137b76f77302dd1c:c894d8b08c8b2c8958e6f964593e48f3$</string>
+            <string>$TexturePacker:SmartUpdate:7c4cb4eb39661f705b8e928c55aa9bf0:94c03fa2a176f6fb4506fa13e7f44642:c894d8b08c8b2c8958e6f964593e48f3$</string>
             <key>textureFileName</key>
             <string>robot_1.png</string>
         </dict>
