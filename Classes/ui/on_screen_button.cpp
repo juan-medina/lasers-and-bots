@@ -145,7 +145,9 @@ bool on_screen_button::is_touched_by_location(const Vec2& location) const
   if (camera != nullptr)
   {
     Rect rect;
-    rect.size = getContentSize();
+    rect.size = getContentSize() * 2;
+    rect.origin = rect.origin - (rect.size / 4);
+
     return isScreenPointInRect(touch_location, camera, getWorldToNodeTransform(), rect, nullptr);
   }
 
