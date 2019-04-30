@@ -20,7 +20,6 @@
 
 #include "door_object.h"
 #include "../utils/audio/audio_helper.h"
-#include "../utils/physics/physics_shape_cache.h"
 
 door_object::door_object() :
   on_(false),
@@ -67,11 +66,10 @@ bool door_object::init()
 
     UTILS_BREAK_IF(!base_class::init("04_DoorLocked.png", "door"));
 
+    UTILS_BREAK_IF(!set_shape("04_Door"));
+
     audio_helper::pre_load_effect("sounds/metal_click.mp3");
     audio_helper::pre_load_effect("sounds/slide.mp3");
-
-    const auto body = physics_shape_cache::get_instance()->create_body_with_name("04_Door");
-    setPhysicsBody(body);
 
     ret = true;
   }

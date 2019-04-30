@@ -20,7 +20,6 @@
 
 #include "robot_object.h"
 #include "../ui/virtual_joy_stick.h"
-#include "../utils/physics/physics_shape_cache.h"
 #include "../utils/audio/audio_helper.h"
 
 const Vec2 robot_object::normal_movement = Vec2(1000.0f, 2600.f);
@@ -83,11 +82,11 @@ bool robot_object::init(virtual_joy_stick* virtual_joy_stick, const int max_shie
 
     setAnchorPoint(Vec2(0.5f, 0.0f));
 
-    const auto cache = physics_shape_cache::get_instance();
-    auto body = cache->create_body_with_name("Robot");
+    UTILS_BREAK_IF(!set_shape("Robot"));
+
+    auto body = getPhysicsBody();
     body->setMass(1.0f);
     body->setMoment(PHYSICS_INFINITY);
-    setPhysicsBody(body);
 
     UTILS_BREAK_IF(!create_anim("Idle_%02d.png", 10, 0.05f, "idle"));
     UTILS_BREAK_IF(!create_anim("Run_%02d.png", 8, 0.15f, "run"));

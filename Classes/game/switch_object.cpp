@@ -19,8 +19,6 @@
  ****************************************************************************/
 
 #include "switch_object.h"
-#include "../utils/physics/physics_shape_cache.h"
-
 
 switch_object::switch_object():
   on_(false)
@@ -66,8 +64,7 @@ bool switch_object::init(const string& target)
 
     UTILS_BREAK_IF(!base_class::init("09_Switch (2).png", "switch"));
 
-    const auto body = physics_shape_cache::get_instance()->create_body_with_name("08_Switch");
-    setPhysicsBody(body);
+    UTILS_BREAK_IF(!set_shape("08_Switch"));
 
     target_ = target;
 
@@ -80,7 +77,7 @@ bool switch_object::init(const string& target)
 
 void switch_object::on()
 {
-  if(is_off())
+  if (is_off())
   {
     change_frame("08_Switch (1).png");
     on_ = true;
