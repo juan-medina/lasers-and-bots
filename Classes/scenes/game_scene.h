@@ -45,6 +45,9 @@ public:
   // create the object
   static game_scene* create();
 
+  // creates the ui
+  bool create_game_ui();
+
   // create the scene
   static Scene* scene();
 

@@ -80,6 +80,27 @@ game_scene* game_scene::create()
   return ret;
 }
 
+bool game_scene::create_game_ui()
+{
+  auto ret = false;
+
+  do
+  {
+    // game ui
+    game_ui_ = game_ui::create();
+    UTILS_BREAK_IF(game_ui_ == nullptr);
+
+    game_ui_->setAnchorPoint(Vec2(0.f, 0.f));
+
+    addChild(game_ui_);
+
+    ret = true;
+  }
+  while (false);
+
+  return ret;
+}
+
 // on "init" you need to initialize your instance
 bool game_scene::init()
 {
@@ -97,16 +118,11 @@ bool game_scene::init()
     min_camera_pos_ = Vec2(screen_size_.width / 2, screen_size_.height / 2);
     max_camera_pos_ = Vec2(total_size_.width - min_camera_pos_.x, total_size_.height - min_camera_pos_.y);
 
-    //load objects
+    // load objects textures
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("objects/objects.plist");
 
-    // game ui
-    game_ui_ = game_ui::create();
-    UTILS_BREAK_IF(game_ui_ == nullptr);
-
-    game_ui_->setAnchorPoint(Vec2(0.f, 0.f));
-
-    addChild(game_ui_);
+    // create ui
+    UTILS_BREAK_IF(!create_game_ui());
 
     // add the objects
     UTILS_BREAK_IF(!add_objects_to_game());
