@@ -1,5 +1,5 @@
 #include "game_object.h"
-#include "utils/physics/physics_shape_cache.h"
+#include "../../physics/physics_shape_cache.h"
 
 game_object::game_object() :
   animation_(nullptr),
