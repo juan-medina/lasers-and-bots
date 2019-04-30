@@ -101,6 +101,12 @@ bool game_scene::create_game_ui()
   return ret;
 }
 
+void game_scene::calculate_camera_bounds()
+{
+  min_camera_pos_ = Vec2(screen_size_.width / 2, screen_size_.height / 2);
+  max_camera_pos_ = Vec2(total_size_.width - min_camera_pos_.x, total_size_.height - min_camera_pos_.y);
+}
+
 // on "init" you need to initialize your instance
 bool game_scene::init()
 {
@@ -114,9 +120,7 @@ bool game_scene::init()
 
     UTILS_BREAK_IF(!base_class::init("maps/map.tmx", gravity, debug_physics));
 
-    // calculate the maximum position that we could move  
-    min_camera_pos_ = Vec2(screen_size_.width / 2, screen_size_.height / 2);
-    max_camera_pos_ = Vec2(total_size_.width - min_camera_pos_.x, total_size_.height - min_camera_pos_.y);
+    calculate_camera_bounds();
 
     // load objects textures
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("objects/objects.plist");

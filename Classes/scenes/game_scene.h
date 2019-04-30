@@ -48,6 +48,9 @@ public:
   // creates the ui
   bool create_game_ui();
 
+  // calculate the bounds of the camera
+  void calculate_camera_bounds();
+
   // create the scene
   static Scene* scene();
 
