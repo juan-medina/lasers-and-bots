@@ -50,20 +50,15 @@ door_object* door_object::create()
   }
   while (false);
 
-  // return the object
   return ret;
 }
 
-// on "init" you need to initialize your instance
 bool door_object::init()
 {
   auto ret = false;
 
   do
   {
-    //////////////////////////////
-    // 1. super init first
-
     UTILS_BREAK_IF(!base_class::init("04_DoorLocked.png", "door"));
 
     UTILS_BREAK_IF(!set_shape("04_Door"));

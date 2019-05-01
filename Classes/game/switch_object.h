@@ -25,31 +25,24 @@
 class switch_object final : public game_object
 {
 public:
-  // base_class
   using base_class = game_object;
 
-  // constructor
   switch_object();
 
-  // create the object
   static switch_object* create(const string& target);
-  
-  // init this object
+
   bool init(const string& target);
 
-  // is on
   bool is_on() const
   {
     return on_;
   }
 
-  // is on
   bool is_off() const
   {
     return !on_;
   }
 
-  // set on
   void on();
 
   string get_target() const
@@ -61,7 +54,6 @@ private:
 
   bool on_;
   string target_;
-
 };
 
 #endif // __SWITCH_CLASS__

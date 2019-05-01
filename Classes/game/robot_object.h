@@ -28,47 +28,33 @@ class virtual_joy_stick;
 class robot_object final : public game_object
 {
 public:
-  // base_class
   using base_class = game_object;
 
-  // constructor
   robot_object();
 
-  // create the object
   static robot_object* create(virtual_joy_stick* virtual_joy_stick, const int max_shield);
 
-  // init this object
   bool init(virtual_joy_stick* virtual_joy_stick, const int max_shield);
 
-  // update our robot
   void update(float delta) override;
 
-  // land on a block
   static void on_land_on_block();
 
   void feet_touch_walk_object_start();
-
   void feet_touch_walk_object_end();
 
-  // get the current shield
   float get_shield_percentage() const;
 
-  // damage our shield
   void damage_shield(const int amount);
 
   void start_periodic_damage(const int amount);
-
   void stop_periodic_damage(const int amount);
 
-  // object paused
   void pause() override;
-
-  // object resume
   void resume() override;
 
 private:
 
-  // robot states
   enum state
   {
     e_falling,
@@ -77,62 +63,37 @@ private:
     e_running
   };
 
-  // we need to move to the left
   void move_to_left(bool to_left);
-
-  // we need to move to the right
   void move_to_right(bool to_right);
-
-  // we jump
   void jump(bool to_jump);
 
-  // walk sound
   void walk_sound(const bool active);
 
-  // we like to move to left
-  bool to_left_;
+  state decide_state() const;
+  void change_state(state wanted_state);
 
-  // we like to move to right
-  bool to_right_;
-
-  // we like to jump
-  bool jumping_;
+  void move_robot() const;
 
   // our normal movement
   static const Vec2 normal_movement;
+  static const int blink_on_damage_action_tag;
 
-  // our current state
-  state current_state_;
+  bool to_left_;
+  bool to_right_;
+  bool jumping_;
 
-  // calculate our state
-  state decide_state() const;
-
-  // change our state
-  void change_state(state wanted_state);
-
-  // move the robot
-  void move_robot() const;
-
-  // the joystick
-  virtual_joy_stick* virtual_joy_stick_;
-
-  // our repeatable walk sound
   int walk_sound_;
 
-  // our current shield
   int current_shield_;
-
-  // our max shield
   int max_shield_;
-
-  // tag for our blink action
-  static const int blink_on_damage_action_tag;
 
   int periodic_damage_;
 
   bool feet_touch_anything_;
-
   int feet_touching_count_;
+
+  state current_state_;
+  virtual_joy_stick* virtual_joy_stick_;
 };
 
 #endif // __ROBOT_CLASS__

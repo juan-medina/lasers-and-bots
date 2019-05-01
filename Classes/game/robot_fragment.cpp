@@ -50,7 +50,6 @@ robot_fragment* robot_fragment::create(const int fragment_number)
   }
   while (false);
 
-  // return the object
   return ret;
 }
 

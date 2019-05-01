@@ -25,16 +25,12 @@
 class box_object final : public game_object
 {
 public:
-  // base_class
   using base_class = game_object;
 
-  // constructor
   box_object();
 
-  // create the object
   static box_object* create(const std::string& image, const std::string& shape);
 
-  // init this object
   bool init(const std::string& image, const std::string& shape);
 };
 

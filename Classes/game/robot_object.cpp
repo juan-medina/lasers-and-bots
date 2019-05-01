@@ -63,20 +63,15 @@ robot_object* robot_object::create(virtual_joy_stick* virtual_joy_stick, const i
   }
   while (false);
 
-  // return the object
   return ret;
 }
 
-// on "init" you need to initialize your instance
 bool robot_object::init(virtual_joy_stick* virtual_joy_stick, const int max_shield)
 {
   auto ret = false;
 
   do
   {
-    //////////////////////////////
-    // 1. super init first
-
     // cache
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("robot/robot_0.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("robot/robot_1.plist");
@@ -102,7 +97,6 @@ bool robot_object::init(virtual_joy_stick* virtual_joy_stick, const int max_shie
     change_anim("idle");
 
     virtual_joy_stick_ = virtual_joy_stick;
-
     current_shield_ = max_shield;
     max_shield_ = max_shield;
 

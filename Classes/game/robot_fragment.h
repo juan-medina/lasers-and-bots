@@ -26,38 +26,28 @@
 class robot_fragment final : public game_object
 {
 public:
-  // base_class
   using base_class = game_object;
 
-  // constructor
   robot_fragment();
 
-  // create the object
   static robot_fragment* create(const int fragment_number);
 
-  // create the smoke emitter
   bool create_smoke_emitter();
 
-  // init this object
   bool init(const int fragment_number);
 
-  // explode the fragment
   void explode(const Vec2& velocity);
 
-  // pause our fragment
   void pause() override;
 
 protected:
 
-  // update our fragment
   void update(float delta) override;
 
 private:
 
-  // the smoke for this fragment
   ParticleSystemQuad* smoke_;
 
-  // are we exploding
   bool exploding_;
 };
 

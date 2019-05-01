@@ -48,20 +48,15 @@ switch_object* switch_object::create(const string& target)
   }
   while (false);
 
-  // return the object
   return ret;
 }
 
-// on "init" you need to initialize your instance
 bool switch_object::init(const string& target)
 {
   auto ret = false;
 
   do
   {
-    //////////////////////////////
-    // 1. super init first
-
     UTILS_BREAK_IF(!base_class::init("09_Switch (2).png", "switch"));
 
     UTILS_BREAK_IF(!set_shape("08_Switch"));

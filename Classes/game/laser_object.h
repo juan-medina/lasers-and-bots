@@ -27,33 +27,24 @@
 class laser_object final : public game_object
 {
 public:
-  // base_class
   using base_class = game_object;
 
-  // constructor
   laser_object();
 
-  // create the object
   static laser_object* create(const float initial_angle, const float speed_factor, const int damage);
 
-  // init this object
   bool init(const float initial_angle, const float speed_factor, const int damage);
 
-  // update our laser
   void update(float delta) override;
 
-  // object paused
   void pause() override;
 
-  // object resume
   void resume() override;
 
 private:
 
-  // create a emitter
   void update_spark(const Vec2& point);
 
-  // laser angle
   float angle_;
 
   // laser draw node
@@ -62,16 +53,12 @@ private:
   // the physics world
   PhysicsWorld* physics_world_;
 
-  // maximum laser length
   static constexpr float max_laser_length = 10000.0f;
 
-  // our spark
   ParticleSystemQuad* spark_;
 
-  // laser loop sound
   static int loop_sound_;
 
-  // the speed factor of the laser
   float speed_factor_;
 };
 

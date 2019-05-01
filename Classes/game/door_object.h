@@ -25,53 +25,42 @@
 class door_object final : public game_object
 {
 public:
-  // base_class
   using base_class = game_object;
 
-  // constructor
   door_object();
 
-  // create the object
   static door_object* create();
 
-  // init this object
   bool init();
 
-  // is on
   bool is_on() const
   {
     return on_;
   }
 
-  // is on
   bool is_off() const
   {
     return !on_;
   }
 
-  // is open
   bool is_open() const
   {
     return open_;
   }
 
-  // is close
   bool is_closed() const
   {
     return !open_;
   }
 
-  // set on
   void on();
 
-  // open the door
   void open();
 
 private:
 
   bool on_;
   bool open_;
-
 };
 
 #endif // __DOOR_CLASS__

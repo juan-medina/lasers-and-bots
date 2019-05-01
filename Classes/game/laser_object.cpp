@@ -57,11 +57,9 @@ laser_object* laser_object::create(const float initial_angle, const float speed_
   }
   while (false);
 
-  // return the object
   return ret;
 }
 
-// on "init" you need to initialize your instance
 bool laser_object::init(const float initial_angle, const float speed_factor, const int damage)
 {
   auto ret = false;
@@ -71,8 +69,6 @@ bool laser_object::init(const float initial_angle, const float speed_factor, con
     angle_ = CC_DEGREES_TO_RADIANS(90-initial_angle);
     speed_factor_ = speed_factor;
 
-    //////////////////////////////
-    // 1. super init first
     UTILS_BREAK_IF(!base_class::init("laser", damage));
 
     draw_ = DrawNode::create();

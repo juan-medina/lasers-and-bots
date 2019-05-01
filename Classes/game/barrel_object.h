@@ -25,16 +25,12 @@
 class barrel_object final : public game_object
 {
 public:
-  // base_class
   using base_class = game_object;
 
-  // constructor
   barrel_object();
 
-  // create the object
   static barrel_object* create(const int barrel_num, const std::string& image, const std::string& shape);
 
-  // init this object
   bool init(const int barrel_num, const std::string& image, const std::string& shape);
 };
 

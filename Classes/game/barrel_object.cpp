@@ -47,7 +47,6 @@ barrel_object* barrel_object::create(const int barrel_num, const std::string& im
   }
   while (false);
 
-  // return the object
   return ret;
 }
 

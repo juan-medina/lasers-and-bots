@@ -47,7 +47,6 @@ box_object* box_object::create(const std::string& image, const std::string& shap
   }
   while (false);
 
-  // return the object
   return ret;
 }
 
