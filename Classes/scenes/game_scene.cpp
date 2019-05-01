@@ -26,6 +26,7 @@
 #include "../game/door_object.h"
 #include "../game/barrel_object.h"
 #include "../game/box_object.h"
+#include "../game/saw_object.h"
 #include "../game/robot_fragment.h"
 #include "../utils/physics/physics_shape_cache.h"
 #include "../ui/game_ui.h"
@@ -484,41 +485,24 @@ bool game_scene::add_saw(const ValueMap& values, Node* layer)
   {
     const auto name = values.at("name").asString();
     const auto image = values.at("image").asString();
+    const auto shape = values.at("shape").asString();
     const auto damage = values.at("damage").asInt();
-
-    auto sprite = game_object::create(image, "saw", damage);
-    UTILS_BREAK_IF(sprite == nullptr);
-
-    sprite->setAnchorPoint(Vec2(0.5f, 0.f));
-
     const auto rotation_time = values.at("rotation_time").asFloat();
     const auto movement = values.at("movement").asFloat();
     const auto movement_time = values.at("movement_time").asFloat();
     const auto stop_time = values.at("stop_time").asFloat();
 
+    auto saw = saw_object::create(image, shape, damage, rotation_time, movement, movement_time, stop_time);
+    UTILS_BREAK_IF(saw == nullptr);
+
     const auto position = get_object_center_position(values);
-    sprite->setPosition(position);
-    sprite->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-    const auto move_right = MoveBy::create(movement_time, Vec2(movement, 0.f));
-    const auto move_left = MoveBy::create(movement_time, Vec2(-movement, 0.f));
-    const auto delay = DelayTime::create(stop_time);
-    const auto movement_sequence = Sequence::create(move_right, delay, move_left, delay, nullptr);
-    const auto repeat_movement = RepeatForever::create(movement_sequence);
-    sprite->runAction(repeat_movement);
+    saw->setPosition(position);
+    saw->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-    const auto rotation = RotateBy::create(rotation_time, 360.f);
-    const auto repeat_rotation = RepeatForever::create(rotation);
-    sprite->runAction(repeat_rotation);
+    layer->addChild(saw);
 
-    const auto shape = values.at("shape").asString();
-    add_body_to_node(sprite, shape);
-
-    sprite->getPhysicsBody()->setDynamic(true);
-
-    layer->addChild(sprite);
-
-    game_objects_[name] = sprite;
+    game_objects_[name] = saw;
 
     ret = true;
   }
