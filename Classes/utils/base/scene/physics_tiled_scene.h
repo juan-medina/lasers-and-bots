@@ -46,6 +46,9 @@ protected:
   // provide a physics node
   virtual Node* provide_physics_node(const int gid) const;
 
+  static Vec2 get_object_center_position(const ValueMap& values);
+  static Vec2 get_object_position(const ValueMap& values);
+
 private:
 
   // get the shape string from a tile

@@ -149,6 +149,38 @@ Node* physics_tiled_scene::provide_physics_node(const int /*gid*/) const
   return Node::create();
 }
 
+Vec2 physics_tiled_scene::get_object_center_position(const ValueMap& values)
+{
+  const auto width = values.at("width").asFloat();
+  const auto height = values.at("height").asFloat();
+  const auto x = values.at("x").asFloat() + width;
+  const auto y = values.at("y").asFloat() + height;
+  const auto rotation = values.at("rotation").asFloat();
+
+  const auto angle = CC_DEGREES_TO_RADIANS(-rotation);
+
+  const auto center_x = width / 2;
+  const auto center_y = height / 2;
+
+  const auto cos_rotation = cosf(angle);
+  const auto sin_rotation = sinf(angle);
+
+  const auto rotated_center_x = center_x * cos_rotation - center_y * sin_rotation;
+  const auto rotated_center_y = center_x * sin_rotation + center_y * cos_rotation;
+
+  return Vec2(x + rotated_center_x - width, y + rotated_center_y);
+}
+
+Vec2 physics_tiled_scene::get_object_position(const ValueMap& values)
+{
+  const auto width = values.at("width").asFloat();
+  const auto height = values.at("height").asFloat();
+  const auto x = values.at("x").asFloat() + width / 2;
+  const auto y = values.at("y").asFloat() + height / 2;
+
+  return Vec2(x, y);
+}
+
 bool physics_tiled_scene::add_body_to_node(Node* node, const string& shape)
 {
   auto result = false;

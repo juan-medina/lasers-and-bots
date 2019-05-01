@@ -147,9 +147,6 @@ private:
   template <class Type>
   static Type* get_object_from_contact(const PhysicsContact& contact, const categories category);
 
-  static Vec2 get_object_center_position(const ValueMap& values);
-  static Vec2 get_object_position(const ValueMap& values);
-
   bool add_laser(const ValueMap& values, Node* layer);
   bool add_robot(const ValueMap& values, Node* layer);
   bool add_switch(const ValueMap& values, Node* layer);
