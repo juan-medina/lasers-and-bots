@@ -19,7 +19,6 @@
  ****************************************************************************/
 
 #include "barrel_object.h"
-#include "../utils/physics/physics_shape_cache.h"
 
 barrel_object::barrel_object()
 {

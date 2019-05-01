@@ -120,6 +120,9 @@
     <ClCompile Include="..\Classes\game\barrel_object.cpp">
       <Filter>src\game</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\game\box_object.cpp">
+      <Filter>src\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -195,6 +198,9 @@
       <Filter>src\game</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\game\barrel_object.h">
+      <Filter>src\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\box_object.h">
       <Filter>src\game</Filter>
     </ClInclude>
   </ItemGroup>

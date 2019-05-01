@@ -25,6 +25,7 @@
 #include "../game/switch_object.h"
 #include "../game/door_object.h"
 #include "../game/barrel_object.h"
+#include "../game/box_object.h"
 #include "../game/robot_fragment.h"
 #include "../utils/physics/physics_shape_cache.h"
 #include "../ui/game_ui.h"
@@ -384,58 +385,6 @@ bool game_scene::add_robot(const ValueMap& values, Node* layer)
   return ret;
 }
 
-bool game_scene::add_object(const vector<Value>::value_type& object)
-{
-  auto ret = false;
-  do
-  {
-    const auto map = get_tiled_map();
-    UTILS_BREAK_IF(map == nullptr);
-
-    const auto layer_walk = map->getLayer("walk");
-    UTILS_BREAK_IF(layer_walk == nullptr);
-
-    const auto layer_walk_back = map->getLayer("walk_back");
-    UTILS_BREAK_IF(layer_walk_back == nullptr);
-
-    const auto& values = object.asValueMap();
-    const auto type = values.at("type").asString();
-
-    if (type == "laser")
-    {
-      UTILS_BREAK_IF(!add_laser(values, layer_walk));
-    }
-    else if (type == "robot")
-    {
-      UTILS_BREAK_IF(!add_robot(values, layer_walk));
-    }
-    else if (type == "saw")
-    {
-      UTILS_BREAK_IF(!add_saw(values, layer_walk_back));
-    }
-    else if (type == "barrel")
-    {
-      UTILS_BREAK_IF(!add_barrel(values, layer_walk_back));
-    }
-    else if (type == "switch")
-    {
-      UTILS_BREAK_IF(!add_switch(values, layer_walk));
-    }
-    else if (type == "door")
-    {
-      UTILS_BREAK_IF(!add_door(values, layer_walk_back));
-    }
-    else if (type == "box")
-    {
-      UTILS_BREAK_IF(!add_box(values, layer_walk));
-    }
-
-    ret = true;
-  }
-  while (false);
-  return ret;
-}
-
 bool game_scene::add_switch(const ValueMap& values, Node* layer)
 {
   auto ret = false;
@@ -508,17 +457,17 @@ bool game_scene::add_barrel(const ValueMap& values, Node* layer)
     const auto shape = values.at("shape").asString();
     const auto rotation = values.at("rotation").asFloat();
 
-    auto sprite = barrel_object::create(barrel_count_, image, shape);
-    UTILS_BREAK_IF(sprite == nullptr);
+    auto barrel = barrel_object::create(barrel_count_, image, shape);
+    UTILS_BREAK_IF(barrel == nullptr);
 
     const auto position = get_object_center_position(values);
 
-    sprite->setPosition(position);
-    sprite->setRotation(rotation);
+    barrel->setPosition(position);
+    barrel->setRotation(rotation);
 
-    layer->addChild(sprite);
+    layer->addChild(barrel);
 
-    game_objects_[name] = sprite;
+    game_objects_[name] = barrel;
 
     ret = true;
   }
@@ -586,30 +535,77 @@ bool game_scene::add_box(const ValueMap& values, Node* layer)
   {
     const auto name = values.at("name").asString();
     const auto image = values.at("image").asString();
+    const auto shape = values.at("shape").asString();
+    const auto rotation = values.at("rotation").asFloat();
 
-    auto sprite = game_object::create(image, "barrel");
-    UTILS_BREAK_IF(sprite == nullptr);
-
-    sprite->setAnchorPoint(Vec2(0.5f, 0.f));
+    auto box = box_object::create(image, shape);
+    UTILS_BREAK_IF(box == nullptr);
 
     const auto position = get_object_center_position(values);
-    sprite->setPosition(position);
-    sprite->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-    const auto shape = values.count("shape") == 1 ? values.at("shape").asString() : "";
-    add_body_to_node(sprite, shape);
+    box->setPosition(position);
+    box->setRotation(rotation);
 
-    const auto rotation = values.at("rotation").asFloat();
-    sprite->setRotation(rotation);
+    layer->addChild(box);
 
-    layer->addChild(sprite);
-
-    game_objects_[name] = sprite;
+    game_objects_[name] = box;
 
     ret = true;
   }
   while (false);
 
+  return ret;
+}
+
+bool game_scene::add_object(const vector<Value>::value_type& object)
+{
+  auto ret = false;
+  do
+  {
+    const auto map = get_tiled_map();
+    UTILS_BREAK_IF(map == nullptr);
+
+    const auto layer_walk = map->getLayer("walk");
+    UTILS_BREAK_IF(layer_walk == nullptr);
+
+    const auto layer_walk_back = map->getLayer("walk_back");
+    UTILS_BREAK_IF(layer_walk_back == nullptr);
+
+    const auto& values = object.asValueMap();
+    const auto type = values.at("type").asString();
+
+    if (type == "laser")
+    {
+      UTILS_BREAK_IF(!add_laser(values, layer_walk));
+    }
+    else if (type == "robot")
+    {
+      UTILS_BREAK_IF(!add_robot(values, layer_walk));
+    }
+    else if (type == "saw")
+    {
+      UTILS_BREAK_IF(!add_saw(values, layer_walk_back));
+    }
+    else if (type == "barrel")
+    {
+      UTILS_BREAK_IF(!add_barrel(values, layer_walk_back));
+    }
+    else if (type == "switch")
+    {
+      UTILS_BREAK_IF(!add_switch(values, layer_walk));
+    }
+    else if (type == "door")
+    {
+      UTILS_BREAK_IF(!add_door(values, layer_walk_back));
+    }
+    else if (type == "box")
+    {
+      UTILS_BREAK_IF(!add_box(values, layer_walk));
+    }
+
+    ret = true;
+  }
+  while (false);
   return ret;
 }
 
