@@ -148,7 +148,7 @@ void laser_object::update(const float delta)
 
   if (touch_shape != nullptr)
   {
-    if (touch_shape->getCategoryBitmask() == game_scene::bit_mask_robot)
+    if (touch_shape->getCategoryBitmask() == static_cast<unsigned short>(game_scene::categories::robot))
     {
       const auto robot = dynamic_cast<robot_object*>(touch_shape->getBody()->getNode());
       robot->damage_shield(get_damage());

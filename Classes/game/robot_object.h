@@ -44,13 +44,21 @@ public:
   void update(float delta) override;
 
   // land on a block
-  void on_land_on_block();
+  static void on_land_on_block();
+
+  void feet_touch_walk_object_start();
+
+  void feet_touch_walk_object_end();
 
   // get the current shield
   float get_shield_percentage() const;
 
   // damage our shield
   void damage_shield(const int amount);
+
+  void start_periodic_damage(const int amount);
+
+  void stop_periodic_damage(const int amount);
 
   // object paused
   void pause() override;
@@ -120,6 +128,11 @@ private:
   // tag for our blink action
   static const int blink_on_damage_action_tag;
 
+  int periodic_damage_;
+
+  bool feet_touch_anything_;
+
+  int feet_touching_count_;
 };
 
 #endif // __ROBOT_CLASS__

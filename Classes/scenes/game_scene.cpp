@@ -39,12 +39,12 @@ game_scene::game_scene() :
   min_camera_pos_(Vec2::ZERO),
   max_camera_pos_(Vec2::ZERO),
   paused_(false),
-  final_anim_(false),
+  doing_final_anim_(false),
+  doing_delay_start_(false),
   total_time_(0.f),
-  barrel_count_(0),
   time_limit_(0),
   level_name_(""),
-  delay_start_(false)
+  barrel_count_(0)
 {
 }
 
@@ -76,7 +76,6 @@ game_scene* game_scene::create()
   }
   while (false);
 
-  // return the object
   return ret;
 }
 
@@ -86,7 +85,6 @@ bool game_scene::create_game_ui()
 
   do
   {
-    // game ui
     game_ui_ = game_ui::create();
     UTILS_BREAK_IF(game_ui_ == nullptr);
 
@@ -107,64 +105,108 @@ void game_scene::calculate_camera_bounds()
   max_camera_pos_ = Vec2(total_size_.width - min_camera_pos_.x, total_size_.height - min_camera_pos_.y);
 }
 
-// on "init" you need to initialize your instance
+bool game_scene::create_physics_contacts_callback()
+{
+  auto ret = false;
+
+  do
+  {
+    auto contact_listener = EventListenerPhysicsContact::create();
+    UTILS_BREAK_IF(contact_listener == nullptr);
+
+    contact_listener->onContactBegin = CC_CALLBACK_1(game_scene::on_contact_begin, this);
+    contact_listener->onContactSeparate = CC_CALLBACK_1(game_scene::on_contact_separate, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(contact_listener, this);
+
+    ret = true;
+  }
+  while (false);
+
+  return ret;
+}
+
+void game_scene::set_map_bounds_contacts_settings() const
+{
+  const auto map = get_tiled_map();
+  const auto edge = map->getPhysicsBody();
+  edge->setCategoryBitmask(static_cast<unsigned short>(categories::world));
+  edge->setContactTestBitmask(static_cast<unsigned short>(categories::feet));
+}
+
+bool game_scene::is_settings_set_to_use_debug_grid()
+{
+  return UserDefault::getInstance()->getBoolForKey("debug_grid", false);
+}
+
+void game_scene::pre_load_sounds()
+{
+  audio_helper::pre_load_music("sounds/music.mp3");
+  audio_helper::pre_load_effect("sounds/fail.mp3");
+  audio_helper::pre_load_effect("sounds/victory.mp3");
+  audio_helper::pre_load_effect("sounds/countdown.mp3");
+  audio_helper::pre_load_effect("sounds/explosion.mp3");
+}
+
+void game_scene::get_map_settings()
+{
+  const auto map = get_tiled_map();
+
+  time_limit_ = static_cast<unsigned int>(map->getProperty("time_limit").asInt());
+  level_name_ = map->getProperty("name").asString();
+}
+
+bool game_scene::is_settings_set_to_debug_physics()
+{
+  return UserDefault::getInstance()->getBoolForKey("debug_physics", false);
+}
+
+void game_scene::cache_objects_textures()
+{
+  SpriteFrameCache::getInstance()->addSpriteFramesWithFile("objects/objects.plist");
+}
+
 bool game_scene::init()
 {
   auto ret = false;
 
   do
   {
-    //////////////////////////////
-    // 1. super init first
-    const auto debug_physics = UserDefault::getInstance()->getBoolForKey("debug_physics", false);
+    const auto debug_physics = is_settings_set_to_debug_physics();
 
+    // load the map
     UTILS_BREAK_IF(!base_class::init("maps/map.tmx", gravity, debug_physics));
 
     calculate_camera_bounds();
 
-    // load objects textures
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("objects/objects.plist");
+    cache_objects_textures();
 
-    // create ui
     UTILS_BREAK_IF(!create_game_ui());
 
-    // add the objects
     UTILS_BREAK_IF(!add_objects_to_game());
 
-    // cache the robot explosion
     UTILS_BREAK_IF(!cache_robot_explosion());
 
-    // clear the cache
+    // clear physics shapes cache
     physics_shape_cache::get_instance()->remove_all_shapes();
 
-    // get the time limit
-    time_limit_ = static_cast<unsigned int>(get_tiled_map()->getProperty("time_limit").asInt());
-    level_name_ = get_tiled_map()->getProperty("name").asString();
-
-    //get updates
-    scheduleUpdate();
-
-    const auto debug_grid = UserDefault::getInstance()->getBoolForKey("debug_grid", false);
-    if (debug_grid)
+    if (is_settings_set_to_use_debug_grid())
     {
       UTILS_BREAK_IF(!create_debug_grid("fonts/tahoma.ttf"));
     }
 
-    auto contact_listener = EventListenerPhysicsContact::create();
-    contact_listener->onContactBegin = CC_CALLBACK_1(game_scene::on_contact_begin, this);
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(contact_listener, this);
+    UTILS_BREAK_IF(!create_physics_contacts_callback());
 
-    const auto edge = get_tiled_map()->getPhysicsBody();
-    edge->setCategoryBitmask(bit_mask_world);
-    edge->setContactTestBitmask(bit_mask_feet);
+    set_map_bounds_contacts_settings();
 
-    audio_helper::pre_load_music("sounds/music.mp3");
-    audio_helper::pre_load_effect("sounds/fail.mp3");
-    audio_helper::pre_load_effect("sounds/victory.mp3");
-    audio_helper::pre_load_effect("sounds/countdown.mp3");
-    audio_helper::pre_load_effect("sounds/explosion.mp3");
+    pre_load_sounds();
 
-    delay_start_ = true;
+    get_map_settings();
+
+    // we start with delay
+    doing_delay_start_ = true;
+
+    // start game loop
+    scheduleUpdate();
 
     ret = true;
   }
@@ -175,10 +217,8 @@ bool game_scene::init()
 
 Scene* game_scene::scene()
 {
-  // create the grid
   auto scene = new game_scene();
 
-  // init the scene and auto release
   if (scene)
   {
     if (scene->init())
@@ -192,52 +232,69 @@ Scene* game_scene::scene()
     }
   }
 
-  // return the scene
   return scene;
 }
 
 Node* game_scene::provide_physics_node(const int gid) const
 {
-  auto damage = 0;
   const auto map = get_tiled_map();
-  if (map->getPropertiesForGID(gid).getType() == Value::Type::MAP)
+  const auto gid_properties = map->getPropertiesForGID(gid);
+
+  if (gid_properties.getType() == Value::Type::MAP)
   {
-    const auto properties = map->getPropertiesForGID(gid).asValueMap();
-    if (properties.count("damage") == 1)
+    const auto& value_map = gid_properties.asValueMap();
+    if (value_map.count("damage") == 1)
     {
-      damage = properties.at("damage").asInt();
+      const auto damage = value_map.at("damage").asInt();
+      return game_object::create("dummy", damage);
     }
   }
 
-  return game_object::create("dummy", damage);
+  return game_object::create("dummy");
+}
+
+void game_scene::update_game_time(const float delta)
+{
+  total_time_ += delta;
+  game_ui_->update_time(total_time_, time_limit_);
+}
+
+bool game_scene::update_robot_shield_and_check_if_depleted() const
+{
+  const auto shield_percentage = robot_->get_shield_percentage();
+  game_ui_->set_shield_percentage(shield_percentage);
+
+  return shield_percentage != 0.0f;
+}
+
+void game_scene::check_robot_movement(const float delta)
+{
+  const auto new_position = robot_->getPosition();
+  if (last_robot_position_ != new_position)
+  {
+    camera_follow_robot(new_position, delta);
+
+    last_robot_position_ = new_position;
+  }
 }
 
 void game_scene::update(float delta)
 {
   game_ui_->update(delta);
 
-  if (! (paused_ || final_anim_))
+  if (do_we_need_game_updates())
   {
-    total_time_ += delta;
-    game_ui_->update_time(total_time_, time_limit_);
+    update_game_time(delta);
 
-    const auto shield = robot_->get_shield_percentage();
-    game_ui_->set_shield_percentage(shield);
+    if (update_robot_shield_and_check_if_depleted())
+    {
+      robot_->update(delta);
 
-    if (shield == 0.0f)
+      check_robot_movement(delta);
+    }
+    else
     {
       explode_robot();
-      return;
-    }
-
-    robot_->update(delta);
-    const auto new_position = robot_->getPosition();
-
-    if (last_robot_position_ != new_position)
-    {
-      update_camera(delta);
-
-      last_robot_position_ = new_position;
     }
   }
 }
@@ -290,6 +347,7 @@ bool game_scene::add_laser(const ValueMap& values, Node* layer)
     UTILS_BREAK_IF(laser == nullptr);
 
     laser->setPosition(position);
+
     layer->addChild(laser);
 
     game_objects_[name] = laser;
@@ -313,7 +371,9 @@ bool game_scene::add_robot(const ValueMap& values, Node* layer)
 
     auto position = get_object_center_position(values);
     position.y -= (robot_->getContentSize().height - block_size_.height) / 2;
+
     robot_->setPosition(position);
+
     layer->addChild(robot_);
 
     ret = true;
@@ -338,31 +398,33 @@ bool game_scene::add_object(const vector<Value>::value_type& object)
     UTILS_BREAK_IF(layer_walk_back == nullptr);
 
     const auto& values = object.asValueMap();
-    if (values.at("type").asString() == "laser")
+    const auto type = values.at("type").asString();
+
+    if (type == "laser")
     {
       UTILS_BREAK_IF(!add_laser(values, layer_walk));
     }
-    else if (values.at("type").asString() == "robot")
+    else if (type == "robot")
     {
       UTILS_BREAK_IF(!add_robot(values, layer_walk));
     }
-    else if (values.at("type").asString() == "saw")
+    else if (type == "saw")
     {
       UTILS_BREAK_IF(!add_saw(values, layer_walk_back));
     }
-    else if (values.at("type").asString() == "barrel")
+    else if (type == "barrel")
     {
       UTILS_BREAK_IF(!add_barrel(values, layer_walk_back));
     }
-    else if (values.at("type").asString() == "switch")
+    else if (type == "switch")
     {
       UTILS_BREAK_IF(!add_switch(values, layer_walk));
     }
-    else if (values.at("type").asString() == "door")
+    else if (type == "door")
     {
       UTILS_BREAK_IF(!add_door(values, layer_walk_back));
     }
-    else if (values.at("type").asString() == "box")
+    else if (type == "box")
     {
       UTILS_BREAK_IF(!add_box(values, layer_walk));
     }
@@ -411,6 +473,7 @@ bool game_scene::add_door(const ValueMap& values, Node* layer)
   {
     const auto name = values.at("name").asString();
     auto door_game_object = door_object::create();
+
     UTILS_BREAK_IF(door_game_object == nullptr);
 
     door_game_object->setAnchorPoint(Vec2(0.5f, 0.f));
@@ -439,6 +502,7 @@ bool game_scene::add_barrel(const ValueMap& values, Node* layer)
   {
     const auto name = values.at("name").asString();
     const auto image = values.at("image").asString();
+
     auto sprite = game_object::create(image, "barrel");
     UTILS_BREAK_IF(sprite == nullptr);
 
@@ -448,7 +512,7 @@ bool game_scene::add_barrel(const ValueMap& values, Node* layer)
     sprite->setPosition(position);
     sprite->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-    // making look like random but is not, base on how may barrels we add    
+    // making look like random but is not, base on how may barrels we added    
     barrel_count_++;
 
     const auto gap = barrel_count_ * 10.f;
@@ -506,6 +570,7 @@ bool game_scene::add_saw(const ValueMap& values, Node* layer)
     const auto name = values.at("name").asString();
     const auto image = values.at("image").asString();
     const auto damage = values.at("damage").asInt();
+
     auto sprite = game_object::create(image, "saw", damage);
     UTILS_BREAK_IF(sprite == nullptr);
 
@@ -555,6 +620,7 @@ bool game_scene::add_box(const ValueMap& values, Node* layer)
   {
     const auto name = values.at("name").asString();
     const auto image = values.at("image").asString();
+
     auto sprite = game_object::create(image, "barrel");
     UTILS_BREAK_IF(sprite == nullptr);
 
@@ -618,7 +684,7 @@ unsigned short int game_scene::calculate_stars() const
   return stars;
 }
 
-void game_scene::move_fragments()
+void game_scene::move_fragments_to_robot()
 {
   const auto pos = robot_->getPosition();
   const auto position = Vec2(pos.x, pos.y + robot_->getContentSize().height / 2.5);
@@ -675,9 +741,9 @@ void game_scene::explode_robot()
   audio_helper::get_instance()->play_effect("sounds/explosion.mp3");
 
   game_ui_->disable_buttons(true);
-  final_anim_ = true;
+  doing_final_anim_ = true;
 
-  move_fragments();
+  move_fragments_to_robot();
 
   for (auto robot_fragment : robot_fragments_)
   {
@@ -724,13 +790,15 @@ void game_scene::delay_start()
 
   const auto start = CallFunc::create(CC_CALLBACK_0(game_scene::start, this));
   const auto delay = DelayTime::create(4.6f);
+
   const auto delay_start_sequence = Sequence::create(delay, start, nullptr);
 
-  const auto count_3 = CallFuncN::create(CC_CALLBACK_1(game_scene::count, this, 3));
-  const auto count_2 = CallFuncN::create(CC_CALLBACK_1(game_scene::count, this, 2));
-  const auto count_1 = CallFuncN::create(CC_CALLBACK_1(game_scene::count, this, 1));
-  const auto count_0 = CallFuncN::create(CC_CALLBACK_1(game_scene::count, this, 0));
-  const auto count_go = CallFuncN::create(CC_CALLBACK_1(game_scene::count, this, -1));
+  const auto count_3 = CallFuncN::create(CC_CALLBACK_1(game_scene::set_countdown_number_in_ui, this, 3));
+  const auto count_2 = CallFuncN::create(CC_CALLBACK_1(game_scene::set_countdown_number_in_ui, this, 2));
+  const auto count_1 = CallFuncN::create(CC_CALLBACK_1(game_scene::set_countdown_number_in_ui, this, 1));
+  const auto count_0 = CallFuncN::create(CC_CALLBACK_1(game_scene::set_countdown_number_in_ui, this, 0));
+  const auto count_go = CallFuncN::create(CC_CALLBACK_1(game_scene::set_countdown_number_in_ui, this, -1));
+
   const auto count_sequence = Sequence::create(count_3, DelayTime::create(1.f),
                                                count_2, DelayTime::create(1.f),
                                                count_1, DelayTime::create(1.f),
@@ -744,7 +812,7 @@ void game_scene::delay_start()
   runAction(count_sequence);
 }
 
-void game_scene::count(Ref* sender, const int value)
+void game_scene::set_countdown_number_in_ui(Ref* sender, const int value) const
 {
   game_ui_->update_countdown(value);
 }
@@ -752,6 +820,7 @@ void game_scene::count(Ref* sender, const int value)
 void game_scene::start()
 {
   audio_helper::get_instance()->play_music("sounds/music.mp3", 0.30f);
+
   resume();
   game_ui_->disable_buttons(false);
 }
@@ -759,7 +828,9 @@ void game_scene::start()
 void game_scene::pause()
 {
   paused_ = true;
+
   base_class::pause();
+
   getPhysicsWorld()->setAutoStep(false);
 
   if (robot_ != nullptr)
@@ -771,11 +842,12 @@ void game_scene::pause()
   {
     game_object.second->pause();
   }
+
   audio_helper::get_instance()->pause_music();
 
   game_ui_->get_virtual_joy_stick()->pause();
 
-  if (final_anim_)
+  if (doing_final_anim_)
   {
     for (auto robot_fragment : robot_fragments_)
     {
@@ -787,6 +859,7 @@ void game_scene::pause()
 void game_scene::resume()
 {
   base_class::resume();
+
   getPhysicsWorld()->setAutoStep(true);
 
   if (robot_ != nullptr)
@@ -798,7 +871,9 @@ void game_scene::resume()
   {
     game_object.second->resume();
   }
+
   audio_helper::get_instance()->resume_music();
+
   game_ui_->get_virtual_joy_stick()->resume();
 
   paused_ = false;
@@ -819,7 +894,9 @@ void game_scene::toggle_pause()
 void game_scene::reload()
 {
   pause();
+
   game_ui_->disable_buttons(true);
+
   Director::getInstance()->replaceScene(loading_scene::game());
 }
 
@@ -827,64 +904,94 @@ void game_scene::onEnter()
 {
   base_class::onEnter();
 
-  if (delay_start_)
+  if (doing_delay_start_)
   {
     delay_start();
-    delay_start_ = false;
+
+    doing_delay_start_ = false;
   }
 }
 
-void game_scene::update_camera(const float delta)
+void game_scene::update_ui_position(const Vec2& final_pos) const
+{
+  const auto ui_pos = Vec2(final_pos.x - (screen_size_.width / 2), final_pos.y - (screen_size_.height / 2));
+  game_ui_->setPosition(ui_pos);
+}
+
+void game_scene::camera_follow_robot(const Vec2& robot_position, const float delta)
 {
   // move the camera to the clamped position
-  const auto final_pos = robot_->getPosition().getClampPoint(min_camera_pos_, max_camera_pos_);
+  const auto final_pos = robot_position.getClampPoint(min_camera_pos_, max_camera_pos_);
   if (final_pos != last_camera_position_)
   {
     getDefaultCamera()->setPosition(final_pos);
     getDefaultCamera()->update(delta);
 
-    const auto ui_pos = Vec2(final_pos.x - (screen_size_.width / 2), final_pos.y - (screen_size_.height / 2));
-    game_ui_->setPosition(ui_pos);
+    update_ui_position(final_pos);
 
     last_camera_position_ = final_pos;
   }
 }
 
-void game_scene::handle_switch(switch_object* switch_game_object)
+void game_scene::switch_activate_door(door_object* door)
 {
-  if (switch_game_object->is_off())
+  if (door->is_off())
   {
-    const auto target = switch_game_object->get_target();
+    door->on();
+  }
+}
+
+void game_scene::switch_activate_switch(switch_object* switch_object)
+{
+  if (switch_object->is_off())
+  {
+    switch_object->on();
+
+    const auto target = switch_object->get_target();
     if (game_objects_.count(target) == 1)
     {
-      const auto target_object = game_objects_.at(target);
-
-      if (target_object->get_type() == "switch")
-      {
-        switch_game_object->on();
-
-        const auto target_switch = dynamic_cast<switch_object*>(target_object);
-        target_switch->on();
-
-        const auto target_target = target_switch->get_target();
-        if (game_objects_.count(target_target) == 1)
-        {
-          const auto target_target_object = game_objects_.at(target_target);
-          if (target_target_object->get_type() == "door")
-          {
-            const auto target_door = dynamic_cast<door_object*>(target_target_object);
-            if (target_door->is_off())
-            {
-              target_door->on();
-            }
-          }
-        }
-      }
+      switch_activate_target(game_objects_.at(target));
     }
   }
 }
 
-void game_scene::handle_door(door_object* door_game_object)
+void game_scene::switch_activate_target(game_object* target)
+{
+  const auto type = target->get_type();
+  if (type == "switch")
+  {
+    switch_activate_switch(dynamic_cast<switch_object*>(target));
+  }
+  else if (type == "door")
+  {
+    switch_activate_door(dynamic_cast<door_object*>(target));
+  }
+}
+
+bool game_scene::is_switch_targeting_a_switch(switch_object* switch_object)
+{
+  const auto target = switch_object->get_target();
+  if (game_objects_.count(target) == 1)
+  {
+    return game_objects_.at(target)->get_type() == "switch";
+  }
+  return false;
+}
+
+void game_scene::robot_touch_switch(switch_object* switch_object)
+{
+  if (switch_object->is_off())
+  {
+    if (is_switch_targeting_a_switch(switch_object))
+    {
+      switch_object->on();
+
+      switch_activate_target(game_objects_.at(switch_object->get_target()));
+    }
+  }
+}
+
+void game_scene::robot_touch_door(door_object* door_game_object)
 {
   if (door_game_object->is_on())
   {
@@ -899,57 +1006,100 @@ void game_scene::handle_door(door_object* door_game_object)
   }
 }
 
-bool game_scene::on_contact_begin(PhysicsContact& contact)
+void game_scene::robot_touch_harm_object_start(game_object* const harm_object) const
 {
-  if (! (paused_ || final_anim_))
+  robot_->start_periodic_damage(harm_object->get_damage());
+}
+
+void game_scene::robot_touch_harm_object_end(game_object* harm_object) const
+{
+  robot_->stop_periodic_damage(harm_object->get_damage());
+}
+
+void game_scene::robot_touch_object_start(const PhysicsContact& contact)
+{
+  const auto door = get_object_from_contact<door_object>(contact, categories::door);
+  if (door != nullptr)
   {
-    const auto robot = get_object_from_contact<robot_object>(contact, bit_mask_robot);
-    if (robot != nullptr)
+    robot_touch_door(door);
+  }
+  else
+  {
+    const auto switch_game_object = get_object_from_contact<switch_object>(contact, categories::switches);
+    if (switch_game_object != nullptr)
     {
-      const auto door = get_object_from_contact<door_object>(contact, bit_mask_door);
-      if (door != nullptr)
-      {
-        handle_door(door);
-      }
-      else
-      {
-        const auto switch_game_object = get_object_from_contact<switch_object>(contact, bit_mask_switch);
-        if (switch_game_object != nullptr)
-        {
-          handle_switch(switch_game_object);
-        }
-        else
-        {
-          const auto block_game_object = get_object_from_contact<game_object>(contact, bit_mask_step_objects);
-          if (block_game_object != nullptr)
-          {
-            const auto damage = block_game_object->get_damage();
-            if (damage != 0)
-            {
-              robot->damage_shield(damage);
-            }
-          }
-        }
-      }
+      robot_touch_switch(switch_game_object);
     }
     else
     {
-      const auto feet_node = get_object_from_contact<robot_object>(contact, bit_mask_feet);
+      const auto harm_object = get_object_from_contact<game_object>(contact, categories::harm);
+      if (harm_object != nullptr)
+      {
+        robot_touch_harm_object_start(harm_object);
+      }
+    }
+  }
+}
+
+void game_scene::robot_touch_object_end(const PhysicsContact& contact) const
+{
+  const auto harm_object = get_object_from_contact<game_object>(contact, categories::harm);
+  if (harm_object != nullptr)
+  {
+    robot_touch_harm_object_end(harm_object);
+  }
+}
+
+void game_scene::feet_touch_object_start(const PhysicsContact& contact) const
+{
+  const auto block_game_object = get_object_from_contact<game_object>(contact, categories::walk_on);
+  if (block_game_object != nullptr)
+  {
+    robot_->feet_touch_walk_object_start();
+  }
+  else
+  {
+    const auto map = get_object_from_contact<experimental::TMXTiledMap>(contact, categories::world);
+    if (map != nullptr)
+    {
+      robot_->feet_touch_walk_object_start();
+    }
+  }
+}
+
+void game_scene::feet_touch_object_end(const PhysicsContact& contact) const
+{
+  const auto block_game_object = get_object_from_contact<game_object>(contact, categories::walk_on);
+  if (block_game_object != nullptr)
+  {
+    robot_->feet_touch_walk_object_end();
+  }
+  else
+  {
+    const auto map = get_object_from_contact<experimental::TMXTiledMap>(contact, categories::world);
+    if (map != nullptr)
+    {
+      robot_->feet_touch_walk_object_end();
+    }
+  }
+}
+
+
+bool game_scene::on_contact_begin(PhysicsContact& contact)
+{
+  if (do_we_need_game_updates())
+  {
+    const auto robot = get_object_from_contact<robot_object>(contact, categories::robot);
+    if (robot != nullptr)
+    {
+      robot_touch_object_start(contact);
+    }
+    else
+    {
+      const auto feet_node = get_object_from_contact<robot_object>(contact, categories::feet);
       if (feet_node != nullptr)
       {
-        const auto block_game_object = get_object_from_contact<game_object>(contact, bit_mask_step_objects);
-        if (block_game_object != nullptr)
-        {
-          robot_->on_land_on_block();
-        }
-        else
-        {
-          const auto map = get_object_from_contact<experimental::TMXTiledMap>(contact, bit_mask_world);
-          if (map != nullptr)
-          {
-            robot_->on_land_on_block();
-          }
-        }
+        feet_touch_object_start(contact);
       }
     }
   }
@@ -957,17 +1107,37 @@ bool game_scene::on_contact_begin(PhysicsContact& contact)
   return true;
 }
 
+void game_scene::on_contact_separate(PhysicsContact& contact) const
+{
+  if (do_we_need_game_updates())
+  {
+    const auto robot = get_object_from_contact<robot_object>(contact, categories::robot);
+    if (robot != nullptr)
+    {
+      robot_touch_object_end(contact);
+    }
+    else
+    {
+      const auto feet_node = get_object_from_contact<robot_object>(contact, categories::feet);
+      if (feet_node != nullptr)
+      {
+        feet_touch_object_end(contact);
+      }
+    }
+  }
+}
+
 
 template <class Type>
-Type* game_scene::get_object_from_contact(PhysicsContact& contact, const unsigned short category)
+Type* game_scene::get_object_from_contact(const PhysicsContact& contact, const categories category)
 {
   Type* object = nullptr;
-
-  if (contact.getShapeA()->getCategoryBitmask() & category)
+  const auto short_category = static_cast<unsigned short>(category);
+  if (contact.getShapeA()->getCategoryBitmask() & short_category)
   {
     object = dynamic_cast<Type*>(contact.getShapeA()->getBody()->getNode());
   }
-  else if (contact.getShapeB()->getCategoryBitmask() & category)
+  else if (contact.getShapeB()->getCategoryBitmask() & short_category)
   {
     object = dynamic_cast<Type*>(contact.getShapeB()->getBody()->getNode());
   }

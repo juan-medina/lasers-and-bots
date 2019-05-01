@@ -33,7 +33,10 @@ robot_object::robot_object() :
   virtual_joy_stick_(nullptr),
   walk_sound_(-1),
   current_shield_(0),
-  max_shield_(0)
+  max_shield_(0),
+  periodic_damage_(0),
+  feet_touch_anything_(false),
+  feet_touching_count_(0)
 {
 }
 
@@ -117,15 +120,40 @@ void robot_object::update(float delta)
   jump(virtual_joy_stick_->up() || virtual_joy_stick_->button_a());
 
   change_state(decide_state());
+
+  if (periodic_damage_ != 0)
+  {
+    damage_shield(periodic_damage_);
+  }
 }
 
 void robot_object::on_land_on_block()
 {
-  if (jumping_)
+  audio_helper::get_instance()->play_effect("sounds/land.mp3", false, 0.35f);
+}
+
+void robot_object::feet_touch_walk_object_start()
+{
+  feet_touching_count_++;
+  if (feet_touching_count_ > 0)
   {
-    audio_helper::get_instance()->play_effect("sounds/land.mp3", false, 0.35f);
+    feet_touch_anything_ = true;
+
+    if (jumping_)
+    {
+      on_land_on_block();
+      jumping_ = false;
+    }
   }
-  jumping_ = false;
+}
+
+void robot_object::feet_touch_walk_object_end()
+{
+  feet_touching_count_--;
+  if (feet_touching_count_ == 0)
+  {
+    feet_touch_anything_ = false;
+  }
 }
 
 float robot_object::get_shield_percentage() const
@@ -186,21 +214,35 @@ void robot_object::move_robot() const
 
 void robot_object::damage_shield(const int amount)
 {
-  current_shield_ -= amount;
-  if (current_shield_ < 0)
+  if (amount > 0)
   {
-    current_shield_ = 0;
-  }
+    current_shield_ -= amount;
+    if (current_shield_ < 0)
+    {
+      current_shield_ = 0;
+    }
 
-  if (getActionByTag(blink_on_damage_action_tag) == nullptr)
-  {
-    const auto ink_to_damaged = TintTo::create(0.1f, Color3B::RED);
-    const auto ink_to_normal = TintTo::create(0.1f, Color3B::WHITE);
-    const auto sequence = Sequence::create(ink_to_damaged, ink_to_normal, nullptr);
-    const auto repeat = Repeat::create(sequence, 5);
-    repeat->setTag(blink_on_damage_action_tag);
-    runAction(repeat);
+    if (getActionByTag(blink_on_damage_action_tag) == nullptr)
+    {
+      const auto ink_to_damaged = TintTo::create(0.1f, Color3B::RED);
+      const auto ink_to_normal = TintTo::create(0.1f, Color3B::WHITE);
+      const auto sequence = Sequence::create(ink_to_damaged, ink_to_normal, nullptr);
+      const auto repeat = Repeat::create(sequence, 5);
+      repeat->setTag(blink_on_damage_action_tag);
+      runAction(repeat);
+    }
   }
+}
+
+void robot_object::start_periodic_damage(const int amount)
+{
+  damage_shield(amount);
+  periodic_damage_ = amount;
+}
+
+void robot_object::stop_periodic_damage(const int amount)
+{
+  periodic_damage_ = 0;
 }
 
 void robot_object::pause()
@@ -249,7 +291,7 @@ void robot_object::jump(const bool to_jump)
   {
     if (!jump_pressed)
     {
-      if (!jumping_)
+      if ((!jumping_) && (feet_touch_anything_))
       {
         audio_helper::get_instance()->play_effect("sounds/jump.mp3", false, 0.35f);
         getPhysicsBody()->applyImpulse(Vec2(0.0f, normal_movement.y));

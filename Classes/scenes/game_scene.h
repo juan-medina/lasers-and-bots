@@ -34,22 +34,32 @@ class robot_fragment;
 class game_scene final : public physics_tiled_scene
 {
 public:
-  // base_class
   using base_class = physics_tiled_scene;
 
-  // constructor
   game_scene();
 
   ~game_scene();
 
-  // create the object
+  // create the game scene
   static game_scene* create();
 
-  // creates the ui
   bool create_game_ui();
 
-  // calculate the bounds of the camera
   void calculate_camera_bounds();
+
+  bool create_physics_contacts_callback();
+
+  void set_map_bounds_contacts_settings() const;
+
+  static bool is_settings_set_to_use_debug_grid();
+
+  static void pre_load_sounds();
+
+  void get_map_settings();
+
+  static bool is_settings_set_to_debug_physics();
+
+  static void cache_objects_textures();
 
   // create the scene
   static Scene* scene();
@@ -57,19 +67,23 @@ public:
   // init this object
   bool init() override;
 
-  static constexpr short int bit_mask_world = 1;
-  static constexpr short int bit_mask_robot = 2;
-  static constexpr short int bit_mask_spikes = 4;
-  static constexpr short int bit_mask_saw = 8;
-  static constexpr short int bit_mask_acid = 16;
-  static constexpr short int bit_mask_door = 32;
-  static constexpr short int bit_mask_switch = 64;
-  static constexpr short int bit_mask_blocks = 128;
-  static constexpr short int bit_mask_barrel = 256;
-  static constexpr short int bit_mask_box = 512;
-  static constexpr short int bit_mask_feet = 1024;
-  static constexpr short int bit_mask_step_objects = bit_mask_blocks | bit_mask_spikes | bit_mask_acid | bit_mask_saw |
-    bit_mask_barrel | bit_mask_box;
+  enum class categories : unsigned short
+  {
+    world = 1,
+    robot = 2,
+    spikes = 4,
+    saw = 8,
+    acid = 16,
+    door = 32,
+    switches = 64,
+    blocks = 128,
+    barrel = 256,
+    box = 512,
+    feet = 1024,
+    harm = spikes | acid | saw,
+    walk_on = harm | blocks | barrel | box
+  };
+
 
   // pause our game
   void pause() override;
@@ -77,145 +91,114 @@ public:
   // resume game
   void resume() override;
 
-  // toggle pause
   void toggle_pause();
 
-  // reload the level
   void reload();
 
   // enter scene
   virtual void onEnter() override;
 
-protected:
+  void update_ui_position(const Vec2& final_pos) const;
+
+private:
 
   // provide a physics node for a titled gid
   virtual Node* provide_physics_node(const int gid) const override;
 
-private:
+  void update_game_time(const float delta);
 
-  // update our game
+  bool update_robot_shield_and_check_if_depleted() const;
+
+  void check_robot_movement(const float delta);
+
+  bool constexpr do_we_need_game_updates() const
+  {
+    return !(paused_ || doing_final_anim_);
+  }
+
   void update(float delta) override;
 
   // move the camera following the robot clamping on the map
-  void update_camera(const float delta);
+  void camera_follow_robot(const Vec2& robot_position, const float delta);
 
-  // handle switch
-  void handle_switch(switch_object* switch_game_object);
+  static void switch_activate_door(door_object* door);
+  void switch_activate_switch(switch_object* switch_object);
+  void switch_activate_target(game_object* target);
 
-  // handle switch
-  void handle_door(door_object* door_game_object);
+  bool is_switch_targeting_a_switch(switch_object* switch_object);
 
-  // check contact from objects
+  void robot_touch_switch(switch_object* switch_object);
+  void robot_touch_door(door_object* door_game_object);
+  void robot_touch_harm_object_start(game_object* harm_object) const;
+  void robot_touch_harm_object_end(game_object* harm_object) const;
+  void robot_touch_object_start(const PhysicsContact& contact);
+  void robot_touch_object_end(const PhysicsContact& contact) const;
+
+  void feet_touch_object_start(const PhysicsContact& contact) const;
+  void feet_touch_object_end(const PhysicsContact& contact) const;
+
+  // two shapes start to contact
   bool on_contact_begin(PhysicsContact& contact);
 
-  // get an object from a contact
+  // two shapes stop to contact
+  void on_contact_separate(PhysicsContact& contact) const;
+
+  // get an game object from a contact
   template <class Type>
-  Type* get_object_from_contact(PhysicsContact& contact, unsigned short category);
+  static Type* get_object_from_contact(const PhysicsContact& contact, const categories category);
 
-  //our robot
-  robot_object* robot_;
-
-  // get the object center position
   static Vec2 get_object_center_position(const ValueMap& values);
-
-  // get the object position
   static Vec2 get_object_position(const ValueMap& values);
 
-  // add a laser
   bool add_laser(const ValueMap& values, Node* layer);
-
-  // add a robot
   bool add_robot(const ValueMap& values, Node* layer);
-
-  // add switch scenery item
   bool add_switch(const ValueMap& values, Node* layer);
-
-  // add door scenery item
   bool add_door(const ValueMap& values, Node* layer);
-
-  // add barrel scenery item
   bool add_barrel(const ValueMap& values, Node* layer);
-
-  // add saw to the map
   bool add_saw(const ValueMap& values, Node* layer);
-
-  // add a box to the map
   bool add_box(const ValueMap& values, Node* layer);
 
-  // add an object to the map
   bool add_object(const vector<Value>::value_type& object);
-
-  // add lasers to the game
   bool add_objects_to_game();
 
-  // our game gravity
   static constexpr float gravity = -5000.0f;
 
-  // calculate how many stars we got
   unsigned short int calculate_stars() const;
 
-  // move fragment to the robot
-  void move_fragments();
+  void move_fragments_to_robot();
 
-  // cache the robot explosion
   bool cache_robot_explosion();
 
-  // make our robot to explode
   void explode_robot();
 
-  // the game is over
   void game_over(const bool win);
 
-  // when to start
   void delay_start();
 
-  // count a number
-  void count(Ref* sender, int value);
+  void set_countdown_number_in_ui(Ref* sender, const int value) const;
 
-  // start the game
   void start();
 
-  // the game ui
+  robot_object* robot_;
   game_ui* game_ui_;
-
-  // game objects
   std::map<std::string, game_object *> game_objects_;
+  std::vector<robot_fragment*> robot_fragments_;
 
-  // last position for the robot
   Vec2 last_robot_position_;
-
-  // last position for the camera
   Vec2 last_camera_position_;
 
-  // min camera pos
   Vec2 min_camera_pos_;
-
-  // max camera pos
   Vec2 max_camera_pos_;
 
-  // game is paused
   bool paused_;
+  bool doing_final_anim_;
+  bool doing_delay_start_;
 
-  // final animation
-  bool final_anim_;
-
-  // the total time
   float total_time_;
-
-  // count barrels
-  unsigned short int barrel_count_;
-
-  // the time limit
   unsigned int time_limit_;
-
-  // the level name
   std::string level_name_;
 
-  // start with delay
-  bool delay_start_;
-
-  // robot_fragments
-  std::vector<robot_fragment*> robot_fragments_;
+  unsigned short int barrel_count_;
 };
 
 #endif // __MAIN_SCENE__
