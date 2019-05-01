@@ -24,6 +24,7 @@
 #include "../game/laser_object.h"
 #include "../game/switch_object.h"
 #include "../game/door_object.h"
+#include "../game/barrel_object.h"
 #include "../game/robot_fragment.h"
 #include "../utils/physics/physics_shape_cache.h"
 #include "../ui/game_ui.h"
@@ -500,54 +501,19 @@ bool game_scene::add_barrel(const ValueMap& values, Node* layer)
 
   do
   {
-    const auto name = values.at("name").asString();
-    const auto image = values.at("image").asString();
-
-    auto sprite = game_object::create(image, "barrel");
-    UTILS_BREAK_IF(sprite == nullptr);
-
-    sprite->setAnchorPoint(Vec2(0.5f, 0.f));
-
-    const auto position = get_object_center_position(values);
-    sprite->setPosition(position);
-    sprite->setAnchorPoint(Vec2(0.5f, 0.5f));
-
-    // making look like random but is not, base on how may barrels we added    
     barrel_count_++;
 
-    const auto gap = barrel_count_ * 10.f;
-    auto step_time = 0.f;
-    auto step = 0.f;
-    auto amount = 0.f;
-
-    amount = 50.f;
-    step = amount + gap;
-    step_time = step / amount;
-    const auto move_down_step_1 = MoveBy::create(step_time, Vec3(0.0f, step, 0.0f));
-
-    amount = 40.f;
-    step = -(amount + gap);
-    step_time = step / -amount;
-    const auto move_up_step_1 = MoveBy::create(step_time, Vec3(0.0f, step, 0.0f));
-
-    amount = 30.f;
-    step = amount + gap;
-    step_time = step / amount;
-    const auto move_down_step_2 = MoveBy::create(step_time, Vec3(0.0f, step, 0.0f));
-
-    amount = 40.f;
-    step = -(amount + gap);
-    step_time = step / -amount;
-    const auto move_up_step_2 = MoveBy::create(step_time, Vec3(0.0f, step, 0.0f));
-
-    const auto movement = Sequence::create(move_down_step_1, move_up_step_1, move_down_step_2, move_up_step_2, nullptr);
-    const auto repeat_movement = RepeatForever::create(movement);
-    sprite->runAction(repeat_movement);
-
-    const auto shape = values.count("shape") == 1 ? values.at("shape").asString() : "";
-    add_body_to_node(sprite, shape);
-
+    const auto name = values.at("name").asString();
+    const auto image = values.at("image").asString();
+    const auto shape = values.at("shape").asString();
     const auto rotation = values.at("rotation").asFloat();
+
+    auto sprite = barrel_object::create(barrel_count_, image, shape);
+    UTILS_BREAK_IF(sprite == nullptr);
+
+    const auto position = get_object_center_position(values);
+
+    sprite->setPosition(position);
     sprite->setRotation(rotation);
 
     layer->addChild(sprite);

@@ -149,6 +149,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Classes\game\barrel_object.cpp" />
     <ClCompile Include="..\Classes\game\door_object.cpp" />
     <ClCompile Include="..\Classes\game\robot_fragment.cpp" />
     <ClCompile Include="..\Classes\game\switch_object.cpp" />
@@ -175,6 +176,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Classes\game\barrel_object.h" />
     <ClInclude Include="..\Classes\game\door_object.h" />
     <ClInclude Include="..\Classes\game\robot_fragment.h" />
     <ClInclude Include="..\Classes\game\switch_object.h" />
