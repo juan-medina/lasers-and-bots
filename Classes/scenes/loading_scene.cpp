@@ -21,7 +21,7 @@
 #include "loading_scene.h"
 #include "game_scene.h"
 
-Scene* loading_scene::game(Application* application, const bool debug_grid, const bool debug_physics)
+Scene* loading_scene::game(basic_app* application, const bool debug_grid, const bool debug_physics)
 {
   loading_scene* ret = nullptr;
 
@@ -59,7 +59,7 @@ loading_scene::~loading_scene()
   base_class::removeAllChildrenWithCleanup(true);
 }
 
-bool loading_scene::init(Application* application, const load_to& type, const bool debug_grid, const bool debug_physics)
+bool loading_scene::init(basic_app* application, const load_to& type, const bool debug_grid, const bool debug_physics)
 {
   auto ret = false;
 

@@ -25,7 +25,7 @@ basic_scene::basic_scene():
 {
 }
 
-basic_scene::base_class* basic_scene::create_scene(Application* application)
+basic_scene::base_class* basic_scene::create_scene(basic_app* application)
 {
   base_class* ret = nullptr;
 
@@ -53,7 +53,7 @@ basic_scene::base_class* basic_scene::create_scene(Application* application)
 }
 
 // on "init" you need to initialize your instance
-bool basic_scene::init(Application* application)
+bool basic_scene::init(basic_app* application)
 {
   auto ret = false;
 

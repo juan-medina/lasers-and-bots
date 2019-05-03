@@ -22,6 +22,7 @@
 #define __BASIC_SCENE_H__
 
 #include "../../utils.h"
+#include "../../base/app/basic_app.h"
 
 class basic_scene : public Scene
 {
@@ -32,10 +33,10 @@ public:
   basic_scene();
 
   // create the scene
-  static base_class* create_scene(Application* application);
+  static base_class* create_scene(basic_app* application);
 
   // init this scene
-  bool init(Application* application);
+  bool init(basic_app* application);
 
   // return the screen size
   Size get_screen_size() const noexcept
@@ -47,7 +48,7 @@ protected:
   // store the screen size
   Size screen_size_;
 
-  Application* application_;
+  basic_app* application_;
 };
 
 #endif // __BASIC_SCENE_H__

@@ -38,7 +38,7 @@ launcher_scene::launcher_scene()
 {
 }
 
-launcher_scene* launcher_scene::create(Application* application)
+launcher_scene* launcher_scene::create(basic_app* application)
 {
   auto scene = new launcher_scene();
 
@@ -58,7 +58,7 @@ launcher_scene* launcher_scene::create(Application* application)
   return scene;
 }
 
-Scene* launcher_scene::scene(Application* application)
+Scene* launcher_scene::scene(basic_app* application)
 {
   auto scene = new launcher_scene();
 
@@ -78,7 +78,7 @@ Scene* launcher_scene::scene(Application* application)
   return scene;
 }
 
-bool launcher_scene::init(Application* application)
+bool launcher_scene::init(basic_app* application)
 {
   auto ret = false;
 

@@ -28,13 +28,13 @@ class launcher_scene final : public basic_scene
 public:
   using parent = basic_scene;
 
-  static launcher_scene* create(Application* application);
+  static launcher_scene* create(basic_app* application);
 
-  static Scene* scene(Application* application);
+  static Scene* scene(basic_app* application);
 
   launcher_scene();
 
-  bool init(Application* application);
+  bool init(basic_app* application);
 
   void play(Ref* sender) const;
 

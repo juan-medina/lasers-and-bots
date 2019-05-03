@@ -21,7 +21,7 @@
 #include "physics_tiled_scene.h"
 #include "../../physics/physics_shape_cache.h"
 
-physics_tiled_scene* physics_tiled_scene::create(Application* application, const std::string& tmx_file,
+physics_tiled_scene* physics_tiled_scene::create(basic_app* application, const std::string& tmx_file,
                                                  const float gravity,
                                                  const bool debug_physics)
 {
@@ -46,7 +46,7 @@ physics_tiled_scene* physics_tiled_scene::create(Application* application, const
   return scene;
 }
 
-Scene* physics_tiled_scene::scene(Application* application, const std::string& tmx_file, const float gravity,
+Scene* physics_tiled_scene::scene(basic_app* application, const std::string& tmx_file, const float gravity,
                                   const bool debug_physics)
 {
   // create the grid
@@ -71,7 +71,7 @@ Scene* physics_tiled_scene::scene(Application* application, const std::string& t
 }
 
 // on "init" you need to initialize your instance
-bool physics_tiled_scene::init(Application* application, const std::string& tmx_file, const float gravity,
+bool physics_tiled_scene::init(basic_app* application, const std::string& tmx_file, const float gravity,
                                const bool debug_physics)
 {
   auto ret = false;

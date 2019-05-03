@@ -32,7 +32,7 @@ public:
 
   ~loading_scene();
 
-  static Scene* game(Application* application, const bool debug_grid, const bool debug_physics);
+  static Scene* game(basic_app* application, const bool debug_grid, const bool debug_physics);
 
 private:
 
@@ -41,7 +41,7 @@ private:
     to_game
   };
 
-  bool init(Application* application, const load_to& type, const bool debug_grid, const bool debug_physics);
+  bool init(basic_app* application, const load_to& type, const bool debug_grid, const bool debug_physics);
 
   void go_to_scene() const;
 

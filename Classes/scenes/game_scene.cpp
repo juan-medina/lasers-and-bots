@@ -56,7 +56,7 @@ game_scene::~game_scene()
   audio_helper::get_instance()->end();
 }
 
-Scene* game_scene::scene(Application* application, const bool debug_grid, const bool debug_physics)
+Scene* game_scene::scene(basic_app* application, const bool debug_grid, const bool debug_physics)
 {
   auto scene = new game_scene();
 
@@ -76,7 +76,7 @@ Scene* game_scene::scene(Application* application, const bool debug_grid, const 
   return scene;
 }
 
-game_scene* game_scene::create(Application* application, const bool debug_grid, const bool debug_physics)
+game_scene* game_scene::create(basic_app* application, const bool debug_grid, const bool debug_physics)
 {
   game_scene* ret = nullptr;
 
@@ -102,7 +102,7 @@ game_scene* game_scene::create(Application* application, const bool debug_grid, 
   return ret;
 }
 
-bool game_scene::init(Application* application, const bool debug_grid, const bool debug_physics)
+bool game_scene::init(basic_app* application, const bool debug_grid, const bool debug_physics)
 {
   auto ret = false;
 

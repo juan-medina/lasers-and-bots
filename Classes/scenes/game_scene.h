@@ -40,11 +40,11 @@ public:
 
   ~game_scene();
 
-  static Scene* scene(Application* application, const bool debug_grid, const bool debug_physics);
+  static Scene* scene(basic_app* application, const bool debug_grid, const bool debug_physics);
 
-  static game_scene* create(Application* application, const bool debug_grid, const bool debug_physics);
+  static game_scene* create(basic_app* application, const bool debug_grid, const bool debug_physics);
 
-  bool init(Application* application, const bool debug_grid, const bool debug_physics);
+  bool init(basic_app* application, const bool debug_grid, const bool debug_physics);
 
   bool create_game_ui();
 

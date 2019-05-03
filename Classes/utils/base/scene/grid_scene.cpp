@@ -20,7 +20,7 @@
 
 #include "grid_scene.h"
 
-grid_scene* grid_scene::create(Application* application, const Size& blocks, const Size& block_size)
+grid_scene* grid_scene::create(basic_app* application, const Size& blocks, const Size& block_size)
 {
   // create the grid
   auto scene = new grid_scene();
@@ -43,7 +43,7 @@ grid_scene* grid_scene::create(Application* application, const Size& blocks, con
   return scene;
 }
 
-Scene* grid_scene::scene(Application* application, const Size& blocks, const Size& block_size)
+Scene* grid_scene::scene(basic_app* application, const Size& blocks, const Size& block_size)
 {
   // create the grid
   auto scene = new grid_scene();
@@ -67,7 +67,7 @@ Scene* grid_scene::scene(Application* application, const Size& blocks, const Siz
 }
 
 // on "init" you need to initialize your instance
-bool grid_scene::init(Application* application, const Size& blocks, const Size& block_size)
+bool grid_scene::init(basic_app* application, const Size& blocks, const Size& block_size)
 {
   auto ret = false;
 

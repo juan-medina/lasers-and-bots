@@ -25,7 +25,7 @@ tiled_scene::tiled_scene() :
 {
 }
 
-tiled_scene* tiled_scene::create(Application* application, const std::string& tmx_file)
+tiled_scene* tiled_scene::create(basic_app* application, const std::string& tmx_file)
 {
   // create the game
   auto scene = new tiled_scene();
@@ -48,7 +48,7 @@ tiled_scene* tiled_scene::create(Application* application, const std::string& tm
   return scene;
 }
 
-Scene* tiled_scene::scene(Application* application, const std::string& tmx_file)
+Scene* tiled_scene::scene(basic_app* application, const std::string& tmx_file)
 {
   // create the grid
   auto scene = new tiled_scene();
@@ -72,7 +72,7 @@ Scene* tiled_scene::scene(Application* application, const std::string& tmx_file)
 }
 
 // on "init" you need to initialize your instance
-bool tiled_scene::init(Application* application, const std::string& tmx_file)
+bool tiled_scene::init(basic_app* application, const std::string& tmx_file)
 {
   auto ret = false;
 
