@@ -21,7 +21,8 @@
 #include "physics_tiled_scene.h"
 #include "../../physics/physics_shape_cache.h"
 
-physics_tiled_scene* physics_tiled_scene::create(const std::string& tmx_file, const float gravity,
+physics_tiled_scene* physics_tiled_scene::create(Application* application, const std::string& tmx_file,
+                                                 const float gravity,
                                                  const bool debug_physics)
 {
   // create the game
@@ -30,7 +31,7 @@ physics_tiled_scene* physics_tiled_scene::create(const std::string& tmx_file, co
   // init the scene and auto release
   if (scene)
   {
-    if (scene->init(tmx_file, gravity, debug_physics))
+    if (scene->init(application, tmx_file, gravity, debug_physics))
     {
       scene->autorelease();
     }
@@ -45,7 +46,8 @@ physics_tiled_scene* physics_tiled_scene::create(const std::string& tmx_file, co
   return scene;
 }
 
-Scene* physics_tiled_scene::scene(const std::string& tmx_file, const float gravity, const bool debug_physics)
+Scene* physics_tiled_scene::scene(Application* application, const std::string& tmx_file, const float gravity,
+                                  const bool debug_physics)
 {
   // create the grid
   auto scene = new physics_tiled_scene();
@@ -53,7 +55,7 @@ Scene* physics_tiled_scene::scene(const std::string& tmx_file, const float gravi
   // init the scene and auto release
   if (scene)
   {
-    if (scene->init(tmx_file, gravity, debug_physics))
+    if (scene->init(application, tmx_file, gravity, debug_physics))
     {
       scene->autorelease();
     }
@@ -69,14 +71,15 @@ Scene* physics_tiled_scene::scene(const std::string& tmx_file, const float gravi
 }
 
 // on "init" you need to initialize your instance
-bool physics_tiled_scene::init(const std::string& tmx_file, const float gravity, const bool debug_physics)
+bool physics_tiled_scene::init(Application* application, const std::string& tmx_file, const float gravity,
+                               const bool debug_physics)
 {
   auto ret = false;
 
   do
   {
     // init with a grid
-    ret = base_class::init(tmx_file);
+    ret = base_class::init(application, tmx_file);
     UTILS_BREAK_IF(!ret);
 
     gravity_ = gravity;

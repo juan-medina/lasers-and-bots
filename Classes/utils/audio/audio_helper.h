@@ -117,8 +117,6 @@ public:
 
 
 protected:
-  // save values in user config
-  void save_values() const;
 
   // is the object initiated ?
   bool initiated_;

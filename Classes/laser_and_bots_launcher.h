@@ -23,18 +23,99 @@
 
 #include "utils/base/app/launcher_app.h"
 
-// this game laser_and_bots_launcher
 class laser_and_bots_launcher final : public launcher_app
 {
 public:
-  // base_class
+
   using base_class = launcher_app;
 
-  // constructor
   laser_and_bots_launcher();
 
-  // init this scene
-  Scene* init_scene() override;
+  ~laser_and_bots_launcher();
+
+  int get_screen_width() const
+  {
+    return screen_width_;
+  }
+
+  int get_screen_height() const
+  {
+    return screen_height_;
+  }
+
+  bool is_full_screen() const
+  {
+    return full_screen_;
+  }
+
+  bool is_effects_muted() const
+  {
+    return effects_muted_;
+  }
+
+  bool is_music_muted() const
+  {
+    return music_muted_;
+  }
+
+  bool is_debug_grid() const
+  {
+    return debug_grid_;
+  }
+
+  bool is_debug_physics() const
+  {
+    return debug_physics_;
+  }
+
+  void set_screen_width(const int screen_width)
+  {
+    screen_width_ = screen_width;
+  }
+
+  void set_screen_height(const int screen_height)
+  {
+    screen_height_ = screen_height;
+  }
+
+  void set_full_screen(const bool full_screen)
+  {
+    full_screen_ = full_screen;
+  }
+
+  void set_effects_muted(const bool effects_muted)
+  {
+    effects_muted_ = effects_muted;
+  }
+
+  void set_music_muted(const bool music_muted)
+  {
+    music_muted_ = music_muted;
+  }
+
+  void set_debug_grid(const bool debug_grid)
+  {
+    debug_grid_ = debug_grid;
+  }
+
+  void set_debug_physics(const bool debug_physics)
+  {
+    debug_physics_ = debug_physics;
+  }
+
+protected:
+
+  virtual Scene* init_scene() override;
+
+private:
+
+  int screen_width_;
+  int screen_height_;
+  bool full_screen_;
+  bool effects_muted_;
+  bool music_muted_;
+  bool debug_grid_;
+  bool debug_physics_;
 };
 
 #endif // __LAUNCHER_H__

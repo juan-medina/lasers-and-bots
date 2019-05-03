@@ -19,12 +19,21 @@
  ****************************************************************************/
 
 #include "basic_app.h"
-#include <utility>
 #include "../../audio/audio_helper.h"
 
-basic_app::basic_app(std::string application_name):
-  name_(application_name)
+basic_app::basic_app(const std::string& application_name, const float design_width, const float design_height,
+                     const int screen_width, const int screen_height, const bool full_screen, const bool fit_all,
+                     const bool show_fps):
+  design_width_(design_width),
+  design_height_(design_height),
+  screen_width_(screen_width),
+  screen_height_(screen_height),
+  full_screen_(full_screen),
+  fit_all_(fit_all),
+  show_fps_(show_fps),
+  application_name_(application_name)
 {
+  screen_size_ = Size(screen_width_, screen_height_);
 }
 
 basic_app::~basic_app()
@@ -32,19 +41,15 @@ basic_app::~basic_app()
   audio_helper::get_instance()->app_exit();
 }
 
-// if you want a different context,just modify the value of glContextAttrs
-// it will takes effect on all platforms
 void basic_app::initGLContextAttrs()
 {
   // set OpenGL context attributions,now can only set six attributions:
-  // red,green,blue,alpha,depth,stencil
+  // red, green, blue, alpha, depth, stencil, multi sampling
   GLContextAttrs gl_context_attrs = {8, 8, 8, 8, 24, 8, 0};
 
   GLView::setGLContextAttrs(gl_context_attrs);
 }
 
-// If you want to use packages manager to install more packages,
-// don't modify or remove this function
 static int register_all_packages()
 {
   return 0; // flag for packages manager
@@ -56,43 +61,19 @@ bool basic_app::applicationDidFinishLaunching()
 
   do
   {
-    // read settings
-
-    const auto design_width = UserDefault::getInstance()->getIntegerForKey("design_width", 4.0f * 1920.f);
-    const auto design_height = UserDefault::getInstance()->getIntegerForKey("design_height", 4.0f * 1080.f);
-
-    UserDefault::getInstance()->setIntegerForKey("design_width", design_width);
-    UserDefault::getInstance()->setIntegerForKey("design_height", design_height);
-
-    const auto screen_width = UserDefault::getInstance()->getIntegerForKey("screen_width", 1920);
-    const auto screen_height = UserDefault::getInstance()->getIntegerForKey("screen_height", 1080);
-
-    UserDefault::getInstance()->setIntegerForKey("screen_width", screen_width);
-    UserDefault::getInstance()->setIntegerForKey("screen_height", screen_height);
-
-    design_resolution_ = Size(design_width, design_height);
-    screen_size_ = Size(screen_width, screen_height);
-
-    const auto full_screen = UserDefault::getInstance()->getBoolForKey("full_screen", false);
-    UserDefault::getInstance()->setBoolForKey("full_screen", full_screen);
-
-    const auto fit_all = UserDefault::getInstance()->getBoolForKey("fit_all", false);
-    UserDefault::getInstance()->setBoolForKey("fit_all", fit_all);
-
-    // initialize director and view
     auto director = Director::getInstance();
     auto open_gl_view = director->getOpenGLView();
 
     if (!open_gl_view)
     {
 #if (GAME_PLATFORM == DESKTOP_GAME)
-      if (full_screen)
+      if (full_screen_)
       {
-        open_gl_view = GLViewImpl::createWithFullScreen(name_);
+        open_gl_view = GLViewImpl::createWithFullScreen(application_name_);
       }
       else
       {
-        open_gl_view = GLViewImpl::createWithRect(name_, Rect(0, 0, screen_size_.width, screen_size_.height));
+        open_gl_view = GLViewImpl::createWithRect(application_name_, Rect(Vec2::ZERO, screen_size_));
       }
 #else
       open_gl_view = GLViewImpl::create(name_);
@@ -101,61 +82,44 @@ bool basic_app::applicationDidFinishLaunching()
     }
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-    if (!full_screen)
+    if (!full_screen_)
     {
       center_win32_window();
     }
 #endif
-    // show fps flag, by default false
-    auto show_fps = false;
 
-    // get store value for show fps
-    show_fps = UserDefault::getInstance()->getBoolForKey("show_fps", show_fps);
-
-    // store the value
-    UserDefault::getInstance()->setBoolForKey("show_fps", show_fps);
-    UserDefault::getInstance()->flush();
-
-    // turn on display FPS
-    director->setDisplayStats(show_fps);
-
-    // set FPS. the default value is 1.0/60 if you don't call this
+    director->setDisplayStats(show_fps_);
     director->setAnimationInterval(1.0f / 60.0f);
 
     // get the real screen scale
     const auto real_screen = open_gl_view->getVisibleSize();
 
     // Set the design resolution, we scale to our design with so aspect ratio is maintained
-    if (fit_all)
+    if (fit_all_)
     {
-      open_gl_view->setDesignResolutionSize(design_resolution_.width, design_resolution_.height,
-                                            ResolutionPolicy::SHOW_ALL);
+      open_gl_view->setDesignResolutionSize(design_width_, design_height_, ResolutionPolicy::SHOW_ALL);
     }
     else
     {
-      const auto ratio_x = real_screen.width / design_resolution_.width;
-      const auto ratio_y = real_screen.height / design_resolution_.height;
+      const auto ratio_x = real_screen.width / design_width_;
+      const auto ratio_y = real_screen.height / design_height_;
 
       if (ratio_x >= ratio_y)
       {
-        open_gl_view->setDesignResolutionSize(design_resolution_.width, design_resolution_.height,
-                                              ResolutionPolicy::FIXED_WIDTH);
+        open_gl_view->setDesignResolutionSize(design_width_, design_height_, ResolutionPolicy::FIXED_WIDTH);
       }
       else
       {
-        open_gl_view->setDesignResolutionSize(design_resolution_.width, design_resolution_.height,
-                                              ResolutionPolicy::FIXED_HEIGHT);
+        open_gl_view->setDesignResolutionSize(design_width_, design_height_, ResolutionPolicy::FIXED_HEIGHT);
       }
     }
 
-    // for plugins
+
     register_all_packages();
 
-    // create a scene. it's an autorelease object
     const auto scene = init_scene();
     UTILS_BREAK_IF(scene == nullptr);
 
-    // run
     director->runWithScene(scene);
 
     ret = true;
@@ -165,7 +129,6 @@ bool basic_app::applicationDidFinishLaunching()
   return ret;
 }
 
-// This function will be called when the app is inactive. When comes a phone call,it's be invoked too
 void basic_app::applicationDidEnterBackground()
 {
   Director::getInstance()->stopAnimation();
@@ -173,7 +136,6 @@ void basic_app::applicationDidEnterBackground()
   audio_helper::get_instance()->app_to_bg();
 }
 
-// this function will be called when the app is active again
 void basic_app::applicationWillEnterForeground()
 {
   Director::getInstance()->startAnimation();

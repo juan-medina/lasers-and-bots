@@ -24,53 +24,53 @@
 #include "../../utils.h"
 
 // application base class
-class basic_app : Application
+class basic_app : public Application
 {
 public:
-  // base_class
-  using base_class = Layer;
+  using base_class = Application;
 
-  // constructor
-  explicit basic_app(std::string application_name);
+  explicit basic_app(const std::string& application_name, const float design_width, const float design_height,
+                     const int screen_width, const int screen_height, const bool full_screen, const bool fit_all,
+                     const bool show_fps);
 
-  // destructor
   ~basic_app();
 
-  // init OpenGL attributes
   void initGLContextAttrs() override;
 
-  // Implement Director and Scene init code here.
+  // this function will be called when the app is ready to initialize
   bool applicationDidFinishLaunching() override;
 
-  // The application enter in background
+  // this function will be called when the app is active again
   void applicationDidEnterBackground() override;
 
-  // the application enter foreground
+  // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
   void applicationWillEnterForeground() override;
 
-  // init our scene
   virtual Scene* init_scene() = 0;
 
-  virtual string get_name() const
+  virtual const string& application_name() const
   {
-    return name_;
+    return application_name_;
   };
 
-protected:
+private:
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
   // center on screen in windows 32 client
   static void center_win32_window();
 #endif
 
-  // our design resolution
-  cocos2d::Size design_resolution_;
+  float design_width_;
+  float design_height_;
+  int screen_width_;
+  int screen_height_;
 
-  // our screen size
+  bool full_screen_;
+  bool fit_all_;
+  bool show_fps_;
+
   cocos2d::Size screen_size_;
 
-  // scene name
-protected:
-  string name_;
+  string application_name_;
 };
 
 #endif // __BASIC_APP_H__

@@ -20,7 +20,12 @@
 
 #include "basic_scene.h"
 
-basic_scene::base_class* basic_scene::create_scene()
+basic_scene::basic_scene():
+  application_(nullptr)
+{
+}
+
+basic_scene::base_class* basic_scene::create_scene(Application* application)
 {
   base_class* ret = nullptr;
 
@@ -29,7 +34,7 @@ basic_scene::base_class* basic_scene::create_scene()
     auto scene = new basic_scene();
     UTILS_BREAK_IF(scene == nullptr);
 
-    if (scene->init())
+    if (scene->init(application))
     {
       scene->autorelease();
     }
@@ -48,7 +53,7 @@ basic_scene::base_class* basic_scene::create_scene()
 }
 
 // on "init" you need to initialize your instance
-bool basic_scene::init()
+bool basic_scene::init(Application* application)
 {
   auto ret = false;
 
@@ -63,6 +68,8 @@ bool basic_scene::init()
 
     // store the screen size
     screen_size_ = Director::getInstance()->getWinSize();
+
+    application_ = application;
 
     ret = true;
   }

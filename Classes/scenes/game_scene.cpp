@@ -32,7 +32,7 @@
 #include "../ui/game_ui.h"
 #include "../ui/virtual_joy_stick.h"
 #include "../utils/audio/audio_helper.h"
-#include "loading_scene.h"
+#include "laser_and_bots_app.h"
 
 game_scene::game_scene() :
   robot_(nullptr),
@@ -56,7 +56,27 @@ game_scene::~game_scene()
   audio_helper::get_instance()->end();
 }
 
-game_scene* game_scene::create()
+Scene* game_scene::scene(Application* application, const bool debug_grid, const bool debug_physics)
+{
+  auto scene = new game_scene();
+
+  if (scene)
+  {
+    if (scene->init(application, debug_grid, debug_physics))
+    {
+      scene->autorelease();
+    }
+    else
+    {
+      delete scene;
+      scene = nullptr;
+    }
+  }
+
+  return scene;
+}
+
+game_scene* game_scene::create(Application* application, const bool debug_grid, const bool debug_physics)
 {
   game_scene* ret = nullptr;
 
@@ -65,7 +85,7 @@ game_scene* game_scene::create()
     auto object = new game_scene();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init())
+    if (object->init(application, debug_physics, debug_grid))
     {
       object->autorelease();
     }
@@ -76,6 +96,54 @@ game_scene* game_scene::create()
     }
 
     ret = object;
+  }
+  while (false);
+
+  return ret;
+}
+
+bool game_scene::init(Application* application, const bool debug_grid, const bool debug_physics)
+{
+  auto ret = false;
+
+  do
+  {
+    // load the map
+    UTILS_BREAK_IF(!base_class::init(application, "maps/map.tmx", gravity, debug_physics));
+
+    calculate_camera_bounds();
+
+    cache_objects_textures();
+
+    UTILS_BREAK_IF(!create_game_ui());
+
+    UTILS_BREAK_IF(!add_objects_to_game());
+
+    UTILS_BREAK_IF(!cache_robot_explosion());
+
+    // clear physics shapes cache
+    physics_shape_cache::get_instance()->remove_all_shapes();
+
+    if (debug_grid)
+    {
+      UTILS_BREAK_IF(!create_debug_grid("fonts/tahoma.ttf"));
+    }
+
+    UTILS_BREAK_IF(!create_physics_contacts_callback());
+
+    set_map_bounds_contacts_settings();
+
+    pre_load_sounds();
+
+    get_map_settings();
+
+    // we start with delay
+    doing_delay_start_ = true;
+
+    // start game loop
+    scheduleUpdate();
+
+    ret = true;
   }
   while (false);
 
@@ -136,11 +204,6 @@ void game_scene::set_map_bounds_contacts_settings() const
   edge->setContactTestBitmask(static_cast<unsigned short>(categories::feet));
 }
 
-bool game_scene::is_settings_set_to_use_debug_grid()
-{
-  return UserDefault::getInstance()->getBoolForKey("debug_grid", false);
-}
-
 void game_scene::pre_load_sounds()
 {
   audio_helper::pre_load_music("sounds/music.mp3");
@@ -158,84 +221,9 @@ void game_scene::get_map_settings()
   level_name_ = map->getProperty("name").asString();
 }
 
-bool game_scene::is_settings_set_to_debug_physics()
-{
-  return UserDefault::getInstance()->getBoolForKey("debug_physics", false);
-}
-
 void game_scene::cache_objects_textures()
 {
   SpriteFrameCache::getInstance()->addSpriteFramesWithFile("objects/objects.plist");
-}
-
-bool game_scene::init()
-{
-  auto ret = false;
-
-  do
-  {
-    const auto debug_physics = is_settings_set_to_debug_physics();
-
-    // load the map
-    UTILS_BREAK_IF(!base_class::init("maps/map.tmx", gravity, debug_physics));
-
-    calculate_camera_bounds();
-
-    cache_objects_textures();
-
-    UTILS_BREAK_IF(!create_game_ui());
-
-    UTILS_BREAK_IF(!add_objects_to_game());
-
-    UTILS_BREAK_IF(!cache_robot_explosion());
-
-    // clear physics shapes cache
-    physics_shape_cache::get_instance()->remove_all_shapes();
-
-    if (is_settings_set_to_use_debug_grid())
-    {
-      UTILS_BREAK_IF(!create_debug_grid("fonts/tahoma.ttf"));
-    }
-
-    UTILS_BREAK_IF(!create_physics_contacts_callback());
-
-    set_map_bounds_contacts_settings();
-
-    pre_load_sounds();
-
-    get_map_settings();
-
-    // we start with delay
-    doing_delay_start_ = true;
-
-    // start game loop
-    scheduleUpdate();
-
-    ret = true;
-  }
-  while (false);
-
-  return ret;
-}
-
-Scene* game_scene::scene()
-{
-  auto scene = new game_scene();
-
-  if (scene)
-  {
-    if (scene->init())
-    {
-      scene->autorelease();
-    }
-    else
-    {
-      delete scene;
-      scene = nullptr;
-    }
-  }
-
-  return scene;
 }
 
 Node* game_scene::provide_physics_node(const int gid) const
@@ -811,7 +799,8 @@ void game_scene::reload()
 
   game_ui_->disable_buttons(true);
 
-  Director::getInstance()->replaceScene(loading_scene::game());
+  auto app = dynamic_cast<laser_and_bots_app*>(application_);
+  app->to_game();
 }
 
 void game_scene::onEnter()

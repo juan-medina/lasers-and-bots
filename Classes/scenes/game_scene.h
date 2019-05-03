@@ -40,8 +40,11 @@ public:
 
   ~game_scene();
 
-  // create the game scene
-  static game_scene* create();
+  static Scene* scene(Application* application, const bool debug_grid, const bool debug_physics);
+
+  static game_scene* create(Application* application, const bool debug_grid, const bool debug_physics);
+
+  bool init(Application* application, const bool debug_grid, const bool debug_physics);
 
   bool create_game_ui();
 
@@ -51,21 +54,11 @@ public:
 
   void set_map_bounds_contacts_settings() const;
 
-  static bool is_settings_set_to_use_debug_grid();
-
   static void pre_load_sounds();
 
   void get_map_settings();
 
-  static bool is_settings_set_to_debug_physics();
-
   static void cache_objects_textures();
-
-  // create the scene
-  static Scene* scene();
-
-  // init this object
-  bool init() override;
 
   enum class categories : unsigned short
   {
@@ -84,11 +77,8 @@ public:
     walk_on = harm | blocks | barrel | box
   };
 
-
-  // pause our game
   void pause() override;
 
-  // resume game
   void resume() override;
 
   void toggle_pause();

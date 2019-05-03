@@ -24,17 +24,28 @@
 #include "utils/base/app/basic_app.h"
 
 // this game application
-class laser_and_bots_app final : basic_app
+class laser_and_bots_app final : public basic_app
 {
 public:
-  // base_class
   using base_class = basic_app;
 
-  // constructor
   laser_and_bots_app();
 
-  // init this scene
+  laser_and_bots_app(const int screen_width, const int screen_height, const bool full_screen);
+
   Scene* init_scene() override;
+
+  void set_effects_muted(const bool effects_muted);
+
+  void set_music_muted(const bool music_muted);
+
+  void to_game();
+
+private:
+  bool effects_muted_;
+  bool music_muted_;
+  bool debug_grid_;
+  bool debug_physics_;
 };
 
 #endif // _APP_DELEGATE_H_

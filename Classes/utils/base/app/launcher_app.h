@@ -23,18 +23,12 @@
 
 #include "basic_app.h"
 
-// launcher application for desktop clients
-class launcher_app : basic_app
+class launcher_app : public basic_app
 {
 public:
-  // base_class
   using base_class = basic_app;
 
-  // constructor
-  launcher_app(std::string application_name, float width, float height);
-
-  // launch application
-  bool applicationDidFinishLaunching() override;
+  launcher_app(const std::string& application_name, int width, int height);
 
   virtual bool get_want_to_play() const
   {
@@ -46,9 +40,9 @@ public:
     want_to_play_ = var;
   }
 
-protected:
+  virtual Scene* init_scene() override = 0;
 
-  // do we want to play
+protected:
   bool want_to_play_;
 };
 

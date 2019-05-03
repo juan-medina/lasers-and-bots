@@ -29,19 +29,16 @@ public:
   // base_class
   using base_class = grid_scene;
 
-  tiled_scene()
-    : tiled_map_(nullptr)
-  {
-  }
+  tiled_scene();
 
   // create with a tmx file
-  static tiled_scene* create(const std::string& tmx_file);
+  static tiled_scene* create(Application* application, const std::string& tmx_file);
 
   // create the scene
-  static Scene* scene(const std::string& tmx_file);
+  static Scene* scene(Application* application, const std::string& tmx_file);
 
   // init the scene
-  bool init(const std::string& tmx_file);
+  bool init(Application* application, const std::string& tmx_file);
 
   virtual experimental::TMXTiledMap* get_tiled_map() const noexcept
   {

@@ -31,13 +31,13 @@ public:
   using base_class = basic_scene;
 
   // create with size
-  static grid_scene* create(const Size& blocks, const Size& block_size);
+  static grid_scene* create(Application* application, const Size& blocks, const Size& block_size);
 
   // create the scene
-  static Scene* scene(const Size& blocks, const Size& block_size);
+  static Scene* scene(Application* application, const Size& blocks, const Size& block_size);
 
   // init this class
-  bool init(const Size& blocks, const Size& block_size);
+  bool init(Application* application, const Size& blocks, const Size& block_size);
 
   // get the position of a giving block in a col/row
   Rect get_block_position(const int col, const int row) const

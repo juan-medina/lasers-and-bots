@@ -26,22 +26,19 @@
 class launcher_scene final : public basic_scene
 {
 public:
-  // base_class
   using parent = basic_scene;
 
-  // create object
-  static launcher_scene* create();
+  static launcher_scene* create(Application* application);
 
-  // create the scene
-  static Scene* scene();
+  static Scene* scene(Application* application);
 
-  // constructor
   launcher_scene();
 
-  bool init() override;
+  bool init(Application* application);
 
   void play(Ref* sender) const;
 
+private:
   void screen_mode_click(Ref* sender);
 
   void resolution_click(Ref* sender);
@@ -54,7 +51,6 @@ public:
 
   void debug_physics_click(Ref* sender);
 
-private:
   void update_labels() const;
 
   bool full_screen_;

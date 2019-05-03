@@ -22,11 +22,36 @@
 #include "scenes/launcher_scene.h"
 
 laser_and_bots_launcher::laser_and_bots_launcher():
-  base_class("Lasers and Bots : Launcher", 500, 450)
+  base_class("Lasers and Bots : Launcher", 500, 450),
+  screen_width_(1920),
+  screen_height_(1080),
+  full_screen_(false),
+  effects_muted_(false),
+  music_muted_(false),
+  debug_grid_(false),
+  debug_physics_(false)
 {
+  full_screen_ = UserDefault::getInstance()->getBoolForKey("full_screen", full_screen_);
+  screen_width_ = UserDefault::getInstance()->getIntegerForKey("screen_width", screen_width_);
+  screen_height_ = UserDefault::getInstance()->getIntegerForKey("screen_height", screen_height_);
+  effects_muted_ = UserDefault::getInstance()->getBoolForKey("effects_muted", effects_muted_);
+  music_muted_ = UserDefault::getInstance()->getBoolForKey("music_muted", music_muted_);
+  debug_grid_ = UserDefault::getInstance()->getBoolForKey("debug_grid", debug_grid_);
+  debug_physics_ = UserDefault::getInstance()->getBoolForKey("debug_physics", debug_physics_);
+}
+
+laser_and_bots_launcher::~laser_and_bots_launcher()
+{
+  UserDefault::getInstance()->setBoolForKey("full_screen", full_screen_);
+  UserDefault::getInstance()->setIntegerForKey("screen_width", screen_width_);
+  UserDefault::getInstance()->setIntegerForKey("screen_height", screen_height_);
+  UserDefault::getInstance()->setBoolForKey("effects_muted", effects_muted_);
+  UserDefault::getInstance()->setBoolForKey("music_muted", music_muted_);
+  UserDefault::getInstance()->setBoolForKey("debug_grid", debug_grid_);
+  UserDefault::getInstance()->setBoolForKey("debug_physics", debug_physics_);
 }
 
 Scene* laser_and_bots_launcher::init_scene()
 {
-  return launcher_scene::scene();
+  return launcher_scene::scene(this);
 }

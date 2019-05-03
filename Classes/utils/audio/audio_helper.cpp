@@ -22,6 +22,7 @@
 #include "audio/include/AudioEngine.h"
 
 using namespace experimental;
+
 audio_helper::audio_helper():
   initiated_(false),
   music_muted_(false),
@@ -43,10 +44,6 @@ audio_helper::~audio_helper()
 
 bool audio_helper::init()
 {
-  // get configuration
-  set_effects_muted(UserDefault::getInstance()->getBoolForKey("effects_muted", effects_muted_));
-  set_music_muted(UserDefault::getInstance()->getBoolForKey("music_muted", music_muted_));
-
   // not music played, yet
   last_music_ = AudioEngine::INVALID_AUDIO_ID;
 
@@ -66,14 +63,12 @@ void audio_helper::end()
   // end audio engine
   AudioEngine::end();
 
-  // save config values
-  save_values();
-
   // we are not init
   initiated_ = false;
 }
 
-int audio_helper::play_effect(const std::string& file_name, const bool loop /*= false*/, const float volume /*= 1.0f*/) const
+int audio_helper::play_effect(const std::string& file_name, const bool loop /*= false*/,
+                              const float volume /*= 1.0f*/) const
 {
   // if we are muted exit
   if (get_effects_muted())
@@ -128,9 +123,6 @@ void audio_helper::toggle_sound()
     AudioEngine::stopAll();
     set_effects_muted(true);
   }
-
-  // save config values
-  save_values();
 }
 
 void audio_helper::toggle_music()
@@ -158,9 +150,6 @@ void audio_helper::toggle_music()
     }
     set_music_muted(true);
   }
-
-  // save config values
-  save_values();
 }
 
 void audio_helper::pause_music() const
@@ -195,15 +184,6 @@ void audio_helper::app_to_fg() const
   {
     resume_music();
   }
-}
-
-void audio_helper::save_values() const
-{
-  // save config values
-  UserDefault::getInstance()->setBoolForKey("effects_muted", effects_muted_);
-  UserDefault::getInstance()->setBoolForKey("music_muted_", music_muted_);
-
-  UserDefault::getInstance()->flush();
 }
 
 void audio_helper::app_exit()

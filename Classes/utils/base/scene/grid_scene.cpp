@@ -20,7 +20,7 @@
 
 #include "grid_scene.h"
 
-grid_scene* grid_scene::create(const Size& blocks, const Size& block_size)
+grid_scene* grid_scene::create(Application* application, const Size& blocks, const Size& block_size)
 {
   // create the grid
   auto scene = new grid_scene();
@@ -28,7 +28,7 @@ grid_scene* grid_scene::create(const Size& blocks, const Size& block_size)
   // init the scene and auto release
   if (scene)
   {
-    if (scene->init(blocks, block_size))
+    if (scene->init(application, blocks, block_size))
     {
       scene->autorelease();
     }
@@ -43,7 +43,7 @@ grid_scene* grid_scene::create(const Size& blocks, const Size& block_size)
   return scene;
 }
 
-Scene* grid_scene::scene(const Size& blocks, const Size& block_size)
+Scene* grid_scene::scene(Application* application, const Size& blocks, const Size& block_size)
 {
   // create the grid
   auto scene = new grid_scene();
@@ -51,7 +51,7 @@ Scene* grid_scene::scene(const Size& blocks, const Size& block_size)
   // init the scene and auto release
   if (scene)
   {
-    if (scene->init(blocks, block_size))
+    if (scene->init(application, blocks, block_size))
     {
       scene->autorelease();
     }
@@ -67,7 +67,7 @@ Scene* grid_scene::scene(const Size& blocks, const Size& block_size)
 }
 
 // on "init" you need to initialize your instance
-bool grid_scene::init(const Size& blocks, const Size& block_size)
+bool grid_scene::init(Application* application, const Size& blocks, const Size& block_size)
 {
   auto ret = false;
 
@@ -76,7 +76,7 @@ bool grid_scene::init(const Size& blocks, const Size& block_size)
     //////////////////////////////
     // 1. super init first
 
-    ret = base_class::init();
+    ret = base_class::init(application);
 
     UTILS_BREAK_IF(!ret);
 

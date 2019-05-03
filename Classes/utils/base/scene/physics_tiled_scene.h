@@ -30,13 +30,15 @@ public:
   using base_class = tiled_scene;
 
   // create with a tmx file
-  static physics_tiled_scene* create(const std::string& tmx_file, const float gravity, const bool debug_physics);
+  static physics_tiled_scene* create(Application* application, const std::string& tmx_file, const float gravity,
+                                     const bool debug_physics);
 
   // create the scene
-  static Scene* scene(const std::string& tmx_file, const float gravity, const bool debug_physics);
+  static Scene* scene(Application* application, const std::string& tmx_file, const float gravity,
+                      const bool debug_physics);
 
   // init the scene
-  bool init(const std::string& tmx_file, const float gravity, const bool debug_physics);
+  bool init(Application* application, const std::string& tmx_file, const float gravity, const bool debug_physics);
 
 protected:
 

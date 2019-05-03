@@ -21,7 +21,7 @@
 #include "loading_scene.h"
 #include "game_scene.h"
 
-Scene* loading_scene::game()
+Scene* loading_scene::game(Application* application, const bool debug_grid, const bool debug_physics)
 {
   loading_scene* ret = nullptr;
 
@@ -30,7 +30,7 @@ Scene* loading_scene::game()
     auto object = new loading_scene();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(to_game))
+    if (object->init(application, load_to::to_game, debug_grid, debug_physics))
     {
       object->autorelease();
     }
@@ -44,12 +44,13 @@ Scene* loading_scene::game()
   }
   while (false);
 
-  // return the object
   return ret;
 }
 
 loading_scene::loading_scene():
-  type_(to_game)
+  type_(load_to::to_game),
+  debug_grid_(false),
+  debug_physics_(false)
 {
 }
 
@@ -58,7 +59,7 @@ loading_scene::~loading_scene()
   base_class::removeAllChildrenWithCleanup(true);
 }
 
-bool loading_scene::init(const load_to_type type)
+bool loading_scene::init(Application* application, const load_to& type, const bool debug_grid, const bool debug_physics)
 {
   auto ret = false;
 
@@ -66,32 +67,18 @@ bool loading_scene::init(const load_to_type type)
   {
     type_ = type;
 
-    //////////////////////////////////////////////////////////////////////////
-    // Call parent
-    //////////////////////////////////////////////////////////////////////////
+    UTILS_BREAK_IF(!base_class::init(application));
 
-    UTILS_BREAK_IF(!base_class::init());
-
-    //////////////////////////////////////////////////////////////////////////
-    // Background & Title
-    //////////////////////////////////////////////////////////////////////////
-
-    // Get window size and place the label upper.
     const auto size = Director::getInstance()->getWinSize();
 
-
-    // add the background
     const auto background = LayerGradient::create(Color4B(0, 0, 0, 255), Color4B(0, 0, 127, 255));
     UTILS_BREAK_IF(background==nullptr);
 
-    // Add the sprite to Menu layer as a child layer.
     addChild(background, 0);
 
-    // create the text for the label
     auto label = Label::createWithTTF("Loading...", "fonts/tahoma.ttf", 500);
     UTILS_BREAK_IF(label == nullptr);
 
-    // position menu item
     label->setPosition(Vec2(size.width / 2, size.height / 2));
     label->setTextColor(Color4B(0, 255, 255, 255));
 
@@ -104,17 +91,16 @@ bool loading_scene::init(const load_to_type type)
     const auto delay_exit = DelayTime::create(0.15f);
     UTILS_BREAK_IF(delay_exit == nullptr);
 
-    // function call in the event chain to go to the menu
     const auto func = CallFunc::create(CC_CALLBACK_0(loading_scene::go_to_scene, this));
     UTILS_BREAK_IF(func == nullptr);
 
-    // create the sequence of effects and go to the menu
     const auto sequence = Sequence::create(delay_exit, func, NULL);
     UTILS_BREAK_IF(sequence == nullptr);
 
-    // run effects
     runAction(sequence);
 
+    debug_grid_ = debug_grid;
+    debug_physics_ = debug_physics;
 
     ret = true;
   }
@@ -132,8 +118,8 @@ void loading_scene::go_to_scene() const
 
     switch (type_)
     {
-    case to_game:
-      scene = game_scene::scene();
+    case load_to::to_game:
+      scene = game_scene::scene(application_, debug_grid_, debug_physics_);
       break;
 
     default:

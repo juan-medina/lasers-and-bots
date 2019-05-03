@@ -25,34 +25,29 @@
 
 class loading_scene final : public basic_scene
 {
-public:  
-  // base_class
+public:
   using base_class = basic_scene;
 
-  // constructor
   loading_scene();
 
-  // destructor
   ~loading_scene();
 
-  // create a loading screen that go to the game
-  static Scene* game();
+  static Scene* game(Application* application, const bool debug_grid, const bool debug_physics);
 
 private:
 
-  enum load_to_type
+  enum class load_to
   {
     to_game
   };
 
-  // for node creation
-  bool init(load_to_type type);
+  bool init(Application* application, const load_to& type, const bool debug_grid, const bool debug_physics);
 
-
-  // go to the scene
   void go_to_scene() const;
 
-  load_to_type type_;
+  load_to type_;
+  bool debug_grid_;
+  bool debug_physics_;
 };
 
 #endif // __LOADING_SCENE_H__
