@@ -132,15 +132,11 @@ bool basic_app::applicationDidFinishLaunching()
 void basic_app::applicationDidEnterBackground()
 {
   Director::getInstance()->stopAnimation();
-
-  audio_helper::get_instance()->app_to_bg();
 }
 
 void basic_app::applicationWillEnterForeground()
 {
   Director::getInstance()->startAnimation();
-
-  audio_helper::get_instance()->app_to_fg();
 }
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)

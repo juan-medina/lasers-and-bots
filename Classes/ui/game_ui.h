@@ -65,6 +65,8 @@ public:
     shield_label_->setString(string_format("%3d %%", int_value));
   }
 
+  void change_pause_button() const;
+
   // disable buttons
   void disable_buttons(const bool disabled) const;
 

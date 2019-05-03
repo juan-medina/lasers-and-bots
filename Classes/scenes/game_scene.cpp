@@ -730,6 +730,7 @@ void game_scene::start()
 void game_scene::pause()
 {
   paused_ = true;
+  game_ui_->change_pause_button();
 
   base_class::pause();
 

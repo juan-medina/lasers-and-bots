@@ -41,6 +41,8 @@ public:
 
   void to_game();
 
+  void applicationDidEnterBackground() override;
+
 private:
   bool effects_muted_;
   bool music_muted_;

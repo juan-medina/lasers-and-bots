@@ -301,9 +301,15 @@ void game_ui::on_reload(Ref* sender)
   scene->reload();
 }
 
+void game_ui::change_pause_button() const
+{
+  pause_item_->setSelectedIndex(1);
+}
+
 void game_ui::disable_buttons(const bool disabled) const
 {
   pause_item_->setEnabled(!disabled);
+  pause_item_->setSelectedIndex(0);
   virtual_joy_stick_->disabled(disabled);
 }
 

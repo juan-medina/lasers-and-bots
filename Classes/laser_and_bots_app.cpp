@@ -21,6 +21,7 @@
 #include "laser_and_bots_app.h"
 #include "scenes/loading_scene.h"
 #include "utils/audio/audio_helper.h"
+#include "scenes/game_scene.h"
 
 laser_and_bots_app::laser_and_bots_app()
   : laser_and_bots_app(0, 0, true)
@@ -66,4 +67,10 @@ void laser_and_bots_app::set_music_muted(const bool music_muted)
 void laser_and_bots_app::to_game()
 {
   Director::getInstance()->replaceScene(init_scene());
+}
+
+void laser_and_bots_app::applicationDidEnterBackground()
+{
+  const auto scene = Director::getInstance()->getRunningScene();
+  scene->pause();
 }
