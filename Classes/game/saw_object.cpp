@@ -24,9 +24,9 @@ saw_object::saw_object()
 {
 }
 
-saw_object* saw_object::create(const std::string& image, const std::string& shape, const int damage,
-                               const float rotation_time, const float movement, const float movement_time,
-                               const float stop_time)
+saw_object* saw_object::create(physics_shape_cache* physics_shape_cache, const std::string& image,
+                               const std::string& shape, const int damage, const float rotation_time,
+                               const float movement, const float movement_time, const float stop_time)
 {
   saw_object* ret = nullptr;
 
@@ -35,7 +35,7 @@ saw_object* saw_object::create(const std::string& image, const std::string& shap
     auto object = new saw_object();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(image, shape, damage, rotation_time, movement, movement_time, stop_time))
+    if (object->init(physics_shape_cache, image, shape, damage, rotation_time, movement, movement_time, stop_time))
     {
       object->autorelease();
     }
@@ -52,15 +52,15 @@ saw_object* saw_object::create(const std::string& image, const std::string& shap
   return ret;
 }
 
-bool saw_object::init(const std::string& image, const std::string& shape, const int damage,
-                      const float rotation_time, const float movement, const float movement_time,
+bool saw_object::init(physics_shape_cache* physics_shape_cache, const std::string& image, const std::string& shape,
+                      const int damage, const float rotation_time, const float movement, const float movement_time,
                       const float stop_time)
 {
   auto ret = false;
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init(shape, image, "saw", damage));
+    UTILS_BREAK_IF(!base_class::init(physics_shape_cache ,shape, image, "saw", damage));
 
     setAnchorPoint(Vec2(0.5f, 0.5f));
 

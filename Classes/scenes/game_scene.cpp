@@ -116,8 +116,7 @@ bool game_scene::init(basic_app* application, const bool debug_grid, const bool 
 
     UTILS_BREAK_IF(!cache_robot_explosion());
 
-    // clear physics shapes cache
-    physics_shape_cache::get_instance()->remove_all_shapes();
+    get_physics_shape_cache()->remove_all_shapes();
 
     if (debug_grid)
     {
@@ -232,11 +231,11 @@ Node* game_scene::provide_physics_node(const int gid)
     if (value_map.count("damage") == 1)
     {
       const auto damage = value_map.at("damage").asInt();
-      return harm_object::create(shape, "dummy", damage);
+      return harm_object::create(get_physics_shape_cache(), shape, "dummy", damage);
     }
   }
 
-  return physics_game_object::create(shape, "dummy");
+  return physics_game_object::create(get_physics_shape_cache(), shape, "dummy");
 }
 
 void game_scene::update_game_time(const float delta)
@@ -320,7 +319,8 @@ bool game_scene::add_robot(const ValueMap& values, Node* layer)
   do
   {
     const auto shield = values.at("shield").asInt();
-    robot_ = robot_object::create(get_audio_helper(), game_ui_->get_virtual_joy_stick(), shield);
+    robot_ = robot_object::create(get_physics_shape_cache(), get_audio_helper(), game_ui_->get_virtual_joy_stick(),
+                                  shield);
     UTILS_BREAK_IF(robot_ == nullptr);
 
     auto position = get_object_center_position(values);
@@ -346,7 +346,7 @@ bool game_scene::add_switch(const ValueMap& values, Node* layer)
     const auto name = values.at("name").asString();
     const auto target = values.at("target").asString();
 
-    auto switch_game_object = switch_object::create(target);
+    auto switch_game_object = switch_object::create(get_physics_shape_cache(), target);
     UTILS_BREAK_IF(switch_game_object == nullptr);
 
     switch_game_object->setAnchorPoint(Vec2(0.5f, 0.f));
@@ -374,7 +374,7 @@ bool game_scene::add_door(const ValueMap& values, Node* layer)
   do
   {
     const auto name = values.at("name").asString();
-    auto door_game_object = door_object::create(get_audio_helper());
+    auto door_game_object = door_object::create(get_physics_shape_cache(), get_audio_helper());
 
     UTILS_BREAK_IF(door_game_object == nullptr);
 
@@ -409,7 +409,7 @@ bool game_scene::add_barrel(const ValueMap& values, Node* layer)
     const auto shape = values.at("shape").asString();
     const auto rotation = values.at("rotation").asFloat();
 
-    auto barrel = barrel_object::create(barrel_count_, image, shape);
+    auto barrel = barrel_object::create(get_physics_shape_cache(), barrel_count_, image, shape);
     UTILS_BREAK_IF(barrel == nullptr);
 
     const auto position = get_object_center_position(values);
@@ -443,7 +443,8 @@ bool game_scene::add_saw(const ValueMap& values, Node* layer)
     const auto movement_time = values.at("movement_time").asFloat();
     const auto stop_time = values.at("stop_time").asFloat();
 
-    auto saw = saw_object::create(image, shape, damage, rotation_time, movement, movement_time, stop_time);
+    auto saw = saw_object::create(get_physics_shape_cache(), image, shape, damage, rotation_time, movement,
+                                  movement_time, stop_time);
     UTILS_BREAK_IF(saw == nullptr);
 
     const auto position = get_object_center_position(values);
@@ -473,7 +474,7 @@ bool game_scene::add_box(const ValueMap& values, Node* layer)
     const auto shape = values.at("shape").asString();
     const auto rotation = values.at("rotation").asFloat();
 
-    auto box = box_object::create(image, shape);
+    auto box = box_object::create(get_physics_shape_cache(), image, shape);
     UTILS_BREAK_IF(box == nullptr);
 
     const auto position = get_object_center_position(values);
@@ -619,7 +620,7 @@ bool game_scene::cache_robot_explosion()
   {
     for (auto fragment_number = 1; fragment_number <= 6; ++fragment_number)
     {
-      const auto robot_fragment = robot_fragment::create(fragment_number);
+      const auto robot_fragment = robot_fragment::create(get_physics_shape_cache(), fragment_number);
       UTILS_BREAK_IF(robot_fragment == nullptr);
 
       robot_fragments_.push_back(robot_fragment);

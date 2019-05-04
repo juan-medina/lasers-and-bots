@@ -90,9 +90,6 @@
     <ClCompile Include="..\Classes\scenes\game_scene.cpp">
       <Filter>src\scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\utils\base\scene\physics_tiled_scene.cpp">
-      <Filter>src\utils\base\scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\ui\game_ui.cpp">
       <Filter>src\ui</Filter>
     </ClCompile>
@@ -131,6 +128,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\game\harm_object.cpp">
       <Filter>src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utils\physics\physics_tiled_scene.cpp">
+      <Filter>src\utils\physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -179,9 +179,6 @@
     <ClInclude Include="..\Classes\scenes\game_scene.h">
       <Filter>src\scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\utils\base\scene\physics_tiled_scene.h">
-      <Filter>src\utils\base\scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\ui\game_ui.h">
       <Filter>src\ui</Filter>
     </ClInclude>
@@ -220,6 +217,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\game\harm_object.h">
       <Filter>src\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\physics\physics_tiled_scene.h">
+      <Filter>src\utils\physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

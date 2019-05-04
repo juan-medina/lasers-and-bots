@@ -27,7 +27,7 @@ door_object::door_object() :
 {
 }
 
-door_object* door_object::create(audio_helper* audio_helper)
+door_object* door_object::create(physics_shape_cache* physics_shape_cache, audio_helper* audio_helper)
 {
   door_object* ret = nullptr;
 
@@ -36,7 +36,7 @@ door_object* door_object::create(audio_helper* audio_helper)
     auto object = new door_object();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(audio_helper))
+    if (object->init(physics_shape_cache, audio_helper))
     {
       object->autorelease();
     }
@@ -53,13 +53,13 @@ door_object* door_object::create(audio_helper* audio_helper)
   return ret;
 }
 
-bool door_object::init(audio_helper* audio_helper)
+bool door_object::init(physics_shape_cache* physics_shape_cache, audio_helper* audio_helper)
 {
   auto ret = false;
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init("04_Door", "04_DoorLocked.png", "door"));
+    UTILS_BREAK_IF(!base_class::init(physics_shape_cache, "04_Door", "04_DoorLocked.png", "door"));
 
     audio_helper_ = audio_helper;
 

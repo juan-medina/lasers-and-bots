@@ -30,11 +30,11 @@ public:
 
   robot_fragment();
 
-  static robot_fragment* create(const int fragment_number);
+  static robot_fragment* create(physics_shape_cache* physics_shape_cache, const int fragment_number);
 
   bool create_smoke_emitter();
 
-  bool init(const int fragment_number);
+  bool init(physics_shape_cache* physics_shape_cache, const int fragment_number);
 
   void explode(const Vec2& velocity);
 

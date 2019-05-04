@@ -30,9 +30,9 @@ public:
 
   door_object();
 
-  static door_object* create(audio_helper* audio_helper);
+  static door_object* create(physics_shape_cache* physics_shape_cache, audio_helper* audio_helper);
 
-  bool init(audio_helper* audio_helper);
+  bool init(physics_shape_cache* physics_shape_cache, audio_helper* audio_helper);
 
   bool is_on() const
   {

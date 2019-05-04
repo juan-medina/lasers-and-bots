@@ -19,7 +19,19 @@
  ****************************************************************************/
 
 #include "physics_tiled_scene.h"
-#include "../../physics/physics_shape_cache.h"
+#include "physics_shape_cache.h"
+
+physics_tiled_scene::physics_tiled_scene():
+  physics_shape_cache_(nullptr)
+{
+}
+
+physics_tiled_scene::~physics_tiled_scene()
+{
+  physics_shape_cache_->remove_all_shapes();
+  delete physics_shape_cache_;
+  physics_shape_cache_ = nullptr;
+}
 
 physics_tiled_scene* physics_tiled_scene::create(basic_app* application, const std::string& tmx_file,
                                                  const float gravity,
@@ -180,7 +192,7 @@ Vec2 physics_tiled_scene::get_object_position(const ValueMap& values)
   return Vec2(x, y);
 }
 
-bool physics_tiled_scene::add_body_to_node(Node* node, const string& shape)
+bool physics_tiled_scene::add_body_to_node(Node* node, const string& shape) const
 {
   auto result = false;
 
@@ -189,8 +201,7 @@ bool physics_tiled_scene::add_body_to_node(Node* node, const string& shape)
     PhysicsBody* body = nullptr;
     if (!shape.empty())
     {
-      const auto cache = physics_shape_cache::get_instance();
-      body = cache->create_body_with_name(shape);
+      body = physics_shape_cache_->create_body_with_name(shape);
     }
 
     if (body != nullptr)
@@ -228,8 +239,10 @@ bool physics_tiled_scene::add_physics_to_map()
 
     const auto shapes = map->getProperty("shapes").asString();
 
-    auto cache = physics_shape_cache::get_instance();
-    UTILS_BREAK_IF(!cache->add_shapes_with_file(shapes));
+    physics_shape_cache_ = new physics_shape_cache();
+    UTILS_BREAK_IF(physics_shape_cache_ == nullptr);
+
+    UTILS_BREAK_IF(!physics_shape_cache_->add_shapes_with_file(shapes));
 
     for (auto& child : map->getChildren())
     {

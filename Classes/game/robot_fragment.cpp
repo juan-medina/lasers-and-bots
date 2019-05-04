@@ -27,7 +27,7 @@ robot_fragment::robot_fragment():
 {
 }
 
-robot_fragment* robot_fragment::create(const int fragment_number)
+robot_fragment* robot_fragment::create(physics_shape_cache* physics_shape_cache, const int fragment_number)
 {
   robot_fragment* ret = nullptr;
 
@@ -36,7 +36,7 @@ robot_fragment* robot_fragment::create(const int fragment_number)
     auto object = new robot_fragment();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(fragment_number))
+    if (object->init(physics_shape_cache, fragment_number))
     {
       object->autorelease();
     }
@@ -80,7 +80,7 @@ bool robot_fragment::create_smoke_emitter()
   return ret;
 }
 
-bool robot_fragment::init(const int fragment_number)
+bool robot_fragment::init(physics_shape_cache* physics_shape_cache, const int fragment_number)
 {
   auto ret = false;
 
@@ -89,7 +89,7 @@ bool robot_fragment::init(const int fragment_number)
     const auto shape_name = string_format("Fragment_%02d", fragment_number);
     const auto image_name = shape_name + ".png";
 
-    UTILS_BREAK_IF(!base_class::init(shape_name, image_name, "fragment"));
+    UTILS_BREAK_IF(!base_class::init(physics_shape_cache, shape_name, image_name, "fragment"));
 
     setAnchorPoint(Vec2(0.5f, 0.5f));
 

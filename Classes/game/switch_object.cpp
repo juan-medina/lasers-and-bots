@@ -25,7 +25,7 @@ switch_object::switch_object():
 {
 }
 
-switch_object* switch_object::create(const string& target)
+switch_object* switch_object::create(physics_shape_cache* physics_shape_cache, const string& target)
 {
   switch_object* ret = nullptr;
 
@@ -34,7 +34,7 @@ switch_object* switch_object::create(const string& target)
     auto object = new switch_object();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(target))
+    if (object->init(physics_shape_cache, target))
     {
       object->autorelease();
     }
@@ -51,13 +51,13 @@ switch_object* switch_object::create(const string& target)
   return ret;
 }
 
-bool switch_object::init(const string& target)
+bool switch_object::init(physics_shape_cache* physics_shape_cache, const string& target)
 {
   auto ret = false;
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init("08_Switch", "09_Switch (2).png", "switch"));
+    UTILS_BREAK_IF(!base_class::init(physics_shape_cache, "08_Switch", "09_Switch (2).png", "switch"));
 
     target_ = target;
 

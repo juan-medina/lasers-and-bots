@@ -6,8 +6,8 @@ harm_object::harm_object() :
 }
 
 
-harm_object* harm_object::create(const std::string& shape, const std::string& sprite_frame_name,
-                                 const std::string& type, const int damage)
+harm_object* harm_object::create(physics_shape_cache* physics_shape_cache, const std::string& shape,
+                                 const std::string& sprite_frame_name, const std::string& type, const int damage)
 {
   harm_object* ret = nullptr;
 
@@ -16,7 +16,7 @@ harm_object* harm_object::create(const std::string& shape, const std::string& sp
     auto object = new harm_object();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(shape, sprite_frame_name, type, damage))
+    if (object->init(physics_shape_cache, shape, sprite_frame_name, type, damage))
     {
       object->autorelease();
     }
@@ -33,7 +33,8 @@ harm_object* harm_object::create(const std::string& shape, const std::string& sp
   return ret;
 }
 
-harm_object* harm_object::create(const std::string& shape, const std::string& type, const int damage)
+harm_object* harm_object::create(physics_shape_cache* physics_shape_cache, const std::string& shape,
+                                 const std::string& type, const int damage)
 {
   harm_object* ret = nullptr;
 
@@ -42,7 +43,7 @@ harm_object* harm_object::create(const std::string& shape, const std::string& ty
     auto object = new harm_object();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(shape, type, damage))
+    if (object->init(physics_shape_cache, shape, type, damage))
     {
       object->autorelease();
     }
@@ -85,14 +86,14 @@ harm_object* harm_object::create(const std::string& type, const int damage)
   return ret;
 }
 
-bool harm_object::init(const std::string& shape, const std::string& sprite_frame_name, const std::string& type,
-                       const int damage)
+bool harm_object::init(physics_shape_cache* physics_shape_cache, const std::string& shape,
+                       const std::string& sprite_frame_name, const std::string& type, const int damage)
 {
   auto ret = false;
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init(shape, sprite_frame_name, type))
+    UTILS_BREAK_IF(!base_class::init(physics_shape_cache, shape, sprite_frame_name, type))
 
     damage_ = damage;
 
@@ -103,13 +104,14 @@ bool harm_object::init(const std::string& shape, const std::string& sprite_frame
   return ret;
 }
 
-bool harm_object::init(const std::string& shape, const std::string& type, const int damage)
+bool harm_object::init(physics_shape_cache* physics_shape_cache, const std::string& shape, const std::string& type,
+                       const int damage)
 {
   auto ret = false;
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init(shape, type))
+    UTILS_BREAK_IF(!base_class::init(physics_shape_cache,shape, type))
 
     damage_ = damage;
 
@@ -126,7 +128,7 @@ bool harm_object::init(const std::string& type, const int damage)
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init("", type))
+    UTILS_BREAK_IF(!base_class::init(type))
 
     damage_ = damage;
 

@@ -20,11 +20,8 @@
 
 #include "barrel_object.h"
 
-barrel_object::barrel_object()
-{
-}
-
-barrel_object* barrel_object::create(const int barrel_num, const std::string& image, const std::string& shape)
+barrel_object* barrel_object::create(physics_shape_cache* physics_shape_cache, const int barrel_num,
+                                     const std::string& image, const std::string& shape)
 {
   barrel_object* ret = nullptr;
 
@@ -33,7 +30,7 @@ barrel_object* barrel_object::create(const int barrel_num, const std::string& im
     auto object = new barrel_object();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(barrel_num, image, shape))
+    if (object->init(physics_shape_cache, barrel_num, image, shape))
     {
       object->autorelease();
     }
@@ -50,13 +47,14 @@ barrel_object* barrel_object::create(const int barrel_num, const std::string& im
   return ret;
 }
 
-bool barrel_object::init(const int barrel_num, const std::string& image, const std::string& shape)
+bool barrel_object::init(physics_shape_cache* physics_shape_cache, const int barrel_num, const std::string& image,
+                         const std::string& shape)
 {
   auto ret = false;
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init(shape, image, "barrel"));
+    UTILS_BREAK_IF(!base_class::init(physics_shape_cache, shape, image, "barrel"));
 
     setAnchorPoint(Vec2(0.5f, 0.5f));
 

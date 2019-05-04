@@ -29,9 +29,9 @@ public:
 
   switch_object();
 
-  static switch_object* create(const string& target);
+  static switch_object* create(physics_shape_cache* physics_shape_cache, const string& target);
 
-  bool init(const string& target);
+  bool init(physics_shape_cache* physics_shape_cache, const string& target);
 
   bool is_on() const
   {

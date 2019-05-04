@@ -40,8 +40,8 @@ robot_object::robot_object():
 {
 }
 
-robot_object* robot_object::create(audio_helper* audio_helper, virtual_joy_stick* virtual_joy_stick,
-                                   const int max_shield)
+robot_object* robot_object::create(physics_shape_cache* physics_shape_cache, audio_helper* audio_helper,
+                                   virtual_joy_stick* virtual_joy_stick, const int max_shield)
 {
   robot_object* ret = nullptr;
 
@@ -50,7 +50,7 @@ robot_object* robot_object::create(audio_helper* audio_helper, virtual_joy_stick
     auto object = new robot_object();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(audio_helper, virtual_joy_stick, max_shield))
+    if (object->init(physics_shape_cache, audio_helper, virtual_joy_stick, max_shield))
     {
       object->autorelease();
     }
@@ -67,7 +67,8 @@ robot_object* robot_object::create(audio_helper* audio_helper, virtual_joy_stick
   return ret;
 }
 
-bool robot_object::init(audio_helper* audio_helper, virtual_joy_stick* virtual_joy_stick, const int max_shield)
+bool robot_object::init(physics_shape_cache* physics_shape_cache, audio_helper* audio_helper,
+                        virtual_joy_stick* virtual_joy_stick, const int max_shield)
 {
   auto ret = false;
 
@@ -77,7 +78,7 @@ bool robot_object::init(audio_helper* audio_helper, virtual_joy_stick* virtual_j
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("robot/robot_0.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("robot/robot_1.plist");
 
-    UTILS_BREAK_IF(!base_class::init("Robot", "Idle_01.png", "robot"));
+    UTILS_BREAK_IF(!base_class::init(physics_shape_cache, "Robot", "Idle_01.png", "robot"));
 
     setAnchorPoint(Vec2(0.5f, 0.0f));
 

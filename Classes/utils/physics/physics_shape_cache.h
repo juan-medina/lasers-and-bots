@@ -27,7 +27,9 @@ class physics_shape_cache
 {
 public:
 
-  static physics_shape_cache* get_instance();
+  physics_shape_cache();
+
+  ~physics_shape_cache();
 
   bool add_shapes_with_file(const std::string& plist);
 
@@ -94,8 +96,6 @@ private:
     float angular_velocity_limit;
   };
 
-  physics_shape_cache();
-  ~physics_shape_cache();
   static void safe_delete_body_def(body_def* body_def);
   body_def* get_body_def(const std::string& name);
   static void set_body_properties(PhysicsBody* body, body_def* bd);

@@ -21,7 +21,7 @@
 #define __MAIN_SCENE__
 
 #include "../utils/utils.h"
-#include "../utils/base/scene/physics_tiled_scene.h"
+#include "../utils/physics/physics_tiled_scene.h"
 
 //foward declarations
 class game_object;

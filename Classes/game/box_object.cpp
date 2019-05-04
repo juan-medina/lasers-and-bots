@@ -20,11 +20,8 @@
 
 #include "box_object.h"
 
-box_object::box_object()
-{
-}
-
-box_object* box_object::create(const std::string& image, const std::string& shape)
+box_object* box_object::create(physics_shape_cache* physics_shape_cache, const std::string& image,
+                               const std::string& shape)
 {
   box_object* ret = nullptr;
 
@@ -33,7 +30,7 @@ box_object* box_object::create(const std::string& image, const std::string& shap
     auto object = new box_object();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(image, shape))
+    if (object->init(physics_shape_cache, image, shape))
     {
       object->autorelease();
     }
@@ -50,13 +47,13 @@ box_object* box_object::create(const std::string& image, const std::string& shap
   return ret;
 }
 
-bool box_object::init(const std::string& image, const std::string& shape)
+bool box_object::init(physics_shape_cache* physics_shape_cache, const std::string& image, const std::string& shape)
 {
   auto ret = false;
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init(shape, image, "box"));
+    UTILS_BREAK_IF(!base_class::init(physics_shape_cache, shape, image, "box"));
 
     setAnchorPoint(Vec2(0.5f, 0.5f));
 

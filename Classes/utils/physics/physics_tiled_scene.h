@@ -21,12 +21,18 @@
 #ifndef __PHYSICS_TILED_SCENE_H__
 #define __PHYSICS_TILED_SCENE_H__
 
-#include "tiled_scene.h"
+#include "../base/scene/tiled_scene.h"
+
+// forward declarations
+class physics_shape_cache;
 
 class physics_tiled_scene : public tiled_scene
 {
 public:
   using base_class = tiled_scene;
+
+  physics_tiled_scene();
+  ~physics_tiled_scene();
 
   static physics_tiled_scene* create(basic_app* application, const std::string& tmx_file, const float gravity,
                                      const bool debug_physics);
@@ -36,10 +42,14 @@ public:
 
   bool init(basic_app* application, const std::string& tmx_file, const float gravity, const bool debug_physics);
 
+  physics_shape_cache* get_physics_shape_cache() const
+  {
+    return physics_shape_cache_;
+  }
+
 protected:
 
-  static bool add_body_to_node(Node* node, const string& shape);
-
+  bool add_body_to_node(Node* node, const string& shape) const;
   virtual Node* provide_physics_node(const int gid);
 
   static Vec2 get_object_center_position(const ValueMap& values);
@@ -59,6 +69,8 @@ private:
 
   float gravity_ = 0.0f;
   std::map<int, string> gid_to_shapes_;
+
+  physics_shape_cache* physics_shape_cache_;
 };
 
 #endif // __PHYSICS_TILED_SCENE_H__

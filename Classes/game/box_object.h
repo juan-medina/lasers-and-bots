@@ -27,11 +27,10 @@ class box_object final : public physics_game_object
 public:
   using base_class = physics_game_object;
 
-  box_object();
+  static box_object* create(physics_shape_cache* physics_shape_cache, const std::string& image,
+                            const std::string& shape);
 
-  static box_object* create(const std::string& image, const std::string& shape);
-
-  bool init(const std::string& image, const std::string& shape);
+  bool init(physics_shape_cache* physics_shape_cache, const std::string& image, const std::string& shape);
 };
 
 

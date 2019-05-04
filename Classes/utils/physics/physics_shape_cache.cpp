@@ -30,14 +30,6 @@ physics_shape_cache::~physics_shape_cache()
   remove_all_shapes();
 }
 
-
-physics_shape_cache* physics_shape_cache::get_instance()
-{
-  static physics_shape_cache instance;
-  return &instance;
-}
-
-
 bool physics_shape_cache::add_shapes_with_file(const std::string& plist)
 {
   const auto scale_factor = Director::getInstance()->getContentScaleFactor();
