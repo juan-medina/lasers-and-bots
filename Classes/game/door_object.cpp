@@ -59,9 +59,7 @@ bool door_object::init(audio_helper* audio_helper)
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init("04_DoorLocked.png", "door"));
-
-    UTILS_BREAK_IF(!set_shape("04_Door"));
+    UTILS_BREAK_IF(!base_class::init("04_Door", "04_DoorLocked.png", "door"));
 
     audio_helper_ = audio_helper;
 

@@ -27,77 +27,33 @@ class grid_scene : public basic_scene
 {
 public:
 
-  // base_class
   using base_class = basic_scene;
 
-  // create with size
   static grid_scene* create(basic_app* application, const Size& blocks, const Size& block_size);
 
-  // create the scene
   static Scene* scene(basic_app* application, const Size& blocks, const Size& block_size);
 
-  // init this class
   bool init(basic_app* application, const Size& blocks, const Size& block_size);
 
-  // get the position of a giving block in a col/row
-  Rect get_block_position(const int col, const int row) const
+
+  inline Rect get_block_position(const int col, const int row) const
   {
     return Rect(col * block_size_.width, row * block_size_.height, block_size_.width, block_size_.height);
   }
 
-  // get the block center for a giving block in a col/row
-  Vec2 get_block_center(const int col, const int row) const
+  inline Vec2 get_block_center(const int col, const int row) const
   {
     auto position = this->get_block_position(col, row);
 
     return Vec2(position.getMidX(), position.getMidY());
   }
 
-  // get a block in a giving location
-  Vec2 get_block_at_location(const Point location) const
-  {
-    // calculate row and col
-    const auto col = static_cast<int>(location.x / block_size_.width);
-    const auto row = static_cast<int>(location.y / block_size_.height);
-
-    return Vec2(col, row);
-  }
-
-
-  // enter scene
-  void onEnter() override;
-
-  // exit scene
-  void onExit() override;
-
-
-  Size get_blocks() const noexcept
-  {
-    return blocks_;
-  };
-
-  Size get_block_size() const noexcept
-  {
-    return block_size_;
-  };
-
-  Size get_total_size() const noexcept
-  {
-    return total_size_;
-  };
-
 protected:
 
-  // create a debug grid with a label text in the center
   bool create_debug_grid(const std::string& font_name);
 
-  // number of blocks
   Size blocks_;
-
-  // size of a block
   Size block_size_;
-
-  // total size of the area
   Size total_size_;
 };
 

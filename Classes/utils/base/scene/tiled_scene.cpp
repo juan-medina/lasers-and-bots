@@ -27,10 +27,8 @@ tiled_scene::tiled_scene() :
 
 tiled_scene* tiled_scene::create(basic_app* application, const std::string& tmx_file)
 {
-  // create the game
   auto scene = new tiled_scene();
 
-  // init the scene and auto release
   if (scene)
   {
     if (scene->init(application, tmx_file))
@@ -44,16 +42,13 @@ tiled_scene* tiled_scene::create(basic_app* application, const std::string& tmx_
     }
   }
 
-  // return the scene
   return scene;
 }
 
 Scene* tiled_scene::scene(basic_app* application, const std::string& tmx_file)
 {
-  // create the grid
   auto scene = new tiled_scene();
 
-  // init the scene and auto release
   if (scene)
   {
     if (scene->init(application, tmx_file))
@@ -67,11 +62,9 @@ Scene* tiled_scene::scene(basic_app* application, const std::string& tmx_file)
     }
   }
 
-  // return the scene
   return scene;
 }
 
-// on "init" you need to initialize your instance
 bool tiled_scene::init(basic_app* application, const std::string& tmx_file)
 {
   auto ret = false;
@@ -82,17 +75,14 @@ bool tiled_scene::init(basic_app* application, const std::string& tmx_file)
     ret = (map != nullptr);
     UTILS_BREAK_IF(!ret);
 
-    // store the map
     tiled_map_ = map;
 
     const auto tile_size = map->getTileSize();
     const auto size = map->getMapSize();
 
-    // init with a grid
     ret = base_class::init(application, size, tile_size);
     UTILS_BREAK_IF(!ret);
 
-    // add the title map to the scene
     addChild(map);
   }
   while (false);

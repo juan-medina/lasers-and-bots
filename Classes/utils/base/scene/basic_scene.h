@@ -28,18 +28,14 @@
 class basic_scene : public Scene
 {
 public:
-  // base_class
   using base_class = Scene;
 
   basic_scene();
 
-  // create the scene
   static base_class* create_scene(basic_app* application);
 
-  // init this scene
   bool init(basic_app* application);
 
-  // return the screen size
   Size get_screen_size() const noexcept
   {
     return screen_size_;
@@ -56,7 +52,9 @@ public:
   }
 
 protected:
-  // store the screen size
+
+  void onExit() override;
+
   Size screen_size_;
 
   basic_app* application_;

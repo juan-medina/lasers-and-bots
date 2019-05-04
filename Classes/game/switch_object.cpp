@@ -57,9 +57,7 @@ bool switch_object::init(const string& target)
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init("09_Switch (2).png", "switch"));
-
-    UTILS_BREAK_IF(!set_shape("08_Switch"));
+    UTILS_BREAK_IF(!base_class::init("08_Switch", "09_Switch (2).png", "switch"));
 
     target_ = target;
 

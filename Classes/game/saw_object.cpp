@@ -60,9 +60,7 @@ bool saw_object::init(const std::string& image, const std::string& shape, const 
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init(image, "saw", damage));
-
-    UTILS_BREAK_IF(!set_shape(shape));
+    UTILS_BREAK_IF(!base_class::init(shape, image, "saw", damage));
 
     setAnchorPoint(Vec2(0.5f, 0.5f));
 

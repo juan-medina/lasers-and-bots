@@ -58,11 +58,6 @@ launcher_scene* launcher_scene::create(basic_app* application)
   return scene;
 }
 
-launcher_scene::~launcher_scene()
-{
-  //audio_helper::get_instance()->end();
-}
-
 Scene* launcher_scene::scene(basic_app* application)
 {
   auto scene = new launcher_scene();
@@ -181,7 +176,7 @@ bool launcher_scene::init(basic_app* application)
 
 void launcher_scene::load_settings()
 {
-  const auto app = static_cast<laser_and_bots_launcher*>(application_);
+  const auto app = dynamic_cast<laser_and_bots_launcher*>(application_);
 
   screen_width_ = app->get_screen_width();
   screen_height_ = app->get_screen_height();

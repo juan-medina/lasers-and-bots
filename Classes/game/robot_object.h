@@ -21,15 +21,15 @@
 #define __ROBOT_CLASS__
 
 #include "../utils/utils.h"
-#include "../utils/base/sprite/game_object.h"
+#include "../utils/physics/physics_game_object.h"
 #include "../utils/audio/audio_helper.h"
 
 class virtual_joy_stick;
 
-class robot_object final : public game_object
+class robot_object final : public physics_game_object
 {
 public:
-  using base_class = game_object;
+  using base_class = physics_game_object;
 
   robot_object();
 

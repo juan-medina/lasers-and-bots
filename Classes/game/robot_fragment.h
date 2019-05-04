@@ -21,12 +21,12 @@
 #define __ROBOT_FRAGMENT_CLASS__
 
 #include "../utils/utils.h"
-#include "../utils/base/sprite/game_object.h"
+#include "../utils/physics/physics_game_object.h"
 
-class robot_fragment final : public game_object
+class robot_fragment final : public physics_game_object
 {
 public:
-  using base_class = game_object;
+  using base_class = physics_game_object;
 
   robot_fragment();
 

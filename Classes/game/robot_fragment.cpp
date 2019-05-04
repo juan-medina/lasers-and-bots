@@ -89,11 +89,9 @@ bool robot_fragment::init(const int fragment_number)
     const auto shape_name = string_format("Fragment_%02d", fragment_number);
     const auto image_name = shape_name + ".png";
 
-    UTILS_BREAK_IF(!base_class::init(image_name, "fragment"));
+    UTILS_BREAK_IF(!base_class::init(shape_name, image_name, "fragment"));
 
     setAnchorPoint(Vec2(0.5f, 0.5f));
-
-    set_shape(shape_name);
 
     UTILS_BREAK_IF(!create_smoke_emitter());
 

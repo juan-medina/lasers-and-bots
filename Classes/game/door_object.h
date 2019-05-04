@@ -20,13 +20,13 @@
 #ifndef __DOOR_CLASS__
 #define __DOOR_CLASS__
 
-#include "../utils/base/sprite/game_object.h"
+#include "../utils/physics/physics_game_object.h"
 #include "../utils/audio/audio_helper.h"
 
-class door_object final : public game_object
+class door_object final : public physics_game_object
 {
 public:
-  using base_class = game_object;
+  using base_class = physics_game_object;
 
   door_object();
 

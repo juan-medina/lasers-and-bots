@@ -22,13 +22,13 @@
 #define __LASER_CLASS__
 
 #include "../utils/utils.h"
-#include "../utils/base/sprite/game_object.h"
+#include "harm_object.h"
 #include "../utils/audio/audio_helper.h"
 
-class laser_object final : public game_object
+class laser_object final : public harm_object
 {
 public:
-  using base_class = game_object;
+  using base_class = harm_object;
 
   laser_object();
 

@@ -33,7 +33,6 @@ public:
   explicit basic_app(const std::string& application_name, const float design_width, const float design_height,
                      const int screen_width, const int screen_height, const bool full_screen, const bool fit_all,
                      const bool show_fps);
-  ~basic_app();
 
   void initGLContextAttrs() override;
 

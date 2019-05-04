@@ -22,10 +22,8 @@
 
 grid_scene* grid_scene::create(basic_app* application, const Size& blocks, const Size& block_size)
 {
-  // create the grid
   auto scene = new grid_scene();
 
-  // init the scene and auto release
   if (scene)
   {
     if (scene->init(application, blocks, block_size))
@@ -39,16 +37,13 @@ grid_scene* grid_scene::create(basic_app* application, const Size& blocks, const
     }
   }
 
-  // return the scene
   return scene;
 }
 
 Scene* grid_scene::scene(basic_app* application, const Size& blocks, const Size& block_size)
 {
-  // create the grid
   auto scene = new grid_scene();
 
-  // init the scene and auto release
   if (scene)
   {
     if (scene->init(application, blocks, block_size))
@@ -62,32 +57,24 @@ Scene* grid_scene::scene(basic_app* application, const Size& blocks, const Size&
     }
   }
 
-  // return the scene
   return scene;
 }
 
-// on "init" you need to initialize your instance
 bool grid_scene::init(basic_app* application, const Size& blocks, const Size& block_size)
 {
   auto ret = false;
 
   do
   {
-    //////////////////////////////
-    // 1. super init first
-
     ret = base_class::init(application);
 
     UTILS_BREAK_IF(!ret);
 
-    // init vars
     blocks_ = blocks;
     block_size_ = block_size;
 
-    // set the anchor
     setAnchorPoint(Point::ZERO);
 
-    // calculate total size
     total_size_ = Size(block_size_.width * blocks_.width, block_size_.height * blocks_.height);
 
     ret = true;
@@ -97,59 +84,31 @@ bool grid_scene::init(basic_app* application, const Size& blocks, const Size& bl
   return ret;
 }
 
-void grid_scene::onEnter()
-{
-  // call base_class
-  base_class::onEnter();
-}
-
-void grid_scene::onExit()
-{
-  // call base_class
-  base_class::onExit();
-
-  // we don't need anything else
-  removeAllChildrenWithCleanup(true);
-}
-
 bool grid_scene::create_debug_grid(const std::string& font_name)
 {
   auto ret = false;
 
   do
   {
-    // create a draw node
     auto draw = DrawNode::create();
     UTILS_BREAK_IF(draw == nullptr);
 
-    // everything ok, so far
     auto all_ok = true;
 
-    // for each row and col and if we still ok
     for (auto row = 0; ((row < blocks_.height) && all_ok); row++)
     {
       for (auto col = 0; ((col < blocks_.width) && all_ok); col++)
       {
-        // get the block position and calculate quad
         auto position = get_block_position(col, row);
 
         auto from = position.origin;
         const auto to = from + position.size;
 
-        Point vertex[4];
-        vertex[0] = from;
-        vertex[1] = Vec2(from.x, to.y);
-        vertex[2] = to;
-        vertex[3] = Vec2(to.x, from.y);
+        draw->drawRect(from, to, Color4F(1.0f, 1.0f, 1.0f, 0.25f));
 
-        // draw the quad
-        draw->drawPolygon(&vertex[0], 4, Color4F(0.0f, 0.0f, 0.0f, 0.25f), 2.0f, Color4F(1.0f, 1.0f, 1.0f, 0.25f));
-
-        // create the label for this quad
         auto label = Label::createWithTTF(string_format("%d-%d", col, row), font_name, block_size_.width / 4);
         all_ok = (label != nullptr);
 
-        // if all its ok set position and add the label
         if (all_ok)
         {
           label->setPosition(get_block_center(col, row));
@@ -160,7 +119,6 @@ bool grid_scene::create_debug_grid(const std::string& font_name)
 
     UTILS_BREAK_IF(!all_ok);
 
-    // add the debug grid
     addChild(draw);
 
     ret = true;

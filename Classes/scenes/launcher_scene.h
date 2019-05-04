@@ -29,7 +29,6 @@ public:
   using parent = basic_scene;
 
   static launcher_scene* create(basic_app* application);
-  ~launcher_scene();
 
   static Scene* scene(basic_app* application);
 
@@ -40,19 +39,17 @@ public:
   void play(Ref* sender) const;
 
 private:
+
   void screen_mode_click(Ref* sender);
-
   void resolution_click(Ref* sender);
-
   void effects_muted_click(Ref* sender);
-
   void music_muted_click(Ref* sender);
-
   void debug_grid_click(Ref* sender);
-
   void debug_physics_click(Ref* sender);
-
   void update_labels() const;
+
+  void load_settings();
+  void save_settings() const;
 
   bool full_screen_;
   Label* screen_mode_label_;
@@ -72,9 +69,6 @@ private:
 
   bool music_muted_;
   Label* music_muted_label_;
-
-  void load_settings();
-  void save_settings() const;
 };
 
 #endif // __LAUNCHER_SCENE_H__

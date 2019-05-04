@@ -20,12 +20,12 @@
 #ifndef __BOX_CLASS__
 #define __BOX_CLASS__
 
-#include "../utils/base/sprite/game_object.h"
+#include "../utils/physics/physics_game_object.h"
 
-class box_object final : public game_object
+class box_object final : public physics_game_object
 {
 public:
-  using base_class = game_object;
+  using base_class = physics_game_object;
 
   box_object();
 

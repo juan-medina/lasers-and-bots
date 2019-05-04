@@ -220,19 +220,6 @@ PhysicsBody* physics_shape_cache::create_body_with_name(const std::string& name)
   return body;
 }
 
-
-bool physics_shape_cache::set_body_on_sprite(const std::string& name, Sprite* sprite)
-{
-  const auto body = create_body_with_name(name);
-  if (body)
-  {
-    sprite->setPhysicsBody(body);
-    sprite->setAnchorPoint(get_body_def(name)->anchor_point);
-  }
-  return body != nullptr;
-}
-
-
 void physics_shape_cache::remove_shapes_with_file(const std::string& plist)
 {
   auto bodies = bodies_in_file_.at(plist);

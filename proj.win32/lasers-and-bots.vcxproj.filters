@@ -126,6 +126,12 @@
     <ClCompile Include="..\Classes\game\saw_object.cpp">
       <Filter>src\game</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\utils\physics\physics_game_object.cpp">
+      <Filter>src\utils\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\game\harm_object.cpp">
+      <Filter>src\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -207,6 +213,12 @@
       <Filter>src\game</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\game\saw_object.h">
+      <Filter>src\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\physics\physics_game_object.h">
+      <Filter>src\utils\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\harm_object.h">
       <Filter>src\game</Filter>
     </ClInclude>
   </ItemGroup>

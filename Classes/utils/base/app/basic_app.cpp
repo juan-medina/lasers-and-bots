@@ -24,6 +24,7 @@
 basic_app::basic_app(const std::string& application_name, const float design_width, const float design_height,
                      const int screen_width, const int screen_height, const bool full_screen, const bool fit_all,
                      const bool show_fps):
+  audio_helper_(nullptr),
   design_width_(design_width),
   design_height_(design_height),
   screen_width_(screen_width),
@@ -31,14 +32,9 @@ basic_app::basic_app(const std::string& application_name, const float design_wid
   full_screen_(full_screen),
   fit_all_(fit_all),
   show_fps_(show_fps),
-  application_name_(application_name),
-  audio_helper_(nullptr)
+  application_name_(application_name)
 {
   screen_size_ = Size(screen_width_, screen_height_);
-}
-
-basic_app::~basic_app()
-{
 }
 
 void basic_app::initGLContextAttrs()

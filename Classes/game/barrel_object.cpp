@@ -56,9 +56,7 @@ bool barrel_object::init(const int barrel_num, const std::string& image, const s
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init(image, "barrel"));
-
-    UTILS_BREAK_IF(!set_shape(shape));
+    UTILS_BREAK_IF(!base_class::init(shape, image, "barrel"));
 
     setAnchorPoint(Vec2(0.5f, 0.5f));
 

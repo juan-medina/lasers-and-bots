@@ -27,26 +27,18 @@ class physics_shape_cache
 {
 public:
 
-  // Get pointer to the physics_shape_cache singleton instance
   static physics_shape_cache* get_instance();
 
-  // Adds all physics shapes from a plist file
   bool add_shapes_with_file(const std::string& plist);
 
-  // Adds all physics shapes from a plist file with an scale factor
   bool add_shapes_with_file(const std::string& plist, float scale_factor);
 
-  // Removes all shapes loaded from the given file
   void remove_shapes_with_file(const std::string& plist);
 
-  // Removes all shapes     
   void remove_all_shapes();
 
-  // Creates a PhysicsBody with the given name
   PhysicsBody* create_body_with_name(const std::string& name);
 
-  // Creates a new PhysicsBody and attaches it to the given sprite
-  bool set_body_on_sprite(const std::string& name, Sprite* sprite);
 
 private:
   typedef enum

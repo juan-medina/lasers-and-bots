@@ -25,64 +25,38 @@
 class game_object : public Sprite
 {
 public:
-  // base_class
   using base_class = Sprite;
 
-  // constructor
   game_object();
 
-  // create the object
-  static game_object* create(const std::string& sprite_frame_name, const std::string& type, const int damage = 0);
+  static game_object* create(const std::string& sprite_frame_name, const std::string& type);
 
-  // create empty
-  static game_object* create(const std::string& type, const int damage = 0);
+  static game_object* create(const std::string& type);
 
-  // init this object
-  virtual bool init(const std::string& sprite_frame_name, const std::string& type, const int damage = 0);
+  virtual bool init(const std::string& sprite_frame_name, const std::string& type);
 
-  // init empty
-  virtual bool init(const std::string& type, const int damage = 0);
+  virtual bool init(const std::string& type);
 
-  // get type
   string get_type() const
   {
     return type_;
   }
 
-  // get damage
-  int get_damage() const
-  {
-    return damage_;
-  }
-
-  // add a physics shape
-  bool set_shape(const std::string& shape_name);
-
 protected:
 
-  // create a animation
   static bool create_anim(const char* pattern, int max_frame, float speed, const char* name,
                           unsigned int loops = infinite_loops);
 
-  // change animation
   void change_anim(const std::string& name);
 
-  // change the frame
   void change_frame(const string& name);
 
 private:
 
   static constexpr int infinite_loops = -1;
 
-
-  // our current animation
   Action* animation_;
-
-  // object type
   string type_;
-
-  // damage
-  int damage_;
 };
 
 #endif // __GAME_OBJECT__

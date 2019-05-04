@@ -17,32 +17,35 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
+#ifndef __harm_object_CLASS__
+#define __harm_object_CLASS__
 
-#ifndef __TILED_SCENE_H__
-#define __TILED_SCENE_H__
+#include "../utils/physics/physics_game_object.h"
 
-#include "grid_scene.h"
-
-class tiled_scene : public grid_scene
+class harm_object : public physics_game_object
 {
 public:
-  using base_class = grid_scene;
+  using base_class = physics_game_object;
 
-  tiled_scene();
+  harm_object();
 
-  static tiled_scene* create(basic_app*, const std::string& tmx_file);
+  static harm_object* create(const std::string& shape, const std::string& sprite_frame_name, const std::string& type, const int damage);
+  static harm_object* create(const std::string& shape, const std::string& type, const int damage);
+  static harm_object* create(const std::string& type, const int damage);
 
-  static Scene* scene(basic_app*, const std::string& tmx_file);
+  virtual bool init(const std::string& shape, const std::string& sprite_frame_name, const std::string& type, const int damage);
+  virtual bool init(const std::string& shape, const std::string& type, const int damage);
+  virtual bool init(const std::string& type, const int damage);
 
-  bool init(basic_app*, const std::string& tmx_file);
-
-  virtual experimental::TMXTiledMap* get_tiled_map() const noexcept
+  int get_damage() const
   {
-    return tiled_map_;
-  };
+    return damage_;
+  }
 
-protected:
-  experimental::TMXTiledMap* tiled_map_;
+private:
+
+  int damage_;
 };
 
-#endif // __TILED_SCENE_H__
+#endif // __harm_object_CLASS__
+

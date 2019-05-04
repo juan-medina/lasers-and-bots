@@ -48,25 +48,19 @@ basic_scene::base_class* basic_scene::create_scene(basic_app* application)
   }
   while (false);
 
-  // return the scene
   return ret;
 }
 
-// on "init" you need to initialize your instance
 bool basic_scene::init(basic_app* application)
 {
   auto ret = false;
 
   do
   {
-    //////////////////////////////
-    // 1. super init first
-
     ret = base_class::initWithPhysics();
 
     UTILS_BREAK_IF(!ret);
 
-    // store the screen size
     screen_size_ = Director::getInstance()->getWinSize();
 
     application_ = application;
@@ -76,4 +70,11 @@ bool basic_scene::init(basic_app* application)
   while (false);
 
   return ret;
+}
+
+void basic_scene::onExit()
+{
+  base_class::onExit();
+
+  removeAllChildrenWithCleanup(true);
 }

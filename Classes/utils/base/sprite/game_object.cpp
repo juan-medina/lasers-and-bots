@@ -3,14 +3,12 @@
 
 game_object::game_object() :
   animation_(nullptr),
-  type_(""),
-  damage_(0)
+  type_("")
 {
 }
 
 
-game_object* game_object::create(const std::string& sprite_frame_name, const std::string& type,
-                                 const int damage/* = 0*/)
+game_object* game_object::create(const std::string& sprite_frame_name, const std::string& type)
 {
   game_object* ret = nullptr;
 
@@ -19,7 +17,7 @@ game_object* game_object::create(const std::string& sprite_frame_name, const std
     auto object = new game_object();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(sprite_frame_name, type, damage))
+    if (object->init(sprite_frame_name, type))
     {
       object->autorelease();
     }
@@ -33,11 +31,10 @@ game_object* game_object::create(const std::string& sprite_frame_name, const std
   }
   while (false);
 
-  // return the object
   return ret;
 }
 
-game_object* game_object::create(const std::string& type, const int damage /*= 0*/)
+game_object* game_object::create(const std::string& type)
 {
   game_object* ret = nullptr;
 
@@ -46,7 +43,7 @@ game_object* game_object::create(const std::string& type, const int damage /*= 0
     auto object = new game_object();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(type, damage))
+    if (object->init(type))
     {
       object->autorelease();
     }
@@ -60,23 +57,18 @@ game_object* game_object::create(const std::string& type, const int damage /*= 0
   }
   while (false);
 
-  // return the object
   return ret;
 }
 
-// on "init" you need to initialize your instance
-bool game_object::init(const std::string& sprite_frame_name, const std::string& type, const int damage /*= 0*/)
+bool game_object::init(const std::string& sprite_frame_name, const std::string& type)
 {
   auto ret = false;
 
   do
   {
-    //////////////////////////////
-    // 1. super init first
     UTILS_BREAK_IF(!base_class::initWithSpriteFrameName(sprite_frame_name))
 
     type_ = type;
-    damage_ = damage;
 
     ret = true;
   }
@@ -85,38 +77,16 @@ bool game_object::init(const std::string& sprite_frame_name, const std::string& 
   return ret;
 }
 
-bool game_object::init(const std::string& type, const int damage /*= 0*/)
+bool game_object::init(const std::string& type)
 {
   auto ret = false;
 
   do
   {
-    //////////////////////////////
-    // 1. super init first
     UTILS_BREAK_IF(!base_class::init())
 
     type_ = type;
-    damage_ = damage;
 
-    ret = true;
-  }
-  while (false);
-
-  return ret;
-}
-
-bool game_object::set_shape(const std::string& shape_name)
-{
-  auto ret = false;
-
-  do
-  {
-    const auto cache = physics_shape_cache::get_instance();
-
-    const auto body = cache->create_body_with_name(shape_name);
-    UTILS_BREAK_IF(body == nullptr);
-
-    setPhysicsBody(body);
     ret = true;
   }
   while (false);

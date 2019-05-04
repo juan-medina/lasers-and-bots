@@ -17,32 +17,26 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
+#ifndef __PHYSICS_GAME_OBJECT_CLASS__
+#define __PHYSICS_GAME_OBJECT_CLASS__
 
-#ifndef __TILED_SCENE_H__
-#define __TILED_SCENE_H__
+#include "../base/sprite/game_object.h"
 
-#include "grid_scene.h"
-
-class tiled_scene : public grid_scene
+class physics_game_object : public game_object
 {
 public:
-  using base_class = grid_scene;
+  using base_class = game_object;
 
-  tiled_scene();
+  static physics_game_object* create(const std::string& shape, const std::string& sprite_frame_name, const std::string& type);
+  static physics_game_object* create(const std::string& shape, const std::string& type);
 
-  static tiled_scene* create(basic_app*, const std::string& tmx_file);
+  virtual bool init(const std::string& shape, const std::string& sprite_frame_name, const std::string& type);
+  bool init(const std::string& shape, const std::string& type) override;
 
-  static Scene* scene(basic_app*, const std::string& tmx_file);
+private:
 
-  bool init(basic_app*, const std::string& tmx_file);
+  bool set_shape(const std::string& shape_name);
 
-  virtual experimental::TMXTiledMap* get_tiled_map() const noexcept
-  {
-    return tiled_map_;
-  };
-
-protected:
-  experimental::TMXTiledMap* tiled_map_;
 };
 
-#endif // __TILED_SCENE_H__
+#endif // __PHYSICS_GAME_OBJECT_CLASS__

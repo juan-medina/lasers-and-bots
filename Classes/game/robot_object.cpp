@@ -77,11 +77,9 @@ bool robot_object::init(audio_helper* audio_helper, virtual_joy_stick* virtual_j
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("robot/robot_0.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("robot/robot_1.plist");
 
-    UTILS_BREAK_IF(!base_class::init("Idle_01.png", "robot"));
+    UTILS_BREAK_IF(!base_class::init("Robot", "Idle_01.png", "robot"));
 
     setAnchorPoint(Vec2(0.5f, 0.0f));
-
-    UTILS_BREAK_IF(!set_shape("Robot"));
 
     auto body = getPhysicsBody();
     body->setMass(1.0f);

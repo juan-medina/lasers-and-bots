@@ -30,6 +30,7 @@ class switch_object;
 class door_object;
 class game_ui;
 class robot_fragment;
+class harm_object;
 
 class game_scene final : public physics_tiled_scene
 {
@@ -92,7 +93,7 @@ public:
 
 private:
   // provide a physics node for a titled gid
-  virtual Node* provide_physics_node(const int gid) const override;
+  virtual Node* provide_physics_node(const int gid) override;
 
   void update_game_time(const float delta);
 
@@ -118,8 +119,8 @@ private:
 
   void robot_touch_switch(switch_object* switch_object);
   void robot_touch_door(door_object* door_game_object);
-  void robot_touch_harm_object_start(game_object* harm_object) const;
-  void robot_touch_harm_object_end(game_object* harm_object) const;
+  void robot_touch_harm_object_start(harm_object* harm_object) const;
+  void robot_touch_harm_object_end(harm_object* harm_object) const;
   void robot_touch_object_start(const PhysicsContact& contact);
   void robot_touch_object_end(const PhysicsContact& contact) const;
 

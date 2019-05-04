@@ -56,9 +56,7 @@ bool box_object::init(const std::string& image, const std::string& shape)
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init(image, "box"));
-
-    UTILS_BREAK_IF(!set_shape(shape));
+    UTILS_BREAK_IF(!base_class::init(shape, image, "box"));
 
     setAnchorPoint(Vec2(0.5f, 0.5f));
 

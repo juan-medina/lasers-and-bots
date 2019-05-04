@@ -20,12 +20,12 @@
 #ifndef __SWITCH_CLASS__
 #define __SWITCH_CLASS__
 
-#include "../utils/base/sprite/game_object.h"
+#include "../utils/physics/physics_game_object.h"
 
-class switch_object final : public game_object
+class switch_object final : public physics_game_object
 {
 public:
-  using base_class = game_object;
+  using base_class = physics_game_object;
 
   switch_object();
 

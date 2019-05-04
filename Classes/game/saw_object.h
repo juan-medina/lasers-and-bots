@@ -21,11 +21,12 @@
 #define __SAW_CLASS__
 
 #include "../utils/base/sprite/game_object.h"
+#include "harm_object.h"
 
-class saw_object final : public game_object
+class saw_object final : public harm_object
 {
 public:
-  using base_class = game_object;
+  using base_class = harm_object;
 
   saw_object();
 

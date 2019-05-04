@@ -28,6 +28,7 @@
 #include "../game/box_object.h"
 #include "../game/saw_object.h"
 #include "../game/robot_fragment.h"
+#include "../game/harm_object.h"
 #include "../utils/physics/physics_shape_cache.h"
 #include "../ui/game_ui.h"
 #include "../ui/virtual_joy_stick.h"
@@ -220,22 +221,22 @@ void game_scene::cache_objects_textures()
   SpriteFrameCache::getInstance()->addSpriteFramesWithFile("objects/objects.plist");
 }
 
-Node* game_scene::provide_physics_node(const int gid) const
+Node* game_scene::provide_physics_node(const int gid)
 {
   const auto map = get_tiled_map();
   const auto gid_properties = map->getPropertiesForGID(gid);
-
+  const auto shape = get_shape_from_tile_gid(gid);
   if (gid_properties.getType() == Value::Type::MAP)
   {
     const auto& value_map = gid_properties.asValueMap();
     if (value_map.count("damage") == 1)
     {
       const auto damage = value_map.at("damage").asInt();
-      return game_object::create("dummy", damage);
+      return harm_object::create(shape, "dummy", damage);
     }
   }
 
-  return game_object::create("dummy");
+  return physics_game_object::create(shape, "dummy");
 }
 
 void game_scene::update_game_time(const float delta)
@@ -916,12 +917,12 @@ void game_scene::robot_touch_door(door_object* door_game_object)
   }
 }
 
-void game_scene::robot_touch_harm_object_start(game_object* const harm_object) const
+void game_scene::robot_touch_harm_object_start(harm_object* const harm_object) const
 {
   robot_->start_periodic_damage(harm_object->get_damage());
 }
 
-void game_scene::robot_touch_harm_object_end(game_object* harm_object) const
+void game_scene::robot_touch_harm_object_end(harm_object* harm_object) const
 {
   robot_->stop_periodic_damage(harm_object->get_damage());
 }
@@ -942,10 +943,10 @@ void game_scene::robot_touch_object_start(const PhysicsContact& contact)
     }
     else
     {
-      const auto harm_object = get_object_from_contact<game_object>(contact, categories::harm);
-      if (harm_object != nullptr)
+      const auto harm_game_object = get_object_from_contact<harm_object>(contact, categories::harm);
+      if (harm_game_object != nullptr)
       {
-        robot_touch_harm_object_start(harm_object);
+        robot_touch_harm_object_start(harm_game_object);
       }
     }
   }
@@ -953,10 +954,10 @@ void game_scene::robot_touch_object_start(const PhysicsContact& contact)
 
 void game_scene::robot_touch_object_end(const PhysicsContact& contact) const
 {
-  const auto harm_object = get_object_from_contact<game_object>(contact, categories::harm);
-  if (harm_object != nullptr)
+  const auto harm_game_object = get_object_from_contact<harm_object>(contact, categories::harm);
+  if (harm_game_object != nullptr)
   {
-    robot_touch_harm_object_end(harm_object);
+    robot_touch_harm_object_end(harm_game_object);
   }
 }
 
@@ -1046,10 +1047,12 @@ Type* game_scene::get_object_from_contact(const PhysicsContact& contact, const c
   if (contact.getShapeA()->getCategoryBitmask() & short_category)
   {
     object = dynamic_cast<Type*>(contact.getShapeA()->getBody()->getNode());
+    CCASSERT(object != nullptr, "contact dynamic_cast fail");
   }
   else if (contact.getShapeB()->getCategoryBitmask() & short_category)
   {
     object = dynamic_cast<Type*>(contact.getShapeB()->getBody()->getNode());
+    CCASSERT(object != nullptr, "contact dynamic_cast fail");
   }
 
   return object;

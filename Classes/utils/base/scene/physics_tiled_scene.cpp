@@ -25,10 +25,8 @@ physics_tiled_scene* physics_tiled_scene::create(basic_app* application, const s
                                                  const float gravity,
                                                  const bool debug_physics)
 {
-  // create the game
   auto scene = new physics_tiled_scene();
 
-  // init the scene and auto release
   if (scene)
   {
     if (scene->init(application, tmx_file, gravity, debug_physics))
@@ -42,17 +40,14 @@ physics_tiled_scene* physics_tiled_scene::create(basic_app* application, const s
     }
   }
 
-  // return the scene
   return scene;
 }
 
 Scene* physics_tiled_scene::scene(basic_app* application, const std::string& tmx_file, const float gravity,
                                   const bool debug_physics)
 {
-  // create the grid
   auto scene = new physics_tiled_scene();
 
-  // init the scene and auto release
   if (scene)
   {
     if (scene->init(application, tmx_file, gravity, debug_physics))
@@ -66,11 +61,9 @@ Scene* physics_tiled_scene::scene(basic_app* application, const std::string& tmx
     }
   }
 
-  // return the scene
   return scene;
 }
 
-// on "init" you need to initialize your instance
 bool physics_tiled_scene::init(basic_app* application, const std::string& tmx_file, const float gravity,
                                const bool debug_physics)
 {
@@ -78,7 +71,6 @@ bool physics_tiled_scene::init(basic_app* application, const std::string& tmx_fi
 
   do
   {
-    // init with a grid
     ret = base_class::init(application, tmx_file);
     UTILS_BREAK_IF(!ret);
 
@@ -86,10 +78,8 @@ bool physics_tiled_scene::init(basic_app* application, const std::string& tmx_fi
 
     init_physics(debug_physics);
 
-    // add physics to map
     UTILS_BREAK_IF(!add_physics_to_map());
 
-    // convert transparent tiles
     UTILS_BREAK_IF(!convert_transparent_tiles());
   }
   while (false);
@@ -147,9 +137,15 @@ float physics_tiled_scene::get_opacity_from_tile_gid(const int gid) const
   return restitution;
 }
 
-Node* physics_tiled_scene::provide_physics_node(const int /*gid*/) const
+Node* physics_tiled_scene::provide_physics_node(const int gid)
 {
-  return Node::create();
+  const auto node = Node::create();
+  const auto shape = get_shape_from_tile_gid(gid);
+  if (!shape.empty())
+  {
+    add_body_to_node(node, shape);
+  }
+  return node;
 }
 
 Vec2 physics_tiled_scene::get_object_center_position(const ValueMap& values)
@@ -210,12 +206,12 @@ bool physics_tiled_scene::add_body_to_node(Node* node, const string& shape)
 }
 
 Node* physics_tiled_scene::create_dummy_node(experimental::TMXLayer* const layer, const Vec2& tile_pos,
-                                             const int gid) const
+                                             const int gid)
 {
   const auto node = provide_physics_node(gid);
   node->setAnchorPoint(Vec2(0, 0));
   node->setContentSize(block_size_);
-  node->setPosition(layer->getPositionAt(tile_pos));
+  node->setPosition(layer->getPositionAt(tile_pos) + (block_size_ / 2));
   node->setVisible(false);
   layer->addChild(node);
 
@@ -251,12 +247,7 @@ bool physics_tiled_scene::add_physics_to_map()
               const auto gid = layer->getTileGIDAt(tile_pos);
               if (gid != 0)
               {
-                const auto node = create_dummy_node(layer, tile_pos, gid);
-                const auto shape = get_shape_from_tile_gid(gid);
-                if (!shape.empty())
-                {
-                  add_body_to_node(node, shape);
-                }
+                create_dummy_node(layer, tile_pos, gid);
               }
             }
           }
@@ -297,7 +288,7 @@ bool physics_tiled_scene::convert_transparent_tiles()
               if (opacity != 1.f)
               {
                 const auto sprite = layer->getTileAt(tile_pos);
-                sprite->setOpacity(255 * opacity);
+                sprite->setOpacity(static_cast<GLubyte>(opacity * 255));
               }
             }
           }
