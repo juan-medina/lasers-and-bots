@@ -37,10 +37,6 @@ game_ui::game_ui():
 {
 }
 
-game_ui::~game_ui()
-{
-}
-
 game_ui* game_ui::create()
 {
   game_ui* ret = nullptr;
@@ -288,10 +284,7 @@ void game_ui::on_close(Ref* sender)
 {
   audio_helper::get_instance()->play_effect("sounds/select.mp3");
   const auto scene = dynamic_cast<game_scene*>(Director::getInstance()->getRunningScene());
-  scene->pause();
-
-  //Close the cocos2d-x game scene and quit the application
-  Director::getInstance()->end();
+  scene->close();
 }
 
 void game_ui::on_reload(Ref* sender)

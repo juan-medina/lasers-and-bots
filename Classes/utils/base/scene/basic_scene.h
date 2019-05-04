@@ -44,6 +44,11 @@ public:
     return screen_size_;
   }
 
+  basic_app* get_application() const
+  {
+    return application_;
+  }
+
 protected:
   // store the screen size
   Size screen_size_;

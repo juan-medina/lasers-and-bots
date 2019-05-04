@@ -58,6 +58,11 @@ launcher_scene* launcher_scene::create(basic_app* application)
   return scene;
 }
 
+launcher_scene::~launcher_scene()
+{
+  //audio_helper::get_instance()->end();
+}
+
 Scene* launcher_scene::scene(basic_app* application)
 {
   auto scene = new launcher_scene();
@@ -208,7 +213,7 @@ void launcher_scene::play(Ref* sender) const
 
   save_settings();
 
-  Director::getInstance()->end();
+  application_->close();
 }
 
 void launcher_scene::screen_mode_click(Ref* sender)

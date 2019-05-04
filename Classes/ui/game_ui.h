@@ -34,9 +34,6 @@ public:
   // constructor
   game_ui();
 
-  // destructor
-  ~game_ui();
-
   // create the object
   static game_ui* create();
 

@@ -47,10 +47,12 @@ public:
 
   void app_exit();
 
+  static audio_helper* instance;
+
   static audio_helper* get_instance()
   {
-    static audio_helper helper;
-    return &helper;
+    //CCASSERT(instance != nullptr, "is null");
+    return instance;
   }
 
   static void stop_sound(const int sound);
@@ -87,7 +89,7 @@ public:
 private:
 
   bool init();
-  
+
   bool initiated_;
   bool music_muted_;
   bool effects_muted_;

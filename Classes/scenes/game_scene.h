@@ -90,8 +90,9 @@ public:
 
   void update_ui_position(const Vec2& final_pos) const;
 
-private:
+  void close();
 
+private:
   // provide a physics node for a titled gid
   virtual Node* provide_physics_node(const int gid) const override;
 
@@ -180,6 +181,7 @@ private:
   bool paused_;
   bool doing_final_anim_;
   bool doing_delay_start_;
+  bool closing_;
 
   float total_time_;
   unsigned int time_limit_;

@@ -29,6 +29,7 @@ public:
   using parent = basic_scene;
 
   static launcher_scene* create(basic_app* application);
+  ~launcher_scene();
 
   static Scene* scene(basic_app* application);
 

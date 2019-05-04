@@ -127,7 +127,6 @@ void loading_scene::go_to_scene() const
     }
 
     UTILS_BREAK_IF(scene==nullptr);
-
     Director::getInstance()->replaceScene(scene);
   }
   while (false);

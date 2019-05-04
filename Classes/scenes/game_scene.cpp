@@ -32,7 +32,7 @@
 #include "../ui/game_ui.h"
 #include "../ui/virtual_joy_stick.h"
 #include "../utils/audio/audio_helper.h"
-#include "laser_and_bots_app.h"
+#include "../laser_and_bots_app.h"
 
 game_scene::game_scene() :
   robot_(nullptr),
@@ -43,7 +43,7 @@ game_scene::game_scene() :
   max_camera_pos_(Vec2::ZERO),
   paused_(false),
   doing_final_anim_(false),
-  doing_delay_start_(false),
+  doing_delay_start_(false), closing_(false),
   total_time_(0.f),
   time_limit_(0),
   level_name_(""),
@@ -53,7 +53,7 @@ game_scene::game_scene() :
 
 game_scene::~game_scene()
 {
-  audio_helper::get_instance()->end();
+  //audio_helper::get_instance()->end();
 }
 
 Scene* game_scene::scene(basic_app* application, const bool debug_grid, const bool debug_physics)
@@ -727,12 +727,24 @@ void game_scene::start()
   game_ui_->disable_buttons(false);
 }
 
+void game_scene::close()
+{
+  closing_ = true;
+  pause();
+  application_->close();
+}
+
 void game_scene::pause()
 {
   paused_ = true;
-  game_ui_->change_pause_button();
-
   base_class::pause();
+
+  if (closing_)
+  {
+    return;
+  }
+
+  game_ui_->change_pause_button();
 
   getPhysicsWorld()->setAutoStep(false);
 

@@ -40,13 +40,13 @@ laser_and_bots_app::laser_and_bots_app(const int screen_width, const int screen_
   music_muted_ = UserDefault::getInstance()->getBoolForKey("music_muted", music_muted_);
   debug_grid_ = UserDefault::getInstance()->getBoolForKey("debug_grid", debug_grid_);
   debug_physics_ = UserDefault::getInstance()->getBoolForKey("debug_physics", debug_physics_);
-
-  audio_helper::get_instance()->set_effects_muted(effects_muted_);
-  audio_helper::get_instance()->set_music_muted(music_muted_);
 }
 
 Scene* laser_and_bots_app::init_scene()
 {
+  audio_helper::get_instance()->set_effects_muted(effects_muted_);
+  audio_helper::get_instance()->set_music_muted(music_muted_);
+
   return loading_scene::game(this, debug_grid_, debug_physics_);
 }
 

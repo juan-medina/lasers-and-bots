@@ -23,12 +23,17 @@
 
 using namespace experimental;
 
+audio_helper* audio_helper::instance = nullptr;
+
 audio_helper::audio_helper():
   initiated_(false),
   music_muted_(false),
   effects_muted_(false),
   last_music_(AudioEngine::INVALID_AUDIO_ID)
 {
+  CCASSERT(instance == nullptr, "we already have an instance of audio helper");
+
+  instance = this;
   init();
 }
 
@@ -38,11 +43,15 @@ audio_helper::~audio_helper()
   {
     end();
   }
+  instance = nullptr;
 }
 
 bool audio_helper::init()
 {
-  AudioEngine::lazyInit();
+  if (!initiated_)
+  {
+    AudioEngine::lazyInit();
+  }
 
   last_music_ = AudioEngine::INVALID_AUDIO_ID;
   initiated_ = true;
@@ -52,9 +61,12 @@ bool audio_helper::init()
 
 void audio_helper::end()
 {
-  AudioEngine::stopAll();
-  AudioEngine::uncacheAll();
-  AudioEngine::end();
+  if (initiated_)
+  {
+    AudioEngine::stopAll();
+    AudioEngine::uncacheAll();
+    AudioEngine::end();
+  }
 
   initiated_ = false;
 }

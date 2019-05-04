@@ -22,6 +22,7 @@
 #define __BASIC_APP_H__
 
 #include "../../utils.h"
+#include "../../audio/audio_helper.h"
 
 // application base class
 class basic_app : public Application
@@ -32,7 +33,6 @@ public:
   explicit basic_app(const std::string& application_name, const float design_width, const float design_height,
                      const int screen_width, const int screen_height, const bool full_screen, const bool fit_all,
                      const bool show_fps);
-
   ~basic_app();
 
   void initGLContextAttrs() override;
@@ -53,6 +53,13 @@ public:
     return application_name_;
   };
 
+  void close();
+
+  audio_helper* get_audio_helper() const
+  {
+    return audio_helper_;
+  }
+
 private:
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
   // center on screen in windows 32 client
@@ -71,6 +78,8 @@ private:
   cocos2d::Size screen_size_;
 
   string application_name_;
+
+  audio_helper* audio_helper_;
 };
 
 #endif // __BASIC_APP_H__

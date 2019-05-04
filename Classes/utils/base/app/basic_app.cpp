@@ -31,14 +31,14 @@ basic_app::basic_app(const std::string& application_name, const float design_wid
   full_screen_(full_screen),
   fit_all_(fit_all),
   show_fps_(show_fps),
-  application_name_(application_name)
+  application_name_(application_name),
+  audio_helper_(nullptr)
 {
   screen_size_ = Size(screen_width_, screen_height_);
 }
 
 basic_app::~basic_app()
 {
-  audio_helper::get_instance()->app_exit();
 }
 
 void basic_app::initGLContextAttrs()
@@ -114,8 +114,9 @@ bool basic_app::applicationDidFinishLaunching()
       }
     }
 
-
     register_all_packages();
+
+    audio_helper_ = new audio_helper();
 
     const auto scene = init_scene();
     UTILS_BREAK_IF(scene == nullptr);
@@ -137,6 +138,14 @@ void basic_app::applicationDidEnterBackground()
 void basic_app::applicationWillEnterForeground()
 {
   Director::getInstance()->startAnimation();
+}
+
+void basic_app::close()
+{
+  delete audio_helper_;
+  audio_helper_ = nullptr;
+
+  Director::getInstance()->end();
 }
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
