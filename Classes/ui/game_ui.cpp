@@ -21,7 +21,7 @@
 #include "game_ui.h"
 #include "../scenes/game_scene.h"
 #include "virtual_joy_stick.h"
-
+#include "message_window.h"
 
 game_ui::game_ui():
   virtual_joy_stick_(nullptr),
@@ -33,7 +33,8 @@ game_ui::game_ui():
   countdown_label_(nullptr),
   time_limit_(0),
   continue_callback_(nullptr),
-  audio_helper_(nullptr)
+  audio_helper_(nullptr),
+  message_window_(nullptr)
 {
 }
 
@@ -60,19 +61,15 @@ game_ui* game_ui::create(audio_helper* audio_helper)
   }
   while (false);
 
-  // return the object
   return ret;
 }
 
-// on "init" you need to initialize your instance
 bool game_ui::init(audio_helper* audio_helper)
 {
   auto ret = false;
 
   do
   {
-    //////////////////////////////
-    // 1. super init first
     UTILS_BREAK_IF(!base_class::init());
 
     const auto& size = Director::getInstance()->getVisibleSize();
@@ -80,15 +77,10 @@ bool game_ui::init(audio_helper* audio_helper)
     audio_helper_ = audio_helper;
 
     audio_helper_->pre_load_effect("sounds/select.mp3");
-    audio_helper_->pre_load_effect("sounds/star.mp3");
 
-    //////////////////////////////
-    // cache
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ui/ui-0.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ui/ui-1.plist");
 
-    //////////////////////////////
-    // close
     const auto close = Sprite::createWithSpriteFrameName("01_Exit_1.png");
     UTILS_BREAK_IF(close==nullptr);
 
@@ -101,8 +93,6 @@ bool game_ui::init(audio_helper* audio_helper)
     close_item->setPosition(size.width / 2 - close->getContentSize().width / 2,
                             size.height / 2 - close->getContentSize().height / 2);
 
-    //////////////////////////////
-    // pause
     const auto pause = Sprite::createWithSpriteFrameName("05_Pause_1.png");
     UTILS_BREAK_IF(pause == nullptr);
 
@@ -124,7 +114,6 @@ bool game_ui::init(audio_helper* audio_helper)
     const auto play_disable = Sprite::createWithSpriteFrameName("06_Play_4.png");
     UTILS_BREAK_IF(play_disable == nullptr);
 
-
     const auto play_item = MenuItemSprite::create(play, play_click, play_disable);
     UTILS_BREAK_IF(play_item == nullptr);
 
@@ -135,8 +124,6 @@ bool game_ui::init(audio_helper* audio_helper)
     const auto gap = Vec2(close->getContentSize().width * 1.25f, 0.f);
     pause_item_->setPosition(close_item->getPosition() - gap);
 
-    //////////////////////////////
-    // reload
     const auto reload = Sprite::createWithSpriteFrameName("07_Reload_1.png");
     UTILS_BREAK_IF(reload == nullptr);
 
@@ -148,20 +135,14 @@ bool game_ui::init(audio_helper* audio_helper)
 
     reload_item->setPosition(pause_item_->getPosition() - gap);
 
-    //////////////////////////////
-    // menu
     const auto menu = Menu::create(close_item, pause_item_, reload_item, nullptr);
     UTILS_BREAK_IF(menu == nullptr);
 
     addChild(menu, 100);
 
-    //////////////////////////////
-    // joystick
     virtual_joy_stick_ = virtual_joy_stick::create();
     addChild(virtual_joy_stick_, 100);
 
-    //////////////////////////////
-    // head
     const auto head_pos = Vec2(50.f, size.height - 50);
 
     auto head = Sprite::createWithSpriteFrameName("03_head.png");
@@ -171,8 +152,6 @@ bool game_ui::init(audio_helper* audio_helper)
     head->setPosition(head_pos);
     addChild(head, 100);
 
-    //////////////////////////////
-    // shield bar
     const auto bar_sprite = Sprite::createWithSpriteFrameName("04_bar.png");
     UTILS_BREAK_IF(bar_sprite == nullptr);
 
@@ -210,10 +189,6 @@ bool game_ui::init(audio_helper* audio_helper)
 
     addChild(shield_label_, 100);
 
-    //////////////////////////////
-    // time label
-
-    // create the text for the label
     time_label_ = Label::createWithTTF("00:00.00", "fonts/tahoma.ttf", 180);
     UTILS_BREAK_IF(time_label_ == nullptr);
 
@@ -223,15 +198,10 @@ bool game_ui::init(audio_helper* audio_helper)
     time_label_->enableShadow(Color4B(255, 255, 255, 127), Size(5, -5));
     time_label_->enableOutline(Color4B(0, 0, 0, 255), 5);
 
-    // position the label
     time_label_->setPosition(Vec2(size.width / 2, size.height - close_item->getContentSize().height / 2));
 
     addChild(time_label_, 100);
 
-    //////////////////////////////
-    // sub time label
-
-    // create the text for the label
     sub_time_label_ = Label::createWithTTF("00:00.00", "fonts/tahoma.ttf", 90);
     UTILS_BREAK_IF(sub_time_label_ == nullptr);
 
@@ -240,16 +210,11 @@ bool game_ui::init(audio_helper* audio_helper)
     sub_time_label_->enableShadow(Color4B(0, 0, 0, 127), Size(5, -5));
     sub_time_label_->enableOutline(Color4B(0, 0, 0, 255), 5);
 
-    // position the label
     sub_time_label_->setPosition(Vec2(time_label_->getPosition().x + time_label_->getContentSize().width,
                                       time_label_->getPosition().y));
 
     addChild(sub_time_label_, 100);
 
-    //////////////////////////////
-    // count down label
-
-    // create the text for the label
     countdown_label_ = Label::createWithTTF("GO!", "fonts/tahoma.ttf", 500);
     UTILS_BREAK_IF(countdown_label_ == nullptr);
 
@@ -261,8 +226,12 @@ bool game_ui::init(audio_helper* audio_helper)
     countdown_label_->setVisible(false);
     addChild(countdown_label_, 100);
 
+    message_window_ = message_window::create(audio_helper_);
+    UTILS_BREAK_IF(message_window_ == nullptr);
+
+    addChild(message_window_);
+
 #if (GAME_PLATFORM == DESKTOP_GAME)
-    // ui keyboard
     UTILS_BREAK_IF(!create_keyboard_listener());
 #endif
 
@@ -334,172 +303,9 @@ string game_ui::time_message(const float time)
 void game_ui::display_message(const std::string& message, const std::string& sub_message,
                               const ccMenuCallback& callback, const short int stars /*= -1*/)
 {
-  do
-  {
-    const auto& size = Director::getInstance()->getVisibleSize();
-
-    //////////////////////////////
-    // background
-
-    const auto dark_all = LayerColor::create(Color4B(0, 0, 0, 0));
-    UTILS_BREAK_IF(dark_all == nullptr);
-
-    addChild(dark_all, 0);
-    dark_all->runAction(FadeTo::create(0.5f, 127));
-
-    const auto background = Sprite::createWithSpriteFrameName("10_message.png");
-    UTILS_BREAK_IF(background == nullptr);
-
-    const auto horizontal_segment = background->getContentSize().width;
-    const auto vertical_segment = background->getContentSize().height;
-
-    background->setCascadeOpacityEnabled(true);
-    background->setOpacity(0);
-    background->setPosition(size.width / 2, size.height / 2);
-    background->setColor(Color3B(0, 255, 255));
-
-    addChild(background, 100);
-    background->runAction(FadeTo::create(0.5f, 190));
-
-    const auto header = Sprite::createWithSpriteFrameName("11_message_header.png");
-    UTILS_BREAK_IF(header == nullptr);
-
-    header->setPosition(horizontal_segment / 2, vertical_segment);
-    header->setColor(Color3B(0, 127, 127));
-
-    background->addChild(header, 100);
-
-    //////////////////////////////
-    // label
-
-    const auto label = Label::createWithTTF(message, "fonts/tahoma.ttf", 150);
-    UTILS_BREAK_IF(label == nullptr);
-
-    label->setTextColor(Color4B(0, 255, 255, 255));
-    label->enableOutline(Color4B(0, 0, 0, 255), 5);
-    label->enableShadow(Color4B(255, 255, 255, 127), Size(5, -5));
-
-    // position the label
-    label->setPosition(header->getContentSize().width / 2, (header->getContentSize().height / 2) + 100);
-
-    header->addChild(label, 100);
-
-    //////////////////////////////
-    // sub label
-
-    const auto sub_label = Label::createWithTTF(sub_message, "fonts/tahoma.ttf", 100);
-    UTILS_BREAK_IF(sub_label == nullptr);
-
-    sub_label->setTextColor(Color4B(255, 255, 255, 255));
-    sub_label->enableOutline(Color4B(0, 0, 0, 255), 5);
-
-    // position the label
-    sub_label->setPosition(background->getContentSize().width / 2, (background->getContentSize().height) - 250);
-
-    background->addChild(sub_label, 100);
-
-    //////////////////////////////
-    // button
-
-    const auto continue_sprite = Sprite::createWithSpriteFrameName("08_Text_1.png");
-    UTILS_BREAK_IF(continue_sprite == nullptr);
-
-    const auto continue_sprite_click = Sprite::createWithSpriteFrameName("08_Text_2.png");
-    UTILS_BREAK_IF(continue_sprite_click == nullptr);
-
-    continue_callback_ = callback;
-    const auto continue_item = MenuItemSprite::create(continue_sprite, continue_sprite_click,
-                                                      CC_CALLBACK_0(game_ui::on_continue, this));
-
-    UTILS_BREAK_IF(continue_item == nullptr);
-
-    continue_item->setPosition(horizontal_segment / 2, 0);
-
-    const auto label_button = Label::createWithTTF("Continue", "fonts/tahoma.ttf", 120);
-    UTILS_BREAK_IF(label_button == nullptr);
-
-    label_button->setPosition(continue_sprite->getContentSize().width / 2,
-                              continue_sprite->getContentSize().height / 2 + 30);
-    label_button->setTextColor(Color4B(255, 255, 255, 255));
-    label_button->enableOutline(Color4B(0, 0, 0, 255), 5);
-
-    continue_item->addChild(label_button, 100);
-
-    //////////////////////////////
-    // menu
-    const auto menu = Menu::create(continue_item, nullptr);
-    UTILS_BREAK_IF(menu == nullptr);
-
-    menu->setPosition(0, 0);
-
-    background->addChild(menu, 100);
-
-    if (stars < 0)
-    {
-      break;
-    }
-
-    //////////////////////////////
-    // stars
-
-    const auto first_start_pos = Vec2(horizontal_segment / 6, 750.f);
-
-    for (unsigned short int start_counter = 0; start_counter < 3; ++start_counter)
-    {
-      const auto is_gold = start_counter + 1 <= stars;
-
-      const auto star_gray = Sprite::createWithSpriteFrameName("09_star_01.png");
-
-      const auto star_pos = first_start_pos + Vec2((horizontal_segment / 3) * start_counter, 0.f);
-      star_gray->setPosition(star_pos);
-      background->addChild(star_gray, 100);
-
-      auto star_tex = string("level\ncompleted");
-      if (start_counter == 1)
-      {
-        star_tex = "under\n" + time_message(time_limit_);
-      }
-      else if (start_counter == 2)
-      {
-        star_tex = "with 100%\nshield";
-      }
-      const auto label_star = Label::createWithTTF(star_tex, "fonts/tahoma.ttf", 70);
-      UTILS_BREAK_IF(label_star == nullptr);
-
-      const auto label_pos = Vec2(star_gray->getContentSize().width / 2,
-                                  -(star_gray->getContentSize().height / 2) + 40.f);
-      label_star->setHorizontalAlignment(TextHAlignment::CENTER);
-      label_star->setPosition(label_pos);
-      label_star->setTextColor(Color4B(255, 255, 255, 255));
-      label_star->enableOutline(Color4B(0, 0, 0, 255), 5);
-
-      star_gray->addChild(label_star, 100);
-
-      if (is_gold)
-      {
-        const auto star_gold = Sprite::createWithSpriteFrameName("09_star_01.png");
-
-        star_gold->setPosition(star_pos);
-        star_gold->setOpacity(0);
-
-        star_gold->setColor(Color3B(0, 255, 255));
-
-        const auto play_sound = CallFunc::create(CC_CALLBACK_0(game_ui::star_sound, this));
-        const auto delay = DelayTime::create(0.5f + (1.f * start_counter));
-        const auto fade_in = FadeIn::create(1.f);
-        const auto appear = Sequence::create(delay, fade_in, nullptr);
-        star_gold->runAction(appear);
-
-        const auto scale_up = ScaleTo::create(0.5f, 1.5f, 1.5f);
-        const auto scale_down = ScaleTo::create(0.5f, 1.0f, 1.0f);
-        const auto scale = Sequence::create(delay->clone(), scale_up, scale_down, play_sound, nullptr);
-        star_gold->runAction(scale);
-
-        background->addChild(star_gold, 100);
-      }
-    }
-  }
-  while (false);
+  continue_callback_ = callback;
+  message_window_->display(message, sub_message, CC_CALLBACK_0(game_ui::on_continue, this), stars,
+                           time_message(time_limit_));
 }
 
 void game_ui::update_countdown(const int value) const
@@ -527,11 +333,6 @@ void game_ui::update_countdown(const int value) const
   countdown_label_->runAction(scale);
 }
 
-
-void game_ui::star_sound()
-{
-  audio_helper_->play_effect("sounds/star.mp3");
-}
 
 void game_ui::on_continue()
 {

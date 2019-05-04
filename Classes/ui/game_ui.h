@@ -24,33 +24,26 @@
 #include "../utils/utils.h"
 #include "../utils/audio/audio_helper.h"
 
+// forward declarations
+class message_window;
+
 class virtual_joy_stick;
 
 class game_ui final : public Node
 {
 public:
-  // base_class
   using base_class = Node;
 
-  // constructor
   game_ui();
 
-  // create the object
   static game_ui* create(audio_helper* audio_helper);
 
-  // init this object
   bool init(audio_helper* audio_helper);
 
-  // when close
   void on_pause(Ref* sender);
-
-  // when pause
   void on_close(Ref* sender);
-
-  // when reload
   void on_reload(Ref* sender);
 
-  // get the joystick
   inline virtual_joy_stick* get_virtual_joy_stick() const
   {
     return virtual_joy_stick_;
@@ -64,17 +57,12 @@ public:
   }
 
   void change_pause_button() const;
-
-  // disable buttons
   void disable_buttons(const bool disabled) const;
 
-  // update our time
   void update_time(const float time, const unsigned int time_limit);
 
-  // get time  string for the message
   static string time_message(const float time);
 
-  // display a message
   void display_message(const std::string& message, const std::string& sub_message, const ccMenuCallback& callback,
                        const short int stars = -1);
 
@@ -82,52 +70,25 @@ public:
 
 private:
 
-  // our joy stick
-  virtual_joy_stick* virtual_joy_stick_;
-
-  // the shield bar
-  ProgressTimer* shield_bar_;
-
-  // shield label
-  Label* shield_label_;
-
-  // pause menu item
-  MenuItemToggle* pause_item_;
-
-  // the time label
-  Label* time_label_;
-
-  // the sub time label
-  Label* sub_time_label_;
-
-  // countdown label
-  Label* countdown_label_;
-
-  // make a star sound
-  void star_sound();
-
-  // the time limit
-  unsigned int time_limit_;
-
-  // continue callback
-  ccMenuCallback continue_callback_;
-
-  // on continue button click
   void on_continue();
 
-  // create a keyboard listener
   bool create_keyboard_listener();
-
-  // on key press
   void on_key_pressed(EventKeyboard::KeyCode key_code, Event* event);
 
-  // controller listener control down
+  bool create_controller_listener();
   void on_controller_key_down(Controller* controller, int key_code, Event* event);
 
-  // create a controller listener
-  bool create_controller_listener();
-
+  virtual_joy_stick* virtual_joy_stick_;
+  ProgressTimer* shield_bar_;
+  Label* shield_label_;
+  MenuItemToggle* pause_item_;
+  Label* time_label_;
+  Label* sub_time_label_;
+  Label* countdown_label_;
+  unsigned int time_limit_;
+  ccMenuCallback continue_callback_;
   audio_helper* audio_helper_;
+  message_window* message_window_;
 };
 
 #endif // __GAME_UI__CLASS__

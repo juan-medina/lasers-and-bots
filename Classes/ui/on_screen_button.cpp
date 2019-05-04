@@ -57,7 +57,6 @@ on_screen_button* on_screen_button::create(const button_type& type, const std::s
   }
   while (false);
 
-  // return the object
   return ret;
 }
 
@@ -67,8 +66,6 @@ bool on_screen_button::init(const button_type& type, const std::string& sprite_f
 
   do
   {
-    //////////////////////////////
-    // 1. super init first
     UTILS_BREAK_IF(!base_class::init());
 
     normal_sprite_ = Sprite::createWithSpriteFrameName(sprite_frame_name + "_01.png");
@@ -170,7 +167,6 @@ bool on_screen_button::enable_touch(const bool enabled)
     {
       if (touch_listener_ == nullptr)
       {
-        // Register Touch Event
         touch_listener_ = EventListenerTouchAllAtOnce::create();
         UTILS_BREAK_IF(touch_listener_ == nullptr);
 

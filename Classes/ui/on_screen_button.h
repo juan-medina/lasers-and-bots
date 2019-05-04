@@ -25,13 +25,11 @@
 class on_screen_button final : public Node
 {
 public:
-  // base_class
   using base_class = Node;
 
-  // constructor
   on_screen_button();
 
-  enum button_type
+  enum class button_type
   {
     none,
     up,
@@ -42,26 +40,20 @@ public:
     button_b
   };
 
-  // create the object
   static on_screen_button* create(const button_type& type, const std::string& sprite_frame_name,
                                   const std::string& label = "");
 
-  // init this object
   bool init(const button_type& type, const std::string& sprite_frame_name, const std::string& label);
 
-  // get this content size
   const cocos2d::Size& getContentSize() const override;
 
-  // the button is pushed
   void pushed(const bool pushed);
 
-  // is the button pushed
   inline constexpr bool is_pushed() const noexcept
   {
     return pushed_;
   }
 
-  // disable the button
   void disabled(const bool disabled);
 
   const button_type& type() const
@@ -71,49 +63,27 @@ public:
 
 private:
 
-  // the status has change
   void on_status_change() const;
 
-  // does a location touch this button
   bool is_touched_by_location(const Vec2& location) const;
 
-  // begin touches event
   void on_touches_began(const std::vector<Touch*>& touches, Event* unused_event);
-
-  // touches moved event
   void on_touches_moved(const std::vector<Touch*>& touches, Event* unused_event);
-
-  // touches end event
   void on_touches_ended(const std::vector<Touch*>& touches, Event* unused_event);
-
-  // touches cancel
   void on_touches_cancel(const std::vector<Touch*>& touches, Event* unused_event);
 
-  // create touch listener
   bool enable_touch(const bool enabled);
 
-  // normal sprite
   Sprite* normal_sprite_;
-
-  // normal sprite
   Sprite* pushed_sprite_;
-
-  // normal sprite
   Sprite* disabled_sprite_;
 
-  // button label
   Label* label_button_;
 
-  // is the button pushed
   bool pushed_;
-
-  // is the button disabled
   bool disabled_;
-
-  // the saved touch id
   int saved_touch_id_;
 
-  // the touch listener
   EventListenerTouchAllAtOnce* touch_listener_;
 
   button_type type_;

@@ -132,6 +132,9 @@
     <ClCompile Include="..\Classes\utils\physics\physics_tiled_scene.cpp">
       <Filter>src\utils\physics</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ui\message_window.cpp">
+      <Filter>src\ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -220,6 +223,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\utils\physics\physics_tiled_scene.h">
       <Filter>src\utils\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui\message_window.h">
+      <Filter>src\ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -26,37 +26,26 @@
 class virtual_joy_stick final : public Node
 {
 public:
-  // base_class
   using base_class = Node;
 
-  // constructor
   virtual_joy_stick();
 
-  // create the object
   static virtual_joy_stick* create();
 
-  // init this object
   bool init() override;
 
-  // joystick left
   bool left() const;
 
-  // joystick right
   bool right() const;
 
-  // joystick up
   bool up() const;
 
-  // joystick a button
   bool button_a() const;
 
-  // joystick b button
   bool button_b() const;
 
-  // disable virtual joystick
   void disabled(const bool disabled);
 
-  // controller codes
   enum controller_codes
   {
     controller_d_pad_up = 10,
@@ -77,78 +66,41 @@ public:
 
 private:
 
-  // add one button
   on_screen_button* add_on_screen_button(const on_screen_button::button_type& type,
                                          const std::string& sprite_frame_name,
                                          const std::string& label = "");
 
-  // add on screen buttons
   bool add_on_screen_buttons();
 
-  // controller listener control down
   void on_controller_key_down(Controller* controller, int key_code, Event* event);
-
-  // controller listener control up
   void on_controller_key_up(Controller* controller, int key_code, Event* event);
-
-  // controller listener axis move
   void on_controller_axis(Controller* controller, int key_code, Event* event);
 
-  // create a controller listener
   bool create_controller_listener();
 
-  // create a keyboard listener
   bool create_keyboard_listener();
 
-  // on key press
   void on_key_pressed(EventKeyboard::KeyCode key_code, Event* event);
-
-  // on key released
   void on_key_released(EventKeyboard::KeyCode key_code, Event* event);
 
-  // is a on screen button pushed
   bool is_on_screen_pushed(const on_screen_button::button_type& type) const;
 
-  // key left pressed
   bool key_left_;
-
-  // key right pressed
   bool key_right_;
-
-  // key up pressed
   bool key_up_;
-
-  // button a in the keyboard
   bool key_button_a_;
-
-  // button b in the keyboard
   bool key_button_b_;
 
-  // controller left pressed
   bool controller_left_;
-
-  // controller right pressed
   bool controller_right_;
-
-  // controller up pressed
   bool controller_up_;
-
-  // controller left axis pushed
   bool controller_axis_left_;
 
-  // controller right axis pushed
   bool controller_axis_right_;
-
-  // controller up axis pushed
   bool controller_axis_up_;
-
-  // controller button a
   bool controller_button_a_;
-
-  // controller button b
   bool controller_button_b_;
 
-  // on screen buttons
   std::vector<on_screen_button*> on_screen_buttons_;
 };
 
