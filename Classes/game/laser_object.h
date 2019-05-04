@@ -23,6 +23,7 @@
 
 #include "../utils/utils.h"
 #include "../utils/base/sprite/game_object.h"
+#include "../utils/audio/audio_helper.h"
 
 class laser_object final : public game_object
 {
@@ -31,9 +32,10 @@ public:
 
   laser_object();
 
-  static laser_object* create(const float initial_angle, const float speed_factor, const int damage);
+  static laser_object* create(audio_helper* audio_helper, const float initial_angle, const float speed_factor,
+                              const int damage);
 
-  bool init(const float initial_angle, const float speed_factor, const int damage);
+  bool init(audio_helper* audio_helper, const float initial_angle, const float speed_factor, const int damage);
 
   void update(float delta) override;
 
@@ -60,6 +62,8 @@ private:
   static int loop_sound_;
 
   float speed_factor_;
+
+  audio_helper* audio_helper_;
 };
 
 #endif // __LASER_CLASS__

@@ -21,6 +21,7 @@
 #define __DOOR_CLASS__
 
 #include "../utils/base/sprite/game_object.h"
+#include "../utils/audio/audio_helper.h"
 
 class door_object final : public game_object
 {
@@ -29,9 +30,9 @@ public:
 
   door_object();
 
-  static door_object* create();
+  static door_object* create(audio_helper* audio_helper);
 
-  bool init();
+  bool init(audio_helper* audio_helper);
 
   bool is_on() const
   {
@@ -61,6 +62,8 @@ private:
 
   bool on_;
   bool open_;
+
+  audio_helper* audio_helper_;
 };
 
 #endif // __DOOR_CLASS__

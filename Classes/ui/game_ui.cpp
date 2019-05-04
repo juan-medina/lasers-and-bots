@@ -19,7 +19,6 @@
  ****************************************************************************/
 
 #include "game_ui.h"
-#include "../utils/audio/audio_helper.h"
 #include "../scenes/game_scene.h"
 #include "virtual_joy_stick.h"
 
@@ -33,11 +32,12 @@ game_ui::game_ui():
   sub_time_label_(nullptr),
   countdown_label_(nullptr),
   time_limit_(0),
-  continue_callback_(nullptr)
+  continue_callback_(nullptr),
+  audio_helper_(nullptr)
 {
 }
 
-game_ui* game_ui::create()
+game_ui* game_ui::create(audio_helper* audio_helper)
 {
   game_ui* ret = nullptr;
 
@@ -46,7 +46,7 @@ game_ui* game_ui::create()
     auto object = new game_ui();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init())
+    if (object->init(audio_helper))
     {
       object->autorelease();
     }
@@ -65,7 +65,7 @@ game_ui* game_ui::create()
 }
 
 // on "init" you need to initialize your instance
-bool game_ui::init()
+bool game_ui::init(audio_helper* audio_helper)
 {
   auto ret = false;
 
@@ -75,10 +75,12 @@ bool game_ui::init()
     // 1. super init first
     UTILS_BREAK_IF(!base_class::init());
 
-    audio_helper::pre_load_effect("sounds/select.mp3");
-    audio_helper::pre_load_effect("sounds/star.mp3");
-
     const auto& size = Director::getInstance()->getVisibleSize();
+
+    audio_helper_ = audio_helper;
+
+    audio_helper_->pre_load_effect("sounds/select.mp3");
+    audio_helper_->pre_load_effect("sounds/star.mp3");
 
     //////////////////////////////
     // cache
@@ -275,21 +277,21 @@ bool game_ui::init()
 
 void game_ui::on_pause(Ref* sender)
 {
-  audio_helper::get_instance()->play_effect("sounds/select.mp3");
+  audio_helper_->play_effect("sounds/select.mp3");
   const auto scene = dynamic_cast<game_scene*>(Director::getInstance()->getRunningScene());
   scene->toggle_pause();
 }
 
 void game_ui::on_close(Ref* sender)
 {
-  audio_helper::get_instance()->play_effect("sounds/select.mp3");
+  audio_helper_->play_effect("sounds/select.mp3");
   const auto scene = dynamic_cast<game_scene*>(Director::getInstance()->getRunningScene());
   scene->close();
 }
 
 void game_ui::on_reload(Ref* sender)
 {
-  audio_helper::get_instance()->play_effect("sounds/select.mp3");
+  audio_helper_->play_effect("sounds/select.mp3");
   const auto scene = dynamic_cast<game_scene*>(Director::getInstance()->getRunningScene());
   scene->reload();
 }
@@ -525,16 +527,17 @@ void game_ui::update_countdown(const int value) const
   countdown_label_->runAction(scale);
 }
 
+
 void game_ui::star_sound()
 {
-  audio_helper::get_instance()->play_effect("sounds/star.mp3");
+  audio_helper_->play_effect("sounds/star.mp3");
 }
 
 void game_ui::on_continue()
 {
   if (continue_callback_ != nullptr)
   {
-    audio_helper::get_instance()->play_effect("sounds/select.mp3");
+    audio_helper_->play_effect("sounds/select.mp3");
     continue_callback_(this);
     continue_callback_ = nullptr;
   }

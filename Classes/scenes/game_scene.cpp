@@ -31,7 +31,6 @@
 #include "../utils/physics/physics_shape_cache.h"
 #include "../ui/game_ui.h"
 #include "../ui/virtual_joy_stick.h"
-#include "../utils/audio/audio_helper.h"
 #include "../laser_and_bots_app.h"
 
 game_scene::game_scene() :
@@ -49,11 +48,6 @@ game_scene::game_scene() :
   level_name_(""),
   barrel_count_(0)
 {
-}
-
-game_scene::~game_scene()
-{
-  //audio_helper::get_instance()->end();
 }
 
 Scene* game_scene::scene(basic_app* application, const bool debug_grid, const bool debug_physics)
@@ -156,7 +150,7 @@ bool game_scene::create_game_ui()
 
   do
   {
-    game_ui_ = game_ui::create();
+    game_ui_ = game_ui::create(get_audio_helper());
     UTILS_BREAK_IF(game_ui_ == nullptr);
 
     game_ui_->setAnchorPoint(Vec2(0.f, 0.f));
@@ -204,13 +198,13 @@ void game_scene::set_map_bounds_contacts_settings() const
   edge->setContactTestBitmask(static_cast<unsigned short>(categories::feet));
 }
 
-void game_scene::pre_load_sounds()
+void game_scene::pre_load_sounds() const
 {
-  audio_helper::pre_load_music("sounds/music.mp3");
-  audio_helper::pre_load_effect("sounds/fail.mp3");
-  audio_helper::pre_load_effect("sounds/victory.mp3");
-  audio_helper::pre_load_effect("sounds/countdown.mp3");
-  audio_helper::pre_load_effect("sounds/explosion.mp3");
+  get_audio_helper()->pre_load_music("sounds/music.mp3");
+  get_audio_helper()->pre_load_effect("sounds/fail.mp3");
+  get_audio_helper()->pre_load_effect("sounds/victory.mp3");
+  get_audio_helper()->pre_load_effect("sounds/countdown.mp3");
+  get_audio_helper()->pre_load_effect("sounds/explosion.mp3");
 }
 
 void game_scene::get_map_settings()
@@ -302,7 +296,7 @@ bool game_scene::add_laser(const ValueMap& values, Node* layer)
     const auto damage = values.at("damage").asInt();
     const auto speed = values.at("speed").asFloat();
 
-    auto laser = laser_object::create(rotation, speed, damage);
+    auto laser = laser_object::create(get_audio_helper(), rotation, speed, damage);
     UTILS_BREAK_IF(laser == nullptr);
 
     laser->setPosition(position);
@@ -325,7 +319,7 @@ bool game_scene::add_robot(const ValueMap& values, Node* layer)
   do
   {
     const auto shield = values.at("shield").asInt();
-    robot_ = robot_object::create(game_ui_->get_virtual_joy_stick(), shield);
+    robot_ = robot_object::create(get_audio_helper(), game_ui_->get_virtual_joy_stick(), shield);
     UTILS_BREAK_IF(robot_ == nullptr);
 
     auto position = get_object_center_position(values);
@@ -379,7 +373,7 @@ bool game_scene::add_door(const ValueMap& values, Node* layer)
   do
   {
     const auto name = values.at("name").asString();
-    auto door_game_object = door_object::create();
+    auto door_game_object = door_object::create(get_audio_helper());
 
     UTILS_BREAK_IF(door_game_object == nullptr);
 
@@ -640,7 +634,7 @@ bool game_scene::cache_robot_explosion()
 
 void game_scene::explode_robot()
 {
-  audio_helper::get_instance()->play_effect("sounds/explosion.mp3");
+  get_audio_helper()->play_effect("sounds/explosion.mp3");
 
   game_ui_->disable_buttons(true);
   doing_final_anim_ = true;
@@ -671,13 +665,13 @@ void game_scene::game_over(const bool win)
 
     if (win)
     {
-      audio_helper::get_instance()->play_effect("sounds/victory.mp3");
+      get_audio_helper()->play_effect("sounds/victory.mp3");
       game_ui_->display_message("Level Completed", level_name_,
                                 CC_CALLBACK_0(game_scene::reload, this), calculate_stars());
     }
     else
     {
-      audio_helper::get_instance()->play_effect("sounds/fail.mp3");
+      get_audio_helper()->play_effect("sounds/fail.mp3");
       game_ui_->display_message("Game Over", "\n\n\n\n\nOops, we are going to\nneed a new robot.",
                                 CC_CALLBACK_0(game_scene::reload, this));
     }
@@ -708,7 +702,7 @@ void game_scene::delay_start()
                                                count_go,
                                                nullptr);
 
-  audio_helper::get_instance()->play_effect("sounds/countdown.mp3");
+  get_audio_helper()->play_effect("sounds/countdown.mp3");
 
   runAction(delay_start_sequence);
   runAction(count_sequence);
@@ -721,7 +715,7 @@ void game_scene::set_countdown_number_in_ui(Ref* sender, const int value) const
 
 void game_scene::start()
 {
-  audio_helper::get_instance()->play_music("sounds/music.mp3", 0.30f);
+  get_audio_helper()->play_music("sounds/music.mp3", 0.30f);
 
   resume();
   game_ui_->disable_buttons(false);
@@ -758,7 +752,7 @@ void game_scene::pause()
     game_object.second->pause();
   }
 
-  audio_helper::get_instance()->pause_music();
+  get_audio_helper()->pause_music();
 
   game_ui_->get_virtual_joy_stick()->pause();
 
@@ -787,7 +781,7 @@ void game_scene::resume()
     game_object.second->resume();
   }
 
-  audio_helper::get_instance()->resume_music();
+  get_audio_helper()->resume_music();
 
   game_ui_->get_virtual_joy_stick()->resume();
 

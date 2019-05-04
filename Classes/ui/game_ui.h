@@ -22,6 +22,7 @@
 #define __GAME_UI__CLASS__
 
 #include "../utils/utils.h"
+#include "../utils/audio/audio_helper.h"
 
 class virtual_joy_stick;
 
@@ -35,10 +36,10 @@ public:
   game_ui();
 
   // create the object
-  static game_ui* create();
+  static game_ui* create(audio_helper* audio_helper);
 
   // init this object
-  bool init() override;
+  bool init(audio_helper* audio_helper);
 
   // when close
   void on_pause(Ref* sender);
@@ -125,6 +126,8 @@ private:
 
   // create a controller listener
   bool create_controller_listener();
+
+  audio_helper* audio_helper_;
 };
 
 #endif // __GAME_UI__CLASS__

@@ -38,8 +38,6 @@ public:
 
   game_scene();
 
-  ~game_scene();
-
   static Scene* scene(basic_app* application, const bool debug_grid, const bool debug_physics);
 
   static game_scene* create(basic_app* application, const bool debug_grid, const bool debug_physics);
@@ -54,7 +52,7 @@ public:
 
   void set_map_bounds_contacts_settings() const;
 
-  static void pre_load_sounds();
+  void pre_load_sounds() const;
 
   void get_map_settings();
 

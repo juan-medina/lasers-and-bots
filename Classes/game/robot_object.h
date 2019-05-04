@@ -22,6 +22,7 @@
 
 #include "../utils/utils.h"
 #include "../utils/base/sprite/game_object.h"
+#include "../utils/audio/audio_helper.h"
 
 class virtual_joy_stick;
 
@@ -32,13 +33,13 @@ public:
 
   robot_object();
 
-  static robot_object* create(virtual_joy_stick* virtual_joy_stick, const int max_shield);
+  static robot_object* create(audio_helper* audio_helper, virtual_joy_stick* virtual_joy_stick, const int max_shield);
 
-  bool init(virtual_joy_stick* virtual_joy_stick, const int max_shield);
+  bool init(audio_helper* audio_helper, virtual_joy_stick* virtual_joy_stick, const int max_shield);
 
   void update(float delta) override;
 
-  static void on_land_on_block();
+  void on_land_on_block();
 
   void feet_touch_walk_object_start();
   void feet_touch_walk_object_end();
@@ -94,6 +95,7 @@ private:
 
   state current_state_;
   virtual_joy_stick* virtual_joy_stick_;
+  audio_helper* audio_helper_;
 };
 
 #endif // __ROBOT_CLASS__

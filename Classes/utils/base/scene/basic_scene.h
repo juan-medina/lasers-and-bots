@@ -23,6 +23,7 @@
 
 #include "../../utils.h"
 #include "../../base/app/basic_app.h"
+#include "../../audio/audio_helper.h"
 
 class basic_scene : public Scene
 {
@@ -47,6 +48,11 @@ public:
   basic_app* get_application() const
   {
     return application_;
+  }
+
+  audio_helper* get_audio_helper() const
+  {
+    return application_->get_audio_helper();
   }
 
 protected:

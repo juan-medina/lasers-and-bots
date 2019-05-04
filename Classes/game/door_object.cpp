@@ -19,15 +19,15 @@
  ****************************************************************************/
 
 #include "door_object.h"
-#include "../utils/audio/audio_helper.h"
 
 door_object::door_object() :
   on_(false),
-  open_(false)
+  open_(false),
+  audio_helper_(nullptr)
 {
 }
 
-door_object* door_object::create()
+door_object* door_object::create(audio_helper* audio_helper)
 {
   door_object* ret = nullptr;
 
@@ -36,7 +36,7 @@ door_object* door_object::create()
     auto object = new door_object();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init())
+    if (object->init(audio_helper))
     {
       object->autorelease();
     }
@@ -53,7 +53,7 @@ door_object* door_object::create()
   return ret;
 }
 
-bool door_object::init()
+bool door_object::init(audio_helper* audio_helper)
 {
   auto ret = false;
 
@@ -63,8 +63,10 @@ bool door_object::init()
 
     UTILS_BREAK_IF(!set_shape("04_Door"));
 
-    audio_helper::pre_load_effect("sounds/metal_click.mp3");
-    audio_helper::pre_load_effect("sounds/slide.mp3");
+    audio_helper_ = audio_helper;
+
+    audio_helper_->pre_load_effect("sounds/metal_click.mp3");
+    audio_helper_->pre_load_effect("sounds/slide.mp3");
 
     ret = true;
   }
@@ -78,7 +80,7 @@ void door_object::on()
   if (is_off())
   {
     change_frame("06_DoorUnlocked.png");
-    audio_helper::get_instance()->play_effect("sounds/metal_click.mp3");
+    audio_helper_->play_effect("sounds/metal_click.mp3");
     on_ = true;
   }
 }
@@ -88,7 +90,7 @@ void door_object::open()
   if (is_closed())
   {
     change_frame("05_DoorOpen.png");
-    audio_helper::get_instance()->play_effect("sounds/slide.mp3");
+    audio_helper_->play_effect("sounds/slide.mp3");
     open_ = true;
   }
 }

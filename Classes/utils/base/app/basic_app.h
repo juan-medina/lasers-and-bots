@@ -60,7 +60,12 @@ public:
     return audio_helper_;
   }
 
+protected:
+
+  audio_helper* audio_helper_;
+
 private:
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
   // center on screen in windows 32 client
   static void center_win32_window();
@@ -78,8 +83,6 @@ private:
   cocos2d::Size screen_size_;
 
   string application_name_;
-
-  audio_helper* audio_helper_;
 };
 
 #endif // __BASIC_APP_H__

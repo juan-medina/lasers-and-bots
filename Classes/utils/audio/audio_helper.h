@@ -35,10 +35,10 @@ public:
   int play_effect(const std::string& file_name, const bool loop = false, const float volume = 1.0f) const;
   void play_music(const std::string& file_name, const float volume = 1.0f);
 
-  static void pre_load_effect(const std::string& file_name);
-  static void pre_load_music(const std::string& file_name);
-  static void unload_effect(const std::string& file_name);
-  static void stop_all_sounds();
+  void pre_load_effect(const std::string& file_name);
+  void pre_load_music(const std::string& file_name);
+  void unload_effect(const std::string& file_name);
+  void stop_all_sounds();
 
   void toggle_sound();
   void toggle_music();
@@ -47,17 +47,9 @@ public:
 
   void app_exit();
 
-  static audio_helper* instance;
-
-  static audio_helper* get_instance()
-  {
-    //CCASSERT(instance != nullptr, "is null");
-    return instance;
-  }
-
-  static void stop_sound(const int sound);
-  static void pause_sound(const int sound);
-  static void resume_sound(const int sound);
+  void stop_sound(const int sound);
+  void pause_sound(const int sound);
+  void resume_sound(const int sound);
 
   bool get_music_muted() const noexcept
   {
