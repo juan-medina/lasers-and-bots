@@ -87,9 +87,8 @@ bool virtual_joy_stick::init()
   return ret;
 }
 
-on_screen_button* virtual_joy_stick::add_on_screen_button(const on_screen_button::button_type& type,
-                                                          const std::string& sprite_frame_name,
-                                                          const std::string& label/* = ""*/)
+on_screen_button* virtual_joy_stick::add_on_screen_button(const button_type& type, const std::string& sprite_frame_name,
+                                                          const std::string& label)
 {
   on_screen_button* button = nullptr;
   do
@@ -111,7 +110,7 @@ bool virtual_joy_stick::add_on_screen_buttons()
   auto ret = false;
   do
   {
-    const auto on_screen_button_left = add_on_screen_button(on_screen_button::button_type::left, "02_joystick_left");
+    const auto on_screen_button_left = add_on_screen_button(button_type::left, "02_joystick_left");
     UTILS_BREAK_IF(on_screen_button_left == nullptr);
     const auto gap = Vec2(on_screen_button_left->getContentSize().width / 2,
                           on_screen_button_left->getContentSize().height / 4);
@@ -119,22 +118,21 @@ bool virtual_joy_stick::add_on_screen_buttons()
                                       on_screen_button_left->getContentSize().height / 2) + gap;
     on_screen_button_left->setPosition(left_button_pos);
 
-    const auto on_screen_button_right = add_on_screen_button(on_screen_button::button_type::right, "02_joystick_right");
+    const auto on_screen_button_right = add_on_screen_button(button_type::right, "02_joystick_right");
     UTILS_BREAK_IF(on_screen_button_right == nullptr);
 
     const auto right_button_pos = left_button_pos + Vec2(on_screen_button_left->getContentSize().width + gap.x * 2,
                                                          0.f);
     on_screen_button_right->setPosition(right_button_pos);
 
-    const auto on_screen_button_up = add_on_screen_button(on_screen_button::button_type::up, "02_joystick_up");
+    const auto on_screen_button_up = add_on_screen_button(button_type::up, "02_joystick_up");
     UTILS_BREAK_IF(on_screen_button_up == nullptr);
 
     const auto up_button_pos = Vec2((on_screen_button_up->getContentSize().width / 2) + gap.x,
                                     on_screen_button_up->getContentSize().height / 2) + Vec2(gap.x * 2, gap.y * 10);
     on_screen_button_up->setPosition(up_button_pos);
 
-    const auto on_screen_button_a = add_on_screen_button(on_screen_button::button_type::button_a,
-                                                         "02_joystick_empty", "A");
+    const auto on_screen_button_a = add_on_screen_button(button_type::button_a, "02_joystick_empty", "A");
     UTILS_BREAK_IF(on_screen_button_a == nullptr);
 
     const auto size = Director::getInstance()->getOpenGLView()->getVisibleSize();
@@ -332,7 +330,7 @@ void virtual_joy_stick::on_key_released(const EventKeyboard::KeyCode key_code, E
   }
 }
 
-bool virtual_joy_stick::is_on_screen_pushed(const on_screen_button::button_type& type) const
+bool virtual_joy_stick::is_on_screen_pushed(const button_type& type) const
 {
   for (const auto button : on_screen_buttons_)
   {
@@ -346,29 +344,27 @@ bool virtual_joy_stick::is_on_screen_pushed(const on_screen_button::button_type&
 
 bool virtual_joy_stick::left() const
 {
-  return key_left_ || controller_left_ || controller_axis_left_ || is_on_screen_pushed(
-    on_screen_button::button_type::left);
+  return key_left_ || controller_left_ || controller_axis_left_ || is_on_screen_pushed(button_type::left);
 }
 
 bool virtual_joy_stick::right() const
 {
-  return key_right_ || controller_right_ || controller_axis_right_ || is_on_screen_pushed(
-    on_screen_button::button_type::right);
+  return key_right_ || controller_right_ || controller_axis_right_ || is_on_screen_pushed(button_type::right);
 }
 
 bool virtual_joy_stick::up() const
 {
-  return key_up_ || controller_up_ || controller_axis_up_ || is_on_screen_pushed(on_screen_button::button_type::up);
+  return key_up_ || controller_up_ || controller_axis_up_ || is_on_screen_pushed(button_type::up);
 }
 
 bool virtual_joy_stick::button_a() const
 {
-  return key_button_a_ || controller_button_a_ || is_on_screen_pushed(on_screen_button::button_type::button_a);
+  return key_button_a_ || controller_button_a_ || is_on_screen_pushed(button_type::button_a);
 }
 
 bool virtual_joy_stick::button_b() const
 {
-  return key_button_b_ || controller_button_b_ || is_on_screen_pushed(on_screen_button::button_type::button_b);
+  return key_button_b_ || controller_button_b_ || is_on_screen_pushed(button_type::button_b);
 }
 
 void virtual_joy_stick::disabled(const bool disabled)

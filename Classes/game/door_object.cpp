@@ -19,6 +19,7 @@
  ****************************************************************************/
 
 #include "door_object.h"
+#include "../utils/audio/audio_helper.h"
 
 door_object::door_object() :
   on_(false),

@@ -22,7 +22,9 @@
 #define __BASIC_APP_H__
 
 #include "../../utils.h"
-#include "../../audio/audio_helper.h"
+
+// forward declarations
+class audio_helper;
 
 // application base class
 class basic_app : public Application

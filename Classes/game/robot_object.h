@@ -20,11 +20,11 @@
 #ifndef __ROBOT_CLASS__
 #define __ROBOT_CLASS__
 
-#include "../utils/utils.h"
 #include "../utils/physics/physics_game_object.h"
-#include "../utils/audio/audio_helper.h"
 
+// forward declarations
 class virtual_joy_stick;
+class audio_helper;
 
 class robot_object final : public physics_game_object
 {

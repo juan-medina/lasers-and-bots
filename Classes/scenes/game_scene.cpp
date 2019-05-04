@@ -20,6 +20,8 @@
 
 #include "game_scene.h"
 #include "../utils/base/sprite/game_object.h"
+#include "../utils/physics/physics_shape_cache.h"
+#include "../utils/audio/audio_helper.h"
 #include "../game/robot_object.h"
 #include "../game/laser_object.h"
 #include "../game/switch_object.h"
@@ -29,7 +31,6 @@
 #include "../game/saw_object.h"
 #include "../game/robot_fragment.h"
 #include "../game/harm_object.h"
-#include "../utils/physics/physics_shape_cache.h"
 #include "../ui/game_ui.h"
 #include "../ui/virtual_joy_stick.h"
 #include "../laser_and_bots_app.h"

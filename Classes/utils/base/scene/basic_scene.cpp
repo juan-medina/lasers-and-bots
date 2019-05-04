@@ -19,6 +19,8 @@
  ****************************************************************************/
 
 #include "basic_scene.h"
+#include "../../base/app/basic_app.h"
+#include "../../audio/audio_helper.h"
 
 basic_scene::basic_scene():
   application_(nullptr)
@@ -70,6 +72,11 @@ bool basic_scene::init(basic_app* application)
   while (false);
 
   return ret;
+}
+
+audio_helper* basic_scene::get_audio_helper() const
+{
+  return application_->get_audio_helper();
 }
 
 void basic_scene::onExit()

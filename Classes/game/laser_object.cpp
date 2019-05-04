@@ -20,6 +20,7 @@
 
 #include "laser_object.h"
 #include "../scenes/game_scene.h"
+#include "../utils/audio/audio_helper.h"
 #include "robot_object.h"
 
 int laser_object::loop_sound_ = -1;

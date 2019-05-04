@@ -22,12 +22,11 @@
 #define __GAME_UI__CLASS__
 
 #include "../utils/utils.h"
-#include "../utils/audio/audio_helper.h"
 
 // forward declarations
 class message_window;
-
 class virtual_joy_stick;
+class audio_helper;
 
 class game_ui final : public Node
 {

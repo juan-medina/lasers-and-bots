@@ -21,7 +21,6 @@
 #include "laser_and_bots_app.h"
 #include "scenes/loading_scene.h"
 #include "utils/audio/audio_helper.h"
-#include "scenes/game_scene.h"
 
 laser_and_bots_app::laser_and_bots_app()
   : laser_and_bots_app(0, 0, true)

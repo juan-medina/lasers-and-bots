@@ -20,7 +20,6 @@
 #ifndef __SAW_CLASS__
 #define __SAW_CLASS__
 
-#include "../utils/base/sprite/game_object.h"
 #include "harm_object.h"
 
 class saw_object final : public harm_object

@@ -21,7 +21,9 @@
 #define __PHYSICS_GAME_OBJECT_CLASS__
 
 #include "../base/sprite/game_object.h"
-#include "physics_shape_cache.h"
+
+// forward declarations
+class physics_shape_cache;
 
 class physics_game_object : public game_object
 {

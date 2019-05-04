@@ -20,6 +20,7 @@
 
 #include "robot_object.h"
 #include "../ui/virtual_joy_stick.h"
+#include "../utils/audio/audio_helper.h"
 
 const Vec2 robot_object::normal_movement = Vec2(1000.0f, 2600.f);
 const int robot_object::blink_on_damage_action_tag = 0xF0F0F;

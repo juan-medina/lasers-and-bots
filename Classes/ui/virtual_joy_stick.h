@@ -21,7 +21,10 @@
 #define __VIRTUAL_JOY_STICK_CLASS__
 
 #include "../utils/utils.h"
-#include "on_screen_button.h"
+
+// forward declarations
+class on_screen_button;
+enum class button_type;
 
 class virtual_joy_stick final : public Node
 {
@@ -66,7 +69,7 @@ public:
 
 private:
 
-  on_screen_button* add_on_screen_button(const on_screen_button::button_type& type,
+  on_screen_button* add_on_screen_button(const button_type& type,
                                          const std::string& sprite_frame_name,
                                          const std::string& label = "");
 
@@ -83,7 +86,7 @@ private:
   void on_key_pressed(EventKeyboard::KeyCode key_code, Event* event);
   void on_key_released(EventKeyboard::KeyCode key_code, Event* event);
 
-  bool is_on_screen_pushed(const on_screen_button::button_type& type) const;
+  bool is_on_screen_pushed(const button_type& type) const;
 
   bool key_left_;
   bool key_right_;

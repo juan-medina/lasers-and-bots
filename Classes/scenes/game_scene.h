@@ -20,7 +20,6 @@
 #ifndef __MAIN_SCENE__
 #define __MAIN_SCENE__
 
-#include "../utils/utils.h"
 #include "../utils/physics/physics_tiled_scene.h"
 
 //foward declarations

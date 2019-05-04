@@ -21,9 +21,10 @@
 #ifndef __LASER_CLASS__
 #define __LASER_CLASS__
 
-#include "../utils/utils.h"
 #include "harm_object.h"
-#include "../utils/audio/audio_helper.h"
+
+// forward declarations
+class audio_helper;
 
 class laser_object final : public harm_object
 {

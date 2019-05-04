@@ -22,23 +22,23 @@
 
 #include "../utils/utils.h"
 
+enum class button_type
+{
+  none,
+  up,
+  down,
+  left,
+  right,
+  button_a,
+  button_b
+};
+
 class on_screen_button final : public Node
 {
 public:
   using base_class = Node;
 
   on_screen_button();
-
-  enum class button_type
-  {
-    none,
-    up,
-    down,
-    left,
-    right,
-    button_a,
-    button_b
-  };
 
   static on_screen_button* create(const button_type& type, const std::string& sprite_frame_name,
                                   const std::string& label = "");

@@ -20,6 +20,7 @@
 
 #include "game_ui.h"
 #include "../scenes/game_scene.h"
+#include "../utils/audio/audio_helper.h"
 #include "virtual_joy_stick.h"
 #include "message_window.h"
 

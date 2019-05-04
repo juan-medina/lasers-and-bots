@@ -22,7 +22,6 @@
 #define _APP_DELEGATE_H_
 
 #include "utils/base/app/basic_app.h"
-#include "utils/audio/audio_helper.h"
 
 // this game application
 class laser_and_bots_app final : public basic_app

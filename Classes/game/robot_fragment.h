@@ -20,7 +20,6 @@
 #ifndef __ROBOT_FRAGMENT_CLASS__
 #define __ROBOT_FRAGMENT_CLASS__
 
-#include "../utils/utils.h"
 #include "../utils/physics/physics_game_object.h"
 
 class robot_fragment final : public physics_game_object

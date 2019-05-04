@@ -22,8 +22,10 @@
 #define __BASIC_SCENE_H__
 
 #include "../../utils.h"
-#include "../../base/app/basic_app.h"
-#include "../../audio/audio_helper.h"
+
+// forward declarations
+class basic_app;
+class audio_helper;
 
 class basic_scene : public Scene
 {
@@ -46,10 +48,7 @@ public:
     return application_;
   }
 
-  audio_helper* get_audio_helper() const
-  {
-    return application_->get_audio_helper();
-  }
+  audio_helper* get_audio_helper() const;
 
 protected:
 

@@ -21,7 +21,9 @@
 #define __DOOR_CLASS__
 
 #include "../utils/physics/physics_game_object.h"
-#include "../utils/audio/audio_helper.h"
+
+// forward declarations
+class audio_helper;
 
 class door_object final : public physics_game_object
 {
