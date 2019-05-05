@@ -72,7 +72,7 @@ bool basic_app::applicationDidFinishLaunching()
         open_gl_view = GLViewImpl::createWithRect(application_name_, Rect(Vec2::ZERO, screen_size_));
       }
 #else
-      open_gl_view = GLViewImpl::create(name_);
+      open_gl_view = GLViewImpl::create(application_name_);
 #endif
       director->setOpenGLView(open_gl_view);
     }
