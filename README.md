@@ -34,6 +34,7 @@ Now you could open the project folder for the platform you like to use:
 
 - proj.ios_mac
 - proj.win32
+- proj.android
 
 ## resources
 

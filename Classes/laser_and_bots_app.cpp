@@ -35,10 +35,13 @@ laser_and_bots_app::laser_and_bots_app(const int screen_width, const int screen_
     debug_grid_(false),
     debug_physics_(false)
 {
+// TODO: For som reason this does not work on android, need fix
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID)
   effects_muted_ = UserDefault::getInstance()->getBoolForKey("effects_muted", effects_muted_);
   music_muted_ = UserDefault::getInstance()->getBoolForKey("music_muted", music_muted_);
   debug_grid_ = UserDefault::getInstance()->getBoolForKey("debug_grid", debug_grid_);
   debug_physics_ = UserDefault::getInstance()->getBoolForKey("debug_physics", debug_physics_);
+#endif
 }
 
 Scene* laser_and_bots_app::init_scene()
@@ -52,14 +55,24 @@ Scene* laser_and_bots_app::init_scene()
 void laser_and_bots_app::set_effects_muted(const bool effects_muted)
 {
   effects_muted_ = effects_muted;
+
+// TODO: For som reason this does not work on android, need fix
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID)
   UserDefault::getInstance()->setBoolForKey("effects_muted", effects_muted_);
-  audio_helper_->set_effects_muted(effects_muted_);
+#endif
+
+    audio_helper_->set_effects_muted(effects_muted_);
 }
 
 void laser_and_bots_app::set_music_muted(const bool music_muted)
 {
   music_muted_ = music_muted;
+
+// TODO: For som reason this does not work on android, need fix
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID)
   UserDefault::getInstance()->setBoolForKey("music_muted", music_muted_);
+#endif
+
   audio_helper_->set_music_muted(music_muted_);
 }
 
