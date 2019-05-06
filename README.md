@@ -41,4 +41,14 @@ Now you could open the project folder for the platform you like to use:
 - Game art : [Game Art 2D](https://www.gameart2d.com/)
 - Map Editor : [Tiled](https://www.mapeditor.org/)
 - Game engine : [Cocox2d-x](https://cocos2d-x.org/)
-- JSON Parse : [Rapid JSON](http://rapidjson.org/)
+- Music:
+  - Laser Attack : https://freesound.org/people/uso_sketch/sounds/443865/
+- SFX
+  - Metal Footsteps : https://freesound.org/people/mypantsfelldown/sounds/398937/
+  - Welding_2_longer_bursts : https://freesound.org/people/ivolipa/sounds/385990/  
+  - Squishy Boings : https://freesound.org/people/NoiseCollector/sounds/67403/
+  - Level Failed : https://freesound.org/people/mouse85224/sounds/371205/
+  - Baddass Victory : https://freesound.org/people/PearceWilsonKing/sounds/249524/
+  - Cymbal : https://freesound.org/people/irjames/sounds/78513/
+  - Countdwn : https://freesound.org/people/tekgnosis/sounds/151268/
+  - Explosion : https://freesound.org/people/plamdi1/sounds/95058/
