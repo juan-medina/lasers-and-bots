@@ -6,7 +6,13 @@ A simple game with lasers and bots
 
 ## info
 
-This is an experimental game
+This is an experimental open source game currently under development, it uses a 2d physics engine to implement a platformer.
+
+## video demo
+
+<p align="center">  
+  <a href="https://www.youtube.com/watch?v=hrrWXePrd-0"><img src="https://img.youtube.com/vi/hrrWXePrd-0/maxresdefault.jpg" alt="video demo"></a>
+</p>
 
 ## controls
 
