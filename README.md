@@ -1,6 +1,6 @@
 # Lasers and Bots
 
-A simple game with lasers and bots
+A game with lasers and bots
 
 [![License: Apache2](https://img.shields.io/badge/license-Apache%202-blue.svg)](/LICENSE)
 
@@ -9,9 +9,9 @@ A simple game with lasers and bots
 This is an experimental open source game currently under development, it uses a 2d physics engine to implement a platformer.
 
 ## video demo
-
+click the image bellow
 <p align="center">  
-  <a href="https://www.youtube.com/watch?v=hrrWXePrd-0"><img src="https://img.youtube.com/vi/hrrWXePrd-0/maxresdefault.jpg" alt="video demo"></a>
+  <a href="https://www.youtube.com/watch?v=hrrWXePrd-0" target="_blank"><img src="https://img.youtube.com/vi/hrrWXePrd-0/maxresdefault.jpg" alt="video demo"></a>
 </p>
 
 ## controls
