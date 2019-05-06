@@ -8,6 +8,26 @@ A simple game with lasers and bots
 
 This is an experimental game
 
+## controls
+
+- Keyboard
+  ```
+  LEFT          : CURSOR: LEFT  / KEY: A
+  RIGHT         : CURSOR: RIGHT / KEY: B
+  JUMP          : CURSOR: UP    / KEY: W          / SPACE
+  PAUSE         : ESCAPE
+  CLOSE MESSAGE : ENTER
+  RELOAD        : F5
+  ```
+- Gamepad / Joystick
+  ```
+  LEFT          : D-PAD: LEFT   / JOYSTICK: LEFT  / SHOULDER: LEFT
+  RIGHT         : D-PAD: RIGHT  / JOYSTICK: RIGHT / SHOULDER: RIGHT
+  JUMP          : D-PAD: UP     / JOYSTICK: UP    / BUTTON: A
+  PAUSE         : BUTTON: START
+  CLOSE MESSAGE : BUTTON: A
+  RELOAD        : BUTTON: BACK
+  ```
 # requirements
 
 - C++ compiler for your platform (clang, gcc, etc.)
