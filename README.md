@@ -1,13 +1,39 @@
 # Lasers and Bots
 
-A simple game with lasers and bots
+A game with lasers and bots
 
 [![License: Apache2](https://img.shields.io/badge/license-Apache%202-blue.svg)](/LICENSE)
 
 ## info
 
-This is an experimental game
+This is an experimental open source game currently under development, it uses a 2d physics engine to implement a platformer.
 
+## video demo
+click the image bellow
+<p align="center">  
+  <a href="https://www.youtube.com/watch?v=hrrWXePrd-0" target="_blank"><img src="https://img.youtube.com/vi/hrrWXePrd-0/maxresdefault.jpg" alt="video demo"></a>
+</p>
+
+## controls
+
+- Keyboard
+  ```
+  LEFT          : CURSOR: LEFT  / KEY: A
+  RIGHT         : CURSOR: RIGHT / KEY: B
+  JUMP          : CURSOR: UP    / KEY: W          / SPACE
+  PAUSE         : ESCAPE
+  CLOSE MESSAGE : ENTER
+  RELOAD        : F5
+  ```
+- Gamepad / Joystick
+  ```
+  LEFT          : D-PAD: LEFT   / JOYSTICK: LEFT  / SHOULDER: LEFT
+  RIGHT         : D-PAD: RIGHT  / JOYSTICK: RIGHT / SHOULDER: RIGHT
+  JUMP          : D-PAD: UP     / JOYSTICK: UP    / BUTTON: A
+  PAUSE         : BUTTON: START
+  CLOSE MESSAGE : BUTTON: A
+  RELOAD        : BUTTON: BACK
+  ```
 # requirements
 
 - C++ compiler for your platform (clang, gcc, etc.)
@@ -41,4 +67,14 @@ Now you could open the project folder for the platform you like to use:
 - Game art : [Game Art 2D](https://www.gameart2d.com/)
 - Map Editor : [Tiled](https://www.mapeditor.org/)
 - Game engine : [Cocox2d-x](https://cocos2d-x.org/)
-- JSON Parse : [Rapid JSON](http://rapidjson.org/)
+- Music:
+  - Laser Attack : https://freesound.org/people/uso_sketch/sounds/443865/
+- SFX
+  - Metal Footsteps : https://freesound.org/people/mypantsfelldown/sounds/398937/
+  - Welding_2_longer_bursts : https://freesound.org/people/ivolipa/sounds/385990/  
+  - Squishy Boings : https://freesound.org/people/NoiseCollector/sounds/67403/
+  - Level Failed : https://freesound.org/people/mouse85224/sounds/371205/
+  - Baddass Victory : https://freesound.org/people/PearceWilsonKing/sounds/249524/
+  - Cymbal : https://freesound.org/people/irjames/sounds/78513/
+  - Countdwn : https://freesound.org/people/tekgnosis/sounds/151268/
+  - Explosion : https://freesound.org/people/plamdi1/sounds/95058/
