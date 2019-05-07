@@ -135,6 +135,9 @@
     <ClCompile Include="..\Classes\ui\message_window.cpp">
       <Filter>src\ui</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ui\pause_window.cpp">
+      <Filter>src\ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -225,6 +228,9 @@
       <Filter>src\utils\physics</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ui\message_window.h">
+      <Filter>src\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui\pause_window.h">
       <Filter>src\ui</Filter>
     </ClInclude>
   </ItemGroup>

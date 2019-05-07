@@ -25,6 +25,7 @@
 
 // forward declarations
 class message_window;
+class pause_window;
 class virtual_joy_stick;
 class audio_helper;
 
@@ -88,6 +89,7 @@ private:
   ccMenuCallback continue_callback_;
   audio_helper* audio_helper_;
   message_window* message_window_;
+  pause_window* pause_window_;
 };
 
 #endif // __GAME_UI__CLASS__

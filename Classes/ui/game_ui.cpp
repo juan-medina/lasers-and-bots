@@ -23,6 +23,8 @@
 #include "../utils/audio/audio_helper.h"
 #include "virtual_joy_stick.h"
 #include "message_window.h"
+#include "pause_window.h"
+
 
 game_ui::game_ui():
   virtual_joy_stick_(nullptr),
@@ -232,6 +234,11 @@ bool game_ui::init(audio_helper* audio_helper)
 
     addChild(message_window_);
 
+    pause_window_ = pause_window::create(audio_helper_);
+    UTILS_BREAK_IF(pause_window_ == nullptr);
+
+    addChild(pause_window_);
+
 #if (GAME_PLATFORM == DESKTOP_GAME)
     UTILS_BREAK_IF(!create_keyboard_listener());
 #endif
@@ -250,6 +257,16 @@ void game_ui::on_pause(Ref* sender)
   audio_helper_->play_effect("sounds/select.mp3");
   const auto scene = dynamic_cast<game_scene*>(Director::getInstance()->getRunningScene());
   scene->toggle_pause();
+
+
+  if (!pause_item_->getSelectedIndex() == 0)
+  {
+    pause_window_->display();
+  }
+  else
+  {
+    pause_window_->hide();
+  }
 }
 
 void game_ui::on_close(Ref* sender)
