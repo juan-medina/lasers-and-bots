@@ -258,8 +258,7 @@ void game_ui::on_pause(Ref* sender)
   const auto scene = dynamic_cast<game_scene*>(Director::getInstance()->getRunningScene());
   scene->toggle_pause();
 
-
-  if (!pause_item_->getSelectedIndex() == 0)
+  if (scene->is_paused())
   {
     pause_window_->display();
   }

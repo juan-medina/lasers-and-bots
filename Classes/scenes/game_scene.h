@@ -90,6 +90,11 @@ public:
 
   void close();
 
+  boolean is_paused() const
+  {
+    return paused_;
+  }
+
 private:
   // provide a physics node for a titled gid
   virtual Node* provide_physics_node(const int gid) override;

@@ -42,8 +42,12 @@ public:
 
 private:
 
-  bool add_text_button(const std::string& text);
-  bool add_image_button(const std::string& base_image);
+  void on_resume();
+  void on_reload();
+
+  void add_button(MenuItem* item, const ccMenuCallback& callback);
+  bool add_text_button(const std::string& text, const ccMenuCallback& callback);
+  bool add_image_button(const std::string& base_image, const ccMenuCallback& callback);
 
   audio_helper* audio_helper_;
   Vector<MenuItem*> buttons_;

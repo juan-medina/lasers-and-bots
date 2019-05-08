@@ -19,6 +19,7 @@
  ****************************************************************************/
 
 #include "pause_window.h"
+#include "game_ui.h"
 #include "../utils/audio/audio_helper.h"
 
 
@@ -86,12 +87,12 @@ bool pause_window::init(audio_helper* audio_helper)
     const auto horizontal_segment = background->getContentSize().height;
     const auto vertical_segment = background->getContentSize().width;
 
-    UTILS_BREAK_IF(!add_text_button("Exit"));
-    UTILS_BREAK_IF(!add_text_button("Resume"));
-    UTILS_BREAK_IF(!add_text_button("Restart"));
+    UTILS_BREAK_IF(!add_text_button("Exit", CC_CALLBACK_0(pause_window::on_reload, this)));
+    UTILS_BREAK_IF(!add_text_button("Resume", CC_CALLBACK_0(pause_window::on_resume, this)));
+    UTILS_BREAK_IF(!add_text_button("Restart", CC_CALLBACK_0(pause_window::on_reload, this)));
 
-    UTILS_BREAK_IF(!add_image_button("13_sound"));
-    UTILS_BREAK_IF(!add_image_button("12_music"));
+    UTILS_BREAK_IF(!add_image_button("13_sound", CC_CALLBACK_0(pause_window::on_resume, this)));
+    UTILS_BREAK_IF(!add_image_button("12_music", CC_CALLBACK_0(pause_window::on_resume, this)));
 
     const auto menu = Menu::createWithArray(buttons_);
     UTILS_BREAK_IF(menu == nullptr);
@@ -156,7 +157,25 @@ void pause_window::hide()
   runAction(fade_hide);
 }
 
-bool pause_window::add_text_button(const std::string& text)
+void pause_window::on_resume()
+{
+  auto parent = dynamic_cast<game_ui*>(getParent());
+  parent->on_pause(this);
+}
+
+void pause_window::on_reload()
+{
+  auto parent = dynamic_cast<game_ui*>(getParent());
+  parent->on_reload(this);
+}
+
+void pause_window::add_button(MenuItem* item, const ccMenuCallback& callback)
+{
+  item->setCallback(callback);
+  buttons_.pushBack(item);  
+}
+
+bool pause_window::add_text_button(const std::string& text, const ccMenuCallback& callback)
 {
   auto result = false;
 
@@ -183,12 +202,12 @@ bool pause_window::add_text_button(const std::string& text)
     label_button->setTextColor(Color4B(255, 255, 255, 255));
     label_button->enableOutline(Color4B(0, 0, 0, 255), 5);
 
-    item->addChild(label_button, 100);
-
-    buttons_.pushBack(item);
+    item->addChild(label_button, 100);    
 
     static const auto button_gap_y = 50.f;
     current_text_button_y_ += (sprite->getContentSize().height + button_gap_y);
+
+    add_button(item, callback);
 
     result = true;
   }
@@ -197,7 +216,7 @@ bool pause_window::add_text_button(const std::string& text)
   return result;
 }
 
-bool pause_window::add_image_button(const std::string& base_image)
+bool pause_window::add_image_button(const std::string& base_image, const ccMenuCallback& callback)
 {
   auto result = false;
 
@@ -225,9 +244,7 @@ bool pause_window::add_image_button(const std::string& base_image)
 
     item->setPosition(current_image_button_x_, current_text_button_y_);
 
-    buttons_.pushBack(item);
-
-    static const auto button_gap_y = 50.f;
+    add_button(item, callback);
 
     result = true;
   }
