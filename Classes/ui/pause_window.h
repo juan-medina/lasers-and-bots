@@ -43,10 +43,12 @@ public:
 private:
 
   bool add_text_button(const std::string& text);
+  bool add_image_button(const std::string& base_image);
 
   audio_helper* audio_helper_;
   Vector<MenuItem*> buttons_;
   float current_text_button_y_;
+  float current_image_button_x_;
 };
 
 

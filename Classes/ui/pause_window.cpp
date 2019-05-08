@@ -24,7 +24,8 @@
 
 pause_window::pause_window():
   audio_helper_(nullptr),
-  current_text_button_y_(0)
+  current_text_button_y_(0),
+  current_image_button_x_(0)
 {
 }
 
@@ -88,6 +89,9 @@ bool pause_window::init(audio_helper* audio_helper)
     UTILS_BREAK_IF(!add_text_button("Exit"));
     UTILS_BREAK_IF(!add_text_button("Resume"));
     UTILS_BREAK_IF(!add_text_button("Restart"));
+
+    UTILS_BREAK_IF(!add_image_button("13_sound"));
+    UTILS_BREAK_IF(!add_image_button("12_music"));
 
     const auto menu = Menu::createWithArray(buttons_);
     UTILS_BREAK_IF(menu == nullptr);
@@ -185,6 +189,45 @@ bool pause_window::add_text_button(const std::string& text)
 
     static const auto button_gap_y = 50.f;
     current_text_button_y_ += (sprite->getContentSize().height + button_gap_y);
+
+    result = true;
+  }
+  while (false);
+
+  return result;
+}
+
+bool pause_window::add_image_button(const std::string& base_image)
+{
+  auto result = false;
+
+  do
+  {
+    const auto sprite = Sprite::createWithSpriteFrameName(string_format("%s%s", base_image.c_str(), "_01.png"));
+    UTILS_BREAK_IF(sprite == nullptr);
+    sprite->setOpacity(190);
+
+    const auto sprite_click = Sprite::createWithSpriteFrameName(string_format("%s%s", base_image.c_str(), "_02.png"));
+    UTILS_BREAK_IF(sprite_click == nullptr);
+    sprite_click->setOpacity(190);
+
+    auto item = MenuItemSprite::create(sprite, sprite_click);
+    UTILS_BREAK_IF(item == nullptr);
+
+    if (current_image_button_x_ == 0)
+    {
+      current_image_button_x_ = (buttons_.front()->getContentSize().width / 2) - (sprite->getContentSize().width / 2);
+    }
+    else
+    {
+      current_image_button_x_ = -current_image_button_x_;
+    }
+
+    item->setPosition(current_image_button_x_, current_text_button_y_);
+
+    buttons_.pushBack(item);
+
+    static const auto button_gap_y = 50.f;
 
     result = true;
   }

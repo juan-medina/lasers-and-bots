@@ -234,6 +234,14 @@
             <key type="filename">02_joystick_up_02.png</key>
             <key type="filename">02_joystick_up_03.png</key>
             <key type="filename">02_joystick_up_04.png</key>
+            <key type="filename">12_music_01.png</key>
+            <key type="filename">12_music_02.png</key>
+            <key type="filename">12_music_03.png</key>
+            <key type="filename">12_music_04.png</key>
+            <key type="filename">13_sound_01.png</key>
+            <key type="filename">13_sound_02.png</key>
+            <key type="filename">13_sound_03.png</key>
+            <key type="filename">13_sound_04.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
