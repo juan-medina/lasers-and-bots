@@ -33,12 +33,14 @@ public:
   ~loading_scene();
 
   static Scene* game(basic_app* application, const bool debug_grid, const bool debug_physics);
+  static Scene* menu(basic_app* application);
 
 private:
 
   enum class load_to
   {
-    to_game
+    to_game,
+    to_menu
   };
 
   bool init(basic_app* application, const load_to& type, const bool debug_grid, const bool debug_physics);

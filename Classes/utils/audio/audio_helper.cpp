@@ -141,6 +141,11 @@ void audio_helper::stop_all_sounds()
   AudioEngine::stopAll();
 }
 
+void audio_helper::unload_all_sounds()
+{
+  AudioEngine::uncacheAll();
+}
+
 void audio_helper::stop_sound(const int sound)
 {
   AudioEngine::stop(sound);

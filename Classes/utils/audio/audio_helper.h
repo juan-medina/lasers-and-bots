@@ -39,6 +39,7 @@ public:
   void pre_load_music(const std::string& file_name) const;
   void unload_effect(const std::string& file_name) const;
   void stop_all_sounds();
+  void unload_all_sounds();
 
   void pause_music() const;
   void resume_music();

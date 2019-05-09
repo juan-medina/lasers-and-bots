@@ -728,7 +728,8 @@ void game_scene::close()
 {
   closing_ = true;
   pause();
-  application_->close();
+  const auto application = dynamic_cast<laser_and_bots_app*>(get_application());
+  application->to_menu();
 }
 
 void game_scene::pause()

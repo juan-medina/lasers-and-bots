@@ -20,6 +20,9 @@
 
 #include "loading_scene.h"
 #include "game_scene.h"
+#include "menu_scene.h"
+#include "../utils/base/app/basic_app.h"
+#include "../utils/audio/audio_helper.h"
 
 Scene* loading_scene::game(basic_app* application, const bool debug_grid, const bool debug_physics)
 {
@@ -31,6 +34,32 @@ Scene* loading_scene::game(basic_app* application, const bool debug_grid, const 
     UTILS_BREAK_IF(object == nullptr);
 
     if (object->init(application, load_to::to_game, debug_grid, debug_physics))
+    {
+      object->autorelease();
+    }
+    else
+    {
+      delete object;
+      object = nullptr;
+    }
+
+    ret = object;
+  }
+  while (false);
+
+  return ret;
+}
+
+Scene* loading_scene::menu(basic_app* application)
+{
+  loading_scene* ret = nullptr;
+
+  do
+  {
+    auto object = new loading_scene();
+    UTILS_BREAK_IF(object == nullptr);
+
+    if (object->init(application, load_to::to_menu, false, false))
     {
       object->autorelease();
     }
@@ -102,6 +131,9 @@ bool loading_scene::init(basic_app* application, const load_to& type, const bool
     debug_grid_ = debug_grid;
     debug_physics_ = debug_physics;
 
+    get_audio_helper()->stop_all_sounds();
+    get_audio_helper()->unload_all_sounds();
+
     ret = true;
   }
   while (false);
@@ -121,7 +153,9 @@ void loading_scene::go_to_scene() const
     case load_to::to_game:
       scene = game_scene::scene(application_, debug_grid_, debug_physics_);
       break;
-
+    case load_to::to_menu:
+      scene = menu_scene::scene(application_);
+      break;
     default:
       break;
     }

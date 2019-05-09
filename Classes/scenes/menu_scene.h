@@ -18,41 +18,27 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef _APP_DELEGATE_H_
-#define _APP_DELEGATE_H_
+#ifndef __MENU_SCENE_H__
+#define __MENU_SCENE_H__
 
-#include "utils/base/app/basic_app.h"
+#include "../utils/base/scene/basic_scene.h"
 
-// this game application
-class laser_and_bots_app final : public basic_app
+class menu_scene final : public basic_scene
 {
 public:
-  using base_class = basic_app;
+  using base_class = basic_scene;
 
-  laser_and_bots_app();
+  menu_scene();
 
-  laser_and_bots_app(const int screen_width, const int screen_height, const bool full_screen);
+  ~menu_scene();
 
-  Scene* init_scene() override;
-
-  Scene* game_scene();
-  Scene* menu_scene();
-
-  void set_effects_muted(const bool effects_muted);
-
-  void set_music_muted(const bool music_muted);
-
-  void to_game();
-  void to_menu();
-
-  void applicationDidEnterBackground() override;
+  static Scene* scene(basic_app* application);
 
 private:
 
-  bool effects_muted_;
-  bool music_muted_;
-  bool debug_grid_;
-  bool debug_physics_;
+  bool init(basic_app* application);
+
+  void to_game() const;
 };
 
-#endif // _APP_DELEGATE_H_
+#endif // __MENU_SCENE_H__
