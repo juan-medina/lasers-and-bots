@@ -23,11 +23,11 @@
 
 using namespace experimental;
 
-audio_helper::audio_helper():
+audio_helper::audio_helper() :
   initiated_(false),
   music_muted_(false),
   effects_muted_(false),
-  last_music_(AudioEngine::INVALID_AUDIO_ID)
+  last_music_{AudioEngine::INVALID_AUDIO_ID, "", 1.f}
 {
   init();
 }
@@ -47,7 +47,6 @@ bool audio_helper::init()
     AudioEngine::lazyInit();
   }
 
-  last_music_ = AudioEngine::INVALID_AUDIO_ID;
   initiated_ = true;
 
   return true;
@@ -77,63 +76,57 @@ int audio_helper::play_effect(const std::string& file_name, const bool loop /*= 
 
 void audio_helper::play_music(const std::string& file_name, const float volume /*= 1.0f*/)
 {
-  if (get_music_muted())
+  last_music_.filename = std::string(file_name);
+  last_music_.volume = volume;
+  if (!get_music_muted())
   {
-    return;
+    last_music_.id = AudioEngine::play2d(file_name, true, volume);
   }
-
-  last_music_ = AudioEngine::play2d(file_name, true, volume);
 }
 
-void audio_helper::pre_load_effect(const std::string& file_name)
+void audio_helper::pre_load_effect(const std::string& file_name) const
 {
   AudioEngine::preload(file_name);
 }
 
-void audio_helper::pre_load_music(const std::string& file_name)
+void audio_helper::pre_load_music(const std::string& file_name) const
 {
   AudioEngine::preload(file_name);
 }
 
-void audio_helper::unload_effect(const std::string& file_name)
+void audio_helper::unload_effect(const std::string& file_name) const
 {
   AudioEngine::uncache(file_name);
 }
 
-void audio_helper::toggle_sound()
-{
-  if (get_effects_muted())
-  {
-    set_effects_muted(false);
-  }
-}
-
-void audio_helper::toggle_music()
-{
-  if (get_music_muted())
-  {
-    set_music_muted(false);
-  }
-}
-
 void audio_helper::pause_music() const
 {
-  if (last_music_ != AudioEngine::INVALID_AUDIO_ID)
+  if (last_music_.id != AudioEngine::INVALID_AUDIO_ID)
   {
     if (!get_music_muted())
     {
-      AudioEngine::pause(last_music_);
+      AudioEngine::pause(last_music_.id);
     }
   }
 }
 
-void audio_helper::resume_music() const
+void audio_helper::resume_music()
 {
-  if (last_music_ != AudioEngine::INVALID_AUDIO_ID)
+  if (last_music_.id != AudioEngine::INVALID_AUDIO_ID)
   {
     if (!get_music_muted())
     {
-      AudioEngine::resume(last_music_);
+      AudioEngine::resume(last_music_.id);
+    }
+  }
+  else
+  {
+    if (!get_music_muted())
+    {
+      if (!last_music_.filename.empty())
+      {
+        play_music(last_music_.filename, last_music_.volume);
+      }
     }
   }
 }
