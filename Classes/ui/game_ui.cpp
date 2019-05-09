@@ -259,11 +259,13 @@ void game_ui::on_pause(Ref* sender)
   scene->toggle_pause();
 
   if (scene->is_paused())
-  {
+  {    
+    pause_item_->setSelectedIndex(1);
     pause_window_->display();
   }
   else
   {
+    pause_item_->setSelectedIndex(0);
     pause_window_->hide();
   }
 }

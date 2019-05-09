@@ -42,17 +42,23 @@ public:
 
 private:
 
+  void on_music_toggle();
+  void on_sfx_toggle();
   void on_resume();
   void on_reload();
+  void on_exit();
 
   void add_button(MenuItem* item, const ccMenuCallback& callback);
   bool add_text_button(const std::string& text, const ccMenuCallback& callback);
-  bool add_image_button(const std::string& base_image, const ccMenuCallback& callback);
+  MenuItemToggle* add_image_toggle_button(const std::string& base_image, const ccMenuCallback& callback);
 
   audio_helper* audio_helper_;
   Vector<MenuItem*> buttons_;
   float current_text_button_y_;
   float current_image_button_x_;
+
+  MenuItemToggle* toggle_music_item_;
+  MenuItemToggle* toggle_sfx_item_;
 };
 
 
