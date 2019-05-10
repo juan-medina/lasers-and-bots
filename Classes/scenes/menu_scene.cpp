@@ -80,7 +80,7 @@ bool menu_scene::init(basic_app* application)
     UTILS_BREAK_IF(!add_robot());
     UTILS_BREAK_IF(!add_laser());
 
-    auto label = Label::createWithTTF("Laser and Bots", "fonts/tahoma.ttf", 500);
+    auto label = Label::createWithTTF("Lasers and Bots", "fonts/tahoma.ttf", 500);
     UTILS_BREAK_IF(label == nullptr);
 
     label->setPosition(Vec2(size.width / 2, size.height - 500));

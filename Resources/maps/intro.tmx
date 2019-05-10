@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.0" orientation="orthogonal" renderorder="right-down" width="25" height="17" tilewidth="256" tileheight="256" infinite="0" nextobjectid="49">
+<map version="1.0" tiledversion="1.1.0" orientation="orthogonal" renderorder="right-down" width="35" height="17" tilewidth="256" tileheight="256" infinite="0" nextobjectid="49">
  <properties>
   <property name="name" value="demo level"/>
   <property name="shapes" value="shapes/shapes.plist"/>
@@ -138,27 +138,27 @@
    </properties>
   </tile>
  </tileset>
- <layer name="back" width="25" height="17">
+ <layer name="back" width="35" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjZmBgYAFiZhrSHGiYHYvYKB7Fo3gUj+KhhTnpgAFiWwzw
+   eJxjZmBgYAFi5kFAswIx+yCiOQYJPdDhMBouo+EyGi6j4TIaLgNHDwY3DMY44hxEGABbhA9o
   </data>
  </layer>
- <layer name="walk_back" width="25" height="17">
+ <layer name="walk_back" width="35" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMAoGJwAABqQAAQ==
+   eJztwTEBAAAAwqD1T20Hb6AAAHgNCUwAAQ==
   </data>
  </layer>
- <layer name="walk" width="25" height="17">
+ <layer name="walk" width="35" height="17">
   <properties>
    <property name="physics" type="bool" value="true"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMAoGJwAABqQAAQ==
+   eJztwTEBAAAAwqD1T20Hb6AAAHgNCUwAAQ==
   </data>
  </layer>
- <layer name="front" width="25" height="17">
+ <layer name="front" width="35" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMAoGJwAABqQAAQ==
+   eJztwTEBAAAAwqD1T20Hb6AAAHgNCUwAAQ==
   </data>
  </layer>
 </map>
