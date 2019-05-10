@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.0" orientation="orthogonal" renderorder="right-down" width="25" height="17" tilewidth="256" tileheight="256" infinite="0" nextobjectid="49">
+ <properties>
+  <property name="name" value="demo level"/>
+  <property name="shapes" value="shapes/shapes.plist"/>
+  <property name="time_limit" type="int" value="50"/>
+ </properties>
+ <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256" spacing="2" margin="1" tilecount="35" columns="7">
+  <image source="tilesheet.png" width="1806" height="1290"/>
+  <tile id="0">
+   <properties>
+    <property name="damage" type="int" value="10"/>
+    <property name="opacity" type="float" value="0.7"/>
+    <property name="shape" value="001_Acid"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="damage" type="int" value="10"/>
+    <property name="opacity" type="float" value="0.7"/>
+    <property name="shape" value="002_Acid"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="shape" value="003_BGTile"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="shape" value="004_BGTile"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="shape" value="005_BGTile"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="shape" value="006_BGTile"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="shape" value="007_BGTile"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="shape" value="008_BGTile"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="shape" value="009_BGTile"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="damage" type="int" value="10"/>
+    <property name="shape" value="014_Spike"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="shape" value="015_Tile"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="shape" value="016_Tile"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="shape" value="017_Tile"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="shape" value="018_Tile"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="shape" value="019_Tile"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="shape" value="020_Tile"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="shape" value="021_Tile"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="shape" value="022_Tile"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="shape" value="023_Tile"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="shape" value="024_Tile"/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="shape" value="025_Tile"/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="shape" value="026_Tile"/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="shape" value="027_Tile"/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="shape" value="028_Tile"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="shape" value="029_Tile"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="back" width="25" height="17">
+  <data encoding="base64" compression="zlib">
+   eJxjZmBgYAFiZhrSHGiYHYvYKB7Fo3gUj+KhhTnpgAFiWwzw
+  </data>
+ </layer>
+ <layer name="walk_back" width="25" height="17">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMAoGJwAABqQAAQ==
+  </data>
+ </layer>
+ <layer name="walk" width="25" height="17">
+  <properties>
+   <property name="physics" type="bool" value="true"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMAoGJwAABqQAAQ==
+  </data>
+ </layer>
+ <layer name="front" width="25" height="17">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMAoGJwAABqQAAQ==
+  </data>
+ </layer>
+</map>

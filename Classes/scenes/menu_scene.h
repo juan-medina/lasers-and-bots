@@ -40,11 +40,19 @@ public:
 
   void exit();
 
+  void update(float delta) override;
+
 private:
 
   bool init(basic_app* application);
 
+  bool add_background();
+  bool add_robot();
+  bool add_laser();
+
   main_menu* main_menu_;
+
+  Node* background_;
 };
 
 #endif // __MENU_SCENE_H__

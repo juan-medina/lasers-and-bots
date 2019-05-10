@@ -10,7 +10,7 @@ This is an experimental open source game currently under development, it uses a 
 
 ## video demo
 click the image bellow
-<p align="center">  
+<p align="center">
   <a href="https://www.youtube.com/watch?v=hrrWXePrd-0" target="_blank"><img src="https://img.youtube.com/vi/hrrWXePrd-0/maxresdefault.jpg" alt="video demo"></a>
 </p>
 
@@ -69,9 +69,10 @@ Now you could open the project folder for the platform you like to use:
 - Game engine : [Cocox2d-x](https://cocos2d-x.org/)
 - Music:
   - Laser Attack : https://freesound.org/people/uso_sketch/sounds/443865/
+  - Skyline : https://freesound.org/people/ShadyDave/sounds/320563/
 - SFX
   - Metal Footsteps : https://freesound.org/people/mypantsfelldown/sounds/398937/
-  - Welding_2_longer_bursts : https://freesound.org/people/ivolipa/sounds/385990/  
+  - Welding_2_longer_bursts : https://freesound.org/people/ivolipa/sounds/385990/
   - Squishy Boings : https://freesound.org/people/NoiseCollector/sounds/67403/
   - Level Failed : https://freesound.org/people/mouse85224/sounds/371205/
   - Baddass Victory : https://freesound.org/people/PearceWilsonKing/sounds/249524/

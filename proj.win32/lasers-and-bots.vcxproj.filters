@@ -147,6 +147,9 @@
     <ClCompile Include="..\Classes\menu\main_menu.cpp">
       <Filter>src\menu</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\menu\basic_menu.cpp">
+      <Filter>src\menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -246,6 +249,9 @@
       <Filter>src\scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\menu\main_menu.h">
+      <Filter>src\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\menu\basic_menu.h">
       <Filter>src\menu</Filter>
     </ClInclude>
   </ItemGroup>

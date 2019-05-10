@@ -18,32 +18,44 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __MAIN_MENU_CLASS__
-#define __MAIN_MENU_CLASS__
+#ifndef __BASIC_MENU_CLASS__
+#define __BASIC_MENU_CLASS__
 
 #include "../utils/utils.h"
-#include "basic_menu.h"
 
 //foward declarations
 class audio_helper;
 
-class main_menu final : public basic_menu
+class basic_menu : public Node
 {
 public:
-  using base_class = basic_menu;
+  using base_class = Node;
 
-  static main_menu* create(audio_helper* audio_helper);
+  basic_menu();
 
-  bool init(audio_helper* audio_helper);
+  bool init(const std::string& name, audio_helper* audio_helper);
+
+  void display();
+
+  void hide();
+
+  audio_helper* get_audio_helper() const
+  {
+    return audio_helper_;
+  }
 
 protected:
-  bool create_menu_items() override;
+
+  virtual bool create_menu_items() =0;
+  void add_button(MenuItem* item, const ccMenuCallback& callback);
+  bool add_text_button(const std::string& text, const ccMenuCallback& callback);
+
 private:
 
-  void on_options();
-  void on_play();
-  void on_exit();
+  audio_helper* audio_helper_;
+  Vector<MenuItem*> buttons_;
+  float current_text_button_y_;
 };
 
 
-#endif // __MAIN_MENU_CLASS__
+#endif // __BASIC_MENU_CLASS__
