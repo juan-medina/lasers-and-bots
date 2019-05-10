@@ -20,6 +20,7 @@
 
 #include "menu_scene.h"
 #include "../laser_and_bots_app.h"
+#include "../menu/main_menu.h"
 
 Scene* menu_scene::scene(basic_app* application)
 {
@@ -47,7 +48,8 @@ Scene* menu_scene::scene(basic_app* application)
   return ret;
 }
 
-menu_scene::menu_scene()
+menu_scene::menu_scene():
+  main_menu_(nullptr)
 {
 }
 
@@ -63,6 +65,9 @@ bool menu_scene::init(basic_app* application)
   do
   {
     UTILS_BREAK_IF(!base_class::init(application));
+
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ui/ui-0.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ui/ui-1.plist");
 
     const auto size = Director::getInstance()->getWinSize();
 
@@ -83,24 +88,12 @@ bool menu_scene::init(basic_app* application)
 
     addChild(label, 0);
 
-    auto play = Label::createWithTTF("Play", "fonts/tahoma.ttf", 300);
-    UTILS_BREAK_IF(play == nullptr);
+    main_menu_ = main_menu::create(get_audio_helper());
+    UTILS_BREAK_IF(main_menu_ == nullptr);
 
-    play->setTextColor(Color4B(0, 255, 255, 255));
+    addChild(main_menu_, 0);
 
-    play->enableGlow(Color4B(0, 127, 127, 127));
-    play->enableShadow(Color4B(255, 255, 255, 127), Size(10, -10));
-    play->enableOutline(Color4B(255, 255, 255, 255), 10);
-
-    const auto play_item = MenuItemLabel::create(play, CC_CALLBACK_0(menu_scene::to_game, this));
-    UTILS_BREAK_IF(play_item == nullptr);
-
-    play_item->setPosition(Vec2(0, -(size.height / 2) + 500));
-
-    const auto menu = Menu::create(play_item, nullptr);
-    UTILS_BREAK_IF(menu == nullptr);
-
-    addChild(menu, 0);
+    main_menu_->display();
 
     ret = true;
   }
@@ -109,8 +102,24 @@ bool menu_scene::init(basic_app* application)
   return ret;
 }
 
-void menu_scene::to_game() const
+void menu_scene::to_game()
 {
   auto app = dynamic_cast<laser_and_bots_app*>(get_application());
-  app->to_game();
+
+  const auto delay = DelayTime::create(1.15f);
+  const auto func = CallFunc::create(CC_CALLBACK_0(laser_and_bots_app::to_game, app));
+  const auto sequence = Sequence::create(delay, func, nullptr);
+
+  runAction(sequence);
+}
+
+void menu_scene::exit()
+{
+  auto app = dynamic_cast<laser_and_bots_app*>(get_application());
+
+  const auto delay = DelayTime::create(1.15f);
+  const auto func = CallFunc::create(CC_CALLBACK_0(laser_and_bots_app::close, app));
+  const auto sequence = Sequence::create(delay, func, nullptr);
+
+  runAction(sequence);
 }

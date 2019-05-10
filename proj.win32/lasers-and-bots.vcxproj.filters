@@ -43,6 +43,9 @@
     <Filter Include="src\ui">
       <UniqueIdentifier>{da36c100-c1f0-42e7-9828-13e6ceb10d26}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\menu">
+      <UniqueIdentifier>{e5aec36b-3211-42fe-820c-f6156f2fc644}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -141,6 +144,9 @@
     <ClCompile Include="..\Classes\scenes\menu_scene.cpp">
       <Filter>src\scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\menu\main_menu.cpp">
+      <Filter>src\menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -238,6 +244,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\scenes\menu_scene.h">
       <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\menu\main_menu.h">
+      <Filter>src\menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

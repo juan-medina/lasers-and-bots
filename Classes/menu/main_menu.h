@@ -18,33 +18,42 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __MENU_SCENE_H__
-#define __MENU_SCENE_H__
+#ifndef __PAUSE_WINDOW_CLASS__
+#define __MAIN_MENU_CLASS__
 
-#include "../utils/base/scene/basic_scene.h"
+#include "../utils/utils.h"
 
-class main_menu;
+//foward declarations
+class audio_helper;
 
-class menu_scene final : public basic_scene
+class main_menu final : public Node
 {
 public:
-  using base_class = basic_scene;
+  using base_class = Node;
 
-  menu_scene();
+  main_menu();
 
-  ~menu_scene();
+  static main_menu* create(audio_helper* audio_helper);
 
-  static Scene* scene(basic_app* application);
+  bool init(audio_helper* audio_helper);
 
-  void to_game();
+  void display();
 
-  void exit();
+  void hide();
 
 private:
 
-  bool init(basic_app* application);
+  void on_options();
+  void on_play();
+  void on_exit();
 
-  main_menu* main_menu_;
+  void add_button(MenuItem* item, const ccMenuCallback& callback);
+  bool add_text_button(const std::string& text, const ccMenuCallback& callback);
+
+  audio_helper* audio_helper_;
+  Vector<MenuItem*> buttons_;
+  float current_text_button_y_;
 };
 
-#endif // __MENU_SCENE_H__
+
+#endif // __MAIN_MENU_CLASS__
