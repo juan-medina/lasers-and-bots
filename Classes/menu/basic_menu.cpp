@@ -23,11 +23,14 @@
 
 basic_menu::basic_menu():
   audio_helper_(nullptr),
-  current_text_button_y_(0)
+  current_text_button_y_(0),
+  current_image_button_x_(0),
+  current_image_button_y_(0),
+  image_button_start_x(0)
 {
 }
 
-bool basic_menu::init(const std::string& name, audio_helper* audio_helper)
+bool basic_menu::init(const std::string& name, audio_helper* audio_helper, const bool horizontal /*= false*/)
 {
   auto ret = false;
 
@@ -43,17 +46,27 @@ bool basic_menu::init(const std::string& name, audio_helper* audio_helper)
     const auto background = Sprite::createWithSpriteFrameName("10_message.png");
     UTILS_BREAK_IF(background == nullptr);
 
-    background->setRotation(-90);
-    background->setFlippedX(true);
+    const auto horizontal_segment = background->getContentSize().height;
+    const auto vertical_segment = background->getContentSize().width;
+
+    if (!horizontal)
+    {
+      background->setRotation(-90);
+      background->setFlippedX(true);
+    }
+    else
+    {
+      image_button_start_x = -(horizontal_segment / 2) - 25.f;
+      current_image_button_x_ = image_button_start_x;
+      current_image_button_y_ = (vertical_segment / 2) - 100.f;
+    }
+
     setCascadeOpacityEnabled(true);
     background->setCascadeOpacityEnabled(true);
     background->setPosition(size.width / 2, size.height / 2);
     background->setColor(Color3B(0, 255, 255));
 
     addChild(background, 100);
-
-    const auto horizontal_segment = background->getContentSize().height;
-    const auto vertical_segment = background->getContentSize().width;
 
     UTILS_BREAK_IF(!create_menu_items());
 
@@ -73,8 +86,18 @@ bool basic_menu::init(const std::string& name, audio_helper* audio_helper)
     const auto header = Sprite::createWithSpriteFrameName("11_message_header.png");
     UTILS_BREAK_IF(header == nullptr);
 
-    header->setPosition(size.width / 2,
-                        (size.height / 2) + (vertical_segment / 2) - (header->getContentSize().height / 4));
+    auto header_pos = Vec2(size.width / 2, (size.height / 2) + (vertical_segment / 2));
+
+    if (!horizontal)
+    {
+      header_pos.y -= (header->getContentSize().height / 4);
+    }
+    else
+    {
+      header_pos.y -= (header->getContentSize().height / 2);
+    }
+
+    header->setPosition(header_pos);
     header->setColor(Color3B(0, 127, 127));
     header->setOpacity(255);
     header->setCascadeOpacityEnabled(true);
@@ -134,14 +157,67 @@ void basic_menu::hide()
   get_audio_helper()->play_effect("sounds/SlideClosed.mp3");
 }
 
-void basic_menu::add_button(MenuItem* item, const ccMenuCallback& callback)
+void basic_menu::move_image_button(MenuItem* item)
 {
-  item->setCallback(callback);
-  buttons_.pushBack(item);
+  item->setPosition(current_image_button_x_, current_image_button_y_);
+
+  static const auto button_gap_x = 45.f;
+  static const auto button_gap_y = 50.f;
+
+  const auto& size = item->getContentSize();
+  current_image_button_x_ += (size.width + button_gap_x);
+  static auto button_count = 0;
+  button_count++;
+  if (button_count > 4)
+  {
+    current_image_button_y_ -= (size.height + button_gap_y);
+    current_image_button_x_ = image_button_start_x;
+    button_count = 0;
+  }
+}
+
+void basic_menu::move_text_button(MenuItem* item)
+{
+  item->setPosition(0, current_text_button_y_);
 
   static const auto button_gap_y = 150.f;
   const auto& size = item->getContentSize();
   current_text_button_y_ += (size.height + button_gap_y);
+}
+
+void basic_menu::add_button(MenuItem* item, const ccMenuCallback& callback)
+{
+  item->setCallback(callback);
+  buttons_.pushBack(item);
+}
+
+MenuItem* basic_menu::create_image_button_base(const std::string& base) const
+{
+  MenuItem* result = nullptr;
+  do
+  {
+    const auto sprite = Sprite::createWithSpriteFrameName(base + "_01.png");
+    UTILS_BREAK_IF(sprite == nullptr);
+    sprite->setOpacity(190);
+
+    const auto sprite_click = Sprite::createWithSpriteFrameName(base + "_02.png");
+    UTILS_BREAK_IF(sprite_click == nullptr);
+    sprite_click->setOpacity(190);
+
+    const auto sprite_disabled = Sprite::createWithSpriteFrameName(base + "_04.png");
+    UTILS_BREAK_IF(sprite_disabled == nullptr);
+    sprite_disabled->setOpacity(190);
+
+    auto item = MenuItemSprite::create(sprite, sprite_click, sprite_disabled);
+    UTILS_BREAK_IF(item == nullptr);
+
+    item->setContentSize(sprite->getContentSize());
+
+    result = item;
+  }
+  while (false);
+
+  return result;
 }
 
 MenuItem* basic_menu::create_text_button_base() const
@@ -247,6 +323,7 @@ MenuItem* basic_menu::add_text_button(const std::string& text, const ccMenuCallb
     const auto label = add_label(text, item);
     UTILS_BREAK_IF(label == nullptr);
 
+    move_text_button(item);
     add_button(item, callback);
 
     result = item;
@@ -268,6 +345,30 @@ MenuItemToggle* basic_menu::add_toggle_text_button(const std::string& text, cons
     const auto label = add_label(text, item);
     UTILS_BREAK_IF(label == nullptr);
 
+    move_text_button(item);
+    add_button(item, callback);
+
+    result = item;
+  }
+  while (false);
+
+  return result;
+}
+
+MenuItem* basic_menu::add_image_button(const std::string& base_image, const std::string& text,
+                                       const ccMenuCallback& callback)
+{
+  MenuItem* result = nullptr;
+
+  do
+  {
+    const auto item = create_image_button_base(base_image);
+    UTILS_BREAK_IF(item == nullptr);
+
+    const auto label = add_label(text, item);
+    UTILS_BREAK_IF(label == nullptr);
+
+    move_image_button(item);
     add_button(item, callback);
 
     result = item;

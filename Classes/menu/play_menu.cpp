@@ -54,7 +54,7 @@ bool play_menu::init(audio_helper* audio_helper)
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init("Play", audio_helper));
+    UTILS_BREAK_IF(!base_class::init("Level Select", audio_helper, true));
 
     ret = true;
   }
@@ -69,8 +69,31 @@ bool play_menu::create_menu_items()
   do
   {
     UTILS_BREAK_IF(add_text_button("Back", CC_CALLBACK_0(play_menu::on_back, this)) == nullptr);
-    UTILS_BREAK_IF(add_text_button("START!", CC_CALLBACK_0(play_menu::on_play, this)) == nullptr);
 
+    for (auto button_count = 0; button_count < 10; ++button_count)
+    {
+      auto text = string_format("%02d", button_count + 1);
+      const auto button = add_image_button("02_joystick_empty", text, CC_CALLBACK_0(play_menu::on_play, this));
+      UTILS_BREAK_IF(button == nullptr);
+
+      auto star_pos = Vec2(60.f, 90.f);
+
+      for (auto star_counter = 0; star_counter < 3; ++star_counter)
+      {
+        auto star = Sprite::createWithSpriteFrameName("09_star_01.png");
+        UTILS_BREAK_IF(star == nullptr);
+
+        star->setScale(0.20f);
+        star->setPosition(star_pos);
+        //star->setColor(Color3B(0, 255, 255));
+
+        button->addChild(star);
+        star_pos.x += (star->getContentSize().width * star->getScale());
+      }
+
+
+      button->setEnabled(button_count == 0);
+    }
     result = true;
   }
   while (false);

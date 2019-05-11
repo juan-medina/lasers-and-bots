@@ -33,7 +33,7 @@ public:
 
   basic_menu();
 
-  bool init(const std::string& name, audio_helper* audio_helper);
+  bool init(const std::string& name, audio_helper* audio_helper, const bool horizontal = false);
 
   virtual void display();
 
@@ -46,21 +46,28 @@ public:
 
 protected:
 
-  virtual bool create_menu_items() =0;
+  virtual bool create_menu_items() = 0;
+
+  void move_image_button(MenuItem* item);
+  void move_text_button(MenuItem* item);
   void add_button(MenuItem* item, const ccMenuCallback& callback);
+  MenuItem* create_image_button_base(const std::string& base) const;
   MenuItem* create_text_button_base() const;
   MenuItemToggle* create_toggle_button_base() const;
   Label* add_label(const std::string& text, MenuItem* item) const;
 
   MenuItem* add_text_button(const std::string& text, const ccMenuCallback& callback);
   MenuItemToggle* add_toggle_text_button(const std::string& text, const ccMenuCallback& callback);
-
+  MenuItem* add_image_button(const std::string& base_image, const std::string& text, const ccMenuCallback& callback);
 
 private:
 
   audio_helper* audio_helper_;
   Vector<MenuItem*> buttons_;
   float current_text_button_y_;
+  float current_image_button_x_;
+  float current_image_button_y_;
+  float image_button_start_x;
 };
 
 
