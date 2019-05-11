@@ -18,17 +18,17 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "main_menu.h"
+#include "options_menu.h"
 #include "../utils/audio/audio_helper.h"
 #include "scenes/menu_scene.h"
 
-main_menu* main_menu::create(audio_helper* audio_helper)
+options_menu* options_menu::create(audio_helper* audio_helper)
 {
-  main_menu* ret = nullptr;
+  options_menu* ret = nullptr;
 
   do
   {
-    auto object = new main_menu();
+    auto object = new options_menu();
     UTILS_BREAK_IF(object == nullptr);
 
     if (object->init(audio_helper))
@@ -48,13 +48,13 @@ main_menu* main_menu::create(audio_helper* audio_helper)
   return ret;
 }
 
-bool main_menu::init(audio_helper* audio_helper)
+bool options_menu::init(audio_helper* audio_helper)
 {
   auto ret = false;
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init("Main Menu", audio_helper));
+    UTILS_BREAK_IF(!base_class::init("Options", audio_helper));
 
     ret = true;
   }
@@ -63,14 +63,12 @@ bool main_menu::init(audio_helper* audio_helper)
   return ret;
 }
 
-bool main_menu::create_menu_items()
+bool options_menu::create_menu_items()
 {
   auto result = false;
   do
   {
-    UTILS_BREAK_IF(!add_text_button("Exit", CC_CALLBACK_0(main_menu::on_exit, this)));
-    UTILS_BREAK_IF(!add_text_button("Options", CC_CALLBACK_0(main_menu::on_options, this)));
-    UTILS_BREAK_IF(!add_text_button("PLAY!", CC_CALLBACK_0(main_menu::on_play, this)));
+    UTILS_BREAK_IF(!add_text_button("Back", CC_CALLBACK_0(options_menu::on_back, this)));
 
     result = true;
   }
@@ -78,27 +76,10 @@ bool main_menu::create_menu_items()
   return result;
 }
 
-
-void main_menu::on_options()
+void options_menu::on_back()
 {
   get_audio_helper()->play_effect("sounds/select.mp3");
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->display_options_menu();
-}
-
-void main_menu::on_play()
-{
-  get_audio_helper()->play_effect("sounds/select.mp3");
-  hide();
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->display_play_menu();
-}
-
-void main_menu::on_exit()
-{
-  get_audio_helper()->play_effect("sounds/select.mp3");
-  hide();
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->exit_app();
+  menu->display_main_menu();
 }

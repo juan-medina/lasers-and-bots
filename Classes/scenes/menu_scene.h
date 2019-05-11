@@ -23,7 +23,16 @@
 
 #include "../utils/base/scene/basic_scene.h"
 
+// forward declarations
 class main_menu;
+class options_menu;
+class play_menu;
+
+enum class menu_to_display
+{
+  main_menu,
+  play_menu
+};
 
 class menu_scene final : public basic_scene
 {
@@ -34,11 +43,13 @@ public:
 
   ~menu_scene();
 
-  static Scene* scene(basic_app* application);
+  static Scene* scene(basic_app* application, menu_to_display menu);
 
-  void to_game();
-
-  void exit();
+  void go_to_game();
+  void exit_app();
+  void display_options_menu() const;
+  void display_main_menu() const;
+  void display_play_menu() const;
 
   void update(float delta) override;
 
@@ -51,13 +62,15 @@ public:
 
 private:
 
-  bool init(basic_app* application);
+  bool init(basic_app* application, menu_to_display menu);
 
   bool add_background();
   bool add_robot();
   bool add_laser();
 
   main_menu* main_menu_;
+  options_menu* options_menu_;
+  play_menu* play_menu_;
 
   Node* background_;
   bool paused_;

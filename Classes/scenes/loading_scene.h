@@ -23,6 +23,9 @@
 
 #include "../utils/base/scene/basic_scene.h"
 
+// forward declarations
+enum class menu_to_display;
+
 class loading_scene final : public basic_scene
 {
 public:
@@ -33,7 +36,7 @@ public:
   ~loading_scene();
 
   static Scene* game(basic_app* application, const bool debug_grid, const bool debug_physics);
-  static Scene* menu(basic_app* application);
+  static Scene* menu(basic_app* application, menu_to_display menu);
 
 private:
 
@@ -43,13 +46,14 @@ private:
     to_menu
   };
 
-  bool init(basic_app* application, const load_to& type, const bool debug_grid, const bool debug_physics);
+  bool init(basic_app* application, const load_to& type, const bool debug_grid, const bool debug_physics, menu_to_display menu);
 
   void go_to_scene() const;
 
   load_to type_;
   bool debug_grid_;
   bool debug_physics_;
+  menu_to_display menu_;
 };
 
 #endif // __LOADING_SCENE_H__

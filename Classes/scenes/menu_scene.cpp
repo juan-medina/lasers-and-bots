@@ -21,9 +21,20 @@
 #include "menu_scene.h"
 #include "../laser_and_bots_app.h"
 #include "../menu/main_menu.h"
+#include "../menu/options_menu.h"
+#include "../menu/play_menu.h"
 #include "../utils/audio/audio_helper.h"
 
-Scene* menu_scene::scene(basic_app* application)
+menu_scene::menu_scene() :
+  main_menu_(nullptr),
+  options_menu_(nullptr),
+  play_menu_(nullptr),
+  background_(nullptr),
+  paused_(false)
+{
+}
+
+Scene* menu_scene::scene(basic_app* application, menu_to_display menu)
 {
   menu_scene* ret = nullptr;
 
@@ -32,7 +43,7 @@ Scene* menu_scene::scene(basic_app* application)
     auto object = new menu_scene();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(application))
+    if (object->init(application, menu))
     {
       object->autorelease();
     }
@@ -49,19 +60,12 @@ Scene* menu_scene::scene(basic_app* application)
   return ret;
 }
 
-menu_scene::menu_scene():
-  main_menu_(nullptr),
-  background_(nullptr),
-  paused_(false)
-{
-}
-
 menu_scene::~menu_scene()
 {
   base_class::removeAllChildrenWithCleanup(true);
 }
 
-bool menu_scene::init(basic_app* application)
+bool menu_scene::init(basic_app* application, menu_to_display menu)
 {
   auto ret = false;
 
@@ -98,7 +102,26 @@ bool menu_scene::init(basic_app* application)
 
     addChild(main_menu_, 0);
 
-    main_menu_->display();
+    options_menu_ = options_menu::create(get_audio_helper());
+    UTILS_BREAK_IF(options_menu_ == nullptr);
+
+    addChild(options_menu_, 0);
+
+    play_menu_ = play_menu::create(get_audio_helper());
+    UTILS_BREAK_IF(play_menu_ == nullptr);
+
+    addChild(play_menu_, 0);
+
+    switch (menu)
+    {
+    default:
+    case menu_to_display::main_menu:
+      display_main_menu();
+      break;
+    case menu_to_display::play_menu:
+      display_play_menu();
+      break;
+    }
 
     get_audio_helper()->play_music("sounds/menu.mp3");
 
@@ -222,7 +245,7 @@ bool menu_scene::add_laser()
   return result;
 }
 
-void menu_scene::to_game()
+void menu_scene::go_to_game()
 {
   auto app = dynamic_cast<laser_and_bots_app*>(get_application());
 
@@ -233,7 +256,7 @@ void menu_scene::to_game()
   runAction(sequence);
 }
 
-void menu_scene::exit()
+void menu_scene::exit_app()
 {
   auto app = dynamic_cast<laser_and_bots_app*>(get_application());
 
@@ -242,6 +265,21 @@ void menu_scene::exit()
   const auto sequence = Sequence::create(delay, func, nullptr);
 
   runAction(sequence);
+}
+
+void menu_scene::display_options_menu() const
+{
+  options_menu_->display();
+}
+
+void menu_scene::display_main_menu() const
+{
+  main_menu_->display();
+}
+
+void menu_scene::display_play_menu() const
+{
+  play_menu_->display();
 }
 
 void menu_scene::update(float delta)

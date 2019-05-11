@@ -678,7 +678,7 @@ void game_scene::game_over(const bool win)
     {
       get_audio_helper()->play_effect("sounds/victory.mp3");
       game_ui_->display_message("Level Completed", level_name_,
-                                CC_CALLBACK_0(game_scene::reload, this), calculate_stars());
+                                CC_CALLBACK_0(game_scene::continue_button, this), calculate_stars());
     }
     else
     {
@@ -737,7 +737,7 @@ void game_scene::close()
   closing_ = true;
   pause();
   const auto application = dynamic_cast<laser_and_bots_app*>(get_application());
-  application->to_menu();
+  application->to_main_menu();
 }
 
 void game_scene::pause()
@@ -820,6 +820,16 @@ void game_scene::reload()
 
   auto app = dynamic_cast<laser_and_bots_app*>(application_);
   app->to_game();
+}
+
+void game_scene::continue_button()
+{
+  pause();
+
+  game_ui_->disable_buttons(true);
+
+  auto app = dynamic_cast<laser_and_bots_app*>(application_);
+  app->to_play_menu();
 }
 
 void game_scene::onEnter()

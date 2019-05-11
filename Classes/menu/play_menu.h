@@ -18,43 +18,31 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef _APP_DELEGATE_H_
-#define _APP_DELEGATE_H_
+#ifndef __PLAY_MENU_CLASS__
+#define __PLAY_MENU_CLASS__
 
-#include "utils/base/app/basic_app.h"
+#include "../utils/utils.h"
+#include "basic_menu.h"
 
-// this game application
-class laser_and_bots_app final : public basic_app
+//foward declarations
+class audio_helper;
+
+class play_menu final : public basic_menu
 {
 public:
-  using base_class = basic_app;
+  using base_class = basic_menu;
 
-  laser_and_bots_app();
+  static play_menu* create(audio_helper* audio_helper);
 
-  laser_and_bots_app(const int screen_width, const int screen_height, const bool full_screen);
+  bool init(audio_helper* audio_helper);
 
-  Scene* init_scene() override;
-
-  Scene* game_scene();
-  Scene* main_menu_scene();
-  Scene* play_menu_scene();
-
-  void set_effects_muted(const bool effects_muted);
-
-  void set_music_muted(const bool music_muted);
-
-  void to_game();
-  void to_main_menu();
-  void to_play_menu();
-
-  void applicationDidEnterBackground() override;
-
+protected:
+  bool create_menu_items() override;
 private:
 
-  bool effects_muted_;
-  bool music_muted_;
-  bool debug_grid_;
-  bool debug_physics_;
+  void on_back();
+  void on_play();
 };
 
-#endif // _APP_DELEGATE_H_
+
+#endif // __PLAY_MENU_CLASS__

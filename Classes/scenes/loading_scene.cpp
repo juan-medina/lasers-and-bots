@@ -33,7 +33,7 @@ Scene* loading_scene::game(basic_app* application, const bool debug_grid, const 
     auto object = new loading_scene();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(application, load_to::to_game, debug_grid, debug_physics))
+    if (object->init(application, load_to::to_game, debug_grid, debug_physics, menu_to_display::main_menu))
     {
       object->autorelease();
     }
@@ -50,7 +50,7 @@ Scene* loading_scene::game(basic_app* application, const bool debug_grid, const 
   return ret;
 }
 
-Scene* loading_scene::menu(basic_app* application)
+Scene* loading_scene::menu(basic_app* application, menu_to_display menu)
 {
   loading_scene* ret = nullptr;
 
@@ -59,7 +59,7 @@ Scene* loading_scene::menu(basic_app* application)
     auto object = new loading_scene();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(application, load_to::to_menu, false, false))
+    if (object->init(application, load_to::to_menu, false, false, menu))
     {
       object->autorelease();
     }
@@ -88,13 +88,15 @@ loading_scene::~loading_scene()
   base_class::removeAllChildrenWithCleanup(true);
 }
 
-bool loading_scene::init(basic_app* application, const load_to& type, const bool debug_grid, const bool debug_physics)
+bool loading_scene::init(basic_app* application, const load_to& type, const bool debug_grid, const bool debug_physics,
+                         menu_to_display menu)
 {
   auto ret = false;
 
   do
   {
     type_ = type;
+    menu_ = menu;
 
     UTILS_BREAK_IF(!base_class::init(application));
 
@@ -154,7 +156,7 @@ void loading_scene::go_to_scene() const
       scene = game_scene::scene(application_, debug_grid_, debug_physics_);
       break;
     case load_to::to_menu:
-      scene = menu_scene::scene(application_);
+      scene = menu_scene::scene(application_, menu_);
       break;
     default:
       break;

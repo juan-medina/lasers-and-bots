@@ -83,6 +83,8 @@ public:
 
   void reload();
 
+  void continue_button();
+
   // enter scene
   virtual void onEnter() override;
 
