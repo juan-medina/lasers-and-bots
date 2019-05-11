@@ -68,14 +68,14 @@ Now you could open the project folder for the platform you like to use:
 - Map Editor : [Tiled](https://www.mapeditor.org/)
 - Game engine : [Cocox2d-x](https://cocos2d-x.org/)
 - Music:
-  - Chasers : https://github.com/jmartorell
-  - Skyline : https://freesound.org/people/ShadyDave/sounds/320563/
+  - Chasers (game) : [Juan Martorell](https://github.com/jmartorell)
+  - Autobahn-v3 (menu) : [Juan Martorell](https://github.com/jmartorell)
 - SFX
   - Metal Footsteps : https://freesound.org/people/mypantsfelldown/sounds/398937/
   - Welding_2_longer_bursts : https://freesound.org/people/ivolipa/sounds/385990/
   - Squishy Boings : https://freesound.org/people/NoiseCollector/sounds/67403/
   - Level Failed : https://freesound.org/people/mouse85224/sounds/371205/
-  - Victory : https://github.com/jmartorell
-  - Star : https://github.com/jmartorell
+  - Victory : [Juan Martorell](https://github.com/jmartorell)
+  - Star : [Juan Martorell](https://github.com/jmartorell)
   - Countdwn : https://freesound.org/people/tekgnosis/sounds/151268/
   - Explosion : https://freesound.org/people/plamdi1/sounds/95058/
