@@ -68,9 +68,9 @@ bool main_menu::create_menu_items()
   auto result = false;
   do
   {
-    UTILS_BREAK_IF(!add_text_button("Exit", CC_CALLBACK_0(main_menu::on_exit, this)));
-    UTILS_BREAK_IF(!add_text_button("Options", CC_CALLBACK_0(main_menu::on_options, this)));
-    UTILS_BREAK_IF(!add_text_button("PLAY!", CC_CALLBACK_0(main_menu::on_play, this)));
+    UTILS_BREAK_IF(add_text_button("Exit", CC_CALLBACK_0(main_menu::on_exit, this)) == nullptr);
+    UTILS_BREAK_IF(add_text_button("Options", CC_CALLBACK_0(main_menu::on_options, this)) == nullptr);
+    UTILS_BREAK_IF(add_text_button("PLAY!", CC_CALLBACK_0(main_menu::on_play, this)) == nullptr);
 
     result = true;
   }

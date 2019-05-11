@@ -68,8 +68,8 @@ bool play_menu::create_menu_items()
   auto result = false;
   do
   {
-    UTILS_BREAK_IF(!add_text_button("Back", CC_CALLBACK_0(play_menu::on_back, this)));
-    UTILS_BREAK_IF(!add_text_button("START!", CC_CALLBACK_0(play_menu::on_play, this)));
+    UTILS_BREAK_IF(add_text_button("Back", CC_CALLBACK_0(play_menu::on_back, this)) == nullptr);
+    UTILS_BREAK_IF(add_text_button("START!", CC_CALLBACK_0(play_menu::on_play, this)) == nullptr);
 
     result = true;
   }

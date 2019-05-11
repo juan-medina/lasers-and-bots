@@ -282,6 +282,29 @@ void menu_scene::display_play_menu() const
   play_menu_->display();
 }
 
+void menu_scene::change_music(const bool disabled) const
+{
+  const auto app = dynamic_cast<laser_and_bots_app*>(get_application());
+  const auto helper = get_audio_helper();
+
+  if (!disabled)
+  {
+    app->set_music_muted(disabled);
+    helper->resume_music();
+  }
+  else
+  {
+    helper->pause_music();
+    app->set_music_muted(disabled);
+  }
+}
+
+void menu_scene::change_sound(const bool disabled) const
+{
+  const auto app = dynamic_cast<laser_and_bots_app*>(get_application());
+  app->set_effects_muted(disabled);
+}
+
 void menu_scene::update(float delta)
 {
   const auto pos = background_->getPosition();

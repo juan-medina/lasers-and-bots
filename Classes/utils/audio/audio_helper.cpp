@@ -139,11 +139,13 @@ void audio_helper::app_exit()
 void audio_helper::stop_all_sounds()
 {
   AudioEngine::stopAll();
+  last_music_ = {AudioEngine::INVALID_AUDIO_ID, "", 1.f};
 }
 
 void audio_helper::unload_all_sounds()
 {
   AudioEngine::uncacheAll();
+  last_music_ = {AudioEngine::INVALID_AUDIO_ID, "", 1.f};
 }
 
 void audio_helper::stop_sound(const int sound)

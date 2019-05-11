@@ -50,6 +50,8 @@ public:
   void display_options_menu() const;
   void display_main_menu() const;
   void display_play_menu() const;
+  void change_music(const bool disabled) const;
+  void change_sound(const bool disabled) const;
 
   void update(float delta) override;
 

@@ -138,12 +138,15 @@ void basic_menu::add_button(MenuItem* item, const ccMenuCallback& callback)
 {
   item->setCallback(callback);
   buttons_.pushBack(item);
+
+  static const auto button_gap_y = 150.f;
+  const auto& size = item->getContentSize();
+  current_text_button_y_ += (size.height + button_gap_y);
 }
 
-bool basic_menu::add_text_button(const std::string& text, const ccMenuCallback& callback)
+MenuItem* basic_menu::create_text_button_base() const
 {
-  auto result = false;
-
+  MenuItem* result = nullptr;
   do
   {
     const auto sprite = Sprite::createWithSpriteFrameName("08_Text_1.png");
@@ -158,23 +161,116 @@ bool basic_menu::add_text_button(const std::string& text, const ccMenuCallback& 
     UTILS_BREAK_IF(item == nullptr);
 
     item->setPosition(0, current_text_button_y_);
+    item->setContentSize(sprite->getContentSize());
 
+    result = item;
+  }
+  while (false);
+
+  return result;
+}
+
+MenuItemToggle* basic_menu::create_toggle_button_base() const
+{
+  MenuItemToggle* result = nullptr;
+  do
+  {
+    const auto normal_sprite = Sprite::createWithSpriteFrameName("08_Text_1.png");
+    UTILS_BREAK_IF(normal_sprite == nullptr);
+    normal_sprite->setOpacity(190);
+
+    const auto sprite_click = Sprite::createWithSpriteFrameName("08_Text_2.png");
+    UTILS_BREAK_IF(sprite_click == nullptr);
+    sprite_click->setOpacity(190);
+
+    const auto normal_item = MenuItemSprite::create(normal_sprite, sprite_click);
+    UTILS_BREAK_IF(normal_item == nullptr);
+
+    const auto selected_sprite = Sprite::createWithSpriteFrameName("08_Text_3.png");
+    UTILS_BREAK_IF(selected_sprite == nullptr);
+    selected_sprite->setOpacity(190);
+
+    const auto click_selected_sprite = Sprite::createWithSpriteFrameName("08_Text_2.png");
+    UTILS_BREAK_IF(click_selected_sprite == nullptr);
+    click_selected_sprite->setOpacity(190);
+
+    const auto selected_item = MenuItemSprite::create(selected_sprite, click_selected_sprite);
+    UTILS_BREAK_IF(selected_item == nullptr);
+
+    const auto item_toggle = MenuItemToggle::create(normal_item);
+    UTILS_BREAK_IF(item_toggle == nullptr);
+
+    item_toggle->addSubItem(selected_item);
+
+    item_toggle->setPosition(0, current_text_button_y_);
+    item_toggle->setContentSize(normal_sprite->getContentSize());
+
+    result = item_toggle;
+  }
+  while (false);
+
+  return result;
+}
+
+Label* basic_menu::add_label(const std::string& text, MenuItem* item) const
+{
+  Label* result = nullptr;
+
+  do
+  {
     const auto label_button = Label::createWithTTF(text, "fonts/tahoma.ttf", 120);
     UTILS_BREAK_IF(label_button == nullptr);
 
-    label_button->setPosition(sprite->getContentSize().width / 2,
-                              sprite->getContentSize().height / 2 + 30);
+    label_button->setPosition(item->getContentSize().width / 2,
+                              item->getContentSize().height / 2 + 30);
     label_button->setTextColor(Color4B(255, 255, 255, 255));
     label_button->enableOutline(Color4B(0, 0, 0, 255), 5);
 
     item->addChild(label_button, 100);
 
-    static const auto button_gap_y = 150.f;
-    current_text_button_y_ += (sprite->getContentSize().height + button_gap_y);
+    result = label_button;
+  }
+  while (false);
+
+  return result;
+}
+
+MenuItem* basic_menu::add_text_button(const std::string& text, const ccMenuCallback& callback)
+{
+  MenuItem* result = nullptr;
+
+  do
+  {
+    const auto item = create_text_button_base();
+    UTILS_BREAK_IF(item == nullptr);
+
+    const auto label = add_label(text, item);
+    UTILS_BREAK_IF(label == nullptr);
 
     add_button(item, callback);
 
-    result = true;
+    result = item;
+  }
+  while (false);
+
+  return result;
+}
+
+MenuItemToggle* basic_menu::add_toggle_text_button(const std::string& text, const ccMenuCallback& callback)
+{
+  MenuItemToggle* result = nullptr;
+
+  do
+  {
+    const auto item = create_toggle_button_base();
+    UTILS_BREAK_IF(item == nullptr);
+
+    const auto label = add_label(text, item);
+    UTILS_BREAK_IF(label == nullptr);
+
+    add_button(item, callback);
+
+    result = item;
   }
   while (false);
 

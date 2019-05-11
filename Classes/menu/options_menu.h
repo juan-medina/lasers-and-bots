@@ -32,15 +32,24 @@ class options_menu final : public basic_menu
 public:
   using base_class = basic_menu;
 
+  options_menu();
+
   static options_menu* create(audio_helper* audio_helper);
 
   bool init(audio_helper* audio_helper);
+
+  void display() override;
 
 protected:
   bool create_menu_items() override;
 private:
 
   void on_back();
+  void on_music();
+  void on_sound();
+
+  MenuItemToggle* sound_toggle_;
+  MenuItemToggle* music_toggle_;
 };
 
 

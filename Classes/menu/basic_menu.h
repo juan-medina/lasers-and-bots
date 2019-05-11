@@ -35,9 +35,9 @@ public:
 
   bool init(const std::string& name, audio_helper* audio_helper);
 
-  void display();
+  virtual void display();
 
-  void hide();
+  virtual void hide();
 
   audio_helper* get_audio_helper() const
   {
@@ -48,7 +48,13 @@ protected:
 
   virtual bool create_menu_items() =0;
   void add_button(MenuItem* item, const ccMenuCallback& callback);
-  bool add_text_button(const std::string& text, const ccMenuCallback& callback);
+  MenuItem* create_text_button_base() const;
+  MenuItemToggle* create_toggle_button_base() const;
+  Label* add_label(const std::string& text, MenuItem* item) const;
+
+  MenuItem* add_text_button(const std::string& text, const ccMenuCallback& callback);
+  MenuItemToggle* add_toggle_text_button(const std::string& text, const ccMenuCallback& callback);
+
 
 private:
 
