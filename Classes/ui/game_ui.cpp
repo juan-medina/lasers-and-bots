@@ -259,7 +259,7 @@ void game_ui::on_pause(Ref* sender)
   scene->toggle_pause();
 
   if (scene->is_paused())
-  {    
+  {
     pause_item_->setSelectedIndex(1);
     pause_window_->display();
   }
@@ -350,6 +350,11 @@ void game_ui::update_countdown(const int value) const
   const auto scale_down = ScaleTo::create(0.25f, 1.0f, 1.0f);
   const auto scale = Sequence::create(scale_up, scale_down, nullptr);
   countdown_label_->runAction(scale);
+}
+
+void game_ui::display_pause_window() const
+{
+  pause_window_->display();
 }
 
 

@@ -221,6 +221,14 @@ void game_scene::cache_objects_textures()
   SpriteFrameCache::getInstance()->addSpriteFramesWithFile("objects/objects.plist");
 }
 
+void game_scene::will_enter_foreground()
+{
+  if (paused_)
+  {
+    game_ui_->display_pause_window();
+  }
+}
+
 Node* game_scene::provide_physics_node(const int gid)
 {
   const auto map = get_tiled_map();
@@ -718,7 +726,7 @@ void game_scene::set_countdown_number_in_ui(Ref* sender, const int value) const
 
 void game_scene::start()
 {
-  get_audio_helper()->play_music("sounds/music.mp3", 0.30f);
+  get_audio_helper()->play_music("sounds/music.mp3");
 
   resume();
   game_ui_->disable_buttons(false);

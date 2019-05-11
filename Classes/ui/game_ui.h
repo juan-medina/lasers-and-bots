@@ -68,6 +68,8 @@ public:
 
   void update_countdown(const int value) const;
 
+  void display_pause_window() const;
+
 private:
 
   void on_continue();

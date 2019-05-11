@@ -42,6 +42,13 @@ public:
 
   void update(float delta) override;
 
+  void pause() override;
+
+  void resume() override;
+
+  void did_enter_background() override;
+  void will_enter_foreground() override;
+
 private:
 
   bool init(basic_app* application);
@@ -53,6 +60,7 @@ private:
   main_menu* main_menu_;
 
   Node* background_;
+  bool paused_;
 };
 
 #endif // __MENU_SCENE_H__

@@ -20,6 +20,7 @@
 
 #include "basic_app.h"
 #include "../../audio/audio_helper.h"
+#include "../scene/basic_scene.h"
 
 basic_app::basic_app(const std::string& application_name, const float design_width, const float design_height,
                      const int screen_width, const int screen_height, const bool full_screen, const bool fit_all,
@@ -128,12 +129,26 @@ bool basic_app::applicationDidFinishLaunching()
 
 void basic_app::applicationDidEnterBackground()
 {
-  Director::getInstance()->stopAnimation();
+  const auto director = Director::getInstance();
+  director->stopAnimation();
+
+  const auto scene = dynamic_cast<basic_scene*>(director->getRunningScene());
+  if (scene != nullptr)
+  {
+    scene->did_enter_background();
+  }
 }
 
 void basic_app::applicationWillEnterForeground()
 {
-  Director::getInstance()->startAnimation();
+  const auto director = Director::getInstance();
+  director->startAnimation();
+
+  const auto scene = dynamic_cast<basic_scene*>(director->getRunningScene());
+  if (scene != nullptr)
+  {
+    scene->will_enter_foreground();
+  }
 }
 
 void basic_app::close()

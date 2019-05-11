@@ -79,6 +79,14 @@ audio_helper* basic_scene::get_audio_helper() const
   return application_->get_audio_helper();
 }
 
+void basic_scene::did_enter_background()
+{
+}
+
+void basic_scene::will_enter_foreground()
+{
+}
+
 void basic_scene::onExit()
 {
   base_class::onExit();

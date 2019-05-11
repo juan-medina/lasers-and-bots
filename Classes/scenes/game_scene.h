@@ -95,6 +95,8 @@ public:
     return paused_;
   }
 
+  void will_enter_foreground() override;
+
 private:
   // provide a physics node for a titled gid
   virtual Node* provide_physics_node(const int gid) override;

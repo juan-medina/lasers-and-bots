@@ -51,7 +51,8 @@ Scene* menu_scene::scene(basic_app* application)
 
 menu_scene::menu_scene():
   main_menu_(nullptr),
-  background_(nullptr)
+  background_(nullptr),
+  paused_(false)
 {
 }
 
@@ -254,4 +255,42 @@ void menu_scene::update(float delta)
   }
 
   background_->setPosition(new_pos);
+}
+
+void menu_scene::pause()
+{
+  base_class::pause();
+  if (!paused_)
+  {
+    const auto helper = get_audio_helper();
+    if (helper != nullptr)
+    {
+      helper->pause_music();
+    }
+    paused_ = true;
+  }
+}
+
+void menu_scene::resume()
+{
+  base_class::resume();
+  if (paused_)
+  {
+    const auto helper = get_audio_helper();
+    if (helper != nullptr)
+    {
+      helper->resume_music();
+    }
+    paused_ = false;
+  }
+}
+
+void menu_scene::did_enter_background()
+{
+  pause();
+}
+
+void menu_scene::will_enter_foreground()
+{
+  resume();
 }

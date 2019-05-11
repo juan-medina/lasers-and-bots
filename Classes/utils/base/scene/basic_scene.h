@@ -50,6 +50,9 @@ public:
 
   audio_helper* get_audio_helper() const;
 
+  virtual void did_enter_background();
+  virtual void will_enter_foreground();
+
 protected:
 
   void onExit() override;
