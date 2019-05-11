@@ -34,6 +34,7 @@
 #include "../ui/game_ui.h"
 #include "../ui/virtual_joy_stick.h"
 #include "../laser_and_bots_app.h"
+#include "../misc/level_manager.h"
 
 game_scene::game_scene() :
   robot_(nullptr),
@@ -48,17 +49,18 @@ game_scene::game_scene() :
   total_time_(0.f),
   time_limit_(0),
   level_name_(""),
-  barrel_count_(0)
+  barrel_count_(0),
+  level_(-1)
 {
 }
 
-Scene* game_scene::scene(basic_app* application, const bool debug_grid, const bool debug_physics)
+Scene* game_scene::scene(basic_app* application, const bool debug_grid, const bool debug_physics, const int level)
 {
   auto scene = new game_scene();
 
   if (scene)
   {
-    if (scene->init(application, debug_grid, debug_physics))
+    if (scene->init(application, debug_grid, debug_physics, level))
     {
       scene->autorelease();
     }
@@ -72,7 +74,7 @@ Scene* game_scene::scene(basic_app* application, const bool debug_grid, const bo
   return scene;
 }
 
-game_scene* game_scene::create(basic_app* application, const bool debug_grid, const bool debug_physics)
+game_scene* game_scene::create(basic_app* application, const bool debug_grid, const bool debug_physics, const int level)
 {
   game_scene* ret = nullptr;
 
@@ -81,7 +83,7 @@ game_scene* game_scene::create(basic_app* application, const bool debug_grid, co
     auto object = new game_scene();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(application, debug_physics, debug_grid))
+    if (object->init(application, debug_physics, debug_grid, level))
     {
       object->autorelease();
     }
@@ -98,14 +100,19 @@ game_scene* game_scene::create(basic_app* application, const bool debug_grid, co
   return ret;
 }
 
-bool game_scene::init(basic_app* application, const bool debug_grid, const bool debug_physics)
+bool game_scene::init(basic_app* application, const bool debug_grid, const bool debug_physics, const int level)
 {
   auto ret = false;
 
   do
   {
+    level_ = level;
+
+    const auto levels = dynamic_cast<laser_and_bots_app*>(application)->get_level_manager();
+    const auto map_level = levels->get_map_level(level_);
+
     // load the map
-    UTILS_BREAK_IF(!base_class::init(application, "maps/map.tmx", gravity, debug_physics));
+    UTILS_BREAK_IF(!base_class::init(application, map_level, gravity, debug_physics));
 
     calculate_camera_bounds();
 
@@ -676,9 +683,13 @@ void game_scene::game_over(const bool win)
 
     if (win)
     {
+      const auto levels = dynamic_cast<laser_and_bots_app*>(get_application())->get_level_manager();
+      const auto stars = calculate_stars();
+      levels->set_stars(level_, stars);
+
       get_audio_helper()->play_effect("sounds/victory.mp3");
       game_ui_->display_message("Level Completed", level_name_,
-                                CC_CALLBACK_0(game_scene::continue_button, this), calculate_stars());
+                                CC_CALLBACK_0(game_scene::continue_button, this), stars);
     }
     else
     {
@@ -819,7 +830,7 @@ void game_scene::reload()
   game_ui_->disable_buttons(true);
 
   auto app = dynamic_cast<laser_and_bots_app*>(application_);
-  app->to_game();
+  app->to_game(level_);
 }
 
 void game_scene::continue_button()

@@ -21,6 +21,8 @@
 #include "play_menu.h"
 #include "../utils/audio/audio_helper.h"
 #include "scenes/menu_scene.h"
+#include "../laser_and_bots_app.h"
+#include "../misc/level_manager.h"
 
 play_menu* play_menu::create(audio_helper* audio_helper)
 {
@@ -63,6 +65,33 @@ bool play_menu::init(audio_helper* audio_helper)
   return ret;
 }
 
+void play_menu::display()
+{
+  base_class::display();
+
+  const auto levels = get_level_manager();
+  const auto max_level = levels->get_num_levels();
+
+  for (const auto pair : level_buttons_)
+  {
+    const auto id = pair.first;
+    const auto item = pair.second;
+
+    item->setVisible(id <= max_level);
+
+    const auto stars = levels->get_stars(id);
+    item->setEnabled(levels->is_level_enabled(id));
+
+    for (auto star_counter = 0; star_counter < 3; ++star_counter)
+    {
+      const auto star = item->getChildByTag(star_tag + star_counter);
+      const auto is_gold = (star_counter + 1) <= stars;
+
+      star->setColor(is_gold ? Color3B(0, 255, 255) : Color3B::WHITE);
+    }
+  }
+}
+
 bool play_menu::create_menu_items()
 {
   auto result = false;
@@ -70,10 +99,10 @@ bool play_menu::create_menu_items()
   {
     UTILS_BREAK_IF(add_text_button("Back", CC_CALLBACK_0(play_menu::on_back, this)) == nullptr);
 
-    for (auto button_count = 0; button_count < 10; ++button_count)
+    for (auto button_count = 1; button_count <= 10; ++button_count)
     {
-      auto text = string_format("%02d", button_count + 1);
-      const auto button = add_image_button("02_joystick_empty", text, CC_CALLBACK_0(play_menu::on_play, this));
+      auto text = string_format("%02d", button_count);
+      auto button = add_image_button("02_joystick_empty", text, CC_CALLBACK_1(play_menu::on_play, this, button_count));
       UTILS_BREAK_IF(button == nullptr);
 
       auto star_pos = Vec2(60.f, 90.f);
@@ -85,15 +114,17 @@ bool play_menu::create_menu_items()
 
         star->setScale(0.20f);
         star->setPosition(star_pos);
-        //star->setColor(Color3B(0, 255, 255));
 
         button->addChild(star);
         star_pos.x += (star->getContentSize().width * star->getScale());
+        star->setTag(star_tag + star_counter);
       }
 
+      button->setVisible(false);
 
-      button->setEnabled(button_count == 0);
+      level_buttons_.insert(std::pair<int, MenuItem*>(button_count, button));
     }
+
     result = true;
   }
   while (false);
@@ -108,10 +139,17 @@ void play_menu::on_back()
   menu->display_main_menu();
 }
 
-void play_menu::on_play()
+void play_menu::on_play(Ref*, const int level)
 {
   get_audio_helper()->play_effect("sounds/select.mp3");
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->go_to_game();
+  menu->go_to_game(level);
+}
+
+level_manager* play_menu::get_level_manager()
+{
+  const auto menu = dynamic_cast<menu_scene*>(getParent());
+  const auto app = dynamic_cast<laser_and_bots_app*>(menu->get_application());
+  return app->get_level_manager();
 }

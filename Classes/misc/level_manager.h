@@ -18,44 +18,41 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __LOADING_SCENE_H__
-#define __LOADING_SCENE_H__
+#ifndef __LEVEL_MANAGER_H__
+#define __LEVEL_MANAGER_H__
 
-#include "../utils/base/scene/basic_scene.h"
+#include "../utils/utils.h"
 
-// forward declarations
-enum class menu_to_display;
-
-class loading_scene final : public basic_scene
+// class that represent a audio engine
+class level_manager final : public Ref
 {
 public:
-  using base_class = basic_scene;
+  typedef Ref parent;
 
-  loading_scene();
+  level_manager();
+  ~level_manager();
 
-  ~loading_scene();
+  bool init();
+  void end();
 
-  static Scene* game(basic_app* application, const bool debug_grid, const bool debug_physics, const int level);
-  static Scene* menu(basic_app* application, const menu_to_display menu);
+  void set_stars(const unsigned short int level, const unsigned short int stars) const;
+  unsigned short int get_stars(const unsigned short int level) const;
+
+  const unsigned short int& get_num_levels() const
+  {
+    return num_levels_;
+  }
+
+  bool is_level_enabled(const unsigned short int level) const;
+
+  std::string get_map_level(const short int level) const;
 
 private:
 
-  enum class load_to
-  {
-    to_game,
-    to_menu
-  };
+  bool initiated_;
+  unsigned short int num_levels_;
 
-  bool init(basic_app* application, const load_to& type, const bool debug_grid, const bool debug_physics,
-            menu_to_display menu, const int level);
-
-  void go_to_scene() const;
-
-  load_to type_;
-  bool debug_grid_;
-  bool debug_physics_;
-  menu_to_display menu_;
-  int level_;
+  ValueMap level_data_;
 };
 
-#endif // __LOADING_SCENE_H__
+#endif // __LEVEL_MANAGER_H__

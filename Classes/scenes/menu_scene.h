@@ -45,7 +45,7 @@ public:
 
   static Scene* scene(basic_app* application, menu_to_display menu);
 
-  void go_to_game();
+  void go_to_game(const int level);
   void exit_app();
   void display_options_menu() const;
   void display_main_menu() const;
@@ -64,6 +64,7 @@ public:
 
 private:
 
+  void delay_to_game();
   bool init(basic_app* application, menu_to_display menu);
 
   bool add_background();
@@ -76,6 +77,7 @@ private:
 
   Node* background_;
   bool paused_;
+  int saved_level_;
 };
 
 #endif // __MENU_SCENE_H__

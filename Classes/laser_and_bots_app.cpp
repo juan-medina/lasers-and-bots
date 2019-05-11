@@ -22,6 +22,7 @@
 #include "scenes/loading_scene.h"
 #include "scenes/menu_scene.h"
 #include "utils/audio/audio_helper.h"
+#include "misc/level_manager.h"
 
 laser_and_bots_app::laser_and_bots_app()
   : laser_and_bots_app(0, 0, true)
@@ -34,8 +35,14 @@ laser_and_bots_app::laser_and_bots_app(const int screen_width, const int screen_
     effects_muted_(false),
     music_muted_(false),
     debug_grid_(false),
-    debug_physics_(false)
+    debug_physics_(false),
+    level_manager_(nullptr)
 {
+}
+
+laser_and_bots_app::~laser_and_bots_app()
+{
+  delete level_manager_;
 }
 
 Scene* laser_and_bots_app::init_scene()
@@ -43,7 +50,7 @@ Scene* laser_and_bots_app::init_scene()
   return main_menu_scene();
 }
 
-Scene* laser_and_bots_app::game_scene()
+Scene* laser_and_bots_app::game_scene(const int level)
 {
   effects_muted_ = UserDefault::getInstance()->getBoolForKey("effects_muted", effects_muted_);
   music_muted_ = UserDefault::getInstance()->getBoolForKey("music_muted", music_muted_);
@@ -52,8 +59,9 @@ Scene* laser_and_bots_app::game_scene()
 
   audio_helper_->set_effects_muted(effects_muted_);
   audio_helper_->set_music_muted(music_muted_);
+  setup_level_manager();
 
-  return loading_scene::game(this, debug_grid_, debug_physics_);
+  return loading_scene::game(this, debug_grid_, debug_physics_, level);
 }
 
 Scene* laser_and_bots_app::main_menu_scene()
@@ -63,6 +71,7 @@ Scene* laser_and_bots_app::main_menu_scene()
 
   audio_helper_->set_effects_muted(effects_muted_);
   audio_helper_->set_music_muted(music_muted_);
+  setup_level_manager();
 
   return loading_scene::menu(this, menu_to_display::main_menu);
 }
@@ -71,6 +80,7 @@ Scene* laser_and_bots_app::play_menu_scene()
 {
   effects_muted_ = UserDefault::getInstance()->getBoolForKey("effects_muted", effects_muted_);
   music_muted_ = UserDefault::getInstance()->getBoolForKey("music_muted", music_muted_);
+  setup_level_manager();
 
   audio_helper_->set_effects_muted(effects_muted_);
   audio_helper_->set_music_muted(music_muted_);
@@ -92,9 +102,9 @@ void laser_and_bots_app::set_music_muted(const bool music_muted)
   audio_helper_->set_music_muted(music_muted_);
 }
 
-void laser_and_bots_app::to_game()
+void laser_and_bots_app::to_game(const int level)
 {
-  Director::getInstance()->replaceScene(game_scene());
+  Director::getInstance()->replaceScene(game_scene(level));
 }
 
 void laser_and_bots_app::to_main_menu()
@@ -111,4 +121,14 @@ void laser_and_bots_app::applicationDidEnterBackground()
 {
   const auto scene = Director::getInstance()->getRunningScene();
   scene->pause();
+}
+
+void laser_and_bots_app::setup_level_manager()
+{
+  if (level_manager_ == nullptr)
+  {
+    level_manager_ = new level_manager();
+  }
+
+  level_manager_->init();
 }

@@ -23,6 +23,9 @@
 
 #include "utils/base/app/basic_app.h"
 
+// forward declarations
+class level_manager;
+
 // this game application
 class laser_and_bots_app final : public basic_app
 {
@@ -33,9 +36,11 @@ public:
 
   laser_and_bots_app(const int screen_width, const int screen_height, const bool full_screen);
 
+  ~laser_and_bots_app();
+
   Scene* init_scene() override;
 
-  Scene* game_scene();
+  Scene* game_scene(const int level);
   Scene* main_menu_scene();
   Scene* play_menu_scene();
 
@@ -43,18 +48,26 @@ public:
 
   void set_music_muted(const bool music_muted);
 
-  void to_game();
+  void to_game(const int level);
   void to_main_menu();
   void to_play_menu();
 
   void applicationDidEnterBackground() override;
 
+  level_manager* get_level_manager() const
+  {
+    return level_manager_;
+  }
+
 private:
+
+  void setup_level_manager();
 
   bool effects_muted_;
   bool music_muted_;
   bool debug_grid_;
   bool debug_physics_;
+  level_manager* level_manager_;
 };
 
 #endif // _APP_DELEGATE_H_

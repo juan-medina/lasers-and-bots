@@ -30,7 +30,8 @@ menu_scene::menu_scene() :
   options_menu_(nullptr),
   play_menu_(nullptr),
   background_(nullptr),
-  paused_(false)
+  paused_(false),
+  saved_level_(-1)
 {
 }
 
@@ -245,13 +246,12 @@ bool menu_scene::add_laser()
   return result;
 }
 
-void menu_scene::go_to_game()
+void menu_scene::go_to_game(const int level)
 {
-  auto app = dynamic_cast<laser_and_bots_app*>(get_application());
-
   const auto delay = DelayTime::create(1.15f);
-  const auto func = CallFunc::create(CC_CALLBACK_0(laser_and_bots_app::to_game, app));
+  const auto func = CallFunc::create(CC_CALLBACK_0(menu_scene::delay_to_game, this));
   const auto sequence = Sequence::create(delay, func, nullptr);
+  saved_level_ = level;
 
   runAction(sequence);
 }
@@ -354,4 +354,10 @@ void menu_scene::did_enter_background()
 void menu_scene::will_enter_foreground()
 {
   resume();
+}
+
+void menu_scene::delay_to_game()
+{
+  auto app = dynamic_cast<laser_and_bots_app*>(get_application());
+  app->to_game(saved_level_);
 }

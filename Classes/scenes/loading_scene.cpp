@@ -24,7 +24,7 @@
 #include "../utils/base/app/basic_app.h"
 #include "../utils/audio/audio_helper.h"
 
-Scene* loading_scene::game(basic_app* application, const bool debug_grid, const bool debug_physics)
+Scene* loading_scene::game(basic_app* application, const bool debug_grid, const bool debug_physics, const int level)
 {
   loading_scene* ret = nullptr;
 
@@ -33,7 +33,7 @@ Scene* loading_scene::game(basic_app* application, const bool debug_grid, const 
     auto object = new loading_scene();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(application, load_to::to_game, debug_grid, debug_physics, menu_to_display::main_menu))
+    if (object->init(application, load_to::to_game, debug_grid, debug_physics, menu_to_display::main_menu, level))
     {
       object->autorelease();
     }
@@ -59,7 +59,7 @@ Scene* loading_scene::menu(basic_app* application, menu_to_display menu)
     auto object = new loading_scene();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(application, load_to::to_menu, false, false, menu))
+    if (object->init(application, load_to::to_menu, false, false, menu, -1))
     {
       object->autorelease();
     }
@@ -79,7 +79,9 @@ Scene* loading_scene::menu(basic_app* application, menu_to_display menu)
 loading_scene::loading_scene():
   type_(load_to::to_game),
   debug_grid_(false),
-  debug_physics_(false)
+  debug_physics_(false),
+  menu_(menu_to_display::main_menu),
+  level_(-1)
 {
 }
 
@@ -89,7 +91,7 @@ loading_scene::~loading_scene()
 }
 
 bool loading_scene::init(basic_app* application, const load_to& type, const bool debug_grid, const bool debug_physics,
-                         menu_to_display menu)
+                         const menu_to_display menu, const int level)
 {
   auto ret = false;
 
@@ -97,6 +99,7 @@ bool loading_scene::init(basic_app* application, const load_to& type, const bool
   {
     type_ = type;
     menu_ = menu;
+    level_ = level;
 
     UTILS_BREAK_IF(!base_class::init(application));
 
@@ -153,7 +156,7 @@ void loading_scene::go_to_scene() const
     switch (type_)
     {
     case load_to::to_game:
-      scene = game_scene::scene(application_, debug_grid_, debug_physics_);
+      scene = game_scene::scene(application_, debug_grid_, debug_physics_, level_);
       break;
     case load_to::to_menu:
       scene = menu_scene::scene(application_, menu_);
