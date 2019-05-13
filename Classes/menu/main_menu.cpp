@@ -20,7 +20,7 @@
 
 #include "main_menu.h"
 #include "../utils/audio/audio_helper.h"
-#include "scenes/menu_scene.h"
+#include "../scenes/menu_scene.h"
 
 main_menu* main_menu::create(audio_helper* audio_helper)
 {

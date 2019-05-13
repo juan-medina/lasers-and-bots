@@ -20,7 +20,7 @@
 
 #include "play_menu.h"
 #include "../utils/audio/audio_helper.h"
-#include "scenes/menu_scene.h"
+#include "../scenes/menu_scene.h"
 #include "../laser_and_bots_app.h"
 #include "../misc/level_manager.h"
 

@@ -20,7 +20,7 @@
 
 #include "options_menu.h"
 #include "../utils/audio/audio_helper.h"
-#include "scenes/menu_scene.h"
+#include "../scenes/menu_scene.h"
 
 options_menu::options_menu():
   sound_toggle_(nullptr),
