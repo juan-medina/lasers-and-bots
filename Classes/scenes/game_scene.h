@@ -92,7 +92,7 @@ public:
 
   void close();
 
-  boolean is_paused() const
+  bool is_paused() const
   {
     return paused_;
   }
