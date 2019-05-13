@@ -79,7 +79,7 @@ bool menu_scene::init(basic_app* application, menu_to_display menu)
 
     get_audio_helper()->pre_load_effect("sounds/select.mp3");
     get_audio_helper()->pre_load_effect("sounds/SlideClosed.mp3");
-    get_audio_helper()->pre_load_music("sounds/menu.mp3");
+    get_audio_helper()->pre_load_music("sounds/Cellar-I.mp3", "sounds/Cellar-L.mp3");
     const auto& size = Director::getInstance()->getWinSize();
 
     UTILS_BREAK_IF(!add_background());
@@ -124,7 +124,7 @@ bool menu_scene::init(basic_app* application, menu_to_display menu)
       break;
     }
 
-    get_audio_helper()->play_music("sounds/menu.mp3");
+    get_audio_helper()->play_music("sounds/Cellar-I.mp3", "sounds/Cellar-L.mp3");
 
     scheduleUpdate();
 

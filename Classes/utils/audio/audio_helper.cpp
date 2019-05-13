@@ -27,7 +27,14 @@ audio_helper::audio_helper() :
   initiated_(false),
   music_muted_(false),
   effects_muted_(false),
-  last_music_{AudioEngine::INVALID_AUDIO_ID, "", 1.f}
+  last_music_
+  {
+    AudioEngine::INVALID_AUDIO_ID,
+    AudioEngine::INVALID_AUDIO_ID,
+    "",
+    "",
+    1.f
+  }
 {
   init();
 }
@@ -74,13 +81,37 @@ int audio_helper::play_effect(const std::string& file_name, const bool loop /*= 
   return AudioEngine::play2d(file_name, loop, volume);
 }
 
-void audio_helper::play_music(const std::string& file_name, const float volume /*= 1.0f*/)
+void audio_helper::play_music(const std::string& loop_file_name, const float volume /*= 1.0f*/)
 {
-  last_music_.filename = std::string(file_name);
+  last_music_.intro_id = AudioEngine::INVALID_AUDIO_ID;
+  last_music_.intro_file_name = "";
+  last_music_.loop_file_name = std::string(loop_file_name);
   last_music_.volume = volume;
   if (!get_music_muted())
   {
-    last_music_.id = AudioEngine::play2d(file_name, true, volume);
+    last_music_.loop_id = AudioEngine::play2d(loop_file_name, true, volume);
+  }
+}
+
+void audio_helper::on_music_intro_ends(const int id, const std::string& file_path)
+{
+  if ((id == last_music_.intro_id) && (file_path == last_music_.intro_file_name))
+  {
+    play_music(last_music_.loop_file_name, last_music_.volume);
+  }
+}
+
+void audio_helper::play_music(const std::string& intro_file_name, const std::string& loop_file_name,
+                              const float volume /*= 1.0f*/)
+{
+  last_music_.loop_id = AudioEngine::INVALID_AUDIO_ID;
+  last_music_.intro_file_name = std::string(intro_file_name);
+  last_music_.loop_file_name = std::string(loop_file_name);
+  last_music_.volume = volume;
+  if (!get_music_muted())
+  {
+    last_music_.intro_id = AudioEngine::play2d(intro_file_name, false, volume);
+    AudioEngine::setFinishCallback(last_music_.intro_id, CC_CALLBACK_2(audio_helper::on_music_intro_ends, this));
   }
 }
 
@@ -89,9 +120,15 @@ void audio_helper::pre_load_effect(const std::string& file_name) const
   AudioEngine::preload(file_name);
 }
 
-void audio_helper::pre_load_music(const std::string& file_name) const
+void audio_helper::pre_load_music(const std::string& loop_file_name) const
 {
-  AudioEngine::preload(file_name);
+  AudioEngine::preload(loop_file_name);
+}
+
+void audio_helper::pre_load_music(const std::string& intro_file_name, const std::string& loop_file_name) const
+{
+  AudioEngine::preload(intro_file_name);
+  AudioEngine::preload(loop_file_name);
 }
 
 void audio_helper::unload_effect(const std::string& file_name) const
@@ -101,31 +138,40 @@ void audio_helper::unload_effect(const std::string& file_name) const
 
 void audio_helper::pause_music() const
 {
-  if (last_music_.id != AudioEngine::INVALID_AUDIO_ID)
+  if (!get_music_muted())
   {
-    if (!get_music_muted())
+    if (last_music_.intro_id != AudioEngine::INVALID_AUDIO_ID)
     {
-      AudioEngine::pause(last_music_.id);
+      AudioEngine::pause(last_music_.intro_id);
+    }
+    else if (last_music_.loop_id != AudioEngine::INVALID_AUDIO_ID)
+    {
+      AudioEngine::pause(last_music_.loop_id);
     }
   }
 }
 
 void audio_helper::resume_music()
 {
-  if (last_music_.id != AudioEngine::INVALID_AUDIO_ID)
+  if (!get_music_muted())
   {
-    if (!get_music_muted())
+    if (last_music_.intro_id != AudioEngine::INVALID_AUDIO_ID)
     {
-      AudioEngine::resume(last_music_.id);
+      AudioEngine::resume(last_music_.intro_id);
     }
-  }
-  else
-  {
-    if (!get_music_muted())
+    else if (last_music_.loop_id != AudioEngine::INVALID_AUDIO_ID)
     {
-      if (!last_music_.filename.empty())
+      AudioEngine::resume(last_music_.loop_id);
+    }
+    else
+    {
+      if (!last_music_.intro_file_name.empty())
       {
-        play_music(last_music_.filename, last_music_.volume);
+        play_music(last_music_.intro_file_name, last_music_.loop_file_name, last_music_.volume);
+      }
+      else if (!last_music_.loop_file_name.empty())
+      {
+        play_music(last_music_.loop_file_name, last_music_.volume);
       }
     }
   }
@@ -139,13 +185,25 @@ void audio_helper::app_exit()
 void audio_helper::stop_all_sounds()
 {
   AudioEngine::stopAll();
-  last_music_ = {AudioEngine::INVALID_AUDIO_ID, "", 1.f};
+  last_music_ = {
+    AudioEngine::INVALID_AUDIO_ID,
+    AudioEngine::INVALID_AUDIO_ID,
+    "",
+    "",
+    1.f
+  };
 }
 
 void audio_helper::unload_all_sounds()
 {
   AudioEngine::uncacheAll();
-  last_music_ = {AudioEngine::INVALID_AUDIO_ID, "", 1.f};
+  last_music_ = {
+    AudioEngine::INVALID_AUDIO_ID,
+    AudioEngine::INVALID_AUDIO_ID,
+    "",
+    "",
+    1.f
+  };
 }
 
 void audio_helper::stop_sound(const int sound)

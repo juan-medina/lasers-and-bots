@@ -33,10 +33,12 @@ public:
   ~audio_helper();
 
   int play_effect(const std::string& file_name, const bool loop = false, const float volume = 1.0f) const;
-  void play_music(const std::string& file_name, const float volume = 1.0f);
+  void play_music(const std::string& loop_file_name, const float volume = 1.0f);
+  void play_music(const std::string& intro_file_name, const std::string& loop_file_name, const float volume = 1.0f);
 
   void pre_load_effect(const std::string& file_name) const;
-  void pre_load_music(const std::string& file_name) const;
+  void pre_load_music(const std::string& loop_file_name) const;
+  void pre_load_music(const std::string& intro_file_name, const std::string& loop_file_name) const;
   void unload_effect(const std::string& file_name) const;
   void stop_all_sounds();
   void unload_all_sounds();
@@ -74,6 +76,7 @@ public:
 
 private:
 
+  void on_music_intro_ends(const int id, const std::string& file_path);
   bool init();
 
   bool initiated_;
@@ -82,8 +85,10 @@ private:
 
   struct last_music
   {
-    int id;
-    std::string filename;
+    int loop_id;
+    int intro_id;
+    std::string intro_file_name;
+    std::string loop_file_name;
     float volume;
   };
 
