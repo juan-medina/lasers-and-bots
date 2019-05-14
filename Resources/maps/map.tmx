@@ -206,7 +206,7 @@
     <property name="target" value="exit_door"/>
    </properties>
   </object>
-  <object id="16" name="saw1" type="saw" gid="31" x="2069.33" y="1950.33" width="256" height="256">
+  <object id="16" name="saw1" type="saw" gid="34" x="2069.33" y="1950.33" width="256" height="256">
    <properties>
     <property name="damage" type="int" value="10"/>
     <property name="image" value="07_Saw.png"/>
@@ -248,7 +248,7 @@
     <property name="shape" value="03_Box"/>
    </properties>
   </object>
-  <object id="48" name="saw2" type="saw" gid="31" x="10514.8" y="2171.54" width="256" height="256">
+  <object id="48" name="saw2" type="saw" gid="34" x="10514.8" y="2171.54" width="256" height="256">
    <properties>
     <property name="damage" type="int" value="10"/>
     <property name="image" value="07_Saw.png"/>

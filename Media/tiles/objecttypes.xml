@@ -8,4 +8,14 @@
   <property name="image" type="string" default="03_Box.png"/>
   <property name="shape" type="string" default="03_Box.png"/>
  </objecttype>
+ <objecttype name="saw" color="#5500ff">
+  <property name="damage" type="int" default="10"/>
+  <property name="image" type="string" default="07_Saw.png"/>
+  <property name="movement" type="float" default="2500"/>
+  <property name="movement_time" type="float" default="3"/>
+  <property name="restitution" type="float" default="0.5"/>
+  <property name="rotation_time" type="float" default="2"/>
+  <property name="shape" type="string" default="07_Saw"/>
+  <property name="stop_time" type="float" default="1"/>
+ </objecttype>
 </objecttypes>
