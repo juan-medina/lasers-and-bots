@@ -28,4 +28,7 @@
   <property name="shape" type="string" default="07_Saw"/>
   <property name="stop_time" type="float" default="1"/>
  </objecttype>
+ <objecttype name="switch" color="#aaffff">
+  <property name="target" type="string" default="object"/>
+ </objecttype>
 </objecttypes>
