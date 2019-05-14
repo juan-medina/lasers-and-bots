@@ -8,6 +8,9 @@
   <property name="image" type="string" default="03_Box.png"/>
   <property name="shape" type="string" default="03_Box.png"/>
  </objecttype>
+ <objecttype name="door" color="#55ffff">
+  <property name="image" type="string" default="04_DoorLocked.png"/>
+ </objecttype>
  <objecttype name="laser" color="#ffff00">
   <property name="damage" type="int" default="10"/>
   <property name="speed" type="float" default="4.5"/>

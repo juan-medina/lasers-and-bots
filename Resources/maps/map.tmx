@@ -191,7 +191,7 @@
     <property name="speed" type="float" value="4.5"/>
    </properties>
   </object>
-  <object id="13" name="exit_door" type="door" gid="31" x="251.121" y="2560" width="256" height="256">
+  <object id="13" name="exit_door" type="door" gid="35" x="251.121" y="2560" width="256" height="256">
    <properties>
     <property name="image" value="04_DoorLocked.png"/>
    </properties>

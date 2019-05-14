@@ -208,6 +208,7 @@
             <key type="filename">../tiles/033_barrel.png</key>
             <key type="filename">../tiles/034_box.png</key>
             <key type="filename">../tiles/034_saw.png</key>
+            <key type="filename">../tiles/035_saw.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
