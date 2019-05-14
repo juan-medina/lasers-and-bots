@@ -8,6 +8,13 @@
   <property name="image" type="string" default="03_Box.png"/>
   <property name="shape" type="string" default="03_Box.png"/>
  </objecttype>
+ <objecttype name="laser" color="#ffff00">
+  <property name="damage" type="int" default="10"/>
+  <property name="speed" type="float" default="4.5"/>
+ </objecttype>
+ <objecttype name="robot" color="#00ff00">
+  <property name="shield" type="int" default="1000"/>
+ </objecttype>
  <objecttype name="saw" color="#5500ff">
   <property name="damage" type="int" default="10"/>
   <property name="image" type="string" default="07_Saw.png"/>
