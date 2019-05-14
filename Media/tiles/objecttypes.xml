@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objecttypes>
+ <objecttype name="barrel" color="#ff0000">
+  <property name="image" type="string" default="02_Barrel (2).png"/>
+  <property name="shape" type="string" default="02_Barrel"/>
+ </objecttype>
+ <objecttype name="box" color="#00ff00">
+  <property name="image" type="string" default="03_Box.png"/>
+  <property name="shape" type="string" default="03_Box.png"/>
+ </objecttype>
+</objecttypes>

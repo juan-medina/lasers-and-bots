@@ -242,7 +242,7 @@
     <property name="shape" value="02_Barrel"/>
    </properties>
   </object>
-  <object id="47" name="box1" type="box" gid="31" x="9444.22" y="2042.73" width="256" height="256">
+  <object id="47" name="box1" type="box" gid="33" x="9338.22" y="2047.4" width="256" height="256">
    <properties>
     <property name="image" value="03_Box.png"/>
     <property name="shape" value="03_Box"/>
