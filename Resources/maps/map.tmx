@@ -218,25 +218,25 @@
     <property name="stop_time" type="float" value="1"/>
    </properties>
   </object>
-  <object id="17" name="barrel4" type="barrel" gid="31" x="1513.21" y="5108.83" width="256" height="256" rotation="-30">
+  <object id="17" name="barrel4" type="barrel" gid="32" x="1513.21" y="5108.83" width="256" height="256" rotation="-30">
    <properties>
     <property name="image" value="02_Barrel (2).png"/>
     <property name="shape" value="02_Barrel"/>
    </properties>
   </object>
-  <object id="44" name="barrel3" type="barrel" gid="31" x="5246.51" y="4749.11" width="256" height="256" rotation="15.504">
+  <object id="44" name="barrel3" type="barrel" gid="32" x="5246.51" y="4749.11" width="256" height="256" rotation="15.504">
    <properties>
     <property name="image" value="02_Barrel (2).png"/>
     <property name="shape" value="02_Barrel"/>
    </properties>
   </object>
-  <object id="45" name="barrel2" type="barrel" gid="31" x="5888.93" y="5023.21" width="256" height="256" rotation="-56.7525">
+  <object id="45" name="barrel2" type="barrel" gid="32" x="5888.93" y="5023.21" width="256" height="256" rotation="-56.7525">
    <properties>
     <property name="image" value="02_Barrel (2).png"/>
     <property name="shape" value="02_Barrel"/>
    </properties>
   </object>
-  <object id="46" name="barrel1" type="barrel" gid="31" x="6339.88" y="4818.58" width="256" height="256" rotation="-101.998">
+  <object id="46" name="barrel1" type="barrel" gid="32" x="6339.88" y="4818.58" width="256" height="256" rotation="-101.998">
    <properties>
     <property name="image" value="02_Barrel (2).png"/>
     <property name="shape" value="02_Barrel"/>
