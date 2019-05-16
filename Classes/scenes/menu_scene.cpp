@@ -66,7 +66,7 @@ menu_scene::~menu_scene()
   base_class::removeAllChildrenWithCleanup(true);
 }
 
-bool menu_scene::init(basic_app* application, menu_to_display menu)
+bool menu_scene::init(basic_app* application, const menu_to_display menu)
 {
   auto ret = false;
 

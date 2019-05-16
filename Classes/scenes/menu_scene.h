@@ -65,7 +65,7 @@ public:
 private:
 
   void delay_to_game();
-  bool init(basic_app* application, menu_to_display menu);
+  bool init(basic_app* application, const menu_to_display menu);
 
   bool add_background();
   bool add_robot();
