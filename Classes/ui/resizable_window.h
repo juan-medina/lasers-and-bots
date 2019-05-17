@@ -22,15 +22,25 @@
 
 #include "../utils/utils.h"
 
-class resizable_window final : public Node
+class resizable_window : public Node
 {
 public:
   using base_class = Node;
 
+  resizable_window();
+
   static resizable_window* create(const std::string& title, const float width, const float height);
 
   bool init(const std::string& title, const float width, const float height);
+
+  void set_title(const std::string& title) const
+  {
+    label_title_->setString(title);
+  }
+
 private:
+
+  Label* label_title_;
 };
 
 #endif // __RESIZABLE_WINDOW_CLASS__

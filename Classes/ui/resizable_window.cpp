@@ -1,5 +1,10 @@
 #include "resizable_window.h"
 
+resizable_window::resizable_window():
+  label_title_(nullptr)
+{
+}
+
 resizable_window* resizable_window::create(const std::string& title, const float width, const float height)
 {
   resizable_window* ret = nullptr;
@@ -153,17 +158,16 @@ bool resizable_window::init(const std::string& title, const float width, const f
 
     addChild(header, 100);
 
-    const auto label = Label::createWithTTF(title, "fonts/tahoma.ttf", 150);
-    UTILS_BREAK_IF(label == nullptr);
+    label_title_ = Label::createWithTTF(title, "fonts/tahoma.ttf", 150);
+    UTILS_BREAK_IF(label_title_ == nullptr);
 
-    label->setTextColor(Color4B(0, 255, 255, 255));
-    label->enableOutline(Color4B(0, 0, 0, 255), 5);
-    label->enableShadow(Color4B(255, 255, 255, 127), Size(5, -5));
+    label_title_->setTextColor(Color4B(0, 255, 255, 255));
+    label_title_->enableOutline(Color4B(0, 0, 0, 255), 5);
+    label_title_->enableShadow(Color4B(255, 255, 255, 127), Size(5, -5));
 
-    label->setPosition(header->getContentSize().width / 2, (header->getContentSize().height / 2) + 100);
+    label_title_->setPosition(header->getContentSize().width / 2, (header->getContentSize().height / 2) + 100);
 
-    header->addChild(label, 100);
-
+    header->addChild(label_title_, 100);
 
     setContentSize(Size(real_width, real_height));
     setCascadeOpacityEnabled(true);

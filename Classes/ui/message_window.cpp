@@ -1,10 +1,10 @@
 #include "message_window.h"
 #include "../utils/audio/audio_helper.h"
+#include "resizable_window.h"
 
 message_window::message_window():
   audio_helper_(nullptr),
   continue_item_(nullptr),
-  label_(nullptr),
   sub_label_(nullptr)
 {
 }
@@ -42,47 +42,25 @@ bool message_window::init(audio_helper* audio_helper)
   do
   {
     audio_helper_ = audio_helper;
-    UTILS_BREAK_IF(!base_class::init());
-
-    audio_helper_->pre_load_effect("sounds/star.mp3");
 
     const auto& size = Director::getInstance()->getVisibleSize();
 
     const auto dark_all = LayerColor::create(Color4B(0, 0, 0, 127));
     UTILS_BREAK_IF(dark_all == nullptr);
 
+    dark_all->setPosition(-size.width / 2, 0);
+
     addChild(dark_all, 0);
 
-    const auto background = Sprite::createWithSpriteFrameName("10_message.png");
-    UTILS_BREAK_IF(background == nullptr);
+    UTILS_BREAK_IF(!base_class::init("message", 1800.f, 1300.f));
 
-    const auto horizontal_segment = background->getContentSize().width;
-    const auto vertical_segment = background->getContentSize().height;
-    setCascadeOpacityEnabled(true);
-    background->setCascadeOpacityEnabled(true);
-    background->setPosition(size.width / 2, size.height / 2);
-    background->setColor(Color3B(0, 255, 255));
+    audio_helper_->pre_load_effect("sounds/star.mp3");
 
-    addChild(background, 100);
+    const auto horizontal_segment = getContentSize().width;
+    const auto vertical_segment = getContentSize().height;
 
-    const auto header = Sprite::createWithSpriteFrameName("11_message_header.png");
-    UTILS_BREAK_IF(header == nullptr);
-
-    header->setPosition(horizontal_segment / 2, vertical_segment);
-    header->setColor(Color3B(0, 127, 127));
-
-    background->addChild(header, 100);
-
-    label_ = Label::createWithTTF("", "fonts/tahoma.ttf", 150);
-    UTILS_BREAK_IF(label_ == nullptr);
-
-    label_->setTextColor(Color4B(0, 255, 255, 255));
-    label_->enableOutline(Color4B(0, 0, 0, 255), 5);
-    label_->enableShadow(Color4B(255, 255, 255, 127), Size(5, -5));
-
-    label_->setPosition(header->getContentSize().width / 2, (header->getContentSize().height / 2) + 100);
-
-    header->addChild(label_, 100);
+    setPosition(size.width / 2, size.height / 2);
+    setColor(Color3B(0, 255, 255));
 
     sub_label_ = Label::createWithTTF("", "fonts/tahoma.ttf", 100);
     UTILS_BREAK_IF(sub_label_ == nullptr);
@@ -90,9 +68,9 @@ bool message_window::init(audio_helper* audio_helper)
     sub_label_->setTextColor(Color4B(255, 255, 255, 255));
     sub_label_->enableOutline(Color4B(0, 0, 0, 255), 5);
 
-    sub_label_->setPosition(background->getContentSize().width / 2, (background->getContentSize().height) - 250);
+    sub_label_->setPosition(0.f, (getContentSize().height / 2) - 250);
 
-    background->addChild(sub_label_, 100);
+    addChild(sub_label_, 100);
 
     const auto continue_sprite = Sprite::createWithSpriteFrameName("08_Text_1.png");
     UTILS_BREAK_IF(continue_sprite == nullptr);
@@ -103,7 +81,7 @@ bool message_window::init(audio_helper* audio_helper)
     continue_item_ = MenuItemSprite::create(continue_sprite, continue_sprite_click);
     UTILS_BREAK_IF(continue_item_ == nullptr);
 
-    continue_item_->setPosition(horizontal_segment / 2, 0);
+    continue_item_->setPosition(0, 0);
 
     const auto label_button = Label::createWithTTF("Continue", "fonts/tahoma.ttf", 120);
     UTILS_BREAK_IF(label_button == nullptr);
@@ -118,11 +96,11 @@ bool message_window::init(audio_helper* audio_helper)
     const auto menu = Menu::create(continue_item_, nullptr);
     UTILS_BREAK_IF(menu == nullptr);
 
-    menu->setPosition(0, 0);
+    menu->setPosition(0.f, -getContentSize().height / 2);
 
-    background->addChild(menu, 100);
+    addChild(menu, 100);
 
-    const auto first_start_pos = Vec2(horizontal_segment / 6, 750.f);
+    const auto first_start_pos = Vec2(-horizontal_segment / 3, 50.f);
 
     for (unsigned short int start_counter = 0; start_counter < 3; ++start_counter)
     {
@@ -135,7 +113,7 @@ bool message_window::init(audio_helper* audio_helper)
 
       const auto star_pos = first_start_pos + Vec2((horizontal_segment / 3) * start_counter, 0.f);
       star_gray->setPosition(star_pos);
-      background->addChild(star_gray, 100);
+      addChild(star_gray, 100);
 
       auto star_tex = string("level\ncompleted");
       if (start_counter == 1)
@@ -168,7 +146,7 @@ bool message_window::init(audio_helper* audio_helper)
       star_gold->setPosition(star_pos);
       star_gold->setOpacity(0);
 
-      background->addChild(star_gold, 100);
+      addChild(star_gold, 100);
 
       setOpacity(0);
       setVisible(false);
@@ -183,7 +161,7 @@ bool message_window::init(audio_helper* audio_helper)
 void message_window::display(const std::string& message, const std::string& sub_message, const ccMenuCallback& callback,
                              const short stars, const std::string& time_message)
 {
-  label_->setString(message);
+  set_title(message);
   sub_label_->setString(sub_message);
   continue_item_->setCallback(callback);
   setVisible(true);

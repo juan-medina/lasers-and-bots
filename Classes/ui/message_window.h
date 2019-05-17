@@ -21,14 +21,16 @@
 #define __MESSAGE_WINDOW_CLASS__
 
 #include "../utils/utils.h"
+#include "resizable_window.h"
 
 //foward declarations
 class audio_helper;
+class resizable_window;
 
-class message_window final : public Node
+class message_window final : public resizable_window
 {
 public:
-  using base_class = Node;
+  using base_class = resizable_window;
 
   message_window();
 
@@ -45,7 +47,6 @@ private:
 
   audio_helper* audio_helper_;
   MenuItemSprite* continue_item_;
-  Label* label_;
   Label* sub_label_;
 
   std::vector<Sprite*> gray_stars_;
