@@ -23,7 +23,6 @@
 #include "../scenes/game_scene.h"
 #include "../laser_and_bots_app.h"
 #include "../utils/audio/audio_helper.h"
-#include "resizable_window.h"
 
 pause_window::pause_window():
   audio_helper_(nullptr),
@@ -66,27 +65,23 @@ bool pause_window::init(audio_helper* audio_helper)
 
   do
   {
-    audio_helper_ = audio_helper;
-    UTILS_BREAK_IF(!base_class::init());
-
-    audio_helper_->pre_load_effect("sounds/select.mp3");
-
     const auto& size = Director::getInstance()->getVisibleSize();
 
     const auto dark_all = LayerColor::create(Color4B(0, 0, 0, 127));
     UTILS_BREAK_IF(dark_all == nullptr);
 
     addChild(dark_all, 0);
+    dark_all->setPosition(-size.width / 2, -size.height / 2);
 
-    const auto background = resizable_window::create("Pause", 1300.f, 1500.0f);
-    UTILS_BREAK_IF(background == nullptr);
+    audio_helper_ = audio_helper;
+    UTILS_BREAK_IF(!base_class::init("Pause", 1300.f, 1500.0f));
+
+    audio_helper_->pre_load_effect("sounds/select.mp3");
+
 
     setCascadeOpacityEnabled(true);
 
-    background->setPosition(size.width / 2, size.height / 2);
-    background->setColor(Color3B(0, 255, 255));
-
-    addChild(background, 100);
+    setPosition(size.width / 2, size.height / 2);
 
     UTILS_BREAK_IF(!add_text_button("Exit", CC_CALLBACK_0(pause_window::on_exit, this)));
     UTILS_BREAK_IF(!add_text_button("Resume", CC_CALLBACK_0(pause_window::on_resume, this)));
@@ -101,9 +96,7 @@ bool pause_window::init(audio_helper* audio_helper)
     const auto menu = Menu::createWithArray(buttons_);
     UTILS_BREAK_IF(menu == nullptr);
 
-    const auto gap_menu_y = -background->getContentSize().height / 2;
-
-    menu->setPosition(size.width / 2, (size.height / 2) + gap_menu_y);
+    menu->setPosition(0.f, -getContentSize().height / 2);
 
     addChild(menu, 100);
 

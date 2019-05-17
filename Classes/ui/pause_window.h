@@ -21,14 +21,15 @@
 #define __PAUSE_WINDOW_CLASS__
 
 #include "../utils/utils.h"
+#include "resizable_window.h"
 
 //foward declarations
 class audio_helper;
 
-class pause_window final : public Node
+class pause_window final : public resizable_window
 {
 public:
-  using base_class = Node;
+  using base_class = resizable_window;
 
   pause_window();
 

@@ -20,14 +20,13 @@
 
 #include "basic_menu.h"
 #include "../utils/audio/audio_helper.h"
-#include "../ui/resizable_window.h"
 
 basic_menu::basic_menu():
   audio_helper_(nullptr),
   current_text_button_y_(0),
   current_image_button_x_(0),
   current_image_button_y_(0),
-  image_button_start_x(0)
+  image_button_start_x_(0)
 {
 }
 
@@ -38,41 +37,36 @@ bool basic_menu::init(const std::string& name, audio_helper* audio_helper, const
   do
   {
     audio_helper_ = audio_helper;
-    UTILS_BREAK_IF(!base_class::init());
+
+    const auto desired_width = horizontal ? 1800.f : 1300.f;
+    const auto desired_height = horizontal ? 1300.f : 1300.f;
+
+    UTILS_BREAK_IF(!base_class::init(name, desired_width, desired_height));
 
     audio_helper_->pre_load_effect("sounds/select.mp3");
 
     const auto& size = Director::getInstance()->getVisibleSize();
 
-    const auto background = horizontal
-                              ? resizable_window::create(name, 1800.f, 1300.f)
-                              : resizable_window::create(name, 1300.f, 1300.f);
+    setPosition(size.width / 2, size.height / 2);
 
-    background->setPosition(size.width / 2, size.height / 2);
-
-    const auto horizontal_segment = background->getContentSize().height;
-    const auto vertical_segment = background->getContentSize().width;
+    const auto horizontal_segment = getContentSize().height;
+    const auto vertical_segment = getContentSize().width;
 
     if (horizontal)
     {
-      image_button_start_x = -(horizontal_segment / 2) - 25.f;
-      current_image_button_x_ = image_button_start_x;
+      image_button_start_x_ = -(horizontal_segment / 2) - 25.f;
+      current_image_button_x_ = image_button_start_x_;
       current_image_button_y_ = (vertical_segment / 2) - 100.f;
     }
 
     setCascadeOpacityEnabled(true);
-    background->setColor(Color3B(0, 255, 255));
-
-    addChild(background, 100);
 
     UTILS_BREAK_IF(!create_menu_items());
 
     const auto menu = Menu::createWithArray(buttons_);
     UTILS_BREAK_IF(menu == nullptr);
 
-    const auto gap_menu_y = -background->getContentSize().height / 2;
-
-    menu->setPosition(size.width / 2, (size.height / 2) + gap_menu_y);
+    menu->setPosition(0.f, -getContentSize().height / 2);
 
     addChild(menu, 100);
 
@@ -93,9 +87,10 @@ void basic_menu::display()
 
   setVisible(true);
   setOpacity(190);
-  setPosition(Vec2(-size.width, 0));
+  const auto move = Vec2(size.width, 0);
+  setPosition(Vec2(size.width / 2, size.height / 2) - move);
 
-  const auto elastic_in = EaseElasticInOut::create(MoveBy::create(time * 2, Vec2(size.width, 0)), time);
+  const auto elastic_in = EaseElasticInOut::create(MoveBy::create(time * 2, move), time);
   const auto move_in = Sequence::create(elastic_in, nullptr);
 
   runAction(move_in);
@@ -107,8 +102,10 @@ void basic_menu::hide()
 {
   static auto const time = 0.5f;
   const auto& size = Director::getInstance()->getVisibleSize();
+  const auto move = Vec2(size.width, 0);
 
-  const auto elastic_out = EaseElasticInOut::create(MoveBy::create(time * 2, Vec2(size.width, 0)), time);
+
+  const auto elastic_out = EaseElasticInOut::create(MoveBy::create(time * 2, move), time);
   const auto fade = FadeTo::create(0.0f, 0);
   const auto hide = Hide::create();
 
@@ -132,7 +129,7 @@ void basic_menu::move_image_button(MenuItem* item)
   if (button_count > 4)
   {
     current_image_button_y_ -= (size.height + button_gap_y);
-    current_image_button_x_ = image_button_start_x;
+    current_image_button_x_ = image_button_start_x_;
     button_count = 0;
   }
 }

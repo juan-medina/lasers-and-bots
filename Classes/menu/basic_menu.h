@@ -22,15 +22,15 @@
 #define __BASIC_MENU_CLASS__
 
 #include "../utils/utils.h"
+#include "../ui/resizable_window.h"
 
 //foward declarations
 class audio_helper;
-class resizable_window;
 
-class basic_menu : public Node
+class basic_menu : public resizable_window
 {
 public:
-  using base_class = Node;
+  using base_class = resizable_window;
 
   basic_menu();
 
@@ -68,7 +68,7 @@ private:
   float current_text_button_y_;
   float current_image_button_x_;
   float current_image_button_y_;
-  float image_button_start_x;
+  float image_button_start_x_;
 };
 
 

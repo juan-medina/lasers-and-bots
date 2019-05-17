@@ -48,9 +48,8 @@ bool message_window::init(audio_helper* audio_helper)
     const auto dark_all = LayerColor::create(Color4B(0, 0, 0, 127));
     UTILS_BREAK_IF(dark_all == nullptr);
 
-    dark_all->setPosition(-size.width / 2, 0);
-
     addChild(dark_all, 0);
+    dark_all->setPosition(-size.width / 2, -size.height / 2);
 
     UTILS_BREAK_IF(!base_class::init("message", 1800.f, 1300.f));
 
@@ -60,7 +59,6 @@ bool message_window::init(audio_helper* audio_helper)
     const auto vertical_segment = getContentSize().height;
 
     setPosition(size.width / 2, size.height / 2);
-    setColor(Color3B(0, 255, 255));
 
     sub_label_ = Label::createWithTTF("", "fonts/tahoma.ttf", 100);
     UTILS_BREAK_IF(sub_label_ == nullptr);

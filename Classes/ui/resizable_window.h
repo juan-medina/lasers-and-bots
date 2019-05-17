@@ -29,14 +29,17 @@ public:
 
   resizable_window();
 
-  static resizable_window* create(const std::string& title, const float width, const float height);
+  static resizable_window* create(const std::string& title, const float width, const float height,
+                                  const Color3B& color = Color3B(0, 255, 255));
 
-  bool init(const std::string& title, const float width, const float height);
+  bool init(const std::string& title, const float width, const float height,
+            const Color3B& color = Color3B(0, 255, 255));
 
   void set_title(const std::string& title) const
   {
     label_title_->setString(title);
   }
+
 
 private:
 

@@ -5,7 +5,8 @@ resizable_window::resizable_window():
 {
 }
 
-resizable_window* resizable_window::create(const std::string& title, const float width, const float height)
+resizable_window* resizable_window::create(const std::string& title, const float width, const float height,
+                                           const Color3B& color /*= Color3B(0, 255, 255)*/)
 {
   resizable_window* ret = nullptr;
 
@@ -14,7 +15,7 @@ resizable_window* resizable_window::create(const std::string& title, const float
     auto object = new resizable_window();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(title, width, height))
+    if (object->init(title, width, height, color))
     {
       object->autorelease();
     }
@@ -31,7 +32,8 @@ resizable_window* resizable_window::create(const std::string& title, const float
   return ret;
 }
 
-bool resizable_window::init(const std::string& title, const float width, const float height)
+bool resizable_window::init(const std::string& title, const float width, const float height,
+                            const Color3B& color /*= Color3B(0, 255, 255)*/)
 {
   auto ret = false;
 
@@ -171,7 +173,15 @@ bool resizable_window::init(const std::string& title, const float width, const f
 
     setContentSize(Size(real_width, real_height));
     setCascadeOpacityEnabled(true);
-    setCascadeColorEnabled(true);
+
+    for (const auto child : getChildren())
+    {
+      // do not change color on color layers    
+      if (dynamic_cast<LayerColor*>(child) == nullptr)
+      {
+        child->setColor(color);
+      }
+    }
 
     ret = true;
   }
