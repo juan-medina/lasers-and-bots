@@ -338,19 +338,6 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">10_message.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>556,393,1111,786</rect>
-                <key>scale9Paddings</key>
-                <rect>556,393,1111,786</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
             <key type="filename">11_message_header.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
