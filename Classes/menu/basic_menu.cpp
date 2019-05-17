@@ -70,12 +70,9 @@ bool basic_menu::init(const std::string& name, audio_helper* audio_helper, const
     const auto menu = Menu::createWithArray(buttons_);
     UTILS_BREAK_IF(menu == nullptr);
 
-    const auto gap_menu_y = -background->getContentSize().height/2;
+    const auto gap_menu_y = -background->getContentSize().height / 2;
 
-    const auto first_item = buttons_.front();
-
-    menu->setPosition(size.width / 2,
-                      (size.height / 2) + gap_menu_y);
+    menu->setPosition(size.width / 2, (size.height / 2) + gap_menu_y);
 
     addChild(menu, 100);
 

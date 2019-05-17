@@ -23,7 +23,7 @@
 #include "../scenes/game_scene.h"
 #include "../laser_and_bots_app.h"
 #include "../utils/audio/audio_helper.h"
-
+#include "resizable_window.h"
 
 pause_window::pause_window():
   audio_helper_(nullptr),
@@ -78,20 +78,15 @@ bool pause_window::init(audio_helper* audio_helper)
 
     addChild(dark_all, 0);
 
-    const auto background = Sprite::createWithSpriteFrameName("10_message.png");
+    const auto background = resizable_window::create("Pause", 1300.f, 1500.0f);
     UTILS_BREAK_IF(background == nullptr);
 
-    background->setRotation(-90);
-    background->setFlippedX(true);
     setCascadeOpacityEnabled(true);
-    background->setCascadeOpacityEnabled(true);
+
     background->setPosition(size.width / 2, size.height / 2);
     background->setColor(Color3B(0, 255, 255));
 
     addChild(background, 100);
-
-    const auto horizontal_segment = background->getContentSize().height;
-    const auto vertical_segment = background->getContentSize().width;
 
     UTILS_BREAK_IF(!add_text_button("Exit", CC_CALLBACK_0(pause_window::on_exit, this)));
     UTILS_BREAK_IF(!add_text_button("Resume", CC_CALLBACK_0(pause_window::on_resume, this)));
@@ -106,37 +101,11 @@ bool pause_window::init(audio_helper* audio_helper)
     const auto menu = Menu::createWithArray(buttons_);
     UTILS_BREAK_IF(menu == nullptr);
 
-    static const auto gap_menu_y = 150.f;
+    const auto gap_menu_y = -background->getContentSize().height / 2;
 
-    const auto first_item = buttons_.front();
-
-    menu->setPosition(size.width / 2,
-                      (size.height / 2) - (vertical_segment / 2) + (first_item->getContentSize().height / 2) +
-                      gap_menu_y);
+    menu->setPosition(size.width / 2, (size.height / 2) + gap_menu_y);
 
     addChild(menu, 100);
-
-    const auto header = Sprite::createWithSpriteFrameName("11_message_header.png");
-    UTILS_BREAK_IF(header == nullptr);
-
-    header->setPosition(size.width / 2,
-                        (size.height / 2) + (vertical_segment / 2) - (header->getContentSize().height / 4));
-    header->setColor(Color3B(0, 127, 127));
-    header->setOpacity(255);
-    header->setCascadeOpacityEnabled(true);
-
-    addChild(header, 100);
-
-    const auto label = Label::createWithTTF("Pause", "fonts/tahoma.ttf", 150);
-    UTILS_BREAK_IF(label == nullptr);
-
-    label->setTextColor(Color4B(0, 255, 255, 255));
-    label->enableOutline(Color4B(0, 0, 0, 255), 5);
-    label->enableShadow(Color4B(255, 255, 255, 127), Size(5, -5));
-
-    label->setPosition(header->getContentSize().width / 2, (header->getContentSize().height / 2) + 100);
-
-    header->addChild(label, 100);
 
     setOpacity(0);
     setVisible(false);
@@ -247,7 +216,7 @@ bool pause_window::add_text_button(const std::string& text, const ccMenuCallback
 
     item->addChild(label_button, 100);
 
-    static const auto button_gap_y = 50.f;
+    static const auto button_gap_y = 100.f;
     current_text_button_y_ += (sprite->getContentSize().height + button_gap_y);
 
     add_button(item, callback);
