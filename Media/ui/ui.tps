@@ -364,6 +364,27 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">14_window_down.png</key>
+            <key type="filename">14_window_fill.png</key>
+            <key type="filename">14_window_left.png</key>
+            <key type="filename">14_window_left_down.png</key>
+            <key type="filename">14_window_left_up.png</key>
+            <key type="filename">14_window_right.png</key>
+            <key type="filename">14_window_right_down.png</key>
+            <key type="filename">14_window_right_up.png</key>
+            <key type="filename">14_window_up.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>106,75,213,150</rect>
+                <key>scale9Paddings</key>
+                <rect>106,75,213,150</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
         </map>
         <key>fileList</key>
         <array>

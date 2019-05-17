@@ -162,6 +162,9 @@
     <ClCompile Include="..\Classes\misc\level_manager.cpp">
       <Filter>src\misc</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ui\resizable_window.cpp">
+      <Filter>src\ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -274,6 +277,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\misc\level_manager.h">
       <Filter>src\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui\resizable_window.h">
+      <Filter>src\ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

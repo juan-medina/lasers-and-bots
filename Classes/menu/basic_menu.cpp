@@ -20,6 +20,7 @@
 
 #include "basic_menu.h"
 #include "../utils/audio/audio_helper.h"
+#include "../ui/resizable_window.h"
 
 basic_menu::basic_menu():
   audio_helper_(nullptr),
@@ -43,18 +44,16 @@ bool basic_menu::init(const std::string& name, audio_helper* audio_helper, const
 
     const auto& size = Director::getInstance()->getVisibleSize();
 
-    const auto background = Sprite::createWithSpriteFrameName("10_message.png");
-    UTILS_BREAK_IF(background == nullptr);
+    const auto background = horizontal
+                              ? resizable_window::create(name, 1800.f, 1300.f)
+                              : resizable_window::create(name, 1300.f, 1300.f);
+
+    background->setPosition(size.width / 2, size.height / 2);
 
     const auto horizontal_segment = background->getContentSize().height;
     const auto vertical_segment = background->getContentSize().width;
 
-    if (!horizontal)
-    {
-      background->setRotation(-90);
-      background->setFlippedX(true);
-    }
-    else
+    if (horizontal)
     {
       image_button_start_x = -(horizontal_segment / 2) - 25.f;
       current_image_button_x_ = image_button_start_x;
@@ -62,8 +61,6 @@ bool basic_menu::init(const std::string& name, audio_helper* audio_helper, const
     }
 
     setCascadeOpacityEnabled(true);
-    background->setCascadeOpacityEnabled(true);
-    background->setPosition(size.width / 2, size.height / 2);
     background->setColor(Color3B(0, 255, 255));
 
     addChild(background, 100);
@@ -73,47 +70,14 @@ bool basic_menu::init(const std::string& name, audio_helper* audio_helper, const
     const auto menu = Menu::createWithArray(buttons_);
     UTILS_BREAK_IF(menu == nullptr);
 
-    static const auto gap_menu_y = 150.f;
+    const auto gap_menu_y = -background->getContentSize().height/2;
 
     const auto first_item = buttons_.front();
 
     menu->setPosition(size.width / 2,
-                      (size.height / 2) - (vertical_segment / 2) + (first_item->getContentSize().height / 2) +
-                      gap_menu_y);
+                      (size.height / 2) + gap_menu_y);
 
     addChild(menu, 100);
-
-    const auto header = Sprite::createWithSpriteFrameName("11_message_header.png");
-    UTILS_BREAK_IF(header == nullptr);
-
-    auto header_pos = Vec2(size.width / 2, (size.height / 2) + (vertical_segment / 2));
-
-    if (!horizontal)
-    {
-      header_pos.y -= (header->getContentSize().height / 4);
-    }
-    else
-    {
-      header_pos.y -= (header->getContentSize().height / 2);
-    }
-
-    header->setPosition(header_pos);
-    header->setColor(Color3B(0, 127, 127));
-    header->setOpacity(255);
-    header->setCascadeOpacityEnabled(true);
-
-    addChild(header, 100);
-
-    const auto label = Label::createWithTTF(name, "fonts/tahoma.ttf", 150);
-    UTILS_BREAK_IF(label == nullptr);
-
-    label->setTextColor(Color4B(0, 255, 255, 255));
-    label->enableOutline(Color4B(0, 0, 0, 255), 5);
-    label->enableShadow(Color4B(255, 255, 255, 127), Size(5, -5));
-
-    label->setPosition(header->getContentSize().width / 2, (header->getContentSize().height / 2) + 100);
-
-    header->addChild(label, 100);
 
     setOpacity(0);
     setVisible(false);

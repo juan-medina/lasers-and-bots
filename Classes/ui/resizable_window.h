@@ -17,67 +17,20 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
+#ifndef __RESIZABLE_WINDOW_CLASS__
+#define __RESIZABLE_WINDOW_CLASS__
 
-#ifndef __MENU_SCENE_H__
-#define __MENU_SCENE_H__
+#include "../utils/utils.h"
 
-#include "../utils/base/scene/basic_scene.h"
-
-// forward declarations
-class main_menu;
-class options_menu;
-class play_menu;
-
-enum class menu_to_display
-{
-  main_menu,
-  play_menu
-};
-
-class menu_scene final : public basic_scene
+class resizable_window final : public Node
 {
 public:
-  using base_class = basic_scene;
+  using base_class = Node;
 
-  menu_scene();
+  static resizable_window* create(const std::string& title, const float width, const float height);
 
-  ~menu_scene();
-
-  static Scene* scene(basic_app* application, const menu_to_display menu);
-
-  void go_to_game(const int level);
-  void exit_app();
-  void display_options_menu() const;
-  void display_main_menu() const;
-  void display_play_menu() const;
-  void change_music(const bool disabled) const;
-  void change_sound(const bool disabled) const;
-
-  void update(float delta) override;
-
-  void pause() override;
-
-  void resume() override;
-
-  void did_enter_background() override;
-  void will_enter_foreground() override;
-
+  bool init(const std::string& title, const float width, const float height);
 private:
-
-  void delay_to_game();
-  bool init(basic_app* application, const menu_to_display menu);
-
-  bool add_background();
-  bool add_robot();
-  bool add_laser();
-
-  main_menu* main_menu_;
-  options_menu* options_menu_;
-  play_menu* play_menu_;
-
-  Node* background_;
-  bool paused_;
-  int saved_level_;
 };
 
-#endif // __MENU_SCENE_H__
+#endif // __RESIZABLE_WINDOW_CLASS__

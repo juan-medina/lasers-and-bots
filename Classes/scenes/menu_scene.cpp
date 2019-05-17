@@ -35,7 +35,7 @@ menu_scene::menu_scene() :
 {
 }
 
-Scene* menu_scene::scene(basic_app* application, menu_to_display menu)
+Scene* menu_scene::scene(basic_app* application, const menu_to_display menu)
 {
   menu_scene* ret = nullptr;
 
@@ -76,6 +76,7 @@ bool menu_scene::init(basic_app* application, const menu_to_display menu)
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ui/ui-0.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ui/ui-1.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ui/ui-2.plist");
 
     get_audio_helper()->pre_load_effect("sounds/select.mp3");
     get_audio_helper()->pre_load_effect("sounds/SlideClosed.mp3");

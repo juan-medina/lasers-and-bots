@@ -25,6 +25,7 @@
 
 //foward declarations
 class audio_helper;
+class resizable_window;
 
 class basic_menu : public Node
 {
