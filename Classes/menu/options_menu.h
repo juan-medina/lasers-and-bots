@@ -31,6 +31,7 @@ class slider_object;
 class options_menu final : public basic_menu
 {
 public:
+
   using base_class = basic_menu;
 
   options_menu();
@@ -42,7 +43,9 @@ public:
   void display() override;
 
 protected:
+
   bool create_menu_items() override;
+
 private:
 
   void on_back();
@@ -53,6 +56,9 @@ private:
   MenuItemToggle* music_toggle_;
   slider_object* sound_slider_;
   slider_object* music_slider_;
+
+  void on_music_slider_change(const float percentage);
+  void on_sound_slider_change(const float percentage);
 };
 
 

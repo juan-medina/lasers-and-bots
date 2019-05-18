@@ -334,13 +334,13 @@ MenuItem* basic_menu::add_image_button(const std::string& base_image, const std:
   return result;
 }
 
-slider_object* basic_menu::add_slider(MenuItem* attach_to)
+slider_object* basic_menu::add_slider(MenuItem* attach_to, const float_callback& callback)
 {
   slider_object* result = nullptr;
 
   do
   {
-    const auto slider = slider_object::create("15_slider_empty.png", "15_slider_full.png");
+    const auto slider = slider_object::create("15_slider_empty.png", "15_slider_full.png", callback);
     UTILS_BREAK_IF(slider == nullptr);
 
     slider->setColor(Color3B(0, 255, 255));

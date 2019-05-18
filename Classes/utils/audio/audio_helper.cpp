@@ -73,6 +73,23 @@ void audio_helper::end()
   initiated_ = false;
 }
 
+void audio_helper::set_music_volume(const float music_volume) noexcept
+{
+  music_volume_ = music_volume;
+
+  if (!get_music_muted())
+  {
+    if (last_music_.intro_id != AudioEngine::INVALID_AUDIO_ID)
+    {
+      AudioEngine::setVolume(last_music_.intro_id, last_music_.volume * music_volume);
+    }
+    else if (last_music_.loop_id != AudioEngine::INVALID_AUDIO_ID)
+    {
+      AudioEngine::setVolume(last_music_.loop_id, last_music_.volume * music_volume);
+    }
+  }
+}
+
 int audio_helper::play_effect(const std::string& file_name, const bool loop /*= false*/,
                               const float volume /*= 1.0f*/) const
 {

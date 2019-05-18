@@ -100,7 +100,7 @@ bool options_menu::create_menu_items()
 
     sound_toggle_->setPosition(sound_toggle_->getPosition() - Vec2(getContentSize().width / 4, 0.f));
 
-    sound_slider_ = add_slider(sound_toggle_);
+    sound_slider_ = add_slider(sound_toggle_, CC_CALLBACK_1(options_menu::on_sound_slider_change, this));
     UTILS_BREAK_IF(sound_slider_ == nullptr);
 
     music_toggle_ = add_toggle_text_button("Music", CC_CALLBACK_0(options_menu::on_music, this));
@@ -108,7 +108,7 @@ bool options_menu::create_menu_items()
 
     music_toggle_->setPosition(sound_toggle_->getPosition().x, music_toggle_->getPosition().y);
 
-    music_slider_ = add_slider(music_toggle_);
+    music_slider_ = add_slider(music_toggle_, CC_CALLBACK_1(options_menu::on_music_slider_change, this));
     UTILS_BREAK_IF(music_slider_ == nullptr);
 
     result = true;
@@ -143,4 +143,16 @@ void options_menu::on_sound()
   menu->change_sound(disable);
 
   get_audio_helper()->play_effect("sounds/select.mp3");
+}
+
+void options_menu::on_music_slider_change(const float percentage)
+{
+  const auto menu = dynamic_cast<menu_scene*>(getParent());
+  menu->change_music_volume(percentage / 100);
+}
+
+void options_menu::on_sound_slider_change(const float percentage)
+{
+  const auto menu = dynamic_cast<menu_scene*>(getParent());
+  menu->change_sound_volume(percentage / 100);
 }

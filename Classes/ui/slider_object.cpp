@@ -26,11 +26,15 @@ slider_object::slider_object():
   enabled_(true),
   touch_listener_(nullptr),
   touch_begin_at_(Vec2::ZERO),
-  percent_begin_touch_(0)
+  percent_begin_touch_(0),
+  arrow_(nullptr),
+  last_percentage_(-1),
+  callback_(nullptr)
 {
 }
 
-slider_object* slider_object::create(const std::string& background, const std::string& progress)
+slider_object* slider_object::create(const std::string& background, const std::string& progress,
+                                     const slider_change_callback& callback)
 {
   slider_object* ret = nullptr;
 
@@ -39,7 +43,7 @@ slider_object* slider_object::create(const std::string& background, const std::s
     auto object = new slider_object();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(background, progress))
+    if (object->init(background, progress, callback))
     {
       object->autorelease();
     }
@@ -56,12 +60,14 @@ slider_object* slider_object::create(const std::string& background, const std::s
   return ret;
 }
 
-bool slider_object::init(const std::string& background, const std::string& progress)
+bool slider_object::init(const std::string& background, const std::string& progress,
+                         const slider_change_callback& callback)
 {
   auto ret = false;
 
   do
   {
+    callback_ = callback;
     const auto normal_sprite = Sprite::createWithSpriteFrameName(background);
     UTILS_BREAK_IF(normal_sprite == nullptr);
 
@@ -93,6 +99,13 @@ bool slider_object::init(const std::string& background, const std::string& progr
 
     addChild(label_);
 
+    arrow_ = Sprite::createWithSpriteFrameName("16_arrow.png");
+    UTILS_BREAK_IF(arrow_ == nullptr);
+
+    arrow_->setPosition(0.f, progress_->getContentSize().height);
+    arrow_->setOpacity(190);
+    progress_->addChild(arrow_);
+
     setCascadeOpacityEnabled(true);
     setCascadeColorEnabled(true);
 
@@ -103,10 +116,13 @@ bool slider_object::init(const std::string& background, const std::string& progr
   return ret;
 }
 
-void slider_object::set_percentage(const float percentage) const
+void slider_object::set_percentage(const float percentage)
 {
-  progress_->setPercentage(percentage);
-  label_->setString(string_format("%3d %%", static_cast<int>(percentage)));
+  if (percentage != last_percentage_)
+  {
+    last_percentage_ = percentage;
+    on_percentage_change(percentage);
+  }
 }
 
 float slider_object::get_percentage() const
@@ -122,6 +138,13 @@ void slider_object::enable(const bool enabled)
   progress_->setOpacity(opacity);
   setEnabled(enabled);
   enable_touch(enabled);
+}
+
+void slider_object::setColor(const Color3B& color)
+{
+  base_class::setColor(color);
+  arrow_->setColor(color);
+  progress_->setColor(color);
 }
 
 bool slider_object::enable_touch(const bool enabled)
@@ -216,7 +239,7 @@ bool slider_object::is_touched_by_location(Node* node, const Vec2& location) con
   return false;
 }
 
-void slider_object::update_location(const Vec2& location) const
+void slider_object::update_location(const Vec2& location)
 {
   if (touch_begin_at_ != Vec2::ZERO)
   {
@@ -231,5 +254,16 @@ void slider_object::update_location(const Vec2& location) const
       percent = 100;
     }
     set_percentage(percent);
+  }
+}
+
+void slider_object::on_percentage_change(const float percentage) const
+{
+  progress_->setPercentage(percentage);
+  label_->setString(string_format("%3d %%", static_cast<int>(percentage)));
+  arrow_->setPosition(progress_->getContentSize().width * (percentage / 100), progress_->getContentSize().height);
+  if (callback_ != nullptr)
+  {
+    callback_(percentage);
   }
 }

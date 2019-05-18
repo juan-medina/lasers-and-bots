@@ -79,10 +79,7 @@ public:
     return music_volume_;
   }
 
-  void set_music_volume(const float music_volume) noexcept
-  {
-    music_volume_ = music_volume;
-  }
+  void set_music_volume(const float music_volume) noexcept;
 
   float get_sound_volume() const noexcept
   {

@@ -32,6 +32,7 @@ class basic_menu : public resizable_window
 {
 public:
   using base_class = resizable_window;
+  using float_callback = std::function<void(const float)>;
 
   basic_menu();
 
@@ -61,7 +62,7 @@ protected:
   MenuItem* add_text_button(const std::string& text, const ccMenuCallback& callback);
   MenuItemToggle* add_toggle_text_button(const std::string& text, const ccMenuCallback& callback);
   MenuItem* add_image_button(const std::string& base_image, const std::string& text, const ccMenuCallback& callback);
-  slider_object* add_slider(MenuItem* attach_to);
+  slider_object* add_slider(MenuItem* attach_to, const float_callback& callback);
 
 private:
 

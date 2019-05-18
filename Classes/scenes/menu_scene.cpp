@@ -305,6 +305,18 @@ void menu_scene::change_sound(const bool disabled) const
   app->set_effects_muted(disabled);
 }
 
+void menu_scene::change_music_volume(const float volume) const
+{
+  const auto app = dynamic_cast<laser_and_bots_app*>(get_application());
+  app->set_music_volume(volume);
+}
+
+void menu_scene::change_sound_volume(const float volume) const
+{
+  const auto app = dynamic_cast<laser_and_bots_app*>(get_application());
+  app->set_effects_volume(volume);
+}
+
 void menu_scene::update(float delta)
 {
   const auto pos = background_->getPosition();
