@@ -56,7 +56,7 @@ bool play_menu::init(audio_helper* audio_helper)
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init("Level Select", audio_helper, true));
+    UTILS_BREAK_IF(!base_class::init("Level Select", audio_helper, 1800.f, 1300.f));
 
     ret = true;
   }

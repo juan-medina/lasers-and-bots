@@ -30,7 +30,7 @@ basic_menu::basic_menu():
 {
 }
 
-bool basic_menu::init(const std::string& name, audio_helper* audio_helper, const bool horizontal /*= false*/)
+bool basic_menu::init(const std::string& name, audio_helper* audio_helper, const float width, const float height)
 {
   auto ret = false;
 
@@ -38,10 +38,10 @@ bool basic_menu::init(const std::string& name, audio_helper* audio_helper, const
   {
     audio_helper_ = audio_helper;
 
-    const auto desired_width = horizontal ? 1800.f : 1300.f;
-    const auto desired_height = horizontal ? 1300.f : 1300.f;
+    /*const auto desired_width = horizontal ? 1800.f : 1300.f;
+    const auto desired_height = horizontal ? 1300.f : 1300.f;*/
 
-    UTILS_BREAK_IF(!base_class::init(name, desired_width, desired_height));
+    UTILS_BREAK_IF(!base_class::init(name, width, height));
 
     audio_helper_->pre_load_effect("sounds/select.mp3");
 
@@ -52,12 +52,9 @@ bool basic_menu::init(const std::string& name, audio_helper* audio_helper, const
     const auto horizontal_segment = getContentSize().height;
     const auto vertical_segment = getContentSize().width;
 
-    if (horizontal)
-    {
-      image_button_start_x_ = -(horizontal_segment / 2) - 25.f;
-      current_image_button_x_ = image_button_start_x_;
-      current_image_button_y_ = (vertical_segment / 2) - 100.f;
-    }
+    image_button_start_x_ = -(horizontal_segment / 2) - 25.f;
+    current_image_button_x_ = image_button_start_x_;
+    current_image_button_y_ = (vertical_segment / 2) - 100.f;
 
     setCascadeOpacityEnabled(true);
 

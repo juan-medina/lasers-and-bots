@@ -45,8 +45,10 @@ public:
   Scene* play_menu_scene();
 
   void set_effects_muted(const bool effects_muted);
-
   void set_music_muted(const bool music_muted);
+  void set_music_volume(const float music_volume);
+  void set_effects_volume(const float effects_volume);
+
 
   void to_game(const int level);
   void to_main_menu();
@@ -67,6 +69,8 @@ private:
   bool music_muted_;
   bool debug_grid_;
   bool debug_physics_;
+  float music_volume_;
+  float effects_volume_;
   level_manager* level_manager_;
 };
 

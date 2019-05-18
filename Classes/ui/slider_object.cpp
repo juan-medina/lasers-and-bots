@@ -18,20 +18,24 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "main_menu.h"
-#include "../utils/audio/audio_helper.h"
-#include "../scenes/menu_scene.h"
+#include "slider_object.h"
 
-main_menu* main_menu::create(audio_helper* audio_helper)
+slider_object::slider_object():
+  progress_(nullptr),
+  enabled_(true)
 {
-  main_menu* ret = nullptr;
+}
+
+slider_object* slider_object::create(const std::string& background, const std::string& progress)
+{
+  slider_object* ret = nullptr;
 
   do
   {
-    auto object = new main_menu();
+    auto object = new slider_object();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(audio_helper))
+    if (object->init(background, progress))
     {
       object->autorelease();
     }
@@ -48,13 +52,30 @@ main_menu* main_menu::create(audio_helper* audio_helper)
   return ret;
 }
 
-bool main_menu::init(audio_helper* audio_helper)
+bool slider_object::init(const std::string& background, const std::string& progress)
 {
   auto ret = false;
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init("Main Menu", audio_helper, 1300.f, 1300.f));
+    UTILS_BREAK_IF(!base_class::initWithSpriteFrameName(background));
+
+    const auto progress_sprite = Sprite::createWithSpriteFrameName(progress);
+    UTILS_BREAK_IF(progress_sprite == nullptr);
+
+    progress_ = ProgressTimer::create(progress_sprite);
+    UTILS_BREAK_IF(progress_ == nullptr);
+
+    progress_->setType(ProgressTimer::Type::BAR);
+    progress_->setMidpoint(Vec2(0, 0));
+    progress_->setBarChangeRate(Vec2(1, 0));
+
+    progress_->setPosition(getContentSize().width / 2, getContentSize().height / 2);
+
+    addChild(progress_);
+
+    setCascadeOpacityEnabled(true);
+    setCascadeColorEnabled(true);
 
     ret = true;
   }
@@ -63,42 +84,20 @@ bool main_menu::init(audio_helper* audio_helper)
   return ret;
 }
 
-bool main_menu::create_menu_items()
+void slider_object::set_percentage(const float percentage) const
 {
-  auto result = false;
-  do
-  {
-    UTILS_BREAK_IF(add_text_button("Exit", CC_CALLBACK_0(main_menu::on_exit, this)) == nullptr);
-    UTILS_BREAK_IF(add_text_button("Options", CC_CALLBACK_0(main_menu::on_options, this)) == nullptr);
-    UTILS_BREAK_IF(add_text_button("PLAY!", CC_CALLBACK_0(main_menu::on_play, this)) == nullptr);
-
-    result = true;
-  }
-  while (false);
-  return result;
+  progress_->setPercentage(percentage);
 }
 
-
-void main_menu::on_options()
+float slider_object::get_percentage() const
 {
-  get_audio_helper()->play_effect("sounds/select.mp3");
-  hide();
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->display_options_menu();
+  return progress_->getPercentage();
 }
 
-void main_menu::on_play()
+void slider_object::enable(const bool enabled)
 {
-  get_audio_helper()->play_effect("sounds/select.mp3");
-  hide();
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->display_play_menu();
-}
-
-void main_menu::on_exit()
-{
-  get_audio_helper()->play_effect("sounds/select.mp3");
-  hide();
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->exit_app();
+  enabled_ = enabled;
+  const auto opacity = static_cast<GLubyte>(enabled ? 255 : 127);
+  setOpacity(opacity);
+  progress_->setOpacity(opacity);
 }

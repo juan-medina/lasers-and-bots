@@ -165,6 +165,9 @@
     <ClCompile Include="..\Classes\ui\resizable_window.cpp">
       <Filter>src\ui</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ui\slider_object.cpp">
+      <Filter>src\ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -279,6 +282,9 @@
       <Filter>src\misc</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ui\resizable_window.h">
+      <Filter>src\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui\slider_object.h">
       <Filter>src\ui</Filter>
     </ClInclude>
   </ItemGroup>

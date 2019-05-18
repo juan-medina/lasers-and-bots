@@ -17,45 +17,36 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-
-#ifndef __OPTIONS_MENU_CLASS__
-#define __OPTIONS_MENU_CLASS__
+#ifndef __SLIDER_OBJECT_CLASS__
+#define __SLIDER_OBJECT_CLASS__
 
 #include "../utils/utils.h"
-#include "basic_menu.h"
 
-//foward declarations
-class audio_helper;
-class slider_object;
 
-class options_menu final : public basic_menu
+class slider_object final : public Sprite
 {
 public:
-  using base_class = basic_menu;
+  using base_class = Sprite;
 
-  options_menu();
+  slider_object();
 
-  static options_menu* create(audio_helper* audio_helper);
+  static slider_object* create(const std::string& background, const std::string& progress);
 
-  bool init(audio_helper* audio_helper);
+  bool init(const std::string& background, const std::string& progress);
 
-  void display() override;
+  void set_percentage(const float percentage) const;
+  float get_percentage() const;
 
-protected:
-  bool create_menu_items() override;
+  bool is_enabled() const
+  {
+    return enabled_;
+  }
+
+  void enable(const bool enabled);
+
 private:
-
-  slider_object* create_slider(MenuItem* attached_to);
-
-  void on_back();
-  void on_music();
-  void on_sound();
-
-  MenuItemToggle* sound_toggle_;
-  MenuItemToggle* music_toggle_;
-  slider_object* sound_slider_;
-  slider_object* music_slider_;
+  ProgressTimer* progress_;
+  bool enabled_;
 };
 
-
-#endif // __OPTIONS_MENU_CLASS__
+#endif // __SLIDER_OBJECT_CLASS__

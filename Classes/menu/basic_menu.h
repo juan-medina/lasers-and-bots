@@ -34,7 +34,7 @@ public:
 
   basic_menu();
 
-  bool init(const std::string& name, audio_helper* audio_helper, const bool horizontal = false);
+  bool init(const std::string& name, audio_helper* audio_helper, const float width, const float height);
 
   virtual void display();
 

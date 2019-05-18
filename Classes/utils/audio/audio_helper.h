@@ -74,6 +74,26 @@ public:
 
   void end();
 
+  float get_music_volume() const noexcept
+  {
+    return music_volume_;
+  }
+
+  void set_music_volume(const float music_volume) noexcept
+  {
+    music_volume_ = music_volume;
+  }
+
+  float get_sound_volume() const noexcept
+  {
+    return sound_volume_;
+  }
+
+  void set_sound_volume(const float sound_volume) noexcept
+  {
+    sound_volume_ = sound_volume;
+  }
+
 private:
 
   void on_music_intro_ends(const int id, const std::string& file_path);
@@ -93,6 +113,9 @@ private:
   };
 
   last_music last_music_;
+
+  float music_volume_;
+  float sound_volume_;
 };
 
 #endif // __AUDIO_HELPER_H__
