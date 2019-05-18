@@ -20,6 +20,7 @@
 
 #include "basic_menu.h"
 #include "../utils/audio/audio_helper.h"
+#include "../ui/slider_object.h"
 
 basic_menu::basic_menu():
   audio_helper_(nullptr),
@@ -327,6 +328,31 @@ MenuItem* basic_menu::add_image_button(const std::string& base_image, const std:
     add_button(item, callback);
 
     result = item;
+  }
+  while (false);
+
+  return result;
+}
+
+slider_object* basic_menu::add_slider(MenuItem* attach_to)
+{
+  slider_object* result = nullptr;
+
+  do
+  {
+    const auto slider = slider_object::create("15_slider_empty.png", "15_slider_full.png");
+    UTILS_BREAK_IF(slider == nullptr);
+
+    slider->setColor(Color3B(0, 255, 255));
+
+    const auto slider_position = Vec2(attach_to->getPosition() +
+      Vec2(attach_to->getContentSize().width / 2 + slider->getContentSize().width / 2 + 150.f, 0));
+
+    slider->setPosition(slider_position);
+
+    add_button(slider, nullptr);
+
+    result = slider;
   }
   while (false);
 

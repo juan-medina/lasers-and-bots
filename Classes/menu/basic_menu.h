@@ -26,6 +26,7 @@
 
 //foward declarations
 class audio_helper;
+class slider_object;
 
 class basic_menu : public resizable_window
 {
@@ -60,6 +61,7 @@ protected:
   MenuItem* add_text_button(const std::string& text, const ccMenuCallback& callback);
   MenuItemToggle* add_toggle_text_button(const std::string& text, const ccMenuCallback& callback);
   MenuItem* add_image_button(const std::string& base_image, const std::string& text, const ccMenuCallback& callback);
+  slider_object* add_slider(MenuItem* attach_to);
 
 private:
 

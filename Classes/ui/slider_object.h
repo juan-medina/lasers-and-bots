@@ -23,10 +23,10 @@
 #include "../utils/utils.h"
 
 
-class slider_object final : public Sprite
+class slider_object final : public MenuItemSprite
 {
 public:
-  using base_class = Sprite;
+  using base_class = MenuItemSprite;
 
   slider_object();
 

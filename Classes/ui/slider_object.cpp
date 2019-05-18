@@ -58,7 +58,10 @@ bool slider_object::init(const std::string& background, const std::string& progr
 
   do
   {
-    UTILS_BREAK_IF(!base_class::initWithSpriteFrameName(background));
+    const auto normal_sprite = Sprite::createWithSpriteFrameName(background);
+    UTILS_BREAK_IF(normal_sprite == nullptr);
+
+    UTILS_BREAK_IF(!base_class::initWithNormalSprite(normal_sprite, nullptr, nullptr, nullptr));
 
     const auto progress_sprite = Sprite::createWithSpriteFrameName(progress);
     UTILS_BREAK_IF(progress_sprite == nullptr);
@@ -100,4 +103,5 @@ void slider_object::enable(const bool enabled)
   const auto opacity = static_cast<GLubyte>(enabled ? 255 : 127);
   setOpacity(opacity);
   progress_->setOpacity(opacity);
+  setEnabled(enabled);
 }

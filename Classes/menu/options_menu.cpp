@@ -100,7 +100,7 @@ bool options_menu::create_menu_items()
 
     sound_toggle_->setPosition(sound_toggle_->getPosition() - Vec2(getContentSize().width / 4, 0.f));
 
-    sound_slider_ = create_slider(sound_toggle_);
+    sound_slider_ = add_slider(sound_toggle_);
     UTILS_BREAK_IF(sound_slider_ == nullptr);
 
     music_toggle_ = add_toggle_text_button("Music", CC_CALLBACK_0(options_menu::on_music, this));
@@ -108,37 +108,12 @@ bool options_menu::create_menu_items()
 
     music_toggle_->setPosition(sound_toggle_->getPosition().x, music_toggle_->getPosition().y);
 
-    music_slider_ = create_slider(music_toggle_);
+    music_slider_ = add_slider(music_toggle_);
     UTILS_BREAK_IF(music_slider_ == nullptr);
-
 
     result = true;
   }
   while (false);
-  return result;
-}
-
-slider_object* options_menu::create_slider(MenuItem* attached_to)
-{
-  slider_object* result = nullptr;
-  do
-  {
-    const auto slider = slider_object::create("15_slider_empty.png", "15_slider_full.png");
-    UTILS_BREAK_IF(slider == nullptr);
-
-    slider->setColor(Color3B(0, 255, 255));
-
-    const auto slider_position = Vec2(attached_to->getPosition() +
-      Vec2(attached_to->getContentSize().width / 2 + slider->getContentSize().width / 2 + 150.f,
-           -(attached_to->getContentSize().height * 2) - 25));
-
-    slider->setPosition(slider_position);
-    addChild(slider);
-
-    result = slider;
-  }
-  while (false);
-
   return result;
 }
 

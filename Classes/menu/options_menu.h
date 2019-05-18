@@ -45,8 +45,6 @@ protected:
   bool create_menu_items() override;
 private:
 
-  slider_object* create_slider(MenuItem* attached_to);
-
   void on_back();
   void on_music();
   void on_sound();
