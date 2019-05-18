@@ -45,8 +45,24 @@ public:
   void enable(const bool enabled);
 
 private:
+
   ProgressTimer* progress_;
+  Label* label_;
   bool enabled_;
+
+  bool enable_touch(const bool enabled);
+
+  bool on_touch_began(Touch* touch, Event* unused_event);
+  void on_touch_moved(Touch* touch, Event* unused_event);
+  void on_touch_ended(Touch* touch, Event* unused_event);
+  void on_touch_cancel(Touch* touch, Event* unused_event);
+
+  bool is_touched_by_location(Node* node, const Vec2& location) const;
+  void update_location(const Vec2& location) const;
+
+  EventListenerTouchOneByOne* touch_listener_;
+  Vec2 touch_begin_at_;
+  float percent_begin_touch_;
 };
 
 #endif // __SLIDER_OBJECT_CLASS__

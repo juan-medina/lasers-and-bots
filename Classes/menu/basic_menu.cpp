@@ -346,7 +346,7 @@ slider_object* basic_menu::add_slider(MenuItem* attach_to)
     slider->setColor(Color3B(0, 255, 255));
 
     const auto slider_position = Vec2(attach_to->getPosition() +
-      Vec2(attach_to->getContentSize().width / 2 + slider->getContentSize().width / 2 + 150.f, 0));
+      Vec2(attach_to->getContentSize().width / 2 + slider->getContentSize().width / 2 + 110.f, 0));
 
     slider->setPosition(slider_position);
 
