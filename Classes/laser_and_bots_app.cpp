@@ -99,6 +99,7 @@ Scene* laser_and_bots_app::play_menu_scene()
   music_muted_ = UserDefault::getInstance()->getBoolForKey("music_muted", music_muted_);
   music_volume_ = UserDefault::getInstance()->getFloatForKey("music_volume", music_volume_);
   effects_volume_ = UserDefault::getInstance()->getFloatForKey("effects_volume", effects_volume_);
+
   setup_level_manager();
 
   get_audio_helper()->set_effects_muted(effects_muted_);
@@ -115,6 +116,7 @@ Scene* laser_and_bots_app::options_menu_scene()
   music_muted_ = UserDefault::getInstance()->getBoolForKey("music_muted", music_muted_);
   music_volume_ = UserDefault::getInstance()->getFloatForKey("music_volume", music_volume_);
   effects_volume_ = UserDefault::getInstance()->getFloatForKey("effects_volume", effects_volume_);
+
   setup_level_manager();
 
   get_audio_helper()->set_effects_muted(effects_muted_);
@@ -190,6 +192,18 @@ int laser_and_bots_app::run(const bool to_options)
 {
   to_options_ = to_options;
   return base_class::run();
+}
+
+void laser_and_bots_app::set_debug_grid(const bool debug_grid)
+{
+  debug_grid_ = debug_grid;
+  UserDefault::getInstance()->setBoolForKey("debug_grid", debug_grid);
+}
+
+void laser_and_bots_app::set_debug_physics(const bool debug_physics)
+{
+  debug_physics_ = debug_physics;
+  UserDefault::getInstance()->setBoolForKey("debug_physics", debug_physics);
 }
 
 void laser_and_bots_app::setup_level_manager()

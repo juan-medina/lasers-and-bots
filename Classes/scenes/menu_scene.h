@@ -69,6 +69,12 @@ public:
 
   void change_application_video_mode(const bool full_screen) const;
 
+  bool is_debug_grid() const;
+  void set_debug_grid(const bool debug_grid) const;
+
+  bool is_debug_physics() const;
+  void set_debug_physics(const bool debug_physics) const;
+
 private:
 
   void delay_to_game() const;

@@ -89,7 +89,7 @@ bool menu_scene::init(basic_app* application, const menu_to_display menu)
     auto label = Label::createWithTTF("Lasers and Bots", "fonts/tahoma.ttf", 500);
     UTILS_BREAK_IF(label == nullptr);
 
-    label->setPosition(Vec2(size.width / 2, size.height - 500));
+    label->setPosition(Vec2(size.width / 2, size.height - 300));
     label->setTextColor(Color4B(0, 255, 255, 255));
 
     label->enableGlow(Color4B(0, 127, 127, 127));
@@ -380,6 +380,30 @@ void menu_scene::change_application_video_mode(const bool full_screen) const
 {
   auto app = dynamic_cast<laser_and_bots_app*>(get_application());
   app->change_video_mode(full_screen);
+}
+
+bool menu_scene::is_debug_grid() const
+{
+  const auto app = dynamic_cast<laser_and_bots_app*>(get_application());
+  return app->is_debug_grid();
+}
+
+void menu_scene::set_debug_grid(const bool debug_grid) const
+{
+  const auto app = dynamic_cast<laser_and_bots_app*>(get_application());
+  app->set_debug_grid(debug_grid);
+}
+
+bool menu_scene::is_debug_physics() const
+{
+  const auto app = dynamic_cast<laser_and_bots_app*>(get_application());
+  return app->is_debug_physics();
+}
+
+void menu_scene::set_debug_physics(const bool debug_physics) const
+{
+  const auto app = dynamic_cast<laser_and_bots_app*>(get_application());
+  app->set_debug_physics(debug_physics);
 }
 
 void menu_scene::delay_to_game() const

@@ -76,11 +76,6 @@ public:
     fit_all_ = fit_all;
   }
 
-  void set_show_fps(const bool show_fps)
-  {
-    show_fps_ = show_fps;
-  }
-
   bool is_desktop();
 
 private:
@@ -97,7 +92,6 @@ private:
   int window_height_;
   bool full_screen_;
   bool fit_all_;
-  bool show_fps_;
   string application_name_;
 };
 

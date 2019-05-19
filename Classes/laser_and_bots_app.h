@@ -60,6 +60,7 @@ public:
   }
 
   void change_video_mode(const bool full_screen);
+
   bool want_a_restart() const
   {
     return want_restart_;
@@ -69,6 +70,20 @@ public:
 
   int run(const bool to_options);
 
+  bool is_debug_grid() const
+  {
+    return debug_grid_;
+  }
+
+  void set_debug_grid(const bool debug_grid);
+
+  bool is_debug_physics() const
+  {
+    return debug_physics_;
+  }
+
+  void set_debug_physics(const bool debug_physics);
+
 private:
 
   void setup_level_manager();
@@ -77,6 +92,7 @@ private:
   bool music_muted_;
   bool debug_grid_;
   bool debug_physics_;
+
   float music_volume_;
   float effects_volume_;
   level_manager* level_manager_;

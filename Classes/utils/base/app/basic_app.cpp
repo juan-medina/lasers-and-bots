@@ -30,7 +30,6 @@ basic_app::basic_app(const std::string& application_name, const float design_wid
   window_height_(0),
   full_screen_(true),
   fit_all_(false),
-  show_fps_(false),
   application_name_(application_name)
 {
 }
@@ -83,7 +82,6 @@ bool basic_app::applicationDidFinishLaunching()
     }
 #endif
 
-    director->setDisplayStats(show_fps_);
     director->setAnimationInterval(1.0f / 60.0f);
 
     // get the real screen scale

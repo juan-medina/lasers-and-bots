@@ -363,7 +363,7 @@ slider_object* basic_menu::add_slider(MenuItem* attach_to, const float_callback&
   return result;
 }
 
-MenuItem* basic_menu::add_row_label(const std::string& text, MenuItem* attach_to)
+MenuItem* basic_menu::add_row_label(const std::string& text, MenuItem* attach_to, const float left_space)
 {
   MenuItem* result = nullptr;
 
@@ -379,7 +379,7 @@ MenuItem* basic_menu::add_row_label(const std::string& text, MenuItem* attach_to
     UTILS_BREAK_IF(label_item == nullptr);
 
     label_item->setPosition(attach_to->getPosition() -
-      Vec2(attach_to->getContentSize().width / 2 - label->getContentSize().width / 2 + 750.f,
+      Vec2(attach_to->getContentSize().width / 2 - label->getContentSize().width / 2 + left_space,
            -label->getContentSize().height / 4));
 
     add_button(label_item, nullptr);
