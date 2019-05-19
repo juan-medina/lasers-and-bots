@@ -72,20 +72,11 @@
     <ClCompile Include="..\Classes\utils\base\app\basic_app.cpp">
       <Filter>src\utils\base\app</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\utils\base\app\launcher_app.cpp">
-      <Filter>src\utils\base\app</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\utils\audio\audio_helper.cpp">
       <Filter>src\utils\audio</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\laser_and_bots_launcher.cpp">
-      <Filter>src\app</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\laser_and_bots_app.cpp">
       <Filter>src\app</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\scenes\launcher_scene.cpp">
-      <Filter>src\scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\game\laser_object.cpp">
       <Filter>src\game</Filter>
@@ -191,20 +182,11 @@
     <ClInclude Include="..\Classes\utils\base\app\basic_app.h">
       <Filter>src\utils\base\app</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\utils\base\app\launcher_app.h">
-      <Filter>src\utils\base\app</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\utils\audio\audio_helper.h">
       <Filter>src\utils\audio</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\laser_and_bots_launcher.h">
-      <Filter>src\app</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\laser_and_bots_app.h">
       <Filter>src\app</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\scenes\launcher_scene.h">
-      <Filter>src\scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\game\laser_object.h">
       <Filter>src\game</Filter>

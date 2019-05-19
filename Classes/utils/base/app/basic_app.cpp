@@ -22,17 +22,15 @@
 #include "../../audio/audio_helper.h"
 #include "../scene/basic_scene.h"
 
-basic_app::basic_app(const std::string& application_name, const float design_width, const float design_height,
-                     const int screen_width, const int screen_height, const bool full_screen, const bool fit_all,
-                     const bool show_fps):
+basic_app::basic_app(const std::string& application_name, const float design_width, const float design_height):
   audio_helper_(nullptr),
   design_width_(design_width),
   design_height_(design_height),
-  screen_width_(screen_width),
-  screen_height_(screen_height),
-  full_screen_(full_screen),
-  fit_all_(fit_all),
-  show_fps_(show_fps),
+  screen_width_(0),
+  screen_height_(0),
+  full_screen_(true),
+  fit_all_(false),
+  show_fps_(false),
   application_name_(application_name)
 {
 }
@@ -69,7 +67,8 @@ bool basic_app::applicationDidFinishLaunching()
       }
       else
       {
-        open_gl_view = GLViewImpl::createWithRect(application_name_, Rect(Vec2::ZERO, Size(screen_width_, screen_height_)));
+        open_gl_view = GLViewImpl::createWithRect(application_name_,
+                                                  Rect(Vec2::ZERO, Size(screen_width_, screen_height_)));
       }
 #else
       open_gl_view = GLViewImpl::create(application_name_);
@@ -156,6 +155,12 @@ void basic_app::close()
   audio_helper_ = nullptr;
 
   Director::getInstance()->end();
+}
+
+bool basic_app::is_desktop()
+{
+  const auto platform = getTargetPlatform();
+  return (platform == Platform::OS_WINDOWS) || (platform == Platform::OS_MAC);
 }
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)

@@ -20,26 +20,12 @@
 
 #include "main.h"
 #include "laser_and_bots_app.h"
-#include "laser_and_bots_launcher.h"
 
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {
-  const auto launcher_app = new laser_and_bots_launcher();
-  auto result = launcher_app->run();
-
-  const auto want_to_play = launcher_app->get_want_to_play();
-  const auto screen_width = launcher_app->get_screen_width();
-  const auto screen_height = launcher_app->get_screen_height();
-  const auto full_screen = launcher_app->is_full_screen();
-
-  delete launcher_app;
-
-  if (want_to_play)
-  {
-    const auto app = new laser_and_bots_app(screen_width, screen_height, full_screen);
-    result = app->run();
-    delete app;
-  }
+  const auto app = new laser_and_bots_app();
+  const auto result = app->run();
+  delete app;
 
   return result;
 }

@@ -159,13 +159,11 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\laser_and_bots_app.cpp" />
     <ClCompile Include="..\Classes\game\laser_object.cpp" />
     <ClCompile Include="..\Classes\game\robot_object.cpp" />
-    <ClCompile Include="..\Classes\laser_and_bots_launcher.cpp" />
     <ClCompile Include="..\Classes\menu\basic_menu.cpp" />
     <ClCompile Include="..\Classes\menu\main_menu.cpp" />
     <ClCompile Include="..\Classes\menu\options_menu.cpp" />
     <ClCompile Include="..\Classes\menu\play_menu.cpp" />
     <ClCompile Include="..\Classes\misc\level_manager.cpp" />
-    <ClCompile Include="..\Classes\scenes\launcher_scene.cpp" />
     <ClCompile Include="..\Classes\scenes\game_scene.cpp" />
     <ClCompile Include="..\Classes\scenes\loading_scene.cpp" />
     <ClCompile Include="..\Classes\scenes\menu_scene.cpp" />
@@ -178,7 +176,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\ui\virtual_joy_stick.cpp" />
     <ClCompile Include="..\Classes\utils\audio\audio_helper.cpp" />
     <ClCompile Include="..\Classes\utils\base\app\basic_app.cpp" />
-    <ClCompile Include="..\Classes\utils\base\app\launcher_app.cpp" />
     <ClCompile Include="..\Classes\utils\base\scene\basic_scene.cpp" />
     <ClCompile Include="..\Classes\utils\base\scene\grid_scene.cpp" />
     <ClCompile Include="..\Classes\utils\base\scene\tiled_scene.cpp" />
@@ -200,13 +197,11 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\laser_and_bots_app.h" />
     <ClInclude Include="..\Classes\game\laser_object.h" />
     <ClInclude Include="..\Classes\game\robot_object.h" />
-    <ClInclude Include="..\Classes\laser_and_bots_launcher.h" />
     <ClInclude Include="..\Classes\menu\basic_menu.h" />
     <ClInclude Include="..\Classes\menu\main_menu.h" />
     <ClInclude Include="..\Classes\menu\options_menu.h" />
     <ClInclude Include="..\Classes\menu\play_menu.h" />
     <ClInclude Include="..\Classes\misc\level_manager.h" />
-    <ClInclude Include="..\Classes\scenes\launcher_scene.h" />
     <ClInclude Include="..\Classes\scenes\game_scene.h" />
     <ClInclude Include="..\Classes\scenes\loading_scene.h" />
     <ClInclude Include="..\Classes\scenes\menu_scene.h" />
@@ -219,7 +214,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\ui\virtual_joy_stick.h" />
     <ClInclude Include="..\Classes\utils\audio\audio_helper.h" />
     <ClInclude Include="..\Classes\utils\base\app\basic_app.h" />
-    <ClInclude Include="..\Classes\utils\base\app\launcher_app.h" />
     <ClInclude Include="..\Classes\utils\base\scene\basic_scene.h" />
     <ClInclude Include="..\Classes\utils\base\scene\grid_scene.h" />
     <ClInclude Include="..\Classes\utils\base\scene\tiled_scene.h" />

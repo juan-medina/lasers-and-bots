@@ -32,9 +32,7 @@ class basic_app : public Application
 public:
   using base_class = Application;
 
-  explicit basic_app(const std::string& application_name, const float design_width, const float design_height,
-                     const int screen_width, const int screen_height, const bool full_screen, const bool fit_all,
-                     const bool show_fps);
+  explicit basic_app(const std::string& application_name, const float design_width, const float design_height);
 
   void initGLContextAttrs() override;
 
@@ -61,9 +59,28 @@ public:
     return audio_helper_;
   }
 
-protected:
+  void set_screen_size(const float width, const float height)
+  {
+    screen_width_ = width;
+    screen_height_ = height;
+  }
 
-  audio_helper* audio_helper_;
+  void set_full_screen(const bool full_screen)
+  {
+    full_screen_ = full_screen;
+  }
+
+  void set_fit_all(const bool fit_all)
+  {
+    fit_all_ = fit_all;
+  }
+
+  void set_show_fps(const bool show_fps)
+  {
+    show_fps_ = show_fps;
+  }
+
+  bool is_desktop();
 
 private:
 
@@ -72,15 +89,14 @@ private:
   static void center_win32_window();
 #endif
 
+  audio_helper* audio_helper_;
   float design_width_;
   float design_height_;
   int screen_width_;
   int screen_height_;
-
   bool full_screen_;
   bool fit_all_;
   bool show_fps_;
-
   string application_name_;
 };
 

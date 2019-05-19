@@ -34,8 +34,6 @@ public:
 
   laser_and_bots_app();
 
-  laser_and_bots_app(const int screen_width, const int screen_height, const bool full_screen);
-
   ~laser_and_bots_app();
 
   Scene* init_scene() override;
