@@ -35,7 +35,6 @@ basic_app::basic_app(const std::string& application_name, const float design_wid
   show_fps_(show_fps),
   application_name_(application_name)
 {
-  screen_size_ = Size(screen_width_, screen_height_);
 }
 
 void basic_app::initGLContextAttrs()
@@ -70,7 +69,7 @@ bool basic_app::applicationDidFinishLaunching()
       }
       else
       {
-        open_gl_view = GLViewImpl::createWithRect(application_name_, Rect(Vec2::ZERO, screen_size_));
+        open_gl_view = GLViewImpl::createWithRect(application_name_, Rect(Vec2::ZERO, Size(screen_width_, screen_height_)));
       }
 #else
       open_gl_view = GLViewImpl::create(application_name_);

@@ -81,8 +81,6 @@ private:
   bool fit_all_;
   bool show_fps_;
 
-  cocos2d::Size screen_size_;
-
   string application_name_;
 };
 
