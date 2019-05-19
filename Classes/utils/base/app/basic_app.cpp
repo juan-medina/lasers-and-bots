@@ -26,8 +26,8 @@ basic_app::basic_app(const std::string& application_name, const float design_wid
   audio_helper_(nullptr),
   design_width_(design_width),
   design_height_(design_height),
-  screen_width_(0),
-  screen_height_(0),
+  window_width_(0),
+  window_height_(0),
   full_screen_(true),
   fit_all_(false),
   show_fps_(false),
@@ -68,7 +68,7 @@ bool basic_app::applicationDidFinishLaunching()
       else
       {
         open_gl_view = GLViewImpl::createWithRect(application_name_,
-                                                  Rect(Vec2::ZERO, Size(screen_width_, screen_height_)));
+                                                  Rect(Vec2::ZERO, Size(window_width_, window_height_)));
       }
 #else
       open_gl_view = GLViewImpl::create(application_name_);
@@ -155,6 +155,16 @@ void basic_app::close()
   audio_helper_ = nullptr;
 
   Director::getInstance()->end();
+}
+
+void basic_app::set_window_size(const float scale)
+{
+  glfwInit();
+  const auto monitor = glfwGetPrimaryMonitor();
+  const auto video_mode = glfwGetVideoMode(monitor);
+  window_width_ = static_cast<int>(video_mode->width * scale);
+  window_height_ = static_cast<int>(video_mode->height * scale);
+  glfwTerminate();
 }
 
 bool basic_app::is_desktop()

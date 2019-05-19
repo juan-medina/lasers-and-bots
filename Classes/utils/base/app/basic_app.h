@@ -59,11 +59,7 @@ public:
     return audio_helper_;
   }
 
-  void set_screen_size(const float width, const float height)
-  {
-    screen_width_ = width;
-    screen_height_ = height;
-  }
+  void set_window_size(const float scale);
 
   void set_full_screen(const bool full_screen)
   {
@@ -92,8 +88,8 @@ private:
   audio_helper* audio_helper_;
   float design_width_;
   float design_height_;
-  int screen_width_;
-  int screen_height_;
+  int window_width_;
+  int window_height_;
   bool full_screen_;
   bool fit_all_;
   bool show_fps_;

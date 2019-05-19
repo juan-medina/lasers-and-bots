@@ -36,11 +36,14 @@ laser_and_bots_app::laser_and_bots_app()
 {
   if (is_desktop())
   {
-    const auto full_screen = UserDefault::getInstance()->getBoolForKey("full_screen", true);
-    const auto screen_width = UserDefault::getInstance()->getIntegerForKey("screen_width", 0);
-    const auto screen_height = UserDefault::getInstance()->getIntegerForKey("screen_height", 0);
+    const auto full_screen = UserDefault::getInstance()->getBoolForKey("full_screen", false);
     set_full_screen(full_screen);
-    set_screen_size(screen_width, screen_height);
+
+    if (!full_screen)
+    {
+      const auto window_size = UserDefault::getInstance()->getFloatForKey("window_size", 0.75f);
+      set_window_size(window_size);
+    }
   }
 }
 
