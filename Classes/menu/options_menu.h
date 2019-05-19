@@ -36,9 +36,9 @@ public:
 
   options_menu();
 
-  static options_menu* create(audio_helper* audio_helper);
+  static options_menu* create(audio_helper* audio_helper, const bool is_desktop_application);
 
-  bool init(audio_helper* audio_helper);
+  bool init(audio_helper* audio_helper, const bool is_desktop_application);
 
   void display() override;
 
@@ -48,17 +48,20 @@ protected:
 
 private:
 
-  void on_back();
-  void on_music();
-  void on_sound();
+  bool desktop_application_;
 
   MenuItemToggle* sound_toggle_;
   MenuItemToggle* music_toggle_;
   slider_object* sound_slider_;
   slider_object* music_slider_;
+  MenuItemToggle* full_screen_toggle_;
 
+  void on_back();
+  void on_music();
+  void on_sound();
   void on_music_slider_change(const float percentage);
   void on_sound_slider_change(const float percentage);
+  void on_full_screen();
 };
 
 

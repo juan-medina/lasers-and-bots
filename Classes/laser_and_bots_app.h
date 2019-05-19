@@ -41,12 +41,12 @@ public:
   Scene* game_scene(const int level);
   Scene* main_menu_scene();
   Scene* play_menu_scene();
+  Scene* options_menu_scene();
 
   void set_effects_muted(const bool effects_muted);
   void set_music_muted(const bool music_muted);
   void set_music_volume(const float music_volume);
   void set_effects_volume(const float effects_volume);
-
 
   void to_game(const int level);
   void to_main_menu();
@@ -59,6 +59,16 @@ public:
     return level_manager_;
   }
 
+  void change_video_mode(const bool full_screen);
+  bool want_a_restart() const
+  {
+    return want_restart_;
+  }
+
+  void close_with_restart();
+
+  int run(const bool to_options);
+
 private:
 
   void setup_level_manager();
@@ -70,6 +80,8 @@ private:
   float music_volume_;
   float effects_volume_;
   level_manager* level_manager_;
+  bool want_restart_;
+  bool to_options_;
 };
 
 #endif // _APP_DELEGATE_H_

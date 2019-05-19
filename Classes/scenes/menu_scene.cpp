@@ -103,7 +103,7 @@ bool menu_scene::init(basic_app* application, const menu_to_display menu)
 
     addChild(main_menu_, 0);
 
-    options_menu_ = options_menu::create(get_audio_helper());
+    options_menu_ = options_menu::create(get_audio_helper(), application->is_desktop());
     UTILS_BREAK_IF(options_menu_ == nullptr);
 
     addChild(options_menu_, 0);
@@ -121,6 +121,9 @@ bool menu_scene::init(basic_app* application, const menu_to_display menu)
       break;
     case menu_to_display::play_menu:
       display_play_menu();
+      break;
+    case menu_to_display::options_menu:
+      display_options_menu();
       break;
     }
 
@@ -368,7 +371,18 @@ void menu_scene::will_enter_foreground()
   resume();
 }
 
-void menu_scene::delay_to_game()
+bool menu_scene::is_full_screen() const
+{
+  return get_application()->is_full_screen();
+}
+
+void menu_scene::change_application_video_mode(const bool full_screen) const
+{
+  auto app = dynamic_cast<laser_and_bots_app*>(get_application());
+  app->change_video_mode(full_screen);
+}
+
+void menu_scene::delay_to_game() const
 {
   auto app = dynamic_cast<laser_and_bots_app*>(get_application());
   app->to_game(saved_level_);

@@ -24,14 +24,16 @@
 #include "../ui/slider_object.h"
 
 options_menu::options_menu():
+  desktop_application_(false),
   sound_toggle_(nullptr),
   music_toggle_(nullptr),
   sound_slider_(nullptr),
-  music_slider_(nullptr)
+  music_slider_(nullptr),
+  full_screen_toggle_(nullptr)
 {
 }
 
-options_menu* options_menu::create(audio_helper* audio_helper)
+options_menu* options_menu::create(audio_helper* audio_helper, const bool is_desktop_application)
 {
   options_menu* ret = nullptr;
 
@@ -40,7 +42,7 @@ options_menu* options_menu::create(audio_helper* audio_helper)
     auto object = new options_menu();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(audio_helper))
+    if (object->init(audio_helper, is_desktop_application))
     {
       object->autorelease();
     }
@@ -57,13 +59,20 @@ options_menu* options_menu::create(audio_helper* audio_helper)
   return ret;
 }
 
-bool options_menu::init(audio_helper* audio_helper)
+bool options_menu::init(audio_helper* audio_helper, const bool is_desktop_application)
 {
   auto ret = false;
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init("Options", audio_helper, 2600.f, 1400.f));
+    desktop_application_ = is_desktop_application;
+    const auto width = 2600.f;
+    auto height = 1400.f;
+    if (is_desktop_application)
+    {
+      height = 1800.0f;
+    }
+    UTILS_BREAK_IF(!base_class::init("Options", audio_helper, width, height));
 
     ret = true;
   }
@@ -86,6 +95,12 @@ void options_menu::display()
 
   sound_slider_->set_percentage(helper->get_sound_volume() * 100.f);
   sound_slider_->enable(!helper->get_effects_muted());
+
+  if (desktop_application_)
+  {
+    const auto menu = dynamic_cast<menu_scene*>(getParent());
+    full_screen_toggle_->setSelectedIndex(menu->is_full_screen() ? 1 : 0);
+  }
 }
 
 bool options_menu::create_menu_items()
@@ -94,6 +109,15 @@ bool options_menu::create_menu_items()
   do
   {
     UTILS_BREAK_IF(!add_text_button("Back", CC_CALLBACK_0(options_menu::on_back, this)));
+
+    const auto menu = dynamic_cast<menu_scene*>(getParent());
+    if (desktop_application_)
+    {
+      full_screen_toggle_ = add_toggle_text_button("Full Screen", CC_CALLBACK_0(options_menu::on_full_screen, this));
+      UTILS_BREAK_IF(full_screen_toggle_ == nullptr);
+
+      full_screen_toggle_->setPosition(full_screen_toggle_->getPosition() - Vec2(getContentSize().width / 4, 0.f));
+    }
 
     sound_toggle_ = add_toggle_text_button("Sound", CC_CALLBACK_0(options_menu::on_sound, this));
     UTILS_BREAK_IF(sound_toggle_ == nullptr);
@@ -155,4 +179,13 @@ void options_menu::on_sound_slider_change(const float percentage)
 {
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   menu->change_sound_volume(percentage / 100);
+}
+
+void options_menu::on_full_screen()
+{
+  get_audio_helper()->play_effect("sounds/select.mp3");
+
+  const auto full_screen = full_screen_toggle_->getSelectedIndex() == 1;
+  const auto menu = dynamic_cast<menu_scene*>(getParent());
+  menu->change_application_video_mode(full_screen);
 }

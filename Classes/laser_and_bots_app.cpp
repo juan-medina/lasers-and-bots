@@ -32,7 +32,9 @@ laser_and_bots_app::laser_and_bots_app()
     debug_physics_(false),
     music_volume_(1.f),
     effects_volume_(1.f),
-    level_manager_(nullptr)
+    level_manager_(nullptr),
+    want_restart_(false),
+    to_options_(false)
 {
   if (is_desktop())
   {
@@ -54,7 +56,7 @@ laser_and_bots_app::~laser_and_bots_app()
 
 Scene* laser_and_bots_app::init_scene()
 {
-  return main_menu_scene();
+  return to_options_ ? options_menu_scene() : main_menu_scene();
 }
 
 Scene* laser_and_bots_app::game_scene(const int level)
@@ -107,6 +109,22 @@ Scene* laser_and_bots_app::play_menu_scene()
   return loading_scene::menu(this, menu_to_display::play_menu);
 }
 
+Scene* laser_and_bots_app::options_menu_scene()
+{
+  effects_muted_ = UserDefault::getInstance()->getBoolForKey("effects_muted", effects_muted_);
+  music_muted_ = UserDefault::getInstance()->getBoolForKey("music_muted", music_muted_);
+  music_volume_ = UserDefault::getInstance()->getFloatForKey("music_volume", music_volume_);
+  effects_volume_ = UserDefault::getInstance()->getFloatForKey("effects_volume", effects_volume_);
+  setup_level_manager();
+
+  get_audio_helper()->set_effects_muted(effects_muted_);
+  get_audio_helper()->set_music_muted(music_muted_);
+  get_audio_helper()->set_music_volume(music_volume_);
+  get_audio_helper()->set_sound_volume(effects_volume_);
+
+  return loading_scene::menu(this, menu_to_display::options_menu);
+}
+
 void laser_and_bots_app::set_effects_muted(const bool effects_muted)
 {
   effects_muted_ = effects_muted;
@@ -154,6 +172,24 @@ void laser_and_bots_app::applicationDidEnterBackground()
 {
   const auto scene = Director::getInstance()->getRunningScene();
   scene->pause();
+}
+
+void laser_and_bots_app::change_video_mode(const bool full_screen)
+{
+  UserDefault::getInstance()->setBoolForKey("full_screen", full_screen);
+  close_with_restart();
+}
+
+void laser_and_bots_app::close_with_restart()
+{
+  want_restart_ = true;
+  close();
+}
+
+int laser_and_bots_app::run(const bool to_options)
+{
+  to_options_ = to_options;
+  return base_class::run();
 }
 
 void laser_and_bots_app::setup_level_manager()

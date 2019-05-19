@@ -31,7 +31,8 @@ class play_menu;
 enum class menu_to_display
 {
   main_menu,
-  play_menu
+  play_menu,
+  options_menu
 };
 
 class menu_scene final : public basic_scene
@@ -64,9 +65,13 @@ public:
   void did_enter_background() override;
   void will_enter_foreground() override;
 
+  bool is_full_screen() const;
+
+  void change_application_video_mode(const bool full_screen) const;
+
 private:
 
-  void delay_to_game();
+  void delay_to_game() const;
   bool init(basic_app* application, const menu_to_display menu);
 
   bool add_background();

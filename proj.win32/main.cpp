@@ -23,9 +23,22 @@
 
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {
-  const auto app = new laser_and_bots_app();
-  const auto result = app->run();
-  delete app;
+  auto to_options = false;
+  do
+  {
+    const auto app = new laser_and_bots_app();
+    const auto result = app->run(to_options);
+    const auto restart = app->want_a_restart();
+    delete app;
 
-  return result;
+    if (restart)
+    {
+      to_options = true;
+    }
+    else
+    {
+      return result;
+    }
+  }
+  while (true);
 }

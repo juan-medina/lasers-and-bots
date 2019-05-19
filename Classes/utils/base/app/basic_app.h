@@ -66,6 +66,11 @@ public:
     full_screen_ = full_screen;
   }
 
+  bool is_full_screen() const
+  {
+    return full_screen_;
+  }
+
   void set_fit_all(const bool fit_all)
   {
     fit_all_ = fit_all;
