@@ -289,7 +289,8 @@ MenuItem* basic_menu::add_text_button(const std::string& text, const ccMenuCallb
   return result;
 }
 
-MenuItemToggle* basic_menu::add_toggle_text_button(const std::string& text, const ccMenuCallback& callback)
+MenuItemToggle* basic_menu::add_toggle_text_button(const std::string& text, const ccMenuCallback& callback,
+                                                   const bool not_move /*= false*/)
 {
   MenuItemToggle* result = nullptr;
 
@@ -301,7 +302,10 @@ MenuItemToggle* basic_menu::add_toggle_text_button(const std::string& text, cons
     const auto label = add_label(text, item);
     UTILS_BREAK_IF(label == nullptr);
 
-    move_text_button(item);
+    if (!not_move)
+    {
+      move_text_button(item);
+    }
     add_button(item, callback);
 
     result = item;
@@ -353,6 +357,34 @@ slider_object* basic_menu::add_slider(MenuItem* attach_to, const float_callback&
     add_button(slider, nullptr);
 
     result = slider;
+  }
+  while (false);
+
+  return result;
+}
+
+MenuItem* basic_menu::add_row_label(const std::string& text, MenuItem* attach_to)
+{
+  MenuItem* result = nullptr;
+
+  do
+  {
+    const auto label = Label::createWithTTF(text, "fonts/tahoma.ttf", 120);
+    UTILS_BREAK_IF(label == nullptr);
+
+    label->setTextColor(Color4B(255, 255, 255, 255));
+    label->enableOutline(Color4B(0, 0, 0, 255), 5);
+
+    auto label_item = MenuItemLabel::create(label);
+    UTILS_BREAK_IF(label_item == nullptr);
+
+    label_item->setPosition(attach_to->getPosition() -
+      Vec2(attach_to->getContentSize().width / 2 - label->getContentSize().width / 2 + 750.f,
+           -label->getContentSize().height / 4));
+
+    add_button(label_item, nullptr);
+
+    result = label_item;
   }
   while (false);
 

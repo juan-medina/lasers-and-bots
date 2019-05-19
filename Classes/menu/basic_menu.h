@@ -60,9 +60,12 @@ protected:
   Label* add_label(const std::string& text, MenuItem* item) const;
 
   MenuItem* add_text_button(const std::string& text, const ccMenuCallback& callback);
-  MenuItemToggle* add_toggle_text_button(const std::string& text, const ccMenuCallback& callback);
+  MenuItemToggle* add_toggle_text_button(const std::string& text, const ccMenuCallback& callback,
+                                         const bool not_move = false);
   MenuItem* add_image_button(const std::string& base_image, const std::string& text, const ccMenuCallback& callback);
   slider_object* add_slider(MenuItem* attach_to, const float_callback& callback);
+
+  MenuItem* add_row_label(const std::string& text, MenuItem* attach_to);
 
 private:
 

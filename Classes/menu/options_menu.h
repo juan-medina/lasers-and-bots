@@ -55,6 +55,7 @@ private:
   slider_object* sound_slider_;
   slider_object* music_slider_;
   MenuItemToggle* full_screen_toggle_;
+  MenuItemToggle* windowed_toggle_;
 
   void on_back();
   void on_music();
@@ -62,6 +63,9 @@ private:
   void on_music_slider_change(const float percentage);
   void on_sound_slider_change(const float percentage);
   void on_full_screen();
+  void on_windowed();
+  void update_labels() const;
+  static Label* get_button_label(MenuItem* button);
 };
 
 
