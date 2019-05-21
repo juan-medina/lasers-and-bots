@@ -65,7 +65,11 @@ bool text_toggle::init(const std::string& base, const std::string& text)
     UTILS_BREAK_IF(sprite_click == nullptr);
     sprite_click->setOpacity(190);
 
-    const auto normal_item = MenuItemSprite::create(normal_sprite, sprite_click);
+    const auto sprite_click_disabled = Sprite::createWithSpriteFrameName(base + "4.png");
+    UTILS_BREAK_IF(sprite_click_disabled == nullptr);
+    sprite_click_disabled->setOpacity(190);
+
+    const auto normal_item = MenuItemSprite::create(normal_sprite, sprite_click, sprite_click_disabled);
     UTILS_BREAK_IF(normal_item == nullptr);
 
     const auto selected_sprite = Sprite::createWithSpriteFrameName(base + "3.png");

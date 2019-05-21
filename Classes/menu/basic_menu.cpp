@@ -190,15 +190,14 @@ text_toggle* basic_menu::add_toggle_text_button(const std::string& text, const c
   return result;
 }
 
-text_button* basic_menu::add_small_button(const std::string& text, const ccMenuCallback& callback)
+text_toggle* basic_menu::add_small_button(const std::string& text, const ccMenuCallback& callback)
 {
-  text_button* result = nullptr;
+  text_toggle* result = nullptr;
 
   do
   {
-    const auto item = text_button::create("02_joystick_empty_0", text);
+    const auto item = text_toggle::create("02_joystick_empty_0", text);
 
-    move_image_button(item);
     add_button(item, callback);
 
     result = item;

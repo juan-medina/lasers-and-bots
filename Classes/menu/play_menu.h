@@ -28,10 +28,14 @@
 class audio_helper;
 class level_manager;
 class text_button;
+class text_toggle;
 
 class play_menu final : public basic_menu
 {
 public:
+
+  play_menu();
+
   using base_class = basic_menu;
 
   static play_menu* create(audio_helper* audio_helper);
@@ -44,13 +48,21 @@ protected:
   bool create_menu_items() override;
 
 private:
-
+  Label* add_labels(const std::string& label_text, const std::string& text, const Vec2& pos, const float separation);
   void on_back();
-  void on_play(Ref* sender, const int level);
+  void on_level_select(Ref* sender, const int level);
+  void on_play();
+  void select_level(const int level);
   level_manager* get_level_manager();
 
-  std::map<int, text_button*> level_buttons_;
+  std::map<int, text_toggle*> level_buttons_;
   static constexpr auto star_tag = 0xFF0F;
+
+  Label* level_name_label_;
+  Label* level_time_limit_label_;
+  Label* level_time_record_label_;
+  Label* level_3_stars_time_record_label_;
+  int selected_level_;
 };
 
 

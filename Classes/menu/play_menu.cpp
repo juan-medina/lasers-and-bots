@@ -24,6 +24,17 @@
 #include "../laser_and_bots_app.h"
 #include "../misc/level_manager.h"
 #include "../ui/text_button.h"
+#include "../ui/text_toggle.h"
+#include "../ui/game_ui.h"
+
+play_menu::play_menu():
+  level_name_label_(nullptr),
+  level_time_limit_label_(nullptr),
+  level_time_record_label_(nullptr),
+  level_3_stars_time_record_label_(nullptr),
+  selected_level_(1)
+{
+}
 
 play_menu* play_menu::create(audio_helper* audio_helper)
 {
@@ -57,7 +68,7 @@ bool play_menu::init(audio_helper* audio_helper)
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init("Level Select", audio_helper, 1800.f, 1300.f));
+    UTILS_BREAK_IF(!base_class::init("Level Select", audio_helper, 3600.f, 1800.f));
 
     ret = true;
   }
@@ -91,6 +102,7 @@ void play_menu::display()
       star->setColor(is_gold ? Color3B(0, 255, 255) : Color3B::WHITE);
     }
   }
+  select_level(selected_level_);
 }
 
 bool play_menu::create_menu_items()
@@ -100,11 +112,42 @@ bool play_menu::create_menu_items()
   {
     UTILS_BREAK_IF(add_text_button("Back", CC_CALLBACK_0(play_menu::on_back, this)) == nullptr);
 
-    for (auto button_count = 1; button_count <= 10; ++button_count)
+    const auto play = add_text_button("Play", CC_CALLBACK_0(play_menu::on_play, this));
+    UTILS_BREAK_IF(play == nullptr);
+
+    play->setPosition(getContentSize().width / 6, play->getPosition().y);
+
+    const auto margin = Vec2(300.f, 370.f);
+    const auto first_button_pos = Vec2(-(getContentSize().width / 2) + margin.x,
+                                       getContentSize().height - margin.y);
+
+    auto first_label_pos = Vec2(-550.f, (getContentSize().height / 2) - margin.y);
+    static const auto separation = 900.f;
+
+    level_name_label_ = add_labels("Level", "One long level name", first_label_pos, separation);
+    UTILS_BREAK_IF(level_name_label_ == nullptr);
+
+    first_label_pos.y -= 200;
+    level_time_limit_label_ = add_labels("Time Limit", "00:00", first_label_pos, separation);
+    UTILS_BREAK_IF(level_time_limit_label_ == nullptr);
+
+    first_label_pos.y -= 200;
+    level_time_record_label_ = add_labels("Time Record", "00:00", first_label_pos, separation);
+    UTILS_BREAK_IF(level_time_record_label_ == nullptr);
+
+    first_label_pos.y -= 200;
+    level_3_stars_time_record_label_ = add_labels("3 Stars Record", "00:00", first_label_pos, separation);
+    UTILS_BREAK_IF(level_3_stars_time_record_label_ == nullptr);
+
+    auto button_pos = first_button_pos;
+    auto col = 1;
+    for (auto button_count = 1; button_count <= 12; ++button_count)
     {
       auto text = string_format("%02d", button_count);
-      auto button = add_small_button(text, CC_CALLBACK_1(play_menu::on_play, this, button_count));
+      auto button = add_small_button(text, CC_CALLBACK_1(play_menu::on_level_select, this, button_count));
       UTILS_BREAK_IF(button == nullptr);
+
+      button->setPosition(button_pos);
 
       auto star_pos = Vec2(60.f, 90.f);
 
@@ -123,11 +166,52 @@ bool play_menu::create_menu_items()
 
       button->setVisible(false);
       level_buttons_.insert(std::make_pair(button_count, button));
+
+      button_pos.x += button->getContentSize().width + 50.0f;
+      col++;
+      if (col > 3)
+      {
+        col = 1;
+        button_pos.x = first_button_pos.x;
+        button_pos.y -= (button->getContentSize().height) + 50.0f;
+      }
     }
 
     result = true;
   }
   while (false);
+  return result;
+}
+
+Label* play_menu::add_labels(const std::string& label_text, const std::string& text, const Vec2& pos,
+                             const float separation)
+{
+  Label* result = nullptr;
+  do
+  {
+    auto label = Label::createWithTTF(label_text, "fonts/tahoma.ttf", 120);
+    UTILS_BREAK_IF(label == nullptr);
+
+    label->setPosition(pos - Vec2(-label->getContentSize().width / 2,
+                                  -label->getContentSize().height / 2));
+    label->setTextColor(Color4B(255, 255, 255, 255));
+    label->enableOutline(Color4B(0, 0, 0, 255), 5);
+    addChild(label);
+
+    auto value = Label::createWithTTF(text, "fonts/tahoma.ttf", 120);
+    UTILS_BREAK_IF(label == nullptr);
+
+    value->setAnchorPoint(Vec2(0.f, 0.5f));
+    value->setHorizontalAlignment(TextHAlignment::LEFT);
+    value->setPosition(pos.x + separation, label->getPosition().y);
+    value->setTextColor(Color4B(0, 255, 255, 255));
+    value->enableOutline(Color4B(0, 0, 0, 255), 5);
+    addChild(value);
+
+    result = value;
+  }
+  while (false);
+
   return result;
 }
 
@@ -139,12 +223,61 @@ void play_menu::on_back()
   menu->display_main_menu();
 }
 
-void play_menu::on_play(Ref*, const int level)
+void play_menu::on_level_select(Ref*, const int level)
 {
   get_audio_helper()->play_effect("sounds/select.mp3");
+  select_level(level);
+}
+
+void play_menu::on_play()
+{
+  get_audio_helper()->play_effect("sounds/select.mp3");
+
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->go_to_game(level);
+  menu->go_to_game(selected_level_);
+}
+
+void play_menu::select_level(const int level)
+{
+  const auto levels = get_level_manager();
+  const auto level_name = levels->get_level_name(level);
+  const auto level_time_limit = levels->get_level_time_limit(level);
+  const auto level_time_limit_string = game_ui::time_message(level_time_limit);
+  const auto level_time_record = levels->get_level_time_record(level);
+  const auto level_time_record_string = game_ui::time_message(level_time_record);
+  const auto level_3_stars_record = levels->get_level_3_stars_record(level);
+  const auto level_3_stars_record_string = game_ui::time_message(level_3_stars_record);
+
+  level_name_label_->setString(level_name);
+  level_time_limit_label_->setString(level_time_limit_string);
+
+  if (level_time_record != level_manager::no_time_record)
+  {
+    level_time_record_label_->setString(level_time_record_string);
+  }
+  else
+  {
+    level_time_record_label_->setString("n/a");
+  }
+
+  if (level_3_stars_record != level_manager::no_time_record)
+  {
+    level_3_stars_time_record_label_->setString(level_3_stars_record_string);
+  }
+  else
+  {
+    level_3_stars_time_record_label_->setString("n/a");
+  }
+
+  for (const auto pair : level_buttons_)
+  {
+    const auto id = pair.first;
+    const auto item = pair.second;
+    item->setSelectedIndex(id == level ? 1 : 0);
+  }
+
+  selected_level_ = level;
 }
 
 level_manager* play_menu::get_level_manager()

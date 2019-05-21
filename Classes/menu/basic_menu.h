@@ -60,7 +60,7 @@ protected:
   text_button* add_text_button(const std::string& text, const ccMenuCallback& callback);
   text_toggle* add_toggle_text_button(const std::string& text, const ccMenuCallback& callback,
                                       const bool not_move = false);
-  text_button* add_small_button(const std::string& text, const ccMenuCallback& callback);
+  text_toggle* add_small_button(const std::string& text, const ccMenuCallback& callback);
   slider_object* add_slider(MenuItem* attach_to, const float_callback& callback);
   MenuItem* add_row_label(const std::string& text, MenuItem* attach_to, const float left_space);
 
