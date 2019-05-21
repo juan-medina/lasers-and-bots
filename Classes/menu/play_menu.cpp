@@ -23,6 +23,7 @@
 #include "../scenes/menu_scene.h"
 #include "../laser_and_bots_app.h"
 #include "../misc/level_manager.h"
+#include "../ui/text_button.h"
 
 play_menu* play_menu::create(audio_helper* audio_helper)
 {
@@ -102,7 +103,7 @@ bool play_menu::create_menu_items()
     for (auto button_count = 1; button_count <= 10; ++button_count)
     {
       auto text = string_format("%02d", button_count);
-      auto button = add_image_button("02_joystick_empty", text, CC_CALLBACK_1(play_menu::on_play, this, button_count));
+      auto button = add_small_button(text, CC_CALLBACK_1(play_menu::on_play, this, button_count));
       UTILS_BREAK_IF(button == nullptr);
 
       auto star_pos = Vec2(60.f, 90.f);
@@ -121,8 +122,7 @@ bool play_menu::create_menu_items()
       }
 
       button->setVisible(false);
-
-      level_buttons_.insert(std::pair<int, MenuItem*>(button_count, button));
+      level_buttons_.insert(std::make_pair(button_count, button));
     }
 
     result = true;

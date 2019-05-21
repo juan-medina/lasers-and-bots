@@ -17,60 +17,31 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-
-#ifndef __OPTIONS_MENU_CLASS__
-#define __OPTIONS_MENU_CLASS__
+#ifndef __TEXT_TOGGLE_CLASS__
+#define __TEXT_TOGGLE_CLASS__
 
 #include "../utils/utils.h"
-#include "basic_menu.h"
 
-//foward declarations
-class audio_helper;
-class slider_object;
-class text_toggle;
 
-class options_menu final : public basic_menu
+class text_toggle final : public MenuItemToggle
 {
 public:
+  using base_class = MenuItemToggle;
 
-  using base_class = basic_menu;
+  text_toggle();
 
-  options_menu();
+  static text_toggle* create(const std::string& base, const std::string& text);
 
-  static options_menu* create(audio_helper* audio_helper, const bool is_desktop_application);
+  bool init(const std::string& base, const std::string& text);
 
-  bool init(audio_helper* audio_helper, const bool is_desktop_application);
-
-  void display() override;
-
-protected:
-
-  bool create_menu_items() override;
+  void set_text(const std::string& text) const
+  {
+    label_->setString(text);
+  }
 
 private:
 
-  bool desktop_application_;
-
-  text_toggle* sound_toggle_;
-  text_toggle* music_toggle_;
-  slider_object* sound_slider_;
-  slider_object* music_slider_;
-  text_toggle* full_screen_toggle_;
-  text_toggle* windowed_toggle_;
-  text_toggle* debug_grid_toggle_;
-  text_toggle* debug_physics_toggle_;
-
-  void on_back();
-  void on_music();
-  void on_sound();
-  void on_music_slider_change(const float percentage);
-  void on_sound_slider_change(const float percentage);
-  void on_full_screen();
-  void on_windowed();
-  void on_debug_grid();
-  void on_debug_physics();
-  void update_labels();
+  Label* label_;
 };
 
-
-#endif // __OPTIONS_MENU_CLASS__
+#endif // __TEXT_TOGGLE_CLASS__

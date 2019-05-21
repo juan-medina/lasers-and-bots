@@ -21,6 +21,8 @@
 #include "basic_menu.h"
 #include "../utils/audio/audio_helper.h"
 #include "../ui/slider_object.h"
+#include "../ui/text_button.h"
+#include "../ui/text_toggle.h"
 
 basic_menu::basic_menu():
   audio_helper_(nullptr),
@@ -147,137 +149,13 @@ void basic_menu::add_button(MenuItem* item, const ccMenuCallback& callback)
   buttons_.pushBack(item);
 }
 
-MenuItem* basic_menu::create_image_button_base(const std::string& base) const
+text_button* basic_menu::add_text_button(const std::string& text, const ccMenuCallback& callback)
 {
-  MenuItem* result = nullptr;
-  do
-  {
-    const auto sprite = Sprite::createWithSpriteFrameName(base + "_01.png");
-    UTILS_BREAK_IF(sprite == nullptr);
-    sprite->setOpacity(190);
-
-    const auto sprite_click = Sprite::createWithSpriteFrameName(base + "_02.png");
-    UTILS_BREAK_IF(sprite_click == nullptr);
-    sprite_click->setOpacity(190);
-
-    const auto sprite_disabled = Sprite::createWithSpriteFrameName(base + "_04.png");
-    UTILS_BREAK_IF(sprite_disabled == nullptr);
-    sprite_disabled->setOpacity(190);
-
-    auto item = MenuItemSprite::create(sprite, sprite_click, sprite_disabled);
-    UTILS_BREAK_IF(item == nullptr);
-
-    item->setContentSize(sprite->getContentSize());
-
-    result = item;
-  }
-  while (false);
-
-  return result;
-}
-
-MenuItem* basic_menu::create_text_button_base() const
-{
-  MenuItem* result = nullptr;
-  do
-  {
-    const auto sprite = Sprite::createWithSpriteFrameName("08_Text_1.png");
-    UTILS_BREAK_IF(sprite == nullptr);
-    sprite->setOpacity(190);
-
-    const auto sprite_click = Sprite::createWithSpriteFrameName("08_Text_2.png");
-    UTILS_BREAK_IF(sprite_click == nullptr);
-    sprite_click->setOpacity(190);
-
-    auto item = MenuItemSprite::create(sprite, sprite_click);
-    UTILS_BREAK_IF(item == nullptr);
-
-    item->setPosition(0, current_text_button_y_);
-    item->setContentSize(sprite->getContentSize());
-
-    result = item;
-  }
-  while (false);
-
-  return result;
-}
-
-MenuItemToggle* basic_menu::create_toggle_button_base() const
-{
-  MenuItemToggle* result = nullptr;
-  do
-  {
-    const auto normal_sprite = Sprite::createWithSpriteFrameName("08_Text_1.png");
-    UTILS_BREAK_IF(normal_sprite == nullptr);
-    normal_sprite->setOpacity(190);
-
-    const auto sprite_click = Sprite::createWithSpriteFrameName("08_Text_2.png");
-    UTILS_BREAK_IF(sprite_click == nullptr);
-    sprite_click->setOpacity(190);
-
-    const auto normal_item = MenuItemSprite::create(normal_sprite, sprite_click);
-    UTILS_BREAK_IF(normal_item == nullptr);
-
-    const auto selected_sprite = Sprite::createWithSpriteFrameName("08_Text_3.png");
-    UTILS_BREAK_IF(selected_sprite == nullptr);
-    selected_sprite->setOpacity(190);
-
-    const auto click_selected_sprite = Sprite::createWithSpriteFrameName("08_Text_2.png");
-    UTILS_BREAK_IF(click_selected_sprite == nullptr);
-    click_selected_sprite->setOpacity(190);
-
-    const auto selected_item = MenuItemSprite::create(selected_sprite, click_selected_sprite);
-    UTILS_BREAK_IF(selected_item == nullptr);
-
-    const auto item_toggle = MenuItemToggle::create(normal_item);
-    UTILS_BREAK_IF(item_toggle == nullptr);
-
-    item_toggle->addSubItem(selected_item);
-
-    item_toggle->setPosition(0, current_text_button_y_);
-    item_toggle->setContentSize(normal_sprite->getContentSize());
-
-    result = item_toggle;
-  }
-  while (false);
-
-  return result;
-}
-
-Label* basic_menu::add_label(const std::string& text, MenuItem* item) const
-{
-  Label* result = nullptr;
+  text_button* result = nullptr;
 
   do
   {
-    const auto label_button = Label::createWithTTF(text, "fonts/tahoma.ttf", 120);
-    UTILS_BREAK_IF(label_button == nullptr);
-
-    label_button->setPosition(item->getContentSize().width / 2,
-                              item->getContentSize().height / 2 + 30);
-    label_button->setTextColor(Color4B(255, 255, 255, 255));
-    label_button->enableOutline(Color4B(0, 0, 0, 255), 5);
-
-    item->addChild(label_button, 100);
-
-    result = label_button;
-  }
-  while (false);
-
-  return result;
-}
-
-MenuItem* basic_menu::add_text_button(const std::string& text, const ccMenuCallback& callback)
-{
-  MenuItem* result = nullptr;
-
-  do
-  {
-    const auto item = create_text_button_base();
-    UTILS_BREAK_IF(item == nullptr);
-
-    const auto label = add_label(text, item);
-    UTILS_BREAK_IF(label == nullptr);
+    const auto item = text_button::create("08_Text_", text);
 
     move_text_button(item);
     add_button(item, callback);
@@ -289,18 +167,15 @@ MenuItem* basic_menu::add_text_button(const std::string& text, const ccMenuCallb
   return result;
 }
 
-MenuItemToggle* basic_menu::add_toggle_text_button(const std::string& text, const ccMenuCallback& callback,
-                                                   const bool not_move /*= false*/)
+text_toggle* basic_menu::add_toggle_text_button(const std::string& text, const ccMenuCallback& callback,
+                                                const bool not_move /*= false*/)
 {
-  MenuItemToggle* result = nullptr;
+  text_toggle* result = nullptr;
 
   do
   {
-    const auto item = create_toggle_button_base();
+    const auto item = text_toggle::create("08_Text_", text);
     UTILS_BREAK_IF(item == nullptr);
-
-    const auto label = add_label(text, item);
-    UTILS_BREAK_IF(label == nullptr);
 
     if (!not_move)
     {
@@ -315,18 +190,13 @@ MenuItemToggle* basic_menu::add_toggle_text_button(const std::string& text, cons
   return result;
 }
 
-MenuItem* basic_menu::add_image_button(const std::string& base_image, const std::string& text,
-                                       const ccMenuCallback& callback)
+text_button* basic_menu::add_small_button(const std::string& text, const ccMenuCallback& callback)
 {
-  MenuItem* result = nullptr;
+  text_button* result = nullptr;
 
   do
   {
-    const auto item = create_image_button_base(base_image);
-    UTILS_BREAK_IF(item == nullptr);
-
-    const auto label = add_label(text, item);
-    UTILS_BREAK_IF(label == nullptr);
+    const auto item = text_button::create("02_joystick_empty_0", text);
 
     move_image_button(item);
     add_button(item, callback);

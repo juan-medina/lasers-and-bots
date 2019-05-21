@@ -27,6 +27,7 @@
 //foward declarations
 class audio_helper;
 class level_manager;
+class text_button;
 
 class play_menu final : public basic_menu
 {
@@ -48,7 +49,7 @@ private:
   void on_play(Ref* sender, const int level);
   level_manager* get_level_manager();
 
-  std::map<int, MenuItem*> level_buttons_;
+  std::map<int, text_button*> level_buttons_;
   static constexpr auto star_tag = 0xFF0F;
 };
 

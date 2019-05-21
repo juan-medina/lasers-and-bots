@@ -22,6 +22,7 @@
 #include "../utils/audio/audio_helper.h"
 #include "../scenes/menu_scene.h"
 #include "../ui/slider_object.h"
+#include "../ui/text_toggle.h"
 
 options_menu::options_menu():
   desktop_application_(false),
@@ -276,22 +277,8 @@ void options_menu::update_labels()
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   const auto helper = get_audio_helper();
 
-  get_button_label(sound_toggle_)->setString(helper->get_effects_muted() ? "Disabled" : "Enabled");
-  get_button_label(music_toggle_)->setString(helper->get_music_muted() ? "Disabled" : "Enabled");
-  get_button_label(debug_physics_toggle_)->setString(menu->is_debug_physics() ? "Enabled" : "Disabled");
-  get_button_label(debug_grid_toggle_)->setString(menu->is_debug_grid() ? "Enabled" : "Disabled");
-}
-
-Label* options_menu::get_button_label(MenuItem* button)
-{
-  for (auto child : button->getChildren())
-  {
-    const auto label = dynamic_cast<Label*>(child);
-    if (label != nullptr)
-    {
-      return label;
-    }
-  }
-
-  return nullptr;
+  sound_toggle_->set_text(helper->get_effects_muted() ? "Disabled" : "Enabled");
+  music_toggle_->set_text(helper->get_music_muted() ? "Disabled" : "Enabled");
+  debug_physics_toggle_->set_text(menu->is_debug_physics() ? "Enabled" : "Disabled");
+  debug_grid_toggle_->set_text(menu->is_debug_grid() ? "Enabled" : "Disabled");
 }

@@ -27,6 +27,8 @@
 //foward declarations
 class audio_helper;
 class slider_object;
+class text_button;
+class text_toggle;
 
 class basic_menu : public resizable_window
 {
@@ -54,17 +56,12 @@ protected:
   void move_image_button(MenuItem* item);
   void move_text_button(MenuItem* item);
   void add_button(MenuItem* item, const ccMenuCallback& callback);
-  MenuItem* create_image_button_base(const std::string& base) const;
-  MenuItem* create_text_button_base() const;
-  MenuItemToggle* create_toggle_button_base() const;
-  Label* add_label(const std::string& text, MenuItem* item) const;
 
-  MenuItem* add_text_button(const std::string& text, const ccMenuCallback& callback);
-  MenuItemToggle* add_toggle_text_button(const std::string& text, const ccMenuCallback& callback,
-                                         const bool not_move = false);
-  MenuItem* add_image_button(const std::string& base_image, const std::string& text, const ccMenuCallback& callback);
+  text_button* add_text_button(const std::string& text, const ccMenuCallback& callback);
+  text_toggle* add_toggle_text_button(const std::string& text, const ccMenuCallback& callback,
+                                      const bool not_move = false);
+  text_button* add_small_button(const std::string& text, const ccMenuCallback& callback);
   slider_object* add_slider(MenuItem* attach_to, const float_callback& callback);
-
   MenuItem* add_row_label(const std::string& text, MenuItem* attach_to, const float left_space);
 
 private:
