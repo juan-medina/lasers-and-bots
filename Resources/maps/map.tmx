@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="1.1.0" orientation="orthogonal" renderorder="right-down" width="45" height="20" tilewidth="256" tileheight="256" infinite="0" nextobjectid="49">
  <properties>
-  <property name="name" value="demo level"/>
   <property name="shapes" value="shapes/shapes.plist"/>
-  <property name="time_limit" type="int" value="50"/>
  </properties>
  <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256" spacing="2" margin="1" tilecount="36" columns="6">
   <image source="tilesheet.png" width="1548" height="1548"/>

@@ -30,6 +30,7 @@ class door_object;
 class game_ui;
 class robot_fragment;
 class harm_object;
+class level_manager;
 
 class game_scene final : public physics_tiled_scene
 {
@@ -54,7 +55,7 @@ public:
 
   void pre_load_sounds() const;
 
-  void get_map_settings();
+  void get_level_settings();
 
   static void cache_objects_textures();
 
@@ -196,6 +197,9 @@ private:
 
   unsigned short int barrel_count_;
   int level_;
+
+  level_manager* level_manager_;
+  std::string music_file_name_;
 };
 
 #endif // __MAIN_SCENE__

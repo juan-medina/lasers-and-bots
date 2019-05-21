@@ -80,7 +80,7 @@ void play_menu::display()
 
     item->setVisible(id <= max_level);
 
-    const auto stars = levels->get_stars(id);
+    const auto stars = levels->get_level_stars(id);
     item->setEnabled(levels->is_level_enabled(id));
 
     for (auto star_counter = 0; star_counter < 3; ++star_counter)

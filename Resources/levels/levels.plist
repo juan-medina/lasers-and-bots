@@ -5,13 +5,116 @@
         <key>metadata</key>
         <dict>
             <key>format</key>
-            <integer>1</integer>
+            <string>levels</string>
+            <key>version</key>
+            <dict>
+                <key>major</key>
+                <integer>1</integer>
+                <key>minor</key>
+                <integer>0</integer>
+            </dict>
         </dict>
         <key>levels</key>
         <array>
             <dict>
                 <key>map</key>
                 <string>maps/map.tmx</string>
+                <key>name</key>
+                <string>demo level</string>
+                <key>time_limit</key>
+                <integer>50</integer>
+                <key>music</key>
+                <string>sounds/music.mp3</string>
+            </dict>
+            <dict>
+                <key>map</key>
+                <string>maps/map.tmx</string>
+                <key>name</key>
+                <string>demo level</string>
+                <key>time_limit</key>
+                <integer>50</integer>
+                <key>music</key>
+                <string>sounds/music.mp3</string>
+            </dict>
+            <dict>
+                <key>map</key>
+                <string>maps/map.tmx</string>
+                <key>name</key>
+                <string>demo level</string>
+                <key>time_limit</key>
+                <integer>50</integer>
+                <key>music</key>
+                <string>sounds/music.mp3</string>
+            </dict>
+            <dict>
+                <key>map</key>
+                <string>maps/map.tmx</string>
+                <key>name</key>
+                <string>demo level</string>
+                <key>time_limit</key>
+                <integer>50</integer>
+                <key>music</key>
+                <string>sounds/music.mp3</string>
+            </dict>
+            <dict>
+                <key>map</key>
+                <string>maps/map.tmx</string>
+                <key>name</key>
+                <string>demo level</string>
+                <key>time_limit</key>
+                <integer>50</integer>
+                <key>music</key>
+                <string>sounds/music.mp3</string>
+            </dict>
+            <dict>
+                <key>map</key>
+                <string>maps/map.tmx</string>
+                <key>name</key>
+                <string>demo level</string>
+                <key>time_limit</key>
+                <integer>50</integer>
+                <key>music</key>
+                <string>sounds/music.mp3</string>
+            </dict>
+            <dict>
+                <key>map</key>
+                <string>maps/map.tmx</string>
+                <key>name</key>
+                <string>demo level</string>
+                <key>time_limit</key>
+                <integer>50</integer>
+                <key>music</key>
+                <string>sounds/music.mp3</string>
+            </dict>
+            <dict>
+                <key>map</key>
+                <string>maps/map.tmx</string>
+                <key>name</key>
+                <string>demo level</string>
+                <key>time_limit</key>
+                <integer>50</integer>
+                <key>music</key>
+                <string>sounds/music.mp3</string>
+            </dict>
+            <dict>
+                <key>map</key>
+                <string>maps/map.tmx</string>
+                <key>name</key>
+                <string>demo level</string>
+                <key>time_limit</key>
+                <integer>50</integer>
+                <key>music</key>
+                <string>sounds/music.mp3</string>
+            </dict>
+            <dict>
+                <key>map</key>
+                <string>maps/map.tmx</string>
+                <key>name</key>
+                <string>demo level</string>
+                <key>time_limit</key>
+                <integer>50</integer>
+                <key>music</key>
+                <string>sounds/music.mp3</string>
             </dict>
         </array>
     </dict>

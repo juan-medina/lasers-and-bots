@@ -36,24 +36,42 @@ level_manager::~level_manager()
 
 bool level_manager::init()
 {
-  if (initiated_)
+  auto result = false;
+
+  do
   {
-    end();
+    if (initiated_)
+    {
+      end();
+    }
+
+    level_data_ = FileUtils::getInstance()->getValueMapFromFile("levels/levels.plist");
+    UTILS_BREAK_IF(level_data_.empty());
+
+    const auto metadata = level_data_.at("metadata").asValueMap();
+    UTILS_BREAK_IF(metadata.empty());
+
+    const auto format = metadata.at("format").asString();
+    UTILS_BREAK_IF(format != "levels");
+
+    const auto version = metadata.at("version").asValueMap();
+    UTILS_BREAK_IF(version.empty());
+
+    const auto major = version.at("major").asInt();
+    UTILS_BREAK_IF(major != 1);
+
+    const auto minor = version.at("minor").asInt();
+    UTILS_BREAK_IF(minor != 0);
+
+    const auto levels = level_data_.at("levels").asValueVector();
+    num_levels_ = levels.size();
+
+    initiated_ = true;
+    result = true;
   }
+  while (false);
 
-  level_data_ = FileUtils::getInstance()->getValueMapFromFile("levels/levels.plist");
-  if (level_data_.empty())
-  {
-    CCASSERT(false, "invalid plist");
-    return false;
-  }
-
-  const auto levels = level_data_.at("levels").asValueVector();
-  num_levels_ = levels.size();
-
-  initiated_ = true;
-
-  return true;
+  return result;
 }
 
 void level_manager::end()
@@ -66,9 +84,9 @@ void level_manager::end()
   initiated_ = false;
 }
 
-void level_manager::set_stars(const unsigned short int level, const unsigned short int stars) const
+void level_manager::set_level_stars(const unsigned short int level, const unsigned short int stars) const
 {
-  const auto current_stars = get_stars(level);
+  const auto current_stars = get_level_stars(level);
 
   if (stars > current_stars)
   {
@@ -77,7 +95,7 @@ void level_manager::set_stars(const unsigned short int level, const unsigned sho
   }
 }
 
-unsigned short int level_manager::get_stars(const unsigned short int level) const
+unsigned short int level_manager::get_level_stars(const unsigned short int level) const
 {
   auto key = string_format("level_%04d_stars", level);
   return UserDefault::getInstance()->getIntegerForKey(key.c_str(), 0);
@@ -89,16 +107,52 @@ bool level_manager::is_level_enabled(const unsigned short level) const
   {
     return true;
   }
-  return get_stars(level - 1) > 0;
+  return get_level_stars(level - 1) > 0;
 }
 
-std::string level_manager::get_map_level(const short level) const
+std::string level_manager::get_level_map(const short level) const
 {
   if (level <= num_levels_)
   {
     const auto levels = level_data_.at("levels").asValueVector();
     const auto level_data = levels.at(level - 1).asValueMap();
     return level_data.at("map").asString();
+  }
+
+  return std::string("");
+}
+
+std::string level_manager::get_level_name(const short level) const
+{
+  if (level <= num_levels_)
+  {
+    const auto levels = level_data_.at("levels").asValueVector();
+    const auto level_data = levels.at(level - 1).asValueMap();
+    return level_data.at("name").asString();
+  }
+
+  return std::string("");
+}
+
+int level_manager::get_level_time_limit(const short level) const
+{
+  if (level <= num_levels_)
+  {
+    const auto levels = level_data_.at("levels").asValueVector();
+    const auto level_data = levels.at(level - 1).asValueMap();
+    return level_data.at("time_limit").asInt();
+  }
+
+  return 0;
+}
+
+std::string level_manager::get_level_music(const short level) const
+{
+  if (level <= num_levels_)
+  {
+    const auto levels = level_data_.at("levels").asValueVector();
+    const auto level_data = levels.at(level - 1).asValueMap();
+    return level_data.at("music").asString();
   }
 
   return std::string("");

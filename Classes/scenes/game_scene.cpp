@@ -50,7 +50,9 @@ game_scene::game_scene() :
   time_limit_(0),
   level_name_(""),
   barrel_count_(0),
-  level_(-1)
+  level_(-1),
+  level_manager_(nullptr),
+  music_file_name_("")
 {
 }
 
@@ -108,11 +110,11 @@ bool game_scene::init(basic_app* application, const bool debug_grid, const bool 
   {
     level_ = level;
 
-    const auto levels = dynamic_cast<laser_and_bots_app*>(application)->get_level_manager();
-    const auto map_level = levels->get_map_level(level_);
+    level_manager_ = dynamic_cast<laser_and_bots_app*>(application)->get_level_manager();
+    const auto level_map = level_manager_->get_level_map(level_);
 
     // load the map
-    UTILS_BREAK_IF(!base_class::init(application, map_level, gravity, debug_physics));
+    UTILS_BREAK_IF(!base_class::init(application, level_map, gravity, debug_physics));
 
     calculate_camera_bounds();
 
@@ -135,9 +137,9 @@ bool game_scene::init(basic_app* application, const bool debug_grid, const bool 
 
     set_map_bounds_contacts_settings();
 
-    pre_load_sounds();
+    get_level_settings();
 
-    get_map_settings();
+    pre_load_sounds();
 
     // we start with delay
     doing_delay_start_ = true;
@@ -208,19 +210,18 @@ void game_scene::set_map_bounds_contacts_settings() const
 
 void game_scene::pre_load_sounds() const
 {
-  get_audio_helper()->pre_load_music("sounds/music.mp3");
+  get_audio_helper()->pre_load_music(music_file_name_);
   get_audio_helper()->pre_load_effect("sounds/fail.mp3");
   get_audio_helper()->pre_load_effect("sounds/victory.mp3");
   get_audio_helper()->pre_load_effect("sounds/countdown.mp3");
   get_audio_helper()->pre_load_effect("sounds/explosion.mp3");
 }
 
-void game_scene::get_map_settings()
+void game_scene::get_level_settings()
 {
-  const auto map = get_tiled_map();
-
-  time_limit_ = static_cast<unsigned int>(map->getProperty("time_limit").asInt());
-  level_name_ = map->getProperty("name").asString();
+  time_limit_ = level_manager_->get_level_time_limit(level_);
+  level_name_ = level_manager_->get_level_name(level_);
+  music_file_name_ = level_manager_->get_level_music(level_);
 }
 
 void game_scene::cache_objects_textures()
@@ -683,9 +684,8 @@ void game_scene::game_over(const bool win)
 
     if (win)
     {
-      const auto levels = dynamic_cast<laser_and_bots_app*>(get_application())->get_level_manager();
       const auto stars = calculate_stars();
-      levels->set_stars(level_, stars);
+      level_manager_->set_level_stars(level_, stars);
 
       get_audio_helper()->play_effect("sounds/victory.mp3");
       game_ui_->display_message("Level Completed", level_name_,
@@ -737,7 +737,7 @@ void game_scene::set_countdown_number_in_ui(Ref* sender, const int value) const
 
 void game_scene::start()
 {
-  get_audio_helper()->play_music("sounds/music.mp3");
+  get_audio_helper()->play_music(music_file_name_);
 
   resume();
   game_ui_->disable_buttons(false);
