@@ -59,7 +59,7 @@ private:
   void on_touch_ended(Touch* touch, Event* unused_event);
   void on_touch_cancel(Touch* touch, Event* unused_event);
 
-  bool is_touched_by_location(Node* node, const Vec2& location);
+  bool is_touched_by_location(Node* node, const Vec2& location) const;
   void update_location(const Vec2& location);
 
   EventListenerTouchOneByOne* touch_listener_;

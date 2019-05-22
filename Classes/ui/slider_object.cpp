@@ -230,7 +230,7 @@ void slider_object::on_touch_cancel(Touch* touch, Event* unused_event)
   touch_begin_at_ = Vec2::ZERO;
 }
 
-bool slider_object::is_touched_by_location(Node* node, const Vec2& location)
+bool slider_object::is_touched_by_location(Node* node, const Vec2& location) const
 {
   const auto camera = Camera::getVisitingCamera();
   if (camera != nullptr)
