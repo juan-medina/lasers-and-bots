@@ -24,7 +24,7 @@
 #include "virtual_joy_stick.h"
 #include "message_window.h"
 #include "pause_window.h"
-
+#include "../misc/level_manager.h"
 
 game_ui::game_ui():
   virtual_joy_stick_(nullptr),
@@ -34,14 +34,17 @@ game_ui::game_ui():
   time_label_(nullptr),
   sub_time_label_(nullptr),
   countdown_label_(nullptr),
+  level_name_label_(nullptr),
   time_limit_(0),
   continue_callback_(nullptr),
   audio_helper_(nullptr),
-  message_window_(nullptr)
+  message_window_(nullptr),
+  pause_window_(nullptr),
+  level_manager_(nullptr)
 {
 }
 
-game_ui* game_ui::create(audio_helper* audio_helper)
+game_ui* game_ui::create(audio_helper* audio_helper, level_manager* level_manager, const int level)
 {
   game_ui* ret = nullptr;
 
@@ -50,7 +53,7 @@ game_ui* game_ui::create(audio_helper* audio_helper)
     auto object = new game_ui();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(audio_helper))
+    if (object->init(audio_helper, level_manager, level))
     {
       object->autorelease();
     }
@@ -67,7 +70,7 @@ game_ui* game_ui::create(audio_helper* audio_helper)
   return ret;
 }
 
-bool game_ui::init(audio_helper* audio_helper)
+bool game_ui::init(audio_helper* audio_helper, level_manager* level_manager, const int level)
 {
   auto ret = false;
 
@@ -78,6 +81,8 @@ bool game_ui::init(audio_helper* audio_helper)
     const auto& size = Director::getInstance()->getVisibleSize();
 
     audio_helper_ = audio_helper;
+    level_manager_ = level_manager;
+    level_ = level;
 
     audio_helper_->pre_load_effect("sounds/select.mp3");
 
@@ -229,6 +234,17 @@ bool game_ui::init(audio_helper* audio_helper)
     countdown_label_->setVisible(false);
     addChild(countdown_label_, 100);
 
+    level_name_label_ = Label::createWithTTF(level_manager_->get_level_name(level_), "fonts/tahoma.ttf", 500);
+    UTILS_BREAK_IF(level_name_label_ == nullptr);
+
+    level_name_label_->setTextColor(Color4B(0, 255, 255, 255));
+    level_name_label_->enableGlow(Color4B(0, 127, 127, 127));
+    level_name_label_->enableShadow(Color4B(255, 255, 255, 127), Size(10, -10));
+    level_name_label_->enableOutline(Color4B(0, 0, 0, 255), 5);
+    level_name_label_->setPosition(Vec2(size.width / 2, size.height - (size.height / 3)));
+    level_name_label_->setVisible(false);
+    addChild(level_name_label_, 100);
+
     message_window_ = message_window::create(audio_helper_);
     UTILS_BREAK_IF(message_window_ == nullptr);
 
@@ -334,6 +350,10 @@ void game_ui::update_countdown(const int value) const
   {
     countdown_label_->setString(text);
     countdown_label_->setVisible(true);
+    if (value == 3)
+    {
+      level_name_label_->setVisible(true);
+    }
   }
   else
   {
@@ -344,6 +364,7 @@ void game_ui::update_countdown(const int value) const
     const auto remove = RemoveSelf::create(true);
     const auto vanish = Sequence::create(delay, fade_out, remove, nullptr);
     countdown_label_->runAction(vanish);
+    level_name_label_->runAction(vanish->clone());
   }
 
   const auto scale_up = ScaleTo::create(0.25f, 1.5f, 1.5f);

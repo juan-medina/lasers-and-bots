@@ -28,6 +28,7 @@ class message_window;
 class pause_window;
 class virtual_joy_stick;
 class audio_helper;
+class level_manager;
 
 class game_ui final : public Node
 {
@@ -36,9 +37,9 @@ public:
 
   game_ui();
 
-  static game_ui* create(audio_helper* audio_helper);
+  static game_ui* create(audio_helper* audio_helper, level_manager* level_manager, const int level);
 
-  bool init(audio_helper* audio_helper);
+  bool init(audio_helper* audio_helper, level_manager* level_manager, const int level);
 
   void on_pause(Ref* sender);
   void on_close(Ref* sender);
@@ -87,11 +88,14 @@ private:
   Label* time_label_;
   Label* sub_time_label_;
   Label* countdown_label_;
+  Label* level_name_label_;
   unsigned int time_limit_;
   ccMenuCallback continue_callback_;
   audio_helper* audio_helper_;
   message_window* message_window_;
   pause_window* pause_window_;
+  level_manager* level_manager_;
+  int level_;
 };
 
 #endif // __GAME_UI__CLASS__

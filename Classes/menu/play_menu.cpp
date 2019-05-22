@@ -246,8 +246,16 @@ void play_menu::on_back()
 
 void play_menu::on_level_select(Ref*, const int level)
 {
-  get_audio_helper()->play_effect("sounds/select.mp3");
-  select_level(level);
+  if (level == selected_level_)
+  {
+    level_buttons_.at(level)->setSelectedIndex(1);
+    on_play();
+  }
+  else
+  {
+    get_audio_helper()->play_effect("sounds/select.mp3");
+    select_level(level);
+  }
 }
 
 void play_menu::on_play()
