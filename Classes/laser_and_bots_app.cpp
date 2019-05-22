@@ -36,6 +36,7 @@ laser_and_bots_app::laser_and_bots_app()
     want_restart_(false),
     to_options_(false)
 {
+#if (GAME_PLATFORM == DESKTOP_GAME)
   if (is_desktop())
   {
     const auto full_screen = UserDefault::getInstance()->getBoolForKey("full_screen", false);
@@ -47,6 +48,7 @@ laser_and_bots_app::laser_and_bots_app()
       set_window_size(window_size);
     }
   }
+#endif
 }
 
 laser_and_bots_app::~laser_and_bots_app()

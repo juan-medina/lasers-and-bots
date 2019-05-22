@@ -58,9 +58,9 @@ public:
   {
     return audio_helper_;
   }
-
+#if (GAME_PLATFORM == DESKTOP_GAME)
   void set_window_size(const float scale);
-
+#endif
   void set_full_screen(const bool full_screen)
   {
     full_screen_ = full_screen;

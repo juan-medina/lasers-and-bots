@@ -1,9 +1,4 @@
 #/****************************************************************************
-# Copyright (c) 2013-2014 cocos2d-x.org
-# Copyright (c) 2015-2017 Chukong Technologies Inc.
-#
-# http://www.cocos2d-x.org
-#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
@@ -58,24 +53,25 @@ list(APPEND GAME_SOURCE
         Classes/game/saw_object.cpp
         Classes/game/switch_object.cpp
         Classes/laser_and_bots_app.cpp
-        Classes/laser_and_bots_launcher.cpp
         Classes/menu/basic_menu.cpp
         Classes/menu/main_menu.cpp
         Classes/menu/options_menu.cpp
         Classes/menu/play_menu.cpp
         Classes/misc/level_manager.cpp
         Classes/scenes/game_scene.cpp
-        Classes/scenes/launcher_scene.cpp
         Classes/scenes/loading_scene.cpp
         Classes/scenes/menu_scene.cpp
         Classes/ui/game_ui.cpp
         Classes/ui/message_window.cpp
         Classes/ui/on_screen_button.cpp
         Classes/ui/pause_window.cpp
+        Classes/ui/resizable_window.cpp
+        Classes/ui/slider_object.cpp
+        Classes/ui/text_button.cpp
+        Classes/ui/text_toggle.cpp
         Classes/ui/virtual_joy_stick.cpp
         Classes/utils/audio/audio_helper.cpp
         Classes/utils/base/app/basic_app.cpp
-        Classes/utils/base/app/launcher_app.cpp
         Classes/utils/base/scene/basic_scene.cpp
         Classes/utils/base/scene/grid_scene.cpp
         Classes/utils/base/scene/tiled_scene.cpp
@@ -96,24 +92,25 @@ list(APPEND GAME_HEADER
         Classes/game/saw_object.h
         Classes/game/switch_object.h
         Classes/laser_and_bots_app.h
-        Classes/laser_and_bots_launcher.h
         Classes/menu/basic_menu.h
         Classes/menu/main_menu.h
         Classes/menu/options_menu.h
         Classes/menu/play_menu.h
         Classes/misc/level_manager.h
         Classes/scenes/game_scene.h
-        Classes/scenes/launcher_scene.h
         Classes/scenes/loading_scene.h
         Classes/scenes/menu_scene.h
         Classes/ui/game_ui.h
         Classes/ui/message_window.h
         Classes/ui/on_screen_button.h
         Classes/ui/pause_window.h
+        Classes/ui/resizable_window.h
+        Classes/ui/slider_object.h
+        Classes/ui/text_button.h
+        Classes/ui/text_toggle.h
         Classes/ui/virtual_joy_stick.h
         Classes/utils/audio/audio_helper.h
         Classes/utils/base/app/basic_app.h
-        Classes/utils/base/app/launcher_app.h
         Classes/utils/base/scene/basic_scene.h
         Classes/utils/base/scene/grid_scene.h
         Classes/utils/base/scene/tiled_scene.h

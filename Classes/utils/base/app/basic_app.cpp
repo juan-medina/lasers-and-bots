@@ -155,6 +155,7 @@ void basic_app::close()
   Director::getInstance()->end();
 }
 
+#if (GAME_PLATFORM == DESKTOP_GAME)
 void basic_app::set_window_size(const float scale)
 {
   glfwInit();
@@ -164,6 +165,7 @@ void basic_app::set_window_size(const float scale)
   window_height_ = static_cast<int>(video_mode->height * scale);
   glfwTerminate();
 }
+#endif
 
 bool basic_app::is_desktop()
 {
