@@ -89,12 +89,16 @@ bool slider_object::init(const std::string& background, const std::string& progr
 
     addChild(progress_);
 
-    label_ = Label::createWithTTF("100 %", "fonts/tahoma.ttf", 80);
+    label_ = Label::createWithTTF("100 %", "fonts/tahoma.ttf", 120);
     UTILS_BREAK_IF(label_ == nullptr);
 
+    label_->setAnchorPoint(Vec2(1.f, .5f));
+    label_->setHorizontalAlignment(TextHAlignment::RIGHT);
+    label_->setTextColor(Color4B::WHITE);
     label_->enableOutline(Color4B(0, 0, 0, 255), 5);
 
-    const auto label_pos = Vec2(getContentSize().width + 110, getContentSize().height / 2);
+    const auto label_pos = Vec2(getContentSize().width + 400,
+                                (label_->getContentSize().height / 2) + (getContentSize().height / 4));
     label_->setPosition(label_pos);
 
     addChild(label_);
@@ -226,13 +230,19 @@ void slider_object::on_touch_cancel(Touch* touch, Event* unused_event)
   touch_begin_at_ = Vec2::ZERO;
 }
 
-bool slider_object::is_touched_by_location(Node* node, const Vec2& location) const
+bool slider_object::is_touched_by_location(Node* node, const Vec2& location)
 {
   const auto camera = Camera::getVisitingCamera();
   if (camera != nullptr)
   {
     Rect rect;
-    rect.size = getContentSize();
+    rect.size = node->getContentSize();
+    const auto gap = node->getContentSize().height * 3;
+    rect.size.height += gap;
+    rect.size.width += gap;
+    rect.origin.x -= (gap / 2);
+    rect.origin.y -= (gap / 2);
+    static DrawNode* draw = nullptr;
     return isScreenPointInRect(location, camera, node->getWorldToNodeTransform(), rect, nullptr);
   }
 
