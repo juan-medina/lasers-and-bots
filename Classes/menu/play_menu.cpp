@@ -99,7 +99,7 @@ void play_menu::display()
       const auto star = item->getChildByTag(star_tag + star_counter);
       const auto is_gold = (star_counter + 1) <= stars;
 
-      star->setColor(is_gold ? Color3B(0, 255, 255) : Color3B::WHITE);
+      star->setColor(is_gold ? Color3B(0, 255, 255) : Color3B(127, 127, 127));
     }
   }
   select_level(selected_level_);
@@ -121,22 +121,43 @@ bool play_menu::create_menu_items()
     const auto first_button_pos = Vec2(-(getContentSize().width / 2) + margin.x,
                                        getContentSize().height - margin.y);
 
-    auto first_label_pos = Vec2(-550.f, (getContentSize().height / 2) - margin.y);
+    const auto first_label_pos = Vec2(-550.f, (getContentSize().height / 2) - margin.y);
+    auto label_pos = first_label_pos;
     static const auto separation = 900.f;
 
-    level_name_label_ = add_labels("Level", "One long level name", first_label_pos, separation);
+    level_name_label_ = add_labels("Level", "One long level name", label_pos, separation);
     UTILS_BREAK_IF(level_name_label_ == nullptr);
+    label_pos.y -= 200;
 
-    first_label_pos.y -= 200;
-    level_time_limit_label_ = add_labels("Time Limit", "00:00", first_label_pos, separation);
+    level_time_limit_label_ = add_labels("Time Limit", "00:00", label_pos, separation);
     UTILS_BREAK_IF(level_time_limit_label_ == nullptr);
+    label_pos.y -= 200;
 
-    first_label_pos.y -= 200;
-    level_time_record_label_ = add_labels("Time Record", "00:00", first_label_pos, separation);
+    level_stars_label_ = add_labels("Stars", "", label_pos, separation);
+    UTILS_BREAK_IF(level_stars_label_ == nullptr);
+    label_pos.y -= 200;
+
+    auto label_star_pos = level_stars_label_->getPosition() +
+      Vec2(level_stars_label_->getContentSize().width + 60.f, 0.f);
+
+    for (auto star_counter = 0; star_counter < 3; ++star_counter)
+    {
+      auto label_star = Sprite::createWithSpriteFrameName("09_star_01.png");
+      UTILS_BREAK_IF(label_star == nullptr);
+
+      label_star->setScale(0.50f);
+      label_star->setPosition(label_star_pos);
+
+      addChild(label_star);
+      label_star_pos.x += (label_star->getContentSize().width * label_star->getScale()) + 30.f;
+      label_star->setTag(star_tag + star_counter);
+    }
+
+    level_time_record_label_ = add_labels("Time Record", "00:00", label_pos, separation);
     UTILS_BREAK_IF(level_time_record_label_ == nullptr);
+    label_pos.y -= 200;
 
-    first_label_pos.y -= 200;
-    level_3_stars_time_record_label_ = add_labels("3 Stars Record", "00:00", first_label_pos, separation);
+    level_3_stars_time_record_label_ = add_labels("3 Stars Record", "00:00", label_pos, separation);
     UTILS_BREAK_IF(level_3_stars_time_record_label_ == nullptr);
 
     auto button_pos = first_button_pos;
@@ -248,6 +269,7 @@ void play_menu::select_level(const int level)
   const auto level_time_record_string = game_ui::time_message(level_time_record);
   const auto level_3_stars_record = levels->get_level_3_stars_record(level);
   const auto level_3_stars_record_string = game_ui::time_message(level_3_stars_record);
+  const auto stars = levels->get_level_stars(level);
 
   level_name_label_->setString(level_name);
   level_time_limit_label_->setString(level_time_limit_string);
@@ -275,6 +297,14 @@ void play_menu::select_level(const int level)
     const auto id = pair.first;
     const auto item = pair.second;
     item->setSelectedIndex(id == level ? 1 : 0);
+  }
+
+  for (auto star_counter = 0; star_counter < 3; ++star_counter)
+  {
+    const auto star = getChildByTag(star_tag + star_counter);
+    const auto is_gold = (star_counter + 1) <= stars;
+
+    star->setColor(is_gold ? Color3B(0, 255, 255) : Color3B::WHITE);
   }
 
   selected_level_ = level;

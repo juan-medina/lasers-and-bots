@@ -62,6 +62,7 @@ private:
   Label* level_time_limit_label_;
   Label* level_time_record_label_;
   Label* level_3_stars_time_record_label_;
+  Label* level_stars_label_;
   int selected_level_;
 };
 
