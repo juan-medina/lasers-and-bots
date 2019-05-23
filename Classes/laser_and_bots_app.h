@@ -40,7 +40,7 @@ public:
 
   Scene* game_scene(const unsigned short int level);
   Scene* main_menu_scene();
-  Scene* play_menu_scene();
+  Scene* play_menu_scene(const unsigned short int selected_level);
   Scene* options_menu_scene();
 
   void set_effects_muted(const bool effects_muted);
@@ -50,7 +50,7 @@ public:
 
   void to_game(const unsigned short int level);
   void to_main_menu();
-  void to_play_menu();
+  void to_play_menu(const unsigned short int level);
 
   void applicationDidEnterBackground() override;
 

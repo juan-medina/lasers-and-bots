@@ -35,8 +35,9 @@ public:
 
   ~loading_scene();
 
-  static Scene* game(basic_app* application, const bool debug_grid, const bool debug_physics, const unsigned short int level);
-  static Scene* menu(basic_app* application, const menu_to_display menu);
+  static Scene* game(basic_app* application, const bool debug_grid, const bool debug_physics,
+                     const unsigned short int level);
+  static Scene* menu(basic_app* application, const menu_to_display menu, const unsigned short int selected_level);
 
 private:
 

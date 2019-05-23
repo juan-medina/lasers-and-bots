@@ -37,7 +37,7 @@ play_menu::play_menu():
 {
 }
 
-play_menu* play_menu::create(audio_helper* audio_helper)
+play_menu* play_menu::create(audio_helper* audio_helper, const unsigned short int selected_level)
 {
   play_menu* ret = nullptr;
 
@@ -46,7 +46,7 @@ play_menu* play_menu::create(audio_helper* audio_helper)
     auto object = new play_menu();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(audio_helper))
+    if (object->init(audio_helper, selected_level))
     {
       object->autorelease();
     }
@@ -63,13 +63,15 @@ play_menu* play_menu::create(audio_helper* audio_helper)
   return ret;
 }
 
-bool play_menu::init(audio_helper* audio_helper)
+bool play_menu::init(audio_helper* audio_helper, const unsigned short int selected_level)
 {
   auto ret = false;
 
   do
   {
     UTILS_BREAK_IF(!base_class::init("Level Select", audio_helper, 3600.f, 1800.f));
+
+    selected_level_ = selected_level;
 
     ret = true;
   }

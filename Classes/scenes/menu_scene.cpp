@@ -35,7 +35,7 @@ menu_scene::menu_scene() :
 {
 }
 
-Scene* menu_scene::scene(basic_app* application, const menu_to_display menu)
+Scene* menu_scene::scene(basic_app* application, const menu_to_display menu, const unsigned short int selected_level)
 {
   menu_scene* ret = nullptr;
 
@@ -44,7 +44,7 @@ Scene* menu_scene::scene(basic_app* application, const menu_to_display menu)
     auto object = new menu_scene();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(application, menu))
+    if (object->init(application, menu, selected_level))
     {
       object->autorelease();
     }
@@ -66,7 +66,7 @@ menu_scene::~menu_scene()
   base_class::removeAllChildrenWithCleanup(true);
 }
 
-bool menu_scene::init(basic_app* application, const menu_to_display menu)
+bool menu_scene::init(basic_app* application, const menu_to_display menu, const unsigned short int selected_level)
 {
   auto ret = false;
 
@@ -108,7 +108,7 @@ bool menu_scene::init(basic_app* application, const menu_to_display menu)
 
     addChild(options_menu_, 0);
 
-    play_menu_ = play_menu::create(get_audio_helper());
+    play_menu_ = play_menu::create(get_audio_helper(), selected_level);
     UTILS_BREAK_IF(play_menu_ == nullptr);
 
     addChild(play_menu_, 0);

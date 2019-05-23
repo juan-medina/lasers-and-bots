@@ -24,7 +24,8 @@
 #include "../utils/base/app/basic_app.h"
 #include "../utils/audio/audio_helper.h"
 
-Scene* loading_scene::game(basic_app* application, const bool debug_grid, const bool debug_physics, const unsigned short int level)
+Scene* loading_scene::game(basic_app* application, const bool debug_grid, const bool debug_physics,
+                           const unsigned short int level)
 {
   loading_scene* ret = nullptr;
 
@@ -50,7 +51,7 @@ Scene* loading_scene::game(basic_app* application, const bool debug_grid, const 
   return ret;
 }
 
-Scene* loading_scene::menu(basic_app* application, const menu_to_display menu)
+Scene* loading_scene::menu(basic_app* application, const menu_to_display menu, const unsigned short int selected_level)
 {
   loading_scene* ret = nullptr;
 
@@ -59,7 +60,7 @@ Scene* loading_scene::menu(basic_app* application, const menu_to_display menu)
     auto object = new loading_scene();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(application, load_to::to_menu, false, false, menu, -1))
+    if (object->init(application, load_to::to_menu, false, false, menu, selected_level))
     {
       object->autorelease();
     }
@@ -158,7 +159,7 @@ void loading_scene::go_to_scene() const
       scene = game_scene::scene(application_, debug_grid_, debug_physics_, level_);
       break;
     case load_to::to_menu:
-      scene = menu_scene::scene(application_, menu_);
+      scene = menu_scene::scene(application_, menu_, level_);
       break;
     default:
       break;

@@ -38,9 +38,9 @@ public:
 
   using base_class = basic_menu;
 
-  static play_menu* create(audio_helper* audio_helper);
+  static play_menu* create(audio_helper* audio_helper, const unsigned short int selected_level);
 
-  bool init(audio_helper* audio_helper);
+  bool init(audio_helper* audio_helper, const unsigned short int selected_level);
 
   void display() override;
 

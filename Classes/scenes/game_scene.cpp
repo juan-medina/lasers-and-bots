@@ -839,7 +839,7 @@ void game_scene::continue_button()
   game_ui_->disable_buttons(true);
 
   auto app = dynamic_cast<laser_and_bots_app*>(application_);
-  app->to_play_menu();
+  app->to_play_menu(level_);
 }
 
 void game_scene::onEnter()
