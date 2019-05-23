@@ -17,8 +17,8 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __MESSAGE_WINDOW_CLASS__
-#define __MESSAGE_WINDOW_CLASS__
+#ifndef __LEVEL_COMPLETED_CLASS__
+#define __LEVEL_COMPLETED_CLASS__
 
 #include "../utils/utils.h"
 #include "resizable_window.h"
@@ -26,27 +26,36 @@
 //foward declarations
 class audio_helper;
 class resizable_window;
+class level_manager;
 
-class message_window final : public resizable_window
+class level_completed final : public resizable_window
 {
 public:
   using base_class = resizable_window;
 
-  message_window();
+  level_completed();
 
-  static message_window* create(audio_helper* audio_helper);
+  static level_completed* create(audio_helper* audio_helper, level_manager* level_manager);
 
-  bool init(audio_helper* audio_helper);
+  bool init(audio_helper* audio_helper, level_manager* level_manager);
 
-  void display(const std::string& message, const std::string& sub_message, const std::string& time_message,
+  void display(const unsigned short int level, const float time, const unsigned short int stars,
                const ccMenuCallback& callback);
 
 private:
 
+  void star_sound() const;
+
   audio_helper* audio_helper_;
   MenuItemSprite* continue_item_;
   Label* sub_label_;
+
+  std::vector<Sprite*> gray_stars_;
+  std::vector<Sprite*> gold_stars_;
+  std::vector<Label*> label_stars_;
+
+  level_manager* level_manager_;
 };
 
 
-#endif // __MESSAGE_WINDOW_CLASS__
+#endif // __LEVEL_COMPLETED_CLASS__

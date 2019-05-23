@@ -23,6 +23,7 @@
 #include "../utils/audio/audio_helper.h"
 #include "virtual_joy_stick.h"
 #include "message_window.h"
+#include "level_completed.h"
 #include "pause_window.h"
 #include "../misc/level_manager.h"
 
@@ -39,8 +40,9 @@ game_ui::game_ui():
   continue_callback_(nullptr),
   audio_helper_(nullptr),
   message_window_(nullptr),
+  level_completed_(nullptr),
   pause_window_(nullptr),
-  level_manager_(nullptr)
+  level_manager_(nullptr), level_(0)
 {
 }
 
@@ -250,6 +252,11 @@ bool game_ui::init(audio_helper* audio_helper, level_manager* level_manager, con
 
     addChild(message_window_);
 
+    level_completed_ = level_completed::create(audio_helper_, level_manager_);
+    UTILS_BREAK_IF(level_completed_ == nullptr);
+
+    addChild(level_completed_);
+
     pause_window_ = pause_window::create(audio_helper_);
     UTILS_BREAK_IF(pause_window_ == nullptr);
 
@@ -336,11 +343,17 @@ string game_ui::time_message(const float time)
 }
 
 void game_ui::display_message(const std::string& message, const std::string& sub_message,
-                              const ccMenuCallback& callback, const short int stars /*= -1*/)
+                              const ccMenuCallback& callback)
 {
   continue_callback_ = callback;
-  message_window_->display(message, sub_message, CC_CALLBACK_0(game_ui::on_continue, this), stars,
-                           time_message(time_limit_));
+  message_window_->display(message, sub_message, time_message(time_limit_), CC_CALLBACK_0(game_ui::on_continue, this));
+}
+
+void game_ui::display_level_completed(const unsigned short int level, const float time, const unsigned short int stars,
+                                      const ccMenuCallback& callback)
+{
+  continue_callback_ = callback;
+  level_completed_->display(level, time, stars, CC_CALLBACK_0(game_ui::on_continue, this));
 }
 
 void game_ui::update_countdown(const int value) const

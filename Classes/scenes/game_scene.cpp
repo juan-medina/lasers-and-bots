@@ -681,14 +681,14 @@ void game_scene::game_over(const bool win)
   {
     pause();
     game_ui_->disable_buttons(true);
+
     if (win)
     {
       const auto stars = calculate_stars();
       level_manager_->set_level_completed(level_, stars, total_time_);
 
       get_audio_helper()->play_effect("sounds/victory.mp3");
-      game_ui_->display_message("Level Completed", level_name_,
-                                CC_CALLBACK_0(game_scene::continue_button, this), stars);
+      game_ui_->display_level_completed(level_, total_time_, stars, CC_CALLBACK_0(game_scene::continue_button, this));
     }
     else
     {

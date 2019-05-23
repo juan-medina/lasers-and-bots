@@ -53,11 +53,6 @@ bool message_window::init(audio_helper* audio_helper)
 
     UTILS_BREAK_IF(!base_class::init("message", 1800.f, 1300.f));
 
-    audio_helper_->pre_load_effect("sounds/star.mp3");
-
-    const auto horizontal_segment = getContentSize().width;
-    const auto vertical_segment = getContentSize().height;
-
     setPosition(size.width / 2, size.height / 2);
 
     sub_label_ = Label::createWithTTF("", "fonts/tahoma.ttf", 100);
@@ -98,57 +93,8 @@ bool message_window::init(audio_helper* audio_helper)
 
     addChild(menu, 100);
 
-    const auto first_start_pos = Vec2(-horizontal_segment / 3, 50.f);
-
-    for (unsigned short int start_counter = 0; start_counter < 3; ++start_counter)
-    {
-      const auto star_gray = Sprite::createWithSpriteFrameName("09_star_01.png");
-      UTILS_BREAK_IF(star_gray == nullptr);
-
-      gray_stars_.push_back(star_gray);
-      star_gray->setCascadeOpacityEnabled(true);
-      star_gray->setOpacity(0);
-
-      const auto star_pos = first_start_pos + Vec2((horizontal_segment / 3) * start_counter, 0.f);
-      star_gray->setPosition(star_pos);
-      addChild(star_gray, 100);
-
-      auto star_tex = string("level\ncompleted");
-      if (start_counter == 1)
-      {
-        star_tex = "under\n 00:00.00";
-      }
-      else if (start_counter == 2)
-      {
-        star_tex = "with 100%\nshield";
-      }
-
-      const auto label_star = Label::createWithTTF(star_tex, "fonts/tahoma.ttf", 70);
-      UTILS_BREAK_IF(label_star == nullptr);
-      label_stars_.push_back(label_star);
-
-      const auto label_pos = Vec2(star_gray->getContentSize().width / 2,
-                                  -(star_gray->getContentSize().height / 2) + 40.f);
-      label_star->setHorizontalAlignment(TextHAlignment::CENTER);
-      label_star->setPosition(label_pos);
-      label_star->setTextColor(Color4B(255, 255, 255, 255));
-      label_star->enableOutline(Color4B(0, 0, 0, 255), 5);
-
-      star_gray->addChild(label_star, 100);
-
-      const auto star_gold = Sprite::createWithSpriteFrameName("09_star_01.png");
-      UTILS_BREAK_IF(star_gold == nullptr);
-
-      gold_stars_.push_back(star_gold);
-
-      star_gold->setPosition(star_pos);
-      star_gold->setOpacity(0);
-
-      addChild(star_gold, 100);
-
-      setOpacity(0);
-      setVisible(false);
-    }
+    setOpacity(0);
+    setVisible(false);
 
     ret = true;
   }
@@ -156,8 +102,8 @@ bool message_window::init(audio_helper* audio_helper)
   return ret;
 }
 
-void message_window::display(const std::string& message, const std::string& sub_message, const ccMenuCallback& callback,
-                             const short stars, const std::string& time_message)
+void message_window::display(const std::string& message, const std::string& sub_message,
+                             const std::string& time_message, const ccMenuCallback& callback)
 {
   set_title(message);
   sub_label_->setString(sub_message);
@@ -166,49 +112,4 @@ void message_window::display(const std::string& message, const std::string& sub_
 
   const auto fade_in_message = FadeTo::create(0.5f, 190);
   runAction(fade_in_message);
-
-  if (stars > 0)
-  {
-    for (unsigned short int start_counter = 0; start_counter < 3; ++start_counter)
-    {
-      const auto is_gold = start_counter + 1 <= stars;
-
-      gray_stars_.at(start_counter)->setOpacity(255);
-
-      auto star_tex = string("level\ncompleted");
-      if (start_counter == 1)
-      {
-        star_tex = "under\n " + time_message;
-      }
-      else if (start_counter == 2)
-      {
-        star_tex = "with 100%\nshield";
-      }
-
-      label_stars_.at(start_counter)->setString(star_tex);
-
-      if (is_gold)
-      {
-        const auto star_gold = gold_stars_.at(start_counter);
-
-        star_gold->setColor(Color3B(0, 255, 255));
-
-        const auto play_sound = CallFunc::create(CC_CALLBACK_0(message_window::star_sound, this));
-        const auto delay = DelayTime::create(0.5f + (1.f * start_counter));
-        const auto fade_in = FadeIn::create(1.f);
-        const auto appear = Sequence::create(delay, fade_in, nullptr);
-        star_gold->runAction(appear);
-
-        const auto scale_up = ScaleTo::create(0.5f, 1.5f, 1.5f);
-        const auto scale_down = ScaleTo::create(0.5f, 1.0f, 1.0f);
-        const auto scale = Sequence::create(delay->clone(), scale_up, scale_down, play_sound, nullptr);
-        star_gold->runAction(scale);
-      }
-    }
-  }
-}
-
-void message_window::star_sound()
-{
-  audio_helper_->play_effect("sounds/star.mp3");
 }

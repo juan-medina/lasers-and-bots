@@ -25,6 +25,7 @@
 
 // forward declarations
 class message_window;
+class level_completed;
 class pause_window;
 class virtual_joy_stick;
 class audio_helper;
@@ -64,8 +65,10 @@ public:
 
   static string time_message(const float time);
 
-  void display_message(const std::string& message, const std::string& sub_message, const ccMenuCallback& callback,
-                       const short int stars = -1);
+  void display_message(const std::string& message, const std::string& sub_message, const ccMenuCallback& callback);
+
+  void display_level_completed(const unsigned short int level, const float time, const unsigned short int stars,
+                               const ccMenuCallback& callback);
 
   void update_countdown(const int value) const;
 
@@ -93,6 +96,7 @@ private:
   ccMenuCallback continue_callback_;
   audio_helper* audio_helper_;
   message_window* message_window_;
+  level_completed* level_completed_;
   pause_window* pause_window_;
   level_manager* level_manager_;
   unsigned short int level_;
