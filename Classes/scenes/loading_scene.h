@@ -35,7 +35,7 @@ public:
 
   ~loading_scene();
 
-  static Scene* game(basic_app* application, const bool debug_grid, const bool debug_physics, const int level);
+  static Scene* game(basic_app* application, const bool debug_grid, const bool debug_physics, const unsigned short int level);
   static Scene* menu(basic_app* application, const menu_to_display menu);
 
 private:
@@ -47,7 +47,7 @@ private:
   };
 
   bool init(basic_app* application, const load_to& type, const bool debug_grid, const bool debug_physics,
-            menu_to_display menu, const int level);
+            const menu_to_display menu, const unsigned short int level);
 
   void go_to_scene() const;
 
@@ -55,7 +55,7 @@ private:
   bool debug_grid_;
   bool debug_physics_;
   menu_to_display menu_;
-  int level_;
+  unsigned short int level_;
 };
 
 #endif // __LOADING_SCENE_H__

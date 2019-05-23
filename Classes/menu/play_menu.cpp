@@ -32,6 +32,7 @@ play_menu::play_menu():
   level_time_limit_label_(nullptr),
   level_time_record_label_(nullptr),
   level_3_stars_time_record_label_(nullptr),
+  level_stars_label_(nullptr),
   selected_level_(1)
 {
 }
@@ -162,7 +163,7 @@ bool play_menu::create_menu_items()
 
     auto button_pos = first_button_pos;
     auto col = 1;
-    for (auto button_count = 1; button_count <= 12; ++button_count)
+    for (unsigned short int button_count = 1; button_count <= 12; ++button_count)
     {
       auto text = string_format("%02d", button_count);
       auto button = add_small_button(text, CC_CALLBACK_1(play_menu::on_level_select, this, button_count));
@@ -244,7 +245,7 @@ void play_menu::on_back()
   menu->display_main_menu();
 }
 
-void play_menu::on_level_select(Ref*, const int level)
+void play_menu::on_level_select(Ref*, const unsigned short int level)
 {
   if (level == selected_level_)
   {
@@ -267,7 +268,7 @@ void play_menu::on_play()
   menu->go_to_game(selected_level_);
 }
 
-void play_menu::select_level(const int level)
+void play_menu::select_level(const unsigned short int level)
 {
   const auto levels = get_level_manager();
   const auto level_name = levels->get_level_name(level);

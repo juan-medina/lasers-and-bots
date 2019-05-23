@@ -44,7 +44,7 @@ game_ui::game_ui():
 {
 }
 
-game_ui* game_ui::create(audio_helper* audio_helper, level_manager* level_manager, const int level)
+game_ui* game_ui::create(audio_helper* audio_helper, level_manager* level_manager, const unsigned short int level)
 {
   game_ui* ret = nullptr;
 
@@ -70,7 +70,7 @@ game_ui* game_ui::create(audio_helper* audio_helper, level_manager* level_manage
   return ret;
 }
 
-bool game_ui::init(audio_helper* audio_helper, level_manager* level_manager, const int level)
+bool game_ui::init(audio_helper* audio_helper, level_manager* level_manager, const unsigned short int level)
 {
   auto ret = false;
 

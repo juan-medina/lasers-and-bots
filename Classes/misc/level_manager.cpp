@@ -136,7 +136,7 @@ bool level_manager::is_level_enabled(const unsigned short level) const
   return get_level_stars(level - 1) > 0;
 }
 
-std::string level_manager::get_level_map(const short level) const
+std::string level_manager::get_level_map(const unsigned short level) const
 {
   if (level <= num_levels_)
   {
@@ -148,7 +148,7 @@ std::string level_manager::get_level_map(const short level) const
   return std::string("");
 }
 
-std::string level_manager::get_level_name(const short level) const
+std::string level_manager::get_level_name(const unsigned short level) const
 {
   if (level <= num_levels_)
   {
@@ -160,7 +160,7 @@ std::string level_manager::get_level_name(const short level) const
   return std::string("");
 }
 
-int level_manager::get_level_time_limit(const short level) const
+int level_manager::get_level_time_limit(const unsigned short level) const
 {
   if (level <= num_levels_)
   {
@@ -172,7 +172,7 @@ int level_manager::get_level_time_limit(const short level) const
   return 0;
 }
 
-std::string level_manager::get_level_music(const short level) const
+std::string level_manager::get_level_music(const unsigned short level) const
 {
   if (level <= num_levels_)
   {

@@ -38,7 +38,7 @@ public:
 
   Scene* init_scene() override;
 
-  Scene* game_scene(const int level);
+  Scene* game_scene(const unsigned short int level);
   Scene* main_menu_scene();
   Scene* play_menu_scene();
   Scene* options_menu_scene();

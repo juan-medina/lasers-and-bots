@@ -196,7 +196,7 @@ private:
   std::string level_name_;
 
   unsigned short int barrel_count_;
-  int level_;
+  unsigned short int level_;
 
   level_manager* level_manager_;
   std::string music_file_name_;

@@ -61,7 +61,7 @@ Scene* laser_and_bots_app::init_scene()
   return to_options_ ? options_menu_scene() : main_menu_scene();
 }
 
-Scene* laser_and_bots_app::game_scene(const int level)
+Scene* laser_and_bots_app::game_scene(const unsigned short int level)
 {
   effects_muted_ = UserDefault::getInstance()->getBoolForKey("effects_muted", effects_muted_);
   music_muted_ = UserDefault::getInstance()->getBoolForKey("music_muted", music_muted_);

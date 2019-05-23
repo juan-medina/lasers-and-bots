@@ -50,12 +50,12 @@ protected:
 private:
   Label* add_labels(const std::string& label_text, const std::string& text, const Vec2& pos, const float separation);
   void on_back();
-  void on_level_select(Ref* sender, const int level);
+  void on_level_select(Ref* sender, const unsigned short int level);
   void on_play();
-  void select_level(const int level);
+  void select_level(const unsigned short int level);
   level_manager* get_level_manager();
 
-  std::map<int, text_toggle*> level_buttons_;
+  std::map<unsigned short int, text_toggle*> level_buttons_;
   static constexpr auto star_tag = 0xFF0F;
 
   Label* level_name_label_;
@@ -63,7 +63,7 @@ private:
   Label* level_time_record_label_;
   Label* level_3_stars_time_record_label_;
   Label* level_stars_label_;
-  int selected_level_;
+  unsigned short int selected_level_;
 };
 
 

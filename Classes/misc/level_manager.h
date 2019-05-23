@@ -42,10 +42,10 @@ public:
 
   unsigned short int get_level_stars(const unsigned short int level) const;
   bool is_level_enabled(const unsigned short int level) const;
-  std::string get_level_map(const short int level) const;
-  std::string get_level_name(const short int level) const;
-  int get_level_time_limit(const short int level) const;
-  std::string get_level_music(const short int level) const;
+  std::string get_level_map(const unsigned short int level) const;
+  std::string get_level_name(const unsigned short int level) const;
+  int get_level_time_limit(const unsigned short int level) const;
+  std::string get_level_music(const unsigned short int level) const;
   void set_level_completed(const unsigned short int level, const unsigned short int stars, const float time) const;
   float get_level_time_record(const unsigned short int level) const;
   float get_level_3_stars_record(const unsigned short int level) const;

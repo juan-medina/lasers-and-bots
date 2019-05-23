@@ -24,7 +24,7 @@
 #include "../utils/base/app/basic_app.h"
 #include "../utils/audio/audio_helper.h"
 
-Scene* loading_scene::game(basic_app* application, const bool debug_grid, const bool debug_physics, const int level)
+Scene* loading_scene::game(basic_app* application, const bool debug_grid, const bool debug_physics, const unsigned short int level)
 {
   loading_scene* ret = nullptr;
 
@@ -50,7 +50,7 @@ Scene* loading_scene::game(basic_app* application, const bool debug_grid, const 
   return ret;
 }
 
-Scene* loading_scene::menu(basic_app* application, menu_to_display menu)
+Scene* loading_scene::menu(basic_app* application, const menu_to_display menu)
 {
   loading_scene* ret = nullptr;
 
@@ -91,7 +91,7 @@ loading_scene::~loading_scene()
 }
 
 bool loading_scene::init(basic_app* application, const load_to& type, const bool debug_grid, const bool debug_physics,
-                         const menu_to_display menu, const int level)
+                         const menu_to_display menu, const unsigned short int level)
 {
   auto ret = false;
 
@@ -100,6 +100,8 @@ bool loading_scene::init(basic_app* application, const load_to& type, const bool
     type_ = type;
     menu_ = menu;
     level_ = level;
+    debug_grid_ = debug_grid;
+    debug_physics_ = debug_physics;
 
     UTILS_BREAK_IF(!base_class::init(application));
 
@@ -132,9 +134,6 @@ bool loading_scene::init(basic_app* application, const load_to& type, const bool
     UTILS_BREAK_IF(sequence == nullptr);
 
     runAction(sequence);
-
-    debug_grid_ = debug_grid;
-    debug_physics_ = debug_physics;
 
     get_audio_helper()->stop_all_sounds();
     get_audio_helper()->unload_all_sounds();

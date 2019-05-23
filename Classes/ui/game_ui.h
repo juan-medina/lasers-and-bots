@@ -37,9 +37,9 @@ public:
 
   game_ui();
 
-  static game_ui* create(audio_helper* audio_helper, level_manager* level_manager, const int level);
+  static game_ui* create(audio_helper* audio_helper, level_manager* level_manager, const unsigned short int level);
 
-  bool init(audio_helper* audio_helper, level_manager* level_manager, const int level);
+  bool init(audio_helper* audio_helper, level_manager* level_manager, const unsigned short int level);
 
   void on_pause(Ref* sender);
   void on_close(Ref* sender);
@@ -95,7 +95,7 @@ private:
   message_window* message_window_;
   pause_window* pause_window_;
   level_manager* level_manager_;
-  int level_;
+  unsigned short int level_;
 };
 
 #endif // __GAME_UI__CLASS__
