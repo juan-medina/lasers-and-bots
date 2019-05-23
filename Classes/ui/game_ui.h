@@ -30,6 +30,7 @@ class pause_window;
 class virtual_joy_stick;
 class audio_helper;
 class level_manager;
+enum class completed_result;
 
 class game_ui final : public Node
 {
@@ -68,7 +69,7 @@ public:
   void display_message(const std::string& message, const std::string& sub_message, const ccMenuCallback& callback);
 
   void display_level_completed(const unsigned short int level, const float time, const unsigned short int stars,
-                               const ccMenuCallback& callback);
+                               const completed_result completion, const ccMenuCallback& callback);
 
   void update_countdown(const int value) const;
 

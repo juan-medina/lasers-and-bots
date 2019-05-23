@@ -27,6 +27,7 @@
 class audio_helper;
 class resizable_window;
 class level_manager;
+enum class completed_result;
 
 class level_completed final : public resizable_window
 {
@@ -40,21 +41,29 @@ public:
   bool init(audio_helper* audio_helper, level_manager* level_manager);
 
   void display(const unsigned short int level, const float time, const unsigned short int stars,
-               const ccMenuCallback& callback);
+               const completed_result completion, const ccMenuCallback& callback);
 
 private:
 
+  Label* add_labels(const std::string& label_text, const std::string& text, const Vec2& pos, const float separation);
+
   void star_sound() const;
+
+  void animate_label(Label* label) const;
 
   audio_helper* audio_helper_;
   MenuItemSprite* continue_item_;
-  Label* sub_label_;
+  Label* level_name_label_;
 
   std::vector<Sprite*> gray_stars_;
   std::vector<Sprite*> gold_stars_;
   std::vector<Label*> label_stars_;
 
   level_manager* level_manager_;
+  Label* level_total_time_label_;
+  Label* level_time_limit_label_;
+  Label* level_time_record_label_;
+  Label* level_3_stars_record_label_;
 };
 
 

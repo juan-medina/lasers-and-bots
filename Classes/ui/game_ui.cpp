@@ -350,10 +350,10 @@ void game_ui::display_message(const std::string& message, const std::string& sub
 }
 
 void game_ui::display_level_completed(const unsigned short int level, const float time, const unsigned short int stars,
-                                      const ccMenuCallback& callback)
+                                      const completed_result completion, const ccMenuCallback& callback)
 {
   continue_callback_ = callback;
-  level_completed_->display(level, time, stars, CC_CALLBACK_0(game_ui::on_continue, this));
+  level_completed_->display(level, time, stars, completion, CC_CALLBACK_0(game_ui::on_continue, this));
 }
 
 void game_ui::update_countdown(const int value) const

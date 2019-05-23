@@ -23,6 +23,14 @@
 
 #include "../utils/utils.h"
 
+enum class completed_result
+{
+  no_record_change,
+  new_level_record,
+  new_level_3_stars_record,
+  new_level_record_and_3_stars_record
+};
+
 // class that represent a audio engine
 class level_manager final : public Ref
 {
@@ -46,7 +54,8 @@ public:
   std::string get_level_name(const unsigned short int level) const;
   int get_level_time_limit(const unsigned short int level) const;
   std::string get_level_music(const unsigned short int level) const;
-  void set_level_completed(const unsigned short int level, const unsigned short int stars, const float time) const;
+  completed_result set_level_completed(const unsigned short int level, const unsigned short int stars,
+                                       const float time) const;
   float get_level_time_record(const unsigned short int level) const;
   float get_level_3_stars_record(const unsigned short int level) const;
   static constexpr auto no_time_record = 999999.f;

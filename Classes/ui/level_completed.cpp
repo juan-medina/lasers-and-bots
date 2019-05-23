@@ -7,8 +7,12 @@
 level_completed::level_completed():
   audio_helper_(nullptr),
   continue_item_(nullptr),
-  sub_label_(nullptr),
-  level_manager_(nullptr)
+  level_name_label_(nullptr),
+  level_manager_(nullptr),
+  level_total_time_label_(nullptr),
+  level_time_limit_label_(nullptr),
+  level_time_record_label_(nullptr),
+  level_3_stars_record_label_(nullptr)
 {
 }
 
@@ -55,7 +59,7 @@ bool level_completed::init(audio_helper* audio_helper, level_manager* level_mana
     addChild(dark_all, 0);
     dark_all->setPosition(-size.width / 2, -size.height / 2);
 
-    UTILS_BREAK_IF(!base_class::init("Level Completed", 1800.f, 1300.f));
+    UTILS_BREAK_IF(!base_class::init("Level Completed", 1800.f, 2100.f));
 
     audio_helper_->pre_load_effect("sounds/star.mp3");
 
@@ -64,15 +68,15 @@ bool level_completed::init(audio_helper* audio_helper, level_manager* level_mana
 
     setPosition(size.width / 2, size.height / 2);
 
-    sub_label_ = Label::createWithTTF("", "fonts/tahoma.ttf", 100);
-    UTILS_BREAK_IF(sub_label_ == nullptr);
+    level_name_label_ = Label::createWithTTF("", "fonts/tahoma.ttf", 100);
+    UTILS_BREAK_IF(level_name_label_ == nullptr);
 
-    sub_label_->setTextColor(Color4B(255, 255, 255, 255));
-    sub_label_->enableOutline(Color4B(0, 0, 0, 255), 5);
+    level_name_label_->setTextColor(Color4B(255, 255, 255, 255));
+    level_name_label_->enableOutline(Color4B(0, 0, 0, 255), 5);
 
-    sub_label_->setPosition(0.f, (getContentSize().height / 2) - 250);
+    level_name_label_->setPosition(0.f, (getContentSize().height / 2) - 250);
 
-    addChild(sub_label_, 100);
+    addChild(level_name_label_, 100);
 
     const auto continue_sprite = Sprite::createWithSpriteFrameName("08_Text_1.png");
     UTILS_BREAK_IF(continue_sprite == nullptr);
@@ -102,7 +106,7 @@ bool level_completed::init(audio_helper* audio_helper, level_manager* level_mana
 
     addChild(menu, 100);
 
-    const auto first_start_pos = Vec2(-horizontal_segment / 3, 50.f);
+    const auto first_start_pos = Vec2(-horizontal_segment / 3, level_name_label_->getPosition().y - 350.f);
 
     for (unsigned short int start_counter = 0; start_counter < 3; ++start_counter)
     {
@@ -148,8 +152,30 @@ bool level_completed::init(audio_helper* audio_helper, level_manager* level_mana
       star_gold->setPosition(star_pos);
       star_gold->setOpacity(0);
 
-      addChild(star_gold, 100);
+      addChild(star_gold, 110);
     }
+
+    const auto first_star = gray_stars_.at(0);
+    const auto first_label_pos = first_star->getPosition()
+      - Vec2(first_star->getContentSize().width / 2, first_star->getContentSize().height * 1.9);
+    auto label_pos = first_label_pos;
+
+    static const auto separation = 950.f;
+
+    level_total_time_label_ = add_labels("Total Time", "00:00.00", label_pos, separation);
+    UTILS_BREAK_IF(level_total_time_label_ == nullptr);
+    label_pos.y -= 200;
+
+    level_time_limit_label_ = add_labels("Time Limit", "00:00.00", label_pos, separation);
+    UTILS_BREAK_IF(level_time_limit_label_ == nullptr);
+    label_pos.y -= 200;
+
+    level_time_record_label_ = add_labels("Time Record", "00:00.00", label_pos, separation);
+    UTILS_BREAK_IF(level_time_limit_label_ == nullptr);
+    label_pos.y -= 200;
+
+    level_3_stars_record_label_ = add_labels("3 Stars Record", "00:00.00", label_pos, separation);
+    UTILS_BREAK_IF(level_time_limit_label_ == nullptr);
 
     setOpacity(0);
     setVisible(false);
@@ -161,12 +187,45 @@ bool level_completed::init(audio_helper* audio_helper, level_manager* level_mana
 }
 
 void level_completed::display(const unsigned short int level, const float time, const unsigned short int stars,
-                              const ccMenuCallback& callback)
+                              const completed_result completion, const ccMenuCallback& callback)
 {
   const auto level_name = level_manager_->get_level_name(level);
-  const auto time_limit = level_manager_->get_level_time_limit(level);
+  const auto level_time_limit = level_manager_->get_level_time_limit(level);
+  const auto level_time_record = level_manager_->get_level_time_record(level);
+  const auto level_3_stars_record = level_manager_->get_level_3_stars_record(level);
 
-  sub_label_->setString(level_name);
+  level_total_time_label_->setString(game_ui::time_message(time));
+  level_time_limit_label_->setString(game_ui::time_message(level_time_limit));
+
+  if (level_time_record != level_manager::no_time_record)
+  {
+    level_time_record_label_->setString(game_ui::time_message(level_time_record));
+    if ((completion == completed_result::new_level_record) || (completion == completed_result::
+      new_level_record_and_3_stars_record))
+    {
+      animate_label(level_time_record_label_);
+    }
+  }
+  else
+  {
+    level_time_record_label_->setString("n/a");
+  }
+
+  if (level_3_stars_record != level_manager::no_time_record)
+  {
+    level_3_stars_record_label_->setString(game_ui::time_message(level_3_stars_record));
+    if ((completion == completed_result::new_level_3_stars_record) || (completion == completed_result::
+      new_level_record_and_3_stars_record))
+    {
+      animate_label(level_3_stars_record_label_);
+    }
+  }
+  else
+  {
+    level_3_stars_record_label_->setString("n/a");
+  }
+
+  level_name_label_->setString(level_name);
   continue_item_->setCallback(callback);
   setVisible(true);
 
@@ -181,13 +240,11 @@ void level_completed::display(const unsigned short int level, const float time, 
 
       gray_stars_.at(start_counter)->setOpacity(255);
 
-      auto star_tex = string("level\ncompleted");
       if (start_counter == 1)
       {
-        star_tex = "under\n " + game_ui::time_message(time_limit);
+        const auto star_tex = "under\n " + game_ui::time_message(level_time_limit);
+        label_stars_.at(start_counter)->setString(star_tex);
       }
-
-      label_stars_.at(start_counter)->setString(star_tex);
 
       if (is_gold)
       {
@@ -195,15 +252,16 @@ void level_completed::display(const unsigned short int level, const float time, 
 
         star_gold->setColor(Color3B(0, 255, 255));
 
-        const auto play_sound = CallFunc::create(CC_CALLBACK_0(level_completed::star_sound, this));
         const auto delay = DelayTime::create(0.5f + (static_cast<float>(start_counter) * 1.f));
+        const auto play_sound = CallFunc::create(CC_CALLBACK_0(level_completed::star_sound, this));
+
         const auto fade_in = FadeIn::create(1.f);
         const auto appear = Sequence::create(delay, fade_in, nullptr);
         star_gold->runAction(appear);
 
         const auto scale_up = ScaleTo::create(0.5f, 1.5f, 1.5f);
         const auto scale_down = ScaleTo::create(0.5f, 1.0f, 1.0f);
-        const auto scale = Sequence::create(delay->clone(), scale_up, scale_down, play_sound, nullptr);
+        const auto scale = Sequence::create(delay->clone(), scale_up, scale_down, play_sound->clone(), nullptr);
         star_gold->runAction(scale);
       }
     }
@@ -213,4 +271,45 @@ void level_completed::display(const unsigned short int level, const float time, 
 void level_completed::star_sound() const
 {
   audio_helper_->play_effect("sounds/star.mp3");
+}
+
+void level_completed::animate_label(Label* label) const
+{
+  const auto ink_down = TintTo::create(0.5f, 180, 180, 180);
+  const auto ink_up = TintTo::create(0.5f, 255, 255, 255);
+  const auto sequence = Sequence::create(ink_down, ink_up, nullptr);
+  const auto repeat = RepeatForever::create(sequence);
+  label->runAction(repeat);
+}
+
+Label* level_completed::add_labels(const std::string& label_text, const std::string& text, const Vec2& pos,
+                                   const float separation)
+{
+  Label* result = nullptr;
+  do
+  {
+    auto label = Label::createWithTTF(label_text, "fonts/tahoma.ttf", 120);
+    UTILS_BREAK_IF(label == nullptr);
+
+    label->setPosition(pos - Vec2(-label->getContentSize().width / 2,
+                                  -label->getContentSize().height / 2));
+    label->setTextColor(Color4B(255, 255, 255, 255));
+    label->enableOutline(Color4B(0, 0, 0, 255), 5);
+    addChild(label);
+
+    auto value = Label::createWithTTF(text, "fonts/tahoma.ttf", 120);
+    UTILS_BREAK_IF(label == nullptr);
+
+    value->setAnchorPoint(Vec2(0.f, 0.5f));
+    value->setHorizontalAlignment(TextHAlignment::LEFT);
+    value->setPosition(pos.x + separation, label->getPosition().y);
+    value->setTextColor(Color4B(0, 255, 255, 255));
+    value->enableOutline(Color4B(0, 0, 0, 255), 5);
+    addChild(value);
+
+    result = value;
+  }
+  while (false);
+
+  return result;
 }

@@ -84,9 +84,12 @@ void level_manager::end()
   initiated_ = false;
 }
 
-void level_manager::set_level_completed(const unsigned short int level, const unsigned short int stars,
-                                        const float time) const
+completed_result level_manager::set_level_completed(const unsigned short int level,
+                                                    const unsigned short int stars,
+                                                    const float time) const
 {
+  auto result = completed_result::no_record_change;
+
   const auto user_default = UserDefault::getInstance();
   const auto current_stars = get_level_stars(level);
   const auto key = string_format("level_%04d", level);
@@ -94,6 +97,7 @@ void level_manager::set_level_completed(const unsigned short int level, const un
   if (time < current_record)
   {
     user_default->setFloatForKey((key + "_time_record").c_str(), time);
+    result = completed_result::new_level_record;
   }
   if (stars == 3)
   {
@@ -101,12 +105,22 @@ void level_manager::set_level_completed(const unsigned short int level, const un
     if (time < current_3_stars_record)
     {
       user_default->setFloatForKey((key + "_3_stars_time_record").c_str(), time);
+      if (result == completed_result::no_record_change)
+      {
+        result = completed_result::new_level_3_stars_record;
+      }
+      else
+      {
+        result = completed_result::new_level_record_and_3_stars_record;
+      }
     }
   }
   if (stars > current_stars)
   {
     user_default->setIntegerForKey((key + "_stars").c_str(), stars);
   }
+
+  return result;
 }
 
 float level_manager::get_level_time_record(const unsigned short level) const
