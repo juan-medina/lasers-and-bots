@@ -46,7 +46,7 @@ public:
 
   static Scene* scene(basic_app* application, const menu_to_display menu);
 
-  void go_to_game(const int level);
+  void go_to_game(const unsigned short int level);
   void exit_app();
   void display_options_menu() const;
   void display_main_menu() const;
@@ -90,7 +90,7 @@ private:
 
   Node* background_;
   bool paused_;
-  int saved_level_;
+  unsigned short int saved_level_;
 };
 
 #endif // __MENU_SCENE_H__

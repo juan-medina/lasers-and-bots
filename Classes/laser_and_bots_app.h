@@ -48,7 +48,7 @@ public:
   void set_music_volume(const float music_volume);
   void set_effects_volume(const float effects_volume);
 
-  void to_game(const int level);
+  void to_game(const unsigned short int level);
   void to_main_menu();
   void to_play_menu();
 

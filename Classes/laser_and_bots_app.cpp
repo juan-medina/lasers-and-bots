@@ -157,7 +157,7 @@ void laser_and_bots_app::set_effects_volume(const float effects_volume)
   get_audio_helper()->set_sound_volume(effects_volume_);
 }
 
-void laser_and_bots_app::to_game(const int level)
+void laser_and_bots_app::to_game(const unsigned short int level)
 {
   Director::getInstance()->replaceScene(game_scene(level));
 }

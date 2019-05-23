@@ -249,7 +249,7 @@ bool menu_scene::add_laser()
   return result;
 }
 
-void menu_scene::go_to_game(const int level)
+void menu_scene::go_to_game(const unsigned short int level)
 {
   const auto delay = DelayTime::create(1.15f);
   const auto func = CallFunc::create(CC_CALLBACK_0(menu_scene::delay_to_game, this));
