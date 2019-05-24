@@ -54,6 +54,7 @@ list(APPEND GAME_SOURCE
         Classes/game/switch_object.cpp
         Classes/laser_and_bots_app.cpp
         Classes/menu/basic_menu.cpp
+        Classes/menu/credits_menu.cpp
         Classes/menu/main_menu.cpp
         Classes/menu/options_menu.cpp
         Classes/menu/play_menu.cpp
@@ -62,6 +63,7 @@ list(APPEND GAME_SOURCE
         Classes/scenes/loading_scene.cpp
         Classes/scenes/menu_scene.cpp
         Classes/ui/game_ui.cpp
+        Classes/ui/level_completed.cpp
         Classes/ui/message_window.cpp
         Classes/ui/on_screen_button.cpp
         Classes/ui/pause_window.cpp
@@ -93,6 +95,7 @@ list(APPEND GAME_HEADER
         Classes/game/switch_object.h
         Classes/laser_and_bots_app.h
         Classes/menu/basic_menu.h
+        Classes/menu/credits_menu.h
         Classes/menu/main_menu.h
         Classes/menu/options_menu.h
         Classes/menu/play_menu.h
@@ -101,6 +104,7 @@ list(APPEND GAME_HEADER
         Classes/scenes/loading_scene.h
         Classes/scenes/menu_scene.h
         Classes/ui/game_ui.h
+        Classes/ui/level_completed.h
         Classes/ui/message_window.h
         Classes/ui/on_screen_button.h
         Classes/ui/pause_window.h

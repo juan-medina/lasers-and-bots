@@ -57,7 +57,7 @@ bool credits_menu::init(audio_helper* audio_helper)
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init("Credits", audio_helper, 4000.f, 3700.f));
+    UTILS_BREAK_IF(!base_class::init("Credits", audio_helper, 4000.f, 3900.f));
 
     ret = true;
   }
@@ -75,10 +75,9 @@ bool credits_menu::create_menu_items()
 
     ValueMap defaults{};
     defaults.insert(std::make_pair(RichText::KEY_FONT_FACE, Value("fonts/tahoma.ttf")));
-    defaults.insert(std::make_pair(RichText::KEY_FONT_SIZE, Value(105)));
+    defaults.insert(std::make_pair(RichText::KEY_FONT_SIZE, Value(120)));
     defaults.insert(std::make_pair(RichText::KEY_FONT_COLOR_STRING, Value("#FFFFFF")));
     defaults.insert(std::make_pair(RichText::KEY_ANCHOR_FONT_COLOR_STRING, Value("#00FFFF")));
-    defaults.insert(std::make_pair(RichText::KEY_ANCHOR_TEXT_LINE, Value(RichText::VALUE_TEXT_LINE_UNDER)));
     defaults.insert(std::make_pair(RichText::KEY_HORIZONTAL_ALIGNMENT,
                                    Value(static_cast<int>(RichText::HorizontalAlignment::CENTER))));
     const auto file_utils = FileUtils::getInstance();
@@ -88,7 +87,7 @@ bool credits_menu::create_menu_items()
     UTILS_BREAK_IF(rich_text == nullptr);
 
     rich_text->ignoreContentAdaptWithSize(false);
-    rich_text->setContentSize(getContentSize() * .85f);
+    rich_text->setContentSize(Size(getContentSize().width * .925f, getContentSize().height * .85f));
     rich_text->formatText();
     rich_text->setPosition(Vec2(0, 0));
 
