@@ -18,17 +18,20 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "main_menu.h"
+#include "credits_menu.h"
 #include "../utils/audio/audio_helper.h"
 #include "../scenes/menu_scene.h"
+#include "ui/UIRichText.h"
 
-main_menu* main_menu::create(audio_helper* audio_helper)
+using namespace cocos2d::ui;
+
+credits_menu* credits_menu::create(audio_helper* audio_helper)
 {
-  main_menu* ret = nullptr;
+  credits_menu* ret = nullptr;
 
   do
   {
-    auto object = new main_menu();
+    auto object = new credits_menu();
     UTILS_BREAK_IF(object == nullptr);
 
     if (object->init(audio_helper))
@@ -48,13 +51,13 @@ main_menu* main_menu::create(audio_helper* audio_helper)
   return ret;
 }
 
-bool main_menu::init(audio_helper* audio_helper)
+bool credits_menu::init(audio_helper* audio_helper)
 {
   auto ret = false;
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init("Main Menu", audio_helper, 1300.f, 1800.f));
+    UTILS_BREAK_IF(!base_class::init("Credits", audio_helper, 4000.f, 3700.f));
 
     ret = true;
   }
@@ -63,15 +66,33 @@ bool main_menu::init(audio_helper* audio_helper)
   return ret;
 }
 
-bool main_menu::create_menu_items()
+bool credits_menu::create_menu_items()
 {
   auto result = false;
   do
   {
-    UTILS_BREAK_IF(add_text_button("Exit", CC_CALLBACK_0(main_menu::on_exit, this)) == nullptr);
-    UTILS_BREAK_IF(add_text_button("Credits", CC_CALLBACK_0(main_menu::on_credits, this)) == nullptr);
-    UTILS_BREAK_IF(add_text_button("Options", CC_CALLBACK_0(main_menu::on_options, this)) == nullptr);
-    UTILS_BREAK_IF(add_text_button("PLAY!", CC_CALLBACK_0(main_menu::on_play, this)) == nullptr);
+    UTILS_BREAK_IF(add_text_button("Back", CC_CALLBACK_0(credits_menu::on_back, this)) == nullptr);
+
+    ValueMap defaults{};
+    defaults.insert(std::make_pair(RichText::KEY_FONT_FACE, Value("fonts/tahoma.ttf")));
+    defaults.insert(std::make_pair(RichText::KEY_FONT_SIZE, Value(105)));
+    defaults.insert(std::make_pair(RichText::KEY_FONT_COLOR_STRING, Value("#FFFFFF")));
+    defaults.insert(std::make_pair(RichText::KEY_ANCHOR_FONT_COLOR_STRING, Value("#00FFFF")));
+    defaults.insert(std::make_pair(RichText::KEY_ANCHOR_TEXT_LINE, Value(RichText::VALUE_TEXT_LINE_UNDER)));
+    defaults.insert(std::make_pair(RichText::KEY_HORIZONTAL_ALIGNMENT,
+                                   Value(static_cast<int>(RichText::HorizontalAlignment::CENTER))));
+    const auto file_utils = FileUtils::getInstance();
+    const auto text = file_utils->getStringFromFile("credits/credits.xml");
+
+    const auto rich_text = RichText::createWithXML(text, defaults);
+    UTILS_BREAK_IF(rich_text == nullptr);
+
+    rich_text->ignoreContentAdaptWithSize(false);
+    rich_text->setContentSize(getContentSize() * .85f);
+    rich_text->formatText();
+    rich_text->setPosition(Vec2(0, 0));
+
+    addChild(rich_text);
 
     result = true;
   }
@@ -79,35 +100,10 @@ bool main_menu::create_menu_items()
   return result;
 }
 
-
-void main_menu::on_options()
+void credits_menu::on_back()
 {
   get_audio_helper()->play_effect("sounds/select.mp3");
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->display_options_menu();
-}
-
-void main_menu::on_play()
-{
-  get_audio_helper()->play_effect("sounds/select.mp3");
-  hide();
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->display_play_menu();
-}
-
-void main_menu::on_exit()
-{
-  get_audio_helper()->play_effect("sounds/select.mp3");
-  hide();
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->exit_app();
-}
-
-void main_menu::on_credits()
-{
-  get_audio_helper()->play_effect("sounds/select.mp3");
-  hide();
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->display_credits_menu();
+  menu->display_main_menu();
 }

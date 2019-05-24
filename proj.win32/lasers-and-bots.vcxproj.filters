@@ -168,6 +168,9 @@
     <ClCompile Include="..\Classes\ui\level_completed.cpp">
       <Filter>src\ui</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\menu\credits_menu.cpp">
+      <Filter>src\menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -286,6 +289,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\ui\level_completed.h">
       <Filter>src\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\menu\credits_menu.h">
+      <Filter>src\menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

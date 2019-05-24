@@ -41,9 +41,6 @@ bool basic_menu::init(const std::string& name, audio_helper* audio_helper, const
   {
     audio_helper_ = audio_helper;
 
-    /*const auto desired_width = horizontal ? 1800.f : 1300.f;
-    const auto desired_height = horizontal ? 1300.f : 1300.f;*/
-
     UTILS_BREAK_IF(!base_class::init(name, width, height));
 
     audio_helper_->pre_load_effect("sounds/select.mp3");

@@ -22,6 +22,7 @@
 #include "../laser_and_bots_app.h"
 #include "../menu/main_menu.h"
 #include "../menu/options_menu.h"
+#include "../menu/credits_menu.h"
 #include "../menu/play_menu.h"
 #include "../utils/audio/audio_helper.h"
 
@@ -29,6 +30,7 @@ menu_scene::menu_scene() :
   main_menu_(nullptr),
   options_menu_(nullptr),
   play_menu_(nullptr),
+  credits_menu_(nullptr),
   background_(nullptr),
   paused_(false),
   saved_level_(-1)
@@ -112,6 +114,11 @@ bool menu_scene::init(basic_app* application, const menu_to_display menu, const 
     UTILS_BREAK_IF(play_menu_ == nullptr);
 
     addChild(play_menu_, 0);
+
+    credits_menu_ = credits_menu::create(get_audio_helper());
+    UTILS_BREAK_IF(credits_menu_ == nullptr);
+
+    addChild(credits_menu_, 0);
 
     switch (menu)
     {
@@ -283,6 +290,11 @@ void menu_scene::display_main_menu() const
 void menu_scene::display_play_menu() const
 {
   play_menu_->display();
+}
+
+void menu_scene::display_credits_menu() const
+{
+  credits_menu_->display();
 }
 
 void menu_scene::change_music(const bool disabled) const

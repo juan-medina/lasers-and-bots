@@ -18,8 +18,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __MAIN_MENU_CLASS__
-#define __MAIN_MENU_CLASS__
+#ifndef __CREDITS_MENU_CLASS__
+#define __CREDITS_MENU_CLASS__
 
 #include "../utils/utils.h"
 #include "basic_menu.h"
@@ -27,12 +27,12 @@
 //foward declarations
 class audio_helper;
 
-class main_menu final : public basic_menu
+class credits_menu final : public basic_menu
 {
 public:
   using base_class = basic_menu;
 
-  static main_menu* create(audio_helper* audio_helper);
+  static credits_menu* create(audio_helper* audio_helper);
 
   bool init(audio_helper* audio_helper);
 
@@ -40,11 +40,8 @@ protected:
   bool create_menu_items() override;
 private:
 
-  void on_options();
-  void on_play();
-  void on_exit();
-  void on_credits();
+  void on_back();
 };
 
 
-#endif // __MAIN_MENU_CLASS__
+#endif // __CREDITS_MENU_CLASS__

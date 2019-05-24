@@ -27,6 +27,7 @@
 class main_menu;
 class options_menu;
 class play_menu;
+class credits_menu;
 
 enum class menu_to_display
 {
@@ -51,6 +52,7 @@ public:
   void display_options_menu() const;
   void display_main_menu() const;
   void display_play_menu() const;
+  void display_credits_menu() const;
   void change_music(const bool disabled) const;
   void change_sound(const bool disabled) const;
   void change_music_volume(const float volume) const;
@@ -87,6 +89,7 @@ private:
   main_menu* main_menu_;
   options_menu* options_menu_;
   play_menu* play_menu_;
+  credits_menu* credits_menu_;
 
   Node* background_;
   bool paused_;
