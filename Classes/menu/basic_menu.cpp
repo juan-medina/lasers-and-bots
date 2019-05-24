@@ -29,7 +29,8 @@ basic_menu::basic_menu():
   current_text_button_y_(0),
   current_image_button_x_(0),
   current_image_button_y_(0),
-  image_button_start_x_(0)
+  image_button_start_x_(0),
+  moving_(false)
 {
 }
 
@@ -69,6 +70,7 @@ bool basic_menu::init(const std::string& name, audio_helper* audio_helper, const
 
     setOpacity(0);
     setVisible(false);
+    setPosition(-size.width * 2, 0.f);
 
     ret = true;
   }
@@ -79,6 +81,11 @@ bool basic_menu::init(const std::string& name, audio_helper* audio_helper, const
 
 void basic_menu::display()
 {
+  if(moving_)
+  {
+    return;
+  }
+  moving_ = true;
   static auto const time = 0.5f;
   const auto& size = Director::getInstance()->getVisibleSize();
 
@@ -88,7 +95,9 @@ void basic_menu::display()
   setPosition(Vec2(size.width / 2, size.height / 2) - move);
 
   const auto elastic_in = EaseElasticInOut::create(MoveBy::create(time * 2, move), time);
-  const auto move_in = Sequence::create(elastic_in, nullptr);
+  const auto call_back = CallFunc::create(CC_CALLBACK_0(basic_menu::on_movement_end, this));
+  const auto move_in = Sequence::create(elastic_in, call_back, nullptr);
+  
 
   runAction(move_in);
 
@@ -97,38 +106,24 @@ void basic_menu::display()
 
 void basic_menu::hide()
 {
+  if (moving_)
+  {
+    return;
+  }
+  moving_ = true;
   static auto const time = 0.5f;
   const auto& size = Director::getInstance()->getVisibleSize();
   const auto move = Vec2(size.width, 0);
 
-
   const auto elastic_out = EaseElasticInOut::create(MoveBy::create(time * 2, move), time);
   const auto fade = FadeTo::create(0.0f, 0);
   const auto hide = Hide::create();
+  const auto call_back = CallFunc::create(CC_CALLBACK_0(basic_menu::on_movement_end, this));
 
-  const auto move_out = Sequence::create(elastic_out, fade, hide, nullptr);
+  const auto move_out = Sequence::create(elastic_out, fade, hide, call_back, nullptr);
 
   runAction(move_out);
   get_audio_helper()->play_effect("sounds/SlideClosed.mp3");
-}
-
-void basic_menu::move_image_button(MenuItem* item)
-{
-  item->setPosition(current_image_button_x_, current_image_button_y_);
-
-  static const auto button_gap_x = 45.f;
-  static const auto button_gap_y = 50.f;
-
-  const auto& size = item->getContentSize();
-  current_image_button_x_ += (size.width + button_gap_x);
-  static auto button_count = 0;
-  button_count++;
-  if (button_count > 4)
-  {
-    current_image_button_y_ -= (size.height + button_gap_y);
-    current_image_button_x_ = image_button_start_x_;
-    button_count = 0;
-  }
 }
 
 void basic_menu::move_text_button(MenuItem* item)
@@ -255,4 +250,9 @@ MenuItem* basic_menu::add_row_label(const std::string& text, MenuItem* attach_to
   while (false);
 
   return result;
+}
+
+void basic_menu::on_movement_end()
+{
+  moving_ = false;
 }

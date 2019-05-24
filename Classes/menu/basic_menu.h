@@ -53,7 +53,6 @@ protected:
 
   virtual bool create_menu_items() = 0;
 
-  void move_image_button(MenuItem* item);
   void move_text_button(MenuItem* item);
   void add_button(MenuItem* item, const ccMenuCallback& callback);
 
@@ -65,13 +64,15 @@ protected:
   MenuItem* add_row_label(const std::string& text, MenuItem* attach_to, const float left_space);
 
 private:
-
+  void on_movement_end();
   audio_helper* audio_helper_;
   Vector<MenuItem*> buttons_;
   float current_text_button_y_;
   float current_image_button_x_;
   float current_image_button_y_;
   float image_button_start_x_;
+
+  bool moving_;
 };
 
 
