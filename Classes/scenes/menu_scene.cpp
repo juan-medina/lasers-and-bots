@@ -100,6 +100,19 @@ bool menu_scene::init(basic_app* application, const menu_to_display menu, const 
 
     addChild(label, 0);
 
+    const auto version = application_->get_game_version_string();
+    
+    auto version_label = Label::createWithTTF(version, "fonts/tahoma.ttf", 120);
+    UTILS_BREAK_IF(version_label == nullptr);
+
+    version_label->setHorizontalAlignment(TextHAlignment::RIGHT);
+    version_label->setAnchorPoint(Vec2(1, 0));
+    version_label->setPosition(Vec2(size.width-60, 60));
+    version_label->setTextColor(Color4B(255, 255, 255, 255));
+    version_label->enableOutline(Color4B(0, 0, 0, 255), 5);
+
+    addChild(version_label, 0);
+
     main_menu_ = main_menu::create(get_audio_helper());
     UTILS_BREAK_IF(main_menu_ == nullptr);
 

@@ -30,7 +30,8 @@ basic_app::basic_app(const std::string& application_name, const float design_wid
   window_height_(0),
   full_screen_(true),
   fit_all_(false),
-  application_name_(application_name)
+  application_name_(application_name),
+  game_version_{0, 0, 0, 0, Platform::OS_LINUX}
 {
 }
 
@@ -114,6 +115,8 @@ bool basic_app::applicationDidFinishLaunching()
     const auto scene = init_scene();
     UTILS_BREAK_IF(scene == nullptr);
 
+    UTILS_BREAK_IF(!read_version());
+
     director->runWithScene(scene);
 
     ret = true;
@@ -173,6 +176,12 @@ bool basic_app::is_desktop()
   return (platform == Platform::OS_WINDOWS) || (platform == Platform::OS_MAC);
 }
 
+std::string basic_app::get_game_version_string() const
+{
+  return string_format("Version: %d.%d.%d build %d (%s)", game_version_.major, game_version_.minor,
+                       game_version_.patch, game_version_.build, get_platform_name(game_version_.platform).c_str());
+}
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 void basic_app::center_win32_window()
 {
@@ -213,5 +222,50 @@ void basic_app::center_win32_window()
   // move the window
   SetWindowPos(win32_window, nullptr, offset_x, offset_y, 0, 0,
                SWP_NOCOPYBITS | SWP_NOSIZE | SWP_NOOWNERZORDER | SWP_NOZORDER);
+}
+
+bool basic_app::read_version()
+{
+  auto result = false;
+  do
+  {
+    const auto version_data = FileUtils::getInstance()->getValueMapFromFile("version/version.plist");
+    UTILS_BREAK_IF(version_data.empty());
+
+    const auto version = version_data.at("version").asValueMap();
+    UTILS_BREAK_IF(version.empty());
+
+    game_version_.major = version.at("major").asInt();
+    game_version_.minor = version.at("minor").asInt();
+    game_version_.patch = version.at("patch").asInt();
+    game_version_.build = version.at("build").asInt();
+    game_version_.platform = getTargetPlatform();
+
+    result = true;
+  }
+  while (false);
+
+  return result;
+}
+
+std::string basic_app::get_platform_name(const Platform platform)
+{
+  switch (platform)
+  {
+  case Platform::OS_WINDOWS:
+    return "Windows";
+  case Platform::OS_LINUX:
+    return "Linux";
+  case Platform::OS_MAC:
+    return "Mac";
+  case Platform::OS_ANDROID:
+    return "Android";
+  case Platform::OS_IPHONE:
+    return "iPhone";
+  case Platform::OS_IPAD:
+    return "iPad";
+  default:
+    return "Unknown";
+  }
 }
 #endif

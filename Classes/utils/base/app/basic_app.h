@@ -78,12 +78,16 @@ public:
 
   bool is_desktop();
 
+  std::string get_game_version_string() const;
 private:
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
   // center on screen in windows 32 client
   static void center_win32_window();
 #endif
+
+  bool read_version();
+  static std::string get_platform_name(const Platform platform);
 
   audio_helper* audio_helper_;
   float design_width_;
@@ -93,6 +97,17 @@ private:
   bool full_screen_;
   bool fit_all_;
   string application_name_;
+
+  struct game_version
+  {
+    unsigned short int major;
+    unsigned short int minor;
+    unsigned short int patch;
+    unsigned int build;
+    Platform platform;
+  };
+
+  game_version game_version_;
 };
 
 #endif // __BASIC_APP_H__
