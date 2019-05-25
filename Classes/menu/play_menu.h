@@ -58,6 +58,8 @@ private:
   std::map<unsigned short int, text_toggle*> level_buttons_;
   static constexpr auto star_tag = 0xFF0F;
 
+  text_button* back_item_;
+  text_button* play_item_;
   Label* level_name_label_;
   Label* level_time_limit_label_;
   Label* level_time_record_label_;

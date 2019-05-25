@@ -24,6 +24,7 @@
 #include "../utils/base/scene/basic_scene.h"
 
 // forward declarations
+class basic_menu;
 class main_menu;
 class options_menu;
 class play_menu;
@@ -49,10 +50,10 @@ public:
 
   void go_to_game(const unsigned short int level);
   void exit_app();
-  void display_options_menu() const;
-  void display_main_menu() const;
-  void display_play_menu() const;
-  void display_credits_menu() const;
+  void display_options_menu();
+  void display_main_menu();
+  void display_play_menu();
+  void display_credits_menu();
   void change_music(const bool disabled) const;
   void change_sound(const bool disabled) const;
   void change_music_volume(const float volume) const;
@@ -86,6 +87,10 @@ private:
   bool add_robot();
   bool add_laser();
 
+  bool create_keyboard_listener();
+  void on_key_pressed(EventKeyboard::KeyCode key_code, Event* event) const;
+
+  basic_menu* current_menu_;
   main_menu* main_menu_;
   options_menu* options_menu_;
   play_menu* play_menu_;

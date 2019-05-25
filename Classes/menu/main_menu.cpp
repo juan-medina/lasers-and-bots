@@ -21,6 +21,13 @@
 #include "main_menu.h"
 #include "../utils/audio/audio_helper.h"
 #include "../scenes/menu_scene.h"
+#include "../ui/text_button.h"
+
+main_menu::main_menu():
+  back_item_(nullptr),
+  play_item_(nullptr)
+{
+}
 
 main_menu* main_menu::create(audio_helper* audio_helper)
 {
@@ -63,15 +70,34 @@ bool main_menu::init(audio_helper* audio_helper)
   return ret;
 }
 
+void main_menu::display()
+{
+  const auto need_select_play = get_selected_menu_item() == nullptr;
+  base_class::display();
+
+  if (need_select_play)
+  {
+    select_menu_item(play_item_);
+  }
+}
+
+
 bool main_menu::create_menu_items()
 {
   auto result = false;
   do
   {
-    UTILS_BREAK_IF(add_text_button("Exit", CC_CALLBACK_0(main_menu::on_exit, this)) == nullptr);
+    back_item_ = add_text_button("Exit", CC_CALLBACK_0(main_menu::on_exit, this));
+    UTILS_BREAK_IF(back_item_ == nullptr);
+
+
     UTILS_BREAK_IF(add_text_button("Credits", CC_CALLBACK_0(main_menu::on_credits, this)) == nullptr);
     UTILS_BREAK_IF(add_text_button("Options", CC_CALLBACK_0(main_menu::on_options, this)) == nullptr);
-    UTILS_BREAK_IF(add_text_button("PLAY!", CC_CALLBACK_0(main_menu::on_play, this)) == nullptr);
+
+    play_item_ = add_text_button("PLAY!", CC_CALLBACK_0(main_menu::on_play, this));
+    UTILS_BREAK_IF(play_item_ == nullptr);
+
+    set_default_menu_item(back_item_);
 
     result = true;
   }

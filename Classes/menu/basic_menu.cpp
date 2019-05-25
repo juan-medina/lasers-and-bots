@@ -30,7 +30,12 @@ basic_menu::basic_menu():
   current_image_button_x_(0),
   current_image_button_y_(0),
   image_button_start_x_(0),
-  moving_(false)
+  moving_(false),
+  selection_(nullptr),
+  previous_selection_(nullptr),
+  selected_menu_item_(nullptr),
+  default_menu_item_(nullptr),
+  menu_(nullptr)
 {
 }
 
@@ -61,12 +66,12 @@ bool basic_menu::init(const std::string& name, audio_helper* audio_helper, const
 
     UTILS_BREAK_IF(!create_menu_items());
 
-    const auto menu = Menu::createWithArray(buttons_);
-    UTILS_BREAK_IF(menu == nullptr);
+    menu_ = Menu::createWithArray(buttons_);
+    UTILS_BREAK_IF(menu_ == nullptr);
 
-    menu->setPosition(0.f, -getContentSize().height / 2);
+    menu_->setPosition(0.f, -getContentSize().height / 2);
 
-    addChild(menu, 100);
+    addChild(menu_, 100);
 
     setOpacity(0);
     setVisible(false);
@@ -81,7 +86,7 @@ bool basic_menu::init(const std::string& name, audio_helper* audio_helper, const
 
 void basic_menu::display()
 {
-  if(moving_)
+  if (moving_)
   {
     return;
   }
@@ -97,9 +102,13 @@ void basic_menu::display()
   const auto elastic_in = EaseElasticInOut::create(MoveBy::create(time * 2, move), time);
   const auto call_back = CallFunc::create(CC_CALLBACK_0(basic_menu::on_movement_end, this));
   const auto move_in = Sequence::create(elastic_in, call_back, nullptr);
-  
 
   runAction(move_in);
+
+  if ((selected_menu_item_ == nullptr) && (default_menu_item_ != nullptr))
+  {
+    select_menu_item(default_menu_item_);
+  }
 
   get_audio_helper()->play_effect("sounds/SlideClosed.mp3");
 }
@@ -124,6 +133,87 @@ void basic_menu::hide()
 
   runAction(move_out);
   get_audio_helper()->play_effect("sounds/SlideClosed.mp3");
+}
+
+void basic_menu::set_default_menu_item(MenuItem* item)
+{
+  default_menu_item_ = item;
+}
+
+void basic_menu::select_menu_item(MenuItem* item)
+{
+#if (GAME_PLATFORM == DESKTOP_GAME)
+
+  if (selection_ == nullptr)
+  {
+    selection_ = DrawNode::create(5);
+    const auto fade_out = FadeTo::create(0.5, 127);
+    const auto fade_in = FadeTo::create(0.5, 255);
+    const auto sequence = Sequence::create(fade_out, fade_in, nullptr);
+    const auto repeat = RepeatForever::create(sequence);
+    selection_->runAction(repeat);
+    addChild(selection_);
+  }
+
+  if (selected_menu_item_ != item)
+  {
+    draw_selection(selection_, item, Color4F(0, 1, 1, 0.5));
+
+    if (selected_menu_item_ != nullptr)
+    {
+      if (previous_selection_ == nullptr)
+      {
+        previous_selection_ = DrawNode::create(5);
+        addChild(previous_selection_);
+      }
+
+      previous_selection_->stopAllActions();
+      previous_selection_->setOpacity(127);
+      const auto fade_out = FadeTo::create(0.5, 0);
+      previous_selection_->runAction(fade_out);
+
+      draw_selection(previous_selection_, selected_menu_item_, Color4F(0, 1, 1, 0.5));
+    }
+    selected_menu_item_ = item;
+  }
+
+#endif
+}
+
+void basic_menu::on_key_pressed(const EventKeyboard::KeyCode key_code)
+{
+  if (!moving_)
+  {
+    switch (key_code)
+    {
+    case EventKeyboard::KeyCode::KEY_UP_ARROW:
+      move_selection(compare_up_, distance_up_);
+      break;
+    case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
+      move_selection(compare_down_, distance_down_);
+      break;
+    case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+      move_selection(compare_left_, distance_left_);
+      break;
+    case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+      move_selection(compare_right_, distance_right_);
+      break;
+    case EventKeyboard::KeyCode::KEY_ENTER:
+    case EventKeyboard::KeyCode::KEY_KP_ENTER:
+    case EventKeyboard::KeyCode::KEY_RETURN:
+    case EventKeyboard::KeyCode::KEY_SPACE:
+      if (selected_menu_item_ != nullptr)
+      {
+        selected_menu_item_->activate();
+      }
+      break;
+    case EventKeyboard::KeyCode::KEY_ESCAPE:
+      on_menu_back();
+      break;
+    default:
+      break;
+    }
+  }
 }
 
 void basic_menu::move_text_button(MenuItem* item)
@@ -255,4 +345,67 @@ MenuItem* basic_menu::add_row_label(const std::string& text, MenuItem* attach_to
 void basic_menu::on_movement_end()
 {
   moving_ = false;
+}
+
+void basic_menu::move_selection(const compare_function& compare_fun, const distance_function& distance_fun)
+{
+  if (selected_menu_item_ == nullptr)
+  {
+    return;
+  }
+
+  MenuItem* new_item = nullptr;
+  auto min_distance = 1000000.f;
+  for (const auto child : menu_->getChildren())
+  {
+    const auto label = dynamic_cast<MenuItemLabel*>(child);
+    if (label != nullptr)
+    {
+      continue;
+    }
+    const auto item = dynamic_cast<MenuItem*>(child);
+    if (item != nullptr)
+    {
+      if (item != selected_menu_item_)
+      {
+        if (item->isEnabled())
+        {
+          if (compare_fun(item))
+          {
+            const auto distance = distance_fun(item);
+            if (distance < min_distance)
+            {
+              min_distance = distance;
+              new_item = item;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  if (new_item != nullptr)
+  {
+    select_menu_item(new_item);
+  }
+}
+
+void basic_menu::on_menu_back() const
+{
+  if (default_menu_item_ != nullptr)
+  {
+    default_menu_item_->activate();
+  }
+}
+
+void basic_menu::draw_selection(DrawNode* draw, MenuItem* item, const Color4F& color) const
+{
+  draw->clear();
+
+  const auto& item_size = item->getContentSize();
+  const auto origin = item->getPosition() - (item_size / 2) - Vec2(0, getContentSize().height / 2);
+  const auto destination = origin + item->getContentSize();
+  const auto gap = Vec2(10, 10);
+
+  draw->drawRect(origin - gap, destination + gap, color);
 }

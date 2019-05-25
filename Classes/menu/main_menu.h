@@ -26,15 +26,20 @@
 
 //foward declarations
 class audio_helper;
+class text_button;
 
 class main_menu final : public basic_menu
 {
 public:
   using base_class = basic_menu;
 
+  main_menu();
+
   static main_menu* create(audio_helper* audio_helper);
 
   bool init(audio_helper* audio_helper);
+
+  void display() override;;
 
 protected:
   bool create_menu_items() override;
@@ -44,6 +49,9 @@ private:
   void on_play();
   void on_exit();
   void on_credits();
+
+  text_button* back_item_;
+  text_button* play_item_;
 };
 
 

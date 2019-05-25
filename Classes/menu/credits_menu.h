@@ -21,16 +21,18 @@
 #ifndef __CREDITS_MENU_CLASS__
 #define __CREDITS_MENU_CLASS__
 
-#include "../utils/utils.h"
 #include "basic_menu.h"
 
 //foward declarations
 class audio_helper;
+class text_button;
 
 class credits_menu final : public basic_menu
 {
 public:
   using base_class = basic_menu;
+
+  credits_menu();
 
   static credits_menu* create(audio_helper* audio_helper);
 
@@ -41,6 +43,8 @@ protected:
 private:
 
   void on_back();
+
+  text_button* back_item_;
 };
 
 

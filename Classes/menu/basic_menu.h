@@ -49,6 +49,16 @@ public:
     return audio_helper_;
   }
 
+  void set_default_menu_item(MenuItem* item);
+  void select_menu_item(MenuItem* item);
+
+  void on_key_pressed(EventKeyboard::KeyCode key_code);
+
+  MenuItem* get_selected_menu_item() const
+  {
+    return selected_menu_item_;
+  }
+
 protected:
 
   virtual bool create_menu_items() = 0;
@@ -64,7 +74,9 @@ protected:
   MenuItem* add_row_label(const std::string& text, MenuItem* attach_to, const float left_space);
 
 private:
+
   void on_movement_end();
+
   audio_helper* audio_helper_;
   Vector<MenuItem*> buttons_;
   float current_text_button_y_;
@@ -73,7 +85,73 @@ private:
   float image_button_start_x_;
 
   bool moving_;
-};
 
+  DrawNode* selection_;
+  DrawNode* previous_selection_;
+  MenuItem* selected_menu_item_;
+  MenuItem* default_menu_item_;
+  Menu* menu_;
+
+  using compare_function = std::function<bool(MenuItem*)>;
+  using distance_function = std::function<float(MenuItem*)>;
+
+  const compare_function compare_up_ = [&](MenuItem* item)
+  {
+    return item->getPosition().y > this->selected_menu_item_->getPosition().y;
+  };
+
+  const compare_function compare_down_ = [&](MenuItem* item)
+  {
+    return item->getPosition().y < this->selected_menu_item_->getPosition().y;
+  };
+
+  const compare_function compare_right_ = [&](MenuItem* item)
+  {
+    return item->getPosition().x > this->selected_menu_item_->getPosition().x;
+  };
+
+  const compare_function compare_left_ = [&](MenuItem* item)
+  {
+    return item->getPosition().x < this->selected_menu_item_->getPosition().x;
+  };
+
+  const distance_function distance_up_ = [&](MenuItem* item)
+  {
+    const auto pos1 = item->getPosition() + Vec2(0, item->getContentSize().height / 2);
+    const auto pos2 = this->selected_menu_item_->getPosition() - Vec2(
+      0, this->selected_menu_item_->getContentSize().width / 2);
+    return pos1.distance(pos2);
+  };
+
+  const distance_function distance_down_ = [&](MenuItem* item)
+  {
+    const auto pos1 = item->getPosition() - Vec2(0, item->getContentSize().height / 2);
+    const auto pos2 = this->selected_menu_item_->getPosition() + Vec2(
+      0, this->selected_menu_item_->getContentSize().width / 2);
+    return pos1.distance(pos2);
+  };
+
+  const distance_function distance_right_ = [&](MenuItem* item)
+  {
+    const auto pos1 = item->getPosition() - Vec2(item->getContentSize().width / 2, 0);
+    const auto pos2 = this->selected_menu_item_->getPosition() + Vec2(
+      this->selected_menu_item_->getContentSize().width / 2, 0);
+    return pos1.distance(pos2);
+  };
+
+  const distance_function distance_left_ = [&](MenuItem* item)
+  {
+    const auto pos1 = item->getPosition() + Vec2(item->getContentSize().width / 2, 0);
+    const auto pos2 = this->selected_menu_item_->getPosition() - Vec2(
+      this->selected_menu_item_->getContentSize().width / 2, 0);
+    return pos1.distance(pos2);
+  };
+
+  void move_selection(const compare_function& compare_fun, const distance_function& distance_fun);
+
+  void on_menu_back() const;
+
+  void draw_selection(DrawNode* draw, MenuItem* item, const Color4F& color) const;
+};
 
 #endif // __BASIC_MENU_CLASS__

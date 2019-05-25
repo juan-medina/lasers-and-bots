@@ -28,6 +28,8 @@
 #include "../ui/game_ui.h"
 
 play_menu::play_menu():
+  back_item_(nullptr),
+  play_item_(nullptr),
   level_name_label_(nullptr),
   level_time_limit_label_(nullptr),
   level_time_record_label_(nullptr),
@@ -106,6 +108,7 @@ void play_menu::display()
     }
   }
   select_level(selected_level_);
+  select_menu_item(level_buttons_.at(selected_level_));
 }
 
 bool play_menu::create_menu_items()
@@ -113,12 +116,13 @@ bool play_menu::create_menu_items()
   auto result = false;
   do
   {
-    UTILS_BREAK_IF(add_text_button("Back", CC_CALLBACK_0(play_menu::on_back, this)) == nullptr);
+    back_item_ = add_text_button("Back", CC_CALLBACK_0(play_menu::on_back, this));
+    UTILS_BREAK_IF(back_item_ == nullptr);
 
-    const auto play = add_text_button("Play", CC_CALLBACK_0(play_menu::on_play, this));
-    UTILS_BREAK_IF(play == nullptr);
+    play_item_ = add_text_button("Play", CC_CALLBACK_0(play_menu::on_play, this));
+    UTILS_BREAK_IF(play_item_ == nullptr);
 
-    play->setPosition(getContentSize().width / 6, play->getPosition().y);
+    play_item_->setPosition(-550 + play_item_->getContentSize().width / 2, play_item_->getPosition().y);
 
     const auto margin = Vec2(300.f, 370.f);
     const auto first_button_pos = Vec2(-(getContentSize().width / 2) + margin.x,
@@ -201,6 +205,8 @@ bool play_menu::create_menu_items()
       }
     }
 
+    set_default_menu_item(back_item_);
+
     result = true;
   }
   while (false);
@@ -249,16 +255,17 @@ void play_menu::on_back()
 
 void play_menu::on_level_select(Ref*, const unsigned short int level)
 {
+  get_audio_helper()->play_effect("sounds/select.mp3");
+
   if (level == selected_level_)
   {
     level_buttons_.at(level)->setSelectedIndex(1);
-    on_play();
   }
   else
   {
-    get_audio_helper()->play_effect("sounds/select.mp3");
     select_level(level);
   }
+  select_menu_item(play_item_);
 }
 
 void play_menu::on_play()

@@ -21,9 +21,15 @@
 #include "credits_menu.h"
 #include "../utils/audio/audio_helper.h"
 #include "../scenes/menu_scene.h"
+#include "../ui/text_button.h"
 #include "ui/UIRichText.h"
 
 using namespace cocos2d::ui;
+
+credits_menu::credits_menu():
+  back_item_(nullptr)
+{
+}
 
 credits_menu* credits_menu::create(audio_helper* audio_helper)
 {
@@ -71,7 +77,8 @@ bool credits_menu::create_menu_items()
   auto result = false;
   do
   {
-    UTILS_BREAK_IF(add_text_button("Back", CC_CALLBACK_0(credits_menu::on_back, this)) == nullptr);
+    back_item_ = add_text_button("Back", CC_CALLBACK_0(credits_menu::on_back, this));
+    UTILS_BREAK_IF(back_item_ == nullptr);
 
     ValueMap defaults{};
     defaults.insert(std::make_pair(RichText::KEY_FONT_FACE, Value("fonts/tahoma.ttf")));
@@ -92,6 +99,8 @@ bool credits_menu::create_menu_items()
     rich_text->setPosition(Vec2(0, 70));
 
     addChild(rich_text);
+
+    set_default_menu_item(back_item_);
 
     result = true;
   }

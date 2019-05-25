@@ -23,9 +23,11 @@
 #include "../scenes/menu_scene.h"
 #include "../ui/slider_object.h"
 #include "../ui/text_toggle.h"
+#include "../ui/text_button.h"
 
 options_menu::options_menu():
   desktop_application_(false),
+  back_item_(nullptr),
   sound_toggle_(nullptr),
   music_toggle_(nullptr),
   sound_slider_(nullptr),
@@ -121,8 +123,8 @@ bool options_menu::create_menu_items()
   do
   {
     static auto const labels_starts = 800.0f;
-
-    UTILS_BREAK_IF(!add_text_button("Back", CC_CALLBACK_0(options_menu::on_back, this)));
+    back_item_ = add_text_button("Back", CC_CALLBACK_0(options_menu::on_back, this));
+    UTILS_BREAK_IF(back_item_ == nullptr);
 
     debug_grid_toggle_ = add_toggle_text_button("Enabled", CC_CALLBACK_0(options_menu::on_debug_grid, this));
     UTILS_BREAK_IF(debug_grid_toggle_ == nullptr);
@@ -170,6 +172,8 @@ bool options_menu::create_menu_items()
 
     music_slider_ = add_slider(music_toggle_, CC_CALLBACK_1(options_menu::on_music_slider_change, this));
     UTILS_BREAK_IF(music_slider_ == nullptr);
+
+    set_default_menu_item(back_item_);
 
     result = true;
   }

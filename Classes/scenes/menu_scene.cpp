@@ -27,6 +27,7 @@
 #include "../utils/audio/audio_helper.h"
 
 menu_scene::menu_scene() :
+  current_menu_(nullptr),
   main_menu_(nullptr),
   options_menu_(nullptr),
   play_menu_(nullptr),
@@ -101,13 +102,13 @@ bool menu_scene::init(basic_app* application, const menu_to_display menu, const 
     addChild(label, 0);
 
     const auto version = application_->get_game_version_string();
-    
+
     auto version_label = Label::createWithTTF(version, "fonts/tahoma.ttf", 120);
     UTILS_BREAK_IF(version_label == nullptr);
 
     version_label->setHorizontalAlignment(TextHAlignment::RIGHT);
     version_label->setAnchorPoint(Vec2(1, 0));
-    version_label->setPosition(Vec2(size.width-60, 60));
+    version_label->setPosition(Vec2(size.width - 60, 60));
     version_label->setTextColor(Color4B(255, 255, 255, 255));
     version_label->enableOutline(Color4B(0, 0, 0, 255), 5);
 
@@ -146,6 +147,10 @@ bool menu_scene::init(basic_app* application, const menu_to_display menu, const 
       display_options_menu();
       break;
     }
+
+#if (GAME_PLATFORM == DESKTOP_GAME)
+    UTILS_BREAK_IF(!create_keyboard_listener());
+#endif
 
     get_audio_helper()->play_music("sounds/Cellar-I.mp3", "sounds/Cellar-L.mp3");
 
@@ -269,6 +274,34 @@ bool menu_scene::add_laser()
   return result;
 }
 
+bool menu_scene::create_keyboard_listener()
+{
+  auto result = false;
+
+  do
+  {
+    auto listener = EventListenerKeyboard::create();
+    UTILS_BREAK_IF(listener == nullptr);
+
+    listener->onKeyPressed = CC_CALLBACK_2(menu_scene::on_key_pressed, this);
+
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+    result = true;
+  }
+  while (false);
+
+  return result;
+}
+
+void menu_scene::on_key_pressed(EventKeyboard::KeyCode key_code, Event* event) const
+{
+  if (current_menu_ != nullptr)
+  {
+    current_menu_->on_key_pressed(key_code);
+  }
+}
+
 void menu_scene::go_to_game(const unsigned short int level)
 {
   const auto delay = DelayTime::create(1.15f);
@@ -290,23 +323,27 @@ void menu_scene::exit_app()
   runAction(sequence);
 }
 
-void menu_scene::display_options_menu() const
+void menu_scene::display_options_menu()
 {
+  current_menu_ = options_menu_;
   options_menu_->display();
 }
 
-void menu_scene::display_main_menu() const
+void menu_scene::display_main_menu()
 {
+  current_menu_ = main_menu_;
   main_menu_->display();
 }
 
-void menu_scene::display_play_menu() const
+void menu_scene::display_play_menu()
 {
+  current_menu_ = play_menu_;
   play_menu_->display();
 }
 
-void menu_scene::display_credits_menu() const
+void menu_scene::display_credits_menu()
 {
+  current_menu_ = credits_menu_;
   credits_menu_->display();
 }
 
