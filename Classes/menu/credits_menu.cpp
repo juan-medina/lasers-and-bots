@@ -57,7 +57,7 @@ bool credits_menu::init(audio_helper* audio_helper)
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init("Credits", audio_helper, 4000.f, 3900.f));
+    UTILS_BREAK_IF(!base_class::init("Credits", audio_helper, 5000.f, 3900.f));
 
     ret = true;
   }
@@ -89,7 +89,7 @@ bool credits_menu::create_menu_items()
     rich_text->ignoreContentAdaptWithSize(false);
     rich_text->setContentSize(Size(getContentSize().width * .925f, getContentSize().height * .85f));
     rich_text->formatText();
-    rich_text->setPosition(Vec2(0, 0));
+    rich_text->setPosition(Vec2(0, 70));
 
     addChild(rich_text);
 
