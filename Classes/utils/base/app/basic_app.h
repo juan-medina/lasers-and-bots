@@ -25,6 +25,7 @@
 
 // forward declarations
 class audio_helper;
+class input_controller;
 
 // application base class
 class basic_app : public Application
@@ -79,6 +80,12 @@ public:
   bool is_desktop();
 
   std::string get_game_version_string() const;
+
+  input_controller* get_input_controller() const
+  {
+    return input_controller_;
+  }
+
 private:
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
@@ -90,6 +97,8 @@ private:
   static std::string get_platform_name(const Platform platform);
 
   audio_helper* audio_helper_;
+  input_controller* input_controller_;
+
   float design_width_;
   float design_height_;
   int window_width_;

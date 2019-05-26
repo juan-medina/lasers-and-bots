@@ -21,6 +21,7 @@
 #include "basic_scene.h"
 #include "../../base/app/basic_app.h"
 #include "../../audio/audio_helper.h"
+#include "../../controller/input_controller.h"
 
 basic_scene::basic_scene():
   application_(nullptr)
@@ -77,6 +78,11 @@ bool basic_scene::init(basic_app* application)
 audio_helper* basic_scene::get_audio_helper() const
 {
   return application_->get_audio_helper();
+}
+
+input_controller* basic_scene::get_input_controller() const
+{
+  return application_->get_input_controller();
 }
 
 void basic_scene::did_enter_background()

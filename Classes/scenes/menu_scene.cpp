@@ -25,6 +25,7 @@
 #include "../menu/credits_menu.h"
 #include "../menu/play_menu.h"
 #include "../utils/audio/audio_helper.h"
+#include "../utils/controller/input_controller.h"
 
 menu_scene::menu_scene() :
   current_menu_(nullptr),
@@ -34,7 +35,8 @@ menu_scene::menu_scene() :
   credits_menu_(nullptr),
   background_(nullptr),
   paused_(false),
-  saved_level_(-1)
+  saved_level_(-1),
+  input_controller_(nullptr)
 {
 }
 
@@ -147,10 +149,6 @@ bool menu_scene::init(basic_app* application, const menu_to_display menu, const 
       display_options_menu();
       break;
     }
-
-#if (GAME_PLATFORM == DESKTOP_GAME)
-    UTILS_BREAK_IF(!create_keyboard_listener());
-#endif
 
     get_audio_helper()->play_music("sounds/Cellar-I.mp3", "sounds/Cellar-L.mp3");
 
@@ -274,34 +272,6 @@ bool menu_scene::add_laser()
   return result;
 }
 
-bool menu_scene::create_keyboard_listener()
-{
-  auto result = false;
-
-  do
-  {
-    auto listener = EventListenerKeyboard::create();
-    UTILS_BREAK_IF(listener == nullptr);
-
-    listener->onKeyPressed = CC_CALLBACK_2(menu_scene::on_key_pressed, this);
-
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-
-    result = true;
-  }
-  while (false);
-
-  return result;
-}
-
-void menu_scene::on_key_pressed(EventKeyboard::KeyCode key_code, Event* event) const
-{
-  if (current_menu_ != nullptr)
-  {
-    current_menu_->on_key_pressed(key_code);
-  }
-}
-
 void menu_scene::go_to_game(const unsigned short int level)
 {
   const auto delay = DelayTime::create(1.15f);
@@ -384,6 +354,8 @@ void menu_scene::change_sound_volume(const float volume) const
 
 void menu_scene::update(float delta)
 {
+  handle_input();
+
   const auto pos = background_->getPosition();
   auto new_pos = pos - Vec2(delta * 600, 0);
 
@@ -466,6 +438,39 @@ void menu_scene::set_debug_physics(const bool debug_physics) const
 {
   const auto app = dynamic_cast<laser_and_bots_app*>(get_application());
   app->set_debug_physics(debug_physics);
+}
+
+void menu_scene::handle_input() const
+{
+  const auto controller = get_input_controller();
+
+  if (controller != nullptr)
+  {
+    if (controller->single_press_up())
+    {
+      current_menu_->move_selection_up();
+    }
+    if (controller->single_press_down())
+    {
+      current_menu_->move_selection_down();
+    }
+    if (controller->single_press_left())
+    {
+      current_menu_->move_selection_left();
+    }
+    if (controller->single_press_right())
+    {
+      current_menu_->move_selection_right();
+    }
+    if (controller->single_press_button_a() || controller->single_press_button_start())
+    {
+      current_menu_->activate_selection();
+    }
+    if (controller->single_press_button_b() || controller->single_press_button_back())
+    {
+      current_menu_->selection_back();
+    }
+  }
 }
 
 void menu_scene::delay_to_game() const

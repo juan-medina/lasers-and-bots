@@ -49,6 +49,9 @@
     <Filter Include="src\misc">
       <UniqueIdentifier>{3469b86d-cee2-4cc9-ad1a-4a16b3688ff8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\utils\controller">
+      <UniqueIdentifier>{948fc23a-c9d1-4d86-a3e2-b4583cfe9a1d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -171,6 +174,9 @@
     <ClCompile Include="..\Classes\menu\credits_menu.cpp">
       <Filter>src\menu</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\utils\controller\input_controller.cpp">
+      <Filter>src\utils\controller</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -292,6 +298,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\menu\credits_menu.h">
       <Filter>src\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\controller\input_controller.h">
+      <Filter>src\utils\controller</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

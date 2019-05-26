@@ -180,42 +180,6 @@ void basic_menu::select_menu_item(MenuItem* item)
 #endif
 }
 
-void basic_menu::on_key_pressed(const EventKeyboard::KeyCode key_code)
-{
-  if (!moving_)
-  {
-    switch (key_code)
-    {
-    case EventKeyboard::KeyCode::KEY_UP_ARROW:
-      move_selection(compare_up_, distance_up_);
-      break;
-    case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-      move_selection(compare_down_, distance_down_);
-      break;
-    case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-      move_selection(compare_left_, distance_left_);
-      break;
-    case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-      move_selection(compare_right_, distance_right_);
-      break;
-    case EventKeyboard::KeyCode::KEY_ENTER:
-    case EventKeyboard::KeyCode::KEY_KP_ENTER:
-    case EventKeyboard::KeyCode::KEY_RETURN:
-    case EventKeyboard::KeyCode::KEY_SPACE:
-      if (selected_menu_item_ != nullptr)
-      {
-        selected_menu_item_->activate();
-      }
-      break;
-    case EventKeyboard::KeyCode::KEY_ESCAPE:
-      on_menu_back();
-      break;
-    default:
-      break;
-    }
-  }
-}
-
 void basic_menu::move_text_button(MenuItem* item)
 {
   item->setPosition(0, current_text_button_y_);

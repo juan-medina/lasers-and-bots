@@ -25,6 +25,7 @@
 
 // forward declarations
 class level_manager;
+class input_controller;
 
 // this game application
 class laser_and_bots_app final : public basic_app
@@ -97,7 +98,7 @@ private:
   float effects_volume_;
   level_manager* level_manager_;
   bool want_restart_;
-  bool to_options_;
+  bool to_options_;  
 };
 
 #endif // _APP_DELEGATE_H_

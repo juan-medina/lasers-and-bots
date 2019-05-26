@@ -52,11 +52,60 @@ public:
   void set_default_menu_item(MenuItem* item);
   void select_menu_item(MenuItem* item);
 
-  void on_key_pressed(EventKeyboard::KeyCode key_code);
-
   MenuItem* get_selected_menu_item() const
   {
     return selected_menu_item_;
+  }
+
+  void move_selection_left()
+  {
+    if (!moving_)
+    {
+      move_selection(compare_left_, distance_left_);
+    }
+  }
+
+  void move_selection_right()
+  {
+    if (!moving_)
+    {
+      move_selection(compare_right_, distance_right_);
+    }
+  }
+
+  void move_selection_up()
+  {
+    if (!moving_)
+    {
+      move_selection(compare_up_, distance_up_);
+    }
+  }
+
+  void move_selection_down()
+  {
+    if (!moving_)
+    {
+      move_selection(compare_down_, distance_down_);
+    }
+  }
+
+  void activate_selection() const
+  {
+    if (!moving_)
+    {
+      if (selected_menu_item_ != nullptr)
+      {
+        selected_menu_item_->activate();
+      }
+    }
+  }
+
+  void selection_back() const
+  {
+    if (!moving_)
+    {
+      on_menu_back();
+    }
   }
 
 protected:

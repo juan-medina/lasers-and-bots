@@ -21,9 +21,11 @@
 #include "basic_app.h"
 #include "../../audio/audio_helper.h"
 #include "../scene/basic_scene.h"
+#include "../../controller/input_controller.h"
 
 basic_app::basic_app(const std::string& application_name, const float design_width, const float design_height):
   audio_helper_(nullptr),
+  input_controller_(nullptr),
   design_width_(design_width),
   design_height_(design_height),
   window_width_(0),
@@ -111,6 +113,10 @@ bool basic_app::applicationDidFinishLaunching()
     register_all_packages();
 
     audio_helper_ = new audio_helper();
+    UTILS_BREAK_IF(audio_helper_ == nullptr);
+
+    input_controller_ = input_controller::create();
+    UTILS_BREAK_IF(input_controller_ == nullptr);
 
     const auto scene = init_scene();
     UTILS_BREAK_IF(scene == nullptr);
@@ -154,6 +160,9 @@ void basic_app::close()
 {
   delete audio_helper_;
   audio_helper_ = nullptr;
+
+  delete input_controller_;
+  input_controller_ = nullptr;
 
   Director::getInstance()->end();
 }

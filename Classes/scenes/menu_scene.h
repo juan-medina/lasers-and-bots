@@ -29,6 +29,7 @@ class main_menu;
 class options_menu;
 class play_menu;
 class credits_menu;
+class input_controller;
 
 enum class menu_to_display
 {
@@ -80,15 +81,13 @@ public:
 
 private:
 
+  void handle_input() const;
   void delay_to_game() const;
   bool init(basic_app* application, const menu_to_display menu, const unsigned short int selected_level);
 
   bool add_background();
   bool add_robot();
   bool add_laser();
-
-  bool create_keyboard_listener();
-  void on_key_pressed(EventKeyboard::KeyCode key_code, Event* event) const;
 
   basic_menu* current_menu_;
   main_menu* main_menu_;
@@ -99,6 +98,8 @@ private:
   Node* background_;
   bool paused_;
   unsigned short int saved_level_;
+
+  input_controller* input_controller_;
 };
 
 #endif // __MENU_SCENE_H__
