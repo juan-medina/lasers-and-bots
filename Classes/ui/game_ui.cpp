@@ -26,6 +26,7 @@
 #include "level_completed.h"
 #include "pause_window.h"
 #include "../misc/level_manager.h"
+#include "../utils/controller/input_controller.h"
 
 game_ui::game_ui():
   virtual_joy_stick_(nullptr),
@@ -42,11 +43,13 @@ game_ui::game_ui():
   message_window_(nullptr),
   level_completed_(nullptr),
   pause_window_(nullptr),
-  level_manager_(nullptr), level_(0)
+  level_manager_(nullptr), level_(0),
+  input_controller_(nullptr)
 {
 }
 
-game_ui* game_ui::create(audio_helper* audio_helper, level_manager* level_manager, const unsigned short int level)
+game_ui* game_ui::create(audio_helper* audio_helper, input_controller* input_controller, level_manager* level_manager,
+                         const unsigned short int level)
 {
   game_ui* ret = nullptr;
 
@@ -55,7 +58,7 @@ game_ui* game_ui::create(audio_helper* audio_helper, level_manager* level_manage
     auto object = new game_ui();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(audio_helper, level_manager, level))
+    if (object->init(audio_helper, input_controller, level_manager, level))
     {
       object->autorelease();
     }
@@ -72,7 +75,8 @@ game_ui* game_ui::create(audio_helper* audio_helper, level_manager* level_manage
   return ret;
 }
 
-bool game_ui::init(audio_helper* audio_helper, level_manager* level_manager, const unsigned short int level)
+bool game_ui::init(audio_helper* audio_helper, input_controller* input_controller, level_manager* level_manager,
+                   const unsigned short int level)
 {
   auto ret = false;
 
@@ -84,6 +88,7 @@ bool game_ui::init(audio_helper* audio_helper, level_manager* level_manager, con
 
     audio_helper_ = audio_helper;
     level_manager_ = level_manager;
+    input_controller_ = input_controller;
     level_ = level;
 
     audio_helper_->pre_load_effect("sounds/select.mp3");
@@ -150,7 +155,7 @@ bool game_ui::init(audio_helper* audio_helper, level_manager* level_manager, con
 
     addChild(menu, 100);
 
-    virtual_joy_stick_ = virtual_joy_stick::create();
+    virtual_joy_stick_ = virtual_joy_stick::create(input_controller_);
     addChild(virtual_joy_stick_, 100);
 
     const auto head_pos = Vec2(50.f, size.height - 50);
@@ -262,11 +267,7 @@ bool game_ui::init(audio_helper* audio_helper, level_manager* level_manager, con
 
     addChild(pause_window_);
 
-#if (GAME_PLATFORM == DESKTOP_GAME)
-    UTILS_BREAK_IF(!create_keyboard_listener());
-#endif
-
-    UTILS_BREAK_IF(!create_controller_listener());
+    scheduleUpdate();
 
     ret = true;
   }
@@ -391,6 +392,29 @@ void game_ui::display_pause_window() const
   pause_window_->display();
 }
 
+void game_ui::update(float delta)
+{
+  if (input_controller_->single_press_button_start())
+  {
+    if (pause_item_->isEnabled())
+    {
+      pause_item_->setSelectedIndex(pause_item_->getSelectedIndex() == 0 ? 1 : 0);
+      on_pause(this);
+    }
+  }
+  else if (input_controller_->single_press_button_a())
+  {
+    if (continue_callback_ != nullptr)
+    {
+      on_continue();
+    }
+  }
+  else if (input_controller_->single_press_button_back())
+  {
+    on_reload(this);
+  }
+}
+
 
 void game_ui::on_continue()
 {
@@ -400,90 +424,4 @@ void game_ui::on_continue()
     continue_callback_(this);
     continue_callback_ = nullptr;
   }
-}
-
-bool game_ui::create_keyboard_listener()
-{
-  auto result = false;
-
-  do
-  {
-    auto listener = EventListenerKeyboard::create();
-    UTILS_BREAK_IF(listener == nullptr);
-
-    listener->onKeyPressed = CC_CALLBACK_2(game_ui::on_key_pressed, this);
-
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-
-    result = true;
-  }
-  while (false);
-
-  return result;
-}
-
-void game_ui::on_key_pressed(EventKeyboard::KeyCode key_code, Event* event)
-{
-  switch (key_code)
-  {
-  case EventKeyboard::KeyCode::KEY_ESCAPE:
-    if (pause_item_->isEnabled())
-    {
-      pause_item_->setSelectedIndex(pause_item_->getSelectedIndex() == 0 ? 1 : 0);
-      on_pause(this);
-    }
-    break;
-  case EventKeyboard::KeyCode::KEY_ENTER:
-  case EventKeyboard::KeyCode::KEY_KP_ENTER:
-    if (continue_callback_ != nullptr)
-    {
-      on_continue();
-    }
-    break;
-  case EventKeyboard::KeyCode::KEY_F5:
-    on_reload(this);
-    break;
-  default:
-    break;
-  }
-}
-
-void game_ui::on_controller_key_down(Controller* controller, int key_code, Event* event)
-{
-  switch (key_code)
-  {
-  case virtual_joy_stick::controller_start:
-    on_key_pressed(EventKeyboard::KeyCode::KEY_ESCAPE, nullptr);
-    break;
-  case virtual_joy_stick::controller_button_a:
-    on_key_pressed(EventKeyboard::KeyCode::KEY_ENTER, nullptr);
-    break;
-  case virtual_joy_stick::controller_back:
-    on_key_pressed(EventKeyboard::KeyCode::KEY_F5, nullptr);
-    break;
-  default:
-    break;
-  }
-}
-
-bool game_ui::create_controller_listener()
-{
-  auto ret = false;
-
-  do
-  {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-    const auto listener = EventListenerController::create();
-
-    listener->onKeyDown = CC_CALLBACK_3(game_ui::on_controller_key_down, this);
-
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-
-    Controller::startDiscoveryController();
-#endif
-    ret = true;
-  }
-  while (false);
-
-  return ret;
 }

@@ -71,7 +71,7 @@ bool on_screen_button::init(const button_type& type, const std::string& sprite_f
     normal_sprite_ = Sprite::createWithSpriteFrameName(sprite_frame_name + "_01.png");
     UTILS_BREAK_IF(normal_sprite_==nullptr);
 
-    normal_sprite_->setOpacity(127);
+    normal_sprite_->setOpacity(90);
 
     addChild(normal_sprite_);
 

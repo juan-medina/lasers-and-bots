@@ -30,6 +30,7 @@ class pause_window;
 class virtual_joy_stick;
 class audio_helper;
 class level_manager;
+class input_controller;
 enum class completed_result;
 
 class game_ui final : public Node
@@ -39,9 +40,11 @@ public:
 
   game_ui();
 
-  static game_ui* create(audio_helper* audio_helper, level_manager* level_manager, const unsigned short int level);
+  static game_ui* create(audio_helper* audio_helper, input_controller* input_controller, level_manager* level_manager,
+                         const unsigned short int level);
 
-  bool init(audio_helper* audio_helper, level_manager* level_manager, const unsigned short int level);
+  bool init(audio_helper* audio_helper, input_controller* input_controller, level_manager* level_manager,
+            const unsigned short int level);
 
   void on_pause(Ref* sender);
   void on_close(Ref* sender);
@@ -75,15 +78,11 @@ public:
 
   void display_pause_window() const;
 
+  void update(float delta) override;
+
 private:
 
   void on_continue();
-
-  bool create_keyboard_listener();
-  void on_key_pressed(EventKeyboard::KeyCode key_code, Event* event);
-
-  bool create_controller_listener();
-  void on_controller_key_down(Controller* controller, int key_code, Event* event);
 
   virtual_joy_stick* virtual_joy_stick_;
   ProgressTimer* shield_bar_;
@@ -101,6 +100,7 @@ private:
   pause_window* pause_window_;
   level_manager* level_manager_;
   unsigned short int level_;
+  input_controller* input_controller_;
 };
 
 #endif // __GAME_UI__CLASS__

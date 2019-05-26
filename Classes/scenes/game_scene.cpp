@@ -160,7 +160,7 @@ bool game_scene::create_game_ui()
 
   do
   {
-    game_ui_ = game_ui::create(get_audio_helper(), level_manager_, level_);
+    game_ui_ = game_ui::create(get_audio_helper(), get_input_controller(), level_manager_, level_);
     UTILS_BREAK_IF(game_ui_ == nullptr);
 
     game_ui_->setAnchorPoint(Vec2(0.f, 0.f));
