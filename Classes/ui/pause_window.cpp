@@ -23,6 +23,8 @@
 #include "../scenes/game_scene.h"
 #include "../laser_and_bots_app.h"
 #include "../utils/audio/audio_helper.h"
+#include "../ui/text_button.h"
+#include "../ui/text_toggle.h"
 
 pause_window::pause_window():
   audio_helper_(nullptr),
@@ -74,34 +76,9 @@ bool pause_window::init(audio_helper* audio_helper)
     dark_all->setPosition(-size.width / 2, -size.height / 2);
 
     audio_helper_ = audio_helper;
-    UTILS_BREAK_IF(!base_class::init("Pause", 1300.f, 1500.0f));
+    UTILS_BREAK_IF(!base_class::init("Pause", audio_helper, 1300.f, 1800.0f, animation_type::fade));
 
     audio_helper_->pre_load_effect("sounds/select.mp3");
-
-
-    setCascadeOpacityEnabled(true);
-
-    setPosition(size.width / 2, size.height / 2);
-
-    UTILS_BREAK_IF(!add_text_button("Exit", CC_CALLBACK_0(pause_window::on_exit, this)));
-    UTILS_BREAK_IF(!add_text_button("Resume", CC_CALLBACK_0(pause_window::on_resume, this)));
-    UTILS_BREAK_IF(!add_text_button("Restart", CC_CALLBACK_0(pause_window::on_reload, this)));
-
-    toggle_sfx_item_ = add_image_toggle_button("13_sound", CC_CALLBACK_0(pause_window::on_sfx_toggle, this));
-    UTILS_BREAK_IF(toggle_sfx_item_ == nullptr);
-
-    toggle_music_item_ = add_image_toggle_button("12_music", CC_CALLBACK_0(pause_window::on_music_toggle, this));
-    UTILS_BREAK_IF(toggle_music_item_ == nullptr);
-
-    const auto menu = Menu::createWithArray(buttons_);
-    UTILS_BREAK_IF(menu == nullptr);
-
-    menu->setPosition(0.f, -getContentSize().height / 2);
-
-    addChild(menu, 100);
-
-    setOpacity(0);
-    setVisible(false);
 
     ret = true;
   }
@@ -112,26 +89,18 @@ bool pause_window::init(audio_helper* audio_helper)
 
 void pause_window::display()
 {
+  base_class::display();
+
   const auto music_muted = audio_helper_->get_music_muted();
   const auto effects_muted = audio_helper_->get_effects_muted();
 
   toggle_music_item_->setSelectedIndex(music_muted ? 0 : 1);
   toggle_sfx_item_->setSelectedIndex(effects_muted ? 0 : 1);
-
-  const auto fade_in_window = FadeTo::create(0.5f, 190);
-  const auto show = Show::create();
-  const auto fade_show = Sequence::create(show, fade_in_window, nullptr);
-
-  runAction(fade_show);
 }
 
 void pause_window::hide()
 {
-  const auto fade_out_window = FadeTo::create(0.5f, 0);
-  const auto hide = Hide::create();
-  const auto fade_hide = Sequence::create(fade_out_window, hide, nullptr);
-
-  runAction(fade_hide);
+  base_class::hide();
 }
 
 void pause_window::on_music_toggle()
@@ -174,103 +143,40 @@ void pause_window::on_exit()
   ui->on_close(this);
 }
 
-void pause_window::add_button(MenuItem* item, const ccMenuCallback& callback)
-{
-  item->setCallback(callback);
-  buttons_.pushBack(item);
-}
-
-bool pause_window::add_text_button(const std::string& text, const ccMenuCallback& callback)
+bool pause_window::create_menu_items()
 {
   auto result = false;
 
   do
   {
-    const auto sprite = Sprite::createWithSpriteFrameName("08_Text_1.png");
-    UTILS_BREAK_IF(sprite == nullptr);
-    sprite->setOpacity(190);
+    UTILS_BREAK_IF(add_text_button("Exit", CC_CALLBACK_0(pause_window::on_exit, this)) == nullptr);
 
-    const auto sprite_click = Sprite::createWithSpriteFrameName("08_Text_2.png");
-    UTILS_BREAK_IF(sprite_click == nullptr);
-    sprite_click->setOpacity(190);
+    const auto resume_button = add_text_button("Resume", CC_CALLBACK_0(pause_window::on_resume, this));
+    UTILS_BREAK_IF(resume_button == nullptr);
 
-    auto item = MenuItemSprite::create(sprite, sprite_click);
-    UTILS_BREAK_IF(item == nullptr);
+    const auto restart_button = add_text_button("Restart", CC_CALLBACK_0(pause_window::on_reload, this));
+    UTILS_BREAK_IF(restart_button == nullptr);
 
-    item->setPosition(0, current_text_button_y_);
+    toggle_sfx_item_ = add_toggle_image_button("13_sound_0", CC_CALLBACK_0(pause_window::on_sfx_toggle, this));
+    UTILS_BREAK_IF(toggle_sfx_item_ == nullptr);
 
-    const auto label_button = Label::createWithTTF(text, "fonts/tahoma.ttf", 120);
-    UTILS_BREAK_IF(label_button == nullptr);
+    const auto sfx_position = restart_button->getPosition() +
+      Vec2(-(restart_button->getContentSize().width / 2) + toggle_sfx_item_->getContentSize().width / 2,
+           restart_button->getContentSize().height + 150.f);
 
-    label_button->setPosition(sprite->getContentSize().width / 2,
-                              sprite->getContentSize().height / 2 + 30);
-    label_button->setTextColor(Color4B(255, 255, 255, 255));
-    label_button->enableOutline(Color4B(0, 0, 0, 255), 5);
+    toggle_sfx_item_->setPosition(sfx_position);
 
-    item->addChild(label_button, 100);
+    toggle_music_item_ = add_toggle_image_button("12_music_0", CC_CALLBACK_0(pause_window::on_music_toggle, this));
+    UTILS_BREAK_IF(toggle_music_item_ == nullptr);
 
-    static const auto button_gap_y = 100.f;
-    current_text_button_y_ += (sprite->getContentSize().height + button_gap_y);
+    const auto music_position = Vec2(restart_button->getPosition().x + (restart_button->getContentSize().width / 2)
+                                     - toggle_music_item_->getContentSize().width / 2, sfx_position.y);
 
-    add_button(item, callback);
+    toggle_music_item_->setPosition(music_position);
+
+    set_default_menu_item(resume_button);
 
     result = true;
-  }
-  while (false);
-
-  return result;
-}
-
-MenuItemToggle* pause_window::add_image_toggle_button(const std::string& base_image, const ccMenuCallback& callback)
-{
-  MenuItemToggle* result = nullptr;
-
-  do
-  {
-    const auto sprite_normal = Sprite::createWithSpriteFrameName(string_format("%s%s", base_image.c_str(), "_01.png"));
-    UTILS_BREAK_IF(sprite_normal == nullptr);
-    sprite_normal->setOpacity(190);
-
-    const auto sprite_normal_click = Sprite::createWithSpriteFrameName(
-      string_format("%s%s", base_image.c_str(), "_02.png"));
-    UTILS_BREAK_IF(sprite_normal_click == nullptr);
-    sprite_normal_click->setOpacity(190);
-
-    const auto item = MenuItemSprite::create(sprite_normal, sprite_normal_click);
-    UTILS_BREAK_IF(item == nullptr);
-
-    const auto sprite_selected = Sprite::
-      createWithSpriteFrameName(string_format("%s%s", base_image.c_str(), "_03.png"));
-    UTILS_BREAK_IF(sprite_selected == nullptr);
-    sprite_selected->setOpacity(190);
-
-    const auto sprite_selected_click = Sprite::createWithSpriteFrameName(
-      string_format("%s%s", base_image.c_str(), "_02.png"));
-    UTILS_BREAK_IF(sprite_selected_click == nullptr);
-    sprite_selected_click->setOpacity(190);
-
-    const auto item_selected = MenuItemSprite::create(sprite_selected, sprite_selected_click);
-    UTILS_BREAK_IF(item_selected == nullptr);
-
-    if (current_image_button_x_ == 0)
-    {
-      current_image_button_x_ = (buttons_.front()->getContentSize().width / 2) - (sprite_normal->getContentSize().width
-        / 2);
-    }
-    else
-    {
-      current_image_button_x_ = -current_image_button_x_;
-    }
-
-    const auto item_toggle = MenuItemToggle::create(item);
-    UTILS_BREAK_IF(item_toggle == nullptr);
-    item_toggle->addSubItem(item_selected);
-
-    item_toggle->setPosition(current_image_button_x_, current_text_button_y_);
-
-    add_button(item_toggle, callback);
-
-    result = item_toggle;
   }
   while (false);
 

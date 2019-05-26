@@ -33,12 +33,20 @@ class text_toggle;
 class basic_menu : public resizable_window
 {
 public:
+
+  enum class animation_type
+  {
+    slide,
+    fade
+  };
+
   using base_class = resizable_window;
   using float_callback = std::function<void(const float)>;
 
   basic_menu();
 
-  bool init(const std::string& name, audio_helper* audio_helper, const float width, const float height);
+  bool init(const std::string& name, audio_helper* audio_helper, const float width, const float height,
+            animation_type animation_type = animation_type::slide);
 
   virtual void display();
 
@@ -118,7 +126,8 @@ protected:
   text_button* add_text_button(const std::string& text, const ccMenuCallback& callback);
   text_toggle* add_toggle_text_button(const std::string& text, const ccMenuCallback& callback,
                                       const bool not_move = false);
-  text_toggle* add_small_button(const std::string& text, const ccMenuCallback& callback);
+  text_toggle* add_small_toggle_text_button(const std::string& text, const ccMenuCallback& callback);
+  text_toggle* add_toggle_image_button(const std::string& image, const ccMenuCallback& callback);
   slider_object* add_slider(MenuItem* attach_to, const float_callback& callback);
   MenuItem* add_row_label(const std::string& text, MenuItem* attach_to, const float left_space);
 
@@ -201,6 +210,8 @@ private:
   void on_menu_back() const;
 
   void draw_selection(DrawNode* draw, MenuItem* item, const Color4F& color) const;
+
+  animation_type animation_type_;
 };
 
 #endif // __BASIC_MENU_CLASS__

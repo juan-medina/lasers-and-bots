@@ -21,7 +21,6 @@
 #ifndef __MAIN_MENU_CLASS__
 #define __MAIN_MENU_CLASS__
 
-#include "../utils/utils.h"
 #include "basic_menu.h"
 
 //foward declarations

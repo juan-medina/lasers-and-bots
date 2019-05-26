@@ -63,9 +63,9 @@ bool virtual_joy_stick::init(input_controller* input_controller)
 
     input_controller_ = input_controller;
 
-//#if (GAME_PLATFORM == MOBILE_GAME)
+#if (GAME_PLATFORM == MOBILE_GAME)
     UTILS_BREAK_IF(!add_on_screen_buttons());
-//#endif
+#endif
 
 
     ret = true;
@@ -153,7 +153,8 @@ bool virtual_joy_stick::right() const
 
 bool virtual_joy_stick::jump() const
 {
-  return input_controller_->button_a() || input_controller_->up() || is_on_screen_pushed(button_type::button_a);
+  return input_controller_->single_press_button_a() || input_controller_->up() || is_on_screen_pushed(
+    button_type::button_a);
 }
 
 void virtual_joy_stick::disabled(const bool disabled)

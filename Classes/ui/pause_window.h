@@ -21,15 +21,16 @@
 #define __PAUSE_WINDOW_CLASS__
 
 #include "../utils/utils.h"
-#include "resizable_window.h"
+#include "../menu/basic_menu.h"
 
 //foward declarations
 class audio_helper;
+class text_toggle;
 
-class pause_window final : public resizable_window
+class pause_window final : public basic_menu
 {
 public:
-  using base_class = resizable_window;
+  using base_class = basic_menu;
 
   pause_window();
 
@@ -37,9 +38,9 @@ public:
 
   bool init(audio_helper* audio_helper);
 
-  void display();
+  void display() override;
 
-  void hide();
+  void hide() override;
 
 private:
 
@@ -48,18 +49,15 @@ private:
   void on_resume();
   void on_reload();
   void on_exit();
-
-  void add_button(MenuItem* item, const ccMenuCallback& callback);
-  bool add_text_button(const std::string& text, const ccMenuCallback& callback);
-  MenuItemToggle* add_image_toggle_button(const std::string& base_image, const ccMenuCallback& callback);
+  bool create_menu_items() override;
 
   audio_helper* audio_helper_;
   Vector<MenuItem*> buttons_;
   float current_text_button_y_;
   float current_image_button_x_;
 
-  MenuItemToggle* toggle_music_item_;
-  MenuItemToggle* toggle_sfx_item_;
+  text_toggle* toggle_music_item_;
+  text_toggle* toggle_sfx_item_;
 };
 
 

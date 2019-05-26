@@ -394,24 +394,52 @@ void game_ui::display_pause_window() const
 
 void game_ui::update(float delta)
 {
+  if (continue_callback_ != nullptr)
+  {
+    if (input_controller_->single_press_button_a())
+    {
+      on_continue();
+      return;
+    }
+  }
+
   if (input_controller_->single_press_button_start())
   {
     if (pause_item_->isEnabled())
     {
       pause_item_->setSelectedIndex(pause_item_->getSelectedIndex() == 0 ? 1 : 0);
       on_pause(this);
+      return;
     }
   }
-  else if (input_controller_->single_press_button_a())
+
+  const auto scene = dynamic_cast<game_scene*>(Director::getInstance()->getRunningScene());
+  if (scene->is_paused())
   {
-    if (continue_callback_ != nullptr)
+    if (input_controller_->single_press_up())
     {
-      on_continue();
+      pause_window_->move_selection_up();
     }
-  }
-  else if (input_controller_->single_press_button_back())
-  {
-    on_reload(this);
+    if (input_controller_->single_press_down())
+    {
+      pause_window_->move_selection_down();
+    }
+    if (input_controller_->single_press_left())
+    {
+      pause_window_->move_selection_left();
+    }
+    if (input_controller_->single_press_right())
+    {
+      pause_window_->move_selection_right();
+    }
+    if (input_controller_->single_press_button_a())
+    {
+      pause_window_->activate_selection();
+    }
+    if (input_controller_->single_press_button_b() || input_controller_->single_press_button_back())
+    {
+      pause_window_->selection_back();
+    }
   }
 }
 

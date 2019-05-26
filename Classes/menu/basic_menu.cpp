@@ -39,13 +39,15 @@ basic_menu::basic_menu():
 {
 }
 
-bool basic_menu::init(const std::string& name, audio_helper* audio_helper, const float width, const float height)
+bool basic_menu::init(const std::string& name, audio_helper* audio_helper, const float width, const float height,
+                      animation_type animation_type /*= animation_type::slide*/)
 {
   auto ret = false;
 
   do
   {
     audio_helper_ = audio_helper;
+    animation_type_ = animation_type;
 
     UTILS_BREAK_IF(!base_class::init(name, width, height));
 
@@ -75,7 +77,11 @@ bool basic_menu::init(const std::string& name, audio_helper* audio_helper, const
 
     setOpacity(0);
     setVisible(false);
-    setPosition(-size.width * 2, 0.f);
+
+    if (animation_type_ == animation_type::slide)
+    {
+      setPosition(-size.width * 2, 0.f);
+    }
 
     ret = true;
   }
@@ -90,27 +96,41 @@ void basic_menu::display()
   {
     return;
   }
+
   moving_ = true;
+
   static auto const time = 0.5f;
-  const auto& size = Director::getInstance()->getVisibleSize();
-
-  setVisible(true);
-  setOpacity(190);
-  const auto move = Vec2(size.width, 0);
-  setPosition(Vec2(size.width / 2, size.height / 2) - move);
-
-  const auto elastic_in = EaseElasticInOut::create(MoveBy::create(time * 2, move), time);
   const auto call_back = CallFunc::create(CC_CALLBACK_0(basic_menu::on_movement_end, this));
-  const auto move_in = Sequence::create(elastic_in, call_back, nullptr);
 
-  runAction(move_in);
+  if (animation_type_ == animation_type::slide)
+  {
+    const auto& size = Director::getInstance()->getVisibleSize();
+
+    setVisible(true);
+    setOpacity(190);
+    const auto move = Vec2(size.width, 0);
+    setPosition(Vec2(size.width / 2, size.height / 2) - move);
+
+    const auto elastic_in = EaseElasticInOut::create(MoveBy::create(time * 2, move), time);
+    const auto move_in = Sequence::create(elastic_in, call_back, nullptr);
+
+    runAction(move_in);
+
+    get_audio_helper()->play_effect("sounds/SlideClosed.mp3");
+  }
+  else
+  {
+    const auto fade_in_window = FadeTo::create(time, 190);
+    const auto show = Show::create();
+    const auto fade_show = Sequence::create(show, fade_in_window, call_back, nullptr);
+
+    runAction(fade_show);
+  }
 
   if ((selected_menu_item_ == nullptr) && (default_menu_item_ != nullptr))
   {
     select_menu_item(default_menu_item_);
   }
-
-  get_audio_helper()->play_effect("sounds/SlideClosed.mp3");
 }
 
 void basic_menu::hide()
@@ -119,20 +139,34 @@ void basic_menu::hide()
   {
     return;
   }
-  moving_ = true;
-  static auto const time = 0.5f;
-  const auto& size = Director::getInstance()->getVisibleSize();
-  const auto move = Vec2(size.width, 0);
 
-  const auto elastic_out = EaseElasticInOut::create(MoveBy::create(time * 2, move), time);
-  const auto fade = FadeTo::create(0.0f, 0);
-  const auto hide = Hide::create();
+  moving_ = true;
+
+  static auto const time = 0.5f;
   const auto call_back = CallFunc::create(CC_CALLBACK_0(basic_menu::on_movement_end, this));
 
-  const auto move_out = Sequence::create(elastic_out, fade, hide, call_back, nullptr);
+  if (animation_type_ == animation_type::slide)
+  {
+    const auto& size = Director::getInstance()->getVisibleSize();
+    const auto move = Vec2(size.width, 0);
 
-  runAction(move_out);
-  get_audio_helper()->play_effect("sounds/SlideClosed.mp3");
+    const auto elastic_out = EaseElasticInOut::create(MoveBy::create(time * 2, move), time);
+    const auto fade = FadeTo::create(0.0f, 0);
+    const auto hide = Hide::create();
+
+    const auto move_out = Sequence::create(elastic_out, fade, hide, call_back, nullptr);
+    runAction(move_out);
+
+    get_audio_helper()->play_effect("sounds/SlideClosed.mp3");
+  }
+  else
+  {
+    const auto fade_out_window = FadeTo::create(time, 0);
+    const auto hide = Hide::create();
+    const auto fade_hide = Sequence::create(fade_out_window, hide, call_back, nullptr);
+
+    runAction(fade_hide);
+  }
 }
 
 void basic_menu::set_default_menu_item(MenuItem* item)
@@ -236,13 +270,30 @@ text_toggle* basic_menu::add_toggle_text_button(const std::string& text, const c
   return result;
 }
 
-text_toggle* basic_menu::add_small_button(const std::string& text, const ccMenuCallback& callback)
+text_toggle* basic_menu::add_small_toggle_text_button(const std::string& text, const ccMenuCallback& callback)
 {
   text_toggle* result = nullptr;
 
   do
   {
     const auto item = text_toggle::create("02_joystick_empty_0", text);
+
+    add_button(item, callback);
+
+    result = item;
+  }
+  while (false);
+
+  return result;
+}
+
+text_toggle* basic_menu::add_toggle_image_button(const std::string& image, const ccMenuCallback& callback)
+{
+  text_toggle* result = nullptr;
+
+  do
+  {
+    const auto item = text_toggle::create(image, "");
 
     add_button(item, callback);
 
