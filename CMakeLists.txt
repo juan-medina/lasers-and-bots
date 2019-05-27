@@ -78,6 +78,7 @@ list(APPEND GAME_SOURCE
         Classes/utils/base/scene/grid_scene.cpp
         Classes/utils/base/scene/tiled_scene.cpp
         Classes/utils/base/sprite/game_object.cpp
+        Classes/utils/controller/input_controller.cpp
         Classes/utils/physics/physics_game_object.cpp
         Classes/utils/physics/physics_shape_cache.cpp
         Classes/utils/physics/physics_tiled_scene.cpp
@@ -119,6 +120,7 @@ list(APPEND GAME_HEADER
         Classes/utils/base/scene/grid_scene.h
         Classes/utils/base/scene/tiled_scene.h
         Classes/utils/base/sprite/game_object.h
+        Classes/utils/controller/input_controller.h
         Classes/utils/physics/physics_game_object.h
         Classes/utils/physics/physics_shape_cache.h
         Classes/utils/physics/physics_tiled_scene.h

@@ -232,6 +232,7 @@ void basic_app::center_win32_window()
   SetWindowPos(win32_window, nullptr, offset_x, offset_y, 0, 0,
                SWP_NOCOPYBITS | SWP_NOSIZE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 }
+#endif
 
 bool basic_app::read_version()
 {
@@ -277,4 +278,3 @@ std::string basic_app::get_platform_name(const Platform platform)
     return "Unknown";
   }
 }
-#endif
