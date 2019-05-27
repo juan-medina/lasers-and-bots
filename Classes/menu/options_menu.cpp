@@ -137,7 +137,6 @@ bool options_menu::create_menu_items()
       Vec2(debug_grid_toggle_->getPosition().x, debug_physics_toggle_->getPosition().y));
     UTILS_BREAK_IF(add_row_label("Debug Physics", debug_physics_toggle_, labels_starts) == nullptr);
 
-    const auto menu = dynamic_cast<menu_scene*>(getParent());
     if (desktop_application_)
     {
       full_screen_toggle_ = add_toggle_text_button("Full Screen", CC_CALLBACK_0(options_menu::on_full_screen, this));

@@ -64,7 +64,6 @@ bool level_completed::init(audio_helper* audio_helper, level_manager* level_mana
     audio_helper_->pre_load_effect("sounds/star.mp3");
 
     const auto horizontal_segment = getContentSize().width;
-    const auto vertical_segment = getContentSize().height;
 
     level_name_label_ = Label::createWithTTF("", "fonts/tahoma.ttf", 100);
     UTILS_BREAK_IF(level_name_label_ == nullptr);

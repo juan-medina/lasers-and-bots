@@ -29,6 +29,9 @@ input_controller::input_controller():
   key_button_b_(false),
   key_button_start_(false),
   key_button_back_(false),
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+  was_controller_menu_pressed_(false),
+#endif
   controller_left_(false),
   controller_right_(false),
   controller_up_(false),
@@ -112,7 +115,9 @@ bool input_controller::end()
       controller_listener_->setEnabled(false);
       Director::getInstance()->getEventDispatcher()->removeEventListener(controller_listener_);
       controller_listener_ = nullptr;
+#if (GAME_PLATFORM == DESKTOP_GAME)
       Controller::stopDiscoveryController();
+#endif
     }
   }
 
@@ -143,7 +148,12 @@ void input_controller::on_controller_key_down(Controller* controller, const int 
   case Controller::Key::BUTTON_B:
     controller_button_b_ = true;
     break;
-  case Controller::Key::BUTTON_START:
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+   case Controller::Key::BUTTON_PAUSE:
+			was_controller_menu_pressed_ = true;
+		break;
+#endif
+	case Controller::Key::BUTTON_START:
     controller_button_start_ = true;
     break;
   case Controller::Key::BUTTON_SELECT:
@@ -211,8 +221,13 @@ void input_controller::on_controller_axis(Controller* controller, const int key_
   {
     if (fabs(value) > 0.5f)
     {
-      controller_axis_up_ = value > threshold;
-      controller_axis_down_ = value < threshold;
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+      controller_axis_up_ = value < threshold;
+      controller_axis_down_ = value > threshold;
+#else
+			controller_axis_up_ = value > threshold;
+			controller_axis_down_ = value < threshold;
+#endif
     }
     else
     {
@@ -228,6 +243,7 @@ bool input_controller::create_controller_listener()
 
   do
   {
+#if (GAME_PLATFORM == DESKTOP_GAME)
     controller_listener_ = EventListenerController::create();
     UTILS_BREAK_IF(controller_listener_ == nullptr);
 
@@ -240,7 +256,7 @@ bool input_controller::create_controller_listener()
     Controller::startDiscoveryController();
     Controller::stopDiscoveryController();
     Controller::startDiscoveryController();
-
+#endif
     ret = true;
   }
   while (false);
@@ -254,6 +270,7 @@ bool input_controller::create_keyboard_listener()
 
   do
   {
+#if (GAME_PLATFORM == DESKTOP_GAME)
     keyboard_listener_ = EventListenerKeyboard::create();
     UTILS_BREAK_IF(keyboard_listener_ == nullptr);
 
@@ -261,7 +278,7 @@ bool input_controller::create_keyboard_listener()
     keyboard_listener_->onKeyReleased = CC_CALLBACK_2(input_controller::on_key_released, this);
 
     Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(keyboard_listener_, 1);
-
+#endif
     result = true;
   }
   while (false);
@@ -493,22 +510,44 @@ bool input_controller::single_press_button_b() const
   return false;
 }
 
-bool input_controller::single_press_button_start() const
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+bool input_controller::single_press_button_start()
 {
   static auto pressed = false;
-
-  if (button_start())
+  if (button_start() || was_controller_menu_pressed_)
   {
+		was_controller_menu_pressed_ = false;
     if (pressed)
     {
       return false;
     }
     pressed = true;
+		
     return true;
   }
   pressed = false;
+	
   return false;
 }
+#else
+bool input_controller::single_press_button_start() const
+{
+	static auto pressed = false;
+	if (button_start())
+	{
+		if (pressed)
+		{
+			return false;
+		}
+		pressed = true;
+		
+		return true;
+	}
+	pressed = false;
+	
+	return false;
+}
+#endif
 
 bool input_controller::single_press_button_back() const
 {
