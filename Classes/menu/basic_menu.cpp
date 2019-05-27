@@ -35,12 +35,14 @@ basic_menu::basic_menu():
   previous_selection_(nullptr),
   selected_menu_item_(nullptr),
   default_menu_item_(nullptr),
-  menu_(nullptr)
+  selection_locked_(false),
+  menu_(nullptr),
+  animation_type_(animation_type::slide)
 {
 }
 
 bool basic_menu::init(const std::string& name, audio_helper* audio_helper, const float width, const float height,
-                      animation_type animation_type /*= animation_type::slide*/)
+                      const animation_type animation_type /*= animation_type::slide*/)
 {
   auto ret = false;
 
@@ -181,17 +183,15 @@ void basic_menu::select_menu_item(MenuItem* item)
   if (selection_ == nullptr)
   {
     selection_ = DrawNode::create(5);
-    const auto fade_out = FadeTo::create(0.5, 127);
-    const auto fade_in = FadeTo::create(0.5, 255);
-    const auto sequence = Sequence::create(fade_out, fade_in, nullptr);
-    const auto repeat = RepeatForever::create(sequence);
-    selection_->runAction(repeat);
+
+    animate_selection(selection_);
+
     addChild(selection_);
   }
 
   if (selected_menu_item_ != item)
   {
-    draw_selection(selection_, item, Color4F(0, 1, 1, 0.5));
+    draw_selection(selection_, item, Color4F(0, 1, 1, 0.75));
 
     if (selected_menu_item_ != nullptr)
     {
@@ -212,6 +212,104 @@ void basic_menu::select_menu_item(MenuItem* item)
   }
 
 #endif
+}
+
+void basic_menu::move_selection_left()
+{
+  if (!moving_)
+  {
+    if (!selection_locked_)
+    {
+      move_selection(compare_left_, distance_left_);
+    }
+    else if (is_selected_item_slider())
+    {
+      change_slider_value(-5);
+    }
+  }
+}
+
+void basic_menu::move_selection_right()
+{
+  if (!moving_)
+  {
+    if (!selection_locked_)
+    {
+      move_selection(compare_right_, distance_right_);
+    }
+    else if (is_selected_item_slider())
+    {
+      change_slider_value(5);
+    }
+  }
+}
+
+void basic_menu::move_selection_up()
+{
+  if (!moving_)
+  {
+    if (!selection_locked_)
+    {
+      move_selection(compare_up_, distance_up_);
+    }
+    else if (is_selected_item_slider())
+    {
+      change_slider_value(5);
+    }
+  }
+}
+
+void basic_menu::move_selection_down()
+{
+  if (!moving_)
+  {
+    if (!selection_locked_)
+    {
+      move_selection(compare_down_, distance_down_);
+    }
+    else if (is_selected_item_slider())
+    {
+      change_slider_value(-5);
+    }
+  }
+}
+
+void basic_menu::activate_selection()
+{
+  if (!moving_)
+  {
+    if (selected_menu_item_ != nullptr)
+    {
+      if (is_selected_item_slider())
+      {
+        if (!selection_locked_)
+        {
+          selection_locked_ = true;
+          stop_selection_animation(selection_);
+        }
+      }
+      else
+      {
+        selected_menu_item_->activate();
+      }
+    }
+  }
+}
+
+void basic_menu::selection_back()
+{
+  if (!moving_)
+  {
+    if (selection_locked_)
+    {
+      selection_locked_ = false;
+      animate_selection(selection_);
+    }
+    else
+    {
+      on_menu_back();
+    }
+  }
 }
 
 void basic_menu::move_text_button(MenuItem* item)
@@ -423,4 +521,32 @@ void basic_menu::draw_selection(DrawNode* draw, MenuItem* item, const Color4F& c
   const auto gap = Vec2(10, 10);
 
   draw->drawRect(origin - gap, destination + gap, color);
+}
+
+void basic_menu::animate_selection(DrawNode* draw) const
+{
+  const auto fade_out = FadeTo::create(0.5, 127);
+  const auto fade_in = FadeTo::create(0.5, 255);
+  const auto sequence = Sequence::create(fade_out, fade_in, nullptr);
+  const auto repeat = RepeatForever::create(sequence);
+
+  draw->runAction(repeat);
+}
+
+void basic_menu::stop_selection_animation(DrawNode* draw)
+{
+  draw->stopAllActions();
+  draw->setOpacity(255);
+}
+
+bool basic_menu::is_selected_item_slider() const
+{
+  return dynamic_cast<slider_object*>(selected_menu_item_) != nullptr;
+}
+
+void basic_menu::change_slider_value(const float increase) const
+{
+  const auto slider = dynamic_cast<slider_object*>(selected_menu_item_);
+  const auto value = slider->get_percentage();
+  slider->set_percentage(value + increase);
 }

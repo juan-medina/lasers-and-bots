@@ -65,56 +65,13 @@ public:
     return selected_menu_item_;
   }
 
-  void move_selection_left()
-  {
-    if (!moving_)
-    {
-      move_selection(compare_left_, distance_left_);
-    }
-  }
+  void move_selection_left();
+  void move_selection_right();
+  void move_selection_up();
+  void move_selection_down();
 
-  void move_selection_right()
-  {
-    if (!moving_)
-    {
-      move_selection(compare_right_, distance_right_);
-    }
-  }
-
-  void move_selection_up()
-  {
-    if (!moving_)
-    {
-      move_selection(compare_up_, distance_up_);
-    }
-  }
-
-  void move_selection_down()
-  {
-    if (!moving_)
-    {
-      move_selection(compare_down_, distance_down_);
-    }
-  }
-
-  void activate_selection() const
-  {
-    if (!moving_)
-    {
-      if (selected_menu_item_ != nullptr)
-      {
-        selected_menu_item_->activate();
-      }
-    }
-  }
-
-  void selection_back() const
-  {
-    if (!moving_)
-    {
-      on_menu_back();
-    }
-  }
+  void activate_selection();
+  void selection_back();
 
 protected:
 
@@ -146,8 +103,11 @@ private:
 
   DrawNode* selection_;
   DrawNode* previous_selection_;
+
   MenuItem* selected_menu_item_;
   MenuItem* default_menu_item_;
+  bool selection_locked_;
+
   Menu* menu_;
 
   using compare_function = std::function<bool(MenuItem*)>;
@@ -210,6 +170,12 @@ private:
   void on_menu_back() const;
 
   void draw_selection(DrawNode* draw, MenuItem* item, const Color4F& color) const;
+  void animate_selection(DrawNode* draw) const;
+  static void stop_selection_animation(DrawNode* draw);
+
+  bool is_selected_item_slider() const;
+
+  void change_slider_value(const float increase) const;
 
   animation_type animation_type_;
 };
