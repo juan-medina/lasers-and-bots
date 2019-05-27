@@ -53,6 +53,7 @@ list(APPEND GAME_SOURCE
         Classes/game/saw_object.cpp
         Classes/game/switch_object.cpp
         Classes/laser_and_bots_app.cpp
+        Classes/menu/about_menu.cpp
         Classes/menu/basic_menu.cpp
         Classes/menu/credits_menu.cpp
         Classes/menu/main_menu.cpp
@@ -95,6 +96,7 @@ list(APPEND GAME_HEADER
         Classes/game/saw_object.h
         Classes/game/switch_object.h
         Classes/laser_and_bots_app.h
+        Classes/menu/about_menu.h
         Classes/menu/basic_menu.h
         Classes/menu/credits_menu.h
         Classes/menu/main_menu.h
