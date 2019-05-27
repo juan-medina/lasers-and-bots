@@ -21,18 +21,18 @@
 #define __LEVEL_COMPLETED_CLASS__
 
 #include "../utils/utils.h"
-#include "resizable_window.h"
+#include "../menu/basic_menu.h"
 
 //foward declarations
 class audio_helper;
-class resizable_window;
 class level_manager;
 enum class completed_result;
+class text_button;
 
-class level_completed final : public resizable_window
+class level_completed final : public basic_menu
 {
 public:
-  using base_class = resizable_window;
+  using base_class = basic_menu;
 
   level_completed();
 
@@ -43,6 +43,8 @@ public:
   void display(const unsigned short int level, const float time, const unsigned short int stars,
                const completed_result completion, const ccMenuCallback& callback);
 
+  void hide() override;
+
 private:
 
   Label* add_labels(const std::string& label_text, const std::string& text, const Vec2& pos, const float separation);
@@ -51,8 +53,12 @@ private:
 
   void animate_label(Label* label) const;
 
+protected:
+  bool create_menu_items() override;
+
+private:
   audio_helper* audio_helper_;
-  MenuItemSprite* continue_item_;
+  text_button* continue_item_;
   Label* level_name_label_;
 
   std::vector<Sprite*> gray_stars_;

@@ -1,8 +1,8 @@
 #include "level_completed.h"
 #include "../utils/audio/audio_helper.h"
-#include "resizable_window.h"
 #include "../misc/level_manager.h"
 #include "game_ui.h"
+#include "text_button.h"
 
 level_completed::level_completed():
   audio_helper_(nullptr),
@@ -59,14 +59,12 @@ bool level_completed::init(audio_helper* audio_helper, level_manager* level_mana
     addChild(dark_all, 0);
     dark_all->setPosition(-size.width / 2, -size.height / 2);
 
-    UTILS_BREAK_IF(!base_class::init("Level Completed", 1800.f, 2100.f));
+    UTILS_BREAK_IF(!base_class::init("Level Completed", audio_helper, 1800.f, 2100.f, animation_type::fade));
 
     audio_helper_->pre_load_effect("sounds/star.mp3");
 
     const auto horizontal_segment = getContentSize().width;
     const auto vertical_segment = getContentSize().height;
-
-    setPosition(size.width / 2, size.height / 2);
 
     level_name_label_ = Label::createWithTTF("", "fonts/tahoma.ttf", 100);
     UTILS_BREAK_IF(level_name_label_ == nullptr);
@@ -77,34 +75,6 @@ bool level_completed::init(audio_helper* audio_helper, level_manager* level_mana
     level_name_label_->setPosition(0.f, (getContentSize().height / 2) - 250);
 
     addChild(level_name_label_, 100);
-
-    const auto continue_sprite = Sprite::createWithSpriteFrameName("08_Text_1.png");
-    UTILS_BREAK_IF(continue_sprite == nullptr);
-
-    const auto continue_sprite_click = Sprite::createWithSpriteFrameName("08_Text_2.png");
-    UTILS_BREAK_IF(continue_sprite_click == nullptr);
-
-    continue_item_ = MenuItemSprite::create(continue_sprite, continue_sprite_click);
-    UTILS_BREAK_IF(continue_item_ == nullptr);
-
-    continue_item_->setPosition(0, 0);
-
-    const auto label_button = Label::createWithTTF("Continue", "fonts/tahoma.ttf", 120);
-    UTILS_BREAK_IF(label_button == nullptr);
-
-    label_button->setPosition(continue_sprite->getContentSize().width / 2,
-                              continue_sprite->getContentSize().height / 2 + 30);
-    label_button->setTextColor(Color4B(255, 255, 255, 255));
-    label_button->enableOutline(Color4B(0, 0, 0, 255), 5);
-
-    continue_item_->addChild(label_button, 100);
-
-    const auto menu = Menu::create(continue_item_, nullptr);
-    UTILS_BREAK_IF(menu == nullptr);
-
-    menu->setPosition(0.f, -getContentSize().height / 2);
-
-    addChild(menu, 100);
 
     const auto first_start_pos = Vec2(-horizontal_segment / 3, level_name_label_->getPosition().y - 350.f);
 
@@ -177,9 +147,6 @@ bool level_completed::init(audio_helper* audio_helper, level_manager* level_mana
     level_3_stars_record_label_ = add_labels("3 Stars Record", "00:00.00", label_pos, separation);
     UTILS_BREAK_IF(level_time_limit_label_ == nullptr);
 
-    setOpacity(0);
-    setVisible(false);
-
     ret = true;
   }
   while (false);
@@ -189,6 +156,8 @@ bool level_completed::init(audio_helper* audio_helper, level_manager* level_mana
 void level_completed::display(const unsigned short int level, const float time, const unsigned short int stars,
                               const completed_result completion, const ccMenuCallback& callback)
 {
+  base_class::display();
+
   const auto level_name = level_manager_->get_level_name(level);
   const auto level_time_limit = level_manager_->get_level_time_limit(level);
   const auto level_time_record = level_manager_->get_level_time_record(level);
@@ -229,9 +198,6 @@ void level_completed::display(const unsigned short int level, const float time, 
   continue_item_->setCallback(callback);
   setVisible(true);
 
-  const auto fade_in_message = FadeTo::create(0.5f, 190);
-  runAction(fade_in_message);
-
   if (stars > 0)
   {
     for (unsigned short int start_counter = 0; start_counter < 3; ++start_counter)
@@ -268,6 +234,11 @@ void level_completed::display(const unsigned short int level, const float time, 
   }
 }
 
+void level_completed::hide()
+{
+  base_class::hide();
+}
+
 void level_completed::star_sound() const
 {
   audio_helper_->play_effect("sounds/star.mp3");
@@ -280,6 +251,23 @@ void level_completed::animate_label(Label* label) const
   const auto sequence = Sequence::create(ink_down, ink_up, nullptr);
   const auto repeat = RepeatForever::create(sequence);
   label->runAction(repeat);
+}
+
+bool level_completed::create_menu_items()
+{
+  auto result = false;
+  do
+  {
+    continue_item_ = add_text_button("Continue", nullptr);
+    UTILS_BREAK_IF(continue_item_ == nullptr);
+
+    set_default_menu_item(continue_item_);
+
+    result = true;
+  }
+  while (false);
+
+  return result;
 }
 
 Label* level_completed::add_labels(const std::string& label_text, const std::string& text, const Vec2& pos,

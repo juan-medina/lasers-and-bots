@@ -347,7 +347,7 @@ void game_ui::display_message(const std::string& message, const std::string& sub
                               const ccMenuCallback& callback)
 {
   continue_callback_ = callback;
-  message_window_->display(message, sub_message, time_message(time_limit_), CC_CALLBACK_0(game_ui::on_continue, this));
+  message_window_->display(message, sub_message, CC_CALLBACK_0(game_ui::on_continue, this));
 }
 
 void game_ui::display_level_completed(const unsigned short int level, const float time, const unsigned short int stars,
@@ -396,7 +396,8 @@ void game_ui::update(float delta)
 {
   if (continue_callback_ != nullptr)
   {
-    if (input_controller_->single_press_button_a())
+    if (input_controller_->single_press_button_a() || input_controller_->single_press_button_b() ||
+      input_controller_->single_press_button_back())
     {
       on_continue();
       return;

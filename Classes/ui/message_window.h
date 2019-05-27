@@ -21,16 +21,15 @@
 #define __MESSAGE_WINDOW_CLASS__
 
 #include "../utils/utils.h"
-#include "resizable_window.h"
+#include "../menu/basic_menu.h"
 
 //foward declarations
 class audio_helper;
-class resizable_window;
 
-class message_window final : public resizable_window
+class message_window final : public basic_menu
 {
 public:
-  using base_class = resizable_window;
+  using base_class = basic_menu;
 
   message_window();
 
@@ -38,13 +37,17 @@ public:
 
   bool init(audio_helper* audio_helper);
 
-  void display(const std::string& message, const std::string& sub_message, const std::string& time_message,
-               const ccMenuCallback& callback);
+  void display(const std::string& message, const std::string& sub_message, const ccMenuCallback& callback);
+
+  void hide() override;
+
+protected:
+  bool create_menu_items() override;
 
 private:
 
   audio_helper* audio_helper_;
-  MenuItemSprite* continue_item_;
+  text_button* continue_item_;
   Label* sub_label_;
 };
 

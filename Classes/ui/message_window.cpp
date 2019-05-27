@@ -1,6 +1,6 @@
 #include "message_window.h"
 #include "../utils/audio/audio_helper.h"
-#include "resizable_window.h"
+#include "../ui/text_button.h"
 
 message_window::message_window():
   audio_helper_(nullptr),
@@ -51,9 +51,7 @@ bool message_window::init(audio_helper* audio_helper)
     addChild(dark_all, 0);
     dark_all->setPosition(-size.width / 2, -size.height / 2);
 
-    UTILS_BREAK_IF(!base_class::init("message", 1800.f, 1300.f));
-
-    setPosition(size.width / 2, size.height / 2);
+    UTILS_BREAK_IF(!base_class::init("message", audio_helper, 1800.f, 1300.f, animation_type::fade));
 
     sub_label_ = Label::createWithTTF("", "fonts/tahoma.ttf", 100);
     UTILS_BREAK_IF(sub_label_ == nullptr);
@@ -65,51 +63,39 @@ bool message_window::init(audio_helper* audio_helper)
 
     addChild(sub_label_, 100);
 
-    const auto continue_sprite = Sprite::createWithSpriteFrameName("08_Text_1.png");
-    UTILS_BREAK_IF(continue_sprite == nullptr);
-
-    const auto continue_sprite_click = Sprite::createWithSpriteFrameName("08_Text_2.png");
-    UTILS_BREAK_IF(continue_sprite_click == nullptr);
-
-    continue_item_ = MenuItemSprite::create(continue_sprite, continue_sprite_click);
-    UTILS_BREAK_IF(continue_item_ == nullptr);
-
-    continue_item_->setPosition(0, 0);
-
-    const auto label_button = Label::createWithTTF("Continue", "fonts/tahoma.ttf", 120);
-    UTILS_BREAK_IF(label_button == nullptr);
-
-    label_button->setPosition(continue_sprite->getContentSize().width / 2,
-                              continue_sprite->getContentSize().height / 2 + 30);
-    label_button->setTextColor(Color4B(255, 255, 255, 255));
-    label_button->enableOutline(Color4B(0, 0, 0, 255), 5);
-
-    continue_item_->addChild(label_button, 100);
-
-    const auto menu = Menu::create(continue_item_, nullptr);
-    UTILS_BREAK_IF(menu == nullptr);
-
-    menu->setPosition(0.f, -getContentSize().height / 2);
-
-    addChild(menu, 100);
-
-    setOpacity(0);
-    setVisible(false);
-
     ret = true;
   }
   while (false);
   return ret;
 }
 
-void message_window::display(const std::string& message, const std::string& sub_message,
-                             const std::string& time_message, const ccMenuCallback& callback)
+void message_window::display(const std::string& message, const std::string& sub_message, const ccMenuCallback& callback)
 {
+  base_class::display();
+
   set_title(message);
   sub_label_->setString(sub_message);
   continue_item_->setCallback(callback);
-  setVisible(true);
+}
 
-  const auto fade_in_message = FadeTo::create(0.5f, 190);
-  runAction(fade_in_message);
+void message_window::hide()
+{
+  base_class::hide();
+}
+
+bool message_window::create_menu_items()
+{
+  auto result = false;
+  do
+  {
+    continue_item_ = add_text_button("Continue", nullptr);
+    UTILS_BREAK_IF(continue_item_ == nullptr);
+
+    set_default_menu_item(continue_item_);
+
+    result = true;
+  }
+  while (false);
+
+  return result;
 }
