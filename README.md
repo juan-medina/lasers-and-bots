@@ -14,27 +14,45 @@ click the image bellow
   <a href="https://www.youtube.com/watch?v=hrrWXePrd-0" target="_blank"><img src="https://img.youtube.com/vi/hrrWXePrd-0/maxresdefault.jpg" alt="video demo"></a>
 </p>
 
-## controls
+## game controls
 
 - Keyboard
   ```
   LEFT          : CURSOR: LEFT  / KEY: A
-  RIGHT         : CURSOR: RIGHT / KEY: B
-  JUMP          : CURSOR: UP    / KEY: W          / SPACE
-  PAUSE         : ESCAPE
-  CLOSE MESSAGE : ENTER
-  RELOAD        : F5
+  RIGHT         : CURSOR: RIGHT / KEY: D
+  JUMP          : CURSOR: UP    / KEY: W           / SPACE
+  PAUSE         : F5
   ```
 - Gamepad / Joystick
   ```
-  LEFT          : D-PAD: LEFT   / JOYSTICK: LEFT  / SHOULDER: LEFT
-  RIGHT         : D-PAD: RIGHT  / JOYSTICK: RIGHT / SHOULDER: RIGHT
-  JUMP          : D-PAD: UP     / JOYSTICK: UP    / BUTTON: A
+  LEFT          : D-PAD:  LEFT   / JOYSTICK: LEFT  / SHOULDER: LEFT
+  RIGHT         : D-PAD:  RIGHT  / JOYSTICK: RIGHT / SHOULDER: RIGHT
+  JUMP          : D-PAD:  UP     / JOYSTICK: UP    / BUTTON: A
   PAUSE         : BUTTON: START
-  CLOSE MESSAGE : BUTTON: A
-  RELOAD        : BUTTON: BACK
   ```
-# requirements
+
+## menu controls
+
+- Keyboard
+  ```
+  LEFT          : CURSOR: LEFT  / KEY: A
+  RIGHT         : CURSOR: RIGHT / KEY: D
+  UP            : CURSOR: UP    / KEY: W
+  DOWN          : CURSOR: DOWN  / KEY: S
+  SELECT        : ENTER         / SPACE
+  BACK          : ESCAPE
+  ```
+- Gamepad / Joystick
+  ```
+  LEFT          : D-PAD:  LEFT   / JOYSTICK: LEFT  / SHOULDER: LEFT
+  RIGHT         : D-PAD:  RIGHT  / JOYSTICK: RIGHT / SHOULDER: RIGHT
+  UP            : D-PAD:  UP     / JOYSTICK: UP
+  DOWN          : D-PAD:  DOWN   / JOYSTICK: DOWN
+  SELECT        : BUTTON: A
+  BACK          : BUTTON: SELECT / BUTTON: B
+  ```
+
+## requirements
 
 - C++ compiler for your platform (clang, gcc, etc.)
 - C++ IDE (XCode, Visual Studio Express, etc.)
