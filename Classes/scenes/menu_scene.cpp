@@ -23,6 +23,7 @@
 #include "../menu/main_menu.h"
 #include "../menu/options_menu.h"
 #include "../menu/credits_menu.h"
+#include "../menu/about_menu.h"
 #include "../menu/play_menu.h"
 #include "../utils/audio/audio_helper.h"
 #include "../utils/controller/input_controller.h"
@@ -33,6 +34,7 @@ menu_scene::menu_scene() :
   options_menu_(nullptr),
   play_menu_(nullptr),
   credits_menu_(nullptr),
+  about_menu_(nullptr),
   background_(nullptr),
   paused_(false),
   saved_level_(-1),
@@ -135,6 +137,11 @@ bool menu_scene::init(basic_app* application, const menu_to_display menu, const 
     UTILS_BREAK_IF(credits_menu_ == nullptr);
 
     addChild(credits_menu_, 0);
+
+    about_menu_ = about_menu::create(get_audio_helper());
+    UTILS_BREAK_IF(about_menu_ == nullptr);
+
+    addChild(about_menu_, 0);
 
     switch (menu)
     {
@@ -315,6 +322,12 @@ void menu_scene::display_credits_menu()
 {
   current_menu_ = credits_menu_;
   credits_menu_->display();
+}
+
+void menu_scene::display_about_menu()
+{
+  current_menu_ = about_menu_;
+  about_menu_->display();
 }
 
 void menu_scene::change_music(const bool disabled) const

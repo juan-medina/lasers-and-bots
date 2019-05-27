@@ -18,24 +18,26 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "main_menu.h"
+#include "about_menu.h"
 #include "../utils/audio/audio_helper.h"
 #include "../scenes/menu_scene.h"
 #include "../ui/text_button.h"
+#include "ui/UIRichText.h"
 
-main_menu::main_menu():
-  back_item_(nullptr),
-  play_item_(nullptr)
+using namespace cocos2d::ui;
+
+about_menu::about_menu():
+  back_item_(nullptr)
 {
 }
 
-main_menu* main_menu::create(audio_helper* audio_helper)
+about_menu* about_menu::create(audio_helper* audio_helper)
 {
-  main_menu* ret = nullptr;
+  about_menu* ret = nullptr;
 
   do
   {
-    auto object = new main_menu();
+    auto object = new about_menu();
     UTILS_BREAK_IF(object == nullptr);
 
     if (object->init(audio_helper))
@@ -55,13 +57,13 @@ main_menu* main_menu::create(audio_helper* audio_helper)
   return ret;
 }
 
-bool main_menu::init(audio_helper* audio_helper)
+bool about_menu::init(audio_helper* audio_helper)
 {
   auto ret = false;
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init("Main Menu", audio_helper, 1300.f, 2200.f));
+    UTILS_BREAK_IF(!base_class::init("About", audio_helper, 4700.f, 3400.f));
 
     ret = true;
   }
@@ -70,32 +72,33 @@ bool main_menu::init(audio_helper* audio_helper)
   return ret;
 }
 
-void main_menu::display()
-{
-  const auto need_select_play = get_selected_menu_item() == nullptr;
-  base_class::display();
-
-  if (need_select_play)
-  {
-    select_menu_item(play_item_);
-  }
-}
-
-
-bool main_menu::create_menu_items()
+bool about_menu::create_menu_items()
 {
   auto result = false;
   do
   {
-    back_item_ = add_text_button("Exit", CC_CALLBACK_0(main_menu::on_exit, this));
+    back_item_ = add_text_button("Back", CC_CALLBACK_0(about_menu::on_back, this));
     UTILS_BREAK_IF(back_item_ == nullptr);
-    
-    UTILS_BREAK_IF(add_text_button("Credits", CC_CALLBACK_0(main_menu::on_credits, this)) == nullptr);
-    UTILS_BREAK_IF(add_text_button("About", CC_CALLBACK_0(main_menu::on_about, this)) == nullptr);
-    UTILS_BREAK_IF(add_text_button("Options", CC_CALLBACK_0(main_menu::on_options, this)) == nullptr);
 
-    play_item_ = add_text_button("PLAY!", CC_CALLBACK_0(main_menu::on_play, this));
-    UTILS_BREAK_IF(play_item_ == nullptr);
+    ValueMap defaults{};
+    defaults.insert(std::make_pair(RichText::KEY_FONT_FACE, Value("fonts/tahoma.ttf")));
+    defaults.insert(std::make_pair(RichText::KEY_FONT_SIZE, Value(120)));
+    defaults.insert(std::make_pair(RichText::KEY_FONT_COLOR_STRING, Value("#FFFFFF")));
+    defaults.insert(std::make_pair(RichText::KEY_ANCHOR_FONT_COLOR_STRING, Value("#00FFFF")));
+    defaults.insert(std::make_pair(RichText::KEY_HORIZONTAL_ALIGNMENT,
+                                   Value(static_cast<int>(RichText::HorizontalAlignment::LEFT))));
+    const auto file_utils = FileUtils::getInstance();
+    const auto text = file_utils->getStringFromFile("credits/about.xml");
+
+    const auto rich_text = RichText::createWithXML(text, defaults);
+    UTILS_BREAK_IF(rich_text == nullptr);
+
+    rich_text->ignoreContentAdaptWithSize(false);
+    rich_text->setContentSize(Size(getContentSize().width * .925f, getContentSize().height * .85f));
+    rich_text->formatText();
+    rich_text->setPosition(Vec2(0, 70));
+
+    addChild(rich_text);
 
     set_default_menu_item(back_item_);
 
@@ -105,43 +108,10 @@ bool main_menu::create_menu_items()
   return result;
 }
 
-
-void main_menu::on_options()
+void about_menu::on_back()
 {
   get_audio_helper()->play_effect("sounds/select.mp3");
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->display_options_menu();
-}
-
-void main_menu::on_play()
-{
-  get_audio_helper()->play_effect("sounds/select.mp3");
-  hide();
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->display_play_menu();
-}
-
-void main_menu::on_exit()
-{
-  get_audio_helper()->play_effect("sounds/select.mp3");
-  hide();
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->exit_app();
-}
-
-void main_menu::on_credits()
-{
-  get_audio_helper()->play_effect("sounds/select.mp3");
-  hide();
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->display_credits_menu();
-}
-
-void main_menu::on_about()
-{
-  get_audio_helper()->play_effect("sounds/select.mp3");
-  hide();
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->display_about_menu();
+  menu->display_main_menu();
 }

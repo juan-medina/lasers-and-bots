@@ -18,8 +18,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __MAIN_MENU_CLASS__
-#define __MAIN_MENU_CLASS__
+#ifndef __ABOUT_MENU_CLASS__
+#define __ABOUT_MENU_CLASS__
 
 #include "basic_menu.h"
 
@@ -27,32 +27,25 @@
 class audio_helper;
 class text_button;
 
-class main_menu final : public basic_menu
+class about_menu final : public basic_menu
 {
 public:
   using base_class = basic_menu;
 
-  main_menu();
+  about_menu();
 
-  static main_menu* create(audio_helper* audio_helper);
+  static about_menu* create(audio_helper* audio_helper);
 
   bool init(audio_helper* audio_helper);
-
-  void display() override;;
 
 protected:
   bool create_menu_items() override;
 private:
 
-  void on_options();
-  void on_play();
-  void on_exit();
-  void on_credits();
-  void on_about();
+  void on_back();
 
   text_button* back_item_;
-  text_button* play_item_;
 };
 
 
-#endif // __MAIN_MENU_CLASS__
+#endif // __ABOUT_MENU_CLASS__
