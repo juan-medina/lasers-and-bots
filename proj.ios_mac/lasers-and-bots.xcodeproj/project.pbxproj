@@ -136,6 +136,8 @@
 		583A5D20229BCD0C0069DDFE /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 583A5D0B229BCD0C0069DDFE /* fonts */; };
 		583A5D21229BCD0C0069DDFE /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 583A5D0B229BCD0C0069DDFE /* fonts */; };
 		583A5D23229BCEF80069DDFE /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 583A5D22229BCEF80069DDFE /* GameController.framework */; };
+		58CF7AB2229C41F700421F37 /* about_menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58CF7AAF229C41F700421F37 /* about_menu.cpp */; };
+		58CF7AB3229C41F700421F37 /* about_menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58CF7AAF229C41F700421F37 /* about_menu.cpp */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
@@ -307,6 +309,8 @@
 		583A5D0A229BCD0C0069DDFE /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
 		583A5D0B229BCD0C0069DDFE /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		583A5D22229BCEF80069DDFE /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = System/Library/Frameworks/GameController.framework; sourceTree = SDKROOT; };
+		58CF7AAF229C41F700421F37 /* about_menu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = about_menu.cpp; sourceTree = "<group>"; };
+		58CF7AB1229C41F700421F37 /* about_menu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = about_menu.h; sourceTree = "<group>"; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -611,6 +615,8 @@
 		583A5C84229BCCE90069DDFE /* menu */ = {
 			isa = PBXGroup;
 			children = (
+				58CF7AAF229C41F700421F37 /* about_menu.cpp */,
+				58CF7AB1229C41F700421F37 /* about_menu.h */,
 				583A5C85229BCCE90069DDFE /* options_menu.cpp */,
 				583A5C86229BCCE90069DDFE /* main_menu.cpp */,
 				583A5C87229BCCE90069DDFE /* credits_menu.h */,
@@ -864,6 +870,7 @@
 				583A5CCF229BCCE90069DDFE /* door_object.cpp in Sources */,
 				583A5CD1229BCCE90069DDFE /* robot_fragment.cpp in Sources */,
 				583A5CB3229BCCE90069DDFE /* input_controller.cpp in Sources */,
+				58CF7AB2229C41F700421F37 /* about_menu.cpp in Sources */,
 				583A5CEF229BCCE90069DDFE /* on_screen_button.cpp in Sources */,
 				583A5CC9229BCCE90069DDFE /* laser_object.cpp in Sources */,
 				583A5CF1229BCCE90069DDFE /* resizable_window.cpp in Sources */,
@@ -912,6 +919,7 @@
 				583A5CCA229BCCE90069DDFE /* laser_object.cpp in Sources */,
 				583A5CBC229BCCE90069DDFE /* physics_tiled_scene.cpp in Sources */,
 				583A5CB2229BCCE90069DDFE /* utils.cpp in Sources */,
+				58CF7AB3229C41F700421F37 /* about_menu.cpp in Sources */,
 				583A5CF2229BCCE90069DDFE /* resizable_window.cpp in Sources */,
 				583A5CC6229BCCE90069DDFE /* tiled_scene.cpp in Sources */,
 				583A5CE4229BCCE90069DDFE /* play_menu.cpp in Sources */,
