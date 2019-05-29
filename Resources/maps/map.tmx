@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.0" orientation="orthogonal" renderorder="right-down" width="45" height="20" tilewidth="256" tileheight="256" infinite="0" nextobjectid="49">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="45" height="20" tilewidth="256" tileheight="256" infinite="0" nextlayerid="6" nextobjectid="49">
  <properties>
   <property name="shapes" value="shapes/shapes.plist"/>
  </properties>
@@ -136,17 +136,17 @@
    </properties>
   </tile>
  </tileset>
- <layer name="back" width="45" height="20">
+ <layer id="1" name="back" width="45" height="20">
   <data encoding="base64" compression="zlib">
    eJztzrsNACAMA1FLhE/2X5gULEBFIq54ssszSRba2Qp/4YkeRoKOGzNBAwAAAP7gBW1o6RuF
   </data>
  </layer>
- <layer name="walk_back" width="45" height="20">
+ <layer id="2" name="walk_back" width="45" height="20">
   <data encoding="base64" compression="zlib">
    eJxjYBgFo4A0wDvEzR8Fo2C4gtG8MwpGwSgYBcMT0KJ8Z8TBHsyACQebGECKH6kZHpS4mRT1pJqNDADW1wBF
   </data>
  </layer>
- <layer name="walk" width="45" height="20">
+ <layer id="3" name="walk" width="45" height="20">
   <properties>
    <property name="physics" type="bool" value="true"/>
   </properties>
@@ -154,12 +154,12 @@
    eJztlmEOgjAMhYsHQGGCItz/nK4JL9Smg82RwQ9e8kJcBv3WQivRpUvldfdujoZIEPN23s+jQbw+3qP3tLKHeR90HuY1MesofBQzctYoHs0HRqmWyjGDE/V1Ruw24jmSuRbrtdpXz5Zx5bcbWt+SZk7JH+owqSvqpfOjc9SKdUe/tU+RzHNOT3t5vw0PgT0DLWfIfe96KteLcQaOybWK6WUh4Rn/3r+XUs5w9l5sKdRLcmq3pyyO0r14j+8npmfruHCK0PN6Wtir2VYPC52NZ0JKnmXPRezY3DlljnubrWcv/qtpyVpVkdZzwpolOcyYrfo35m1n3LvlELOLYP4COUMOxQ==
   </data>
  </layer>
- <layer name="front" width="45" height="20">
+ <layer id="4" name="front" width="45" height="20">
   <data encoding="base64" compression="zlib">
    eJztzqENAAAIwDA8/H8vhgMQJJg2mV8EANzIqb5HAICVBhSLACM=
   </data>
  </layer>
- <objectgroup name="objects">
+ <objectgroup id="5" name="objects">
   <object id="1" name="robot" type="robot" gid="30" x="253.917" y="4109.58" width="256" height="256">
    <properties>
     <property name="shield" type="int" value="1000"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.0" orientation="orthogonal" renderorder="right-down" width="35" height="17" tilewidth="256" tileheight="256" infinite="0" nextobjectid="49">
- <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256" spacing="2" margin="1" tilecount="35" columns="7">
-  <image source="tilesheet.png" width="1806" height="1290"/>
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="35" height="17" tilewidth="256" tileheight="256" infinite="0" nextlayerid="5" nextobjectid="49">
+ <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256" spacing="2" margin="1" tilecount="36" columns="6">
+  <image source="tilesheet.png" width="1548" height="1548"/>
   <tile id="0">
    <properties>
     <property name="damage" type="int" value="10"/>
@@ -133,17 +133,17 @@
    </properties>
   </tile>
  </tileset>
- <layer name="back" width="35" height="17">
+ <layer id="1" name="back" width="35" height="17">
   <data encoding="base64" compression="zlib">
    eJxjZmBgYAFi5kFAswIx+yCiOQYJPdDhMBouo+EyGi6j4TIaLgNHDwY3DMY44hxEGABbhA9o
   </data>
  </layer>
- <layer name="walk_back" width="35" height="17">
+ <layer id="2" name="walk_back" width="35" height="17">
   <data encoding="base64" compression="zlib">
    eJztwTEBAAAAwqD1T20Hb6AAAHgNCUwAAQ==
   </data>
  </layer>
- <layer name="walk" width="35" height="17">
+ <layer id="3" name="walk" width="35" height="17">
   <properties>
    <property name="physics" type="bool" value="true"/>
   </properties>
@@ -151,7 +151,7 @@
    eJztwTEBAAAAwqD1T20Hb6AAAHgNCUwAAQ==
   </data>
  </layer>
- <layer name="front" width="35" height="17">
+ <layer id="4" name="front" width="35" height="17">
   <data encoding="base64" compression="zlib">
    eJztwTEBAAAAwqD1T20Hb6AAAHgNCUwAAQ==
   </data>
