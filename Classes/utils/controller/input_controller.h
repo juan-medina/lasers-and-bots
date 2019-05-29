@@ -60,7 +60,7 @@ public:
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
   bool single_press_button_start();
 #else
-	bool single_press_button_start() const;
+  bool single_press_button_start() const;
 #endif
 
   bool single_press_button_back() const;

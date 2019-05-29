@@ -114,15 +114,14 @@ bool input_controller::end()
     }
     if (controller_listener_ != nullptr)
     {
-      controller_listener_->setEnabled(false);
-      Director::getInstance()->getEventDispatcher()->removeEventListener(controller_listener_);
-      controller_listener_ = nullptr;
 #if (GAME_PLATFORM == DESKTOP_GAME)
       Controller::stopDiscoveryController();
 #endif
+      controller_listener_->setEnabled(false);
+      Director::getInstance()->getEventDispatcher()->removeEventListener(controller_listener_);
+      controller_listener_ = nullptr;
     }
   }
-
   return true;
 }
 
@@ -151,11 +150,11 @@ void input_controller::on_controller_key_down(Controller* controller, const int 
     controller_button_b_ = true;
     break;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-   case Controller::Key::BUTTON_PAUSE:
-			was_controller_menu_pressed_ = true;
-		break;
+  case Controller::Key::BUTTON_PAUSE:
+    was_controller_menu_pressed_ = true;
+    break;
 #endif
-	case Controller::Key::BUTTON_START:
+  case Controller::Key::BUTTON_START:
     controller_button_start_ = true;
     break;
   case Controller::Key::BUTTON_SELECT:
@@ -227,8 +226,8 @@ void input_controller::on_controller_axis(Controller* controller, const int key_
       controller_axis_up_ = value < threshold;
       controller_axis_down_ = value > threshold;
 #else
-			controller_axis_up_ = value > threshold;
-			controller_axis_down_ = value < threshold;
+      controller_axis_up_ = value > threshold;
+      controller_axis_down_ = value < threshold;
 #endif
     }
     else
@@ -534,20 +533,20 @@ bool input_controller::single_press_button_start()
 #else
 bool input_controller::single_press_button_start() const
 {
-	static auto pressed = false;
-	if (button_start())
-	{
-		if (pressed)
-		{
-			return false;
-		}
-		pressed = true;
+  static auto pressed = false;
+  if (button_start())
+  {
+    if (pressed)
+    {
+      return false;
+    }
+    pressed = true;
 
-		return true;
-	}
-	pressed = false;
+    return true;
+  }
+  pressed = false;
 
-	return false;
+  return false;
 }
 #endif
 
