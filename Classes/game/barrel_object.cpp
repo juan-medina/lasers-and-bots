@@ -1,4 +1,6 @@
 /****************************************************************************
+ Copyright (c) 2019 Juan Medina
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
@@ -58,7 +60,7 @@ bool barrel_object::init(physics_shape_cache* physics_shape_cache, const int bar
 
     setAnchorPoint(Vec2(0.5f, 0.5f));
 
-    // making look like random but is not, base on how may barrels we added    
+    // making look like random but is not, base on how may barrels we added
 
     const auto gap = barrel_num * 10.f;
     auto step_time = 0.f;

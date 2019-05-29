@@ -1,4 +1,6 @@
 /****************************************************************************
+ Copyright (c) 2019 Juan Medina
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
@@ -522,11 +524,11 @@ bool input_controller::single_press_button_start()
       return false;
     }
     pressed = true;
-		
+
     return true;
   }
   pressed = false;
-	
+
   return false;
 }
 #else
@@ -540,11 +542,11 @@ bool input_controller::single_press_button_start() const
 			return false;
 		}
 		pressed = true;
-		
+
 		return true;
 	}
 	pressed = false;
-	
+
 	return false;
 }
 #endif

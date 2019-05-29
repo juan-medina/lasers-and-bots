@@ -1,4 +1,6 @@
 /****************************************************************************
+ Copyright (c) 2019 Juan Medina
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
@@ -89,7 +91,7 @@ bool main_menu::create_menu_items()
   {
     back_item_ = add_text_button("Exit", CC_CALLBACK_0(main_menu::on_exit, this));
     UTILS_BREAK_IF(back_item_ == nullptr);
-    
+
     UTILS_BREAK_IF(add_text_button("Credits", CC_CALLBACK_0(main_menu::on_credits, this)) == nullptr);
     UTILS_BREAK_IF(add_text_button("About", CC_CALLBACK_0(main_menu::on_about, this)) == nullptr);
     UTILS_BREAK_IF(add_text_button("Options", CC_CALLBACK_0(main_menu::on_options, this)) == nullptr);

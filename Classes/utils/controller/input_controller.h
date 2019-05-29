@@ -1,4 +1,6 @@
 /****************************************************************************
+ Copyright (c) 2019 Juan Medina
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
@@ -60,7 +62,7 @@ public:
 #else
 	bool single_press_button_start() const;
 #endif
-	
+
   bool single_press_button_back() const;
 
 private:
@@ -83,7 +85,7 @@ private:
   bool key_button_b_;
   bool key_button_start_;
   bool key_button_back_;
-	
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 	bool was_controller_menu_pressed_;
 #endif
