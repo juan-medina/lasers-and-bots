@@ -204,12 +204,7 @@
             <key type="filename">../tiles/027_Tile (13).png</key>
             <key type="filename">../tiles/028_Tile (14).png</key>
             <key type="filename">../tiles/029_Tile (15).png</key>
-            <key type="filename">../tiles/032_box.png</key>
-            <key type="filename">../tiles/033_barrel.png</key>
-            <key type="filename">../tiles/034_box.png</key>
-            <key type="filename">../tiles/034_saw.png</key>
-            <key type="filename">../tiles/035_saw.png</key>
-            <key type="filename">../tiles/036_saw.png</key>
+            <key type="filename">../tiles/030_box.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -219,19 +214,6 @@
                 <rect>64,64,128,128</rect>
                 <key>scale9Paddings</key>
                 <rect>64,64,128,128</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">../tiles/030_Robot.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>64,63,128,125</rect>
-                <key>scale9Paddings</key>
-                <rect>64,63,128,125</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
