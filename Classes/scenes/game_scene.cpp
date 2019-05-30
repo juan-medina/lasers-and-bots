@@ -343,7 +343,7 @@ bool game_scene::add_robot(const ValueMap& values, Node* layer)
     UTILS_BREAK_IF(robot_ == nullptr);
 
     auto position = get_object_center_position(values);
-    position.y -= (robot_->getContentSize().height - block_size_.height) / 2;
+    position.y -= (robot_->getContentSize().height) / 2;
 
     robot_->setPosition(position);
 

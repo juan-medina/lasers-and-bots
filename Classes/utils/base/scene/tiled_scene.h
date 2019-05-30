@@ -44,7 +44,12 @@ public:
   };
 
 protected:
+  static Vec2 get_object_center_position(const ValueMap& values);
+  static Vec2 get_object_position(const ValueMap& values);
+
+private:
   experimental::TMXTiledMap* tiled_map_;
+  bool handle_transparent_layers() const;
 };
 
 #endif // __TILED_SCENE_H__

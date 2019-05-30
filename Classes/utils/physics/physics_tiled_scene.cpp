@@ -93,8 +93,6 @@ bool physics_tiled_scene::init(basic_app* application, const std::string& tmx_fi
     init_physics(debug_physics);
 
     UTILS_BREAK_IF(!add_physics_to_map());
-
-    UTILS_BREAK_IF(!convert_transparent_tiles());
   }
   while (false);
 
@@ -136,21 +134,6 @@ string physics_tiled_scene::get_shape_from_tile_gid(const int gid)
   return gid_to_shapes_[gid];
 }
 
-float physics_tiled_scene::get_opacity_from_tile_gid(const int gid) const
-{
-  auto restitution = 1.0f;
-  const auto map = get_tiled_map();
-  if (map->getPropertiesForGID(gid).getType() == Value::Type::MAP)
-  {
-    const auto properties = map->getPropertiesForGID(gid).asValueMap();
-    if (properties.count("opacity") == 1)
-    {
-      restitution = properties.at("opacity").asFloat();
-    }
-  }
-  return restitution;
-}
-
 Node* physics_tiled_scene::provide_physics_node(const int gid)
 {
   const auto node = Node::create();
@@ -160,38 +143,6 @@ Node* physics_tiled_scene::provide_physics_node(const int gid)
     add_body_to_node(node, shape);
   }
   return node;
-}
-
-Vec2 physics_tiled_scene::get_object_center_position(const ValueMap& values)
-{
-  const auto width = values.at("width").asFloat();
-  const auto height = values.at("height").asFloat();
-  const auto x = values.at("x").asFloat() + width;
-  const auto y = values.at("y").asFloat() + height;
-  const auto rotation = values.at("rotation").asFloat();
-
-  const auto angle = CC_DEGREES_TO_RADIANS(-rotation);
-
-  const auto center_x = width / 2;
-  const auto center_y = height / 2;
-
-  const auto cos_rotation = cosf(angle);
-  const auto sin_rotation = sinf(angle);
-
-  const auto rotated_center_x = center_x * cos_rotation - center_y * sin_rotation;
-  const auto rotated_center_y = center_x * sin_rotation + center_y * cos_rotation;
-
-  return Vec2(x + rotated_center_x - width, y + rotated_center_y);
-}
-
-Vec2 physics_tiled_scene::get_object_position(const ValueMap& values)
-{
-  const auto width = values.at("width").asFloat();
-  const auto height = values.at("height").asFloat();
-  const auto x = values.at("x").asFloat() + width / 2;
-  const auto y = values.at("y").asFloat() + height / 2;
-
-  return Vec2(x, y);
 }
 
 bool physics_tiled_scene::add_body_to_node(Node* node, const string& shape) const
@@ -263,47 +214,6 @@ bool physics_tiled_scene::add_physics_to_map()
               if (gid != 0)
               {
                 create_dummy_node(layer, tile_pos, gid);
-              }
-            }
-          }
-        }
-      }
-    }
-
-    result = true;
-  }
-  while (false);
-
-  return result;
-}
-
-bool physics_tiled_scene::convert_transparent_tiles()
-{
-  auto result = false;
-
-  do
-  {
-    const auto map = get_tiled_map();
-
-    for (auto& child : map->getChildren())
-    {
-      const auto layer = dynamic_cast<experimental::TMXLayer*>(child);
-      if (layer != nullptr)
-      {
-        for (auto col = 0; col < blocks_.height; col++)
-        {
-          for (auto row = 0; row < blocks_.width; row++)
-          {
-            const auto tile_pos = Vec2(row, col);
-            const auto gid = layer->getTileGIDAt(tile_pos);
-            if (gid != 0)
-            {
-              const auto shape = get_shape_from_tile_gid(gid);
-              const auto opacity = get_opacity_from_tile_gid(gid);
-              if (opacity != 1.f)
-              {
-                const auto sprite = layer->getTileAt(tile_pos);
-                sprite->setOpacity(static_cast<GLubyte>(opacity * 255));
               }
             }
           }

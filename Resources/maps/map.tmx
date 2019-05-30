@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="45" height="20" tilewidth="256" tileheight="256" infinite="0" nextlayerid="6" nextobjectid="49">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="45" height="20" tilewidth="256" tileheight="256" infinite="0" nextlayerid="7" nextobjectid="50">
  <properties>
   <property name="shapes" value="shapes/shapes.plist"/>
  </properties>
- <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256" spacing="2" margin="1" tilecount="36" columns="6">
-  <image source="tilesheet.png" width="1548" height="1548"/>
+ <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256" spacing="2" margin="1" tilecount="30" columns="6">
+  <image source="tilesheet.png" width="1548" height="1290"/>
   <tile id="0">
    <properties>
     <property name="damage" type="int" value="10"/>
@@ -136,6 +136,27 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="31" name="objects" tilewidth="567" tileheight="556" tilecount="6" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="567" height="556" source="../../Media/robot/Idle_01.png"/>
+  </tile>
+  <tile id="1">
+   <image width="177" height="238" source="../../Media/objects/02_Barrel (2).png"/>
+  </tile>
+  <tile id="2">
+   <image width="256" height="256" source="../../Media/objects/03_Box.png"/>
+  </tile>
+  <tile id="3">
+   <image width="357" height="361" source="../../Media/objects/07_Saw.png"/>
+  </tile>
+  <tile id="4">
+   <image width="72" height="257" source="../../Media/objects/09_Switch (2).png"/>
+  </tile>
+  <tile id="5">
+   <image width="280" height="464" source="../../Media/objects/04_DoorLocked.png"/>
+  </tile>
+ </tileset>
  <layer id="1" name="back" width="45" height="20">
   <data encoding="base64" compression="zlib">
    eJztzrsNACAMA1FLhE/2X5gULEBFIq54ssszSRba2Qp/4YkeRoKOGzNBAwAAAP7gBW1o6RuF
@@ -143,68 +164,50 @@
  </layer>
  <layer id="2" name="walk_back" width="45" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo4A0wDvEzR8Fo2C4gtG8MwpGwSgYBcMT0KJ8Z8TBHsyACQebGECKH6kZHpS4mRT1pJqNDADW1wBF
-  </data>
- </layer>
- <layer id="3" name="walk" width="45" height="20">
-  <properties>
-   <property name="physics" type="bool" value="true"/>
-  </properties>
-  <data encoding="base64" compression="zlib">
-   eJztlmEOgjAMhYsHQGGCItz/nK4JL9Smg82RwQ9e8kJcBv3WQivRpUvldfdujoZIEPN23s+jQbw+3qP3tLKHeR90HuY1MesofBQzctYoHs0HRqmWyjGDE/V1Ruw24jmSuRbrtdpXz5Zx5bcbWt+SZk7JH+owqSvqpfOjc9SKdUe/tU+RzHNOT3t5vw0PgT0DLWfIfe96KteLcQaOybWK6WUh4Rn/3r+XUs5w9l5sKdRLcmq3pyyO0r14j+8npmfruHCK0PN6Wtir2VYPC52NZ0JKnmXPRezY3DlljnubrWcv/qtpyVpVkdZzwpolOcyYrfo35m1n3LvlELOLYP4COUMOxQ==
-  </data>
- </layer>
- <layer id="4" name="front" width="45" height="20">
-  <data encoding="base64" compression="zlib">
-   eJztzqENAAAIwDA8/H8vhgMQJJg2mV8EANzIqb5HAICVBhSLACM=
+   eJzt1DERAAAIAzEM4N8uGhgY6CUCfmurYKef9yGV7QBk8u9cGse3ADU=
   </data>
  </layer>
  <objectgroup id="5" name="objects">
-  <object id="1" name="robot" type="robot" gid="30" x="253.917" y="4109.58" width="256" height="256">
-   <properties>
-    <property name="shield" type="int" value="1000"/>
-   </properties>
-  </object>
-  <object id="7" name="laser4" type="laser" gid="31" x="3384.4" y="2140.11" width="256" height="256" rotation="-144.645">
+  <object id="7" name="laser4" type="laser" gid="30" x="3384.4" y="2140.11" width="256" height="256" rotation="-144.645">
    <properties>
     <property name="damage" type="int" value="10"/>
     <property name="speed" type="float" value="4.5"/>
    </properties>
   </object>
-  <object id="8" name="laser3" type="laser" gid="31" x="1798" y="770" width="256" height="256" rotation="180">
+  <object id="8" name="laser3" type="laser" gid="30" x="1798" y="770" width="256" height="256" rotation="180">
    <properties>
     <property name="damage" type="int" value="10"/>
     <property name="speed" type="float" value="4.5"/>
    </properties>
   </object>
-  <object id="9" name="laser2" type="laser" gid="31" x="7300" y="4400" width="256" height="256" rotation="-45">
+  <object id="9" name="laser2" type="laser" gid="30" x="7300" y="4400" width="256" height="256" rotation="-45">
    <properties>
     <property name="damage" type="int" value="10"/>
     <property name="speed" type="float" value="4.5"/>
    </properties>
   </object>
-  <object id="11" name="laser1" type="laser" gid="31" x="7936.25" y="763.136" width="256" height="256" rotation="180">
+  <object id="11" name="laser1" type="laser" gid="30" x="7936.25" y="763.136" width="256" height="256" rotation="180">
    <properties>
     <property name="damage" type="int" value="10"/>
     <property name="speed" type="float" value="4.5"/>
    </properties>
   </object>
-  <object id="13" name="exit_door" type="door" gid="35" x="251.121" y="2560" width="256" height="256">
+  <object id="13" name="exit_door" type="door" gid="36" x="197.121" y="2558" width="280" height="464">
    <properties>
     <property name="image" value="04_DoorLocked.png"/>
    </properties>
   </object>
-  <object id="14" name="open_switch" type="switch" gid="36" x="11009.5" y="5118.72" width="256" height="256">
+  <object id="14" name="open_switch" type="switch" gid="35" x="10681.5" y="5118.72" width="72" height="257">
    <properties>
     <property name="target" value="switch_mirrow"/>
    </properties>
   </object>
-  <object id="15" name="switch_mirrow" type="switch" gid="36" x="512" y="2560" width="256" height="256">
+  <object id="15" name="switch_mirrow" type="switch" gid="35" x="662" y="2556" width="72" height="257">
    <properties>
     <property name="target" value="exit_door"/>
    </properties>
   </object>
-  <object id="16" name="saw1" type="saw" gid="34" x="2069.33" y="1950.33" width="256" height="256">
+  <object id="16" name="saw1" type="saw" gid="34" x="2061.33" y="1908.33" width="357" height="361">
    <properties>
     <property name="damage" type="int" value="10"/>
     <property name="image" value="07_Saw.png"/>
@@ -216,25 +219,25 @@
     <property name="stop_time" type="float" value="1"/>
    </properties>
   </object>
-  <object id="17" name="barrel4" type="barrel" gid="32" x="1513.21" y="5108.83" width="256" height="256" rotation="-30">
+  <object id="17" name="barrel4" type="barrel" gid="32" x="1513.21" y="4796.83" width="177" height="238" rotation="-30">
    <properties>
     <property name="image" value="02_Barrel (2).png"/>
     <property name="shape" value="02_Barrel"/>
    </properties>
   </object>
-  <object id="44" name="barrel3" type="barrel" gid="32" x="5246.51" y="4749.11" width="256" height="256" rotation="15.504">
+  <object id="44" name="barrel3" type="barrel" gid="32" x="5236.51" y="4849.11" width="177" height="238" rotation="15.504">
    <properties>
     <property name="image" value="02_Barrel (2).png"/>
     <property name="shape" value="02_Barrel"/>
    </properties>
   </object>
-  <object id="45" name="barrel2" type="barrel" gid="32" x="5888.93" y="5023.21" width="256" height="256" rotation="-56.7525">
+  <object id="45" name="barrel2" type="barrel" gid="32" x="5830.93" y="4873.21" width="177" height="238" rotation="-56.7525">
    <properties>
     <property name="image" value="02_Barrel (2).png"/>
     <property name="shape" value="02_Barrel"/>
    </properties>
   </object>
-  <object id="46" name="barrel1" type="barrel" gid="32" x="6339.88" y="4818.58" width="256" height="256" rotation="-101.998">
+  <object id="46" name="barrel1" type="barrel" gid="32" x="6315.88" y="4854.58" width="177" height="238" rotation="-101.998">
    <properties>
     <property name="image" value="02_Barrel (2).png"/>
     <property name="shape" value="02_Barrel"/>
@@ -246,7 +249,7 @@
     <property name="shape" value="03_Box"/>
    </properties>
   </object>
-  <object id="48" name="saw2" type="saw" gid="34" x="10514.8" y="2171.54" width="256" height="256">
+  <object id="48" name="saw2" type="saw" gid="34" x="10514.8" y="2171.54" width="357" height="361">
    <properties>
     <property name="damage" type="int" value="10"/>
     <property name="image" value="07_Saw.png"/>
@@ -258,5 +261,31 @@
     <property name="stop_time" type="float" value="0.5"/>
    </properties>
   </object>
+  <object id="49" name="robot" type="robot" gid="31" x="117" y="4134" width="567" height="556">
+   <properties>
+    <property name="shield" type="int" value="1000"/>
+   </properties>
+  </object>
  </objectgroup>
+ <layer id="6" name="acid" width="45" height="20" opacity="0.7">
+  <properties>
+   <property name="physics" type="bool" value="true"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztzzsKACAMREH1/oe23yb4acQZeGVg0xoAAPCTHr1gRCvy36pbTjbnbdWuCTmgADk=
+  </data>
+ </layer>
+ <layer id="3" name="walk" width="45" height="20">
+  <properties>
+   <property name="physics" type="bool" value="true"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztVu0OgjAM7BOgbIoivP9zuiVerJcN95XBDy65EJaxXlu4InLiRH9cHMe9RWTA67073vYW4vByXBzXjT1e71WOo3kLXuuiuJdm1GwkPawPGjWM9NMMneivDcQ2CedozYNaH2jf8KGOq7/d2Po/sOac+qEPK13RL64P18iodSu/vc+BrnONpz0cnwHOkT2zfHOofe8m6efFyMHH9L1K8bIYcEbp862Qk8PRvTiEmJfU9K4lQjp6e3GL7yfFszkumAN43iRhL+dcYrn5mZBTZ+25iJ1aO0tkL9f3+FdjlPSK50Qofo1mzFa+x7yNzfcSzTbh2Tcc0w6d
+  </data>
+ </layer>
+ <layer id="4" name="front" width="45" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztzqENAAAIwDA8/H8vhgMQJJg2mV8EANzIqb5HAICVBhSLACM=
+  </data>
+ </layer>
 </map>

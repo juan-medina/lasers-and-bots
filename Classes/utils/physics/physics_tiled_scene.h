@@ -53,18 +53,12 @@ protected:
 
   bool add_body_to_node(Node* node, const string& shape) const;
   virtual Node* provide_physics_node(const int gid);
-
-  static Vec2 get_object_center_position(const ValueMap& values);
-  static Vec2 get_object_position(const ValueMap& values);
   string get_shape_from_tile_gid(const int gid);
 
 private:
 
   virtual void init_physics(const bool debug_physics) const;
   bool add_physics_to_map();
-
-  float get_opacity_from_tile_gid(const int gid) const;
-  bool convert_transparent_tiles();
 
   // create a dummy node to hold physic body
   Node* create_dummy_node(experimental::TMXLayer* layer, const Vec2& tile_pos, const int gid);
