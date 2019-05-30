@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="35" height="17" tilewidth="256" tileheight="256" infinite="0" nextlayerid="5" nextobjectid="49">
- <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256" spacing="2" margin="1" tilecount="36" columns="6">
-  <image source="tilesheet.png" width="1548" height="1548"/>
+ <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256" spacing="2" margin="1" tilecount="30" columns="6">
+  <image source="tilesheet.png" width="1548" height="1290"/>
   <tile id="0">
    <properties>
     <property name="damage" type="int" value="10"/>

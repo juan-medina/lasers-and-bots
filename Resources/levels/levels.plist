@@ -18,123 +18,123 @@
         <array>
             <dict>
                 <key>map</key>
-                <string>maps/map.tmx</string>
+                <string>maps/demo_map.tmx</string>
                 <key>name</key>
                 <string>demo level 1</string>
                 <key>time_limit</key>
                 <integer>50</integer>
                 <key>music</key>
-                <string>sounds/music.mp3</string>
+                <string>sounds/Chasers.mp3</string>
             </dict>
             <dict>
                 <key>map</key>
-                <string>maps/map.tmx</string>
+                <string>maps/demo_map.tmx</string>
                 <key>name</key>
                 <string>demo level 2</string>
                 <key>time_limit</key>
                 <integer>50</integer>
                 <key>music</key>
-                <string>sounds/music.mp3</string>
+                <string>sounds/Chasers.mp3</string>
             </dict>
             <dict>
                 <key>map</key>
-                <string>maps/map.tmx</string>
+                <string>maps/demo_map.tmx</string>
                 <key>name</key>
                 <string>demo level 3</string>
                 <key>time_limit</key>
                 <integer>50</integer>
                 <key>music</key>
-                <string>sounds/music.mp3</string>
+                <string>sounds/Chasers.mp3</string>
             </dict>
             <dict>
                 <key>map</key>
-                <string>maps/map.tmx</string>
+                <string>maps/demo_map.tmx</string>
                 <key>name</key>
                 <string>demo level 4</string>
                 <key>time_limit</key>
                 <integer>50</integer>
                 <key>music</key>
-                <string>sounds/music.mp3</string>
+                <string>sounds/Chasers.mp3</string>
             </dict>
             <dict>
                 <key>map</key>
-                <string>maps/map.tmx</string>
+                <string>maps/demo_map.tmx</string>
                 <key>name</key>
                 <string>demo level 5</string>
                 <key>time_limit</key>
                 <integer>50</integer>
                 <key>music</key>
-                <string>sounds/music.mp3</string>
+                <string>sounds/Chasers.mp3</string>
             </dict>
             <dict>
                 <key>map</key>
-                <string>maps/map.tmx</string>
+                <string>maps/demo_map.tmx</string>
                 <key>name</key>
                 <string>demo level 6</string>
                 <key>time_limit</key>
                 <integer>50</integer>
                 <key>music</key>
-                <string>sounds/music.mp3</string>
+                <string>sounds/Chasers.mp3</string>
             </dict>
             <dict>
                 <key>map</key>
-                <string>maps/map.tmx</string>
+                <string>maps/demo_map.tmx</string>
                 <key>name</key>
                 <string>demo level 7</string>
                 <key>time_limit</key>
                 <integer>50</integer>
                 <key>music</key>
-                <string>sounds/music.mp3</string>
+                <string>sounds/Chasers.mp3</string>
             </dict>
             <dict>
                 <key>map</key>
-                <string>maps/map.tmx</string>
+                <string>maps/demo_map.tmx</string>
                 <key>name</key>
                 <string>demo level 8</string>
                 <key>time_limit</key>
                 <integer>50</integer>
                 <key>music</key>
-                <string>sounds/music.mp3</string>
+                <string>sounds/Chasers.mp3</string>
             </dict>
             <dict>
                 <key>map</key>
-                <string>maps/map.tmx</string>
+                <string>maps/demo_map.tmx</string>
                 <key>name</key>
                 <string>demo level 9</string>
                 <key>time_limit</key>
                 <integer>50</integer>
                 <key>music</key>
-                <string>sounds/music.mp3</string>
+                <string>sounds/Chasers.mp3</string>
             </dict>
             <dict>
                 <key>map</key>
-                <string>maps/map.tmx</string>
+                <string>maps/demo_map.tmx</string>
                 <key>name</key>
                 <string>demo level 10</string>
                 <key>time_limit</key>
                 <integer>50</integer>
                 <key>music</key>
-                <string>sounds/music.mp3</string>
+                <string>sounds/Chasers.mp3</string>
             </dict>
             <dict>
                 <key>map</key>
-                <string>maps/map.tmx</string>
+                <string>maps/demo_map.tmx</string>
                 <key>name</key>
                 <string>demo level 11</string>
                 <key>time_limit</key>
                 <integer>50</integer>
                 <key>music</key>
-                <string>sounds/music.mp3</string>
+                <string>sounds/Chasers.mp3</string>
             </dict>
             <dict>
                 <key>map</key>
-                <string>maps/map.tmx</string>
+                <string>maps/demo_map.tmx</string>
                 <key>name</key>
                 <string>demo level 12</string>
                 <key>time_limit</key>
                 <integer>50</integer>
                 <key>music</key>
-                <string>sounds/music.mp3</string>
+                <string>sounds/Chasers.mp3</string>
             </dict>
         </array>
     </dict>
