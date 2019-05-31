@@ -22,11 +22,6 @@
 
 #include "switch_object.h"
 
-switch_object::switch_object():
-  on_(false)
-{
-}
-
 switch_object* switch_object::create(physics_shape_cache* physics_shape_cache, const string& target)
 {
   switch_object* ret = nullptr;
@@ -59,9 +54,8 @@ bool switch_object::init(physics_shape_cache* physics_shape_cache, const string&
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init(physics_shape_cache, "08_Switch", "09_Switch (2).png", "switch"));
-
-    target_ = target;
+    UTILS_BREAK_IF(!base_class::init(physics_shape_cache, "08_Switch", "09_Switch (2).png", "switch",
+      Vec2(37, 30), target));
 
     ret = true;
   }
@@ -70,11 +64,13 @@ bool switch_object::init(physics_shape_cache* physics_shape_cache, const string&
   return ret;
 }
 
-void switch_object::on()
+bool switch_object::on()
 {
-  if (is_off())
+  if (base_class::on())
   {
     change_frame("08_Switch (1).png");
-    on_ = true;
+    return true;
   }
+
+  return false;
 }

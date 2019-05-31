@@ -158,6 +158,7 @@ private:
 
   bool add_object(const vector<Value>::value_type& object);
   bool add_objects_to_game();
+  void activate_default_switches();
 
   static constexpr float gravity = -5000.0f;
 

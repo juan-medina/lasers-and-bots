@@ -22,40 +22,19 @@
 #ifndef __SWITCH_CLASS__
 #define __SWITCH_CLASS__
 
-#include "../utils/physics/physics_game_object.h"
+#include "on_off_object.h"
 
-class switch_object final : public physics_game_object
+class switch_object final : public on_off_object
 {
 public:
-  using base_class = physics_game_object;
-
-  switch_object();
+  using base_class = on_off_object;
 
   static switch_object* create(physics_shape_cache* physics_shape_cache, const string& target);
 
   bool init(physics_shape_cache* physics_shape_cache, const string& target);
 
-  bool is_on() const
-  {
-    return on_;
-  }
-
-  bool is_off() const
-  {
-    return !on_;
-  }
-
-  void on();
-
-  string get_target() const
-  {
-    return target_;
-  }
-
-private:
-
-  bool on_;
-  string target_;
+  bool on() override;
 };
+
 
 #endif // __SWITCH_CLASS__

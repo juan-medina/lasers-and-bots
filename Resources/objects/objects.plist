@@ -78,7 +78,7 @@
                 <key>spriteSourceSize</key>
                 <string>{280,464}</string>
                 <key>textureRect</key>
-                <string>{{1,933},{280,464}}</string>
+                <string>{{1,467},{280,464}}</string>
                 <key>textureRotated</key>
                 <false/>
                 <key>triangles</key>
@@ -86,7 +86,7 @@
                 <key>vertices</key>
                 <string>280 21 280 464 0 464 0 22 22 0 259 0</string>
                 <key>verticesUV</key>
-                <string>281 954 281 1397 1 1397 1 955 23 933 260 933</string>
+                <string>281 488 281 931 1 931 1 489 23 467 260 467</string>
             </dict>
             <key>05_DoorOpen.png</key>
             <dict>
@@ -99,7 +99,7 @@
                 <key>spriteSourceSize</key>
                 <string>{280,464}</string>
                 <key>textureRect</key>
-                <string>{{1,467},{280,464}}</string>
+                <string>{{1,933},{280,464}}</string>
                 <key>textureRotated</key>
                 <false/>
                 <key>triangles</key>
@@ -107,7 +107,7 @@
                 <key>vertices</key>
                 <string>280 22 280 464 0 464 0 21 21 0 258 0</string>
                 <key>verticesUV</key>
-                <string>281 489 281 931 1 931 1 488 22 467 259 467</string>
+                <string>281 955 281 1397 1 1397 1 954 22 933 259 933</string>
             </dict>
             <key>06_DoorUnlocked.png</key>
             <dict>
@@ -193,6 +193,27 @@
                 <key>verticesUV</key>
                 <string>430 327 414 337 414 441 406 498 381 498 370 431 374 337 358 327 358 241 430 241</string>
             </dict>
+            <key>10_spot.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{99,101}</string>
+                <key>spriteSourceSize</key>
+                <string>{99,101}</string>
+                <key>textureRect</key>
+                <string>{{342,1642},{99,101}}</string>
+                <key>textureRotated</key>
+                <false/>
+                <key>triangles</key>
+                <string>0 5 6 3 4 5 2 0 1 2 3 0 0 3 5</string>
+                <key>vertices</key>
+                <string>99 24 99 101 16 101 0 74 0 24 24 0 79 0</string>
+                <key>verticesUV</key>
+                <string>441 1666 441 1743 358 1743 342 1716 342 1666 366 1642 421 1642</string>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -207,7 +228,7 @@
             <key>size</key>
             <string>{462,2021}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:dbe469dc3d3c1c324f13b13a090741d6:f3769b6bcc1b038c254cd57b9aeb9835:458de8e5649215d6f4316a271776e5d5$</string>
+            <string>$TexturePacker:SmartUpdate:7ec88790535eba3e27a08d08998594a7:1154a2dafc26c027b2af2b6a2f604e65:458de8e5649215d6f4316a271776e5d5$</string>
             <key>textureFileName</key>
             <string>objects.png</string>
         </dict>

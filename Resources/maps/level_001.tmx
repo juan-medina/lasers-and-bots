@@ -174,7 +174,7 @@
     <property name="speed" type="float" value="4.5"/>
    </properties>
   </object>
-  <object id="13" name="exit_door" type="door" gid="36" x="3416.12" y="5116" width="280" height="464">
+  <object id="13" name="exit_door" type="door" gid="36" x="3464.12" y="5116" width="280" height="464">
    <properties>
     <property name="image" value="04_DoorLocked.png"/>
    </properties>
@@ -213,7 +213,7 @@
  </layer>
  <layer id="4" name="front" width="45" height="20">
   <data encoding="base64" compression="zlib">
-   eJztwQEBAAAAgiD/r25IQAEAAPBoDhAAAQ==
+   eJztzrENADAIwDBm6P/3loEbYLGl7IkAAABgW3Y1vaOHDyOsAC0=
   </data>
  </layer>
 </map>

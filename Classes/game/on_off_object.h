@@ -19,44 +19,46 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __DOOR_CLASS__
-#define __DOOR_CLASS__
+#ifndef __ON_OFF_OBJECT_CLASS__
+#define __ON_OFF_OBJECT_CLASS__
 
-#include "on_off_object.h"
+#include "../utils/physics/physics_game_object.h"
 
-// forward declarations
-class audio_helper;
-
-class door_object final : public on_off_object
+class on_off_object : public physics_game_object
 {
 public:
-  using base_class = on_off_object;
+  using base_class = physics_game_object;
 
-  door_object();
+  on_off_object();
 
-  static door_object* create(physics_shape_cache* physics_shape_cache, audio_helper* audio_helper);
+  bool init(physics_shape_cache* physics_shape_cache, const std::string& shape, const std::string& sprite_frame_name,
+            const std::string& type, const Vec2& spot_pos, const string& target = "");
 
-  bool init(physics_shape_cache* physics_shape_cache, audio_helper* audio_helper);
-
-  bool is_open() const
+  bool is_on() const
   {
-    return open_;
+    return on_;
   }
 
-  bool is_closed() const
+  bool is_off() const
   {
-    return !open_;
+    return !on_;
   }
 
-  bool on() override;
+  virtual bool on();
 
-  void open();
+  string get_target() const
+  {
+    return target_;
+  }
+
+protected:
+  void change_spot_color(const Color3B& color) const;
 
 private:
 
-  bool open_;
-
-  audio_helper* audio_helper_;
+  bool on_;
+  string target_;
+  Sprite* spot_;
 };
 
-#endif // __DOOR_CLASS__
+#endif // __ON_OFF_OBJECT_CLASS__

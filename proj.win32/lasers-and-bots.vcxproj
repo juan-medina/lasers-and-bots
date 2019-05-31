@@ -153,6 +153,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y      </C
     <ClCompile Include="..\Classes\game\box_object.cpp" />
     <ClCompile Include="..\Classes\game\door_object.cpp" />
     <ClCompile Include="..\Classes\game\harm_object.cpp" />
+    <ClCompile Include="..\Classes\game\on_off_object.cpp" />
     <ClCompile Include="..\Classes\game\robot_fragment.cpp" />
     <ClCompile Include="..\Classes\game\saw_object.cpp" />
     <ClCompile Include="..\Classes\game\switch_object.cpp" />
@@ -197,6 +198,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y      </C
     <ClInclude Include="..\Classes\game\box_object.h" />
     <ClInclude Include="..\Classes\game\door_object.h" />
     <ClInclude Include="..\Classes\game\harm_object.h" />
+    <ClInclude Include="..\Classes\game\on_off_object.h" />
     <ClInclude Include="..\Classes\game\robot_fragment.h" />
     <ClInclude Include="..\Classes\game\saw_object.h" />
     <ClInclude Include="..\Classes\game\switch_object.h" />

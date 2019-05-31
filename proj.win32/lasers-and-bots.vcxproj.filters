@@ -180,6 +180,9 @@
     <ClCompile Include="..\Classes\menu\about_menu.cpp">
       <Filter>src\menu</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\game\on_off_object.cpp">
+      <Filter>src\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -307,6 +310,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\menu\about_menu.h">
       <Filter>src\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\on_off_object.h">
+      <Filter>src\game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

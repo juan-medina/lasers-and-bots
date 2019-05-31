@@ -126,6 +126,8 @@ bool game_scene::init(basic_app* application, const bool debug_grid, const bool 
 
     UTILS_BREAK_IF(!add_objects_to_game());
 
+    activate_default_switches();
+
     UTILS_BREAK_IF(!cache_robot_explosion());
 
     get_physics_shape_cache()->remove_all_shapes();
@@ -526,6 +528,9 @@ bool game_scene::add_object(const vector<Value>::value_type& object)
     const auto layer_walk_back = map->getLayer("walk_back");
     UTILS_BREAK_IF(layer_walk_back == nullptr);
 
+    const auto layer_front = map->getLayer("front");
+    UTILS_BREAK_IF(layer_front == nullptr);
+
     const auto& values = object.asValueMap();
     const auto type = values.at("type").asString();
 
@@ -547,7 +552,7 @@ bool game_scene::add_object(const vector<Value>::value_type& object)
     }
     else if (type == "switch")
     {
-      UTILS_BREAK_IF(!add_switch(values, layer_walk));
+      UTILS_BREAK_IF(!add_switch(values, layer_front));
     }
     else if (type == "door")
     {
@@ -583,6 +588,22 @@ bool game_scene::add_objects_to_game()
   while (false);
 
   return result;
+}
+
+void game_scene::activate_default_switches()
+{
+  for (const auto& it : game_objects_)
+  {
+    if (it.second->get_type() == "switch")
+    {
+      const auto switch_to_check = dynamic_cast<switch_object*>(it.second);
+
+      if (is_switch_targeting_a_switch(switch_to_check))
+      {
+        switch_to_check->on();
+      }
+    }
+  }
 }
 
 unsigned short int game_scene::calculate_stars() const
@@ -891,6 +912,7 @@ void game_scene::switch_activate_switch(switch_object* switch_object)
 {
   if (switch_object->is_off())
   {
+    get_audio_helper()->play_effect("sounds/metal_click.mp3");
     switch_object->on();
 
     const auto target = switch_object->get_target();
