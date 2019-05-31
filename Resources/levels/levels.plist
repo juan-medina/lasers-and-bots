@@ -18,7 +18,7 @@
         <array>
             <dict>
                 <key>map</key>
-                <string>maps/demo_map.tmx</string>
+                <string>maps/level_001.tmx</string>
                 <key>name</key>
                 <string>demo level 1</string>
                 <key>time_limit</key>

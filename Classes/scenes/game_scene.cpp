@@ -644,6 +644,7 @@ bool game_scene::cache_robot_explosion()
 
       robot_fragments_.push_back(robot_fragment);
       get_tiled_map()->getLayer("walk")->addChild(robot_fragment);
+      robot_fragment->setPosition(-10000, 0);
     }
 
     ret = true;
@@ -895,7 +896,11 @@ void game_scene::switch_activate_switch(switch_object* switch_object)
     const auto target = switch_object->get_target();
     if (game_objects_.count(target) == 1)
     {
-      switch_activate_target(game_objects_.at(target));
+      const auto target_object = dynamic_cast<game_object*>(game_objects_.at(target));
+      if (target_object->get_type() == "switch")
+      {
+        switch_activate_switch(dynamic_cast<::switch_object*>(target_object));
+      }
     }
   }
 }
@@ -930,8 +935,16 @@ void game_scene::robot_touch_switch(switch_object* switch_object)
     if (is_switch_targeting_a_switch(switch_object))
     {
       switch_object->on();
-
-      switch_activate_target(game_objects_.at(switch_object->get_target()));
+      get_audio_helper()->play_effect("sounds/metal_click.mp3");
+    }
+  }
+  else
+  {
+    const auto target = switch_object->get_target();
+    if (game_objects_.count(target) == 1)
+    {
+      const auto target_object = game_objects_.at(target);
+      switch_activate_target(target_object);
     }
   }
 }
