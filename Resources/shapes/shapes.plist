@@ -1353,42 +1353,10 @@
                         <key>polygons</key>
                         <array>
                             <array>
-                                <string>{ -58.50000,-232.00000 }</string>
-                                <string>{ -58.50000,-240.00000 }</string>
+                                <string>{ 90.50000,-234.00000 }</string>
+                                <string>{ 91.50000,-239.00000 }</string>
                                 <string>{ -116.50000,-240.00000 }</string>
                                 <string>{ -116.50000,-232.00000 }</string>
-                            </array>
-                        </array>
-                        
-                    </dict>
-
-                    <dict>
-                        <key>density</key>
-                        <real>1</real>
-                        <key>restitution</key>
-                        <real>0.2</real>
-                        <key>friction</key>
-                        <real>0.7</real>
-                        <key>tag</key>
-                        <integer>0</integer>
-                        <key>group</key>
-                        <integer>0</integer>
-                        <key>category_mask</key>
-                        <integer>1024</integer>
-                        <key>collision_mask</key>
-                        <integer>0</integer>
-                        <key>contact_test_mask</key>
-                        <integer>925</integer>
-                        <key>fixture_type</key>
-                        <string>POLYGON</string>
-                        
-                        <key>polygons</key>
-                        <array>
-                            <array>
-                                <string>{ 76.50000,-232.00000 }</string>
-                                <string>{ 76.50000,-240.00000 }</string>
-                                <string>{ 18.50000,-240.00000 }</string>
-                                <string>{ 18.50000,-232.00000 }</string>
                             </array>
                         </array>
                         
