@@ -20,9 +20,9 @@
                 <key>map</key>
                 <string>maps/level_001.tmx</string>
                 <key>name</key>
-                <string>demo level 1</string>
+                <string>Small Beginnings</string>
                 <key>time_limit</key>
-                <integer>50</integer>
+                <integer>20</integer>
                 <key>music</key>
                 <string>sounds/Chasers.mp3</string>
             </dict>

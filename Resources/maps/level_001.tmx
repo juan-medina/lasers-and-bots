@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="45" height="20" tilewidth="256" tileheight="256" infinite="0" nextlayerid="7" nextobjectid="50">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="30" height="18" tilewidth="256" tileheight="256" infinite="0" nextlayerid="32" nextobjectid="51">
  <properties>
   <property name="shapes" value="shapes/shapes.plist"/>
  </properties>
@@ -157,63 +157,65 @@
    <image width="280" height="464" source="../../Media/objects/04_DoorLocked.png"/>
   </tile>
  </tileset>
- <layer id="1" name="back" width="45" height="20">
+ <layer id="27" name="back" width="30" height="18">
   <data encoding="base64" compression="zlib">
-   eJztzrsNACAMA1FLhE/2X5gULEBFIq54ssszSRba2Qp/4YkeRoKOGzNBAwAAAP7gBW1o6RuF
+   eJxjYWBgYAZiFiimF5sViNmAmAMPmxLMioPNTgSbEkwLM0fxKB7Fo3gUj2JqYc4BwgByLhBj
   </data>
  </layer>
- <layer id="2" name="walk_back" width="45" height="20">
+ <layer id="28" name="walk_back" width="30" height="18">
   <data encoding="base64" compression="zlib">
-   eJztzjEBAAAIwKAVsH9dW+gDCSgAAKj5DgDnFkGoAA4=
+   eJxjYBgFhADvQDtgFIyCUTAKRsEoQANDrW4CAHA8ABs=
   </data>
  </layer>
  <objectgroup id="5" name="objects">
-  <object id="11" name="laser1" type="laser" gid="30" x="4360.25" y="3579.14" width="256" height="256" rotation="180">
-   <properties>
-    <property name="damage" type="int" value="10"/>
-    <property name="speed" type="float" value="4.5"/>
-   </properties>
-  </object>
-  <object id="13" name="exit_door" type="door" gid="36" x="3464.12" y="5116" width="280" height="464">
+  <object id="13" name="exit_door" type="door" gid="36" x="4860.12" y="4088" width="280" height="464">
    <properties>
     <property name="image" value="04_DoorLocked.png"/>
    </properties>
   </object>
-  <object id="14" name="open_switch" type="switch" gid="35" x="4160.5" y="5114.72" width="72" height="257">
+  <object id="14" name="open_switch" type="switch" gid="35" x="6112.5" y="2814.72" width="72" height="257">
    <properties>
-    <property name="target" value="switch_mirrow"/>
-   </properties>
-  </object>
-  <object id="15" name="switch_mirrow" type="switch" gid="35" x="2967" y="5118" width="72" height="257">
-   <properties>
+    <property name="on" type="bool" value="true"/>
     <property name="target" value="exit_door"/>
    </properties>
   </object>
-  <object id="49" name="robot" type="robot" gid="31" x="-121" y="5156" width="567" height="556">
+  <object id="49" name="robot" type="robot" gid="31" x="367" y="4644" width="567" height="556">
    <properties>
     <property name="shield" type="int" value="1000"/>
    </properties>
   </object>
+  <object id="11" name="laser1" type="laser" gid="30" x="4064.89" y="4290.78" width="256" height="256" rotation="380.996">
+   <properties>
+    <property name="damage" type="int" value="10"/>
+    <property name="speed" type="float" value="6"/>
+   </properties>
+  </object>
+  <object id="50" name="laser2" type="laser" gid="30" x="3436.84" y="814.64" width="256" height="256" rotation="682.43">
+   <properties>
+    <property name="damage" type="int" value="10"/>
+    <property name="speed" type="float" value="6"/>
+   </properties>
+  </object>
  </objectgroup>
- <layer id="6" name="acid" width="45" height="20" opacity="0.7">
+ <layer id="29" name="acid" width="30" height="18" opacity="0.7">
   <properties>
    <property name="physics" type="bool" value="true"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJztwQEBAAAAgiD/r25IQAEAAPBoDhAAAQ==
+   eJxjYBgFo2AUjIJRMBKB8Ki9o/bS0V4AmLgAcw==
   </data>
  </layer>
- <layer id="3" name="walk" width="45" height="20">
+ <layer id="30" name="walk" width="30" height="18">
   <properties>
    <property name="physics" type="bool" value="true"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJztzjENAAAIA7AZwb9NDOwlPK2CJgBwa74DAEC166QAHg==
+   eJxjYBgFo2AUjHTAD8QCQCxIZ3vFgVgCiCVpaIcUEMvQ0HxKASzssWFi9ZMTb0JALALEwlgwKfrpZS8/FIsCsRgD6emVXHuFsKgnxd+k2gtLD6JY1OPyN7b8S6q92PxJyN9CWMTx2QsAsXoHPA==
   </data>
  </layer>
- <layer id="4" name="front" width="45" height="20">
+ <layer id="31" name="front" width="30" height="18">
   <data encoding="base64" compression="zlib">
-   eJztzrENADAIwDBm6P/3loEbYLGl7IkAAABgW3Y1vaOHDyOsAC0=
+   eJxjYBgFo2AUjIJRMApGAaWAC4i5gZhnoB0ySAEALQQAIg==
   </data>
  </layer>
 </map>

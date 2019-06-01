@@ -126,8 +126,6 @@ bool game_scene::init(basic_app* application, const bool debug_grid, const bool 
 
     UTILS_BREAK_IF(!add_objects_to_game());
 
-    activate_default_switches();
-
     UTILS_BREAK_IF(!cache_robot_explosion());
 
     get_physics_shape_cache()->remove_all_shapes();
@@ -366,9 +364,15 @@ bool game_scene::add_switch(const ValueMap& values, Node* layer)
   {
     const auto name = values.at("name").asString();
     const auto target = values.at("target").asString();
+    const auto is_on = values.at("on").asBool();
 
     auto switch_game_object = switch_object::create(get_physics_shape_cache(), target);
     UTILS_BREAK_IF(switch_game_object == nullptr);
+
+    if (is_on)
+    {
+      switch_game_object->on();
+    }
 
     switch_game_object->setAnchorPoint(Vec2(0.5f, 0.f));
 
@@ -588,22 +592,6 @@ bool game_scene::add_objects_to_game()
   while (false);
 
   return result;
-}
-
-void game_scene::activate_default_switches()
-{
-  for (const auto& it : game_objects_)
-  {
-    if (it.second->get_type() == "switch")
-    {
-      const auto switch_to_check = dynamic_cast<switch_object*>(it.second);
-
-      if (is_switch_targeting_a_switch(switch_to_check))
-      {
-        switch_to_check->on();
-      }
-    }
-  }
 }
 
 unsigned short int game_scene::calculate_stars() const
