@@ -171,24 +171,28 @@
   <object id="7" name="laser4" type="laser" gid="30" x="3384.4" y="2140.11" width="256" height="256" rotation="-144.645">
    <properties>
     <property name="damage" type="int" value="10"/>
+    <property name="rotation_angle" type="int" value="360"/>
     <property name="speed" type="float" value="4.5"/>
    </properties>
   </object>
   <object id="8" name="laser3" type="laser" gid="30" x="1798" y="770" width="256" height="256" rotation="180">
    <properties>
     <property name="damage" type="int" value="10"/>
+    <property name="rotation_angle" type="int" value="-360"/>
     <property name="speed" type="float" value="4.5"/>
    </properties>
   </object>
   <object id="9" name="laser2" type="laser" gid="30" x="7300" y="4400" width="256" height="256" rotation="-45">
    <properties>
     <property name="damage" type="int" value="10"/>
+    <property name="rotation_angle" type="int" value="360"/>
     <property name="speed" type="float" value="4.5"/>
    </properties>
   </object>
   <object id="11" name="laser1" type="laser" gid="30" x="7936.25" y="763.136" width="256" height="256" rotation="180">
    <properties>
     <property name="damage" type="int" value="10"/>
+    <property name="rotation_angle" type="int" value="360"/>
     <property name="speed" type="float" value="4.5"/>
    </properties>
   </object>

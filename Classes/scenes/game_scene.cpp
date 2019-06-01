@@ -311,11 +311,12 @@ bool game_scene::add_laser(const ValueMap& values, Node* layer)
   {
     const auto name = values.at("name").asString();
     const auto rotation = values.at("rotation").asFloat();
+    const auto rotation_angle = values.at("rotation_angle").asFloat();
     const auto position = get_object_center_position(values);
     const auto damage = values.at("damage").asInt();
     const auto speed = values.at("speed").asFloat();
 
-    auto laser = laser_object::create(get_audio_helper(), rotation, speed, damage);
+    auto laser = laser_object::create(get_audio_helper(), rotation, rotation_angle, speed, damage);
     UTILS_BREAK_IF(laser == nullptr);
 
     laser->setPosition(position);

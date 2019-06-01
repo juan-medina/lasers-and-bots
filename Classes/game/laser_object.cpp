@@ -29,6 +29,9 @@ int laser_object::loop_sound_ = -1;
 
 laser_object::laser_object() :
   angle_(0.f),
+  initial_angle_(0),
+  final_angle_(0),
+  direction_(0),
   draw_(nullptr),
   physics_world_(nullptr),
   spark_(nullptr),
@@ -37,8 +40,8 @@ laser_object::laser_object() :
 {
 }
 
-laser_object* laser_object::create(audio_helper* audio_helper, const float initial_angle, const float speed_factor,
-                                   const int damage)
+laser_object* laser_object::create(audio_helper* audio_helper, const float initial_angle, const float rotation_angle,
+                                   const float speed_factor, const int damage)
 {
   laser_object* ret = nullptr;
 
@@ -47,7 +50,7 @@ laser_object* laser_object::create(audio_helper* audio_helper, const float initi
     auto object = new laser_object();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(audio_helper, initial_angle, speed_factor, damage))
+    if (object->init(audio_helper, initial_angle, rotation_angle, speed_factor, damage))
     {
       object->autorelease();
     }
@@ -64,15 +67,19 @@ laser_object* laser_object::create(audio_helper* audio_helper, const float initi
   return ret;
 }
 
-bool laser_object::init(audio_helper* audio_helper, const float initial_angle, const float speed_factor,
-                        const int damage)
+bool laser_object::init(audio_helper* audio_helper, const float initial_angle, const float rotation_angle,
+                        const float speed_factor, const int damage)
 {
   auto ret = false;
 
   do
   {
     audio_helper_ = audio_helper;
-    angle_ = CC_DEGREES_TO_RADIANS(90-initial_angle);
+    initial_angle_ = CC_DEGREES_TO_RADIANS(90 - initial_angle);
+    direction_ = -(rotation_angle / fabs(rotation_angle));
+    final_angle_ = CC_DEGREES_TO_RADIANS((90 - initial_angle) - rotation_angle);
+    angle_ = initial_angle_;
+
     speed_factor_ = speed_factor;
 
     UTILS_BREAK_IF(!base_class::init("laser", damage));
@@ -129,7 +136,7 @@ void laser_object::update(const float delta)
   const PhysicsRayCastCallbackFunc intersect_closer_body_func = [origin_in_point_in_world, &final_point_in_world]
   (PhysicsWorld& /*world*/, const PhysicsRayCastInfo& info, void* out)-> bool
   {
-    auto origin = Point(origin_in_point_in_world);
+    const auto origin = Point(origin_in_point_in_world);
     const auto new_point = Point(info.contact);
     const auto saved_point = Point(final_point_in_world);
     if (origin.distance(new_point) < origin.distance(saved_point))
@@ -170,7 +177,33 @@ void laser_object::update(const float delta)
   }
 
   // rotate the laser angle
-  angle_ += (5.f * static_cast<float>(M_PI) / 180.0f) * (delta * speed_factor_);
+  angle_ += (5.f * static_cast<float>(M_PI) / 180.0f) * (delta * speed_factor_) * direction_;
+
+  // if we need to swap direction
+  auto swap_direction = false;
+
+  if (direction_ < 0)
+  {
+    if (angle_ < final_angle_)
+    {
+      swap_direction = true;
+    }
+  }
+  else
+  {
+    if (angle_ > final_angle_)
+    {
+      swap_direction = true;
+    }
+  }
+
+  if (swap_direction)
+  {
+    angle_ = final_angle_;
+    final_angle_ = initial_angle_;
+    initial_angle_ = angle_;
+    direction_ = -direction_;
+  }
 }
 
 void laser_object::pause()
@@ -202,7 +235,6 @@ void laser_object::resume()
   {
     loop_sound_ = audio_helper_->play_effect("sounds/laser.mp3", true, 0.7f);
   }
-
 
   draw_->resume();
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="30" height="18" tilewidth="256" tileheight="256" infinite="0" nextlayerid="32" nextobjectid="52">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="60" height="18" tilewidth="256" tileheight="256" infinite="0" nextlayerid="37" nextobjectid="60">
  <properties>
   <property name="shapes" value="shapes/shapes.plist"/>
  </properties>
@@ -157,67 +157,74 @@
    <image width="280" height="464" source="../../Media/objects/04_DoorLocked.png"/>
   </tile>
  </tileset>
- <layer id="27" name="back" width="30" height="18">
+ <layer id="32" name="back" width="60" height="18">
   <data encoding="base64" compression="zlib">
-   eJxjYWBgYAZiFiimF5sViNmAmAMPmxLMioPNTgSbEkwLM0fxKB7Fo3gUj2JqYc4BwgByLhBj
+   eJztzTkKACAQBMEF7/9/2AU1MVBBNNAOCjqasSJilK1eb6e8ioPe4bqefZ36bR0WesfK/s1fAAAAAECRPpMBWucgww==
   </data>
  </layer>
- <layer id="28" name="walk_back" width="30" height="18">
+ <layer id="33" name="walk_back" width="60" height="18">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFhADvQDtgFIyCUTAKRsEoQANDrW4CAHA8ABs=
+   eJzt1VEJAAAIQ0EL2L+uJYSh3CV4sI9VAcCeTgcQY3sAvvJxNwweewAo
   </data>
  </layer>
  <objectgroup id="5" name="objects">
-  <object id="13" name="exit_door" type="door" gid="36" x="4860.12" y="4088" width="280" height="464">
+  <object id="13" name="exit_door" type="door" gid="36" x="14852.1" y="1024" width="280" height="464">
    <properties>
     <property name="image" value="04_DoorLocked.png"/>
    </properties>
   </object>
-  <object id="14" name="open_switch" type="switch" gid="35" x="6112.5" y="2814.72" width="72" height="257">
+  <object id="14" name="open_switch" type="switch" gid="35" x="15208.5" y="3842.72" width="72" height="257">
    <properties>
     <property name="on" type="bool" value="true"/>
     <property name="target" value="exit_door"/>
    </properties>
   </object>
-  <object id="49" name="robot" type="robot" gid="31" x="367" y="4644" width="567" height="556">
+  <object id="49" name="robot" type="robot" gid="31" x="-5" y="2600" width="567" height="556">
    <properties>
     <property name="shield" type="int" value="1000"/>
    </properties>
   </object>
-  <object id="11" name="laser2" type="laser" gid="30" x="3586.41" y="500.808" width="256" height="256" rotation="180">
-   <properties>
-    <property name="damage" type="int" value="10"/>
-    <property name="rotation_angle" type="int" value="-360"/>
-    <property name="speed" type="float" value="6"/>
-   </properties>
-  </object>
-  <object id="51" name="laser1" type="laser" gid="30" x="4048.42" y="4214.1" width="256" height="256" rotation="407.41">
+  <object id="59" name="laser3" type="laser" gid="30" x="13886.6" y="2149.11" width="256" height="256" rotation="219.921">
    <properties>
     <property name="damage" type="int" value="10"/>
     <property name="rotation_angle" type="int" value="-90"/>
     <property name="speed" type="float" value="6"/>
    </properties>
   </object>
+  <object id="57" name="laser2" type="laser" gid="30" x="3621.06" y="4064.43" width="256" height="256" rotation="102.525">
+   <properties>
+    <property name="damage" type="int" value="10"/>
+    <property name="rotation_angle" type="int" value="360"/>
+    <property name="speed" type="float" value="6"/>
+   </properties>
+  </object>
+  <object id="58" name="laser1" type="laser" gid="30" x="11876.5" y="1483.68" width="256" height="256" rotation="483.615">
+   <properties>
+    <property name="damage" type="int" value="10"/>
+    <property name="rotation_angle" type="int" value="90"/>
+    <property name="speed" type="float" value="6"/>
+   </properties>
+  </object>
  </objectgroup>
- <layer id="29" name="acid" width="30" height="18" opacity="0.7">
+ <layer id="34" name="acid" width="60" height="18" opacity="0.7">
   <properties>
    <property name="physics" type="bool" value="true"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGwSigLQAACHAAAQ==
+   eJztwQENAAAAwqD3T20ON6AAAAAAvg0Q4AAB
   </data>
  </layer>
- <layer id="30" name="walk" width="30" height="18">
+ <layer id="35" name="walk" width="60" height="18">
   <properties>
    <property name="physics" type="bool" value="true"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjHTAD8QCQCxIZ3vFgVgCiCVpaIcUEMvQ0HxKASzssWFi9ZMTb0JALIwDE6tfhI728kOxKBCLMZCeXsm1F5s+UvxNqr2w9CCKRT0uf2PLv6Tai089Ln8LYRHHZw4AqeIHNg==
+   eJztlUsOgCAMRD0BfmJciPc/p2XBhrTShlJBeclstMhMIXWaBoNBq5wgD7reNlIRl3nfQw9yGSI9ZMnxhQylUD3A7kFL/Ur9lXhrKRdGC/5m0Mqoy3nVPDdNUl8baGfWUtTO5gReIpQnLG+s9cQaazT7+XS+lljd/5D3AC2CNRbeqD3S59J7jn2LUumscowaKZzvhJkczpMzlzX2tJzVnP/In3QDLmkN/Q==
   </data>
  </layer>
- <layer id="31" name="front" width="30" height="18">
+ <layer id="36" name="front" width="60" height="18">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGAaWAC4i5gZhnoB0ySAEALQQAIg==
+   eJztzrEJADAMBDHXifef179FHJDg+qsCfnLSTf16BAAAYJEBww8AIg==
   </data>
  </layer>
 </map>
