@@ -146,6 +146,8 @@ bool game_scene::init(basic_app* application, const bool debug_grid, const bool 
 
     pre_load_sounds();
 
+    check_robot_movement(0.f);
+
     // we start with delay
     doing_delay_start_ = true;
 
