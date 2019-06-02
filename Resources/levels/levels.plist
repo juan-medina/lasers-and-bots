@@ -38,11 +38,11 @@
             </dict>
             <dict>
                 <key>map</key>
-                <string>maps/demo_map.tmx</string>
+                <string>maps/level_003.tmx</string>
                 <key>name</key>
-                <string>demo level 3</string>
+                <string>Saw It</string>
                 <key>time_limit</key>
-                <integer>50</integer>
+                <integer>40</integer>
                 <key>music</key>
                 <string>sounds/Chasers.mp3</string>
             </dict>
