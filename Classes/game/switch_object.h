@@ -36,5 +36,4 @@ public:
   bool on() override;
 };
 
-
 #endif // __SWITCH_CLASS__

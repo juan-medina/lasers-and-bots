@@ -25,7 +25,7 @@
 
 #include "basic_menu.h"
 
-//foward declarations
+// foward declarations
 class audio_helper;
 class text_button;
 
@@ -42,12 +42,11 @@ public:
 
 protected:
   bool create_menu_items() override;
-private:
 
+private:
   void on_back();
 
   text_button* back_item_;
 };
-
 
 #endif // __CREDITS_MENU_CLASS__

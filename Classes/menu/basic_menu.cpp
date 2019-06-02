@@ -21,30 +21,30 @@
  ****************************************************************************/
 
 #include "basic_menu.h"
-#include "../utils/audio/audio_helper.h"
 #include "../ui/slider_object.h"
 #include "../ui/text_button.h"
 #include "../ui/text_toggle.h"
+#include "../utils/audio/audio_helper.h"
 
-basic_menu::basic_menu():
-  audio_helper_(nullptr),
-  current_text_button_y_(0),
-  current_image_button_x_(0),
-  current_image_button_y_(0),
-  image_button_start_x_(0),
-  moving_(false),
-  selection_(nullptr),
-  previous_selection_(nullptr),
-  selected_menu_item_(nullptr),
-  default_menu_item_(nullptr),
-  selection_locked_(false),
-  menu_(nullptr),
-  animation_type_(animation_type::slide)
+basic_menu::basic_menu()
+  : audio_helper_(nullptr)
+  , current_text_button_y_(0)
+  , current_image_button_x_(0)
+  , current_image_button_y_(0)
+  , image_button_start_x_(0)
+  , moving_(false)
+  , selection_(nullptr)
+  , previous_selection_(nullptr)
+  , selected_menu_item_(nullptr)
+  , default_menu_item_(nullptr)
+  , selection_locked_(false)
+  , menu_(nullptr)
+  , animation_type_(animation_type::slide)
 {
 }
 
-bool basic_menu::init(const std::string& name, audio_helper* audio_helper, const float width, const float height,
-                      const animation_type animation_type /*= animation_type::slide*/)
+bool basic_menu::init(const std::string& name, audio_helper* audio_helper, const float width,
+                      const float height, const animation_type animation_type /*= animation_type::slide*/)
 {
   auto ret = false;
 
@@ -88,8 +88,7 @@ bool basic_menu::init(const std::string& name, audio_helper* audio_helper, const
     }
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -341,8 +340,7 @@ text_button* basic_menu::add_text_button(const std::string& text, const ccMenuCa
     add_button(item, callback);
 
     result = item;
-  }
-  while (false);
+  } while (false);
 
   return result;
 }
@@ -364,8 +362,7 @@ text_toggle* basic_menu::add_toggle_text_button(const std::string& text, const c
     add_button(item, callback);
 
     result = item;
-  }
-  while (false);
+  } while (false);
 
   return result;
 }
@@ -381,8 +378,7 @@ text_toggle* basic_menu::add_small_toggle_text_button(const std::string& text, c
     add_button(item, callback);
 
     result = item;
-  }
-  while (false);
+  } while (false);
 
   return result;
 }
@@ -398,8 +394,7 @@ text_toggle* basic_menu::add_toggle_image_button(const std::string& image, const
     add_button(item, callback);
 
     result = item;
-  }
-  while (false);
+  } while (false);
 
   return result;
 }
@@ -415,16 +410,16 @@ slider_object* basic_menu::add_slider(MenuItem* attach_to, const float_callback&
 
     slider->setColor(Color3B(0, 255, 255));
 
-    const auto slider_position = Vec2(attach_to->getPosition() +
-      Vec2(attach_to->getContentSize().width / 2 + slider->getContentSize().width / 2 + 110.f, 0));
+    const auto slider_position =
+      Vec2(attach_to->getPosition() +
+           Vec2(attach_to->getContentSize().width / 2 + slider->getContentSize().width / 2 + 110.f, 0));
 
     slider->setPosition(slider_position);
 
     add_button(slider, nullptr);
 
     result = slider;
-  }
-  while (false);
+  } while (false);
 
   return result;
 }
@@ -444,15 +439,14 @@ MenuItem* basic_menu::add_row_label(const std::string& text, MenuItem* attach_to
     auto label_item = MenuItemLabel::create(label);
     UTILS_BREAK_IF(label_item == nullptr);
 
-    label_item->setPosition(attach_to->getPosition() -
-      Vec2(attach_to->getContentSize().width / 2 - label->getContentSize().width / 2 + left_space,
-           -label->getContentSize().height / 4));
+    label_item->setPosition(attach_to->getPosition() - Vec2(attach_to->getContentSize().width / 2 -
+                                                              label->getContentSize().width / 2 + left_space,
+                                                            -label->getContentSize().height / 4));
 
     add_button(label_item, nullptr);
 
     result = label_item;
-  }
-  while (false);
+  } while (false);
 
   return result;
 }

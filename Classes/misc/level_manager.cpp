@@ -22,11 +22,7 @@
 
 #include "level_manager.h"
 
-level_manager::level_manager() :
-  initiated_(false),
-  num_levels_(0)
-{
-}
+level_manager::level_manager() : initiated_(false), num_levels_(0) {}
 
 level_manager::~level_manager()
 {
@@ -70,8 +66,7 @@ bool level_manager::init()
 
     initiated_ = true;
     result = true;
-  }
-  while (false);
+  } while (false);
 
   return result;
 }
@@ -87,8 +82,7 @@ void level_manager::end()
 }
 
 completed_result level_manager::set_level_completed(const unsigned short int level,
-                                                    const unsigned short int stars,
-                                                    const float time) const
+                                                    const unsigned short int stars, const float time) const
 {
   auto result = completed_result::no_record_change;
 

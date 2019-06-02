@@ -27,19 +27,19 @@
 const Vec2 robot_object::normal_movement = Vec2(1000.0f, 2600.f);
 const int robot_object::blink_on_damage_action_tag = 0xF0F0F;
 
-robot_object::robot_object():
-  to_left_(false),
-  to_right_(false),
-  jumping_(false),
-  walk_sound_(-1),
-  current_shield_(0),
-  max_shield_(0),
-  periodic_damage_(0),
-  feet_touch_anything_(false),
-  feet_touching_count_(0),
-  current_state_(e_idle),
-  virtual_joy_stick_(nullptr),
-  audio_helper_(nullptr)
+robot_object::robot_object()
+  : to_left_(false)
+  , to_right_(false)
+  , jumping_(false)
+  , walk_sound_(-1)
+  , current_shield_(0)
+  , max_shield_(0)
+  , periodic_damage_(0)
+  , feet_touch_anything_(false)
+  , feet_touching_count_(0)
+  , current_state_(e_idle)
+  , virtual_joy_stick_(nullptr)
+  , audio_helper_(nullptr)
 {
 }
 
@@ -64,8 +64,7 @@ robot_object* robot_object::create(physics_shape_cache* physics_shape_cache, aud
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -106,8 +105,7 @@ bool robot_object::init(physics_shape_cache* physics_shape_cache, audio_helper* 
     max_shield_ = max_shield;
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -162,7 +160,6 @@ float robot_object::get_shield_percentage() const
   return amount;
 }
 
-
 robot_object::state robot_object::decide_state() const
 {
   auto wanted_state = e_idle;
@@ -186,20 +183,20 @@ void robot_object::change_state(const state wanted_state)
     current_state_ = wanted_state;
     switch (current_state_)
     {
-    case e_jumping:
-      change_anim("jump");
-      walk_sound(false);
-      break;
-    case e_idle:
-      change_anim("idle");
-      walk_sound(false);
-      break;
-    case e_running:
-      change_anim("run");
-      walk_sound(true);
-      break;
-    default:
-      break;
+      case e_jumping:
+        change_anim("jump");
+        walk_sound(false);
+        break;
+      case e_idle:
+        change_anim("idle");
+        walk_sound(false);
+        break;
+      case e_running:
+        change_anim("run");
+        walk_sound(true);
+        break;
+      default:
+        break;
     }
   }
 }

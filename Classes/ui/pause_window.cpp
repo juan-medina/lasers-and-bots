@@ -21,19 +21,19 @@
  ****************************************************************************/
 
 #include "pause_window.h"
-#include "game_ui.h"
-#include "../scenes/game_scene.h"
 #include "../laser_and_bots_app.h"
-#include "../utils/audio/audio_helper.h"
+#include "../scenes/game_scene.h"
 #include "../ui/text_button.h"
 #include "../ui/text_toggle.h"
+#include "../utils/audio/audio_helper.h"
+#include "game_ui.h"
 
-pause_window::pause_window():
-  audio_helper_(nullptr),
-  current_text_button_y_(0),
-  current_image_button_x_(0),
-  toggle_music_item_(nullptr),
-  toggle_sfx_item_(nullptr)
+pause_window::pause_window()
+  : audio_helper_(nullptr)
+  , current_text_button_y_(0)
+  , current_image_button_x_(0)
+  , toggle_music_item_(nullptr)
+  , toggle_sfx_item_(nullptr)
 {
 }
 
@@ -57,8 +57,7 @@ pause_window* pause_window::create(audio_helper* audio_helper)
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -83,8 +82,7 @@ bool pause_window::init(audio_helper* audio_helper)
     audio_helper_->pre_load_effect("sounds/select.mp3");
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -159,28 +157,32 @@ bool pause_window::create_menu_items()
     const auto restart_button = add_text_button("Restart", CC_CALLBACK_0(pause_window::on_reload, this));
     UTILS_BREAK_IF(restart_button == nullptr);
 
-    toggle_sfx_item_ = add_toggle_image_button("13_sound_0", CC_CALLBACK_0(pause_window::on_sfx_toggle, this));
+    toggle_sfx_item_ =
+      add_toggle_image_button("13_sound_0", CC_CALLBACK_0(pause_window::on_sfx_toggle, this));
     UTILS_BREAK_IF(toggle_sfx_item_ == nullptr);
 
-    const auto sfx_position = restart_button->getPosition() +
+    const auto sfx_position =
+      restart_button->getPosition() +
       Vec2(-(restart_button->getContentSize().width / 2) + toggle_sfx_item_->getContentSize().width / 2,
            restart_button->getContentSize().height + 150.f);
 
     toggle_sfx_item_->setPosition(sfx_position);
 
-    toggle_music_item_ = add_toggle_image_button("12_music_0", CC_CALLBACK_0(pause_window::on_music_toggle, this));
+    toggle_music_item_ =
+      add_toggle_image_button("12_music_0", CC_CALLBACK_0(pause_window::on_music_toggle, this));
     UTILS_BREAK_IF(toggle_music_item_ == nullptr);
 
-    const auto music_position = Vec2(restart_button->getPosition().x + (restart_button->getContentSize().width / 2)
-                                     - toggle_music_item_->getContentSize().width / 2, sfx_position.y);
+    const auto music_position =
+      Vec2(restart_button->getPosition().x + (restart_button->getContentSize().width / 2) -
+             toggle_music_item_->getContentSize().width / 2,
+           sfx_position.y);
 
     toggle_music_item_->setPosition(music_position);
 
     set_default_menu_item(resume_button);
 
     result = true;
-  }
-  while (false);
+  } while (false);
 
   return result;
 }

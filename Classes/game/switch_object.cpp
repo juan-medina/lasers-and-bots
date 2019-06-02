@@ -42,8 +42,7 @@ switch_object* switch_object::create(physics_shape_cache* physics_shape_cache, c
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -55,11 +54,10 @@ bool switch_object::init(physics_shape_cache* physics_shape_cache, const string&
   do
   {
     UTILS_BREAK_IF(!base_class::init(physics_shape_cache, "08_Switch", "09_Switch (2).png", "switch",
-      Vec2(37, 30), target));
+                                     Vec2(37, 30), target));
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }

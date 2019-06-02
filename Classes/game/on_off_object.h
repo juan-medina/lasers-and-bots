@@ -31,31 +31,22 @@ public:
 
   on_off_object();
 
-  bool init(physics_shape_cache* physics_shape_cache, const std::string& shape, const std::string& sprite_frame_name,
-            const std::string& type, const Vec2& spot_pos, const string& target = "");
+  bool init(physics_shape_cache* physics_shape_cache, const std::string& shape,
+            const std::string& sprite_frame_name, const std::string& type, const Vec2& spot_pos,
+            const string& target = "");
 
-  bool is_on() const
-  {
-    return on_;
-  }
+  bool is_on() const { return on_; }
 
-  bool is_off() const
-  {
-    return !on_;
-  }
+  bool is_off() const { return !on_; }
 
   virtual bool on();
 
-  string get_target() const
-  {
-    return target_;
-  }
+  string get_target() const { return target_; }
 
 protected:
   void change_spot_color(const Color3B& color) const;
 
 private:
-
   bool on_;
   string target_;
   Sprite* spot_;

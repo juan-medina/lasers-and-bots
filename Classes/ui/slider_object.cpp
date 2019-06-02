@@ -22,16 +22,16 @@
 
 #include "slider_object.h"
 
-slider_object::slider_object():
-  progress_(nullptr),
-  label_(nullptr),
-  enabled_(true),
-  touch_listener_(nullptr),
-  touch_begin_at_(Vec2::ZERO),
-  percent_begin_touch_(0),
-  arrow_(nullptr),
-  last_percentage_(-1),
-  callback_(nullptr)
+slider_object::slider_object()
+  : progress_(nullptr)
+  , label_(nullptr)
+  , enabled_(true)
+  , touch_listener_(nullptr)
+  , touch_begin_at_(Vec2::ZERO)
+  , percent_begin_touch_(0)
+  , arrow_(nullptr)
+  , last_percentage_(-1)
+  , callback_(nullptr)
 {
 }
 
@@ -56,8 +56,7 @@ slider_object* slider_object::create(const std::string& background, const std::s
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -116,8 +115,7 @@ bool slider_object::init(const std::string& background, const std::string& progr
     setCascadeColorEnabled(true);
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -183,8 +181,7 @@ bool slider_object::enable_touch(const bool enabled)
       }
     }
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -255,7 +252,8 @@ void slider_object::update_location(const Vec2& location)
   if (touch_begin_at_ != Vec2::ZERO)
   {
     const auto distance = -(touch_begin_at_.x - location.x);
-    auto percent = percent_begin_touch_ + static_cast<int>((distance / progress_->getContentSize().width) * 100);
+    auto percent =
+      percent_begin_touch_ + static_cast<int>((distance / progress_->getContentSize().width) * 100);
     if (percent < 0)
     {
       percent = 0;
@@ -272,7 +270,8 @@ void slider_object::on_percentage_change(const float percentage) const
 {
   progress_->setPercentage(percentage);
   label_->setString(string_format("%3d %%", static_cast<int>(percentage)));
-  arrow_->setPosition(progress_->getContentSize().width * (percentage / 100), progress_->getContentSize().height);
+  arrow_->setPosition(progress_->getContentSize().width * (percentage / 100),
+                      progress_->getContentSize().height);
   if (callback_ != nullptr)
   {
     callback_(percentage);

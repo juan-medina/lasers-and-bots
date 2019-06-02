@@ -22,20 +22,20 @@
 
 #include "basic_app.h"
 #include "../../audio/audio_helper.h"
-#include "../scene/basic_scene.h"
 #include "../../controller/input_controller.h"
+#include "../scene/basic_scene.h"
 
-basic_app::basic_app(const std::string& application_name, const float design_width, const float design_height):
-  audio_helper_(nullptr),
-  input_controller_(nullptr),
-  design_width_(design_width),
-  design_height_(design_height),
-  window_width_(0),
-  window_height_(0),
-  full_screen_(true),
-  fit_all_(false),
-  application_name_(application_name),
-  game_version_{0, 0, 0, 0, Platform::OS_LINUX}
+basic_app::basic_app(const std::string& application_name, const float design_width, const float design_height)
+  : audio_helper_(nullptr)
+  , input_controller_(nullptr)
+  , design_width_(design_width)
+  , design_height_(design_height)
+  , window_width_(0)
+  , window_height_(0)
+  , full_screen_(true)
+  , fit_all_(false)
+  , application_name_(application_name)
+  , game_version_{0, 0, 0, 0, Platform::OS_LINUX}
 {
 }
 
@@ -92,7 +92,8 @@ bool basic_app::applicationDidFinishLaunching()
     // get the real screen scale
     const auto real_screen = open_gl_view->getVisibleSize();
 
-    // Set the design resolution, we scale to our design with so aspect ratio is maintained
+    // Set the design resolution, we scale to our design with so aspect ratio is
+    // maintained
     if (fit_all_)
     {
       open_gl_view->setDesignResolutionSize(design_width_, design_height_, ResolutionPolicy::SHOW_ALL);
@@ -128,8 +129,7 @@ bool basic_app::applicationDidFinishLaunching()
     director->runWithScene(scene);
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -190,7 +190,8 @@ bool basic_app::is_desktop()
 std::string basic_app::get_game_version_string() const
 {
   return string_format("Version: %d.%d.%d build %d (%s)", game_version_.major, game_version_.minor,
-                       game_version_.patch, game_version_.build, get_platform_name(game_version_.platform).c_str());
+                       game_version_.patch, game_version_.build,
+                       get_platform_name(game_version_.platform).c_str());
 }
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
@@ -225,9 +226,11 @@ void basic_app::center_win32_window()
   GetWindowRect(win32_window, &rc_window);
 
   // calculate center position
-  int offset_x = rc_desktop.left + (rc_desktop.right - rc_desktop.left - (rc_window.right - rc_window.left)) / 2;
+  int offset_x =
+    rc_desktop.left + (rc_desktop.right - rc_desktop.left - (rc_window.right - rc_window.left)) / 2;
   offset_x = (offset_x > 0) ? offset_x : rc_desktop.left;
-  int offset_y = rc_desktop.top + (rc_desktop.bottom - rc_desktop.top - (rc_window.bottom - rc_window.top)) / 2;
+  int offset_y =
+    rc_desktop.top + (rc_desktop.bottom - rc_desktop.top - (rc_window.bottom - rc_window.top)) / 2;
   offset_y = (offset_y > 0) ? offset_y : rc_desktop.top;
 
   // move the window
@@ -254,8 +257,7 @@ bool basic_app::read_version()
     game_version_.platform = getTargetPlatform();
 
     result = true;
-  }
-  while (false);
+  } while (false);
 
   return result;
 }
@@ -264,19 +266,19 @@ std::string basic_app::get_platform_name(const Platform platform)
 {
   switch (platform)
   {
-  case Platform::OS_WINDOWS:
-    return "Windows";
-  case Platform::OS_LINUX:
-    return "Linux";
-  case Platform::OS_MAC:
-    return "Mac";
-  case Platform::OS_ANDROID:
-    return "Android";
-  case Platform::OS_IPHONE:
-    return "iPhone";
-  case Platform::OS_IPAD:
-    return "iPad";
-  default:
-    return "Unknown";
+    case Platform::OS_WINDOWS:
+      return "Windows";
+    case Platform::OS_LINUX:
+      return "Linux";
+    case Platform::OS_MAC:
+      return "Mac";
+    case Platform::OS_ANDROID:
+      return "Android";
+    case Platform::OS_IPHONE:
+      return "iPhone";
+    case Platform::OS_IPAD:
+      return "iPad";
+    default:
+      return "Unknown";
   }
 }

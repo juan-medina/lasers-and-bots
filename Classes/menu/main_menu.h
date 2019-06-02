@@ -25,7 +25,7 @@
 
 #include "basic_menu.h"
 
-//foward declarations
+// foward declarations
 class audio_helper;
 class text_button;
 
@@ -40,12 +40,13 @@ public:
 
   bool init(audio_helper* audio_helper);
 
-  void display() override;;
+  void display() override;
+  ;
 
 protected:
   bool create_menu_items() override;
-private:
 
+private:
   void on_options();
   void on_play();
   void on_exit();
@@ -55,6 +56,5 @@ private:
   text_button* back_item_;
   text_button* play_item_;
 };
-
 
 #endif // __MAIN_MENU_CLASS__

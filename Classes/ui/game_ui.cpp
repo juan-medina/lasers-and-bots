@@ -21,37 +21,38 @@
  ****************************************************************************/
 
 #include "game_ui.h"
+#include "../misc/level_manager.h"
 #include "../scenes/game_scene.h"
 #include "../utils/audio/audio_helper.h"
-#include "virtual_joy_stick.h"
-#include "message_window.h"
-#include "level_completed.h"
-#include "pause_window.h"
-#include "../misc/level_manager.h"
 #include "../utils/controller/input_controller.h"
+#include "level_completed.h"
+#include "message_window.h"
+#include "pause_window.h"
+#include "virtual_joy_stick.h"
 
-game_ui::game_ui():
-  virtual_joy_stick_(nullptr),
-  shield_bar_(nullptr),
-  shield_label_(nullptr),
-  pause_item_(nullptr),
-  time_label_(nullptr),
-  sub_time_label_(nullptr),
-  countdown_label_(nullptr),
-  level_name_label_(nullptr),
-  time_limit_(0),
-  continue_callback_(nullptr),
-  audio_helper_(nullptr),
-  message_window_(nullptr),
-  level_completed_(nullptr),
-  pause_window_(nullptr),
-  level_manager_(nullptr), level_(0),
-  input_controller_(nullptr)
+game_ui::game_ui()
+  : virtual_joy_stick_(nullptr)
+  , shield_bar_(nullptr)
+  , shield_label_(nullptr)
+  , pause_item_(nullptr)
+  , time_label_(nullptr)
+  , sub_time_label_(nullptr)
+  , countdown_label_(nullptr)
+  , level_name_label_(nullptr)
+  , time_limit_(0)
+  , continue_callback_(nullptr)
+  , audio_helper_(nullptr)
+  , message_window_(nullptr)
+  , level_completed_(nullptr)
+  , pause_window_(nullptr)
+  , level_manager_(nullptr)
+  , level_(0)
+  , input_controller_(nullptr)
 {
 }
 
-game_ui* game_ui::create(audio_helper* audio_helper, input_controller* input_controller, level_manager* level_manager,
-                         const unsigned short int level)
+game_ui* game_ui::create(audio_helper* audio_helper, input_controller* input_controller,
+                         level_manager* level_manager, const unsigned short int level)
 {
   game_ui* ret = nullptr;
 
@@ -71,14 +72,13 @@ game_ui* game_ui::create(audio_helper* audio_helper, input_controller* input_con
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
 
-bool game_ui::init(audio_helper* audio_helper, input_controller* input_controller, level_manager* level_manager,
-                   const unsigned short int level)
+bool game_ui::init(audio_helper* audio_helper, input_controller* input_controller,
+                   level_manager* level_manager, const unsigned short int level)
 {
   auto ret = false;
 
@@ -99,12 +99,13 @@ bool game_ui::init(audio_helper* audio_helper, input_controller* input_controlle
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ui/ui-1.plist");
 
     const auto close = Sprite::createWithSpriteFrameName("01_Exit_1.png");
-    UTILS_BREAK_IF(close==nullptr);
+    UTILS_BREAK_IF(close == nullptr);
 
     const auto close_click = Sprite::createWithSpriteFrameName("01_Exit_2.png");
     UTILS_BREAK_IF(close_click == nullptr);
 
-    const auto close_item = MenuItemSprite::create(close, close_click, CC_CALLBACK_1(game_ui::on_close, this));
+    const auto close_item =
+      MenuItemSprite::create(close, close_click, CC_CALLBACK_1(game_ui::on_close, this));
     UTILS_BREAK_IF(close_item == nullptr);
 
     close_item->setPosition(size.width / 2 - close->getContentSize().width / 2,
@@ -134,8 +135,8 @@ bool game_ui::init(audio_helper* audio_helper, input_controller* input_controlle
     const auto play_item = MenuItemSprite::create(play, play_click, play_disable);
     UTILS_BREAK_IF(play_item == nullptr);
 
-    pause_item_ = MenuItemToggle::createWithCallback(CC_CALLBACK_1(game_ui::on_pause, this),
-                                                     pause_item, play_item, nullptr);
+    pause_item_ = MenuItemToggle::createWithCallback(CC_CALLBACK_1(game_ui::on_pause, this), pause_item,
+                                                     play_item, nullptr);
     UTILS_BREAK_IF(pause_item_ == nullptr);
 
     const auto gap = Vec2(close->getContentSize().width * 1.25f, 0.f);
@@ -147,7 +148,8 @@ bool game_ui::init(audio_helper* audio_helper, input_controller* input_controlle
     const auto reload_click = Sprite::createWithSpriteFrameName("07_Reload_2.png");
     UTILS_BREAK_IF(reload_click == nullptr);
 
-    const auto reload_item = MenuItemSprite::create(reload, reload_click, CC_CALLBACK_1(game_ui::on_reload, this));
+    const auto reload_item =
+      MenuItemSprite::create(reload, reload_click, CC_CALLBACK_1(game_ui::on_reload, this));
     UTILS_BREAK_IF(reload_item == nullptr);
 
     reload_item->setPosition(pause_item_->getPosition() - gap);
@@ -172,8 +174,9 @@ bool game_ui::init(audio_helper* audio_helper, input_controller* input_controlle
     const auto bar_sprite = Sprite::createWithSpriteFrameName("04_bar.png");
     UTILS_BREAK_IF(bar_sprite == nullptr);
 
-    const auto bar_pos = head_pos + Vec2(head->getContentSize().width + (bar_sprite->getContentSize().width / 2.f),
-                                         -head->getContentSize().height / 2.f);
+    const auto bar_pos =
+      head_pos + Vec2(head->getContentSize().width + (bar_sprite->getContentSize().width / 2.f),
+                      -head->getContentSize().height / 2.f);
     bar_sprite->setPosition(bar_pos);
 
     addChild(bar_sprite, 100);
@@ -227,8 +230,8 @@ bool game_ui::init(audio_helper* audio_helper, input_controller* input_controlle
     sub_time_label_->enableShadow(Color4B(0, 0, 0, 127), Size(5, -5));
     sub_time_label_->enableOutline(Color4B(0, 0, 0, 255), 5);
 
-    sub_time_label_->setPosition(Vec2(time_label_->getPosition().x + time_label_->getContentSize().width,
-                                      time_label_->getPosition().y));
+    sub_time_label_->setPosition(
+      Vec2(time_label_->getPosition().x + time_label_->getContentSize().width, time_label_->getPosition().y));
 
     addChild(sub_time_label_, 100);
 
@@ -272,8 +275,7 @@ bool game_ui::init(audio_helper* audio_helper, input_controller* input_controlle
     scheduleUpdate();
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -352,8 +354,9 @@ void game_ui::display_message(const std::string& message, const std::string& sub
   message_window_->display(message, sub_message, CC_CALLBACK_0(game_ui::on_continue, this));
 }
 
-void game_ui::display_level_completed(const unsigned short int level, const float time, const unsigned short int stars,
-                                      const completed_result completion, const ccMenuCallback& callback)
+void game_ui::display_level_completed(const unsigned short int level, const float time,
+                                      const unsigned short int stars, const completed_result completion,
+                                      const ccMenuCallback& callback)
 {
   continue_callback_ = callback;
   level_completed_->display(level, time, stars, completion, CC_CALLBACK_0(game_ui::on_continue, this));
@@ -399,7 +402,7 @@ void game_ui::update(float delta)
   if (continue_callback_ != nullptr)
   {
     if (input_controller_->single_press_button_a() || input_controller_->single_press_button_b() ||
-      input_controller_->single_press_button_back())
+        input_controller_->single_press_button_back())
     {
       on_continue();
       return;
@@ -445,7 +448,6 @@ void game_ui::update(float delta)
     }
   }
 }
-
 
 void game_ui::on_continue()
 {

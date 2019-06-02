@@ -21,44 +21,46 @@
  ****************************************************************************/
 
 #include "game_scene.h"
-#include "../utils/base/sprite/game_object.h"
-#include "../utils/physics/physics_shape_cache.h"
-#include "../utils/audio/audio_helper.h"
-#include "../game/robot_object.h"
-#include "../game/laser_object.h"
-#include "../game/switch_object.h"
-#include "../game/door_object.h"
 #include "../game/barrel_object.h"
 #include "../game/box_object.h"
-#include "../game/saw_object.h"
-#include "../game/robot_fragment.h"
+#include "../game/door_object.h"
 #include "../game/harm_object.h"
-#include "../ui/game_ui.h"
-#include "../ui/virtual_joy_stick.h"
+#include "../game/laser_object.h"
+#include "../game/robot_fragment.h"
+#include "../game/robot_object.h"
+#include "../game/saw_object.h"
+#include "../game/switch_object.h"
 #include "../laser_and_bots_app.h"
 #include "../misc/level_manager.h"
+#include "../ui/game_ui.h"
+#include "../ui/virtual_joy_stick.h"
+#include "../utils/audio/audio_helper.h"
+#include "../utils/base/sprite/game_object.h"
+#include "../utils/physics/physics_shape_cache.h"
 
-game_scene::game_scene() :
-  robot_(nullptr),
-  game_ui_(nullptr),
-  last_robot_position_(Vec2::ZERO),
-  last_camera_position_(Vec2::ZERO),
-  min_camera_pos_(Vec2::ZERO),
-  max_camera_pos_(Vec2::ZERO),
-  paused_(false),
-  doing_final_anim_(false),
-  doing_delay_start_(false), closing_(false),
-  total_time_(0.f),
-  time_limit_(0),
-  level_name_(""),
-  barrel_count_(0),
-  level_(-1),
-  level_manager_(nullptr),
-  music_file_name_("")
+game_scene::game_scene()
+  : robot_(nullptr)
+  , game_ui_(nullptr)
+  , last_robot_position_(Vec2::ZERO)
+  , last_camera_position_(Vec2::ZERO)
+  , min_camera_pos_(Vec2::ZERO)
+  , max_camera_pos_(Vec2::ZERO)
+  , paused_(false)
+  , doing_final_anim_(false)
+  , doing_delay_start_(false)
+  , closing_(false)
+  , total_time_(0.f)
+  , time_limit_(0)
+  , level_name_("")
+  , barrel_count_(0)
+  , level_(-1)
+  , level_manager_(nullptr)
+  , music_file_name_("")
 {
 }
 
-Scene* game_scene::scene(basic_app* application, const bool debug_grid, const bool debug_physics, const int level)
+Scene* game_scene::scene(basic_app* application, const bool debug_grid, const bool debug_physics,
+                         const int level)
 {
   auto scene = new game_scene();
 
@@ -78,7 +80,8 @@ Scene* game_scene::scene(basic_app* application, const bool debug_grid, const bo
   return scene;
 }
 
-game_scene* game_scene::create(basic_app* application, const bool debug_grid, const bool debug_physics, const int level)
+game_scene* game_scene::create(basic_app* application, const bool debug_grid, const bool debug_physics,
+                               const int level)
 {
   game_scene* ret = nullptr;
 
@@ -98,13 +101,13 @@ game_scene* game_scene::create(basic_app* application, const bool debug_grid, co
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
 
-bool game_scene::init(basic_app* application, const bool debug_grid, const bool debug_physics, const int level)
+bool game_scene::init(basic_app* application, const bool debug_grid, const bool debug_physics,
+                      const int level)
 {
   auto ret = false;
 
@@ -150,8 +153,7 @@ bool game_scene::init(basic_app* application, const bool debug_grid, const bool 
     scheduleUpdate();
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -170,8 +172,7 @@ bool game_scene::create_game_ui()
     addChild(game_ui_);
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -196,8 +197,7 @@ bool game_scene::create_physics_contacts_callback()
     _eventDispatcher->addEventListenerWithSceneGraphPriority(contact_listener, this);
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -326,9 +326,7 @@ bool game_scene::add_laser(const ValueMap& values, Node* layer)
     game_objects_[name] = laser;
 
     ret = true;
-  }
-  while (false);
-
+  } while (false);
 
   return ret;
 }
@@ -339,8 +337,8 @@ bool game_scene::add_robot(const ValueMap& values, Node* layer)
   do
   {
     const auto shield = values.at("shield").asInt();
-    robot_ = robot_object::create(get_physics_shape_cache(), get_audio_helper(), game_ui_->get_virtual_joy_stick(),
-                                  shield);
+    robot_ = robot_object::create(get_physics_shape_cache(), get_audio_helper(),
+                                  game_ui_->get_virtual_joy_stick(), shield);
     UTILS_BREAK_IF(robot_ == nullptr);
 
     auto position = get_object_center_position(values);
@@ -351,8 +349,7 @@ bool game_scene::add_robot(const ValueMap& values, Node* layer)
     layer->addChild(robot_);
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -387,8 +384,7 @@ bool game_scene::add_switch(const ValueMap& values, Node* layer)
     game_objects_[name] = switch_game_object;
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -416,8 +412,7 @@ bool game_scene::add_door(const ValueMap& values, Node* layer)
     game_objects_[name] = door_game_object;
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -448,8 +443,7 @@ bool game_scene::add_barrel(const ValueMap& values, Node* layer)
     game_objects_[name] = barrel;
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -483,8 +477,7 @@ bool game_scene::add_saw(const ValueMap& values, Node* layer)
     game_objects_[name] = saw;
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -513,8 +506,7 @@ bool game_scene::add_box(const ValueMap& values, Node* layer)
     game_objects_[name] = box;
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -569,8 +561,7 @@ bool game_scene::add_object(const vector<Value>::value_type& object)
     }
 
     ret = true;
-  }
-  while (false);
+  } while (false);
   return ret;
 }
 
@@ -589,8 +580,7 @@ bool game_scene::add_objects_to_game()
     }
 
     result = true;
-  }
-  while (false);
+  } while (false);
 
   return result;
 }
@@ -617,29 +607,19 @@ void game_scene::move_fragments_to_robot()
   const auto position = Vec2(pos.x, pos.y + robot_->getContentSize().height / 2.5);
 
   robot_fragments_[5]->setPosition(position);
-  robot_fragments_[0]->setPosition(Vec2(
-    position.x,
-    position.y + robot_fragments_[5]->getContentSize().height / 2 +
-    (robot_fragments_[0]->getContentSize().height / 2)
-  ));
-  robot_fragments_[1]->setPosition(Vec2(
-    position.x - (robot_fragments_[5]->getContentSize().width / 2),
-    robot_fragments_[5]->getPosition().y
-  ));
-  robot_fragments_[2]->setPosition(Vec2(
-    position.x + (robot_fragments_[5]->getContentSize().width / 2),
-    robot_fragments_[5]->getPosition().y
-  ));
-  robot_fragments_[3]->setPosition(Vec2(
-    position.x - (robot_fragments_[5]->getContentSize().width / 2),
-    robot_fragments_[5]->getPosition().y -
-    (robot_fragments_[5]->getContentSize().height / 2)
-  ));
-  robot_fragments_[4]->setPosition(Vec2(
-    position.x + (robot_fragments_[5]->getContentSize().width / 2),
-    robot_fragments_[5]->getPosition().y -
-    (robot_fragments_[5]->getContentSize().height / 2)
-  ));
+  robot_fragments_[0]->setPosition(Vec2(position.x, position.y +
+                                                      robot_fragments_[5]->getContentSize().height / 2 +
+                                                      (robot_fragments_[0]->getContentSize().height / 2)));
+  robot_fragments_[1]->setPosition(Vec2(position.x - (robot_fragments_[5]->getContentSize().width / 2),
+                                        robot_fragments_[5]->getPosition().y));
+  robot_fragments_[2]->setPosition(Vec2(position.x + (robot_fragments_[5]->getContentSize().width / 2),
+                                        robot_fragments_[5]->getPosition().y));
+  robot_fragments_[3]->setPosition(
+    Vec2(position.x - (robot_fragments_[5]->getContentSize().width / 2),
+         robot_fragments_[5]->getPosition().y - (robot_fragments_[5]->getContentSize().height / 2)));
+  robot_fragments_[4]->setPosition(
+    Vec2(position.x + (robot_fragments_[5]->getContentSize().width / 2),
+         robot_fragments_[5]->getPosition().y - (robot_fragments_[5]->getContentSize().height / 2)));
 }
 
 bool game_scene::cache_robot_explosion()
@@ -658,8 +638,7 @@ bool game_scene::cache_robot_explosion()
     }
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -710,8 +689,7 @@ void game_scene::game_over(const bool win)
       game_ui_->display_message("Game Over", "\n\n\n\n\nOops, we are going to\nneed a new robot.",
                                 CC_CALLBACK_0(game_scene::reload, this));
     }
-  }
-  while (false);
+  } while (false);
 }
 
 void game_scene::delay_start()
@@ -730,12 +708,9 @@ void game_scene::delay_start()
   const auto count_0 = CallFuncN::create(CC_CALLBACK_1(game_scene::set_countdown_number_in_ui, this, 0));
   const auto count_go = CallFuncN::create(CC_CALLBACK_1(game_scene::set_countdown_number_in_ui, this, -1));
 
-  const auto count_sequence = Sequence::create(count_3, DelayTime::create(1.f),
-                                               count_2, DelayTime::create(1.f),
-                                               count_1, DelayTime::create(1.f),
-                                               count_0, DelayTime::create(1.f),
-                                               count_go,
-                                               nullptr);
+  const auto count_sequence =
+    Sequence::create(count_3, DelayTime::create(1.f), count_2, DelayTime::create(1.f), count_1,
+                     DelayTime::create(1.f), count_0, DelayTime::create(1.f), count_go, nullptr);
 
   get_audio_helper()->play_effect("sounds/countdown.mp3");
 
@@ -1053,7 +1028,6 @@ void game_scene::feet_touch_object_end(const PhysicsContact& contact) const
   }
 }
 
-
 bool game_scene::on_contact_begin(PhysicsContact& contact)
 {
   if (do_we_need_game_updates())
@@ -1095,7 +1069,6 @@ void game_scene::on_contact_separate(PhysicsContact& contact) const
     }
   }
 }
-
 
 template <class Type>
 Type* game_scene::get_object_from_contact(const PhysicsContact& contact, const categories category)

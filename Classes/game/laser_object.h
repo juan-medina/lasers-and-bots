@@ -35,11 +35,11 @@ public:
 
   laser_object();
 
-  static laser_object* create(audio_helper* audio_helper, const float initial_angle, const float rotation_angle,
-                              const float speed_factor, const int damage);
+  static laser_object* create(audio_helper* audio_helper, const float initial_angle,
+                              const float rotation_angle, const float speed_factor, const int damage);
 
-  bool init(audio_helper* audio_helper, const float initial_angle, const float rotation_angle, const float speed_factor,
-            const int damage);
+  bool init(audio_helper* audio_helper, const float initial_angle, const float rotation_angle,
+            const float speed_factor, const int damage);
 
   void update(float delta) override;
 
@@ -48,7 +48,6 @@ public:
   void resume() override;
 
 private:
-
   void update_spark(const Vec2& point);
 
   float angle_;

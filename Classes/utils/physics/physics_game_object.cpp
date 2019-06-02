@@ -1,8 +1,10 @@
 #include "physics_game_object.h"
 #include "physics_shape_cache.h"
 
-physics_game_object* physics_game_object::create(physics_shape_cache* physics_shape_cache, const std::string& shape,
-                                                 const std::string& sprite_frame_name, const std::string& type)
+physics_game_object* physics_game_object::create(physics_shape_cache* physics_shape_cache,
+                                                 const std::string& shape,
+                                                 const std::string& sprite_frame_name,
+                                                 const std::string& type)
 {
   physics_game_object* ret = nullptr;
 
@@ -22,14 +24,13 @@ physics_game_object* physics_game_object::create(physics_shape_cache* physics_sh
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
 
-physics_game_object* physics_game_object::create(physics_shape_cache* physics_shape_cache, const std::string& shape,
-                                                 const std::string& type)
+physics_game_object* physics_game_object::create(physics_shape_cache* physics_shape_cache,
+                                                 const std::string& shape, const std::string& type)
 {
   physics_game_object* ret = nullptr;
 
@@ -49,8 +50,7 @@ physics_game_object* physics_game_object::create(physics_shape_cache* physics_sh
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -75,8 +75,7 @@ physics_game_object* physics_game_object::create(const std::string& type)
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -93,8 +92,7 @@ bool physics_game_object::init(physics_shape_cache* physics_shape_cache, const s
     UTILS_BREAK_IF(!set_shape(physics_shape_cache, shape));
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -111,8 +109,7 @@ bool physics_game_object::init(physics_shape_cache* physics_shape_cache, const s
     UTILS_BREAK_IF(!set_shape(physics_shape_cache, shape));
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -136,8 +133,7 @@ bool physics_game_object::set_shape(physics_shape_cache* physics_shape_cache, co
       setPhysicsBody(body);
     }
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }

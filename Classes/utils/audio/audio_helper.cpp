@@ -25,20 +25,13 @@
 
 using namespace experimental;
 
-audio_helper::audio_helper() :
-  initiated_(false),
-  music_muted_(false),
-  effects_muted_(false),
-  last_music_
-  {
-    AudioEngine::INVALID_AUDIO_ID,
-    AudioEngine::INVALID_AUDIO_ID,
-    "",
-    "",
-    1.f
-  },
-  music_volume_(1.f),
-  sound_volume_(1.f)
+audio_helper::audio_helper()
+  : initiated_(false)
+  , music_muted_(false)
+  , effects_muted_(false)
+  , last_music_{AudioEngine::INVALID_AUDIO_ID, AudioEngine::INVALID_AUDIO_ID, "", "", 1.f}
+  , music_volume_(1.f)
+  , sound_volume_(1.f)
 {
   init();
 }
@@ -132,7 +125,8 @@ void audio_helper::play_music(const std::string& intro_file_name, const std::str
   if (!get_music_muted())
   {
     last_music_.intro_id = AudioEngine::play2d(intro_file_name, false, volume * music_volume_);
-    AudioEngine::setFinishCallback(last_music_.intro_id, CC_CALLBACK_2(audio_helper::on_music_intro_ends, this));
+    AudioEngine::setFinishCallback(last_music_.intro_id,
+                                   CC_CALLBACK_2(audio_helper::on_music_intro_ends, this));
   }
 }
 
@@ -208,25 +202,13 @@ void audio_helper::app_exit()
 void audio_helper::stop_all_sounds()
 {
   AudioEngine::stopAll();
-  last_music_ = {
-    AudioEngine::INVALID_AUDIO_ID,
-    AudioEngine::INVALID_AUDIO_ID,
-    "",
-    "",
-    1.f
-  };
+  last_music_ = {AudioEngine::INVALID_AUDIO_ID, AudioEngine::INVALID_AUDIO_ID, "", "", 1.f};
 }
 
 void audio_helper::unload_all_sounds()
 {
   AudioEngine::uncacheAll();
-  last_music_ = {
-    AudioEngine::INVALID_AUDIO_ID,
-    AudioEngine::INVALID_AUDIO_ID,
-    "",
-    "",
-    1.f
-  };
+  last_music_ = {AudioEngine::INVALID_AUDIO_ID, AudioEngine::INVALID_AUDIO_ID, "", "", 1.f};
 }
 
 void audio_helper::stop_sound(const int sound)

@@ -38,10 +38,7 @@ public:
 
   bool init(basic_app*, const std::string& tmx_file);
 
-  virtual experimental::TMXTiledMap* get_tiled_map() const noexcept
-  {
-    return tiled_map_;
-  };
+  virtual experimental::TMXTiledMap* get_tiled_map() const noexcept { return tiled_map_; };
 
 protected:
   static Vec2 get_object_center_position(const ValueMap& values);

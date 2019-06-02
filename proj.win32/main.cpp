@@ -41,6 +41,5 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
     {
       return result;
     }
-  }
-  while (true);
+  } while (true);
 }

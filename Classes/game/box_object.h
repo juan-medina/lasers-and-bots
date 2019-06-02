@@ -35,5 +35,4 @@ public:
   bool init(physics_shape_cache* physics_shape_cache, const std::string& image, const std::string& shape);
 };
 
-
 #endif // __BOX_CLASS__

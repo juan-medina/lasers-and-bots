@@ -23,11 +23,7 @@
 #include "door_object.h"
 #include "../utils/audio/audio_helper.h"
 
-door_object::door_object() :
-  open_(false),
-  audio_helper_(nullptr)
-{
-}
+door_object::door_object() : open_(false), audio_helper_(nullptr) {}
 
 door_object* door_object::create(physics_shape_cache* physics_shape_cache, audio_helper* audio_helper)
 {
@@ -49,8 +45,7 @@ door_object* door_object::create(physics_shape_cache* physics_shape_cache, audio
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -61,7 +56,8 @@ bool door_object::init(physics_shape_cache* physics_shape_cache, audio_helper* a
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init(physics_shape_cache, "04_Door", "04_DoorLocked.png", "door", Vec2(140, 14)));
+    UTILS_BREAK_IF(
+      !base_class::init(physics_shape_cache, "04_Door", "04_DoorLocked.png", "door", Vec2(140, 14)));
 
     audio_helper_ = audio_helper;
 
@@ -69,8 +65,7 @@ bool door_object::init(physics_shape_cache* physics_shape_cache, audio_helper* a
     audio_helper_->pre_load_effect("sounds/slide.mp3");
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }

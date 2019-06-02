@@ -24,7 +24,6 @@
 
 #include "../utils/utils.h"
 
-
 class text_button final : public MenuItemSprite
 {
 public:
@@ -36,13 +35,9 @@ public:
 
   bool init(const std::string& base, const std::string& text);
 
-  void set_text(const std::string& text) const
-  {
-    label_->setString(text);
-  }
+  void set_text(const std::string& text) const { label_->setString(text); }
 
 private:
-
   Label* label_;
 };
 

@@ -30,27 +30,31 @@
 USING_NS_CC;
 using namespace std;
 
-#define DESKTOP_GAME  101
-#define MOBILE_GAME   102
+#define DESKTOP_GAME 101
+#define MOBILE_GAME 102
 
 #ifndef GAME_PLATFORM
-  #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-    #define GAME_PLATFORM DESKTOP_GAME
-  #else
-    #define GAME_PLATFORM MOBILE_GAME
-  #endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || \
+  (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
+#define GAME_PLATFORM DESKTOP_GAME
+#else
+#define GAME_PLATFORM MOBILE_GAME
+#endif
 #endif
 
-// log a line with the format <class::function> : <data to be logged> -> <file>(<line number>)
-#define UTILS_LOG(s, ...) CCLOG(string(string("%s : ") + string(s) + string(" -> %s (%d)")).c_str(), __FUNCTION__, ##__VA_ARGS__, __FILE__, __LINE__)
+// log a line with the format <class::function> : <data to be logged> ->
+// <file>(<line number>)
+#define UTILS_LOG(s, ...)                                                                                 \
+  CCLOG(string(string("%s : ") + string(s) + string(" -> %s (%d)")).c_str(), __FUNCTION__, ##__VA_ARGS__, \
+        __FILE__, __LINE__)
 
 // Replace for CC_BREAK_IF that logs when condition is true
-#define UTILS_BREAK_IF(cond)            \
-    if (cond)                           \
-    {                                   \
-        UTILS_LOG("(%s)", "" #cond ""); \
-        break;                          \
-    }
+#define UTILS_BREAK_IF(cond)        \
+  if (cond)                         \
+  {                                 \
+    UTILS_LOG("(%s)", "" #cond ""); \
+    break;                          \
+  }
 
 std::string string_format(std::string fmt_str, ...);
 

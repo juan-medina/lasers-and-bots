@@ -42,8 +42,8 @@ public:
 
   game_ui();
 
-  static game_ui* create(audio_helper* audio_helper, input_controller* input_controller, level_manager* level_manager,
-                         const unsigned short int level);
+  static game_ui* create(audio_helper* audio_helper, input_controller* input_controller,
+                         level_manager* level_manager, const unsigned short int level);
 
   bool init(audio_helper* audio_helper, input_controller* input_controller, level_manager* level_manager,
             const unsigned short int level);
@@ -52,10 +52,7 @@ public:
   void on_close(Ref* sender);
   void on_reload(Ref* sender);
 
-  inline virtual_joy_stick* get_virtual_joy_stick() const
-  {
-    return virtual_joy_stick_;
-  }
+  inline virtual_joy_stick* get_virtual_joy_stick() const { return virtual_joy_stick_; }
 
   inline void set_shield_percentage(const float amount) const
   {
@@ -71,10 +68,12 @@ public:
 
   static string time_message(const float time);
 
-  void display_message(const std::string& message, const std::string& sub_message, const ccMenuCallback& callback);
+  void display_message(const std::string& message, const std::string& sub_message,
+                       const ccMenuCallback& callback);
 
-  void display_level_completed(const unsigned short int level, const float time, const unsigned short int stars,
-                               const completed_result completion, const ccMenuCallback& callback);
+  void display_level_completed(const unsigned short int level, const float time,
+                               const unsigned short int stars, const completed_result completion,
+                               const ccMenuCallback& callback);
 
   void update_countdown(const int value) const;
 
@@ -83,7 +82,6 @@ public:
   void update(float delta) override;
 
 private:
-
   void on_continue();
 
   virtual_joy_stick* virtual_joy_stick_;

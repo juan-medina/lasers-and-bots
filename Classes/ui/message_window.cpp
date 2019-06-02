@@ -1,13 +1,8 @@
 #include "message_window.h"
-#include "../utils/audio/audio_helper.h"
 #include "../ui/text_button.h"
+#include "../utils/audio/audio_helper.h"
 
-message_window::message_window():
-  audio_helper_(nullptr),
-  continue_item_(nullptr),
-  sub_label_(nullptr)
-{
-}
+message_window::message_window() : audio_helper_(nullptr), continue_item_(nullptr), sub_label_(nullptr) {}
 
 message_window* message_window::create(audio_helper* audio_helper)
 {
@@ -29,8 +24,7 @@ message_window* message_window::create(audio_helper* audio_helper)
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -64,12 +58,12 @@ bool message_window::init(audio_helper* audio_helper)
     addChild(sub_label_, 100);
 
     ret = true;
-  }
-  while (false);
+  } while (false);
   return ret;
 }
 
-void message_window::display(const std::string& message, const std::string& sub_message, const ccMenuCallback& callback)
+void message_window::display(const std::string& message, const std::string& sub_message,
+                             const ccMenuCallback& callback)
 {
   base_class::display();
 
@@ -94,8 +88,7 @@ bool message_window::create_menu_items()
     set_default_menu_item(continue_item_);
 
     result = true;
-  }
-  while (false);
+  } while (false);
 
   return result;
 }

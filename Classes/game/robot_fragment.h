@@ -42,11 +42,9 @@ public:
   void pause() override;
 
 protected:
-
   void update(float delta) override;
 
 private:
-
   ParticleSystemQuad* smoke_;
 
   bool exploding_;

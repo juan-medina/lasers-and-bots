@@ -24,7 +24,7 @@
 
 #include "../utils/physics/physics_tiled_scene.h"
 
-//foward declarations
+// foward declarations
 class game_object;
 class robot_object;
 class switch_object;
@@ -41,9 +41,11 @@ public:
 
   game_scene();
 
-  static Scene* scene(basic_app* application, const bool debug_grid, const bool debug_physics, const int level);
+  static Scene* scene(basic_app* application, const bool debug_grid, const bool debug_physics,
+                      const int level);
 
-  static game_scene* create(basic_app* application, const bool debug_grid, const bool debug_physics, const int level);
+  static game_scene* create(basic_app* application, const bool debug_grid, const bool debug_physics,
+                            const int level);
 
   bool init(basic_app* application, const bool debug_grid, const bool debug_physics, const int level);
 
@@ -95,10 +97,7 @@ public:
 
   void close();
 
-  bool is_paused() const
-  {
-    return paused_;
-  }
+  bool is_paused() const { return paused_; }
 
   void will_enter_foreground() override;
 
@@ -112,10 +111,7 @@ private:
 
   void check_robot_movement(const float delta);
 
-  bool constexpr do_we_need_game_updates() const
-  {
-    return !(paused_ || doing_final_anim_);
-  }
+  bool constexpr do_we_need_game_updates() const { return !(paused_ || doing_final_anim_); }
 
   void update(float delta) override;
 
@@ -179,7 +175,7 @@ private:
 
   robot_object* robot_;
   game_ui* game_ui_;
-  std::map<std::string, game_object *> game_objects_;
+  std::map<std::string, game_object*> game_objects_;
   std::vector<robot_fragment*> robot_fragments_;
 
   Vec2 last_robot_position_;

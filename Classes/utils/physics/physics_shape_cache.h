@@ -28,7 +28,6 @@
 class physics_shape_cache
 {
 public:
-
   physics_shape_cache();
 
   ~physics_shape_cache();
@@ -43,7 +42,6 @@ public:
 
   PhysicsBody* create_body_with_name(const std::string& name);
 
-
 private:
   typedef enum
   {
@@ -51,14 +49,12 @@ private:
     fixture_circle
   } fixture_type;
 
-
   class polygon
   {
   public:
     Point* vertices;
     int num_vertices;
   };
-
 
   class fixture_data
   {
@@ -79,14 +75,14 @@ private:
     Point center;
     float radius;
 
-    std::vector<polygon *> polygons;
+    std::vector<polygon*> polygons;
   };
 
   class body_def
   {
   public:
     Point anchor_point;
-    std::vector<fixture_data *> fixtures;
+    std::vector<fixture_data*> fixtures;
 
     bool is_dynamic;
     bool affected_by_gravity;
@@ -103,9 +99,8 @@ private:
   static void set_body_properties(PhysicsBody* body, body_def* bd);
   static void set_shape_properties(PhysicsShape* shape, fixture_data* fd);
 
-  std::map<std::string, body_def *> body_defs_;
-  std::map<std::string, std::vector<body_def *>> bodies_in_file_;
+  std::map<std::string, body_def*> body_defs_;
+  std::map<std::string, std::vector<body_def*>> bodies_in_file_;
 };
-
 
 #endif // __PHYSICS_SHAPE_CACHE_CLASS__

@@ -50,7 +50,8 @@ public:
 
   ~menu_scene();
 
-  static Scene* scene(basic_app* application, const menu_to_display menu, const unsigned short int selected_level);
+  static Scene* scene(basic_app* application, const menu_to_display menu,
+                      const unsigned short int selected_level);
 
   void go_to_game(const unsigned short int level);
   void exit_app();
@@ -84,7 +85,6 @@ public:
   void set_debug_physics(const bool debug_physics) const;
 
 private:
-
   void handle_input() const;
   void delay_to_game() const;
   bool init(basic_app* application, const menu_to_display menu, const unsigned short int selected_level);

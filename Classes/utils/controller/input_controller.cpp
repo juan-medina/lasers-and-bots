@@ -22,33 +22,35 @@
 
 #include "input_controller.h"
 
-input_controller::input_controller():
-  key_left_(false),
-  key_right_(false),
-  key_up_(false),
-  key_down_(false),
-  key_button_a_(false),
-  key_button_b_(false),
-  key_button_start_(false),
-  key_button_back_(false),
+input_controller::input_controller()
+  : key_left_(false)
+  , key_right_(false)
+  , key_up_(false)
+  , key_down_(false)
+  , key_button_a_(false)
+  , key_button_b_(false)
+  , key_button_start_(false)
+  , key_button_back_(false)
+  ,
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-  was_controller_menu_pressed_(false),
+  was_controller_menu_pressed_(false)
+  ,
 #endif
-  controller_left_(false),
-  controller_right_(false),
-  controller_up_(false),
-  controller_down_(false),
-  controller_axis_left_(false),
-  controller_axis_right_(false),
-  controller_axis_up_(false),
-  controller_axis_down_(false),
-  controller_button_a_(false),
-  controller_button_b_(false),
-  controller_button_start_(false),
-  controller_button_back_(false),
-  keyboard_listener_(nullptr),
-  controller_listener_(nullptr),
-  initiated_(false)
+  controller_left_(false)
+  , controller_right_(false)
+  , controller_up_(false)
+  , controller_down_(false)
+  , controller_axis_left_(false)
+  , controller_axis_right_(false)
+  , controller_axis_up_(false)
+  , controller_axis_down_(false)
+  , controller_button_a_(false)
+  , controller_button_b_(false)
+  , controller_button_start_(false)
+  , controller_button_back_(false)
+  , keyboard_listener_(nullptr)
+  , controller_listener_(nullptr)
+  , initiated_(false)
 {
 }
 
@@ -76,8 +78,7 @@ input_controller* input_controller::create()
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -94,8 +95,7 @@ bool input_controller::init()
 #endif
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   initiated_ = ret;
 
@@ -129,39 +129,40 @@ void input_controller::on_controller_key_down(Controller* controller, const int 
 {
   switch (key_code)
   {
-  case Controller::Key::BUTTON_DPAD_UP:
-    controller_up_ = true;
-    break;
-  case Controller::Key::BUTTON_DPAD_DOWN:
-    controller_down_ = true;
-    break;
-  case Controller::Key::BUTTON_DPAD_LEFT:
-  case Controller::Key::BUTTON_LEFT_SHOULDER:
-    controller_left_ = true;;
-    break;
-  case Controller::Key::BUTTON_DPAD_RIGHT:
-  case Controller::Key::BUTTON_RIGHT_SHOULDER:
-    controller_right_ = true;
-    break;
-  case Controller::Key::BUTTON_A:
-    controller_button_a_ = true;
-    break;
-  case Controller::Key::BUTTON_B:
-    controller_button_b_ = true;
-    break;
+    case Controller::Key::BUTTON_DPAD_UP:
+      controller_up_ = true;
+      break;
+    case Controller::Key::BUTTON_DPAD_DOWN:
+      controller_down_ = true;
+      break;
+    case Controller::Key::BUTTON_DPAD_LEFT:
+    case Controller::Key::BUTTON_LEFT_SHOULDER:
+      controller_left_ = true;
+      ;
+      break;
+    case Controller::Key::BUTTON_DPAD_RIGHT:
+    case Controller::Key::BUTTON_RIGHT_SHOULDER:
+      controller_right_ = true;
+      break;
+    case Controller::Key::BUTTON_A:
+      controller_button_a_ = true;
+      break;
+    case Controller::Key::BUTTON_B:
+      controller_button_b_ = true;
+      break;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-  case Controller::Key::BUTTON_PAUSE:
-    was_controller_menu_pressed_ = true;
-    break;
+    case Controller::Key::BUTTON_PAUSE:
+      was_controller_menu_pressed_ = true;
+      break;
 #endif
-  case Controller::Key::BUTTON_START:
-    controller_button_start_ = true;
-    break;
-  case Controller::Key::BUTTON_SELECT:
-    controller_button_back_ = true;
-    break;
-  default:
-    break;
+    case Controller::Key::BUTTON_START:
+      controller_button_start_ = true;
+      break;
+    case Controller::Key::BUTTON_SELECT:
+      controller_button_back_ = true;
+      break;
+    default:
+      break;
   }
 }
 
@@ -169,34 +170,35 @@ void input_controller::on_controller_key_up(Controller* controller, const int ke
 {
   switch (key_code)
   {
-  case Controller::Key::BUTTON_DPAD_UP:
-    controller_up_ = false;
-    break;
-  case Controller::Key::BUTTON_DPAD_DOWN:
-    controller_down_ = false;
-    break;
-  case Controller::Key::BUTTON_DPAD_LEFT:
-  case Controller::Key::BUTTON_LEFT_SHOULDER:
-    controller_left_ = false;;
-    break;
-  case Controller::Key::BUTTON_DPAD_RIGHT:
-  case Controller::Key::BUTTON_RIGHT_SHOULDER:
-    controller_right_ = false;
-    break;
-  case Controller::Key::BUTTON_A:
-    controller_button_a_ = false;
-    break;
-  case Controller::Key::BUTTON_B:
-    controller_button_b_ = false;
-    break;
-  case Controller::Key::BUTTON_START:
-    controller_button_start_ = false;
-    break;
-  case Controller::Key::BUTTON_SELECT:
-    controller_button_back_ = false;
-    break;
-  default:
-    break;
+    case Controller::Key::BUTTON_DPAD_UP:
+      controller_up_ = false;
+      break;
+    case Controller::Key::BUTTON_DPAD_DOWN:
+      controller_down_ = false;
+      break;
+    case Controller::Key::BUTTON_DPAD_LEFT:
+    case Controller::Key::BUTTON_LEFT_SHOULDER:
+      controller_left_ = false;
+      ;
+      break;
+    case Controller::Key::BUTTON_DPAD_RIGHT:
+    case Controller::Key::BUTTON_RIGHT_SHOULDER:
+      controller_right_ = false;
+      break;
+    case Controller::Key::BUTTON_A:
+      controller_button_a_ = false;
+      break;
+    case Controller::Key::BUTTON_B:
+      controller_button_b_ = false;
+      break;
+    case Controller::Key::BUTTON_START:
+      controller_button_start_ = false;
+      break;
+    case Controller::Key::BUTTON_SELECT:
+      controller_button_back_ = false;
+      break;
+    default:
+      break;
   }
 }
 
@@ -259,8 +261,7 @@ bool input_controller::create_controller_listener()
     Controller::startDiscoveryController();
 #endif
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -281,8 +282,7 @@ bool input_controller::create_keyboard_listener()
     Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(keyboard_listener_, 1);
 #endif
     result = true;
-  }
-  while (false);
+  } while (false);
 
   return result;
 }
@@ -291,40 +291,41 @@ void input_controller::on_key_pressed(const EventKeyboard::KeyCode key_code, Eve
 {
   switch (key_code)
   {
-  case EventKeyboard::KeyCode::KEY_UP_ARROW:
-  case EventKeyboard::KeyCode::KEY_W:
-    key_up_ = true;
-    break;
-  case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-  case EventKeyboard::KeyCode::KEY_S:
-    key_down_ = true;
-    break;
-  case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-  case EventKeyboard::KeyCode::KEY_A:
-    key_left_ = true;;
-    break;
-  case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-  case EventKeyboard::KeyCode::KEY_D:
-    key_right_ = true;
-    break;
-  case EventKeyboard::KeyCode::KEY_SPACE:
-    key_button_a_ = true;
-    break;
-  case EventKeyboard::KeyCode::KEY_LEFT_CTRL:
-  case EventKeyboard::KeyCode::KEY_RIGHT_CTRL:
-    key_button_b_ = true;
-    break;
-  case EventKeyboard::KeyCode::KEY_F5:
-  case EventKeyboard::KeyCode::KEY_ENTER:
-  case EventKeyboard::KeyCode::KEY_RETURN:
-  case EventKeyboard::KeyCode::KEY_KP_ENTER:
-    key_button_start_ = true;
-    break;
-  case EventKeyboard::KeyCode::KEY_ESCAPE:
-    key_button_back_ = true;
-    break;
-  default:
-    break;
+    case EventKeyboard::KeyCode::KEY_UP_ARROW:
+    case EventKeyboard::KeyCode::KEY_W:
+      key_up_ = true;
+      break;
+    case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
+    case EventKeyboard::KeyCode::KEY_S:
+      key_down_ = true;
+      break;
+    case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+    case EventKeyboard::KeyCode::KEY_A:
+      key_left_ = true;
+      ;
+      break;
+    case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+    case EventKeyboard::KeyCode::KEY_D:
+      key_right_ = true;
+      break;
+    case EventKeyboard::KeyCode::KEY_SPACE:
+      key_button_a_ = true;
+      break;
+    case EventKeyboard::KeyCode::KEY_LEFT_CTRL:
+    case EventKeyboard::KeyCode::KEY_RIGHT_CTRL:
+      key_button_b_ = true;
+      break;
+    case EventKeyboard::KeyCode::KEY_F5:
+    case EventKeyboard::KeyCode::KEY_ENTER:
+    case EventKeyboard::KeyCode::KEY_RETURN:
+    case EventKeyboard::KeyCode::KEY_KP_ENTER:
+      key_button_start_ = true;
+      break;
+    case EventKeyboard::KeyCode::KEY_ESCAPE:
+      key_button_back_ = true;
+      break;
+    default:
+      break;
   }
 }
 
@@ -332,40 +333,41 @@ void input_controller::on_key_released(const EventKeyboard::KeyCode key_code, Ev
 {
   switch (key_code)
   {
-  case EventKeyboard::KeyCode::KEY_UP_ARROW:
-  case EventKeyboard::KeyCode::KEY_W:
-    key_up_ = false;
-    break;
-  case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-  case EventKeyboard::KeyCode::KEY_A:
-    key_left_ = false;;
-    break;
-  case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-  case EventKeyboard::KeyCode::KEY_S:
-    key_down_ = false;
-    break;
-  case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-  case EventKeyboard::KeyCode::KEY_D:
-    key_right_ = false;
-    break;
-  case EventKeyboard::KeyCode::KEY_SPACE:
-    key_button_a_ = false;
-    break;
-  case EventKeyboard::KeyCode::KEY_LEFT_CTRL:
-  case EventKeyboard::KeyCode::KEY_RIGHT_CTRL:
-    key_button_b_ = false;
-    break;
-  case EventKeyboard::KeyCode::KEY_F5:
-  case EventKeyboard::KeyCode::KEY_ENTER:
-  case EventKeyboard::KeyCode::KEY_RETURN:
-  case EventKeyboard::KeyCode::KEY_KP_ENTER:
-    key_button_start_ = false;
-    break;
-  case EventKeyboard::KeyCode::KEY_ESCAPE:
-    key_button_back_ = false;
-    break;
-  default:
-    break;
+    case EventKeyboard::KeyCode::KEY_UP_ARROW:
+    case EventKeyboard::KeyCode::KEY_W:
+      key_up_ = false;
+      break;
+    case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+    case EventKeyboard::KeyCode::KEY_A:
+      key_left_ = false;
+      ;
+      break;
+    case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
+    case EventKeyboard::KeyCode::KEY_S:
+      key_down_ = false;
+      break;
+    case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+    case EventKeyboard::KeyCode::KEY_D:
+      key_right_ = false;
+      break;
+    case EventKeyboard::KeyCode::KEY_SPACE:
+      key_button_a_ = false;
+      break;
+    case EventKeyboard::KeyCode::KEY_LEFT_CTRL:
+    case EventKeyboard::KeyCode::KEY_RIGHT_CTRL:
+      key_button_b_ = false;
+      break;
+    case EventKeyboard::KeyCode::KEY_F5:
+    case EventKeyboard::KeyCode::KEY_ENTER:
+    case EventKeyboard::KeyCode::KEY_RETURN:
+    case EventKeyboard::KeyCode::KEY_KP_ENTER:
+      key_button_start_ = false;
+      break;
+    case EventKeyboard::KeyCode::KEY_ESCAPE:
+      key_button_back_ = false;
+      break;
+    default:
+      break;
   }
 }
 
@@ -517,7 +519,7 @@ bool input_controller::single_press_button_start()
   static auto pressed = false;
   if (button_start() || was_controller_menu_pressed_)
   {
-		was_controller_menu_pressed_ = false;
+    was_controller_menu_pressed_ = false;
     if (pressed)
     {
       return false;

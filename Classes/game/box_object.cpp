@@ -43,13 +43,13 @@ box_object* box_object::create(physics_shape_cache* physics_shape_cache, const s
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
 
-bool box_object::init(physics_shape_cache* physics_shape_cache, const std::string& image, const std::string& shape)
+bool box_object::init(physics_shape_cache* physics_shape_cache, const std::string& image,
+                      const std::string& shape)
 {
   auto ret = false;
 
@@ -60,8 +60,7 @@ bool box_object::init(physics_shape_cache* physics_shape_cache, const std::strin
     setAnchorPoint(Vec2(0.5f, 0.5f));
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }

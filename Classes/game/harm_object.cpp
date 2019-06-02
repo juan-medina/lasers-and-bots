@@ -1,13 +1,10 @@
 #include "harm_object.h"
 
-harm_object::harm_object() :
-  damage_(0)
-{
-}
-
+harm_object::harm_object() : damage_(0) {}
 
 harm_object* harm_object::create(physics_shape_cache* physics_shape_cache, const std::string& shape,
-                                 const std::string& sprite_frame_name, const std::string& type, const int damage)
+                                 const std::string& sprite_frame_name, const std::string& type,
+                                 const int damage)
 {
   harm_object* ret = nullptr;
 
@@ -27,8 +24,7 @@ harm_object* harm_object::create(physics_shape_cache* physics_shape_cache, const
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -54,8 +50,7 @@ harm_object* harm_object::create(physics_shape_cache* physics_shape_cache, const
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -80,8 +75,7 @@ harm_object* harm_object::create(const std::string& type, const int damage)
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -98,26 +92,24 @@ bool harm_object::init(physics_shape_cache* physics_shape_cache, const std::stri
     damage_ = damage;
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
 
-bool harm_object::init(physics_shape_cache* physics_shape_cache, const std::string& shape, const std::string& type,
-                       const int damage)
+bool harm_object::init(physics_shape_cache* physics_shape_cache, const std::string& shape,
+                       const std::string& type, const int damage)
 {
   auto ret = false;
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init(physics_shape_cache,shape, type))
+    UTILS_BREAK_IF(!base_class::init(physics_shape_cache, shape, type))
 
     damage_ = damage;
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -133,8 +125,7 @@ bool harm_object::init(const std::string& type, const int damage)
     damage_ = damage;
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }

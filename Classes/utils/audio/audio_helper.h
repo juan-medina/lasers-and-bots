@@ -36,7 +36,8 @@ public:
 
   int play_effect(const std::string& file_name, const bool loop = false, const float volume = 1.0f) const;
   void play_music(const std::string& loop_file_name, const float volume = 1.0f);
-  void play_music(const std::string& intro_file_name, const std::string& loop_file_name, const float volume = 1.0f);
+  void play_music(const std::string& intro_file_name, const std::string& loop_file_name,
+                  const float volume = 1.0f);
 
   void pre_load_effect(const std::string& file_name) const;
   void pre_load_music(const std::string& loop_file_name) const;
@@ -54,47 +55,25 @@ public:
   void pause_sound(const int sound);
   void resume_sound(const int sound);
 
-  bool get_music_muted() const noexcept
-  {
-    return music_muted_;
-  }
+  bool get_music_muted() const noexcept { return music_muted_; }
 
-  void set_music_muted(const bool var) noexcept
-  {
-    music_muted_ = var;
-  };
+  void set_music_muted(const bool var) noexcept { music_muted_ = var; };
 
-  bool get_effects_muted() const noexcept
-  {
-    return effects_muted_;
-  }
+  bool get_effects_muted() const noexcept { return effects_muted_; }
 
-  void set_effects_muted(const bool var) noexcept
-  {
-    effects_muted_ = var;
-  };
+  void set_effects_muted(const bool var) noexcept { effects_muted_ = var; };
 
   void end();
 
-  float get_music_volume() const noexcept
-  {
-    return music_volume_;
-  }
+  float get_music_volume() const noexcept { return music_volume_; }
 
   void set_music_volume(const float music_volume) noexcept;
 
-  float get_sound_volume() const noexcept
-  {
-    return sound_volume_;
-  }
+  float get_sound_volume() const noexcept { return sound_volume_; }
 
-  void set_sound_volume(const float sound_volume) noexcept
-  {
-    sound_volume_ = sound_volume;
-  }
+  void set_sound_volume(const float sound_volume) noexcept { sound_volume_ = sound_volume; }
 
 private:
-
   void on_music_intro_ends(const int id, const std::string& file_path);
   bool init();
 

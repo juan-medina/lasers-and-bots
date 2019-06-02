@@ -39,10 +39,10 @@ public:
 
   static Scene* game(basic_app* application, const bool debug_grid, const bool debug_physics,
                      const unsigned short int level);
-  static Scene* menu(basic_app* application, const menu_to_display menu, const unsigned short int selected_level);
+  static Scene* menu(basic_app* application, const menu_to_display menu,
+                     const unsigned short int selected_level);
 
 private:
-
   enum class load_to
   {
     to_game,

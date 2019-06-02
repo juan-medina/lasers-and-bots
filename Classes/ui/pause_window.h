@@ -22,10 +22,10 @@
 #ifndef __PAUSE_WINDOW_CLASS__
 #define __PAUSE_WINDOW_CLASS__
 
-#include "../utils/utils.h"
 #include "../menu/basic_menu.h"
+#include "../utils/utils.h"
 
-//foward declarations
+// foward declarations
 class audio_helper;
 class text_toggle;
 
@@ -45,7 +45,6 @@ public:
   void hide() override;
 
 private:
-
   void on_music_toggle();
   void on_sfx_toggle();
   void on_resume();
@@ -61,6 +60,5 @@ private:
   text_toggle* toggle_music_item_;
   text_toggle* toggle_sfx_item_;
 };
-
 
 #endif // __PAUSE_WINDOW_CLASS__

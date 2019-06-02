@@ -26,7 +26,7 @@
 #include "../utils/utils.h"
 #include "basic_menu.h"
 
-//foward declarations
+// foward declarations
 class audio_helper;
 class slider_object;
 class text_toggle;
@@ -35,7 +35,6 @@ class text_button;
 class options_menu final : public basic_menu
 {
 public:
-
   using base_class = basic_menu;
 
   options_menu();
@@ -47,11 +46,9 @@ public:
   void display() override;
 
 protected:
-
   bool create_menu_items() override;
 
 private:
-
   bool desktop_application_;
 
   text_button* back_item_;
@@ -75,6 +72,5 @@ private:
   void on_debug_physics();
   void update_labels();
 };
-
 
 #endif // __OPTIONS_MENU_CLASS__

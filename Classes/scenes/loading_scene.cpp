@@ -21,10 +21,10 @@
  ****************************************************************************/
 
 #include "loading_scene.h"
+#include "../utils/audio/audio_helper.h"
+#include "../utils/base/app/basic_app.h"
 #include "game_scene.h"
 #include "menu_scene.h"
-#include "../utils/base/app/basic_app.h"
-#include "../utils/audio/audio_helper.h"
 
 Scene* loading_scene::game(basic_app* application, const bool debug_grid, const bool debug_physics,
                            const unsigned short int level)
@@ -36,7 +36,8 @@ Scene* loading_scene::game(basic_app* application, const bool debug_grid, const 
     auto object = new loading_scene();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(application, load_to::to_game, debug_grid, debug_physics, menu_to_display::main_menu, level))
+    if (object->init(application, load_to::to_game, debug_grid, debug_physics, menu_to_display::main_menu,
+                     level))
     {
       object->autorelease();
     }
@@ -47,13 +48,13 @@ Scene* loading_scene::game(basic_app* application, const bool debug_grid, const 
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
 
-Scene* loading_scene::menu(basic_app* application, const menu_to_display menu, const unsigned short int selected_level)
+Scene* loading_scene::menu(basic_app* application, const menu_to_display menu,
+                           const unsigned short int selected_level)
 {
   loading_scene* ret = nullptr;
 
@@ -73,18 +74,17 @@ Scene* loading_scene::menu(basic_app* application, const menu_to_display menu, c
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
 
-loading_scene::loading_scene():
-  type_(load_to::to_game),
-  debug_grid_(false),
-  debug_physics_(false),
-  menu_(menu_to_display::main_menu),
-  level_(-1)
+loading_scene::loading_scene()
+  : type_(load_to::to_game)
+  , debug_grid_(false)
+  , debug_physics_(false)
+  , menu_(menu_to_display::main_menu)
+  , level_(-1)
 {
 }
 
@@ -93,8 +93,8 @@ loading_scene::~loading_scene()
   base_class::removeAllChildrenWithCleanup(true);
 }
 
-bool loading_scene::init(basic_app* application, const load_to& type, const bool debug_grid, const bool debug_physics,
-                         const menu_to_display menu, const unsigned short int level)
+bool loading_scene::init(basic_app* application, const load_to& type, const bool debug_grid,
+                         const bool debug_physics, const menu_to_display menu, const unsigned short int level)
 {
   auto ret = false;
 
@@ -111,7 +111,7 @@ bool loading_scene::init(basic_app* application, const load_to& type, const bool
     const auto size = Director::getInstance()->getWinSize();
 
     const auto background = LayerGradient::create(Color4B(0, 0, 0, 255), Color4B(0, 0, 127, 255));
-    UTILS_BREAK_IF(background==nullptr);
+    UTILS_BREAK_IF(background == nullptr);
 
     addChild(background, 0);
 
@@ -142,12 +142,10 @@ bool loading_scene::init(basic_app* application, const load_to& type, const bool
     get_audio_helper()->unload_all_sounds();
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
-
 
 void loading_scene::go_to_scene() const
 {
@@ -157,18 +155,17 @@ void loading_scene::go_to_scene() const
 
     switch (type_)
     {
-    case load_to::to_game:
-      scene = game_scene::scene(application_, debug_grid_, debug_physics_, level_);
-      break;
-    case load_to::to_menu:
-      scene = menu_scene::scene(application_, menu_, level_);
-      break;
-    default:
-      break;
+      case load_to::to_game:
+        scene = game_scene::scene(application_, debug_grid_, debug_physics_, level_);
+        break;
+      case load_to::to_menu:
+        scene = menu_scene::scene(application_, menu_, level_);
+        break;
+      default:
+        break;
     }
 
-    UTILS_BREAK_IF(scene==nullptr);
+    UTILS_BREAK_IF(scene == nullptr);
     Director::getInstance()->replaceScene(scene);
-  }
-  while (false);
+  } while (false);
 }

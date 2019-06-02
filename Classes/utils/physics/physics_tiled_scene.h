@@ -42,21 +42,17 @@ public:
   static Scene* scene(basic_app* application, const std::string& tmx_file, const float gravity,
                       const bool debug_physics);
 
-  bool init(basic_app* application, const std::string& tmx_file, const float gravity, const bool debug_physics);
+  bool init(basic_app* application, const std::string& tmx_file, const float gravity,
+            const bool debug_physics);
 
-  physics_shape_cache* get_physics_shape_cache() const
-  {
-    return physics_shape_cache_;
-  }
+  physics_shape_cache* get_physics_shape_cache() const { return physics_shape_cache_; }
 
 protected:
-
   bool add_body_to_node(Node* node, const string& shape) const;
   virtual Node* provide_physics_node(const int gid);
   string get_shape_from_tile_gid(const int gid);
 
 private:
-
   virtual void init_physics(const bool debug_physics) const;
   bool add_physics_to_map();
 

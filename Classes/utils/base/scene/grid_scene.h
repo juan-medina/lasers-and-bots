@@ -28,7 +28,6 @@
 class grid_scene : public basic_scene
 {
 public:
-
   using base_class = basic_scene;
 
   static grid_scene* create(basic_app* application, const Size& blocks, const Size& block_size);
@@ -36,7 +35,6 @@ public:
   static Scene* scene(basic_app* application, const Size& blocks, const Size& block_size);
 
   bool init(basic_app* application, const Size& blocks, const Size& block_size);
-
 
   inline Rect get_block_position(const int col, const int row) const
   {
@@ -51,7 +49,6 @@ public:
   }
 
 protected:
-
   bool create_debug_grid(const std::string& font_name);
 
   Size blocks_;

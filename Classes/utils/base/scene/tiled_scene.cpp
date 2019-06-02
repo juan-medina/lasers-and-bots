@@ -22,10 +22,7 @@
 
 #include "tiled_scene.h"
 
-tiled_scene::tiled_scene() :
-  tiled_map_(nullptr)
-{
-}
+tiled_scene::tiled_scene() : tiled_map_(nullptr) {}
 
 tiled_scene* tiled_scene::create(basic_app* application, const std::string& tmx_file)
 {
@@ -89,8 +86,7 @@ bool tiled_scene::init(basic_app* application, const std::string& tmx_file)
     ret = true;
 
     addChild(map);
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -128,8 +124,7 @@ bool tiled_scene::handle_transparent_layers() const
     }
 
     result = true;
-  }
-  while (false);
+  } while (false);
 
   return result;
 }

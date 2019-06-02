@@ -26,7 +26,7 @@
 #include "../utils/utils.h"
 #include "basic_menu.h"
 
-//foward declarations
+// foward declarations
 class audio_helper;
 class level_manager;
 class text_button;
@@ -35,7 +35,6 @@ class text_toggle;
 class play_menu final : public basic_menu
 {
 public:
-
   play_menu();
 
   using base_class = basic_menu;
@@ -50,7 +49,8 @@ protected:
   bool create_menu_items() override;
 
 private:
-  Label* add_labels(const std::string& label_text, const std::string& text, const Vec2& pos, const float separation);
+  Label* add_labels(const std::string& label_text, const std::string& text, const Vec2& pos,
+                    const float separation);
   void on_back();
   void on_level_select(Ref* sender, const unsigned short int level);
   void on_play();
@@ -69,6 +69,5 @@ private:
   Label* level_stars_label_;
   unsigned short int selected_level_;
 };
-
 
 #endif // __PLAY_MENU_CLASS__

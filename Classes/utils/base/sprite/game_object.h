@@ -39,22 +39,17 @@ public:
 
   virtual bool init(const std::string& type);
 
-  string get_type() const
-  {
-    return type_;
-  }
+  string get_type() const { return type_; }
 
 protected:
-
   static bool create_anim(const char* pattern, int max_frame, float speed, const char* name,
-                          unsigned int loops = infinite_loops);
+                          int loops = infinite_loops);
 
   void change_anim(const std::string& name);
 
   void change_frame(const string& name);
 
 private:
-
   static constexpr int infinite_loops = -1;
 
   Action* animation_;

@@ -37,14 +37,9 @@ public:
   bool init(const std::string& title, const float width, const float height,
             const Color3B& color = Color3B(0, 255, 255));
 
-  void set_title(const std::string& title) const
-  {
-    label_title_->setString(title);
-  }
-
+  void set_title(const std::string& title) const { label_title_->setString(title); }
 
 private:
-
   Label* label_title_;
 };
 

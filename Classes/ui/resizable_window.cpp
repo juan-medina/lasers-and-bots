@@ -1,9 +1,6 @@
 #include "resizable_window.h"
 
-resizable_window::resizable_window():
-  label_title_(nullptr)
-{
-}
+resizable_window::resizable_window() : label_title_(nullptr) {}
 
 resizable_window* resizable_window::create(const std::string& title, const float width, const float height,
                                            const Color3B& color /*= Color3B(0, 255, 255)*/)
@@ -26,8 +23,7 @@ resizable_window* resizable_window::create(const std::string& title, const float
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -40,7 +36,6 @@ bool resizable_window::init(const std::string& title, const float width, const f
   do
   {
     UTILS_BREAK_IF(!base_class::init());
-
 
     const auto left_up = Sprite::createWithSpriteFrameName("14_window_left_up.png");
     UTILS_BREAK_IF(left_up == nullptr);
@@ -68,13 +63,14 @@ bool resizable_window::init(const std::string& title, const float width, const f
 
     const auto interior_width = width - left_up->getContentSize().width - right_up->getContentSize().width;
     const auto horizontal_segments = static_cast<int>(interior_width / up_info->getContentSize().width);
-    const auto real_width = (horizontal_segments * up_info->getContentSize().width) + left_up->getContentSize().width +
-      right_up->getContentSize().width;
+    const auto real_width = (horizontal_segments * up_info->getContentSize().width) +
+                            left_up->getContentSize().width + right_up->getContentSize().width;
 
-    const auto interior_height = height - left_up->getContentSize().height - left_down->getContentSize().height;
+    const auto interior_height =
+      height - left_up->getContentSize().height - left_down->getContentSize().height;
     const auto vertical_segments = static_cast<int>(interior_height / left_info->getContentSize().height);
-    const auto real_height = (vertical_segments * left_info->getContentSize().height) + left_up->getContentSize().height
-      + left_down->getContentSize().height;
+    const auto real_height = (vertical_segments * left_info->getContentSize().height) +
+                             left_up->getContentSize().height + left_down->getContentSize().height;
 
     removeChild(up_info);
     removeChild(left_info);
@@ -94,11 +90,11 @@ bool resizable_window::init(const std::string& title, const float width, const f
     right_down->setPosition(dest.x - right_down->getContentSize().width / 2,
                             dest.y + right_down->getContentSize().height / 2);
 
-    const auto fill_start = Vec2(left_up->getPosition().x + left_up->getContentSize().width,
-                                 left_up->getPosition().y);
+    const auto fill_start =
+      Vec2(left_up->getPosition().x + left_up->getContentSize().width, left_up->getPosition().y);
 
-    const auto fill_end = Vec2(right_up->getPosition().x - right_up->getContentSize().width,
-                               right_up->getPosition().y);
+    const auto fill_end =
+      Vec2(right_up->getPosition().x - right_up->getContentSize().width, right_up->getPosition().y);
 
     auto fill_at_x = fill_start.x;
     auto continue_loop = true;
@@ -129,8 +125,7 @@ bool resizable_window::init(const std::string& title, const float width, const f
       {
         continue_loop = false;
       }
-    }
-    while (continue_loop);
+    } while (continue_loop);
 
     auto fill_at_y = left_up->getPosition().y - left_up->getContentSize().height;
     for (auto i = 0; i < vertical_segments; ++i)
@@ -167,7 +162,8 @@ bool resizable_window::init(const std::string& title, const float width, const f
     label_title_->enableOutline(Color4B(0, 0, 0, 255), 5);
     label_title_->enableShadow(Color4B(255, 255, 255, 127), Size(5, -5));
 
-    label_title_->setPosition(header->getContentSize().width / 2, (header->getContentSize().height / 2) + 100);
+    label_title_->setPosition(header->getContentSize().width / 2,
+                              (header->getContentSize().height / 2) + 100);
 
     header->addChild(label_title_, 100);
 
@@ -176,7 +172,7 @@ bool resizable_window::init(const std::string& title, const float width, const f
 
     for (const auto child : getChildren())
     {
-      // do not change color on color layers    
+      // do not change color on color layers
       if (dynamic_cast<LayerColor*>(child) == nullptr)
       {
         child->setColor(color);
@@ -184,7 +180,6 @@ bool resizable_window::init(const std::string& title, const float width, const f
     }
 
     ret = true;
-  }
-  while (false);
+  } while (false);
   return ret;
 }

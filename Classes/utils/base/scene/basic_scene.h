@@ -41,15 +41,9 @@ public:
 
   bool init(basic_app* application);
 
-  Size get_screen_size() const noexcept
-  {
-    return screen_size_;
-  }
+  Size get_screen_size() const noexcept { return screen_size_; }
 
-  basic_app* get_application() const
-  {
-    return application_;
-  }
+  basic_app* get_application() const { return application_; }
 
   audio_helper* get_audio_helper() const;
   input_controller* get_input_controller() const;
@@ -58,7 +52,6 @@ public:
   virtual void will_enter_foreground();
 
 protected:
-
   void onExit() override;
 
   Size screen_size_;

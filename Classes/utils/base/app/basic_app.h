@@ -35,7 +35,8 @@ class basic_app : public Application
 public:
   using base_class = Application;
 
-  explicit basic_app(const std::string& application_name, const float design_width, const float design_height);
+  explicit basic_app(const std::string& application_name, const float design_width,
+                     const float design_height);
 
   void initGLContextAttrs() override;
 
@@ -45,51 +46,33 @@ public:
   // this function will be called when the app is active again
   void applicationDidEnterBackground() override;
 
-  // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
+  // This function will be called when the app is inactive. When comes a phone
+  // call,it's be invoked too
   void applicationWillEnterForeground() override;
 
   virtual Scene* init_scene() = 0;
 
-  virtual const string& application_name() const
-  {
-    return application_name_;
-  };
+  virtual const string& application_name() const { return application_name_; };
 
   void close();
 
-  audio_helper* get_audio_helper() const
-  {
-    return audio_helper_;
-  }
+  audio_helper* get_audio_helper() const { return audio_helper_; }
 #if (GAME_PLATFORM == DESKTOP_GAME)
   void set_window_size(const float scale);
 #endif
-  void set_full_screen(const bool full_screen)
-  {
-    full_screen_ = full_screen;
-  }
+  void set_full_screen(const bool full_screen) { full_screen_ = full_screen; }
 
-  bool is_full_screen() const
-  {
-    return full_screen_;
-  }
+  bool is_full_screen() const { return full_screen_; }
 
-  void set_fit_all(const bool fit_all)
-  {
-    fit_all_ = fit_all;
-  }
+  void set_fit_all(const bool fit_all) { fit_all_ = fit_all; }
 
   bool is_desktop();
 
   std::string get_game_version_string() const;
 
-  input_controller* get_input_controller() const
-  {
-    return input_controller_;
-  }
+  input_controller* get_input_controller() const { return input_controller_; }
 
 private:
-
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
   // center on screen in windows 32 client
   static void center_win32_window();

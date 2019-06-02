@@ -27,21 +27,21 @@
 
 int laser_object::loop_sound_ = -1;
 
-laser_object::laser_object() :
-  angle_(0.f),
-  initial_angle_(0),
-  final_angle_(0),
-  direction_(0),
-  draw_(nullptr),
-  physics_world_(nullptr),
-  spark_(nullptr),
-  speed_factor_(1.f),
-  audio_helper_(nullptr)
+laser_object::laser_object()
+  : angle_(0.f)
+  , initial_angle_(0)
+  , final_angle_(0)
+  , direction_(0)
+  , draw_(nullptr)
+  , physics_world_(nullptr)
+  , spark_(nullptr)
+  , speed_factor_(1.f)
+  , audio_helper_(nullptr)
 {
 }
 
-laser_object* laser_object::create(audio_helper* audio_helper, const float initial_angle, const float rotation_angle,
-                                   const float speed_factor, const int damage)
+laser_object* laser_object::create(audio_helper* audio_helper, const float initial_angle,
+                                   const float rotation_angle, const float speed_factor, const int damage)
 {
   laser_object* ret = nullptr;
 
@@ -61,8 +61,7 @@ laser_object* laser_object::create(audio_helper* audio_helper, const float initi
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -98,8 +97,7 @@ bool laser_object::init(audio_helper* audio_helper, const float initial_angle, c
     audio_helper_->pre_load_effect("sounds/laser.mp3");
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -132,10 +130,11 @@ void laser_object::update(const float delta)
   // save the touched shape
   PhysicsShape* touch_shape = nullptr;
 
-  // lambda that check all bodies that the laser touch and save the one closer to the origin
-  const PhysicsRayCastCallbackFunc intersect_closer_body_func = [origin_in_point_in_world, &final_point_in_world]
-  (PhysicsWorld& /*world*/, const PhysicsRayCastInfo& info, void* out)-> bool
-  {
+  // lambda that check all bodies that the laser touch and save the one closer
+  // to the origin
+  const PhysicsRayCastCallbackFunc intersect_closer_body_func =
+    [origin_in_point_in_world, &final_point_in_world](PhysicsWorld& /*world*/, const PhysicsRayCastInfo& info,
+                                                      void* out) -> bool {
     const auto origin = Point(origin_in_point_in_world);
     const auto new_point = Point(info.contact);
     const auto saved_point = Point(final_point_in_world);
@@ -170,7 +169,7 @@ void laser_object::update(const float delta)
 
   // if we have actually hit something draw a dot and create an emitter
   if ((final_point_in_world.x != destination_point_in_world.x) &
-    (final_point_in_world.y != destination_point_in_world.y))
+      (final_point_in_world.y != destination_point_in_world.y))
   {
     draw_->drawDot(final_point, 12, Color4F::RED);
     update_spark(final_point);

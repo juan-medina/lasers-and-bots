@@ -22,21 +22,21 @@
 
 #include "on_screen_button.h"
 
-on_screen_button::on_screen_button():
-  normal_sprite_(nullptr),
-  pushed_sprite_(nullptr),
-  disabled_sprite_(nullptr),
-  label_button_(nullptr),
-  pushed_(false),
-  disabled_(false),
-  saved_touch_id_(-1),
-  touch_listener_(nullptr),
-  type_(button_type::none)
+on_screen_button::on_screen_button()
+  : normal_sprite_(nullptr)
+  , pushed_sprite_(nullptr)
+  , disabled_sprite_(nullptr)
+  , label_button_(nullptr)
+  , pushed_(false)
+  , disabled_(false)
+  , saved_touch_id_(-1)
+  , touch_listener_(nullptr)
+  , type_(button_type::none)
 {
 }
 
 on_screen_button* on_screen_button::create(const button_type& type, const std::string& sprite_frame_name,
-                                           const std::string& label/* = ""*/)
+                                           const std::string& label /* = ""*/)
 {
   on_screen_button* ret = nullptr;
 
@@ -56,13 +56,13 @@ on_screen_button* on_screen_button::create(const button_type& type, const std::s
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
 
-bool on_screen_button::init(const button_type& type, const std::string& sprite_frame_name, const std::string& label)
+bool on_screen_button::init(const button_type& type, const std::string& sprite_frame_name,
+                            const std::string& label)
 {
   auto ret = false;
 
@@ -71,7 +71,7 @@ bool on_screen_button::init(const button_type& type, const std::string& sprite_f
     UTILS_BREAK_IF(!base_class::init());
 
     normal_sprite_ = Sprite::createWithSpriteFrameName(sprite_frame_name + "_01.png");
-    UTILS_BREAK_IF(normal_sprite_==nullptr);
+    UTILS_BREAK_IF(normal_sprite_ == nullptr);
 
     normal_sprite_->setOpacity(90);
 
@@ -105,8 +105,7 @@ bool on_screen_button::init(const button_type& type, const std::string& sprite_f
     type_ = type;
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -137,8 +136,7 @@ void on_screen_button::on_status_change() const
 
 bool on_screen_button::is_touched_by_location(const Vec2& location) const
 {
-  const auto touch_location = location + Vec2(getContentSize().width / 2,
-                                              getContentSize().height / 2);
+  const auto touch_location = location + Vec2(getContentSize().width / 2, getContentSize().height / 2);
 
   const auto camera = Camera::getVisitingCamera();
   if (camera != nullptr)
@@ -189,12 +187,10 @@ bool on_screen_button::enable_touch(const bool enabled)
       }
     }
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
-
 
 void on_screen_button::on_touches_began(const std::vector<Touch*>& touches, Event* unused_event)
 {

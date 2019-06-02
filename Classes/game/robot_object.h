@@ -38,8 +38,8 @@ public:
   static robot_object* create(physics_shape_cache* physics_shape_cache, audio_helper* audio_helper,
                               virtual_joy_stick* virtual_joy_stick, const int max_shield);
 
-  bool init(physics_shape_cache* physics_shape_cache, audio_helper* audio_helper, virtual_joy_stick* virtual_joy_stick,
-            const int max_shield);
+  bool init(physics_shape_cache* physics_shape_cache, audio_helper* audio_helper,
+            virtual_joy_stick* virtual_joy_stick, const int max_shield);
 
   void update(float delta) override;
 
@@ -59,7 +59,6 @@ public:
   void resume() override;
 
 private:
-
   enum state
   {
     e_falling,

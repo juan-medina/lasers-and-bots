@@ -22,10 +22,7 @@
 
 #include "physics_shape_cache.h"
 
-
-physics_shape_cache::physics_shape_cache()
-= default;
-
+physics_shape_cache::physics_shape_cache() = default;
 
 physics_shape_cache::~physics_shape_cache()
 {
@@ -37,7 +34,6 @@ bool physics_shape_cache::add_shapes_with_file(const std::string& plist)
   const auto scale_factor = Director::getInstance()->getContentScaleFactor();
   return add_shapes_with_file(plist, scale_factor);
 }
-
 
 bool physics_shape_cache::add_shapes_with_file(const std::string& plist, const float scale_factor)
 {
@@ -136,7 +132,6 @@ bool physics_shape_cache::add_shapes_with_file(const std::string& plist, const f
   return true;
 }
 
-
 physics_shape_cache::body_def* physics_shape_cache::get_body_def(const std::string& name)
 {
   try
@@ -158,7 +153,6 @@ physics_shape_cache::body_def* physics_shape_cache::get_body_def(const std::stri
   return nullptr;
 }
 
-
 void physics_shape_cache::set_body_properties(PhysicsBody* body, body_def* bd)
 {
   body->setGravityEnable(bd->affected_by_gravity);
@@ -170,7 +164,6 @@ void physics_shape_cache::set_body_properties(PhysicsBody* body, body_def* bd)
   body->setAngularVelocityLimit(bd->angular_velocity_limit);
 }
 
-
 void physics_shape_cache::set_shape_properties(PhysicsShape* shape, fixture_data* fd)
 {
   shape->setGroup(fd->group);
@@ -179,7 +172,6 @@ void physics_shape_cache::set_shape_properties(PhysicsShape* shape, fixture_data
   shape->setContactTestBitmask(fd->contact_test_mask);
   shape->setTag(fd->tag);
 }
-
 
 PhysicsBody* physics_shape_cache::create_body_with_name(const std::string& name)
 {
@@ -205,7 +197,8 @@ PhysicsBody* physics_shape_cache::create_body_with_name(const std::string& name)
     {
       for (auto polygon : fd->polygons)
       {
-        const auto shape = PhysicsShapePolygon::create(polygon->vertices, polygon->num_vertices, material, fd->center);
+        const auto shape =
+          PhysicsShapePolygon::create(polygon->vertices, polygon->num_vertices, material, fd->center);
         set_shape_properties(shape, fd);
         body->addShape(shape);
       }
@@ -228,7 +221,6 @@ void physics_shape_cache::remove_shapes_with_file(const std::string& plist)
   return;
 }
 
-
 void physics_shape_cache::remove_all_shapes()
 {
   for (auto iterator = body_defs_.cbegin(); iterator != body_defs_.cend(); ++iterator)
@@ -238,7 +230,6 @@ void physics_shape_cache::remove_all_shapes()
   body_defs_.clear();
   bodies_in_file_.clear();
 }
-
 
 void physics_shape_cache::safe_delete_body_def(body_def* body_def)
 {

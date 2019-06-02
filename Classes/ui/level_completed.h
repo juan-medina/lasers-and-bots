@@ -22,10 +22,10 @@
 #ifndef __LEVEL_COMPLETED_CLASS__
 #define __LEVEL_COMPLETED_CLASS__
 
-#include "../utils/utils.h"
 #include "../menu/basic_menu.h"
+#include "../utils/utils.h"
 
-//foward declarations
+// foward declarations
 class audio_helper;
 class level_manager;
 enum class completed_result;
@@ -48,8 +48,8 @@ public:
   void hide() override;
 
 private:
-
-  Label* add_labels(const std::string& label_text, const std::string& text, const Vec2& pos, const float separation);
+  Label* add_labels(const std::string& label_text, const std::string& text, const Vec2& pos,
+                    const float separation);
 
   void star_sound() const;
 
@@ -73,6 +73,5 @@ private:
   Label* level_time_record_label_;
   Label* level_3_stars_record_label_;
 };
-
 
 #endif // __LEVEL_COMPLETED_CLASS__

@@ -57,38 +57,25 @@ public:
 
   void applicationDidEnterBackground() override;
 
-  level_manager* get_level_manager() const
-  {
-    return level_manager_;
-  }
+  level_manager* get_level_manager() const { return level_manager_; }
 
   void change_video_mode(const bool full_screen);
 
-  bool want_a_restart() const
-  {
-    return want_restart_;
-  }
+  bool want_a_restart() const { return want_restart_; }
 
   void close_with_restart();
 
   int run(const bool to_options);
 
-  bool is_debug_grid() const
-  {
-    return debug_grid_;
-  }
+  bool is_debug_grid() const { return debug_grid_; }
 
   void set_debug_grid(const bool debug_grid);
 
-  bool is_debug_physics() const
-  {
-    return debug_physics_;
-  }
+  bool is_debug_physics() const { return debug_physics_; }
 
   void set_debug_physics(const bool debug_physics);
 
 private:
-
   void setup_level_manager();
 
   bool effects_muted_;

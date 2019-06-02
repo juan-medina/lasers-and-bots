@@ -51,20 +51,13 @@ public:
 
   void pushed(const bool pushed);
 
-  inline constexpr bool is_pushed() const noexcept
-  {
-    return pushed_;
-  }
+  inline constexpr bool is_pushed() const noexcept { return pushed_; }
 
   void disabled(const bool disabled);
 
-  const button_type& type() const
-  {
-    return type_;
-  }
+  const button_type& type() const { return type_; }
 
 private:
-
   void on_status_change() const;
 
   bool is_touched_by_location(const Vec2& location) const;

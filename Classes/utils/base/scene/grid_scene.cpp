@@ -80,8 +80,7 @@ bool grid_scene::init(basic_app* application, const Size& blocks, const Size& bl
     total_size_ = Size(block_size_.width * blocks_.width, block_size_.height * blocks_.height);
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -124,8 +123,7 @@ bool grid_scene::create_debug_grid(const std::string& font_name)
     addChild(draw);
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }

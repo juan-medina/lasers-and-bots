@@ -22,10 +22,7 @@
 
 #include "text_button.h"
 
-text_button::text_button():
-  label_(nullptr)
-{
-}
+text_button::text_button() : label_(nullptr) {}
 
 text_button* text_button::create(const std::string& base, const std::string& text)
 {
@@ -47,8 +44,7 @@ text_button* text_button::create(const std::string& base, const std::string& tex
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -85,8 +81,7 @@ bool text_button::init(const std::string& base, const std::string& text)
     addChild(label_, 100);
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }

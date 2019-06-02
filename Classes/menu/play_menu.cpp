@@ -21,23 +21,23 @@
  ****************************************************************************/
 
 #include "play_menu.h"
-#include "../utils/audio/audio_helper.h"
-#include "../scenes/menu_scene.h"
 #include "../laser_and_bots_app.h"
 #include "../misc/level_manager.h"
+#include "../scenes/menu_scene.h"
+#include "../ui/game_ui.h"
 #include "../ui/text_button.h"
 #include "../ui/text_toggle.h"
-#include "../ui/game_ui.h"
+#include "../utils/audio/audio_helper.h"
 
-play_menu::play_menu():
-  back_item_(nullptr),
-  play_item_(nullptr),
-  level_name_label_(nullptr),
-  level_time_limit_label_(nullptr),
-  level_time_record_label_(nullptr),
-  level_3_stars_time_record_label_(nullptr),
-  level_stars_label_(nullptr),
-  selected_level_(1)
+play_menu::play_menu()
+  : back_item_(nullptr)
+  , play_item_(nullptr)
+  , level_name_label_(nullptr)
+  , level_time_limit_label_(nullptr)
+  , level_time_record_label_(nullptr)
+  , level_3_stars_time_record_label_(nullptr)
+  , level_stars_label_(nullptr)
+  , selected_level_(1)
 {
 }
 
@@ -61,8 +61,7 @@ play_menu* play_menu::create(audio_helper* audio_helper, const unsigned short in
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -78,8 +77,7 @@ bool play_menu::init(audio_helper* audio_helper, const unsigned short int select
     selected_level_ = selected_level;
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -127,8 +125,8 @@ bool play_menu::create_menu_items()
     play_item_->setPosition(-550 + play_item_->getContentSize().width / 2, play_item_->getPosition().y);
 
     const auto margin = Vec2(300.f, 370.f);
-    const auto first_button_pos = Vec2(-(getContentSize().width / 2) + margin.x,
-                                       getContentSize().height - margin.y);
+    const auto first_button_pos =
+      Vec2(-(getContentSize().width / 2) + margin.x, getContentSize().height - margin.y);
 
     const auto first_label_pos = Vec2(-550.f, (getContentSize().height / 2) - margin.y);
     auto label_pos = first_label_pos;
@@ -146,8 +144,8 @@ bool play_menu::create_menu_items()
     UTILS_BREAK_IF(level_stars_label_ == nullptr);
     label_pos.y -= 200;
 
-    auto label_star_pos = level_stars_label_->getPosition() +
-      Vec2(level_stars_label_->getContentSize().width + 60.f, 0.f);
+    auto label_star_pos =
+      level_stars_label_->getPosition() + Vec2(level_stars_label_->getContentSize().width + 60.f, 0.f);
 
     for (auto star_counter = 0; star_counter < 3; ++star_counter)
     {
@@ -174,7 +172,8 @@ bool play_menu::create_menu_items()
     for (unsigned short int button_count = 1; button_count <= 12; ++button_count)
     {
       auto text = string_format("%02d", button_count);
-      auto button = add_small_toggle_text_button(text, CC_CALLBACK_1(play_menu::on_level_select, this, button_count));
+      auto button =
+        add_small_toggle_text_button(text, CC_CALLBACK_1(play_menu::on_level_select, this, button_count));
       UTILS_BREAK_IF(button == nullptr);
 
       button->setPosition(button_pos);
@@ -210,8 +209,7 @@ bool play_menu::create_menu_items()
     set_default_menu_item(back_item_);
 
     result = true;
-  }
-  while (false);
+  } while (false);
   return result;
 }
 
@@ -224,8 +222,7 @@ Label* play_menu::add_labels(const std::string& label_text, const std::string& t
     auto label = Label::createWithTTF(label_text, "fonts/tahoma.ttf", 120);
     UTILS_BREAK_IF(label == nullptr);
 
-    label->setPosition(pos - Vec2(-label->getContentSize().width / 2,
-                                  -label->getContentSize().height / 2));
+    label->setPosition(pos - Vec2(-label->getContentSize().width / 2, -label->getContentSize().height / 2));
     label->setTextColor(Color4B(255, 255, 255, 255));
     label->enableOutline(Color4B(0, 0, 0, 255), 5);
     addChild(label);
@@ -241,8 +238,7 @@ Label* play_menu::add_labels(const std::string& label_text, const std::string& t
     addChild(value);
 
     result = value;
-  }
-  while (false);
+  } while (false);
 
   return result;
 }

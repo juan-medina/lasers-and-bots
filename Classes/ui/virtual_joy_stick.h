@@ -49,9 +49,7 @@ public:
   void disabled(const bool disabled);
 
 private:
-
-  on_screen_button* add_on_screen_button(const button_type& type,
-                                         const std::string& sprite_frame_name,
+  on_screen_button* add_on_screen_button(const button_type& type, const std::string& sprite_frame_name,
                                          const std::string& label = "");
 
   bool add_on_screen_buttons();

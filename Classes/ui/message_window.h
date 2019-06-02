@@ -22,10 +22,10 @@
 #ifndef __MESSAGE_WINDOW_CLASS__
 #define __MESSAGE_WINDOW_CLASS__
 
-#include "../utils/utils.h"
 #include "../menu/basic_menu.h"
+#include "../utils/utils.h"
 
-//foward declarations
+// foward declarations
 class audio_helper;
 
 class message_window final : public basic_menu
@@ -47,11 +47,9 @@ protected:
   bool create_menu_items() override;
 
 private:
-
   audio_helper* audio_helper_;
   text_button* continue_item_;
   Label* sub_label_;
 };
-
 
 #endif // __MESSAGE_WINDOW_CLASS__

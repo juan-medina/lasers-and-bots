@@ -38,22 +38,15 @@ public:
 
   bool init(physics_shape_cache* physics_shape_cache, audio_helper* audio_helper);
 
-  bool is_open() const
-  {
-    return open_;
-  }
+  bool is_open() const { return open_; }
 
-  bool is_closed() const
-  {
-    return !open_;
-  }
+  bool is_closed() const { return !open_; }
 
   bool on() override;
 
   void open();
 
 private:
-
   bool open_;
 
   audio_helper* audio_helper_;

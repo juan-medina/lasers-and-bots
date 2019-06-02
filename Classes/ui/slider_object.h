@@ -24,7 +24,6 @@
 
 #include "../utils/utils.h"
 
-
 class slider_object final : public MenuItemSprite
 {
 public:
@@ -36,20 +35,18 @@ public:
   static slider_object* create(const std::string& background, const std::string& progress,
                                const slider_change_callback& callback);
 
-  bool init(const std::string& background, const std::string& progress, const slider_change_callback& callback);
+  bool init(const std::string& background, const std::string& progress,
+            const slider_change_callback& callback);
 
   void set_percentage(const float percentage);
   float get_percentage() const;
 
-  bool is_enabled() const
-  {
-    return enabled_;
-  }
+  bool is_enabled() const { return enabled_; }
 
   void enable(const bool enabled);
   void setColor(const Color3B& color) override;
-private:
 
+private:
   ProgressTimer* progress_;
   Label* label_;
   bool enabled_;

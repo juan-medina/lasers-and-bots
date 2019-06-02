@@ -21,22 +21,22 @@
  ****************************************************************************/
 
 #include "laser_and_bots_app.h"
+#include "misc/level_manager.h"
 #include "scenes/loading_scene.h"
 #include "scenes/menu_scene.h"
 #include "utils/audio/audio_helper.h"
-#include "misc/level_manager.h"
 
 laser_and_bots_app::laser_and_bots_app()
-  : base_class("Lasers and Bots", 1920 * 4, 1080 * 4),
-    effects_muted_(false),
-    music_muted_(false),
-    debug_grid_(false),
-    debug_physics_(false),
-    music_volume_(1.f),
-    effects_volume_(1.f),
-    level_manager_(nullptr),
-    want_restart_(false),
-    to_options_(false)
+  : base_class("Lasers and Bots", 1920 * 4, 1080 * 4)
+  , effects_muted_(false)
+  , music_muted_(false)
+  , debug_grid_(false)
+  , debug_physics_(false)
+  , music_volume_(1.f)
+  , effects_volume_(1.f)
+  , level_manager_(nullptr)
+  , want_restart_(false)
+  , to_options_(false)
 {
 #if (GAME_PLATFORM == DESKTOP_GAME)
   if (is_desktop())

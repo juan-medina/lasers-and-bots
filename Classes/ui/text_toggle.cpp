@@ -22,10 +22,7 @@
 
 #include "text_toggle.h"
 
-text_toggle::text_toggle():
-  label_(nullptr)
-{
-}
+text_toggle::text_toggle() : label_(nullptr) {}
 
 text_toggle* text_toggle::create(const std::string& base, const std::string& text)
 {
@@ -47,8 +44,7 @@ text_toggle* text_toggle::create(const std::string& base, const std::string& tex
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -101,8 +97,7 @@ bool text_toggle::init(const std::string& base, const std::string& text)
     addChild(label_, 100);
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }

@@ -45,10 +45,7 @@ public:
   bool init();
   void end();
 
-  const unsigned short int& get_num_levels() const
-  {
-    return num_levels_;
-  }
+  const unsigned short int& get_num_levels() const { return num_levels_; }
 
   unsigned short int get_level_stars(const unsigned short int level) const;
   bool is_level_enabled(const unsigned short int level) const;
@@ -61,8 +58,8 @@ public:
   float get_level_time_record(const unsigned short int level) const;
   float get_level_3_stars_record(const unsigned short int level) const;
   static constexpr auto no_time_record = 999999.f;
-private:
 
+private:
   bool initiated_;
   unsigned short int num_levels_;
 

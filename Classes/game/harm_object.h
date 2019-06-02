@@ -39,17 +39,13 @@ public:
 
   virtual bool init(physics_shape_cache* physics_shape_cache, const std::string& shape,
                     const std::string& sprite_frame_name, const std::string& type, const int damage);
-  virtual bool init(physics_shape_cache* physics_shape_cache, const std::string& shape, const std::string& type,
-                    const int damage);
+  virtual bool init(physics_shape_cache* physics_shape_cache, const std::string& shape,
+                    const std::string& type, const int damage);
   virtual bool init(const std::string& type, const int damage);
 
-  int get_damage() const
-  {
-    return damage_;
-  }
+  int get_damage() const { return damage_; }
 
 private:
-
   int damage_;
 };
 

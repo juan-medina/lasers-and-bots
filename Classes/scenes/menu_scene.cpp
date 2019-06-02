@@ -22,29 +22,30 @@
 
 #include "menu_scene.h"
 #include "../laser_and_bots_app.h"
+#include "../menu/about_menu.h"
+#include "../menu/credits_menu.h"
 #include "../menu/main_menu.h"
 #include "../menu/options_menu.h"
-#include "../menu/credits_menu.h"
-#include "../menu/about_menu.h"
 #include "../menu/play_menu.h"
 #include "../utils/audio/audio_helper.h"
 #include "../utils/controller/input_controller.h"
 
-menu_scene::menu_scene() :
-  current_menu_(nullptr),
-  main_menu_(nullptr),
-  options_menu_(nullptr),
-  play_menu_(nullptr),
-  credits_menu_(nullptr),
-  about_menu_(nullptr),
-  background_(nullptr),
-  paused_(false),
-  saved_level_(-1),
-  input_controller_(nullptr)
+menu_scene::menu_scene()
+  : current_menu_(nullptr)
+  , main_menu_(nullptr)
+  , options_menu_(nullptr)
+  , play_menu_(nullptr)
+  , credits_menu_(nullptr)
+  , about_menu_(nullptr)
+  , background_(nullptr)
+  , paused_(false)
+  , saved_level_(-1)
+  , input_controller_(nullptr)
 {
 }
 
-Scene* menu_scene::scene(basic_app* application, const menu_to_display menu, const unsigned short int selected_level)
+Scene* menu_scene::scene(basic_app* application, const menu_to_display menu,
+                         const unsigned short int selected_level)
 {
   menu_scene* ret = nullptr;
 
@@ -64,8 +65,7 @@ Scene* menu_scene::scene(basic_app* application, const menu_to_display menu, con
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -75,7 +75,8 @@ menu_scene::~menu_scene()
   base_class::removeAllChildrenWithCleanup(true);
 }
 
-bool menu_scene::init(basic_app* application, const menu_to_display menu, const unsigned short int selected_level)
+bool menu_scene::init(basic_app* application, const menu_to_display menu,
+                      const unsigned short int selected_level)
 {
   auto ret = false;
 
@@ -147,16 +148,16 @@ bool menu_scene::init(basic_app* application, const menu_to_display menu, const 
 
     switch (menu)
     {
-    default:
-    case menu_to_display::main_menu:
-      display_main_menu();
-      break;
-    case menu_to_display::play_menu:
-      display_play_menu();
-      break;
-    case menu_to_display::options_menu:
-      display_options_menu();
-      break;
+      default:
+      case menu_to_display::main_menu:
+        display_main_menu();
+        break;
+      case menu_to_display::play_menu:
+        display_play_menu();
+        break;
+      case menu_to_display::options_menu:
+        display_options_menu();
+        break;
     }
 
     get_audio_helper()->play_music("sounds/Cellar-I.mp3", "sounds/Cellar-L.mp3");
@@ -164,8 +165,7 @@ bool menu_scene::init(basic_app* application, const menu_to_display menu, const 
     scheduleUpdate();
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -182,8 +182,7 @@ bool menu_scene::add_background()
     addChild(background_);
 
     result = true;
-  }
-  while (false);
+  } while (false);
 
   return result;
 }
@@ -203,7 +202,7 @@ bool menu_scene::add_robot()
     const auto speed = 0.10f;
 
     auto cache = SpriteFrameCache::getInstance();
-    Vector<SpriteFrame *> frames(max_frame);
+    Vector<SpriteFrame*> frames(max_frame);
 
     auto loaded = 0;
     for (unsigned short int num = 1; num <= max_frame; num++)
@@ -233,8 +232,7 @@ bool menu_scene::add_robot()
     addChild(robot);
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -275,8 +273,7 @@ bool menu_scene::add_laser()
 
     addChild(spark_);
     result = true;
-  }
-  while (false);
+  } while (false);
 
   return result;
 }

@@ -21,17 +21,14 @@
  ****************************************************************************/
 
 #include "about_menu.h"
-#include "../utils/audio/audio_helper.h"
 #include "../scenes/menu_scene.h"
 #include "../ui/text_button.h"
+#include "../utils/audio/audio_helper.h"
 #include "ui/UIRichText.h"
 
 using namespace cocos2d::ui;
 
-about_menu::about_menu():
-  back_item_(nullptr)
-{
-}
+about_menu::about_menu() : back_item_(nullptr) {}
 
 about_menu* about_menu::create(audio_helper* audio_helper)
 {
@@ -53,8 +50,7 @@ about_menu* about_menu::create(audio_helper* audio_helper)
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -68,8 +64,7 @@ bool about_menu::init(audio_helper* audio_helper)
     UTILS_BREAK_IF(!base_class::init("About", audio_helper, 4700.f, 3400.f));
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -105,8 +100,7 @@ bool about_menu::create_menu_items()
     set_default_menu_item(back_item_);
 
     result = true;
-  }
-  while (false);
+  } while (false);
   return result;
 }
 

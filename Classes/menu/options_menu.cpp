@@ -21,23 +21,23 @@
  ****************************************************************************/
 
 #include "options_menu.h"
-#include "../utils/audio/audio_helper.h"
 #include "../scenes/menu_scene.h"
 #include "../ui/slider_object.h"
-#include "../ui/text_toggle.h"
 #include "../ui/text_button.h"
+#include "../ui/text_toggle.h"
+#include "../utils/audio/audio_helper.h"
 
-options_menu::options_menu():
-  desktop_application_(false),
-  back_item_(nullptr),
-  sound_toggle_(nullptr),
-  music_toggle_(nullptr),
-  sound_slider_(nullptr),
-  music_slider_(nullptr),
-  full_screen_toggle_(nullptr),
-  windowed_toggle_(nullptr),
-  debug_grid_toggle_(nullptr),
-  debug_physics_toggle_(nullptr)
+options_menu::options_menu()
+  : desktop_application_(false)
+  , back_item_(nullptr)
+  , sound_toggle_(nullptr)
+  , music_toggle_(nullptr)
+  , sound_slider_(nullptr)
+  , music_slider_(nullptr)
+  , full_screen_toggle_(nullptr)
+  , windowed_toggle_(nullptr)
+  , debug_grid_toggle_(nullptr)
+  , debug_physics_toggle_(nullptr)
 {
 }
 
@@ -61,8 +61,7 @@ options_menu* options_menu::create(audio_helper* audio_helper, const bool is_des
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -83,8 +82,7 @@ bool options_menu::init(audio_helper* audio_helper, const bool is_desktop_applic
     UTILS_BREAK_IF(!base_class::init("Options", audio_helper, width, height));
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -133,7 +131,8 @@ bool options_menu::create_menu_items()
     debug_grid_toggle_->setPosition(Vec2(-400, debug_grid_toggle_->getPosition().y));
     UTILS_BREAK_IF(add_row_label("Debug Grid", debug_grid_toggle_, labels_starts) == nullptr);
 
-    debug_physics_toggle_ = add_toggle_text_button("Enabled", CC_CALLBACK_0(options_menu::on_debug_physics, this));
+    debug_physics_toggle_ =
+      add_toggle_text_button("Enabled", CC_CALLBACK_0(options_menu::on_debug_physics, this));
     UTILS_BREAK_IF(debug_physics_toggle_ == nullptr);
     debug_physics_toggle_->setPosition(
       Vec2(debug_grid_toggle_->getPosition().x, debug_physics_toggle_->getPosition().y));
@@ -141,18 +140,21 @@ bool options_menu::create_menu_items()
 
     if (desktop_application_)
     {
-      full_screen_toggle_ = add_toggle_text_button("Full Screen", CC_CALLBACK_0(options_menu::on_full_screen, this));
+      full_screen_toggle_ =
+        add_toggle_text_button("Full Screen", CC_CALLBACK_0(options_menu::on_full_screen, this));
       UTILS_BREAK_IF(full_screen_toggle_ == nullptr);
 
-      full_screen_toggle_->setPosition(Vec2(debug_grid_toggle_->getPosition().x, full_screen_toggle_->getPosition().y));
+      full_screen_toggle_->setPosition(
+        Vec2(debug_grid_toggle_->getPosition().x, full_screen_toggle_->getPosition().y));
 
       UTILS_BREAK_IF(add_row_label("Video Mode", full_screen_toggle_, labels_starts) == nullptr);
 
-      windowed_toggle_ = add_toggle_text_button("Windowed", CC_CALLBACK_0(options_menu::on_windowed, this), true);
+      windowed_toggle_ =
+        add_toggle_text_button("Windowed", CC_CALLBACK_0(options_menu::on_windowed, this), true);
       UTILS_BREAK_IF(windowed_toggle_ == nullptr);
 
       windowed_toggle_->setPosition(full_screen_toggle_->getPosition() +
-        Vec2(full_screen_toggle_->getContentSize().width + 125, 0.f));
+                                    Vec2(full_screen_toggle_->getContentSize().width + 125, 0.f));
     }
 
     sound_toggle_ = add_toggle_text_button("Enabled", CC_CALLBACK_0(options_menu::on_sound, this));
@@ -160,7 +162,6 @@ bool options_menu::create_menu_items()
 
     sound_toggle_->setPosition(Vec2(debug_grid_toggle_->getPosition().x, sound_toggle_->getPosition().y));
     UTILS_BREAK_IF(add_row_label("Sound", sound_toggle_, labels_starts) == nullptr);
-
 
     sound_slider_ = add_slider(sound_toggle_, CC_CALLBACK_1(options_menu::on_sound_slider_change, this));
     UTILS_BREAK_IF(sound_slider_ == nullptr);
@@ -177,8 +178,7 @@ bool options_menu::create_menu_items()
     set_default_menu_item(back_item_);
 
     result = true;
-  }
-  while (false);
+  } while (false);
   return result;
 }
 

@@ -23,10 +23,7 @@
 #include "physics_tiled_scene.h"
 #include "physics_shape_cache.h"
 
-physics_tiled_scene::physics_tiled_scene():
-  physics_shape_cache_(nullptr)
-{
-}
+physics_tiled_scene::physics_tiled_scene() : physics_shape_cache_(nullptr) {}
 
 physics_tiled_scene::~physics_tiled_scene()
 {
@@ -36,8 +33,7 @@ physics_tiled_scene::~physics_tiled_scene()
 }
 
 physics_tiled_scene* physics_tiled_scene::create(basic_app* application, const std::string& tmx_file,
-                                                 const float gravity,
-                                                 const bool debug_physics)
+                                                 const float gravity, const bool debug_physics)
 {
   auto scene = new physics_tiled_scene();
 
@@ -93,8 +89,7 @@ bool physics_tiled_scene::init(basic_app* application, const std::string& tmx_fi
     init_physics(debug_physics);
 
     UTILS_BREAK_IF(!add_physics_to_map());
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -163,8 +158,7 @@ bool physics_tiled_scene::add_body_to_node(Node* node, const string& shape) cons
     }
 
     result = true;
-  }
-  while (false);
+  } while (false);
 
   return result;
 }
@@ -222,8 +216,7 @@ bool physics_tiled_scene::add_physics_to_map()
     }
 
     result = true;
-  }
-  while (false);
+  } while (false);
 
   return result;
 }

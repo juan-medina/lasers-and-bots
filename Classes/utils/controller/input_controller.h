@@ -66,7 +66,6 @@ public:
   bool single_press_button_back() const;
 
 private:
-
   bool create_controller_listener();
   bool create_keyboard_listener();
 
@@ -87,7 +86,7 @@ private:
   bool key_button_back_;
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-	bool was_controller_menu_pressed_;
+  bool was_controller_menu_pressed_;
 #endif
 
   bool controller_left_;

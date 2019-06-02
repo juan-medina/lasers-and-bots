@@ -21,15 +21,11 @@
  ****************************************************************************/
 
 #include "main_menu.h"
-#include "../utils/audio/audio_helper.h"
 #include "../scenes/menu_scene.h"
 #include "../ui/text_button.h"
+#include "../utils/audio/audio_helper.h"
 
-main_menu::main_menu():
-  back_item_(nullptr),
-  play_item_(nullptr)
-{
-}
+main_menu::main_menu() : back_item_(nullptr), play_item_(nullptr) {}
 
 main_menu* main_menu::create(audio_helper* audio_helper)
 {
@@ -51,8 +47,7 @@ main_menu* main_menu::create(audio_helper* audio_helper)
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -66,8 +61,7 @@ bool main_menu::init(audio_helper* audio_helper)
     UTILS_BREAK_IF(!base_class::init("Main Menu", audio_helper, 1300.f, 2200.f));
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -82,7 +76,6 @@ void main_menu::display()
     select_menu_item(play_item_);
   }
 }
-
 
 bool main_menu::create_menu_items()
 {
@@ -102,11 +95,9 @@ bool main_menu::create_menu_items()
     set_default_menu_item(back_item_);
 
     result = true;
-  }
-  while (false);
+  } while (false);
   return result;
 }
-
 
 void main_menu::on_options()
 {

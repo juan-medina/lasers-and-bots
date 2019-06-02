@@ -21,14 +21,11 @@
  ****************************************************************************/
 
 #include "basic_scene.h"
-#include "../../base/app/basic_app.h"
 #include "../../audio/audio_helper.h"
+#include "../../base/app/basic_app.h"
 #include "../../controller/input_controller.h"
 
-basic_scene::basic_scene():
-  application_(nullptr)
-{
-}
+basic_scene::basic_scene() : application_(nullptr) {}
 
 basic_scene::base_class* basic_scene::create_scene(basic_app* application)
 {
@@ -50,8 +47,7 @@ basic_scene::base_class* basic_scene::create_scene(basic_app* application)
     }
 
     ret = scene;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -71,8 +67,7 @@ bool basic_scene::init(basic_app* application)
     application_ = application;
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -87,13 +82,9 @@ input_controller* basic_scene::get_input_controller() const
   return application_->get_input_controller();
 }
 
-void basic_scene::did_enter_background()
-{
-}
+void basic_scene::did_enter_background() {}
 
-void basic_scene::will_enter_foreground()
-{
-}
+void basic_scene::will_enter_foreground() {}
 
 void basic_scene::onExit()
 {

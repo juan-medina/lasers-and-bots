@@ -29,10 +29,11 @@ class barrel_object final : public physics_game_object
 public:
   using base_class = physics_game_object;
 
-  static barrel_object* create(physics_shape_cache* physics_shape_cache, const int barrel_num, const std::string& image, const std::string& shape);
+  static barrel_object* create(physics_shape_cache* physics_shape_cache, const int barrel_num,
+                               const std::string& image, const std::string& shape);
 
-  bool init(physics_shape_cache* physics_shape_cache, const int barrel_num, const std::string& image, const std::string& shape);
+  bool init(physics_shape_cache* physics_shape_cache, const int barrel_num, const std::string& image,
+            const std::string& shape);
 };
-
 
 #endif // __BARREL_CLASS__

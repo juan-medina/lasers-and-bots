@@ -1,12 +1,7 @@
 #include "game_object.h"
 #include "../../physics/physics_shape_cache.h"
 
-game_object::game_object() :
-  animation_(nullptr),
-  type_("")
-{
-}
-
+game_object::game_object() : animation_(nullptr), type_("") {}
 
 game_object* game_object::create(const std::string& sprite_frame_name, const std::string& type)
 {
@@ -28,8 +23,7 @@ game_object* game_object::create(const std::string& sprite_frame_name, const std
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -54,8 +48,7 @@ game_object* game_object::create(const std::string& type)
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -71,8 +64,7 @@ bool game_object::init(const std::string& sprite_frame_name, const std::string& 
     type_ = type;
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -88,21 +80,20 @@ bool game_object::init(const std::string& type)
     type_ = type;
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
 
 bool game_object::create_anim(const char* pattern, const int max_frame, const float speed, const char* name,
-                              unsigned const int loops/* = infinite_loops*/)
+                              const int loops /* = infinite_loops*/)
 {
   auto ret = false;
 
   do
   {
     auto cache = SpriteFrameCache::getInstance();
-    Vector<SpriteFrame *> frames(max_frame);
+    Vector<SpriteFrame*> frames(max_frame);
 
     auto loaded = 0;
     for (unsigned short int num = 1; num <= max_frame; num++)
@@ -124,8 +115,7 @@ bool game_object::create_anim(const char* pattern, const int max_frame, const fl
     AnimationCache::getInstance()->addAnimation(anim, name);
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }

@@ -23,11 +23,7 @@
 #include "robot_fragment.h"
 #include "../utils/physics/physics_shape_cache.h"
 
-robot_fragment::robot_fragment():
-  smoke_(nullptr),
-  exploding_(false)
-{
-}
+robot_fragment::robot_fragment() : smoke_(nullptr), exploding_(false) {}
 
 robot_fragment* robot_fragment::create(physics_shape_cache* physics_shape_cache, const int fragment_number)
 {
@@ -49,8 +45,7 @@ robot_fragment* robot_fragment::create(physics_shape_cache* physics_shape_cache,
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -76,8 +71,7 @@ bool robot_fragment::create_smoke_emitter()
     smoke_->setPosition(Vec2(size.width / 2, size.height / 2));
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
@@ -101,8 +95,7 @@ bool robot_fragment::init(physics_shape_cache* physics_shape_cache, const int fr
     addChild(smoke_);
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }

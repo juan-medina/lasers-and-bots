@@ -27,14 +27,16 @@
 
 #include "laser_and_bots_app.h"
 
-#define  LOG_TAG    "main"
-#define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
+#define LOG_TAG "main"
+#define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
 
-namespace {
+namespace
+{
 std::unique_ptr<laser_and_bots_app> appDelegate;
 }
 
-void cocos_android_app_init(JNIEnv* env) {
-    LOGD("cocos_android_app_init");
-    appDelegate.reset(new laser_and_bots_app());
+void cocos_android_app_init(JNIEnv* env)
+{
+  LOGD("cocos_android_app_init");
+  appDelegate.reset(new laser_and_bots_app());
 }

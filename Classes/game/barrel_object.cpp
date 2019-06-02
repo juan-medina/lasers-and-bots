@@ -43,14 +43,13 @@ barrel_object* barrel_object::create(physics_shape_cache* physics_shape_cache, c
     }
 
     ret = object;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
 
-bool barrel_object::init(physics_shape_cache* physics_shape_cache, const int barrel_num, const std::string& image,
-                         const std::string& shape)
+bool barrel_object::init(physics_shape_cache* physics_shape_cache, const int barrel_num,
+                         const std::string& image, const std::string& shape)
 {
   auto ret = false;
 
@@ -91,7 +90,8 @@ bool barrel_object::init(physics_shape_cache* physics_shape_cache, const int bar
     const auto move_up_step_2 = MoveBy::create(step_time, Vec3(0.0f, step, 0.0f));
     UTILS_BREAK_IF(move_up_step_2 == nullptr);
 
-    const auto movement = Sequence::create(move_down_step_1, move_up_step_1, move_down_step_2, move_up_step_2, nullptr);
+    const auto movement =
+      Sequence::create(move_down_step_1, move_up_step_1, move_down_step_2, move_up_step_2, nullptr);
     UTILS_BREAK_IF(movement == nullptr);
 
     const auto repeat_movement = RepeatForever::create(movement);
@@ -100,8 +100,7 @@ bool barrel_object::init(physics_shape_cache* physics_shape_cache, const int bar
     runAction(repeat_movement);
 
     ret = true;
-  }
-  while (false);
+  } while (false);
 
   return ret;
 }
