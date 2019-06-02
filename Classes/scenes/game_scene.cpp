@@ -107,7 +107,7 @@ game_scene* game_scene::create(basic_app* application, const bool debug_grid, co
 }
 
 bool game_scene::init(basic_app* application, const bool debug_grid, const bool debug_physics,
-                      const int level)
+                      unsigned short level)
 {
   auto ret = false;
 

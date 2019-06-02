@@ -24,7 +24,7 @@
 
 #include "../utils/physics/physics_tiled_scene.h"
 
-// foward declarations
+// forward declarations
 class game_object;
 class robot_object;
 class switch_object;
@@ -47,7 +47,7 @@ public:
   static game_scene* create(basic_app* application, const bool debug_grid, const bool debug_physics,
                             const int level);
 
-  bool init(basic_app* application, const bool debug_grid, const bool debug_physics, const int level);
+  bool init(basic_app* application, const bool debug_grid, const bool debug_physics, unsigned short level);
 
   bool create_game_ui();
 
