@@ -31,6 +31,8 @@
 		5087E78917EB974C00C73F5D /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5087E78817EB974C00C73F5D /* AppKit.framework */; };
 		5087E78B17EB975400C73F5D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5087E78A17EB975400C73F5D /* OpenGL.framework */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
+		58080FE522A3C29300EFF4B9 /* on_off_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58080FE222A3C29300EFF4B9 /* on_off_object.cpp */; };
+		58080FE622A3C29300EFF4B9 /* on_off_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58080FE222A3C29300EFF4B9 /* on_off_object.cpp */; };
 		583A5CAF229BCCE90069DDFE /* cocos2dClass.snippet in Resources */ = {isa = PBXBuildFile; fileRef = 583A5C52229BCCE90069DDFE /* cocos2dClass.snippet */; };
 		583A5CB0229BCCE90069DDFE /* cocos2dClass.snippet in Resources */ = {isa = PBXBuildFile; fileRef = 583A5C52229BCCE90069DDFE /* cocos2dClass.snippet */; };
 		583A5CB1229BCCE90069DDFE /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 583A5C54229BCCE90069DDFE /* utils.cpp */; };
@@ -216,6 +218,8 @@
 		5087E78817EB974C00C73F5D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		5087E78A17EB975400C73F5D /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		58080FE222A3C29300EFF4B9 /* on_off_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = on_off_object.cpp; sourceTree = "<group>"; };
+		58080FE422A3C29300EFF4B9 /* on_off_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = on_off_object.h; sourceTree = "<group>"; };
 		583A5C52229BCCE90069DDFE /* cocos2dClass.snippet */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = cocos2dClass.snippet; sourceTree = "<group>"; };
 		583A5C53229BCCE90069DDFE /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 		583A5C54229BCCE90069DDFE /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
@@ -590,6 +594,8 @@
 		583A5C71229BCCE90069DDFE /* game */ = {
 			isa = PBXGroup;
 			children = (
+				58080FE222A3C29300EFF4B9 /* on_off_object.cpp */,
+				58080FE422A3C29300EFF4B9 /* on_off_object.h */,
 				583A5C72229BCCE90069DDFE /* laser_object.cpp */,
 				583A5C73229BCCE90069DDFE /* harm_object.cpp */,
 				583A5C74229BCCE90069DDFE /* robot_fragment.h */,
@@ -849,6 +855,7 @@
 				583A5CB5229BCCE90069DDFE /* audio_helper.cpp in Sources */,
 				583A5CC1229BCCE90069DDFE /* grid_scene.cpp in Sources */,
 				583A5CED229BCCE90069DDFE /* message_window.cpp in Sources */,
+				58080FE522A3C29300EFF4B9 /* on_off_object.cpp in Sources */,
 				583A5CCD229BCCE90069DDFE /* barrel_object.cpp in Sources */,
 				583A5CF9229BCCE90069DDFE /* menu_scene.cpp in Sources */,
 				583A5CDF229BCCE90069DDFE /* credits_menu.cpp in Sources */,
@@ -925,6 +932,7 @@
 				583A5CE4229BCCE90069DDFE /* play_menu.cpp in Sources */,
 				583A5CE6229BCCE90069DDFE /* slider_object.cpp in Sources */,
 				583A5CEE229BCCE90069DDFE /* message_window.cpp in Sources */,
+				58080FE622A3C29300EFF4B9 /* on_off_object.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
