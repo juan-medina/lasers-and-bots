@@ -57,9 +57,11 @@ public:
                                        const float time) const;
   float get_level_time_record(const unsigned short int level) const;
   float get_level_3_stars_record(const unsigned short int level) const;
+  unsigned short int get_next_level(const unsigned short int level) const;
+
   static constexpr auto no_time_record = 999999.f;
 
-private:
+private:§
   bool initiated_;
   unsigned short int num_levels_;
 
