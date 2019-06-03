@@ -61,7 +61,7 @@ public:
 
   static constexpr auto no_time_record = 999999.f;
 
-private:§
+private:
   bool initiated_;
   unsigned short int num_levels_;
 
