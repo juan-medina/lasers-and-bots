@@ -193,3 +193,13 @@ std::string level_manager::get_level_music(const unsigned short level) const
 
   return std::string("");
 }
+
+unsigned short int level_manager::get_next_level(const unsigned short int level) const
+{
+  if (level < num_levels_)
+  {
+    return static_cast<unsigned short int>(level + 1);
+  }
+
+  return num_levels_;
+}
