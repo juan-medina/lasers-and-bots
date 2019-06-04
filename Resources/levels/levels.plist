@@ -32,7 +32,7 @@
                 <key>name</key>
                 <string>Yikes, Spikes</string>
                 <key>time_limit</key>
-                <integer>70</integer>
+                <integer>35</integer>
                 <key>music</key>
                 <string>sounds/Chasers.mp3</string>
             </dict>
