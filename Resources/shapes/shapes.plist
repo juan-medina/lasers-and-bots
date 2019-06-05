@@ -70,7 +70,7 @@
                         <key>density</key>
                         <real>0</real>
                         <key>restitution</key>
-                        <real>1</real>
+                        <real>0</real>
                         <key>friction</key>
                         <real>0</real>
                         <key>tag</key>
