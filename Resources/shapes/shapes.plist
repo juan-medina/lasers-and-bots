@@ -1282,7 +1282,7 @@
                 <key>linear_damping</key>
                 <real>0</real>
                 <key>velocity_limit</key>
-                <real>10000</real>
+                <real>3000</real>
                 <key>angular_damping</key>
                 <real>0</real>
                 <key>angular_velocity_limit</key>

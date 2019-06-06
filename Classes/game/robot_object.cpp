@@ -40,6 +40,7 @@ robot_object::robot_object()
   , current_state_(e_idle)
   , virtual_joy_stick_(nullptr)
   , audio_helper_(nullptr)
+  , number_of_jumps_(0)
 {
 }
 
@@ -140,6 +141,7 @@ void robot_object::feet_touch_walk_object_start()
     {
       on_land_on_block();
       jumping_ = false;
+      number_of_jumps_ = 0;
     }
   }
 }
@@ -287,12 +289,26 @@ void robot_object::jump(const bool to_jump)
   {
     if (!jump_pressed)
     {
+      auto do_jump = false;
+
       if ((!jumping_) && (feet_touch_anything_))
+      {
+        number_of_jumps_ = 1;
+        do_jump = true;
+      }
+      else if ((jumping_) && (number_of_jumps_ == 1))
+      {
+        number_of_jumps_ = 2;
+        do_jump = true;
+      }
+
+      if (do_jump)
       {
         audio_helper_->play_effect("sounds/jump.mp3", false, 0.35f);
         getPhysicsBody()->applyImpulse(Vec2(0.0f, normal_movement.y));
         jumping_ = true;
       }
+
       jump_pressed = true;
     }
   }

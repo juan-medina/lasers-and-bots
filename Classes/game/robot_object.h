@@ -99,6 +99,8 @@ private:
   state current_state_;
   virtual_joy_stick* virtual_joy_stick_;
   audio_helper* audio_helper_;
+
+  int number_of_jumps_;
 };
 
 #endif // __ROBOT_CLASS__
