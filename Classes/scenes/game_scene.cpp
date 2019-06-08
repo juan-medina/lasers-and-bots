@@ -56,6 +56,7 @@ game_scene::game_scene()
   , level_(-1)
   , level_manager_(nullptr)
   , music_file_name_("")
+  , background_(nullptr)
 {
 }
 
@@ -117,6 +118,10 @@ bool game_scene::init(basic_app* application, const bool debug_grid, const bool 
 
     level_manager_ = dynamic_cast<laser_and_bots_app*>(application)->get_level_manager();
     const auto level_map = level_manager_->get_level_map(level_);
+
+    background_ = LayerGradient::create(Color4B(0, 255, 255, 255), Color4B(0, 127, 127, 255));
+    background_->setPosition(0.f, 0.f);
+    addChild(background_);
 
     // load the map
     UTILS_BREAK_IF(!base_class::init(application, level_map, gravity, debug_physics));
@@ -849,12 +854,15 @@ void game_scene::update_ui_position(const Vec2& final_pos) const
 {
   const auto ui_pos = Vec2(final_pos.x - (screen_size_.width / 2), final_pos.y - (screen_size_.height / 2));
   game_ui_->setPosition(ui_pos);
+  background_->setPosition(ui_pos);
 }
 
 void game_scene::camera_follow_robot(const Vec2& robot_position, const float delta)
 {
   // move the camera to the clamped position
-  const auto final_pos = robot_position.getClampPoint(min_camera_pos_, max_camera_pos_);
+  const auto clamp_y = clampf(robot_position.y, min_camera_pos_.y, max_camera_pos_.y);
+  const auto final_pos = Vec2(robot_position.x, clamp_y);
+
   if (final_pos != last_camera_position_)
   {
     getDefaultCamera()->setPosition(final_pos);

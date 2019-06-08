@@ -205,6 +205,13 @@
             <key type="filename">../tiles/028_Tile (14).png</key>
             <key type="filename">../tiles/029_Tile (15).png</key>
             <key type="filename">../tiles/030_box.png</key>
+            <key type="filename">../tiles/031_border_bottom_left.png</key>
+            <key type="filename">../tiles/031_border_bottom_right.png</key>
+            <key type="filename">../tiles/031_border_left.png</key>
+            <key type="filename">../tiles/031_border_right.png</key>
+            <key type="filename">../tiles/031_border_top_left.png</key>
+            <key type="filename">../tiles/031_border_top_right.png</key>
+            <key type="filename">../tiles/033_window.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="256" tileheight="256" infinite="0" nextlayerid="47" nextobjectid="60">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="42" height="20" tilewidth="256" tileheight="256" infinite="0" nextlayerid="52" nextobjectid="60">
  <properties>
   <property name="shapes" value="shapes/shapes.plist"/>
  </properties>
- <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256" spacing="2" margin="1" tilecount="30" columns="6">
-  <image source="tilesheet.png" width="1548" height="1290"/>
+ <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256" spacing="2" margin="1" tilecount="42" columns="7">
+  <image source="tilesheet.png" width="1806" height="1548"/>
   <tile id="0">
    <properties>
     <property name="damage" type="int" value="10"/>
@@ -136,7 +136,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="31" name="objects" tilewidth="567" tileheight="556" tilecount="6" columns="0">
+ <tileset firstgid="43" name="objects" tilewidth="567" tileheight="556" tilecount="6" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
    <image width="567" height="556" source="../../Media/robot/Idle_01.png"/>
@@ -157,48 +157,48 @@
    <image width="280" height="464" source="../../Media/objects/04_DoorLocked.png"/>
   </tile>
  </tileset>
- <layer id="42" name="back" width="40" height="20">
+ <layer id="47" name="back" width="42" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYWBgYAFiZig92NgcaJgVjc1GApsSjG4vLnXsFLApwcSaORp+lIXfKB7Fo3gUj+JRPIpH8WDHnIMcAwBHHxg0
+   eJztlUkKwCAMRYXOp+h8/yuaQgtBGo0DJaEuHvyFkudXcDfGtDeN0HwAKzA6dE7uI3KIExGa++QNeeL9A1rjy76ZKZ7ULMqT2yfew+3TB6dP6lyxPefA6TPlnr6C4ymB6qnLs9Tbrp5lz5DjmduVFk8t9/4HTwl/5JuLVk+pXJ4zMAlnASxTNSOV
   </data>
  </layer>
- <layer id="43" name="walk_back" width="40" height="20">
+ <layer id="48" name="walk_back" width="42" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo4D+gHegHTAK6ApG43sUjIJRMBLAaFk3CkYBcQAAIWsAKA==
+   eJxjYBgFo2BwAd6BdsAoGFRgND2MglEwCkYBbjBaRo6CUUB9AAAwDwAo
   </data>
  </layer>
  <objectgroup id="5" name="objects">
-  <object id="13" name="exit_door" type="door" gid="36" x="9216.1" y="1792" width="280" height="464">
+  <object id="13" name="exit_door" type="door" gid="48" x="9472.1" y="1792" width="280" height="464">
    <properties>
     <property name="image" value="04_DoorLocked.png"/>
    </properties>
   </object>
-  <object id="14" name="open_switch" type="switch" gid="35" x="9868.5" y="3054.72" width="72" height="257">
+  <object id="14" name="open_switch" type="switch" gid="47" x="10124.5" y="3054.72" width="72" height="257">
    <properties>
     <property name="on" type="bool" value="true"/>
     <property name="target" value="exit_door"/>
    </properties>
   </object>
-  <object id="49" name="robot" type="robot" gid="31" x="419" y="3108" width="567" height="556">
+  <object id="49" name="robot" type="robot" gid="43" x="675" y="3108" width="567" height="556">
    <properties>
     <property name="shield" type="int" value="1000"/>
    </properties>
   </object>
-  <object id="59" name="laser3" type="laser" gid="30" x="9785.6" y="3689.11" width="256" height="256" rotation="219.921">
+  <object id="59" name="laser3" type="laser" gid="30" x="10041.6" y="3689.11" width="256" height="256" rotation="219.921">
    <properties>
     <property name="damage" type="int" value="10"/>
     <property name="rotation_angle" type="int" value="-90"/>
     <property name="speed" type="float" value="6"/>
    </properties>
   </object>
-  <object id="57" name="laser2" type="laser" gid="30" x="830.789" y="1880.83" width="256" height="256" rotation="216.415">
+  <object id="57" name="laser2" type="laser" gid="30" x="1086.79" y="1880.83" width="256" height="256" rotation="216.415">
    <properties>
     <property name="damage" type="int" value="10"/>
     <property name="rotation_angle" type="int" value="-70"/>
     <property name="speed" type="float" value="6"/>
    </properties>
   </object>
-  <object id="58" name="laser1" type="laser" gid="30" x="9821.5" y="709.68" width="256" height="256" rotation="483.615">
+  <object id="58" name="laser1" type="laser" gid="30" x="10077.5" y="709.68" width="256" height="256" rotation="483.615">
    <properties>
     <property name="damage" type="int" value="10"/>
     <property name="rotation_angle" type="int" value="90"/>
@@ -206,25 +206,25 @@
    </properties>
   </object>
  </objectgroup>
- <layer id="44" name="acid" width="40" height="20" opacity="0.7">
+ <layer id="49" name="acid" width="42" height="20" opacity="0.7">
   <properties>
    <property name="physics" type="bool" value="true"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJztwTEBAAAAwqD1T20LL6AAAAA+BgyAAAE=
+   eJztwQENAAAAwqD3T+3sARQAAAA3DSAAAQ==
   </data>
  </layer>
- <layer id="45" name="walk" width="40" height="20">
+ <layer id="50" name="walk" width="42" height="20">
   <properties>
    <property name="physics" type="bool" value="true"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AU0BvwkcinF5ACYmk8GF1edmCcSRaAuV2GimYNlnAYqPRCCAy2cBqMYLCFET8QCwCx4AC7gxJAapgOtjgAAVLzND3KAHLCaTCG7XAAxIQr3yDHALwnCKU=
+   eJxjYBgFo2AUDGbARyKf3kAKiKXxYHR52YFxJkUA5gcZGpg52MJloNMTITBYw20wg8EWZvxALADEggPsDmoCUsN4sMUJMiC1DKBnmUFOuA3msB5OgJRw5hvkGAQAbC0IpQ==
   </data>
  </layer>
- <layer id="46" name="front" width="40" height="20">
+ <layer id="51" name="front" width="42" height="20">
   <data encoding="base64" compression="zlib">
-   eJztzqENADAMBLHgNvvPm9+hIAW2dPyqAN6ddFNvjwAAXxsatwAi
+   eJztzqENAAAIwDA08P+9IPgB0ybziwD4kVtt/T0CAHAGKUMAIg==
   </data>
  </layer>
 </map>

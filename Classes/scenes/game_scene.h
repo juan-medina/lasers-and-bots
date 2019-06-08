@@ -198,6 +198,7 @@ private:
 
   level_manager* level_manager_;
   std::string music_file_name_;
+  Layer* background_;
 };
 
 #endif // __MAIN_SCENE__
