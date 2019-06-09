@@ -83,7 +83,7 @@ bool background_layer::init()
       const auto sprite_mirror = Sprite::createWithSpriteFrameName(file_name);
       UTILS_BREAK_IF(sprite_mirror == nullptr);
       sprite->addChild(sprite_mirror);
-      sprite_mirror->setPosition(sprite->getContentSize().width + (sprite_mirror->getContentSize().width/2),
+      sprite_mirror->setPosition(sprite->getContentSize().width + (sprite_mirror->getContentSize().width / 2),
                                  sprite_mirror->getContentSize().height / 2);
 
       layers_.push_back(sprite);
