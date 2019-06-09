@@ -11,7 +11,7 @@ This is an experimental open source game currently under development, it uses a 
 ## video demo
 click the image bellow
 <p align="center">
-  <a href="https://www.youtube.com/watch?v=hrrWXePrd-0" target="_blank"><img src="https://img.youtube.com/vi/hrrWXePrd-0/maxresdefault.jpg" alt="video demo"></a>
+  <a href="https://www.youtube.com/watch?v=rgpCb8IBCIg" target="_blank"><img src="https://img.youtube.com/vi/rgpCb8IBCIg/maxresdefault.jpg" alt="video demo"></a>
 </p>
 
 ## game controls
