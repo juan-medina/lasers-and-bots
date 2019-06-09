@@ -256,6 +256,7 @@
             </struct>
             <key type="filename">08_Switch (1).png</key>
             <key type="filename">09_Switch (2).png</key>
+            <key type="filename">09_Switch (3).png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>

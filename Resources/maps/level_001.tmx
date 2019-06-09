@@ -175,7 +175,7 @@
   </object>
   <object id="14" name="open_switch" type="switch" gid="47" x="5997.18" y="2822.76" width="72" height="257">
    <properties>
-    <property name="on" type="bool" value="true"/>
+    <property name="activated" type="bool" value="true"/>
     <property name="target" value="exit_door"/>
    </properties>
   </object>
@@ -212,7 +212,7 @@
    <property name="physics" type="bool" value="true"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AU0BLwA7EAEAvS0A5xIJYAYkkqmScFxDJUMotSQEr48ROpDh0IAbEwEIsQqZYYdeTYwQ/FokAsxkB6uiHGDpgaZEyKf/DZAYsrUSx24PIPtvjFZwc29xPyDzbzkMUAZgoFNQ==
+   eJxjYBgFo2AU0BLwA7EAEAvS0A5xIJYAYkkqmScFxDJUMotSQEr48ROpDh0IAbEwEIsQqZYYdeTYAfOrKBCLMZCeboixA6YGGZPiH3x2ILsf3Q5c/sEWv/jswOZ+Qv7BZh6yGABnfgU2
   </data>
  </layer>
  <layer id="56" name="front" width="25" height="18">

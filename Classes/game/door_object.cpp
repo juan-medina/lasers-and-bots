@@ -23,7 +23,7 @@
 #include "door_object.h"
 #include "../utils/audio/audio_helper.h"
 
-door_object::door_object() : open_(false), audio_helper_(nullptr) {}
+door_object::door_object() : audio_helper_(nullptr) {}
 
 door_object* door_object::create(physics_shape_cache* physics_shape_cache, audio_helper* audio_helper)
 {
@@ -74,22 +74,22 @@ bool door_object::on()
 {
   if (base_class::on())
   {
-    change_spot_color(Color3B::YELLOW);
-    change_frame("06_DoorUnlocked.png");
-    audio_helper_->play_effect("sounds/metal_click.mp3");
+    change_frame("05_DoorOpen.png");
+    audio_helper_->play_effect("sounds/slide.mp3");
     return true;
   }
 
   return false;
 }
 
-void door_object::open()
+bool door_object::activate()
 {
-  if (is_closed())
+  if (base_class::activate())
   {
-    change_spot_color(Color3B::GREEN);
-    change_frame("05_DoorOpen.png");
-    audio_helper_->play_effect("sounds/slide.mp3");
-    open_ = true;
+    change_frame("06_DoorUnlocked.png");
+    audio_helper_->play_effect("sounds/metal_click.mp3");
+    return true;
   }
+
+  return false;
 }

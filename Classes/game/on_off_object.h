@@ -37,9 +37,14 @@ public:
 
   bool is_on() const { return on_; }
 
-  bool is_off() const { return !on_; }
+  bool is_off() const { return !is_on(); }
+
+  bool is_activated() const { return activated_; }
+
+  bool is_unactivated() const { return !is_activated(); }
 
   virtual bool on();
+  virtual bool activate();
 
   string get_target() const { return target_; }
 
@@ -48,6 +53,7 @@ protected:
 
 private:
   bool on_;
+  bool activated_;
   string target_;
   Sprite* spot_;
 };

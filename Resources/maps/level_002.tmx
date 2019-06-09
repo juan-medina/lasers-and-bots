@@ -175,7 +175,7 @@
   </object>
   <object id="14" name="open_switch" type="switch" gid="47" x="10124.5" y="3054.72" width="72" height="257">
    <properties>
-    <property name="on" type="bool" value="true"/>
+    <property name="activated" type="bool" value="true"/>
     <property name="target" value="exit_door"/>
    </properties>
   </object>

@@ -370,14 +370,14 @@ bool game_scene::add_switch(const ValueMap& values, Node* layer)
   {
     const auto name = values.at("name").asString();
     const auto target = values.at("target").asString();
-    const auto is_on = values.at("on").asBool();
+    const auto is_activated = values.at("activated").asBool();
 
     auto switch_game_object = switch_object::create(get_physics_shape_cache(), target);
     UTILS_BREAK_IF(switch_game_object == nullptr);
 
-    if (is_on)
+    if (is_activated)
     {
-      switch_game_object->on();
+      switch_game_object->activate();
     }
 
     switch_game_object->setAnchorPoint(Vec2(0.5f, 0.f));
@@ -882,18 +882,18 @@ void game_scene::camera_follow_robot(const Vec2& robot_position, const float del
 
 void game_scene::switch_activate_door(door_object* door)
 {
-  if (door->is_off())
+  if (door->is_unactivated())
   {
-    door->on();
+    door->activate();
   }
 }
 
 void game_scene::switch_activate_switch(switch_object* switch_object)
 {
-  if (switch_object->is_off())
+  if (switch_object->is_unactivated())
   {
     get_audio_helper()->play_effect("sounds/metal_click.mp3");
-    switch_object->on();
+    switch_object->activate();
 
     const auto target = switch_object->get_target();
     if (game_objects_.count(target) == 1)
@@ -932,32 +932,33 @@ bool game_scene::is_switch_targeting_a_switch(switch_object* switch_object)
 
 void game_scene::robot_touch_switch(switch_object* switch_object)
 {
-  if (switch_object->is_off())
+  if (switch_object->is_activated())
   {
-    if (is_switch_targeting_a_switch(switch_object))
+    if (switch_object->is_off())
     {
       switch_object->on();
-      get_audio_helper()->play_effect("sounds/metal_click.mp3");
-    }
-  }
-  else
-  {
-    const auto target = switch_object->get_target();
-    if (game_objects_.count(target) == 1)
-    {
-      const auto target_object = game_objects_.at(target);
-      switch_activate_target(target_object);
+      if (is_switch_targeting_a_switch(switch_object))
+      {
+        get_audio_helper()->play_effect("sounds/metal_click.mp3");
+      }
+
+      const auto target = switch_object->get_target();
+      if (game_objects_.count(target) == 1)
+      {
+        const auto target_object = game_objects_.at(target);
+        switch_activate_target(target_object);
+      }
     }
   }
 }
 
 void game_scene::robot_touch_door(door_object* door_game_object)
 {
-  if (door_game_object->is_on())
+  if (door_game_object->is_activated())
   {
-    if (door_game_object->is_closed())
+    if (door_game_object->is_off())
     {
-      door_game_object->open();
+      door_game_object->on();
     }
     else
     {

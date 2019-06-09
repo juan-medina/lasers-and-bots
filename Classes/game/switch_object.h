@@ -34,6 +34,7 @@ public:
   bool init(physics_shape_cache* physics_shape_cache, const string& target);
 
   bool on() override;
+  bool activate() override;
 };
 
 #endif // __SWITCH_CLASS__

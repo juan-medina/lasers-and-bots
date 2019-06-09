@@ -72,3 +72,14 @@ bool switch_object::on()
 
   return false;
 }
+
+bool switch_object::activate()
+{
+  if (base_class::activate())
+  {
+    change_frame("09_Switch (3).png");
+    return true;
+  }
+
+  return false;
+}

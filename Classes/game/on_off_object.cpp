@@ -22,7 +22,7 @@
 
 #include "on_off_object.h"
 
-on_off_object::on_off_object() : on_(false), spot_(nullptr) {}
+on_off_object::on_off_object() : on_(false), activated_(false), spot_(nullptr) {}
 
 bool on_off_object::init(physics_shape_cache* physics_shape_cache, const std::string& shape,
                          const std::string& sprite_frame_name, const std::string& type, const Vec2& spot_pos,
@@ -68,6 +68,18 @@ bool on_off_object::on()
   {
     on_ = true;
     change_spot_color(Color3B::GREEN);
+    return true;
+  }
+
+  return false;
+}
+
+bool on_off_object::activate()
+{
+  if (is_unactivated())
+  {
+    activated_ = true;
+    change_spot_color(Color3B::YELLOW);
     return true;
   }
 

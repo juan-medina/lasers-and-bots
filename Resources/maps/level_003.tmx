@@ -173,16 +173,10 @@
     <property name="image" value="04_DoorLocked.png"/>
    </properties>
   </object>
-  <object id="55" name="open_switch" type="switch" gid="47" x="3544.5" y="3586.72" width="72" height="257">
-   <properties>
-    <property name="on" type="bool" value="false"/>
-    <property name="target" value="exit_door"/>
-   </properties>
-  </object>
   <object id="14" name="initial_switch" type="switch" gid="47" x="3636.5" y="1010.72" width="72" height="257">
    <properties>
-    <property name="on" type="bool" value="true"/>
-    <property name="target" value="open_switch"/>
+    <property name="activated" type="bool" value="true"/>
+    <property name="target" value="exit_door"/>
    </properties>
   </object>
   <object id="49" name="robot" type="robot" gid="43" x="391" y="1068" width="567" height="556">
@@ -278,7 +272,7 @@
    <property name="physics" type="bool" value="true"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJztlFEKgCAQRPcEZpZ+ZN3/mrmgsIihLqv9+GC+NpyZVgToY+/8Xppz+YuzBWlo260L8lF3NrvI7JEMSOD2x44t/dQAf/S2lbnOVMpaO+cLA//c29TLTvJHP0/E+Vc5tftAMUyP0v45kui7qNP6lozyxj27HzIk7yNqZobcm5tBESEvjeAGJQ==
+   eJxjYCANCJKontpAZNR+qgJ+IBaAYmLiVgyIpaFYBk1OCklOlopuRAbk+h/kT2L8x0cD+0F2i+KRE8CCsbkVnzn4gBDDwKRbmN9E6WQ/yD5pJExOWKEDQukBGQiRYT6u+CcHU8O/o2BwA1LLa2rbDUpjwlAsRkc3oNtNrhv40DAARrMGOA==
   </data>
  </layer>
  <layer id="36" name="front" width="32" height="18">
