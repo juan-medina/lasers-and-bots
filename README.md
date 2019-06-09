@@ -83,6 +83,7 @@ Now you could open the project folder for the platform you like to use:
 ## resources
 
 - Game art : [Game Art 2D](https://www.gameart2d.com/)
+- Background : [MGG](https://mobilegamegraphics.com/product/free-parallax-backgrounds/)
 - Map Editor : [Tiled](https://www.mapeditor.org/)
 - Game engine : [Cocox2d-x](https://cocos2d-x.org/)
 - Music:

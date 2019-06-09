@@ -33,6 +33,7 @@ class game_ui;
 class robot_fragment;
 class harm_object;
 class level_manager;
+class background_layer;
 
 class game_scene final : public physics_tiled_scene
 {
@@ -94,6 +95,8 @@ public:
   virtual void onEnter() override;
 
   void update_ui_position(const Vec2& final_pos) const;
+
+  void update_background_position(const Vec2& final_pos) const;
 
   void close();
 
@@ -198,7 +201,7 @@ private:
 
   level_manager* level_manager_;
   std::string music_file_name_;
-  Layer* background_;
+  background_layer* background_;
 };
 
 #endif // __MAIN_SCENE__
