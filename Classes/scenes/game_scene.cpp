@@ -370,7 +370,7 @@ bool game_scene::add_switch(const ValueMap& values, Node* layer)
   {
     const auto name = values.at("name").asString();
     const auto target = values.at("target").asString();
-    const auto is_activated = values.at("activated").asBool();
+    const auto is_activated = values.count("activated") == 0 ? false : values.at("activated").asBool();
 
     auto switch_game_object = switch_object::create(get_physics_shape_cache(), target);
     UTILS_BREAK_IF(switch_game_object == nullptr);

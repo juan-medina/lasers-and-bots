@@ -203,13 +203,12 @@
   </object>
   <object id="14" name="open_switch" type="switch" gid="47" x="10937.5" y="5118.72" width="72" height="257">
    <properties>
-    <property name="on" type="bool" value="true"/>
+    <property name="activated" type="bool" value="true"/>
     <property name="target" value="switch_mirrow"/>
    </properties>
   </object>
   <object id="15" name="switch_mirrow" type="switch" gid="47" x="918" y="2556" width="72" height="257">
    <properties>
-    <property name="on" type="bool" value="false"/>
     <property name="target" value="exit_door"/>
    </properties>
   </object>
