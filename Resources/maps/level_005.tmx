@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="25" height="18" tilewidth="256" tileheight="256" infinite="0" nextlayerid="60" nextobjectid="57">
+ <properties>
+  <property name="shapes" value="shapes/shapes.plist"/>
+ </properties>
+ <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256" spacing="2" margin="1" tilecount="42" columns="7">
+  <image source="tilesheet.png" width="1806" height="1548"/>
+  <tile id="0">
+   <properties>
+    <property name="damage" type="int" value="10"/>
+    <property name="opacity" type="float" value="0.69999999999999996"/>
+    <property name="shape" value="001_Acid"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="damage" type="int" value="10"/>
+    <property name="opacity" type="float" value="0.69999999999999996"/>
+    <property name="shape" value="002_Acid"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="shape" value="003_BGTile"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="shape" value="004_BGTile"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="shape" value="005_BGTile"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="shape" value="006_BGTile"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="shape" value="007_BGTile"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="shape" value="008_BGTile"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="shape" value="009_BGTile"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="damage" type="int" value="10"/>
+    <property name="shape" value="014_Spike"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="shape" value="015_Tile"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="shape" value="016_Tile"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="shape" value="017_Tile"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="shape" value="018_Tile"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="shape" value="019_Tile"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="shape" value="020_Tile"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="shape" value="021_Tile"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="shape" value="022_Tile"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="shape" value="023_Tile"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="shape" value="024_Tile"/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="shape" value="025_Tile"/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="shape" value="026_Tile"/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="shape" value="027_Tile"/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="shape" value="028_Tile"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="shape" value="029_Tile"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="43" name="objects" tilewidth="567" tileheight="556" tilecount="6" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="567" height="556" source="../../Media/robot/Idle_01.png"/>
+  </tile>
+  <tile id="1">
+   <image width="177" height="238" source="../../Media/objects/02_Barrel (2).png"/>
+  </tile>
+  <tile id="2">
+   <image width="256" height="256" source="../../Media/objects/03_Box.png"/>
+  </tile>
+  <tile id="3">
+   <image width="357" height="361" source="../../Media/objects/07_Saw.png"/>
+  </tile>
+  <tile id="4">
+   <image width="72" height="257" source="../../Media/objects/09_Switch (2).png"/>
+  </tile>
+  <tile id="5">
+   <image width="280" height="464" source="../../Media/objects/04_DoorLocked.png"/>
+  </tile>
+ </tileset>
+ <layer id="52" name="back" width="25" height="18">
+  <data encoding="base64" compression="zlib">
+   eJy9k0sOgCAMREkU0VP4v/8V7YLFpOkHIrCYYFLqzAN6hxDmrKnD90M6SZG0gGLD9coeibQ2WvH/CTxqcr1MvM79kIP3ajm9fRaHl28kx4j7KOHTOP6+J+n8ajm8GnpI8yH18ZwWA+fAmnVW6KllLGEs5dAyljBabxczWxxSH9675yFxeHPP91lzrnF4c29xtJgLjWMnbR11kD7/sRnV
+  </data>
+ </layer>
+ <layer id="53" name="walk_back" width="25" height="18">
+  <data encoding="base64" compression="zlib">
+   eJxjYBicgHegHTAKRsEoGAWjgOpgMJbtAGI8ABs=
+  </data>
+ </layer>
+ <objectgroup id="5" name="objects">
+  <object id="13" name="exit_door" type="door" gid="48" x="3337.45" y="3079.67" width="280" height="464">
+   <properties>
+    <property name="image" value="04_DoorLocked.png"/>
+   </properties>
+  </object>
+  <object id="14" name="switch4" type="switch" gid="47" x="2113.85" y="3572.76" width="72" height="257">
+   <properties>
+    <property name="activated" type="bool" value="false"/>
+    <property name="target" value="switch2"/>
+   </properties>
+  </object>
+  <object id="49" name="robot" type="robot" gid="43" x="371" y="4644" width="567" height="556">
+   <properties>
+    <property name="shield" type="int" value="1000"/>
+   </properties>
+  </object>
+  <object id="54" name="switch3" type="switch" gid="47" x="4730.51" y="3564.43" width="72" height="257">
+   <properties>
+    <property name="activated" type="bool" value="false"/>
+    <property name="target" value="switch4"/>
+   </properties>
+  </object>
+  <object id="52" name="switch2" type="switch" gid="47" x="4738.85" y="2306.09" width="72" height="257">
+   <properties>
+    <property name="activated" type="bool" value="false"/>
+    <property name="target" value="exit_door"/>
+   </properties>
+  </object>
+  <object id="53" name="switch1" type="switch" gid="47" x="2105.51" y="2306.09" width="72" height="257">
+   <properties>
+    <property name="activated" type="bool" value="true"/>
+    <property name="target" value="switch3"/>
+   </properties>
+  </object>
+  <object id="55" name="laser2" type="laser" gid="30" x="3642.8" y="363.895" width="256" height="256" rotation="220.531">
+   <properties>
+    <property name="damage" type="int" value="10"/>
+    <property name="rotation_angle" type="float" value="-180"/>
+    <property name="speed" type="float" value="4"/>
+   </properties>
+  </object>
+  <object id="56" name="laser1" type="laser" gid="30" x="3279.75" y="4208.11" width="256" height="256" rotation="48.3087">
+   <properties>
+    <property name="damage" type="int" value="10"/>
+    <property name="rotation_angle" type="float" value="-180"/>
+    <property name="speed" type="float" value="4"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="54" name="acid" width="25" height="18" opacity="0.7">
+  <properties>
+   <property name="physics" type="bool" value="true"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGLgAABwgAAQ==
+  </data>
+ </layer>
+ <layer id="55" name="walk" width="25" height="18">
+  <properties>
+   <property name="physics" type="bool" value="true"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUDFYgBcTSQCxDJXUjDQzFcBmNc/oDAKlJAZY=
+  </data>
+ </layer>
+ <layer id="56" name="front" width="25" height="18">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjAL6Ay4g5gZinoF2yCgY8QAAWogAIg==
+  </data>
+ </layer>
+</map>

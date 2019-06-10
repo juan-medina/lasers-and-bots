@@ -894,16 +894,6 @@ void game_scene::switch_activate_switch(switch_object* switch_object)
   {
     get_audio_helper()->play_effect("sounds/metal_click.mp3");
     switch_object->activate();
-
-    const auto target = switch_object->get_target();
-    if (game_objects_.count(target) == 1)
-    {
-      const auto target_object = dynamic_cast<game_object*>(game_objects_.at(target));
-      if (target_object->get_type() == "switch")
-      {
-        switch_activate_switch(dynamic_cast<::switch_object*>(target_object));
-      }
-    }
   }
 }
 

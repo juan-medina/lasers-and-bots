@@ -13,6 +13,7 @@
  </objecttype>
  <objecttype name="laser" color="#ffff00">
   <property name="damage" type="int" default="10"/>
+  <property name="rotation_angle" type="float" default="360"/>
   <property name="speed" type="float" default="4.5"/>
  </objecttype>
  <objecttype name="robot" color="#00ff00">
