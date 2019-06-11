@@ -22,13 +22,11 @@
 
 #include "about_menu.h"
 #include "../scenes/menu_scene.h"
+#include "../ui/scrolling_text.h"
 #include "../ui/text_button.h"
 #include "../utils/audio/audio_helper.h"
-#include "ui/UIRichText.h"
 
-using namespace cocos2d::ui;
-
-about_menu::about_menu() : back_item_(nullptr) {}
+about_menu::about_menu() : back_item_(nullptr), scrolling_text_(nullptr) {}
 
 about_menu* about_menu::create(audio_helper* audio_helper)
 {
@@ -61,7 +59,7 @@ bool about_menu::init(audio_helper* audio_helper)
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init("About", audio_helper, 4700.f, 3400.f));
+    UTILS_BREAK_IF(!base_class::init("About", audio_helper, 4700.f, 3000.f));
 
     ret = true;
   } while (false);
@@ -76,30 +74,18 @@ bool about_menu::create_menu_items()
   {
     back_item_ = add_text_button("Back", CC_CALLBACK_0(about_menu::on_back, this));
     UTILS_BREAK_IF(back_item_ == nullptr);
-
-    ValueMap defaults{};
-    defaults.insert(std::make_pair(RichText::KEY_FONT_FACE, Value("fonts/tahoma.ttf")));
-    defaults.insert(std::make_pair(RichText::KEY_FONT_SIZE, Value(120)));
-    defaults.insert(std::make_pair(RichText::KEY_FONT_COLOR_STRING, Value("#FFFFFF")));
-    defaults.insert(std::make_pair(RichText::KEY_ANCHOR_FONT_COLOR_STRING, Value("#00FFFF")));
-    defaults.insert(std::make_pair(RichText::KEY_HORIZONTAL_ALIGNMENT,
-                                   Value(static_cast<int>(RichText::HorizontalAlignment::LEFT))));
-    const auto file_utils = FileUtils::getInstance();
-    const auto text = file_utils->getStringFromFile("credits/about.xml");
-
-    const auto rich_text = RichText::createWithXML(text, defaults);
-    UTILS_BREAK_IF(rich_text == nullptr);
-
-    rich_text->ignoreContentAdaptWithSize(false);
-    rich_text->setContentSize(Size(getContentSize().width * .925f, getContentSize().height * .85f));
-    rich_text->formatText();
-    rich_text->setPosition(Vec2(0, 70));
-
-    addChild(rich_text);
-
     set_default_menu_item(back_item_);
 
+    const auto scrolling_size = Size(getContentSize().width - 310, getContentSize().height - 440);
+    scrolling_text_ = scrolling_text::create(scrolling_size, "credits/about.xml");
+    UTILS_BREAK_IF(scrolling_text_ == nullptr);
+    addChild(scrolling_text_);
+
+    auto text_position = Vec2(-getContentSize().width / 2, -getContentSize().height / 2) + Vec2(130, 250);
+    scrolling_text_->setPosition(text_position);
+
     result = true;
+
   } while (false);
   return result;
 }
@@ -110,4 +96,10 @@ void about_menu::on_back()
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   menu->display_main_menu();
+}
+
+void about_menu::display()
+{
+  base_class ::display();
+  scrolling_text_->auto_scroll_in(5.f);
 }

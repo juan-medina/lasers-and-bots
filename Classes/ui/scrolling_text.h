@@ -19,38 +19,44 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
+#ifndef __SCROLLING_TEXT_CLASS__
+#define __SCROLLING_TEXT_CLASS__
 
-#ifndef __ABOUT_MENU_CLASS__
-#define __ABOUT_MENU_CLASS__
-
-#include "basic_menu.h"
+#include "../utils/utils.h"
 
 // forward declarations
-class audio_helper;
-class text_button;
-class scrolling_text;
+namespace cocos2d
+{
+namespace ui
+{
+class RichText;
+}
+} // namespace cocos2d
 
-class about_menu final : public basic_menu
+class scrolling_text final : public Layer
 {
 public:
-  using base_class = basic_menu;
+  using base_class = Layer;
 
-  about_menu();
+  scrolling_text();
 
-  static about_menu* create(audio_helper* audio_helper);
+  static scrolling_text* create(const Size& size, const std::string text_file);
 
-  bool init(audio_helper* audio_helper);
+  bool init(const Size& size, const std::string text_file);
 
-  virtual void display() override;
+  virtual void update(float delta) override;
 
-protected:
-  bool create_menu_items() override;
+  void set_scroll(const float scroll);
+
+  void auto_scroll_in(const float time);
 
 private:
-  void on_back();
+  void start_scroll();
 
-  text_button* back_item_;
-  scrolling_text* scrolling_text_;
+  cocos2d::ui::RichText* rich_text_;
+  bool auto_scroll_;
+  float auto_scroll_direction_;
+  float scroll_pos_;
 };
 
-#endif // __ABOUT_MENU_CLASS__
+#endif // __SCROLLING_TEXT_CLASS__
