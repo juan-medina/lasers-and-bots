@@ -24,6 +24,7 @@
 #include "../laser_and_bots_app.h"
 #include "../menu/about_menu.h"
 #include "../menu/credits_menu.h"
+#include "../menu/license_menu.h"
 #include "../menu/main_menu.h"
 #include "../menu/options_menu.h"
 #include "../menu/play_menu.h"
@@ -37,6 +38,7 @@ menu_scene::menu_scene()
   , play_menu_(nullptr)
   , credits_menu_(nullptr)
   , about_menu_(nullptr)
+  , license_menu_(nullptr)
   , background_(nullptr)
   , paused_(false)
   , saved_level_(-1)
@@ -146,9 +148,13 @@ bool menu_scene::init(basic_app* application, const menu_to_display menu,
 
     addChild(about_menu_, 0);
 
+    license_menu_ = license_menu::create(get_audio_helper());
+    UTILS_BREAK_IF(license_menu_ == nullptr);
+
+    addChild(license_menu_, 0);
+
     switch (menu)
     {
-      default:
       case menu_to_display::main_menu:
         display_main_menu();
         break;
@@ -157,6 +163,9 @@ bool menu_scene::init(basic_app* application, const menu_to_display menu,
         break;
       case menu_to_display::options_menu:
         display_options_menu();
+        break;
+      case menu_to_display::license_menu:
+        display_license_menu();
         break;
     }
 
@@ -327,6 +336,12 @@ void menu_scene::display_about_menu()
 {
   current_menu_ = about_menu_;
   about_menu_->display();
+}
+
+void menu_scene::display_license_menu()
+{
+  current_menu_ = license_menu_;
+  license_menu_->display();
 }
 
 void menu_scene::change_music(const bool disabled) const

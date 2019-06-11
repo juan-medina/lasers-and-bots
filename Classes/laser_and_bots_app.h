@@ -43,6 +43,7 @@ public:
 
   Scene* game_scene(const unsigned short int level);
   Scene* main_menu_scene();
+  Scene* license_scene();
   Scene* play_menu_scene(const unsigned short int selected_level);
   Scene* options_menu_scene();
 

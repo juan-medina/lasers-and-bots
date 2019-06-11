@@ -138,6 +138,8 @@
 		583A5D20229BCD0C0069DDFE /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 583A5D0B229BCD0C0069DDFE /* fonts */; };
 		583A5D21229BCD0C0069DDFE /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 583A5D0B229BCD0C0069DDFE /* fonts */; };
 		583A5D23229BCEF80069DDFE /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 583A5D22229BCEF80069DDFE /* GameController.framework */; };
+		583E565B22AFF99600FC4B90 /* license_menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 583E565A22AFF99500FC4B90 /* license_menu.cpp */; };
+		583E565C22AFF99600FC4B90 /* license_menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 583E565A22AFF99500FC4B90 /* license_menu.cpp */; };
 		5852BEE822AF72FD00B468C7 /* scrolling_text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5852BEE522AF72FC00B468C7 /* scrolling_text.cpp */; };
 		5852BEE922AF72FD00B468C7 /* scrolling_text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5852BEE522AF72FC00B468C7 /* scrolling_text.cpp */; };
 		586F7B6C22AC844800F6DE52 /* backgrounds in Resources */ = {isa = PBXBuildFile; fileRef = 586F7B6A22AC844800F6DE52 /* backgrounds */; };
@@ -318,6 +320,8 @@
 		583A5D0A229BCD0C0069DDFE /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
 		583A5D0B229BCD0C0069DDFE /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		583A5D22229BCEF80069DDFE /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = System/Library/Frameworks/GameController.framework; sourceTree = SDKROOT; };
+		583E565822AFF99500FC4B90 /* license_menu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = license_menu.h; sourceTree = "<group>"; };
+		583E565A22AFF99500FC4B90 /* license_menu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = license_menu.cpp; sourceTree = "<group>"; };
 		5852BEE522AF72FC00B468C7 /* scrolling_text.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scrolling_text.cpp; sourceTree = "<group>"; };
 		5852BEE722AF72FC00B468C7 /* scrolling_text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrolling_text.h; sourceTree = "<group>"; };
 		586F7B6A22AC844800F6DE52 /* backgrounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = backgrounds; sourceTree = "<group>"; };
@@ -546,6 +550,8 @@
 		583A5C7022A7122700513203 /* menu */ = {
 			isa = PBXGroup;
 			children = (
+				583E565A22AFF99500FC4B90 /* license_menu.cpp */,
+				583E565822AFF99500FC4B90 /* license_menu.h */,
 				583A5C7122A7122700513203 /* options_menu.cpp */,
 				583A5C7222A7122700513203 /* about_menu.cpp */,
 				583A5C7322A7122700513203 /* main_menu.cpp */,
@@ -895,6 +901,7 @@
 				583A5CD622A7122700513203 /* credits_menu.cpp in Sources */,
 				583A5CBE22A7122700513203 /* harm_object.cpp in Sources */,
 				583A5CE422A7122700513203 /* slider_object.cpp in Sources */,
+				583E565B22AFF99600FC4B90 /* license_menu.cpp in Sources */,
 				583A5CE222A7122700513203 /* level_manager.cpp in Sources */,
 				583A5CF622A7122700513203 /* text_button.cpp in Sources */,
 				583A5CC222A7122700513203 /* door_object.cpp in Sources */,
@@ -959,6 +966,7 @@
 				583A5CC322A7122700513203 /* door_object.cpp in Sources */,
 				583A5CE322A7122700513203 /* level_manager.cpp in Sources */,
 				583A5D0522A7122700513203 /* physics_tiled_scene.cpp in Sources */,
+				583E565C22AFF99600FC4B90 /* license_menu.cpp in Sources */,
 				583A5CF322A7122700513203 /* virtual_joy_stick.cpp in Sources */,
 				583A5CDB22A7122700513203 /* play_menu.cpp in Sources */,
 				583A5CD322A7122700513203 /* about_menu.cpp in Sources */,

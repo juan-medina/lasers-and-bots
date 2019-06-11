@@ -32,13 +32,15 @@ class options_menu;
 class play_menu;
 class credits_menu;
 class about_menu;
+class license_menu;
 class input_controller;
 
 enum class menu_to_display
 {
   main_menu,
   play_menu,
-  options_menu
+  options_menu,
+  license_menu
 };
 
 class menu_scene final : public basic_scene
@@ -60,6 +62,7 @@ public:
   void display_play_menu();
   void display_credits_menu();
   void display_about_menu();
+  void display_license_menu();
   void change_music(const bool disabled) const;
   void change_sound(const bool disabled) const;
   void change_music_volume(const float volume) const;
@@ -99,6 +102,7 @@ private:
   play_menu* play_menu_;
   credits_menu* credits_menu_;
   about_menu* about_menu_;
+  license_menu* license_menu_;
 
   Node* background_;
   bool paused_;

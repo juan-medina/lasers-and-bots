@@ -30,7 +30,7 @@ scrolling_text::scrolling_text()
 {
 }
 
-scrolling_text* scrolling_text::create(const Size& size, const std::string text_file)
+scrolling_text* scrolling_text::create(const Size& size, const std::string text_file, const bool centered)
 {
   scrolling_text* ret = nullptr;
 
@@ -39,7 +39,7 @@ scrolling_text* scrolling_text::create(const Size& size, const std::string text_
     auto object = new scrolling_text();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(size, text_file))
+    if (object->init(size, text_file, centered))
     {
       object->autorelease();
     }
@@ -55,7 +55,7 @@ scrolling_text* scrolling_text::create(const Size& size, const std::string text_
   return ret;
 }
 
-bool scrolling_text::init(const Size& size, const std::string text_file)
+bool scrolling_text::init(const Size& size, const std::string text_file, const bool centered /* = false*/)
 {
   auto ret = false;
 
@@ -73,11 +73,21 @@ bool scrolling_text::init(const Size& size, const std::string text_file)
 
     ValueMap defaults{};
     defaults.insert(std::make_pair(RichText::KEY_FONT_FACE, Value("fonts/tahoma.ttf")));
-    defaults.insert(std::make_pair(RichText::KEY_FONT_SIZE, Value(140)));
+    defaults.insert(std::make_pair(RichText::KEY_FONT_SIZE, Value(150)));
+    defaults.insert(std::make_pair(RichText::KEY_FONT_BIG, Value(200)));
     defaults.insert(std::make_pair(RichText::KEY_FONT_COLOR_STRING, Value("#FFFFFF")));
     defaults.insert(std::make_pair(RichText::KEY_ANCHOR_FONT_COLOR_STRING, Value("#00FFFF")));
-    defaults.insert(std::make_pair(RichText::KEY_HORIZONTAL_ALIGNMENT,
-                                   Value(static_cast<int>(RichText::HorizontalAlignment::LEFT))));
+    if (centered)
+    {
+      defaults.insert(std::make_pair(RichText::KEY_HORIZONTAL_ALIGNMENT,
+                                     Value(static_cast<int>(RichText::HorizontalAlignment::CENTER))));
+    }
+    else
+    {
+      defaults.insert(std::make_pair(RichText::KEY_HORIZONTAL_ALIGNMENT,
+                                     Value(static_cast<int>(RichText::HorizontalAlignment::LEFT))));
+    }
+
     const auto file_utils = FileUtils::getInstance();
     const auto text = file_utils->getStringFromFile(text_file);
 

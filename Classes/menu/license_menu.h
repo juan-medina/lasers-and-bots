@@ -20,8 +20,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __CREDITS_MENU_CLASS__
-#define __CREDITS_MENU_CLASS__
+#ifndef __LICENSE_MENU_CLASS__
+#define __LICENSE_MENU_CLASS__
 
 #include "basic_menu.h"
 
@@ -30,14 +30,14 @@ class audio_helper;
 class text_button;
 class scrolling_text;
 
-class credits_menu final : public basic_menu
+class license_menu final : public basic_menu
 {
 public:
   using base_class = basic_menu;
 
-  credits_menu();
+  license_menu();
 
-  static credits_menu* create(audio_helper* audio_helper);
+  static license_menu* create(audio_helper* audio_helper);
 
   bool init(audio_helper* audio_helper);
 
@@ -53,4 +53,4 @@ private:
   scrolling_text* scrolling_text_;
 };
 
-#endif // __CREDITS_MENU_CLASS__
+#endif // __LICENSE_MENU_CLASS__

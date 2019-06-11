@@ -40,9 +40,9 @@ public:
 
   scrolling_text();
 
-  static scrolling_text* create(const Size& size, const std::string text_file);
+  static scrolling_text* create(const Size& size, const std::string text_file, const bool centered = false);
 
-  bool init(const Size& size, const std::string text_file);
+  bool init(const Size& size, const std::string text_file, const bool centered);
 
   virtual void update(float delta) override;
 
