@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="25" height="18" tilewidth="256" tileheight="256" infinite="0" nextlayerid="60" nextobjectid="57">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="25" height="18" tilewidth="256" tileheight="256" infinite="0" nextlayerid="60" nextobjectid="63">
  <properties>
   <property name="shapes" value="shapes/shapes.plist"/>
  </properties>
@@ -216,6 +216,12 @@
     <property name="speed" type="float" value="4"/>
    </properties>
   </object>
+  <object id="57" name="light" type="light" gid="30" x="542" y="1767.67" width="968" height="718"/>
+  <object id="58" name="light" type="light" gid="30" x="3097" y="1511.67" width="968" height="718"/>
+  <object id="59" name="light" type="light" gid="30" x="4637" y="2793.67" width="710" height="976"/>
+  <object id="60" name="light" type="light" gid="30" x="4113" y="4329.67" width="1488" height="976"/>
+  <object id="61" name="light" type="light" gid="30" x="2332" y="4075.67" width="712" height="1232"/>
+  <object id="62" name="light" type="light" gid="30" x="538" y="4070.67" width="1230" height="714"/>
  </objectgroup>
  <layer id="54" name="acid" width="25" height="18" opacity="0.7">
   <properties>

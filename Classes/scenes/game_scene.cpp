@@ -36,6 +36,7 @@
 #include "../ui/game_ui.h"
 #include "../ui/virtual_joy_stick.h"
 #include "../utils/audio/audio_helper.h"
+#include "../utils/base/nodes/custom_draw_node.h"
 #include "../utils/base/sprite/game_object.h"
 #include "../utils/physics/physics_shape_cache.h"
 
@@ -567,6 +568,10 @@ bool game_scene::add_object(const vector<Value>::value_type& object)
     {
       UTILS_BREAK_IF(!add_box(values, layer_walk));
     }
+    else if (type == "light")
+    {
+      UTILS_BREAK_IF(!add_light(values, layer_front));
+    }
 
     ret = true;
   } while (false);
@@ -1094,4 +1099,57 @@ Type* game_scene::get_object_from_contact(const PhysicsContact& contact, const c
   }
 
   return object;
+}
+
+bool game_scene::add_light(const ValueMap& values, Node* layer)
+{
+  auto ret = false;
+  do
+  {
+    const auto width = values.at("width").asFloat();
+    const auto height = values.at("height").asFloat();
+    const auto x = values.at("x").asFloat();
+    const auto y = values.at("y").asFloat() + height;
+
+    const auto node = custom_draw_node::create();
+    UTILS_BREAK_IF(node == nullptr);
+
+    static const auto distance = 1500.f;
+
+    Vec2 points[6];
+    Color4F colors[6];
+
+    points[0] = Vec2(x, y);
+    points[1] = Vec2(x + width, y);
+    points[2] = Vec2(0.5f, -0.5f) * distance + points[0];
+    points[3] = Vec2(0.5f, -0.5f) * distance + points[1];
+    points[4] = Vec2(x + width, y + height);
+    points[5] = Vec2(0.5f, -0.5f) * distance + points[4];
+    points[5] = Vec2::getIntersectPoint(points[3], points[3] + Vec2(distance, 0), points[4], points[5]);
+
+    colors[0] = Color4F(1.f, 1.f, 1.f, 0.65f);
+    colors[1] = Color4F(1.f, 1.f, 1.f, 0.5f);
+    colors[2] = Color4F(1.f, 1.f, 1.f, 0.f);
+    colors[3] = Color4F(1.f, 1.f, 1.f, 0.f);
+    colors[4] = Color4F(1.f, 1.f, 1.f, 0.5f);
+    colors[5] = Color4F(1.f, 1.f, 1.f, 0.f);
+
+    Vec2 poly_1_vertex[] = {points[0], points[1], points[3], points[2]};
+    Color4F poly_1_vertex_colors[] = {colors[0], colors[1], colors[3], colors[2]};
+
+    node->draw_color_quad(poly_1_vertex, poly_1_vertex_colors);
+
+    Vec2 poly_2_vertex[] = {points[1], points[4], points[5], points[3]};
+    Color4F poly_2_vertex_colors[] = {colors[1], colors[4], colors[5], colors[3]};
+
+    node->draw_color_quad(poly_2_vertex, poly_2_vertex_colors);
+
+    node->setBlendFunc(BlendFunc::ADDITIVE);
+
+    layer->addChild(node);
+
+    ret = true;
+  } while (false);
+
+  return ret;
 }

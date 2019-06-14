@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="52" height="20" tilewidth="256" tileheight="256" infinite="0" nextlayerid="57" nextobjectid="70">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="52" height="20" tilewidth="256" tileheight="256" infinite="0" nextlayerid="57" nextobjectid="80">
  <properties>
   <property name="shapes" value="shapes/shapes.plist"/>
  </properties>
@@ -159,7 +159,7 @@
  </tileset>
  <layer id="52" name="back" width="52" height="20">
   <data encoding="base64" compression="zlib">
-   eJztkUkOgCAMRUkcwFM43/+K1sQFaShD0Qiki5f8RS3/2V0p1T90lecDWAGDGFAeUT4t8AwHvM/VISZvhI8OZPy+duygesbO+TpQ85RP6D6+zPFJvQN1T+59fDkHe4/dObYD5VMCqbc1hftwaNWHc1vON+LD86mps/j8wxv/Tny+7ZP7pviUjfiUze0zA1MjLMAFYfQq+A==
+   eJztkUkOgCAMRUkcwFM43/+K1sQFaShD0Qiki5f8Ra3/0V0p1T90lecDWAGDGFAeUT4t8AwHvM/VISZvhI8OZPx/7dhB9Yyd83Wg5imf0H18meOTegfqntz7+HIO9h67c2wHyqcEUm9rCvfh0KoP57acb8SH51NTZ/H5hzfeTny+7ZOL+JSN+JTN7TMDUyMswAXatypK
   </data>
  </layer>
  <layer id="53" name="walk_back" width="52" height="20">
@@ -247,6 +247,16 @@
     <property name="shape" value="02_Barrel"/>
    </properties>
   </object>
+  <object id="70" name="light" type="light" gid="30" x="11547.3" y="998.333" width="714" height="458"/>
+  <object id="71" name="light" type="light" gid="30" x="9756.33" y="1510.33" width="714" height="458"/>
+  <object id="72" name="light" type="light" gid="30" x="8471.33" y="741.333" width="714" height="458"/>
+  <object id="73" name="light" type="light" gid="30" x="5916.33" y="998.333" width="714" height="458"/>
+  <object id="74" name="light" type="light" gid="30" x="3356.33" y="742.333" width="714" height="458"/>
+  <object id="75" name="light" type="light" gid="30" x="282.333" y="2533.33" width="714" height="458"/>
+  <object id="76" name="light" type="light" gid="30" x="1815.33" y="3046.33" width="714" height="458"/>
+  <object id="77" name="light" type="light" gid="30" x="3609.33" y="2533.33" width="714" height="458"/>
+  <object id="78" name="light" type="light" gid="30" x="4634.33" y="4069.33" width="714" height="458"/>
+  <object id="79" name="light" type="light" gid="30" x="8729.33" y="3558.33" width="714" height="458"/>
  </objectgroup>
  <layer id="54" name="acid" width="52" height="20" opacity="0.7">
   <properties>

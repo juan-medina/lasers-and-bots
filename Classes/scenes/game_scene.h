@@ -154,6 +154,7 @@ private:
   bool add_barrel(const ValueMap& values, Node* layer);
   bool add_saw(const ValueMap& values, Node* layer);
   bool add_box(const ValueMap& values, Node* layer);
+  bool add_light(const ValueMap& values, Node* layer);
 
   bool add_object(const vector<Value>::value_type& object);
   bool add_objects_to_game();

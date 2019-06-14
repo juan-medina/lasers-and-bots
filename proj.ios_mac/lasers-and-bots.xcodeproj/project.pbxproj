@@ -144,6 +144,8 @@
 		5852BEE922AF72FD00B468C7 /* scrolling_text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5852BEE522AF72FC00B468C7 /* scrolling_text.cpp */; };
 		586F7B6C22AC844800F6DE52 /* backgrounds in Resources */ = {isa = PBXBuildFile; fileRef = 586F7B6A22AC844800F6DE52 /* backgrounds */; };
 		586F7B6D22AC844800F6DE52 /* backgrounds in Resources */ = {isa = PBXBuildFile; fileRef = 586F7B6A22AC844800F6DE52 /* backgrounds */; };
+		58A3500822B30044002D651D /* custom_draw_node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58A3500622B30044002D651D /* custom_draw_node.cpp */; };
+		58A3500922B30044002D651D /* custom_draw_node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58A3500622B30044002D651D /* custom_draw_node.cpp */; };
 		58EA261722AC79F400EDBBC1 /* background_layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58EA261422AC79F300EDBBC1 /* background_layer.cpp */; };
 		58EA261822AC79F400EDBBC1 /* background_layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 58EA261422AC79F300EDBBC1 /* background_layer.cpp */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
@@ -325,6 +327,8 @@
 		5852BEE522AF72FC00B468C7 /* scrolling_text.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scrolling_text.cpp; sourceTree = "<group>"; };
 		5852BEE722AF72FC00B468C7 /* scrolling_text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrolling_text.h; sourceTree = "<group>"; };
 		586F7B6A22AC844800F6DE52 /* backgrounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = backgrounds; sourceTree = "<group>"; };
+		58A3500522B30044002D651D /* custom_draw_node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = custom_draw_node.h; sourceTree = "<group>"; };
+		58A3500622B30044002D651D /* custom_draw_node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = custom_draw_node.cpp; sourceTree = "<group>"; };
 		58EA261422AC79F300EDBBC1 /* background_layer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = background_layer.cpp; sourceTree = "<group>"; };
 		58EA261622AC79F400EDBBC1 /* background_layer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = background_layer.h; sourceTree = "<group>"; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -666,6 +670,7 @@
 		583A5CAE22A7122700513203 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				58A3500422B30044002D651D /* nodes */,
 				583A5CAF22A7122700513203 /* app */,
 				583A5CB222A7122700513203 /* sprite */,
 				583A5CB522A7122700513203 /* scene */,
@@ -702,6 +707,15 @@
 				583A5CBB22A7122700513203 /* tiled_scene.cpp */,
 			);
 			path = scene;
+			sourceTree = "<group>";
+		};
+		58A3500422B30044002D651D /* nodes */ = {
+			isa = PBXGroup;
+			children = (
+				58A3500522B30044002D651D /* custom_draw_node.h */,
+				58A3500622B30044002D651D /* custom_draw_node.cpp */,
+			);
+			path = nodes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -891,6 +905,7 @@
 				583A5CFA22A7122700513203 /* utils.cpp in Sources */,
 				583A5D0422A7122700513203 /* physics_tiled_scene.cpp in Sources */,
 				583A5CF422A7122700513203 /* text_toggle.cpp in Sources */,
+				58A3500822B30044002D651D /* custom_draw_node.cpp in Sources */,
 				583A5CCA22A7122700513203 /* box_object.cpp in Sources */,
 				583A5D0E22A7122700513203 /* tiled_scene.cpp in Sources */,
 				583A5CCE22A7122700513203 /* robot_object.cpp in Sources */,
@@ -946,6 +961,7 @@
 				583A5D0D22A7122700513203 /* basic_scene.cpp in Sources */,
 				583A5CF922A7122700513203 /* laser_and_bots_app.cpp in Sources */,
 				583A5CCD22A7122700513203 /* saw_object.cpp in Sources */,
+				58A3500922B30044002D651D /* custom_draw_node.cpp in Sources */,
 				583A5CE922A7122700513203 /* pause_window.cpp in Sources */,
 				583A5CD522A7122700513203 /* main_menu.cpp in Sources */,
 				583A5CE122A7122700513203 /* game_scene.cpp in Sources */,

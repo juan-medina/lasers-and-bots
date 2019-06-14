@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="42" height="20" tilewidth="256" tileheight="256" infinite="0" nextlayerid="52" nextobjectid="60">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="42" height="20" tilewidth="256" tileheight="256" infinite="0" nextlayerid="52" nextobjectid="69">
  <properties>
   <property name="shapes" value="shapes/shapes.plist"/>
  </properties>
@@ -159,7 +159,7 @@
  </tileset>
  <layer id="47" name="back" width="42" height="20">
   <data encoding="base64" compression="zlib">
-   eJztlUkKwCAMRYXOp+h8/yuaQgtBGo0DJaEuHvyFkudXcDfGtDeN0HwAKzA6dE7uI3KIExGa++QNeeL9A1rjy76ZKZ7ULMqT2yfew+3TB6dP6lyxPefA6TPlnr6C4ymB6qnLs9Tbrp5lz5DjmduVFk8t9/4HTwl/5JuLVk+pXJ4zMAlnASxTNSOV
+   eJztlUkKwCAMRQOdT9H5/lc0hRaCEI0DJbYuHvyFkudXcAeA9qZRmg9kRUaLzsp9QPZxEnxzn7wRT7p/IGtc2TUzxpObxXlK+6R7pH26kPTJnSu05xQkfcbc01tIPDVQPcvyzPW2q2feM6R4pnZVimcp9/4HTw1/5Jc8tXJ5zsiknAUxLYYi5w==
   </data>
  </layer>
  <layer id="48" name="walk_back" width="42" height="20">
@@ -205,6 +205,14 @@
     <property name="speed" type="float" value="6"/>
    </properties>
   </object>
+  <object id="61" name="light1" type="light" gid="30" x="795.333" y="4581.33" width="712" height="456"/>
+  <object id="62" name="light1" type="light" gid="30" x="539.333" y="998.333" width="712" height="456"/>
+  <object id="63" name="light1" type="light" gid="30" x="2072.33" y="1510.33" width="712" height="456"/>
+  <object id="64" name="light1" type="light" gid="30" x="3608.33" y="3558.33" width="712" height="456"/>
+  <object id="65" name="light1" type="light" gid="30" x="5912.33" y="2789.33" width="712" height="456"/>
+  <object id="66" name="light1" type="light" gid="30" x="7191.33" y="742.333" width="712" height="456"/>
+  <object id="67" name="light1" type="light" gid="30" x="7709.33" y="3301.33" width="712" height="456"/>
+  <object id="68" name="light1" type="light" gid="30" x="3868" y="998" width="712" height="456"/>
  </objectgroup>
  <layer id="49" name="acid" width="42" height="20" opacity="0.7">
   <properties>

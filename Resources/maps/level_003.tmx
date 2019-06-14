@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="18" tilewidth="256" tileheight="256" infinite="0" nextlayerid="37" nextobjectid="59">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="18" tilewidth="256" tileheight="256" infinite="0" nextlayerid="37" nextobjectid="64">
  <properties>
   <property name="shapes" value="shapes/shapes.plist"/>
  </properties>
@@ -159,7 +159,7 @@
  </tileset>
  <layer id="32" name="back" width="32" height="18">
   <data encoding="base64" compression="zlib">
-   eJxTZmBgYAFiZihNT7YKECsCMSsQswExBxa2KhLmIBOzIrGRzVOC2s+OJI/Opob97ATsJ9dcSvGo/dSzn5x0MpzsH+jwH7V/aNtPjXKWEEa3YzDZP9DhP1D2ywMx5wBhBSAGAKozGIU=
+   eJxTZmBgYAFiZihNT7YKECsCMSsQswExBxa2KhLmIBET0qsEtZ8dSQydTQ/7STWXWnjUfurZT046GU72D3T4j9o/tO2npJzFh/GZO5jsH+jwHyj75YGYc4CwAhADAN/jGIk=
   </data>
  </layer>
  <layer id="33" name="walk_back" width="32" height="18">
@@ -258,6 +258,11 @@
     <property name="stop_time" type="float" value="1"/>
    </properties>
   </object>
+  <object id="59" name="light" type="light" gid="30" x="2076" y="742" width="710" height="456"/>
+  <object id="60" name="light" type="light" gid="30" x="4635" y="2022" width="710" height="456"/>
+  <object id="61" name="light" type="light" gid="30" x="5913" y="741" width="710" height="456"/>
+  <object id="62" name="light" type="light" gid="30" x="6172" y="3814" width="710" height="456"/>
+  <object id="63" name="light" type="light" gid="30" x="538" y="3814" width="710" height="456"/>
  </objectgroup>
  <layer id="34" name="acid" width="32" height="18" opacity="0.7">
   <properties>
