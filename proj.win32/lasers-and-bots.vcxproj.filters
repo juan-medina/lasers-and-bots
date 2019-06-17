@@ -52,6 +52,9 @@
     <Filter Include="src\utils\controller">
       <UniqueIdentifier>{948fc23a-c9d1-4d86-a3e2-b4583cfe9a1d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\utils\nodes">
+      <UniqueIdentifier>{8552bd86-8d84-45e4-a21a-2780cdc27c5e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -183,6 +186,18 @@
     <ClCompile Include="..\Classes\game\on_off_object.cpp">
       <Filter>src\game</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\menu\license_menu.cpp">
+      <Filter>src\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ui\scrolling_text.cpp">
+      <Filter>src\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utils\base\nodes\custom_draw_node.cpp">
+      <Filter>src\utils\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\game\background_layer.cpp">
+      <Filter>src\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -312,6 +327,18 @@
       <Filter>src\menu</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\game\on_off_object.h">
+      <Filter>src\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\menu\license_menu.h">
+      <Filter>src\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui\scrolling_text.h">
+      <Filter>src\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\base\nodes\custom_draw_node.h">
+      <Filter>src\utils\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\game\background_layer.h">
       <Filter>src\game</Filter>
     </ClInclude>
   </ItemGroup>

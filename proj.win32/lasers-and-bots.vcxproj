@@ -14,7 +14,7 @@
     <ProjectGuid>{76A39BB2-9B84-4C65-98A5-654D86B86F2A}</ProjectGuid>
     <RootNamespace>test_win32</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -27,6 +27,7 @@
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v140_xp</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0'">v141</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v141_xp</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -37,6 +38,7 @@
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v140_xp</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0'">v141</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v141_xp</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -149,6 +151,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y      </C
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Classes\game\background_layer.cpp" />
     <ClCompile Include="..\Classes\game\barrel_object.cpp" />
     <ClCompile Include="..\Classes\game\box_object.cpp" />
     <ClCompile Include="..\Classes\game\door_object.cpp" />
@@ -163,6 +166,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y      </C
     <ClCompile Include="..\Classes\menu\about_menu.cpp" />
     <ClCompile Include="..\Classes\menu\basic_menu.cpp" />
     <ClCompile Include="..\Classes\menu\credits_menu.cpp" />
+    <ClCompile Include="..\Classes\menu\license_menu.cpp" />
     <ClCompile Include="..\Classes\menu\main_menu.cpp" />
     <ClCompile Include="..\Classes\menu\options_menu.cpp" />
     <ClCompile Include="..\Classes\menu\play_menu.cpp" />
@@ -176,12 +180,14 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y      </C
     <ClCompile Include="..\Classes\ui\on_screen_button.cpp" />
     <ClCompile Include="..\Classes\ui\pause_window.cpp" />
     <ClCompile Include="..\Classes\ui\resizable_window.cpp" />
+    <ClCompile Include="..\Classes\ui\scrolling_text.cpp" />
     <ClCompile Include="..\Classes\ui\slider_object.cpp" />
     <ClCompile Include="..\Classes\ui\text_button.cpp" />
     <ClCompile Include="..\Classes\ui\text_toggle.cpp" />
     <ClCompile Include="..\Classes\ui\virtual_joy_stick.cpp" />
     <ClCompile Include="..\Classes\utils\audio\audio_helper.cpp" />
     <ClCompile Include="..\Classes\utils\base\app\basic_app.cpp" />
+    <ClCompile Include="..\Classes\utils\base\nodes\custom_draw_node.cpp" />
     <ClCompile Include="..\Classes\utils\base\scene\basic_scene.cpp" />
     <ClCompile Include="..\Classes\utils\base\scene\grid_scene.cpp" />
     <ClCompile Include="..\Classes\utils\base\scene\tiled_scene.cpp" />
@@ -194,6 +200,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y      </C
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Classes\game\background_layer.h" />
     <ClInclude Include="..\Classes\game\barrel_object.h" />
     <ClInclude Include="..\Classes\game\box_object.h" />
     <ClInclude Include="..\Classes\game\door_object.h" />
@@ -208,6 +215,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y      </C
     <ClInclude Include="..\Classes\menu\about_menu.h" />
     <ClInclude Include="..\Classes\menu\basic_menu.h" />
     <ClInclude Include="..\Classes\menu\credits_menu.h" />
+    <ClInclude Include="..\Classes\menu\license_menu.h" />
     <ClInclude Include="..\Classes\menu\main_menu.h" />
     <ClInclude Include="..\Classes\menu\options_menu.h" />
     <ClInclude Include="..\Classes\menu\play_menu.h" />
@@ -221,12 +229,14 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y      </C
     <ClInclude Include="..\Classes\ui\on_screen_button.h" />
     <ClInclude Include="..\Classes\ui\pause_window.h" />
     <ClInclude Include="..\Classes\ui\resizable_window.h" />
+    <ClInclude Include="..\Classes\ui\scrolling_text.h" />
     <ClInclude Include="..\Classes\ui\slider_object.h" />
     <ClInclude Include="..\Classes\ui\text_button.h" />
     <ClInclude Include="..\Classes\ui\text_toggle.h" />
     <ClInclude Include="..\Classes\ui\virtual_joy_stick.h" />
     <ClInclude Include="..\Classes\utils\audio\audio_helper.h" />
     <ClInclude Include="..\Classes\utils\base\app\basic_app.h" />
+    <ClInclude Include="..\Classes\utils\base\nodes\custom_draw_node.h" />
     <ClInclude Include="..\Classes\utils\base\scene\basic_scene.h" />
     <ClInclude Include="..\Classes\utils\base\scene\grid_scene.h" />
     <ClInclude Include="..\Classes\utils\base\scene\tiled_scene.h" />
