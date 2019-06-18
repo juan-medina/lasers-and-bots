@@ -40,7 +40,7 @@
 #include "../utils/base/sprite/game_object.h"
 #include "../utils/physics/physics_shape_cache.h"
 
-game_scene::game_scene()
+game_scene::game_scene() noexcept
   : robot_(nullptr)
   , game_ui_(nullptr)
   , last_robot_position_(Vec2::ZERO)
@@ -59,6 +59,7 @@ game_scene::game_scene()
   , level_manager_(nullptr)
   , music_file_name_("")
   , background_(nullptr)
+  , lights_(nullptr)
 {
 }
 
@@ -570,7 +571,16 @@ bool game_scene::add_object(const vector<Value>::value_type& object)
     }
     else if (type == "light")
     {
-      UTILS_BREAK_IF(!add_light(values, layer_front));
+      if (lights_ == nullptr)
+      {
+        lights_ = custom_draw_node::create();
+        UTILS_BREAK_IF(lights_ == nullptr);
+
+        lights_->setBlendFunc(BlendFunc::ADDITIVE);
+
+        layer_front->addChild(lights_);
+      }
+      UTILS_BREAK_IF(!add_light(values));
     }
 
     ret = true;
@@ -1101,7 +1111,7 @@ Type* game_scene::get_object_from_contact(const PhysicsContact& contact, const c
   return object;
 }
 
-bool game_scene::add_light(const ValueMap& values, Node* layer)
+bool game_scene::add_light(const ValueMap& values) const
 {
   auto ret = false;
   do
@@ -1111,21 +1121,16 @@ bool game_scene::add_light(const ValueMap& values, Node* layer)
     const auto x = values.at("x").asFloat();
     const auto y = values.at("y").asFloat() + height;
 
-    const auto node = custom_draw_node::create();
-    UTILS_BREAK_IF(node == nullptr);
-
-    static const auto distance = 1500.f;
-
     Vec2 points[6];
     Color4F colors[6];
 
     points[0] = Vec2(x, y);
     points[1] = Vec2(x + width, y);
-    points[2] = Vec2(0.5f, -0.5f) * distance + points[0];
-    points[3] = Vec2(0.5f, -0.5f) * distance + points[1];
+    points[2] = Vec2(0.5f, -0.5f) * light_distance + points[0];
+    points[3] = Vec2(0.5f, -0.5f) * light_distance + points[1];
     points[4] = Vec2(x + width, y + height);
-    points[5] = Vec2(0.5f, -0.5f) * distance + points[4];
-    points[5] = Vec2::getIntersectPoint(points[3], points[3] + Vec2(distance, 0), points[4], points[5]);
+    points[5] = Vec2(0.5f, -0.5f) * light_distance + points[4];
+    points[5] = Vec2::getIntersectPoint(points[3], points[3] + Vec2(light_distance, 0), points[4], points[5]);
 
     colors[0] = Color4F(1.f, 1.f, 1.f, 0.65f);
     colors[1] = Color4F(1.f, 1.f, 1.f, 0.5f);
@@ -1134,19 +1139,15 @@ bool game_scene::add_light(const ValueMap& values, Node* layer)
     colors[4] = Color4F(1.f, 1.f, 1.f, 0.5f);
     colors[5] = Color4F(1.f, 1.f, 1.f, 0.f);
 
-    Vec2 poly_1_vertex[] = {points[0], points[1], points[3], points[2]};
-    Color4F poly_1_vertex_colors[] = {colors[0], colors[1], colors[3], colors[2]};
+    const Vec2 poly_1_vertex[] = {points[0], points[1], points[3], points[2]};
+    const Color4F poly_1_vertex_colors[] = {colors[0], colors[1], colors[3], colors[2]};
 
-    node->draw_color_quad(poly_1_vertex, poly_1_vertex_colors);
+    lights_->draw_color_quad(&poly_1_vertex[0], &poly_1_vertex_colors[0]);
 
-    Vec2 poly_2_vertex[] = {points[1], points[4], points[5], points[3]};
-    Color4F poly_2_vertex_colors[] = {colors[1], colors[4], colors[5], colors[3]};
+    const Vec2 poly_2_vertex[] = {points[1], points[4], points[5], points[3]};
+    const Color4F poly_2_vertex_colors[] = {colors[1], colors[4], colors[5], colors[3]};
 
-    node->draw_color_quad(poly_2_vertex, poly_2_vertex_colors);
-
-    node->setBlendFunc(BlendFunc::ADDITIVE);
-
-    layer->addChild(node);
+    lights_->draw_color_quad(&poly_2_vertex[0], &poly_2_vertex_colors[0]);
 
     ret = true;
   } while (false);

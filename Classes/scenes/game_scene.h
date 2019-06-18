@@ -34,13 +34,14 @@ class robot_fragment;
 class harm_object;
 class level_manager;
 class background_layer;
+class custom_draw_node;
 
 class game_scene final : public physics_tiled_scene
 {
 public:
   using base_class = physics_tiled_scene;
 
-  game_scene();
+  game_scene() noexcept;
 
   static Scene* scene(basic_app* application, const bool debug_grid, const bool debug_physics,
                       const int level);
@@ -100,7 +101,7 @@ public:
 
   void close();
 
-  bool is_paused() const { return paused_; }
+  bool is_paused() const noexcept { return paused_; }
 
   void will_enter_foreground() override;
 
@@ -154,7 +155,7 @@ private:
   bool add_barrel(const ValueMap& values, Node* layer);
   bool add_saw(const ValueMap& values, Node* layer);
   bool add_box(const ValueMap& values, Node* layer);
-  bool add_light(const ValueMap& values, Node* layer);
+  bool add_light(const ValueMap& values) const;
 
   bool add_object(const vector<Value>::value_type& object);
   bool add_objects_to_game();
@@ -203,6 +204,9 @@ private:
   level_manager* level_manager_;
   std::string music_file_name_;
   background_layer* background_;
+  custom_draw_node* lights_;
+
+  static constexpr float light_distance = 1500.f;
 };
 
 #endif // __MAIN_SCENE__
