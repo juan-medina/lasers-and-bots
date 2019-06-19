@@ -46,7 +46,6 @@ protected:
 
 private:
   experimental::TMXTiledMap* tiled_map_;
-  bool handle_transparent_layers() const;
 };
 
 #endif // __TILED_SCENE_H__

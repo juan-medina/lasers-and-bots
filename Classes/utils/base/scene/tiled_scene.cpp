@@ -81,52 +81,12 @@ bool tiled_scene::init(basic_app* application, const std::string& tmx_file)
 
     UTILS_BREAK_IF(!base_class::init(application, size, tile_size));
 
-    UTILS_BREAK_IF(!handle_transparent_layers());
-
     ret = true;
 
     addChild(map);
   } while (false);
 
   return ret;
-}
-
-bool tiled_scene::handle_transparent_layers() const
-{
-  auto result = false;
-
-  do
-  {
-    const auto map = get_tiled_map();
-
-    for (auto& child : map->getChildren())
-    {
-      const auto layer = dynamic_cast<experimental::TMXLayer*>(child);
-      if (layer != nullptr)
-      {
-        const auto opacity = layer->getOpacity();
-        if (opacity != 255)
-        {
-          for (auto col = 0; col < blocks_.height; col++)
-          {
-            for (auto row = 0; row < blocks_.width; row++)
-            {
-              const auto tile_pos = Vec2(row, col);
-              const auto gid = layer->getTileGIDAt(tile_pos);
-              if (gid != 0)
-              {
-                layer->getTileAt(tile_pos)->setOpacity(opacity);
-              }
-            }
-          }
-        }
-      }
-    }
-
-    result = true;
-  } while (false);
-
-  return result;
 }
 
 Vec2 tiled_scene::get_object_center_position(const ValueMap& values)
