@@ -170,24 +170,24 @@ void laser_object::update(const float delta)
   auto t = (final_point - origin_point).getNormalized();
   auto n = t.getPerp();
 
-  static const auto radius = 20.f;
+  static const auto radius = 10.f;
 
   n.scale(radius);
   t.scale(radius);
 
   const auto v0 = final_point - (n + t);
   const auto v1 = final_point + (n - t);
-  const auto v2 = origin_point + (n - t);
-  const auto v3 = origin_point - (n + t);
+  const auto v2 = origin_point - (n + t);
+  const auto v3 = origin_point + (n - t);  
 
   static const auto red = Color4F::RED;
-  static const auto dark_red = Color4F(0.5, 0.f, 0.f, 1.f);
-  Color4F colors[4] = {red, dark_red, dark_red, dark_red};
+  static const auto dark_red = Color4F(0.8, 0.f, 0.f, 1.f);
+  Color4F colors[4] = {dark_red, red, dark_red, red};
 
-  Vec2 vertex_1[4] = {origin_point, v0, final_point, v2};
+  Vec2 vertex_1[4] = {origin_point, final_point, v0, v2};
   draw_->draw_color_quad(&vertex_1[0], &colors[0]);
 
-  Vec2 vertex_2[4] = {origin_point, v1, final_point, v3};
+  Vec2 vertex_2[4] = {origin_point, final_point, v1, v3};
   draw_->draw_color_quad(&vertex_2[0], &colors[0]);
 
   // if we have actually hit something draw a dot and create an emitter
