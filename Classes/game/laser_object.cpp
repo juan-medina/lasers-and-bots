@@ -23,6 +23,7 @@
 #include "laser_object.h"
 #include "../scenes/game_scene.h"
 #include "../utils/audio/audio_helper.h"
+#include "../utils/base/nodes/custom_draw_node.h"
 #include "robot_object.h"
 
 int laser_object::loop_sound_ = -1;
@@ -83,7 +84,7 @@ bool laser_object::init(audio_helper* audio_helper, const float initial_angle, c
 
     UTILS_BREAK_IF(!base_class::init("laser", damage));
 
-    draw_ = DrawNode::create();
+    draw_ = custom_draw_node::create();
     UTILS_BREAK_IF(draw_ == nullptr);
 
     addChild(draw_);
@@ -165,7 +166,29 @@ void laser_object::update(const float delta)
 
   // convert the point into node space and draw it
   const auto final_point = convertToNodeSpace(final_point_in_world);
-  draw_->drawSegment(origin_point, final_point, 8, Color4F::RED);
+
+  auto t = (final_point - origin_point).getNormalized();
+  auto n = t.getPerp();
+
+  static const auto radius = 20.f;
+
+  n.scale(radius);
+  t.scale(radius);
+
+  const auto v0 = final_point - (n + t);
+  const auto v1 = final_point + (n - t);
+  const auto v2 = origin_point + (n - t);
+  const auto v3 = origin_point - (n + t);
+
+  static const auto red = Color4F::RED;
+  static const auto dark_red = Color4F(0.5, 0.f, 0.f, 1.f);
+  Color4F colors[4] = {red, dark_red, dark_red, dark_red};
+
+  Vec2 vertex_1[4] = {origin_point, v0, final_point, v2};
+  draw_->draw_color_quad(&vertex_1[0], &colors[0]);
+
+  Vec2 vertex_2[4] = {origin_point, v1, final_point, v3};
+  draw_->draw_color_quad(&vertex_2[0], &colors[0]);
 
   // if we have actually hit something draw a dot and create an emitter
   if ((final_point_in_world.x != destination_point_in_world.x) &

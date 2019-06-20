@@ -179,3 +179,4 @@ tests/*/project/proj.android/.settings/org.eclipse.buildship.core.prefs
 # tmp folder for temp usage
 tmp/
 temp/
+/proj.win32/lasers-and-bots.sln.DotSettings.user
