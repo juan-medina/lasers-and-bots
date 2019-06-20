@@ -170,7 +170,7 @@ void laser_object::update(const float delta)
   auto t = (final_point - origin_point).getNormalized();
   auto n = t.getPerp();
 
-  static const auto radius = 10.f;
+  static const auto radius = 12.f;
 
   n.scale(radius);
   t.scale(radius);
@@ -182,7 +182,7 @@ void laser_object::update(const float delta)
 
   static const auto red = Color4F::RED;
   static const auto dark_red = Color4F(0.8, 0.f, 0.f, 1.f);
-  Color4F colors[4] = {dark_red, red, dark_red, red};
+  Color4F colors[4] = {red, red, dark_red, dark_red};
 
   Vec2 vertex_1[4] = {origin_point, final_point, v0, v2};
   draw_->draw_color_quad(&vertex_1[0], &colors[0]);
