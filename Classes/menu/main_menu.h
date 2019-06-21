@@ -26,7 +26,7 @@
 #include "basic_menu.h"
 
 // foward declarations
-class audio_helper;
+class AudioHelper;
 class text_button;
 
 class main_menu final : public basic_menu
@@ -36,9 +36,9 @@ public:
 
   main_menu();
 
-  static main_menu* create(audio_helper* audio_helper);
+  static main_menu* create(AudioHelper* audio_helper);
 
-  bool init(audio_helper* audio_helper);
+  bool init(AudioHelper* audio_helper);
 
   void display() override;
   ;

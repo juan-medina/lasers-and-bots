@@ -27,7 +27,7 @@
 #include "../utils/utils.h"
 
 // foward declarations
-class audio_helper;
+class AudioHelper;
 class slider_object;
 class text_button;
 class text_toggle;
@@ -46,14 +46,14 @@ public:
 
   basic_menu();
 
-  bool init(const std::string& name, audio_helper* audio_helper, const float width, const float height,
+  bool init(const std::string& name, AudioHelper* audio_helper, const float width, const float height,
             animation_type animation_type = animation_type::slide);
 
   virtual void display();
 
   virtual void hide();
 
-  audio_helper* get_audio_helper() const { return audio_helper_; }
+  AudioHelper* get_audio_helper() const { return audio_helper_; }
 
   void set_default_menu_item(MenuItem* item);
   void select_menu_item(MenuItem* item);
@@ -85,7 +85,7 @@ protected:
 private:
   void on_movement_end();
 
-  audio_helper* audio_helper_;
+  AudioHelper* audio_helper_;
   Vector<MenuItem*> buttons_;
   float current_text_button_y_;
   float current_image_button_x_;

@@ -28,7 +28,7 @@
 #include "../menu/main_menu.h"
 #include "../menu/options_menu.h"
 #include "../menu/play_menu.h"
-#include "../utils/audio/audio_helper.h"
+#include "../utils/audio/AudioHelper.h"
 #include "../utils/controller/input_controller.h"
 
 menu_scene::menu_scene()
@@ -89,9 +89,9 @@ bool menu_scene::init(basic_app* application, const menu_to_display menu,
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ui/ui-0.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ui/ui-1.plist");
 
-    get_audio_helper()->pre_load_effect("sounds/select.mp3");
-    get_audio_helper()->pre_load_effect("sounds/SlideClosed.mp3");
-    get_audio_helper()->pre_load_music("sounds/Cellar-I.mp3", "sounds/Cellar-L.mp3");
+    get_audio_helper()->preLoadEffect("sounds/select.mp3");
+    get_audio_helper()->preLoadEffect("sounds/SlideClosed.mp3");
+    get_audio_helper()->preLoadMusic("sounds/Cellar-I.mp3", "sounds/Cellar-L.mp3");
     const auto& size = Director::getInstance()->getWinSize();
 
     UTILS_BREAK_IF(!add_background());
@@ -169,7 +169,7 @@ bool menu_scene::init(basic_app* application, const menu_to_display menu,
         break;
     }
 
-    get_audio_helper()->play_music("sounds/Cellar-I.mp3", "sounds/Cellar-L.mp3");
+    get_audio_helper()->playMusic("sounds/Cellar-I.mp3", "sounds/Cellar-L.mp3");
 
     scheduleUpdate();
 
@@ -352,11 +352,11 @@ void menu_scene::change_music(const bool disabled) const
   if (!disabled)
   {
     app->set_music_muted(disabled);
-    helper->resume_music();
+    helper->resumeMusic();
   }
   else
   {
-    helper->pause_music();
+    helper->pauseMusic();
     app->set_music_muted(disabled);
   }
 }
@@ -402,7 +402,7 @@ void menu_scene::pause()
     const auto helper = get_audio_helper();
     if (helper != nullptr)
     {
-      helper->pause_music();
+      helper->pauseMusic();
     }
     paused_ = true;
   }
@@ -416,7 +416,7 @@ void menu_scene::resume()
     const auto helper = get_audio_helper();
     if (helper != nullptr)
     {
-      helper->resume_music();
+      helper->resumeMusic();
     }
     paused_ = false;
   }

@@ -26,7 +26,7 @@
 #include "harm_object.h"
 
 // forward declarations
-class audio_helper;
+class AudioHelper;
 class custom_draw_node;
 
 class laser_object final : public harm_object
@@ -36,10 +36,10 @@ public:
 
   laser_object();
 
-  static laser_object* create(audio_helper* audio_helper, const float initial_angle,
+  static laser_object* create(AudioHelper* audio_helper, const float initial_angle,
                               const float rotation_angle, const float speed_factor, const int damage);
 
-  bool init(audio_helper* audio_helper, const float initial_angle, const float rotation_angle,
+  bool init(AudioHelper* audio_helper, const float initial_angle, const float rotation_angle,
             const float speed_factor, const int damage);
 
   void update(float delta) override;
@@ -70,7 +70,7 @@ private:
 
   float speed_factor_;
 
-  audio_helper* audio_helper_;
+  AudioHelper* audio_helper_;
 };
 
 #endif // __LASER_CLASS__

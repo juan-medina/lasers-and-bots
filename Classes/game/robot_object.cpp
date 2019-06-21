@@ -22,7 +22,7 @@
 
 #include "robot_object.h"
 #include "../ui/virtual_joy_stick.h"
-#include "../utils/audio/audio_helper.h"
+#include "../utils/audio/AudioHelper.h"
 
 const Vec2 robot_object::normal_movement = Vec2(1000.0f, 2600.f);
 const int robot_object::blink_on_damage_action_tag = 0xF0F0F;
@@ -44,7 +44,7 @@ robot_object::robot_object()
 {
 }
 
-robot_object* robot_object::create(physics_shape_cache* physics_shape_cache, audio_helper* audio_helper,
+robot_object* robot_object::create(physics_shape_cache* physics_shape_cache, AudioHelper* audio_helper,
                                    virtual_joy_stick* virtual_joy_stick, const int max_shield)
 {
   robot_object* ret = nullptr;
@@ -70,7 +70,7 @@ robot_object* robot_object::create(physics_shape_cache* physics_shape_cache, aud
   return ret;
 }
 
-bool robot_object::init(physics_shape_cache* physics_shape_cache, audio_helper* audio_helper,
+bool robot_object::init(physics_shape_cache* physics_shape_cache, AudioHelper* audio_helper,
                         virtual_joy_stick* virtual_joy_stick, const int max_shield)
 {
   auto ret = false;
@@ -95,9 +95,9 @@ bool robot_object::init(physics_shape_cache* physics_shape_cache, audio_helper* 
 
     audio_helper_ = audio_helper;
 
-    audio_helper_->pre_load_effect("sounds/metal_footsteps.mp3");
-    audio_helper_->pre_load_effect("sounds/jump.mp3");
-    audio_helper_->pre_load_effect("sounds/land.mp3");
+    audio_helper_->preLoadEffect("sounds/metal_footsteps.mp3");
+    audio_helper_->preLoadEffect("sounds/jump.mp3");
+    audio_helper_->preLoadEffect("sounds/land.mp3");
 
     change_anim("idle");
 
@@ -127,7 +127,7 @@ void robot_object::update(float delta)
 
 void robot_object::on_land_on_block()
 {
-  audio_helper_->play_effect("sounds/land.mp3", false, 0.35f);
+  audio_helper_->playEffect("sounds/land.mp3", false, 0.35f);
 }
 
 void robot_object::feet_touch_walk_object_start()
@@ -248,7 +248,7 @@ void robot_object::pause()
   base_class::pause();
   if (walk_sound_ != -1)
   {
-    audio_helper_->stop_sound(walk_sound_);
+    audio_helper_->stopSound(walk_sound_);
     walk_sound_ = -1;
   }
 }
@@ -304,7 +304,7 @@ void robot_object::jump(const bool to_jump)
 
       if (do_jump)
       {
-        audio_helper_->play_effect("sounds/jump.mp3", false, 0.35f);
+        audio_helper_->playEffect("sounds/jump.mp3", false, 0.35f);
         getPhysicsBody()->applyImpulse(Vec2(0.0f, normal_movement.y));
         jumping_ = true;
       }
@@ -324,18 +324,18 @@ void robot_object::walk_sound(const bool active)
   {
     if (walk_sound_ == -1)
     {
-      walk_sound_ = audio_helper_->play_effect("sounds/metal_footsteps.mp3", true);
+      walk_sound_ = audio_helper_->playEffect("sounds/metal_footsteps.mp3", true);
     }
     else
     {
-      audio_helper_->resume_sound(walk_sound_);
+      audio_helper_->resumeSound(walk_sound_);
     }
   }
   else
   {
     if (walk_sound_ != -1)
     {
-      audio_helper_->pause_sound(walk_sound_);
+      audio_helper_->pauseSound(walk_sound_);
     }
   }
 }

@@ -24,13 +24,13 @@
 #include "../scenes/menu_scene.h"
 #include "../ui/scrolling_text.h"
 #include "../ui/text_button.h"
-#include "../utils/audio/audio_helper.h"
+#include "../utils/audio/AudioHelper.h"
 
 using namespace cocos2d::ui;
 
 credits_menu::credits_menu() : back_item_(nullptr) {}
 
-credits_menu* credits_menu::create(audio_helper* audio_helper)
+credits_menu* credits_menu::create(AudioHelper* audio_helper)
 {
   credits_menu* ret = nullptr;
 
@@ -55,7 +55,7 @@ credits_menu* credits_menu::create(audio_helper* audio_helper)
   return ret;
 }
 
-bool credits_menu::init(audio_helper* audio_helper)
+bool credits_menu::init(AudioHelper* audio_helper)
 {
   auto ret = false;
 
@@ -101,7 +101,7 @@ void credits_menu::display()
 
 void credits_menu::on_back()
 {
-  get_audio_helper()->play_effect("sounds/select.mp3");
+  get_audio_helper()->playEffect("sounds/select.mp3");
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   menu->display_main_menu();

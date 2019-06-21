@@ -25,7 +25,7 @@
 #include "../ui/slider_object.h"
 #include "../ui/text_button.h"
 #include "../ui/text_toggle.h"
-#include "../utils/audio/audio_helper.h"
+#include "../utils/audio/AudioHelper.h"
 
 options_menu::options_menu()
   : desktop_application_(false)
@@ -41,7 +41,7 @@ options_menu::options_menu()
 {
 }
 
-options_menu* options_menu::create(audio_helper* audio_helper, const bool is_desktop_application)
+options_menu* options_menu::create(AudioHelper* audio_helper, const bool is_desktop_application)
 {
   options_menu* ret = nullptr;
 
@@ -66,7 +66,7 @@ options_menu* options_menu::create(audio_helper* audio_helper, const bool is_des
   return ret;
 }
 
-bool options_menu::init(audio_helper* audio_helper, const bool is_desktop_application)
+bool options_menu::init(AudioHelper* audio_helper, const bool is_desktop_application)
 {
   auto ret = false;
 
@@ -93,14 +93,14 @@ void options_menu::display()
 
   const auto helper = get_audio_helper();
 
-  music_toggle_->setSelectedIndex(helper->get_music_muted() ? 0 : 1);
-  sound_toggle_->setSelectedIndex(helper->get_effects_muted() ? 0 : 1);
+  music_toggle_->setSelectedIndex(helper->getMusicMuted() ? 0 : 1);
+  sound_toggle_->setSelectedIndex(helper->getEffectsMuted() ? 0 : 1);
 
-  music_slider_->set_percentage(helper->get_music_volume() * 100.f);
-  music_slider_->enable(!helper->get_music_muted());
+  music_slider_->set_percentage(helper->getMusicVolume() * 100.f);
+  music_slider_->enable(!helper->getMusicMuted());
 
-  sound_slider_->set_percentage(helper->get_sound_volume() * 100.f);
-  sound_slider_->enable(!helper->get_effects_muted());
+  sound_slider_->set_percentage(helper->getSoundVolume() * 100.f);
+  sound_slider_->enable(!helper->getEffectsMuted());
 
   if (desktop_application_)
   {
@@ -184,7 +184,7 @@ bool options_menu::create_menu_items()
 
 void options_menu::on_back()
 {
-  get_audio_helper()->play_effect("sounds/select.mp3");
+  get_audio_helper()->playEffect("sounds/select.mp3");
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   menu->display_main_menu();
@@ -192,7 +192,7 @@ void options_menu::on_back()
 
 void options_menu::on_music()
 {
-  get_audio_helper()->play_effect("sounds/select.mp3");
+  get_audio_helper()->playEffect("sounds/select.mp3");
 
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   const auto disable = music_toggle_->getSelectedIndex() == 0;
@@ -208,7 +208,7 @@ void options_menu::on_sound()
   sound_slider_->enable(!disable);
   menu->change_sound(disable);
 
-  get_audio_helper()->play_effect("sounds/select.mp3");
+  get_audio_helper()->playEffect("sounds/select.mp3");
   update_labels();
 }
 
@@ -232,7 +232,7 @@ void options_menu::on_full_screen()
     full_screen_toggle_->setSelectedIndex(1);
     return;
   }
-  get_audio_helper()->play_effect("sounds/select.mp3");
+  get_audio_helper()->playEffect("sounds/select.mp3");
 
   const auto full_screen = full_screen_toggle_->getSelectedIndex() == 1;
   windowed_toggle_->setSelectedIndex(full_screen ? 0 : 1);
@@ -248,7 +248,7 @@ void options_menu::on_windowed()
     return;
   }
 
-  get_audio_helper()->play_effect("sounds/select.mp3");
+  get_audio_helper()->playEffect("sounds/select.mp3");
 
   const auto full_screen = windowed_toggle_->getSelectedIndex() == 0;
   full_screen_toggle_->setSelectedIndex(full_screen ? 1 : 0);
@@ -257,7 +257,7 @@ void options_menu::on_windowed()
 
 void options_menu::on_debug_grid()
 {
-  get_audio_helper()->play_effect("sounds/select.mp3");
+  get_audio_helper()->playEffect("sounds/select.mp3");
 
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   const auto debug = debug_grid_toggle_->getSelectedIndex() == 1;
@@ -268,7 +268,7 @@ void options_menu::on_debug_grid()
 
 void options_menu::on_debug_physics()
 {
-  get_audio_helper()->play_effect("sounds/select.mp3");
+  get_audio_helper()->playEffect("sounds/select.mp3");
 
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   const auto debug = debug_physics_toggle_->getSelectedIndex() == 1;
@@ -282,8 +282,8 @@ void options_menu::update_labels()
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   const auto helper = get_audio_helper();
 
-  sound_toggle_->set_text(helper->get_effects_muted() ? "Disabled" : "Enabled");
-  music_toggle_->set_text(helper->get_music_muted() ? "Disabled" : "Enabled");
+  sound_toggle_->set_text(helper->getEffectsMuted() ? "Disabled" : "Enabled");
+  music_toggle_->set_text(helper->getMusicMuted() ? "Disabled" : "Enabled");
   debug_physics_toggle_->set_text(menu->is_debug_physics() ? "Enabled" : "Disabled");
   debug_grid_toggle_->set_text(menu->is_debug_grid() ? "Enabled" : "Disabled");
 }

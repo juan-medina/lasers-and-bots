@@ -26,7 +26,7 @@
 #include "../utils/utils.h"
 
 // foward declarations
-class audio_helper;
+class AudioHelper;
 class text_toggle;
 
 class pause_window final : public basic_menu
@@ -36,9 +36,9 @@ public:
 
   pause_window();
 
-  static pause_window* create(audio_helper* audio_helper);
+  static pause_window* create(AudioHelper* audio_helper);
 
-  bool init(audio_helper* audio_helper);
+  bool init(AudioHelper* audio_helper);
 
   void display() override;
 
@@ -52,7 +52,7 @@ private:
   void on_exit();
   bool create_menu_items() override;
 
-  audio_helper* audio_helper_;
+  AudioHelper* audio_helper_;
   Vector<MenuItem*> buttons_;
   float current_text_button_y_;
   float current_image_button_x_;

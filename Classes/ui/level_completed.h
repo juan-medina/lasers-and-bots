@@ -26,7 +26,7 @@
 #include "../utils/utils.h"
 
 // foward declarations
-class audio_helper;
+class AudioHelper;
 class level_manager;
 enum class completed_result;
 class text_button;
@@ -38,9 +38,9 @@ public:
 
   level_completed();
 
-  static level_completed* create(audio_helper* audio_helper, level_manager* level_manager);
+  static level_completed* create(AudioHelper* audio_helper, level_manager* level_manager);
 
-  bool init(audio_helper* audio_helper, level_manager* level_manager);
+  bool init(AudioHelper* audio_helper, level_manager* level_manager);
 
   void display(const unsigned short int level, const float time, const unsigned short int stars,
                const completed_result completion, const ccMenuCallback& callback);
@@ -59,7 +59,7 @@ protected:
   bool create_menu_items() override;
 
 private:
-  audio_helper* audio_helper_;
+  AudioHelper* audio_helper_;
   text_button* continue_item_;
   Label* level_name_label_;
 

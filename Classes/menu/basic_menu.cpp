@@ -24,7 +24,7 @@
 #include "../ui/slider_object.h"
 #include "../ui/text_button.h"
 #include "../ui/text_toggle.h"
-#include "../utils/audio/audio_helper.h"
+#include "../utils/audio/AudioHelper.h"
 
 basic_menu::basic_menu()
   : audio_helper_(nullptr)
@@ -43,7 +43,7 @@ basic_menu::basic_menu()
 {
 }
 
-bool basic_menu::init(const std::string& name, audio_helper* audio_helper, const float width,
+bool basic_menu::init(const std::string& name, AudioHelper* audio_helper, const float width,
                       const float height, const animation_type animation_type /*= animation_type::slide*/)
 {
   auto ret = false;
@@ -55,7 +55,7 @@ bool basic_menu::init(const std::string& name, audio_helper* audio_helper, const
 
     UTILS_BREAK_IF(!base_class::init(name, width, height));
 
-    audio_helper_->pre_load_effect("sounds/select.mp3");
+    audio_helper_->preLoadEffect("sounds/select.mp3");
 
     const auto& size = Director::getInstance()->getVisibleSize();
 
@@ -119,7 +119,7 @@ void basic_menu::display()
 
     runAction(move_in);
 
-    get_audio_helper()->play_effect("sounds/SlideClosed.mp3");
+    get_audio_helper()->playEffect("sounds/SlideClosed.mp3");
   }
   else
   {
@@ -160,7 +160,7 @@ void basic_menu::hide()
     const auto move_out = Sequence::create(elastic_out, fade, hide, call_back, nullptr);
     runAction(move_out);
 
-    get_audio_helper()->play_effect("sounds/SlideClosed.mp3");
+    get_audio_helper()->playEffect("sounds/SlideClosed.mp3");
   }
   else
   {

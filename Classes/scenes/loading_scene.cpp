@@ -21,7 +21,7 @@
  ****************************************************************************/
 
 #include "loading_scene.h"
-#include "../utils/audio/audio_helper.h"
+#include "../utils/audio/AudioHelper.h"
 #include "../utils/base/app/basic_app.h"
 #include "game_scene.h"
 #include "menu_scene.h"
@@ -138,8 +138,8 @@ bool loading_scene::init(basic_app* application, const load_to& type, const bool
 
     runAction(sequence);
 
-    get_audio_helper()->stop_all_sounds();
-    get_audio_helper()->unload_all_sounds();
+    get_audio_helper()->stopAllSounds();
+    get_audio_helper()->unloadAllSounds();
 
     ret = true;
   } while (false);

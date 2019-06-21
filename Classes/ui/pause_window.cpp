@@ -25,7 +25,7 @@
 #include "../scenes/game_scene.h"
 #include "../ui/text_button.h"
 #include "../ui/text_toggle.h"
-#include "../utils/audio/audio_helper.h"
+#include "../utils/audio/AudioHelper.h"
 #include "game_ui.h"
 
 pause_window::pause_window()
@@ -37,7 +37,7 @@ pause_window::pause_window()
 {
 }
 
-pause_window* pause_window::create(audio_helper* audio_helper)
+pause_window* pause_window::create(AudioHelper* audio_helper)
 {
   pause_window* ret = nullptr;
 
@@ -62,7 +62,7 @@ pause_window* pause_window::create(audio_helper* audio_helper)
   return ret;
 }
 
-bool pause_window::init(audio_helper* audio_helper)
+bool pause_window::init(AudioHelper* audio_helper)
 {
   auto ret = false;
 
@@ -79,7 +79,7 @@ bool pause_window::init(audio_helper* audio_helper)
     audio_helper_ = audio_helper;
     UTILS_BREAK_IF(!base_class::init("Pause", audio_helper, 1300.f, 1800.0f, animation_type::fade));
 
-    audio_helper_->pre_load_effect("sounds/select.mp3");
+    audio_helper_->preLoadEffect("sounds/select.mp3");
 
     ret = true;
   } while (false);
@@ -91,8 +91,8 @@ void pause_window::display()
 {
   base_class::display();
 
-  const auto music_muted = audio_helper_->get_music_muted();
-  const auto effects_muted = audio_helper_->get_effects_muted();
+  const auto music_muted = audio_helper_->getMusicMuted();
+  const auto effects_muted = audio_helper_->getEffectsMuted();
 
   toggle_music_item_->setSelectedIndex(music_muted ? 0 : 1);
   toggle_sfx_item_->setSelectedIndex(effects_muted ? 0 : 1);
@@ -111,7 +111,7 @@ void pause_window::on_music_toggle()
   auto app = dynamic_cast<laser_and_bots_app*>(game->get_application());
 
   app->set_music_muted(music_muted);
-  audio_helper_->play_effect("sounds/select.mp3");
+  audio_helper_->playEffect("sounds/select.mp3");
 }
 
 void pause_window::on_sfx_toggle()
@@ -122,7 +122,7 @@ void pause_window::on_sfx_toggle()
   auto app = dynamic_cast<laser_and_bots_app*>(game->get_application());
 
   app->set_effects_muted(sfx_muted);
-  audio_helper_->play_effect("sounds/select.mp3");
+  audio_helper_->playEffect("sounds/select.mp3");
 }
 
 void pause_window::on_resume()

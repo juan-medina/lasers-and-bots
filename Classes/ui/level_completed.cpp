@@ -1,6 +1,6 @@
 #include "level_completed.h"
 #include "../misc/level_manager.h"
-#include "../utils/audio/audio_helper.h"
+#include "../utils/audio/AudioHelper.h"
 #include "game_ui.h"
 #include "text_button.h"
 
@@ -16,7 +16,7 @@ level_completed::level_completed()
 {
 }
 
-level_completed* level_completed::create(audio_helper* audio_helper, level_manager* level_manager)
+level_completed* level_completed::create(AudioHelper* audio_helper, level_manager* level_manager)
 {
   level_completed* ret = nullptr;
 
@@ -41,7 +41,7 @@ level_completed* level_completed::create(audio_helper* audio_helper, level_manag
   return ret;
 }
 
-bool level_completed::init(audio_helper* audio_helper, level_manager* level_manager)
+bool level_completed::init(AudioHelper* audio_helper, level_manager* level_manager)
 {
   auto ret = false;
 
@@ -60,7 +60,7 @@ bool level_completed::init(audio_helper* audio_helper, level_manager* level_mana
 
     UTILS_BREAK_IF(!base_class::init("Level Completed", audio_helper, 1800.f, 2100.f, animation_type::fade));
 
-    audio_helper_->pre_load_effect("sounds/star.mp3");
+    audio_helper_->preLoadEffect("sounds/star.mp3");
 
     const auto horizontal_segment = getContentSize().width;
 
@@ -240,7 +240,7 @@ void level_completed::hide()
 
 void level_completed::star_sound() const
 {
-  audio_helper_->play_effect("sounds/star.mp3");
+  audio_helper_->playEffect("sounds/star.mp3");
 }
 
 void level_completed::animate_label(Label* label) const

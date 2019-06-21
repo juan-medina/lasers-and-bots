@@ -26,7 +26,7 @@
 #include "../utils/utils.h"
 
 // foward declarations
-class audio_helper;
+class AudioHelper;
 
 class message_window final : public basic_menu
 {
@@ -35,9 +35,9 @@ public:
 
   message_window();
 
-  static message_window* create(audio_helper* audio_helper);
+  static message_window* create(AudioHelper* audio_helper);
 
-  bool init(audio_helper* audio_helper);
+  bool init(AudioHelper* audio_helper);
 
   void display(const std::string& message, const std::string& sub_message, const ccMenuCallback& callback);
 
@@ -47,7 +47,7 @@ protected:
   bool create_menu_items() override;
 
 private:
-  audio_helper* audio_helper_;
+  AudioHelper* audio_helper_;
   text_button* continue_item_;
   Label* sub_label_;
 };

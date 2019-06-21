@@ -21,7 +21,7 @@
  ****************************************************************************/
 
 #include "basic_scene.h"
-#include "../../audio/audio_helper.h"
+#include "../../audio/AudioHelper.h"
 #include "../../base/app/basic_app.h"
 #include "../../controller/input_controller.h"
 
@@ -72,7 +72,7 @@ bool basic_scene::init(basic_app* application)
   return ret;
 }
 
-audio_helper* basic_scene::get_audio_helper() const
+AudioHelper* basic_scene::get_audio_helper() const
 {
   return application_->get_audio_helper();
 }

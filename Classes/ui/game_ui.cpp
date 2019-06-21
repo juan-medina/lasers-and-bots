@@ -23,7 +23,7 @@
 #include "game_ui.h"
 #include "../misc/level_manager.h"
 #include "../scenes/game_scene.h"
-#include "../utils/audio/audio_helper.h"
+#include "../utils/audio/AudioHelper.h"
 #include "../utils/controller/input_controller.h"
 #include "level_completed.h"
 #include "message_window.h"
@@ -51,7 +51,7 @@ game_ui::game_ui()
 {
 }
 
-game_ui* game_ui::create(audio_helper* audio_helper, input_controller* input_controller,
+game_ui* game_ui::create(AudioHelper* audio_helper, input_controller* input_controller,
                          level_manager* level_manager, const unsigned short int level)
 {
   game_ui* ret = nullptr;
@@ -77,7 +77,7 @@ game_ui* game_ui::create(audio_helper* audio_helper, input_controller* input_con
   return ret;
 }
 
-bool game_ui::init(audio_helper* audio_helper, input_controller* input_controller,
+bool game_ui::init(AudioHelper* audio_helper, input_controller* input_controller,
                    level_manager* level_manager, const unsigned short int level)
 {
   auto ret = false;
@@ -93,7 +93,7 @@ bool game_ui::init(audio_helper* audio_helper, input_controller* input_controlle
     input_controller_ = input_controller;
     level_ = level;
 
-    audio_helper_->pre_load_effect("sounds/select.mp3");
+    audio_helper_->preLoadEffect("sounds/select.mp3");
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ui/ui-0.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ui/ui-1.plist");
@@ -282,7 +282,7 @@ bool game_ui::init(audio_helper* audio_helper, input_controller* input_controlle
 
 void game_ui::on_pause(Ref* sender)
 {
-  audio_helper_->play_effect("sounds/select.mp3");
+  audio_helper_->playEffect("sounds/select.mp3");
   const auto scene = dynamic_cast<game_scene*>(Director::getInstance()->getRunningScene());
   scene->toggle_pause();
 
@@ -300,14 +300,14 @@ void game_ui::on_pause(Ref* sender)
 
 void game_ui::on_close(Ref* sender)
 {
-  audio_helper_->play_effect("sounds/select.mp3");
+  audio_helper_->playEffect("sounds/select.mp3");
   const auto scene = dynamic_cast<game_scene*>(Director::getInstance()->getRunningScene());
   scene->close();
 }
 
 void game_ui::on_reload(Ref* sender)
 {
-  audio_helper_->play_effect("sounds/select.mp3");
+  audio_helper_->playEffect("sounds/select.mp3");
   const auto scene = dynamic_cast<game_scene*>(Director::getInstance()->getRunningScene());
   scene->reload();
 }
@@ -453,7 +453,7 @@ void game_ui::on_continue()
 {
   if (continue_callback_ != nullptr)
   {
-    audio_helper_->play_effect("sounds/select.mp3");
+    audio_helper_->playEffect("sounds/select.mp3");
     continue_callback_(this);
     continue_callback_ = nullptr;
   }

@@ -27,7 +27,7 @@
 #include "../ui/game_ui.h"
 #include "../ui/text_button.h"
 #include "../ui/text_toggle.h"
-#include "../utils/audio/audio_helper.h"
+#include "../utils/audio/AudioHelper.h"
 
 play_menu::play_menu()
   : back_item_(nullptr)
@@ -41,7 +41,7 @@ play_menu::play_menu()
 {
 }
 
-play_menu* play_menu::create(audio_helper* audio_helper, const unsigned short int selected_level)
+play_menu* play_menu::create(AudioHelper* audio_helper, const unsigned short int selected_level)
 {
   play_menu* ret = nullptr;
 
@@ -66,7 +66,7 @@ play_menu* play_menu::create(audio_helper* audio_helper, const unsigned short in
   return ret;
 }
 
-bool play_menu::init(audio_helper* audio_helper, const unsigned short int selected_level)
+bool play_menu::init(AudioHelper* audio_helper, const unsigned short int selected_level)
 {
   auto ret = false;
 
@@ -245,7 +245,7 @@ Label* play_menu::add_labels(const std::string& label_text, const std::string& t
 
 void play_menu::on_back()
 {
-  get_audio_helper()->play_effect("sounds/select.mp3");
+  get_audio_helper()->playEffect("sounds/select.mp3");
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   menu->display_main_menu();
@@ -253,7 +253,7 @@ void play_menu::on_back()
 
 void play_menu::on_level_select(Ref*, const unsigned short int level)
 {
-  get_audio_helper()->play_effect("sounds/select.mp3");
+  get_audio_helper()->playEffect("sounds/select.mp3");
 
   if (level == selected_level_)
   {
@@ -268,7 +268,7 @@ void play_menu::on_level_select(Ref*, const unsigned short int level)
 
 void play_menu::on_play()
 {
-  get_audio_helper()->play_effect("sounds/select.mp3");
+  get_audio_helper()->playEffect("sounds/select.mp3");
 
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());

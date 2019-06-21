@@ -1,10 +1,10 @@
 #include "message_window.h"
 #include "../ui/text_button.h"
-#include "../utils/audio/audio_helper.h"
+#include "../utils/audio/AudioHelper.h"
 
 message_window::message_window() : audio_helper_(nullptr), continue_item_(nullptr), sub_label_(nullptr) {}
 
-message_window* message_window::create(audio_helper* audio_helper)
+message_window* message_window::create(AudioHelper* audio_helper)
 {
   message_window* ret = nullptr;
 
@@ -29,7 +29,7 @@ message_window* message_window::create(audio_helper* audio_helper)
   return ret;
 }
 
-bool message_window::init(audio_helper* audio_helper)
+bool message_window::init(AudioHelper* audio_helper)
 {
   auto ret = false;
 

@@ -24,11 +24,11 @@
 #include "../scenes/menu_scene.h"
 #include "../ui/scrolling_text.h"
 #include "../ui/text_button.h"
-#include "../utils/audio/audio_helper.h"
+#include "../utils/audio/AudioHelper.h"
 
 about_menu::about_menu() : back_item_(nullptr), scrolling_text_(nullptr) {}
 
-about_menu* about_menu::create(audio_helper* audio_helper)
+about_menu* about_menu::create(AudioHelper* audio_helper)
 {
   about_menu* ret = nullptr;
 
@@ -53,7 +53,7 @@ about_menu* about_menu::create(audio_helper* audio_helper)
   return ret;
 }
 
-bool about_menu::init(audio_helper* audio_helper)
+bool about_menu::init(AudioHelper* audio_helper)
 {
   auto ret = false;
 
@@ -92,7 +92,7 @@ bool about_menu::create_menu_items()
 
 void about_menu::on_back()
 {
-  get_audio_helper()->play_effect("sounds/select.mp3");
+  get_audio_helper()->playEffect("sounds/select.mp3");
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   menu->display_main_menu();

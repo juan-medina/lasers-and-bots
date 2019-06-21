@@ -26,7 +26,7 @@
 #include "basic_menu.h"
 
 // forward declarations
-class audio_helper;
+class AudioHelper;
 class text_button;
 class scrolling_text;
 
@@ -37,9 +37,9 @@ public:
 
   about_menu();
 
-  static about_menu* create(audio_helper* audio_helper);
+  static about_menu* create(AudioHelper* audio_helper);
 
-  bool init(audio_helper* audio_helper);
+  bool init(AudioHelper* audio_helper);
 
   virtual void display() override;
 

@@ -26,7 +26,7 @@
 #include "../../utils.h"
 
 // forward declarations
-class audio_helper;
+class AudioHelper;
 class input_controller;
 
 // application base class
@@ -56,7 +56,7 @@ public:
 
   void close();
 
-  audio_helper* get_audio_helper() const { return audio_helper_; }
+  AudioHelper* get_audio_helper() const { return audio_helper_; }
 #if (GAME_PLATFORM == DESKTOP_GAME)
   void set_window_size(const float scale);
 #endif
@@ -81,7 +81,7 @@ private:
   bool read_version();
   static std::string get_platform_name(const Platform platform);
 
-  audio_helper* audio_helper_;
+  AudioHelper* audio_helper_;
   input_controller* input_controller_;
 
   float design_width_;

@@ -26,7 +26,7 @@
 
 // forward declarations
 class virtual_joy_stick;
-class audio_helper;
+class AudioHelper;
 
 class robot_object final : public physics_game_object
 {
@@ -35,10 +35,10 @@ public:
 
   robot_object();
 
-  static robot_object* create(physics_shape_cache* physics_shape_cache, audio_helper* audio_helper,
+  static robot_object* create(physics_shape_cache* physics_shape_cache, AudioHelper* audio_helper,
                               virtual_joy_stick* virtual_joy_stick, const int max_shield);
 
-  bool init(physics_shape_cache* physics_shape_cache, audio_helper* audio_helper,
+  bool init(physics_shape_cache* physics_shape_cache, AudioHelper* audio_helper,
             virtual_joy_stick* virtual_joy_stick, const int max_shield);
 
   void update(float delta) override;
@@ -98,7 +98,7 @@ private:
 
   state current_state_;
   virtual_joy_stick* virtual_joy_stick_;
-  audio_helper* audio_helper_;
+  AudioHelper* audio_helper_;
 
   int number_of_jumps_;
 };

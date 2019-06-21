@@ -27,7 +27,7 @@
 #include "basic_menu.h"
 
 // foward declarations
-class audio_helper;
+class AudioHelper;
 class slider_object;
 class text_toggle;
 class text_button;
@@ -39,9 +39,9 @@ public:
 
   options_menu();
 
-  static options_menu* create(audio_helper* audio_helper, const bool is_desktop_application);
+  static options_menu* create(AudioHelper* audio_helper, const bool is_desktop_application);
 
-  bool init(audio_helper* audio_helper, const bool is_desktop_application);
+  bool init(AudioHelper* audio_helper, const bool is_desktop_application);
 
   void display() override;
 

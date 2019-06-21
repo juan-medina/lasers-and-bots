@@ -22,7 +22,7 @@
 
 #include "laser_object.h"
 #include "../scenes/game_scene.h"
-#include "../utils/audio/audio_helper.h"
+#include "../utils/audio/AudioHelper.h"
 #include "../utils/base/nodes/custom_draw_node.h"
 #include "robot_object.h"
 
@@ -41,7 +41,7 @@ laser_object::laser_object()
 {
 }
 
-laser_object* laser_object::create(audio_helper* audio_helper, const float initial_angle,
+laser_object* laser_object::create(AudioHelper* audio_helper, const float initial_angle,
                                    const float rotation_angle, const float speed_factor, const int damage)
 {
   laser_object* ret = nullptr;
@@ -67,7 +67,7 @@ laser_object* laser_object::create(audio_helper* audio_helper, const float initi
   return ret;
 }
 
-bool laser_object::init(audio_helper* audio_helper, const float initial_angle, const float rotation_angle,
+bool laser_object::init(AudioHelper* audio_helper, const float initial_angle, const float rotation_angle,
                         const float speed_factor, const int damage)
 {
   auto ret = false;
@@ -95,7 +95,7 @@ bool laser_object::init(audio_helper* audio_helper, const float initial_angle, c
 
     scheduleUpdate();
 
-    audio_helper_->pre_load_effect("sounds/laser.mp3");
+    audio_helper_->preLoadEffect("sounds/laser.mp3");
 
     ret = true;
   } while (false);
@@ -240,7 +240,7 @@ void laser_object::pause()
   draw_->pause();
   if (loop_sound_ != -1)
   {
-    audio_helper_->stop_sound(loop_sound_);
+    audio_helper_->stopSound(loop_sound_);
     loop_sound_ = -1;
   }
 }
@@ -255,7 +255,7 @@ void laser_object::resume()
   }
   if (loop_sound_ == -1)
   {
-    loop_sound_ = audio_helper_->play_effect("sounds/laser.mp3", true, 0.7f);
+    loop_sound_ = audio_helper_->playEffect("sounds/laser.mp3", true, 0.7f);
   }
 
   draw_->resume();
@@ -279,7 +279,7 @@ void laser_object::update_spark(const Vec2& point)
 
     if (loop_sound_ == -1)
     {
-      loop_sound_ = audio_helper_->play_effect("sounds/laser.mp3", true, 0.7f);
+      loop_sound_ = audio_helper_->playEffect("sounds/laser.mp3", true, 0.7f);
     }
   }
   spark_->setPosition(point);

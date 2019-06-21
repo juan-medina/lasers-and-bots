@@ -25,7 +25,7 @@
 #include "on_off_object.h"
 
 // forward declarations
-class audio_helper;
+class AudioHelper;
 
 class door_object final : public on_off_object
 {
@@ -34,15 +34,15 @@ public:
 
   door_object();
 
-  static door_object* create(physics_shape_cache* physics_shape_cache, audio_helper* audio_helper);
+  static door_object* create(physics_shape_cache* physics_shape_cache, AudioHelper* audio_helper);
 
-  bool init(physics_shape_cache* physics_shape_cache, audio_helper* audio_helper);
+  bool init(physics_shape_cache* physics_shape_cache, AudioHelper* audio_helper);
 
   bool on() override;
   bool activate() override;
 
 private:
-  audio_helper* audio_helper_;
+  AudioHelper* audio_helper_;
 };
 
 #endif // __DOOR_CLASS__

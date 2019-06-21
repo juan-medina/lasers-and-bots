@@ -30,7 +30,7 @@ class message_window;
 class level_completed;
 class pause_window;
 class virtual_joy_stick;
-class audio_helper;
+class AudioHelper;
 class level_manager;
 class input_controller;
 enum class completed_result;
@@ -42,10 +42,10 @@ public:
 
   game_ui();
 
-  static game_ui* create(audio_helper* audio_helper, input_controller* input_controller,
+  static game_ui* create(AudioHelper* audio_helper, input_controller* input_controller,
                          level_manager* level_manager, const unsigned short int level);
 
-  bool init(audio_helper* audio_helper, input_controller* input_controller, level_manager* level_manager,
+  bool init(AudioHelper* audio_helper, input_controller* input_controller, level_manager* level_manager,
             const unsigned short int level);
 
   void on_pause(Ref* sender);
@@ -94,7 +94,7 @@ private:
   Label* level_name_label_;
   unsigned int time_limit_;
   ccMenuCallback continue_callback_;
-  audio_helper* audio_helper_;
+  AudioHelper* audio_helper_;
   message_window* message_window_;
   level_completed* level_completed_;
   pause_window* pause_window_;

@@ -35,7 +35,7 @@
 #include "../misc/level_manager.h"
 #include "../ui/game_ui.h"
 #include "../ui/virtual_joy_stick.h"
-#include "../utils/audio/audio_helper.h"
+#include "../utils/audio/AudioHelper.h"
 #include "../utils/base/nodes/custom_draw_node.h"
 #include "../utils/base/sprite/game_object.h"
 #include "../utils/physics/physics_shape_cache.h"
@@ -222,11 +222,11 @@ void game_scene::set_map_bounds_contacts_settings() const
 
 void game_scene::pre_load_sounds() const
 {
-  get_audio_helper()->pre_load_music(music_file_name_);
-  get_audio_helper()->pre_load_effect("sounds/fail.mp3");
-  get_audio_helper()->pre_load_effect("sounds/victory.mp3");
-  get_audio_helper()->pre_load_effect("sounds/countdown.mp3");
-  get_audio_helper()->pre_load_effect("sounds/explosion.mp3");
+  get_audio_helper()->preLoadMusic(music_file_name_);
+  get_audio_helper()->preLoadEffect("sounds/fail.mp3");
+  get_audio_helper()->preLoadEffect("sounds/victory.mp3");
+  get_audio_helper()->preLoadEffect("sounds/countdown.mp3");
+  get_audio_helper()->preLoadEffect("sounds/explosion.mp3");
 }
 
 void game_scene::get_level_settings()
@@ -668,7 +668,7 @@ bool game_scene::cache_robot_explosion()
 
 void game_scene::explode_robot()
 {
-  get_audio_helper()->play_effect("sounds/explosion.mp3");
+  get_audio_helper()->playEffect("sounds/explosion.mp3");
 
   game_ui_->disable_buttons(true);
   doing_final_anim_ = true;
@@ -702,13 +702,13 @@ void game_scene::game_over(const bool win)
       const auto stars = calculate_stars();
       const auto completion = level_manager_->set_level_completed(level_, stars, total_time_);
 
-      get_audio_helper()->play_effect("sounds/victory.mp3");
+      get_audio_helper()->playEffect("sounds/victory.mp3");
       game_ui_->display_level_completed(level_, total_time_, stars, completion,
                                         CC_CALLBACK_0(game_scene::continue_button, this));
     }
     else
     {
-      get_audio_helper()->play_effect("sounds/fail.mp3");
+      get_audio_helper()->playEffect("sounds/fail.mp3");
       game_ui_->display_message("Game Over", "\n\n\n\n\nOops, we are going to\nneed a new robot.",
                                 CC_CALLBACK_0(game_scene::reload, this));
     }
@@ -735,7 +735,7 @@ void game_scene::delay_start()
     Sequence::create(count_3, DelayTime::create(1.f), count_2, DelayTime::create(1.f), count_1,
                      DelayTime::create(1.f), count_0, DelayTime::create(1.f), count_go, nullptr);
 
-  get_audio_helper()->play_effect("sounds/countdown.mp3");
+  get_audio_helper()->playEffect("sounds/countdown.mp3");
 
   runAction(delay_start_sequence);
   runAction(count_sequence);
@@ -748,7 +748,7 @@ void game_scene::set_countdown_number_in_ui(Ref* sender, const int value) const
 
 void game_scene::start()
 {
-  get_audio_helper()->play_music(music_file_name_);
+  get_audio_helper()->playMusic(music_file_name_);
 
   resume();
   game_ui_->disable_buttons(false);
@@ -786,7 +786,7 @@ void game_scene::pause()
     game_object.second->pause();
   }
 
-  get_audio_helper()->pause_music();
+  get_audio_helper()->pauseMusic();
 
   game_ui_->get_virtual_joy_stick()->pause();
 
@@ -815,7 +815,7 @@ void game_scene::resume()
     game_object.second->resume();
   }
 
-  get_audio_helper()->resume_music();
+  get_audio_helper()->resumeMusic();
 
   game_ui_->get_virtual_joy_stick()->resume();
 
@@ -907,7 +907,7 @@ void game_scene::switch_activate_switch(switch_object* switch_object)
 {
   if (switch_object->is_unactivated())
   {
-    get_audio_helper()->play_effect("sounds/metal_click.mp3");
+    get_audio_helper()->playEffect("sounds/metal_click.mp3");
     switch_object->activate();
   }
 }
@@ -944,7 +944,7 @@ void game_scene::robot_touch_switch(switch_object* switch_object)
       switch_object->on();
       if (is_switch_targeting_a_switch(switch_object))
       {
-        get_audio_helper()->play_effect("sounds/metal_click.mp3");
+        get_audio_helper()->playEffect("sounds/metal_click.mp3");
       }
 
       const auto target = switch_object->get_target();

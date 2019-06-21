@@ -21,7 +21,7 @@
  ****************************************************************************/
 
 #include "basic_app.h"
-#include "../../audio/audio_helper.h"
+#include "../../audio/AudioHelper.h"
 #include "../../controller/input_controller.h"
 #include "../scene/basic_scene.h"
 
@@ -115,7 +115,7 @@ bool basic_app::applicationDidFinishLaunching()
 
     register_all_packages();
 
-    audio_helper_ = new audio_helper();
+    audio_helper_ = new AudioHelper();
     UTILS_BREAK_IF(audio_helper_ == nullptr);
 
     input_controller_ = input_controller::create();

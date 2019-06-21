@@ -23,11 +23,11 @@
 #include "main_menu.h"
 #include "../scenes/menu_scene.h"
 #include "../ui/text_button.h"
-#include "../utils/audio/audio_helper.h"
+#include "../utils/audio/AudioHelper.h"
 
 main_menu::main_menu() : back_item_(nullptr), play_item_(nullptr) {}
 
-main_menu* main_menu::create(audio_helper* audio_helper)
+main_menu* main_menu::create(AudioHelper* audio_helper)
 {
   main_menu* ret = nullptr;
 
@@ -52,7 +52,7 @@ main_menu* main_menu::create(audio_helper* audio_helper)
   return ret;
 }
 
-bool main_menu::init(audio_helper* audio_helper)
+bool main_menu::init(AudioHelper* audio_helper)
 {
   auto ret = false;
 
@@ -101,7 +101,7 @@ bool main_menu::create_menu_items()
 
 void main_menu::on_options()
 {
-  get_audio_helper()->play_effect("sounds/select.mp3");
+  get_audio_helper()->playEffect("sounds/select.mp3");
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   menu->display_options_menu();
@@ -109,7 +109,7 @@ void main_menu::on_options()
 
 void main_menu::on_play()
 {
-  get_audio_helper()->play_effect("sounds/select.mp3");
+  get_audio_helper()->playEffect("sounds/select.mp3");
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   menu->display_play_menu();
@@ -117,7 +117,7 @@ void main_menu::on_play()
 
 void main_menu::on_exit()
 {
-  get_audio_helper()->play_effect("sounds/select.mp3");
+  get_audio_helper()->playEffect("sounds/select.mp3");
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   menu->exit_app();
@@ -125,7 +125,7 @@ void main_menu::on_exit()
 
 void main_menu::on_credits()
 {
-  get_audio_helper()->play_effect("sounds/select.mp3");
+  get_audio_helper()->playEffect("sounds/select.mp3");
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   menu->display_credits_menu();
@@ -133,7 +133,7 @@ void main_menu::on_credits()
 
 void main_menu::on_about()
 {
-  get_audio_helper()->play_effect("sounds/select.mp3");
+  get_audio_helper()->playEffect("sounds/select.mp3");
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   menu->display_about_menu();

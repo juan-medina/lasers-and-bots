@@ -27,7 +27,7 @@
 #include "basic_menu.h"
 
 // foward declarations
-class audio_helper;
+class AudioHelper;
 class level_manager;
 class text_button;
 class text_toggle;
@@ -39,9 +39,9 @@ public:
 
   using base_class = basic_menu;
 
-  static play_menu* create(audio_helper* audio_helper, const unsigned short int selected_level);
+  static play_menu* create(AudioHelper* audio_helper, const unsigned short int selected_level);
 
-  bool init(audio_helper* audio_helper, const unsigned short int selected_level);
+  bool init(AudioHelper* audio_helper, const unsigned short int selected_level);
 
   void display() override;
 
