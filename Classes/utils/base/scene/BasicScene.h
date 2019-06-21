@@ -30,33 +30,33 @@ class BasicApp;
 class AudioHelper;
 class input_controller;
 
-class basic_scene : public Scene
+class BasicScene : public Scene
 {
 public:
-  using base_class = Scene;
+  using BaseClass = Scene;
 
-  basic_scene();
+  BasicScene();
 
-  static base_class* create_scene(BasicApp* application);
+  static BaseClass* createScene(BasicApp* application);
 
   bool init(BasicApp* application);
 
-  Size get_screen_size() const noexcept { return screen_size_; }
+  Size getScreenSize() const noexcept { return _screenSize; }
 
-  BasicApp* get_application() const { return application_; }
+  BasicApp* getApplication() const { return _application; }
 
-  AudioHelper* get_audio_helper() const;
-  input_controller* get_input_controller() const;
+  AudioHelper* getAudioHelper() const;
+  input_controller* getInputController() const;
 
-  virtual void did_enter_background();
-  virtual void will_enter_foreground();
+  virtual void didEnterBackground();
+  virtual void willEnterForeground();
 
 protected:
   void onExit() override;
 
-  Size screen_size_;
+  Size _screenSize;
 
-  BasicApp* application_;
+  BasicApp* _application;
 };
 
 #endif // __BASIC_SCENE_H__

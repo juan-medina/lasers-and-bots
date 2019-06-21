@@ -20,20 +20,20 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "basic_scene.h"
+#include "BasicScene.h"
 #include "../../audio/AudioHelper.h"
 #include "../../base/app/BasicApp.h"
 #include "../../controller/input_controller.h"
 
-basic_scene::basic_scene() : application_(nullptr) {}
+BasicScene::BasicScene() : _application(nullptr) {}
 
-basic_scene::base_class* basic_scene::create_scene(BasicApp* application)
+BasicScene::BaseClass* BasicScene::createScene(BasicApp* application)
 {
-  base_class* ret = nullptr;
+  BaseClass* ret = nullptr;
 
   do
   {
-    auto scene = new basic_scene();
+    auto scene = new BasicScene();
     UTILS_BREAK_IF(scene == nullptr);
 
     if (scene->init(application))
@@ -52,19 +52,19 @@ basic_scene::base_class* basic_scene::create_scene(BasicApp* application)
   return ret;
 }
 
-bool basic_scene::init(BasicApp* application)
+bool BasicScene::init(BasicApp* application)
 {
   auto ret = false;
 
   do
   {
-    ret = base_class::initWithPhysics();
+    ret = BaseClass::initWithPhysics();
 
     UTILS_BREAK_IF(!ret);
 
-    screen_size_ = Director::getInstance()->getWinSize();
+    _screenSize = Director::getInstance()->getWinSize();
 
-    application_ = application;
+    _application = application;
 
     ret = true;
   } while (false);
@@ -72,23 +72,23 @@ bool basic_scene::init(BasicApp* application)
   return ret;
 }
 
-AudioHelper* basic_scene::get_audio_helper() const
+AudioHelper* BasicScene::getAudioHelper() const
 {
-  return application_->getAudioHelper();
+  return _application->getAudioHelper();
 }
 
-input_controller* basic_scene::get_input_controller() const
+input_controller* BasicScene::getInputController() const
 {
-  return application_->getInputController();
+  return _application->getInputController();
 }
 
-void basic_scene::did_enter_background() {}
+void BasicScene::didEnterBackground() {}
 
-void basic_scene::will_enter_foreground() {}
+void BasicScene::willEnterForeground() {}
 
-void basic_scene::onExit()
+void BasicScene::onExit()
 {
-  base_class::onExit();
+  BaseClass::onExit();
 
   removeAllChildrenWithCleanup(true);
 }

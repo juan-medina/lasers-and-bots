@@ -23,12 +23,12 @@
 #ifndef __GRID_SCENE_H__
 #define __GRID_SCENE_H__
 
-#include "basic_scene.h"
+#include "BasicScene.h"
 
-class grid_scene : public basic_scene
+class grid_scene : public BasicScene
 {
 public:
-  using base_class = basic_scene;
+  using base_class = BasicScene;
 
   static grid_scene* create(BasicApp* application, const Size& blocks, const Size& block_size);
 

@@ -108,7 +108,7 @@ void pause_window::on_music_toggle()
   const auto music_muted = toggle_music_item_->getSelectedIndex() == 0;
   const auto ui = dynamic_cast<game_ui*>(getParent());
   const auto game = dynamic_cast<game_scene*>(ui->getParent());
-  auto app = dynamic_cast<laser_and_bots_app*>(game->get_application());
+  auto app = dynamic_cast<laser_and_bots_app*>(game->getApplication());
 
   app->set_music_muted(music_muted);
   audio_helper_->playEffect("sounds/select.mp3");
@@ -119,7 +119,7 @@ void pause_window::on_sfx_toggle()
   const auto sfx_muted = toggle_sfx_item_->getSelectedIndex() == 0;
   const auto ui = dynamic_cast<game_ui*>(getParent());
   const auto game = dynamic_cast<game_scene*>(ui->getParent());
-  auto app = dynamic_cast<laser_and_bots_app*>(game->get_application());
+  auto app = dynamic_cast<laser_and_bots_app*>(game->getApplication());
 
   app->set_effects_muted(sfx_muted);
   audio_helper_->playEffect("sounds/select.mp3");

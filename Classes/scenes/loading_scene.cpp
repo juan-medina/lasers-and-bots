@@ -138,8 +138,8 @@ bool loading_scene::init(BasicApp* application, const load_to& type, const bool 
 
     runAction(sequence);
 
-    get_audio_helper()->stopAllSounds();
-    get_audio_helper()->unloadAllSounds();
+    getAudioHelper()->stopAllSounds();
+    getAudioHelper()->unloadAllSounds();
 
     ret = true;
   } while (false);
@@ -156,10 +156,10 @@ void loading_scene::go_to_scene() const
     switch (type_)
     {
       case load_to::to_game:
-        scene = game_scene::scene(application_, debug_grid_, debug_physics_, level_);
+        scene = game_scene::scene(_application, debug_grid_, debug_physics_, level_);
         break;
       case load_to::to_menu:
-        scene = menu_scene::scene(application_, menu_, level_);
+        scene = menu_scene::scene(_application, menu_, level_);
         break;
       default:
         break;

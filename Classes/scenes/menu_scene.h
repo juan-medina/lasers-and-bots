@@ -23,7 +23,7 @@
 #ifndef __MENU_SCENE_H__
 #define __MENU_SCENE_H__
 
-#include "../utils/base/scene/basic_scene.h"
+#include "../utils/base/scene/BasicScene.h"
 
 // forward declarations
 class basic_menu;
@@ -43,10 +43,10 @@ enum class menu_to_display
   license_menu
 };
 
-class menu_scene final : public basic_scene
+class menu_scene final : public BasicScene
 {
 public:
-  using base_class = basic_scene;
+  using base_class = BasicScene;
 
   menu_scene();
 
@@ -74,8 +74,8 @@ public:
 
   void resume() override;
 
-  void did_enter_background() override;
-  void will_enter_foreground() override;
+  void didEnterBackground() override;
+  void willEnterForeground() override;
 
   bool is_full_screen() const;
 

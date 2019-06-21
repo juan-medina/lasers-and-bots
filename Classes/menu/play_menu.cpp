@@ -329,6 +329,6 @@ void play_menu::select_level(const unsigned short int level)
 level_manager* play_menu::get_level_manager()
 {
   const auto menu = dynamic_cast<menu_scene*>(getParent());
-  const auto app = dynamic_cast<laser_and_bots_app*>(menu->get_application());
+  const auto app = dynamic_cast<laser_and_bots_app*>(menu->getApplication());
   return app->get_level_manager();
 }

@@ -23,15 +23,15 @@
 #ifndef __LOADING_SCENE_H__
 #define __LOADING_SCENE_H__
 
-#include "../utils/base/scene/basic_scene.h"
+#include "../utils/base/scene/BasicScene.h"
 
 // forward declarations
 enum class menu_to_display;
 
-class loading_scene final : public basic_scene
+class loading_scene final : public BasicScene
 {
 public:
-  using base_class = basic_scene;
+  using base_class = BasicScene;
 
   loading_scene();
 

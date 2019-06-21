@@ -174,7 +174,7 @@ bool game_scene::create_game_ui()
 
   do
   {
-    game_ui_ = game_ui::create(get_audio_helper(), get_input_controller(), level_manager_, level_);
+    game_ui_ = game_ui::create(getAudioHelper(), getInputController(), level_manager_, level_);
     UTILS_BREAK_IF(game_ui_ == nullptr);
 
     game_ui_->setAnchorPoint(Vec2(0.f, 0.f));
@@ -189,7 +189,7 @@ bool game_scene::create_game_ui()
 
 void game_scene::calculate_camera_bounds()
 {
-  min_camera_pos_ = Vec2(screen_size_.width / 2, screen_size_.height / 2);
+  min_camera_pos_ = Vec2(_screenSize.width / 2, _screenSize.height / 2);
   max_camera_pos_ = Vec2(total_size_.width - min_camera_pos_.x, total_size_.height - min_camera_pos_.y);
 }
 
@@ -222,11 +222,11 @@ void game_scene::set_map_bounds_contacts_settings() const
 
 void game_scene::pre_load_sounds() const
 {
-  get_audio_helper()->preLoadMusic(music_file_name_);
-  get_audio_helper()->preLoadEffect("sounds/fail.mp3");
-  get_audio_helper()->preLoadEffect("sounds/victory.mp3");
-  get_audio_helper()->preLoadEffect("sounds/countdown.mp3");
-  get_audio_helper()->preLoadEffect("sounds/explosion.mp3");
+  getAudioHelper()->preLoadMusic(music_file_name_);
+  getAudioHelper()->preLoadEffect("sounds/fail.mp3");
+  getAudioHelper()->preLoadEffect("sounds/victory.mp3");
+  getAudioHelper()->preLoadEffect("sounds/countdown.mp3");
+  getAudioHelper()->preLoadEffect("sounds/explosion.mp3");
 }
 
 void game_scene::get_level_settings()
@@ -241,7 +241,7 @@ void game_scene::cache_objects_textures()
   SpriteFrameCache::getInstance()->addSpriteFramesWithFile("objects/objects.plist");
 }
 
-void game_scene::will_enter_foreground()
+void game_scene::willEnterForeground()
 {
   if (paused_)
   {
@@ -326,7 +326,7 @@ bool game_scene::add_laser(const ValueMap& values, Node* layer)
     const auto damage = values.at("damage").asInt();
     const auto speed = values.at("speed").asFloat();
 
-    auto laser = laser_object::create(get_audio_helper(), rotation, rotation_angle, speed, damage);
+    auto laser = laser_object::create(getAudioHelper(), rotation, rotation_angle, speed, damage);
     UTILS_BREAK_IF(laser == nullptr);
 
     laser->setPosition(position);
@@ -347,7 +347,7 @@ bool game_scene::add_robot(const ValueMap& values, Node* layer)
   do
   {
     const auto shield = values.at("shield").asInt();
-    robot_ = robot_object::create(get_physics_shape_cache(), get_audio_helper(),
+    robot_ = robot_object::create(get_physics_shape_cache(), getAudioHelper(),
                                   game_ui_->get_virtual_joy_stick(), shield);
     UTILS_BREAK_IF(robot_ == nullptr);
 
@@ -406,7 +406,7 @@ bool game_scene::add_door(const ValueMap& values, Node* layer)
   do
   {
     const auto name = values.at("name").asString();
-    auto door_game_object = door_object::create(get_physics_shape_cache(), get_audio_helper());
+    auto door_game_object = door_object::create(get_physics_shape_cache(), getAudioHelper());
 
     UTILS_BREAK_IF(door_game_object == nullptr);
 
@@ -668,7 +668,7 @@ bool game_scene::cache_robot_explosion()
 
 void game_scene::explode_robot()
 {
-  get_audio_helper()->playEffect("sounds/explosion.mp3");
+  getAudioHelper()->playEffect("sounds/explosion.mp3");
 
   game_ui_->disable_buttons(true);
   doing_final_anim_ = true;
@@ -702,13 +702,13 @@ void game_scene::game_over(const bool win)
       const auto stars = calculate_stars();
       const auto completion = level_manager_->set_level_completed(level_, stars, total_time_);
 
-      get_audio_helper()->playEffect("sounds/victory.mp3");
+      getAudioHelper()->playEffect("sounds/victory.mp3");
       game_ui_->display_level_completed(level_, total_time_, stars, completion,
                                         CC_CALLBACK_0(game_scene::continue_button, this));
     }
     else
     {
-      get_audio_helper()->playEffect("sounds/fail.mp3");
+      getAudioHelper()->playEffect("sounds/fail.mp3");
       game_ui_->display_message("Game Over", "\n\n\n\n\nOops, we are going to\nneed a new robot.",
                                 CC_CALLBACK_0(game_scene::reload, this));
     }
@@ -735,7 +735,7 @@ void game_scene::delay_start()
     Sequence::create(count_3, DelayTime::create(1.f), count_2, DelayTime::create(1.f), count_1,
                      DelayTime::create(1.f), count_0, DelayTime::create(1.f), count_go, nullptr);
 
-  get_audio_helper()->playEffect("sounds/countdown.mp3");
+  getAudioHelper()->playEffect("sounds/countdown.mp3");
 
   runAction(delay_start_sequence);
   runAction(count_sequence);
@@ -748,7 +748,7 @@ void game_scene::set_countdown_number_in_ui(Ref* sender, const int value) const
 
 void game_scene::start()
 {
-  get_audio_helper()->playMusic(music_file_name_);
+  getAudioHelper()->playMusic(music_file_name_);
 
   resume();
   game_ui_->disable_buttons(false);
@@ -758,7 +758,7 @@ void game_scene::close()
 {
   closing_ = true;
   pause();
-  const auto application = dynamic_cast<laser_and_bots_app*>(get_application());
+  const auto application = dynamic_cast<laser_and_bots_app*>(getApplication());
   application->to_main_menu();
 }
 
@@ -786,7 +786,7 @@ void game_scene::pause()
     game_object.second->pause();
   }
 
-  get_audio_helper()->pauseMusic();
+  getAudioHelper()->pauseMusic();
 
   game_ui_->get_virtual_joy_stick()->pause();
 
@@ -815,7 +815,7 @@ void game_scene::resume()
     game_object.second->resume();
   }
 
-  get_audio_helper()->resumeMusic();
+  getAudioHelper()->resumeMusic();
 
   game_ui_->get_virtual_joy_stick()->resume();
 
@@ -840,7 +840,7 @@ void game_scene::reload()
 
   game_ui_->disable_buttons(true);
 
-  auto app = dynamic_cast<laser_and_bots_app*>(application_);
+  auto app = dynamic_cast<laser_and_bots_app*>(_application);
   app->to_game(level_);
 }
 
@@ -850,7 +850,7 @@ void game_scene::continue_button()
 
   game_ui_->disable_buttons(true);
 
-  auto app = dynamic_cast<laser_and_bots_app*>(application_);
+  auto app = dynamic_cast<laser_and_bots_app*>(_application);
   app->to_play_menu(level_manager_->get_next_level(level_));
 }
 
@@ -868,7 +868,7 @@ void game_scene::onEnter()
 
 void game_scene::update_ui_position(const Vec2& final_pos) const
 {
-  const auto ui_pos = Vec2(final_pos.x - (screen_size_.width / 2), final_pos.y - (screen_size_.height / 2));
+  const auto ui_pos = Vec2(final_pos.x - (_screenSize.width / 2), final_pos.y - (_screenSize.height / 2));
   game_ui_->setPosition(ui_pos);
 }
 
@@ -907,7 +907,7 @@ void game_scene::switch_activate_switch(switch_object* switch_object)
 {
   if (switch_object->is_unactivated())
   {
-    get_audio_helper()->playEffect("sounds/metal_click.mp3");
+    getAudioHelper()->playEffect("sounds/metal_click.mp3");
     switch_object->activate();
   }
 }
@@ -944,7 +944,7 @@ void game_scene::robot_touch_switch(switch_object* switch_object)
       switch_object->on();
       if (is_switch_targeting_a_switch(switch_object))
       {
-        get_audio_helper()->playEffect("sounds/metal_click.mp3");
+        getAudioHelper()->playEffect("sounds/metal_click.mp3");
       }
 
       const auto target = switch_object->get_target();

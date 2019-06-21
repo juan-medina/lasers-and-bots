@@ -89,9 +89,9 @@ bool menu_scene::init(BasicApp* application, const menu_to_display menu,
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ui/ui-0.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ui/ui-1.plist");
 
-    get_audio_helper()->preLoadEffect("sounds/select.mp3");
-    get_audio_helper()->preLoadEffect("sounds/SlideClosed.mp3");
-    get_audio_helper()->preLoadMusic("sounds/Cellar-I.mp3", "sounds/Cellar-L.mp3");
+    getAudioHelper()->preLoadEffect("sounds/select.mp3");
+    getAudioHelper()->preLoadEffect("sounds/SlideClosed.mp3");
+    getAudioHelper()->preLoadMusic("sounds/Cellar-I.mp3", "sounds/Cellar-L.mp3");
     const auto& size = Director::getInstance()->getWinSize();
 
     UTILS_BREAK_IF(!add_background());
@@ -110,7 +110,7 @@ bool menu_scene::init(BasicApp* application, const menu_to_display menu,
 
     addChild(label, 0);
 
-    const auto version = application_->getGameVersionString();
+    const auto version = _application->getGameVersionString();
 
     auto version_label = Label::createWithTTF(version, "fonts/tahoma.ttf", 120);
     UTILS_BREAK_IF(version_label == nullptr);
@@ -123,32 +123,32 @@ bool menu_scene::init(BasicApp* application, const menu_to_display menu,
 
     addChild(version_label, 0);
 
-    main_menu_ = main_menu::create(get_audio_helper());
+    main_menu_ = main_menu::create(getAudioHelper());
     UTILS_BREAK_IF(main_menu_ == nullptr);
 
     addChild(main_menu_, 0);
 
-    options_menu_ = options_menu::create(get_audio_helper(), application->isDesktop());
+    options_menu_ = options_menu::create(getAudioHelper(), application->isDesktop());
     UTILS_BREAK_IF(options_menu_ == nullptr);
 
     addChild(options_menu_, 0);
 
-    play_menu_ = play_menu::create(get_audio_helper(), selected_level);
+    play_menu_ = play_menu::create(getAudioHelper(), selected_level);
     UTILS_BREAK_IF(play_menu_ == nullptr);
 
     addChild(play_menu_, 0);
 
-    credits_menu_ = credits_menu::create(get_audio_helper());
+    credits_menu_ = credits_menu::create(getAudioHelper());
     UTILS_BREAK_IF(credits_menu_ == nullptr);
 
     addChild(credits_menu_, 0);
 
-    about_menu_ = about_menu::create(get_audio_helper());
+    about_menu_ = about_menu::create(getAudioHelper());
     UTILS_BREAK_IF(about_menu_ == nullptr);
 
     addChild(about_menu_, 0);
 
-    license_menu_ = license_menu::create(get_audio_helper());
+    license_menu_ = license_menu::create(getAudioHelper());
     UTILS_BREAK_IF(license_menu_ == nullptr);
 
     addChild(license_menu_, 0);
@@ -169,7 +169,7 @@ bool menu_scene::init(BasicApp* application, const menu_to_display menu,
         break;
     }
 
-    get_audio_helper()->playMusic("sounds/Cellar-I.mp3", "sounds/Cellar-L.mp3");
+    getAudioHelper()->playMusic("sounds/Cellar-I.mp3", "sounds/Cellar-L.mp3");
 
     scheduleUpdate();
 
@@ -299,7 +299,7 @@ void menu_scene::go_to_game(const unsigned short int level)
 
 void menu_scene::exit_app()
 {
-  auto app = dynamic_cast<laser_and_bots_app*>(get_application());
+  auto app = dynamic_cast<laser_and_bots_app*>(getApplication());
 
   const auto delay = DelayTime::create(1.15f);
   const auto func = CallFunc::create(CC_CALLBACK_0(laser_and_bots_app::close, app));
@@ -346,8 +346,8 @@ void menu_scene::display_license_menu()
 
 void menu_scene::change_music(const bool disabled) const
 {
-  const auto app = dynamic_cast<laser_and_bots_app*>(get_application());
-  const auto helper = get_audio_helper();
+  const auto app = dynamic_cast<laser_and_bots_app*>(getApplication());
+  const auto helper = getAudioHelper();
 
   if (!disabled)
   {
@@ -363,19 +363,19 @@ void menu_scene::change_music(const bool disabled) const
 
 void menu_scene::change_sound(const bool disabled) const
 {
-  const auto app = dynamic_cast<laser_and_bots_app*>(get_application());
+  const auto app = dynamic_cast<laser_and_bots_app*>(getApplication());
   app->set_effects_muted(disabled);
 }
 
 void menu_scene::change_music_volume(const float volume) const
 {
-  const auto app = dynamic_cast<laser_and_bots_app*>(get_application());
+  const auto app = dynamic_cast<laser_and_bots_app*>(getApplication());
   app->set_music_volume(volume);
 }
 
 void menu_scene::change_sound_volume(const float volume) const
 {
-  const auto app = dynamic_cast<laser_and_bots_app*>(get_application());
+  const auto app = dynamic_cast<laser_and_bots_app*>(getApplication());
   app->set_effects_volume(volume);
 }
 
@@ -399,7 +399,7 @@ void menu_scene::pause()
   base_class::pause();
   if (!paused_)
   {
-    const auto helper = get_audio_helper();
+    const auto helper = getAudioHelper();
     if (helper != nullptr)
     {
       helper->pauseMusic();
@@ -413,7 +413,7 @@ void menu_scene::resume()
   base_class::resume();
   if (paused_)
   {
-    const auto helper = get_audio_helper();
+    const auto helper = getAudioHelper();
     if (helper != nullptr)
     {
       helper->resumeMusic();
@@ -422,54 +422,54 @@ void menu_scene::resume()
   }
 }
 
-void menu_scene::did_enter_background()
+void menu_scene::didEnterBackground()
 {
   pause();
 }
 
-void menu_scene::will_enter_foreground()
+void menu_scene::willEnterForeground()
 {
   resume();
 }
 
 bool menu_scene::is_full_screen() const
 {
-  return get_application()->isFullScreen();
+  return getApplication()->isFullScreen();
 }
 
 void menu_scene::change_application_video_mode(const bool full_screen) const
 {
-  auto app = dynamic_cast<laser_and_bots_app*>(get_application());
+  auto app = dynamic_cast<laser_and_bots_app*>(getApplication());
   app->change_video_mode(full_screen);
 }
 
 bool menu_scene::is_debug_grid() const
 {
-  const auto app = dynamic_cast<laser_and_bots_app*>(get_application());
+  const auto app = dynamic_cast<laser_and_bots_app*>(getApplication());
   return app->is_debug_grid();
 }
 
 void menu_scene::set_debug_grid(const bool debug_grid) const
 {
-  const auto app = dynamic_cast<laser_and_bots_app*>(get_application());
+  const auto app = dynamic_cast<laser_and_bots_app*>(getApplication());
   app->set_debug_grid(debug_grid);
 }
 
 bool menu_scene::is_debug_physics() const
 {
-  const auto app = dynamic_cast<laser_and_bots_app*>(get_application());
+  const auto app = dynamic_cast<laser_and_bots_app*>(getApplication());
   return app->is_debug_physics();
 }
 
 void menu_scene::set_debug_physics(const bool debug_physics) const
 {
-  const auto app = dynamic_cast<laser_and_bots_app*>(get_application());
+  const auto app = dynamic_cast<laser_and_bots_app*>(getApplication());
   app->set_debug_physics(debug_physics);
 }
 
 void menu_scene::handle_input() const
 {
-  const auto controller = get_input_controller();
+  const auto controller = getInputController();
 
   if (controller != nullptr)
   {
@@ -502,6 +502,6 @@ void menu_scene::handle_input() const
 
 void menu_scene::delay_to_game() const
 {
-  auto app = dynamic_cast<laser_and_bots_app*>(get_application());
+  auto app = dynamic_cast<laser_and_bots_app*>(getApplication());
   app->to_game(saved_level_);
 }

@@ -103,7 +103,7 @@ public:
 
   bool is_paused() const noexcept { return paused_; }
 
-  void will_enter_foreground() override;
+  void willEnterForeground() override;
 
 private:
   // provide a physics node for a titled gid

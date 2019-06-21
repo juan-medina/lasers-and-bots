@@ -23,7 +23,7 @@
 #include "BasicApp.h"
 #include "../../audio/AudioHelper.h"
 #include "../../controller/input_controller.h"
-#include "../scene/basic_scene.h"
+#include "../scene/BasicScene.h"
 
 BasicApp::BasicApp(const std::string& applicationName, const float designWidth, const float designHeight)
   : _audioHelper(nullptr)
@@ -139,10 +139,10 @@ void BasicApp::applicationDidEnterBackground()
   const auto director = Director::getInstance();
   director->stopAnimation();
 
-  const auto scene = dynamic_cast<basic_scene*>(director->getRunningScene());
+  const auto scene = dynamic_cast<BasicScene*>(director->getRunningScene());
   if (scene != nullptr)
   {
-    scene->did_enter_background();
+    scene->didEnterBackground();
   }
 }
 
@@ -151,10 +151,10 @@ void BasicApp::applicationWillEnterForeground()
   const auto director = Director::getInstance();
   director->startAnimation();
 
-  const auto scene = dynamic_cast<basic_scene*>(director->getRunningScene());
+  const auto scene = dynamic_cast<BasicScene*>(director->getRunningScene());
   if (scene != nullptr)
   {
-    scene->will_enter_foreground();
+    scene->willEnterForeground();
   }
 }
 
