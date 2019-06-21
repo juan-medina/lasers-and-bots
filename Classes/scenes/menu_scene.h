@@ -52,7 +52,7 @@ public:
 
   ~menu_scene();
 
-  static Scene* scene(basic_app* application, const menu_to_display menu,
+  static Scene* scene(BasicApp* application, const menu_to_display menu,
                       const unsigned short int selected_level);
 
   void go_to_game(const unsigned short int level);
@@ -90,7 +90,7 @@ public:
 private:
   void handle_input() const;
   void delay_to_game() const;
-  bool init(basic_app* application, const menu_to_display menu, const unsigned short int selected_level);
+  bool init(BasicApp* application, const menu_to_display menu, const unsigned short int selected_level);
 
   bool add_background();
   bool add_robot();

@@ -36,13 +36,13 @@ public:
   physics_tiled_scene();
   ~physics_tiled_scene();
 
-  static physics_tiled_scene* create(basic_app* application, const std::string& tmx_file, const float gravity,
+  static physics_tiled_scene* create(BasicApp* application, const std::string& tmx_file, const float gravity,
                                      const bool debug_physics);
 
-  static Scene* scene(basic_app* application, const std::string& tmx_file, const float gravity,
+  static Scene* scene(BasicApp* application, const std::string& tmx_file, const float gravity,
                       const bool debug_physics);
 
-  bool init(basic_app* application, const std::string& tmx_file, const float gravity,
+  bool init(BasicApp* application, const std::string& tmx_file, const float gravity,
             const bool debug_physics);
 
   physics_shape_cache* get_physics_shape_cache() const { return physics_shape_cache_; }

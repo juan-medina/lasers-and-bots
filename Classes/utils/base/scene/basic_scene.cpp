@@ -22,12 +22,12 @@
 
 #include "basic_scene.h"
 #include "../../audio/AudioHelper.h"
-#include "../../base/app/basic_app.h"
+#include "../../base/app/BasicApp.h"
 #include "../../controller/input_controller.h"
 
 basic_scene::basic_scene() : application_(nullptr) {}
 
-basic_scene::base_class* basic_scene::create_scene(basic_app* application)
+basic_scene::base_class* basic_scene::create_scene(BasicApp* application)
 {
   base_class* ret = nullptr;
 
@@ -52,7 +52,7 @@ basic_scene::base_class* basic_scene::create_scene(basic_app* application)
   return ret;
 }
 
-bool basic_scene::init(basic_app* application)
+bool basic_scene::init(BasicApp* application)
 {
   auto ret = false;
 
@@ -74,12 +74,12 @@ bool basic_scene::init(basic_app* application)
 
 AudioHelper* basic_scene::get_audio_helper() const
 {
-  return application_->get_audio_helper();
+  return application_->getAudioHelper();
 }
 
 input_controller* basic_scene::get_input_controller() const
 {
-  return application_->get_input_controller();
+  return application_->getInputController();
 }
 
 void basic_scene::did_enter_background() {}

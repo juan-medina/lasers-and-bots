@@ -32,11 +32,11 @@ public:
 
   tiled_scene();
 
-  static tiled_scene* create(basic_app*, const std::string& tmx_file);
+  static tiled_scene* create(BasicApp*, const std::string& tmx_file);
 
-  static Scene* scene(basic_app*, const std::string& tmx_file);
+  static Scene* scene(BasicApp*, const std::string& tmx_file);
 
-  bool init(basic_app*, const std::string& tmx_file);
+  bool init(BasicApp*, const std::string& tmx_file);
 
   virtual experimental::TMXTiledMap* get_tiled_map() const noexcept { return tiled_map_; };
 

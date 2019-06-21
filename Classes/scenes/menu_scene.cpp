@@ -46,7 +46,7 @@ menu_scene::menu_scene()
 {
 }
 
-Scene* menu_scene::scene(basic_app* application, const menu_to_display menu,
+Scene* menu_scene::scene(BasicApp* application, const menu_to_display menu,
                          const unsigned short int selected_level)
 {
   menu_scene* ret = nullptr;
@@ -77,7 +77,7 @@ menu_scene::~menu_scene()
   base_class::removeAllChildrenWithCleanup(true);
 }
 
-bool menu_scene::init(basic_app* application, const menu_to_display menu,
+bool menu_scene::init(BasicApp* application, const menu_to_display menu,
                       const unsigned short int selected_level)
 {
   auto ret = false;
@@ -110,7 +110,7 @@ bool menu_scene::init(basic_app* application, const menu_to_display menu,
 
     addChild(label, 0);
 
-    const auto version = application_->get_game_version_string();
+    const auto version = application_->getGameVersionString();
 
     auto version_label = Label::createWithTTF(version, "fonts/tahoma.ttf", 120);
     UTILS_BREAK_IF(version_label == nullptr);
@@ -128,7 +128,7 @@ bool menu_scene::init(basic_app* application, const menu_to_display menu,
 
     addChild(main_menu_, 0);
 
-    options_menu_ = options_menu::create(get_audio_helper(), application->is_desktop());
+    options_menu_ = options_menu::create(get_audio_helper(), application->isDesktop());
     UTILS_BREAK_IF(options_menu_ == nullptr);
 
     addChild(options_menu_, 0);
@@ -434,7 +434,7 @@ void menu_scene::will_enter_foreground()
 
 bool menu_scene::is_full_screen() const
 {
-  return get_application()->is_full_screen();
+  return get_application()->isFullScreen();
 }
 
 void menu_scene::change_application_video_mode(const bool full_screen) const

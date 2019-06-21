@@ -63,7 +63,7 @@ game_scene::game_scene() noexcept
 {
 }
 
-Scene* game_scene::scene(basic_app* application, const bool debug_grid, const bool debug_physics,
+Scene* game_scene::scene(BasicApp* application, const bool debug_grid, const bool debug_physics,
                          const int level)
 {
   auto scene = new game_scene();
@@ -84,7 +84,7 @@ Scene* game_scene::scene(basic_app* application, const bool debug_grid, const bo
   return scene;
 }
 
-game_scene* game_scene::create(basic_app* application, const bool debug_grid, const bool debug_physics,
+game_scene* game_scene::create(BasicApp* application, const bool debug_grid, const bool debug_physics,
                                const int level)
 {
   game_scene* ret = nullptr;
@@ -110,7 +110,7 @@ game_scene* game_scene::create(basic_app* application, const bool debug_grid, co
   return ret;
 }
 
-bool game_scene::init(basic_app* application, const bool debug_grid, const bool debug_physics,
+bool game_scene::init(BasicApp* application, const bool debug_grid, const bool debug_physics,
                       unsigned short level)
 {
   auto ret = false;

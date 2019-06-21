@@ -23,23 +23,23 @@
 #ifndef _APP_DELEGATE_H_
 #define _APP_DELEGATE_H_
 
-#include "utils/base/app/basic_app.h"
+#include "utils/base/app/BasicApp.h"
 
 // forward declarations
 class level_manager;
 class input_controller;
 
 // this game application
-class laser_and_bots_app final : public basic_app
+class laser_and_bots_app final : public BasicApp
 {
 public:
-  using base_class = basic_app;
+  using base_class = BasicApp;
 
   laser_and_bots_app();
 
   ~laser_and_bots_app();
 
-  Scene* init_scene() override;
+  Scene* initScene() override;
 
   Scene* game_scene(const unsigned short int level);
   Scene* main_menu_scene();

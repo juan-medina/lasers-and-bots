@@ -24,7 +24,7 @@
 
 tiled_scene::tiled_scene() : tiled_map_(nullptr) {}
 
-tiled_scene* tiled_scene::create(basic_app* application, const std::string& tmx_file)
+tiled_scene* tiled_scene::create(BasicApp* application, const std::string& tmx_file)
 {
   auto scene = new tiled_scene();
 
@@ -44,7 +44,7 @@ tiled_scene* tiled_scene::create(basic_app* application, const std::string& tmx_
   return scene;
 }
 
-Scene* tiled_scene::scene(basic_app* application, const std::string& tmx_file)
+Scene* tiled_scene::scene(BasicApp* application, const std::string& tmx_file)
 {
   auto scene = new tiled_scene();
 
@@ -64,7 +64,7 @@ Scene* tiled_scene::scene(basic_app* application, const std::string& tmx_file)
   return scene;
 }
 
-bool tiled_scene::init(basic_app* application, const std::string& tmx_file)
+bool tiled_scene::init(BasicApp* application, const std::string& tmx_file)
 {
   auto ret = false;
 

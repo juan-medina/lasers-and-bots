@@ -37,9 +37,9 @@ public:
 
   ~loading_scene();
 
-  static Scene* game(basic_app* application, const bool debug_grid, const bool debug_physics,
+  static Scene* game(BasicApp* application, const bool debug_grid, const bool debug_physics,
                      const unsigned short int level);
-  static Scene* menu(basic_app* application, const menu_to_display menu,
+  static Scene* menu(BasicApp* application, const menu_to_display menu,
                      const unsigned short int selected_level);
 
 private:
@@ -49,7 +49,7 @@ private:
     to_menu
   };
 
-  bool init(basic_app* application, const load_to& type, const bool debug_grid, const bool debug_physics,
+  bool init(BasicApp* application, const load_to& type, const bool debug_grid, const bool debug_physics,
             const menu_to_display menu, const unsigned short int level);
 
   void go_to_scene() const;

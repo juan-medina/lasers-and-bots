@@ -30,13 +30,12 @@ class AudioHelper;
 class input_controller;
 
 // application base class
-class basic_app : public Application
+class BasicApp : public Application
 {
 public:
-  using base_class = Application;
+  using BaseClass = Application;
 
-  explicit basic_app(const std::string& application_name, const float design_width,
-                     const float design_height);
+  explicit BasicApp(const std::string& applicationName, const float designWidth, const float designHeight);
 
   void initGLContextAttrs() override;
 
@@ -50,49 +49,49 @@ public:
   // call,it's be invoked too
   void applicationWillEnterForeground() override;
 
-  virtual Scene* init_scene() = 0;
+  virtual Scene* initScene() = 0;
 
-  virtual const string& application_name() const { return application_name_; };
+  virtual const string& applicationName() const { return _applicationName; };
 
   void close();
 
-  AudioHelper* get_audio_helper() const { return audio_helper_; }
+  AudioHelper* getAudioHelper() const { return _audioHelper; }
 #if (GAME_PLATFORM == DESKTOP_GAME)
-  void set_window_size(const float scale);
+  void setWindowSize(const float scale);
 #endif
-  void set_full_screen(const bool full_screen) { full_screen_ = full_screen; }
+  void setFullScreen(const bool fullScreen) { _fullScreen = fullScreen; }
 
-  bool is_full_screen() const { return full_screen_; }
+  bool isFullScreen() const { return _fullScreen; }
 
-  void set_fit_all(const bool fit_all) { fit_all_ = fit_all; }
+  void setFitAll(const bool fitAll) { _fitAll = fitAll; }
 
-  bool is_desktop();
+  bool isDesktop();
 
-  std::string get_game_version_string() const;
+  std::string getGameVersionString() const;
 
-  input_controller* get_input_controller() const { return input_controller_; }
+  input_controller* getInputController() const { return _inputController; }
 
 private:
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
   // center on screen in windows 32 client
-  static void center_win32_window();
+  static void centerWin32Window();
 #endif
 
-  bool read_version();
-  static std::string get_platform_name(const Platform platform);
+  bool readVersion();
+  static std::string getPlatformName(const Platform platform);
 
-  AudioHelper* audio_helper_;
-  input_controller* input_controller_;
+  AudioHelper* _audioHelper;
+  input_controller* _inputController;
 
-  float design_width_;
-  float design_height_;
-  int window_width_;
-  int window_height_;
-  bool full_screen_;
-  bool fit_all_;
-  string application_name_;
+  float _designWidth;
+  float _designHeight;
+  int _windowWidth;
+  int _windowHeight;
+  bool _fullScreen;
+  bool _fitAll;
+  string _applicationName;
 
-  struct game_version
+  struct GameVersion
   {
     unsigned short int major;
     unsigned short int minor;
@@ -101,7 +100,7 @@ private:
     Platform platform;
   };
 
-  game_version game_version_;
+  GameVersion _gameVersion;
 };
 
 #endif // __BASIC_APP_H__

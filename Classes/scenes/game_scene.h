@@ -43,13 +43,13 @@ public:
 
   game_scene() noexcept;
 
-  static Scene* scene(basic_app* application, const bool debug_grid, const bool debug_physics,
+  static Scene* scene(BasicApp* application, const bool debug_grid, const bool debug_physics,
                       const int level);
 
-  static game_scene* create(basic_app* application, const bool debug_grid, const bool debug_physics,
+  static game_scene* create(BasicApp* application, const bool debug_grid, const bool debug_physics,
                             const int level);
 
-  bool init(basic_app* application, const bool debug_grid, const bool debug_physics, unsigned short level);
+  bool init(BasicApp* application, const bool debug_grid, const bool debug_physics, unsigned short level);
 
   bool create_game_ui();
 

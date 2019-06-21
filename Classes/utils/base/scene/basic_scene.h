@@ -26,7 +26,7 @@
 #include "../../utils.h"
 
 // forward declarations
-class basic_app;
+class BasicApp;
 class AudioHelper;
 class input_controller;
 
@@ -37,13 +37,13 @@ public:
 
   basic_scene();
 
-  static base_class* create_scene(basic_app* application);
+  static base_class* create_scene(BasicApp* application);
 
-  bool init(basic_app* application);
+  bool init(BasicApp* application);
 
   Size get_screen_size() const noexcept { return screen_size_; }
 
-  basic_app* get_application() const { return application_; }
+  BasicApp* get_application() const { return application_; }
 
   AudioHelper* get_audio_helper() const;
   input_controller* get_input_controller() const;
@@ -56,7 +56,7 @@ protected:
 
   Size screen_size_;
 
-  basic_app* application_;
+  BasicApp* application_;
 };
 
 #endif // __BASIC_SCENE_H__

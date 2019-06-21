@@ -32,7 +32,7 @@ physics_tiled_scene::~physics_tiled_scene()
   physics_shape_cache_ = nullptr;
 }
 
-physics_tiled_scene* physics_tiled_scene::create(basic_app* application, const std::string& tmx_file,
+physics_tiled_scene* physics_tiled_scene::create(BasicApp* application, const std::string& tmx_file,
                                                  const float gravity, const bool debug_physics)
 {
   auto scene = new physics_tiled_scene();
@@ -53,7 +53,7 @@ physics_tiled_scene* physics_tiled_scene::create(basic_app* application, const s
   return scene;
 }
 
-Scene* physics_tiled_scene::scene(basic_app* application, const std::string& tmx_file, const float gravity,
+Scene* physics_tiled_scene::scene(BasicApp* application, const std::string& tmx_file, const float gravity,
                                   const bool debug_physics)
 {
   auto scene = new physics_tiled_scene();
@@ -74,7 +74,7 @@ Scene* physics_tiled_scene::scene(basic_app* application, const std::string& tmx
   return scene;
 }
 
-bool physics_tiled_scene::init(basic_app* application, const std::string& tmx_file, const float gravity,
+bool physics_tiled_scene::init(BasicApp* application, const std::string& tmx_file, const float gravity,
                                const bool debug_physics)
 {
   auto ret = false;

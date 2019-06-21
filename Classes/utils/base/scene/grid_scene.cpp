@@ -22,7 +22,7 @@
 
 #include "grid_scene.h"
 
-grid_scene* grid_scene::create(basic_app* application, const Size& blocks, const Size& block_size)
+grid_scene* grid_scene::create(BasicApp* application, const Size& blocks, const Size& block_size)
 {
   auto scene = new grid_scene();
 
@@ -42,7 +42,7 @@ grid_scene* grid_scene::create(basic_app* application, const Size& blocks, const
   return scene;
 }
 
-Scene* grid_scene::scene(basic_app* application, const Size& blocks, const Size& block_size)
+Scene* grid_scene::scene(BasicApp* application, const Size& blocks, const Size& block_size)
 {
   auto scene = new grid_scene();
 
@@ -62,7 +62,7 @@ Scene* grid_scene::scene(basic_app* application, const Size& blocks, const Size&
   return scene;
 }
 
-bool grid_scene::init(basic_app* application, const Size& blocks, const Size& block_size)
+bool grid_scene::init(BasicApp* application, const Size& blocks, const Size& block_size)
 {
   auto ret = false;
 

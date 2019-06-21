@@ -22,11 +22,11 @@
 
 #include "loading_scene.h"
 #include "../utils/audio/AudioHelper.h"
-#include "../utils/base/app/basic_app.h"
+#include "../utils/base/app/BasicApp.h"
 #include "game_scene.h"
 #include "menu_scene.h"
 
-Scene* loading_scene::game(basic_app* application, const bool debug_grid, const bool debug_physics,
+Scene* loading_scene::game(BasicApp* application, const bool debug_grid, const bool debug_physics,
                            const unsigned short int level)
 {
   loading_scene* ret = nullptr;
@@ -53,7 +53,7 @@ Scene* loading_scene::game(basic_app* application, const bool debug_grid, const 
   return ret;
 }
 
-Scene* loading_scene::menu(basic_app* application, const menu_to_display menu,
+Scene* loading_scene::menu(BasicApp* application, const menu_to_display menu,
                            const unsigned short int selected_level)
 {
   loading_scene* ret = nullptr;
@@ -93,7 +93,7 @@ loading_scene::~loading_scene()
   base_class::removeAllChildrenWithCleanup(true);
 }
 
-bool loading_scene::init(basic_app* application, const load_to& type, const bool debug_grid,
+bool loading_scene::init(BasicApp* application, const load_to& type, const bool debug_grid,
                          const bool debug_physics, const menu_to_display menu, const unsigned short int level)
 {
   auto ret = false;
