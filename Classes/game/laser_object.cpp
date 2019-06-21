@@ -181,7 +181,7 @@ void laser_object::update(const float delta)
   const auto v3 = origin_point + (n - t);  
 
   static const auto red = Color4F::RED;
-  static const auto dark_red = Color4F(0.8, 0.f, 0.f, 1.f);
+  static const auto dark_red = Color4F(0.8f, 0.f, 0.f, 1.f);
   Color4F colors[4] = {red, red, dark_red, dark_red};
 
   Vec2 vertex_1[4] = {origin_point, final_point, v0, v2};

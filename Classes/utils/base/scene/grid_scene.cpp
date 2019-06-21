@@ -107,7 +107,7 @@ bool grid_scene::create_debug_grid(const std::string& font_name)
 
         draw->drawRect(from, to, Color4F(1.0f, 1.0f, 1.0f, 0.25f));
 
-        auto label = Label::createWithTTF(string_format("%d-%d", col, row), font_name, block_size_.width / 4);
+        auto label = Label::createWithTTF(StringFormat("%d-%d", col, row), font_name, block_size_.width / 4);
         all_ok = (label != nullptr);
 
         if (all_ok)

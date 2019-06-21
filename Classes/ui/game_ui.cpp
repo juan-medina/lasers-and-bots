@@ -344,7 +344,7 @@ string game_ui::time_message(const float time)
   const auto minutes = static_cast<int>(whole / 60.f);
   const auto seconds = static_cast<int>(time - (minutes * 60));
   const auto milliseconds = static_cast<int>(fractional * 100);
-  return string_format("%02d:%02d%c%02d", minutes, seconds, '.', milliseconds);
+  return StringFormat("%02d:%02d%c%02d", minutes, seconds, '.', milliseconds);
 }
 
 void game_ui::display_message(const std::string& message, const std::string& sub_message,
@@ -364,7 +364,7 @@ void game_ui::display_level_completed(const unsigned short int level, const floa
 
 void game_ui::update_countdown(const int value) const
 {
-  const auto text = string_format("%d", value);
+  const auto text = StringFormat("%d", value);
   if (value >= 0)
   {
     countdown_label_->setString(text);

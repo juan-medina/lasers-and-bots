@@ -171,7 +171,7 @@ bool play_menu::create_menu_items()
     auto col = 1;
     for (unsigned short int button_count = 1; button_count <= 12; ++button_count)
     {
-      auto text = string_format("%02d", button_count);
+      auto text = StringFormat("%02d", button_count);
       auto button =
         add_small_toggle_text_button(text, CC_CALLBACK_1(play_menu::on_level_select, this, button_count));
       UTILS_BREAK_IF(button == nullptr);

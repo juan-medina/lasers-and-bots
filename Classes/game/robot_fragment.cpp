@@ -82,7 +82,7 @@ bool robot_fragment::init(physics_shape_cache* physics_shape_cache, const int fr
 
   do
   {
-    const auto shape_name = string_format("Fragment_%02d", fragment_number);
+    const auto shape_name = StringFormat("Fragment_%02d", fragment_number);
     const auto image_name = shape_name + ".png";
 
     UTILS_BREAK_IF(!base_class::init(physics_shape_cache, shape_name, image_name, "fragment"));

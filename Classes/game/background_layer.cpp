@@ -72,7 +72,7 @@ bool background_layer::init()
 
     for (int layer = 4; layer >= 0; --layer)
     {
-      const auto file_name = string_format("layer_%d.png", layer);
+      const auto file_name = StringFormat("layer_%d.png", layer);
       auto sprite = Sprite::createWithSpriteFrameName(file_name);
       UTILS_BREAK_IF(sprite == nullptr);
 

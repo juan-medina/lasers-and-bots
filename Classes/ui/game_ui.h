@@ -58,7 +58,7 @@ public:
   {
     shield_bar_->setPercentage(amount);
     const auto int_value = static_cast<int>(std::round(amount));
-    shield_label_->setString(string_format("%3d %%", int_value));
+    shield_label_->setString(StringFormat("%3d %%", int_value));
   }
 
   void change_pause_button() const;

@@ -216,7 +216,7 @@ bool menu_scene::add_robot()
     auto loaded = 0;
     for (unsigned short int num = 1; num <= max_frame; num++)
     {
-      const auto frame = cache->getSpriteFrameByName(string_format(pattern, num));
+      const auto frame = cache->getSpriteFrameByName(StringFormat(pattern, num));
       UTILS_BREAK_IF(frame == nullptr);
 
       frames.pushBack(frame);

@@ -189,7 +189,7 @@ bool basic_app::is_desktop()
 
 std::string basic_app::get_game_version_string() const
 {
-  return string_format("Version: %d.%d.%d build %d (%s)", game_version_.major, game_version_.minor,
+  return StringFormat("Version: %d.%d.%d build %d (%s)", game_version_.major, game_version_.minor,
                        game_version_.patch, game_version_.build,
                        get_platform_name(game_version_.platform).c_str());
 }

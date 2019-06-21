@@ -269,7 +269,7 @@ void slider_object::update_location(const Vec2& location)
 void slider_object::on_percentage_change(const float percentage) const
 {
   progress_->setPercentage(percentage);
-  label_->setString(string_format("%3d %%", static_cast<int>(percentage)));
+  label_->setString(StringFormat("%3d %%", static_cast<int>(percentage)));
   arrow_->setPosition(progress_->getContentSize().width * (percentage / 100),
                       progress_->getContentSize().height);
   if (callback_ != nullptr)
