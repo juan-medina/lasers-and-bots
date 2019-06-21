@@ -83,11 +83,11 @@ private:
 
   struct LastMusic
   {
-    int _loopId;
-    int _introId;
-    std::string _introFileName;
-    std::string _loopFileName;
-    float _volume;
+    int loopId;
+    int introId;
+    std::string introFileName;
+    std::string loopFileName;
+    float volume;
   };
 
   LastMusic _lastMusic;

@@ -74,13 +74,13 @@ void AudioHelper::setMusicVolume(const float musicVolume) noexcept
 
   if (!getMusicMuted())
   {
-    if (_lastMusic._introId != AudioEngine::INVALID_AUDIO_ID)
+    if (_lastMusic.introId != AudioEngine::INVALID_AUDIO_ID)
     {
-      AudioEngine::setVolume(_lastMusic._introId, _lastMusic._volume * musicVolume);
+      AudioEngine::setVolume(_lastMusic.introId, _lastMusic.volume * musicVolume);
     }
-    else if (_lastMusic._loopId != AudioEngine::INVALID_AUDIO_ID)
+    else if (_lastMusic.loopId != AudioEngine::INVALID_AUDIO_ID)
     {
-      AudioEngine::setVolume(_lastMusic._loopId, _lastMusic._volume * musicVolume);
+      AudioEngine::setVolume(_lastMusic.loopId, _lastMusic.volume * musicVolume);
     }
   }
 }
@@ -97,35 +97,35 @@ int AudioHelper::playEffect(const std::string& fileName, const bool loop /*= fal
 
 void AudioHelper::playMusic(const std::string& loopFileName, const float volume /*= 1.0f*/)
 {
-  _lastMusic._introId = AudioEngine::INVALID_AUDIO_ID;
-  _lastMusic._introFileName = "";
-  _lastMusic._loopFileName = std::string(loopFileName);
-  _lastMusic._volume = volume;
+  _lastMusic.introId = AudioEngine::INVALID_AUDIO_ID;
+  _lastMusic.introFileName = "";
+  _lastMusic.loopFileName = std::string(loopFileName);
+  _lastMusic.volume = volume;
   if (!getMusicMuted())
   {
-    _lastMusic._loopId = AudioEngine::play2d(loopFileName, true, volume * _musicVolume);
+    _lastMusic.loopId = AudioEngine::play2d(loopFileName, true, volume * _musicVolume);
   }
 }
 
 void AudioHelper::onMusicIntroEnds(const int id, const std::string& filePath)
 {
-  if ((id == _lastMusic._introId) && (filePath == _lastMusic._introFileName))
+  if ((id == _lastMusic.introId) && (filePath == _lastMusic.introFileName))
   {
-    playMusic(_lastMusic._loopFileName, _lastMusic._volume);
+    playMusic(_lastMusic.loopFileName, _lastMusic.volume);
   }
 }
 
 void AudioHelper::playMusic(const std::string& introFileName, const std::string& loopFileName,
                             const float volume /*= 1.0f*/)
 {
-  _lastMusic._loopId = AudioEngine::INVALID_AUDIO_ID;
-  _lastMusic._introFileName = std::string(introFileName);
-  _lastMusic._loopFileName = std::string(loopFileName);
-  _lastMusic._volume = volume;
+  _lastMusic.loopId = AudioEngine::INVALID_AUDIO_ID;
+  _lastMusic.introFileName = std::string(introFileName);
+  _lastMusic.loopFileName = std::string(loopFileName);
+  _lastMusic.volume = volume;
   if (!getMusicMuted())
   {
-    _lastMusic._introId = AudioEngine::play2d(introFileName, false, volume * _musicVolume);
-    AudioEngine::setFinishCallback(_lastMusic._introId, CC_CALLBACK_2(AudioHelper::onMusicIntroEnds, this));
+    _lastMusic.introId = AudioEngine::play2d(introFileName, false, volume * _musicVolume);
+    AudioEngine::setFinishCallback(_lastMusic.introId, CC_CALLBACK_2(AudioHelper::onMusicIntroEnds, this));
   }
 }
 
@@ -154,13 +154,13 @@ void AudioHelper::pauseMusic() const
 {
   if (!getMusicMuted())
   {
-    if (_lastMusic._introId != AudioEngine::INVALID_AUDIO_ID)
+    if (_lastMusic.introId != AudioEngine::INVALID_AUDIO_ID)
     {
-      AudioEngine::pause(_lastMusic._introId);
+      AudioEngine::pause(_lastMusic.introId);
     }
-    else if (_lastMusic._loopId != AudioEngine::INVALID_AUDIO_ID)
+    else if (_lastMusic.loopId != AudioEngine::INVALID_AUDIO_ID)
     {
-      AudioEngine::pause(_lastMusic._loopId);
+      AudioEngine::pause(_lastMusic.loopId);
     }
   }
 }
@@ -169,25 +169,25 @@ void AudioHelper::resumeMusic()
 {
   if (!getMusicMuted())
   {
-    if (_lastMusic._introId != AudioEngine::INVALID_AUDIO_ID)
+    if (_lastMusic.introId != AudioEngine::INVALID_AUDIO_ID)
     {
-      AudioEngine::resume(_lastMusic._introId);
-      AudioEngine::setVolume(_lastMusic._introId, _lastMusic._volume * _musicVolume);
+      AudioEngine::resume(_lastMusic.introId);
+      AudioEngine::setVolume(_lastMusic.introId, _lastMusic.volume * _musicVolume);
     }
-    else if (_lastMusic._loopId != AudioEngine::INVALID_AUDIO_ID)
+    else if (_lastMusic.loopId != AudioEngine::INVALID_AUDIO_ID)
     {
-      AudioEngine::resume(_lastMusic._loopId);
-      AudioEngine::setVolume(_lastMusic._loopId, _lastMusic._volume * _musicVolume);
+      AudioEngine::resume(_lastMusic.loopId);
+      AudioEngine::setVolume(_lastMusic.loopId, _lastMusic.volume * _musicVolume);
     }
     else
     {
-      if (!_lastMusic._introFileName.empty())
+      if (!_lastMusic.introFileName.empty())
       {
-        playMusic(_lastMusic._introFileName, _lastMusic._loopFileName, _lastMusic._volume);
+        playMusic(_lastMusic.introFileName, _lastMusic.loopFileName, _lastMusic.volume);
       }
-      else if (!_lastMusic._loopFileName.empty())
+      else if (!_lastMusic.loopFileName.empty())
       {
-        playMusic(_lastMusic._loopFileName, _lastMusic._volume);
+        playMusic(_lastMusic.loopFileName, _lastMusic.volume);
       }
     }
   }
