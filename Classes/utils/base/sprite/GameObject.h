@@ -43,7 +43,7 @@ public:
 
 protected:
   static bool createAnim(const char* pattern, int maxFrame, float speed, const char* name,
-                          int loops = INFINITE_LOOPS);
+                         int loops = INFINITE_LOOPS);
 
   void changeAnim(const std::string& name);
 

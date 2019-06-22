@@ -85,7 +85,7 @@ bool GameObject::init(const std::string& type)
 }
 
 bool GameObject::createAnim(const char* pattern, const int maxFrame, const float speed, const char* name,
-                              const int loops /* = INFINITE_LOOPS*/)
+                            const int loops /* = INFINITE_LOOPS*/)
 {
   auto ret = false;
 
