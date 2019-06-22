@@ -24,9 +24,6 @@
 
 #include "../utils.h"
 
-// forward declarations
-enum class button_type;
-
 class input_controller final : public Ref
 {
 public:
