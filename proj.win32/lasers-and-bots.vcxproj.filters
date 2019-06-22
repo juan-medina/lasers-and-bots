@@ -159,9 +159,6 @@
     <ClCompile Include="..\Classes\menu\credits_menu.cpp">
       <Filter>src\menu</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\utils\controller\input_controller.cpp">
-      <Filter>src\utils\controller</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\menu\about_menu.cpp">
       <Filter>src\menu</Filter>
     </ClCompile>
@@ -197,6 +194,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\utils\base\sprite\GameObject.cpp">
       <Filter>src\utils\base\sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utils\controller\InputController.cpp">
+      <Filter>src\utils\controller</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -302,9 +302,6 @@
     <ClInclude Include="..\Classes\menu\credits_menu.h">
       <Filter>src\menu</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\utils\controller\input_controller.h">
-      <Filter>src\utils\controller</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\menu\about_menu.h">
       <Filter>src\menu</Filter>
     </ClInclude>
@@ -340,6 +337,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\utils\base\sprite\GameObject.h">
       <Filter>src\utils\base\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\controller\InputController.h">
+      <Filter>src\utils\controller</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

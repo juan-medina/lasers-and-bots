@@ -33,7 +33,7 @@ class play_menu;
 class credits_menu;
 class about_menu;
 class license_menu;
-class input_controller;
+class InputController;
 
 enum class menu_to_display
 {
@@ -108,7 +108,7 @@ private:
   bool paused_;
   unsigned short int saved_level_;
 
-  input_controller* input_controller_;
+  InputController* input_controller_;
 };
 
 #endif // __MENU_SCENE_H__

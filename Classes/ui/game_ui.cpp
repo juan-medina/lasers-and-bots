@@ -24,7 +24,7 @@
 #include "../misc/level_manager.h"
 #include "../scenes/game_scene.h"
 #include "../utils/audio/AudioHelper.h"
-#include "../utils/controller/input_controller.h"
+#include "../utils/controller/InputController.h"
 #include "level_completed.h"
 #include "message_window.h"
 #include "pause_window.h"
@@ -51,7 +51,7 @@ game_ui::game_ui()
 {
 }
 
-game_ui* game_ui::create(AudioHelper* audio_helper, input_controller* input_controller,
+game_ui* game_ui::create(AudioHelper* audio_helper, InputController* input_controller,
                          level_manager* level_manager, const unsigned short int level)
 {
   game_ui* ret = nullptr;
@@ -77,7 +77,7 @@ game_ui* game_ui::create(AudioHelper* audio_helper, input_controller* input_cont
   return ret;
 }
 
-bool game_ui::init(AudioHelper* audio_helper, input_controller* input_controller,
+bool game_ui::init(AudioHelper* audio_helper, InputController* input_controller,
                    level_manager* level_manager, const unsigned short int level)
 {
   auto ret = false;
@@ -401,15 +401,15 @@ void game_ui::update(float delta)
 {
   if (continue_callback_ != nullptr)
   {
-    if (input_controller_->single_press_button_a() || input_controller_->single_press_button_b() ||
-        input_controller_->single_press_button_back())
+    if (input_controller_->singlePressButtonA() || input_controller_->singlePressButtonB() ||
+        input_controller_->singlePressButtonBack())
     {
       on_continue();
       return;
     }
   }
 
-  if (input_controller_->single_press_button_start())
+  if (input_controller_->singlePressButtonStart())
   {
     if (pause_item_->isEnabled())
     {
@@ -422,27 +422,27 @@ void game_ui::update(float delta)
   const auto scene = dynamic_cast<game_scene*>(Director::getInstance()->getRunningScene());
   if (scene->is_paused())
   {
-    if (input_controller_->single_press_up())
+    if (input_controller_->singlePressUp())
     {
       pause_window_->move_selection_up();
     }
-    if (input_controller_->single_press_down())
+    if (input_controller_->singlePressDown())
     {
       pause_window_->move_selection_down();
     }
-    if (input_controller_->single_press_left())
+    if (input_controller_->singlePressLeft())
     {
       pause_window_->move_selection_left();
     }
-    if (input_controller_->single_press_right())
+    if (input_controller_->singlePressRight())
     {
       pause_window_->move_selection_right();
     }
-    if (input_controller_->single_press_button_a())
+    if (input_controller_->singlePressButtonA())
     {
       pause_window_->activate_selection();
     }
-    if (input_controller_->single_press_button_b() || input_controller_->single_press_button_back())
+    if (input_controller_->singlePressButtonB() || input_controller_->singlePressButtonBack())
     {
       pause_window_->selection_back();
     }

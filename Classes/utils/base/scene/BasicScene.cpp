@@ -23,7 +23,7 @@
 #include "BasicScene.h"
 #include "../../audio/AudioHelper.h"
 #include "../../base/app/BasicApp.h"
-#include "../../controller/input_controller.h"
+#include "../../controller/InputController.h"
 
 BasicScene::BasicScene() : _application(nullptr) {}
 
@@ -77,7 +77,7 @@ AudioHelper* BasicScene::getAudioHelper() const
   return _application->getAudioHelper();
 }
 
-input_controller* BasicScene::getInputController() const
+InputController* BasicScene::getInputController() const
 {
   return _application->getInputController();
 }

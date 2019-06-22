@@ -27,7 +27,7 @@
 
 // forward declarations
 class AudioHelper;
-class input_controller;
+class InputController;
 
 // application base class
 class BasicApp : public Application
@@ -69,7 +69,7 @@ public:
 
   std::string getGameVersionString() const;
 
-  input_controller* getInputController() const { return _inputController; }
+  InputController* getInputController() const { return _inputController; }
 
 private:
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
@@ -81,7 +81,7 @@ private:
   static std::string getPlatformName(const Platform platform);
 
   AudioHelper* _audioHelper;
-  input_controller* _inputController;
+  InputController* _inputController;
 
   float _designWidth;
   float _designHeight;

@@ -27,7 +27,7 @@
 
 // forward declarations
 class level_manager;
-class input_controller;
+class InputController;
 
 // this game application
 class laser_and_bots_app final : public BasicApp

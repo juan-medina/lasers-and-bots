@@ -32,7 +32,7 @@ class pause_window;
 class virtual_joy_stick;
 class AudioHelper;
 class level_manager;
-class input_controller;
+class InputController;
 enum class completed_result;
 
 class game_ui final : public Node
@@ -42,10 +42,10 @@ public:
 
   game_ui();
 
-  static game_ui* create(AudioHelper* audio_helper, input_controller* input_controller,
+  static game_ui* create(AudioHelper* audio_helper, InputController* input_controller,
                          level_manager* level_manager, const unsigned short int level);
 
-  bool init(AudioHelper* audio_helper, input_controller* input_controller, level_manager* level_manager,
+  bool init(AudioHelper* audio_helper, InputController* input_controller, level_manager* level_manager,
             const unsigned short int level);
 
   void on_pause(Ref* sender);
@@ -100,7 +100,7 @@ private:
   pause_window* pause_window_;
   level_manager* level_manager_;
   unsigned short int level_;
-  input_controller* input_controller_;
+  InputController* input_controller_;
 };
 
 #endif // __GAME_UI__CLASS__

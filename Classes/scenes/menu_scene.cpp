@@ -29,7 +29,7 @@
 #include "../menu/options_menu.h"
 #include "../menu/play_menu.h"
 #include "../utils/audio/AudioHelper.h"
-#include "../utils/controller/input_controller.h"
+#include "../utils/controller/InputController.h"
 
 menu_scene::menu_scene()
   : current_menu_(nullptr)
@@ -473,27 +473,27 @@ void menu_scene::handle_input() const
 
   if (controller != nullptr)
   {
-    if (controller->single_press_up())
+    if (controller->singlePressUp())
     {
       current_menu_->move_selection_up();
     }
-    if (controller->single_press_down())
+    if (controller->singlePressDown())
     {
       current_menu_->move_selection_down();
     }
-    if (controller->single_press_left())
+    if (controller->singlePressLeft())
     {
       current_menu_->move_selection_left();
     }
-    if (controller->single_press_right())
+    if (controller->singlePressRight())
     {
       current_menu_->move_selection_right();
     }
-    if (controller->single_press_button_a() || controller->single_press_button_start())
+    if (controller->singlePressButtonA() || controller->singlePressButtonStart())
     {
       current_menu_->activate_selection();
     }
-    if (controller->single_press_button_b() || controller->single_press_button_back())
+    if (controller->singlePressButtonB() || controller->singlePressButtonBack())
     {
       current_menu_->selection_back();
     }

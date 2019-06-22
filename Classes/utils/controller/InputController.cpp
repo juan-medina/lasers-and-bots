@@ -20,55 +20,55 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "input_controller.h"
+#include "InputController.h"
 
-input_controller::input_controller()
-  : key_left_(false)
-  , key_right_(false)
-  , key_up_(false)
-  , key_down_(false)
-  , key_button_a_(false)
-  , key_button_b_(false)
-  , key_button_start_(false)
-  , key_button_back_(false)
+InputController::InputController()
+  : _keyLeft(false)
+  , _keyRight(false)
+  , _keyUp(false)
+  , _keyDown(false)
+  , _keyButtonA(false)
+  , _keyButtonB(false)
+  , _keyButtonStart(false)
+  , _keyButtonBack(false)
   ,
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-  was_controller_menu_pressed_(false)
+  _wasControllerMenuPressed(false)
   ,
 #endif
-  controller_left_(false)
-  , controller_right_(false)
-  , controller_up_(false)
-  , controller_down_(false)
-  , controller_axis_left_(false)
-  , controller_axis_right_(false)
-  , controller_axis_up_(false)
-  , controller_axis_down_(false)
-  , controller_button_a_(false)
-  , controller_button_b_(false)
-  , controller_button_start_(false)
-  , controller_button_back_(false)
-  , keyboard_listener_(nullptr)
-  , controller_listener_(nullptr)
-  , initiated_(false)
+  _controllerLeft(false)
+  , _controllerRight(false)
+  , _controllerUp(false)
+  , _controllerDown(false)
+  , _controllerAxisLeft(false)
+  , _controllerAxisRight(false)
+  , _controllerAxisUp(false)
+  , _controllerAxisDown(false)
+  , _controllerButtonA(false)
+  , _controllerButtonB(false)
+  , _controllerButtonStart(false)
+  , _controllerButtonBack(false)
+  , _keyboardListener(nullptr)
+  , _controllerListener(nullptr)
+  , _initiated(false)
 {
 }
 
-input_controller::~input_controller()
+InputController::~InputController()
 {
-  if (initiated_)
+  if (_initiated)
   {
     end();
   }
 }
 
-input_controller* input_controller::create()
+InputController* InputController::create()
 {
-  input_controller* ret = nullptr;
+  InputController* ret = nullptr;
 
   do
   {
-    auto object = new input_controller();
+    auto object = new InputController();
     UTILS_BREAK_IF(object == nullptr);
 
     if (!object->init())
@@ -83,72 +83,72 @@ input_controller* input_controller::create()
   return ret;
 }
 
-bool input_controller::init()
+bool InputController::init()
 {
   auto ret = false;
 
   do
   {
 #if (GAME_PLATFORM == DESKTOP_GAME)
-    UTILS_BREAK_IF(!create_keyboard_listener());
-    UTILS_BREAK_IF(!create_controller_listener());
+    UTILS_BREAK_IF(!createKeyboardListener());
+    UTILS_BREAK_IF(!createControllerListener());
 #endif
 
     ret = true;
   } while (false);
 
-  initiated_ = ret;
+  _initiated = ret;
 
   return ret;
 }
 
-bool input_controller::end()
+bool InputController::end()
 {
-  if (initiated_)
+  if (_initiated)
   {
-    if (keyboard_listener_ != nullptr)
+    if (_keyboardListener != nullptr)
     {
-      keyboard_listener_->setEnabled(false);
-      Director::getInstance()->getEventDispatcher()->removeEventListener(keyboard_listener_);
-      keyboard_listener_ = nullptr;
+      _keyboardListener->setEnabled(false);
+      Director::getInstance()->getEventDispatcher()->removeEventListener(_keyboardListener);
+      _keyboardListener = nullptr;
     }
-    if (controller_listener_ != nullptr)
+    if (_controllerListener != nullptr)
     {
 #if (GAME_PLATFORM == DESKTOP_GAME)
       Controller::stopDiscoveryController();
 #endif
-      controller_listener_->setEnabled(false);
-      Director::getInstance()->getEventDispatcher()->removeEventListener(controller_listener_);
-      controller_listener_ = nullptr;
+      _controllerListener->setEnabled(false);
+      Director::getInstance()->getEventDispatcher()->removeEventListener(_controllerListener);
+      _controllerListener = nullptr;
     }
   }
   return true;
 }
 
-void input_controller::on_controller_key_down(Controller* controller, const int key_code, Event* event)
+void InputController::onControllerKeyDown(Controller* controller, const int keyCode, Event* event)
 {
-  switch (key_code)
+  switch (keyCode)
   {
     case Controller::Key::BUTTON_DPAD_UP:
-      controller_up_ = true;
+      _controllerUp = true;
       break;
     case Controller::Key::BUTTON_DPAD_DOWN:
-      controller_down_ = true;
+      _controllerDown = true;
       break;
     case Controller::Key::BUTTON_DPAD_LEFT:
     case Controller::Key::BUTTON_LEFT_SHOULDER:
-      controller_left_ = true;
+      _controllerLeft = true;
       ;
       break;
     case Controller::Key::BUTTON_DPAD_RIGHT:
     case Controller::Key::BUTTON_RIGHT_SHOULDER:
-      controller_right_ = true;
+      _controllerRight = true;
       break;
     case Controller::Key::BUTTON_A:
-      controller_button_a_ = true;
+      _controllerButtonA = true;
       break;
     case Controller::Key::BUTTON_B:
-      controller_button_b_ = true;
+      _controllerButtonB = true;
       break;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
     case Controller::Key::BUTTON_PAUSE:
@@ -156,105 +156,105 @@ void input_controller::on_controller_key_down(Controller* controller, const int 
       break;
 #endif
     case Controller::Key::BUTTON_START:
-      controller_button_start_ = true;
+      _controllerButtonStart = true;
       break;
     case Controller::Key::BUTTON_SELECT:
-      controller_button_back_ = true;
+      _controllerButtonBack = true;
       break;
     default:
       break;
   }
 }
 
-void input_controller::on_controller_key_up(Controller* controller, const int key_code, Event* event)
+void InputController::onControllerKeyUp(Controller* controller, const int keyCode, Event* event)
 {
-  switch (key_code)
+  switch (keyCode)
   {
     case Controller::Key::BUTTON_DPAD_UP:
-      controller_up_ = false;
+      _controllerUp = false;
       break;
     case Controller::Key::BUTTON_DPAD_DOWN:
-      controller_down_ = false;
+      _controllerDown = false;
       break;
     case Controller::Key::BUTTON_DPAD_LEFT:
     case Controller::Key::BUTTON_LEFT_SHOULDER:
-      controller_left_ = false;
+      _controllerLeft = false;
       ;
       break;
     case Controller::Key::BUTTON_DPAD_RIGHT:
     case Controller::Key::BUTTON_RIGHT_SHOULDER:
-      controller_right_ = false;
+      _controllerRight = false;
       break;
     case Controller::Key::BUTTON_A:
-      controller_button_a_ = false;
+      _controllerButtonA = false;
       break;
     case Controller::Key::BUTTON_B:
-      controller_button_b_ = false;
+      _controllerButtonB = false;
       break;
     case Controller::Key::BUTTON_START:
-      controller_button_start_ = false;
+      _controllerButtonStart = false;
       break;
     case Controller::Key::BUTTON_SELECT:
-      controller_button_back_ = false;
+      _controllerButtonBack = false;
       break;
     default:
       break;
   }
 }
 
-void input_controller::on_controller_axis(Controller* controller, const int key_code, Event* event)
+void InputController::onControllerAxis(Controller* controller, const int keyCode, Event* event)
 {
-  static const auto threshold = 0.5f;
-  const auto& value = controller->getKeyStatus(key_code).value;
+  static const auto THRESHOLD = 0.5f;
+  const auto& value = controller->getKeyStatus(keyCode).value;
 
-  if (key_code == Controller::Key::JOYSTICK_LEFT_X)
+  if (keyCode == Controller::Key::JOYSTICK_LEFT_X)
   {
-    if (fabs(value) > threshold)
+    if (fabs(value) > THRESHOLD)
     {
-      controller_axis_left_ = value < threshold;
-      controller_axis_right_ = value > threshold;
+      _controllerAxisLeft = value < THRESHOLD;
+      _controllerAxisRight = value > THRESHOLD;
     }
     else
     {
-      controller_axis_left_ = false;
-      controller_axis_right_ = false;
+      _controllerAxisLeft = false;
+      _controllerAxisRight = false;
     }
   }
-  else if (key_code == Controller::Key::JOYSTICK_LEFT_Y)
+  else if (keyCode == Controller::Key::JOYSTICK_LEFT_Y)
   {
     if (fabs(value) > 0.5f)
     {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-      controller_axis_up_ = value < threshold;
-      controller_axis_down_ = value > threshold;
+      _controllerAxisUp = value < THRESHOLD;
+      _controllerAxisDown = value > THRESHOLD;
 #else
-      controller_axis_up_ = value > threshold;
-      controller_axis_down_ = value < threshold;
+      _controllerAxisUp = value > THRESHOLD;
+      _controllerAxisDown = value < THRESHOLD;
 #endif
     }
     else
     {
-      controller_axis_up_ = false;
-      controller_axis_down_ = false;
+      _controllerAxisUp = false;
+      _controllerAxisDown = false;
     }
   }
 }
 
-bool input_controller::create_controller_listener()
+bool InputController::createControllerListener()
 {
   auto ret = false;
 
   do
   {
 #if (GAME_PLATFORM == DESKTOP_GAME)
-    controller_listener_ = EventListenerController::create();
-    UTILS_BREAK_IF(controller_listener_ == nullptr);
+    _controllerListener = EventListenerController::create();
+    UTILS_BREAK_IF(_controllerListener == nullptr);
 
-    controller_listener_->onKeyDown = CC_CALLBACK_3(input_controller::on_controller_key_down, this);
-    controller_listener_->onKeyUp = CC_CALLBACK_3(input_controller::on_controller_key_up, this);
-    controller_listener_->onAxisEvent = CC_CALLBACK_3(input_controller::on_controller_axis, this);
+    _controllerListener->onKeyDown = CC_CALLBACK_3(InputController::onControllerKeyDown, this);
+    _controllerListener->onKeyUp = CC_CALLBACK_3(InputController::onControllerKeyUp, this);
+    _controllerListener->onAxisEvent = CC_CALLBACK_3(InputController::onControllerAxis, this);
 
-    Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(controller_listener_, 1);
+    Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_controllerListener, 1);
 
     Controller::startDiscoveryController();
     Controller::stopDiscoveryController();
@@ -266,20 +266,20 @@ bool input_controller::create_controller_listener()
   return ret;
 }
 
-bool input_controller::create_keyboard_listener()
+bool InputController::createKeyboardListener()
 {
   auto result = false;
 
   do
   {
 #if (GAME_PLATFORM == DESKTOP_GAME)
-    keyboard_listener_ = EventListenerKeyboard::create();
-    UTILS_BREAK_IF(keyboard_listener_ == nullptr);
+    _keyboardListener = EventListenerKeyboard::create();
+    UTILS_BREAK_IF(_keyboardListener == nullptr);
 
-    keyboard_listener_->onKeyPressed = CC_CALLBACK_2(input_controller::on_key_pressed, this);
-    keyboard_listener_->onKeyReleased = CC_CALLBACK_2(input_controller::on_key_released, this);
+    _keyboardListener->onKeyPressed = CC_CALLBACK_2(InputController::onKeyPressed, this);
+    _keyboardListener->onKeyReleased = CC_CALLBACK_2(InputController::onKeyReleased, this);
 
-    Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(keyboard_listener_, 1);
+    Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(_keyboardListener, 1);
 #endif
     result = true;
   } while (false);
@@ -287,111 +287,111 @@ bool input_controller::create_keyboard_listener()
   return result;
 }
 
-void input_controller::on_key_pressed(const EventKeyboard::KeyCode key_code, Event*)
+void InputController::onKeyPressed(const EventKeyboard::KeyCode keyCode, Event*)
 {
-  switch (key_code)
+  switch (keyCode)
   {
     case EventKeyboard::KeyCode::KEY_UP_ARROW:
     case EventKeyboard::KeyCode::KEY_W:
-      key_up_ = true;
+      _keyUp = true;
       break;
     case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
     case EventKeyboard::KeyCode::KEY_S:
-      key_down_ = true;
+      _keyDown = true;
       break;
     case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
     case EventKeyboard::KeyCode::KEY_A:
-      key_left_ = true;
+      _keyLeft = true;
       ;
       break;
     case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
     case EventKeyboard::KeyCode::KEY_D:
-      key_right_ = true;
+      _keyRight = true;
       break;
     case EventKeyboard::KeyCode::KEY_SPACE:
-      key_button_a_ = true;
+      _keyButtonA = true;
       break;
     case EventKeyboard::KeyCode::KEY_LEFT_CTRL:
     case EventKeyboard::KeyCode::KEY_RIGHT_CTRL:
-      key_button_b_ = true;
+      _keyButtonB = true;
       break;
     case EventKeyboard::KeyCode::KEY_F5:
     case EventKeyboard::KeyCode::KEY_ENTER:
     case EventKeyboard::KeyCode::KEY_RETURN:
     case EventKeyboard::KeyCode::KEY_KP_ENTER:
-      key_button_start_ = true;
+      _keyButtonStart = true;
       break;
     case EventKeyboard::KeyCode::KEY_ESCAPE:
-      key_button_back_ = true;
+      _keyButtonBack = true;
       break;
     default:
       break;
   }
 }
 
-void input_controller::on_key_released(const EventKeyboard::KeyCode key_code, Event*)
+void InputController::onKeyReleased(const EventKeyboard::KeyCode keyCode, Event*)
 {
-  switch (key_code)
+  switch (keyCode)
   {
     case EventKeyboard::KeyCode::KEY_UP_ARROW:
     case EventKeyboard::KeyCode::KEY_W:
-      key_up_ = false;
+      _keyUp = false;
       break;
     case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
     case EventKeyboard::KeyCode::KEY_A:
-      key_left_ = false;
+      _keyLeft = false;
       ;
       break;
     case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
     case EventKeyboard::KeyCode::KEY_S:
-      key_down_ = false;
+      _keyDown = false;
       break;
     case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
     case EventKeyboard::KeyCode::KEY_D:
-      key_right_ = false;
+      _keyRight = false;
       break;
     case EventKeyboard::KeyCode::KEY_SPACE:
-      key_button_a_ = false;
+      _keyButtonA = false;
       break;
     case EventKeyboard::KeyCode::KEY_LEFT_CTRL:
     case EventKeyboard::KeyCode::KEY_RIGHT_CTRL:
-      key_button_b_ = false;
+      _keyButtonB = false;
       break;
     case EventKeyboard::KeyCode::KEY_F5:
     case EventKeyboard::KeyCode::KEY_ENTER:
     case EventKeyboard::KeyCode::KEY_RETURN:
     case EventKeyboard::KeyCode::KEY_KP_ENTER:
-      key_button_start_ = false;
+      _keyButtonStart = false;
       break;
     case EventKeyboard::KeyCode::KEY_ESCAPE:
-      key_button_back_ = false;
+      _keyButtonBack = false;
       break;
     default:
       break;
   }
 }
 
-bool input_controller::left() const
+bool InputController::left() const
 {
-  return key_left_ || controller_left_ || controller_axis_left_;
+  return _keyLeft || _controllerLeft || _controllerAxisLeft;
 }
 
-bool input_controller::right() const
+bool InputController::right() const
 {
-  return key_right_ || controller_right_ || controller_axis_right_;
+  return _keyRight || _controllerRight || _controllerAxisRight;
 }
 
-bool input_controller::up() const
+bool InputController::up() const
 {
-  return key_up_ || controller_up_ || controller_axis_up_;
+  return _keyUp || _controllerUp || _controllerAxisUp;
 }
 
-bool input_controller::down() const
+bool InputController::down() const
 {
-  return key_down_ || controller_down_ || controller_axis_down_;
+  return _keyDown || _controllerDown || _controllerAxisDown;
 }
 
-bool input_controller::single_press_left() const
+bool InputController::singlePressLeft() const
 {
   static auto pressed = false;
 
@@ -408,7 +408,7 @@ bool input_controller::single_press_left() const
   return false;
 }
 
-bool input_controller::single_press_right() const
+bool InputController::singlePressRight() const
 {
   static auto pressed = false;
 
@@ -425,7 +425,7 @@ bool input_controller::single_press_right() const
   return false;
 }
 
-bool input_controller::single_press_down() const
+bool InputController::singlePressDown() const
 {
   static auto pressed = false;
 
@@ -442,7 +442,7 @@ bool input_controller::single_press_down() const
   return false;
 }
 
-bool input_controller::single_press_up() const
+bool InputController::singlePressUp() const
 {
   static auto pressed = false;
 
@@ -459,31 +459,31 @@ bool input_controller::single_press_up() const
   return false;
 }
 
-bool input_controller::button_a() const
+bool InputController::buttonA() const
 {
-  return key_button_a_ || controller_button_a_;
+  return _keyButtonA || _controllerButtonA;
 }
 
-bool input_controller::button_b() const
+bool InputController::buttonB() const
 {
-  return key_button_b_ || controller_button_b_;
+  return _keyButtonB || _controllerButtonB;
 }
 
-bool input_controller::button_start() const
+bool InputController::buttonStart() const
 {
-  return key_button_start_ || controller_button_start_;
+  return _keyButtonStart || _controllerButtonStart;
 }
 
-bool input_controller::button_back() const
+bool InputController::buttonBack() const
 {
-  return key_button_back_ || controller_button_back_;
+  return _keyButtonBack || _controllerButtonBack;
 }
 
-bool input_controller::single_press_button_a() const
+bool InputController::singlePressButtonA() const
 {
   static auto pressed = false;
 
-  if (button_a())
+  if (buttonA())
   {
     if (pressed)
     {
@@ -496,11 +496,11 @@ bool input_controller::single_press_button_a() const
   return false;
 }
 
-bool input_controller::single_press_button_b() const
+bool InputController::singlePressButtonB() const
 {
   static auto pressed = false;
 
-  if (button_b())
+  if (buttonB())
   {
     if (pressed)
     {
@@ -514,12 +514,12 @@ bool input_controller::single_press_button_b() const
 }
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-bool input_controller::single_press_button_start()
+bool InputController::singlePressButtonStart()
 {
   static auto pressed = false;
-  if (button_start() || was_controller_menu_pressed_)
+  if (buttonStart() || _wasControllerMenuPressed)
   {
-    was_controller_menu_pressed_ = false;
+    _wasControllerMenuPressed = false;
     if (pressed)
     {
       return false;
@@ -533,10 +533,10 @@ bool input_controller::single_press_button_start()
   return false;
 }
 #else
-bool input_controller::single_press_button_start() const
+bool InputController::singlePressButtonStart() const
 {
   static auto pressed = false;
-  if (button_start())
+  if (buttonStart())
   {
     if (pressed)
     {
@@ -552,11 +552,11 @@ bool input_controller::single_press_button_start() const
 }
 #endif
 
-bool input_controller::single_press_button_back() const
+bool InputController::singlePressButtonBack() const
 {
   static auto pressed = false;
 
-  if (button_back())
+  if (buttonBack())
   {
     if (pressed)
     {

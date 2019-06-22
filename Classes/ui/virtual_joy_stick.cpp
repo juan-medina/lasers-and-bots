@@ -21,12 +21,12 @@
  ****************************************************************************/
 
 #include "virtual_joy_stick.h"
-#include "../utils/controller/input_controller.h"
+#include "../utils/controller/InputController.h"
 #include "on_screen_button.h"
 
 virtual_joy_stick::virtual_joy_stick() : input_controller_(nullptr) {}
 
-virtual_joy_stick* virtual_joy_stick::create(input_controller* input_controller)
+virtual_joy_stick* virtual_joy_stick::create(InputController* input_controller)
 {
   virtual_joy_stick* ret = nullptr;
 
@@ -51,7 +51,7 @@ virtual_joy_stick* virtual_joy_stick::create(input_controller* input_controller)
   return ret;
 }
 
-bool virtual_joy_stick::init(input_controller* input_controller)
+bool virtual_joy_stick::init(InputController* input_controller)
 {
   auto ret = false;
 
@@ -149,7 +149,7 @@ bool virtual_joy_stick::right() const
 
 bool virtual_joy_stick::jump() const
 {
-  return input_controller_->single_press_button_a() || input_controller_->up() ||
+  return input_controller_->singlePressButtonA() || input_controller_->up() ||
          is_on_screen_pushed(button_type::button_a);
 }
 

@@ -28,7 +28,7 @@
 // forward declarations
 class BasicApp;
 class AudioHelper;
-class input_controller;
+class InputController;
 
 class BasicScene : public Scene
 {
@@ -46,7 +46,7 @@ public:
   BasicApp* getApplication() const { return _application; }
 
   AudioHelper* getAudioHelper() const;
-  input_controller* getInputController() const;
+  InputController* getInputController() const;
 
   virtual void didEnterBackground();
   virtual void willEnterForeground();

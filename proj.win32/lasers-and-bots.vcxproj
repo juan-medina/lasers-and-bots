@@ -192,7 +192,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y      </C
     <ClCompile Include="..\Classes\utils\base\scene\GridScene.cpp" />
     <ClCompile Include="..\Classes\utils\base\scene\TiledScene.cpp" />
     <ClCompile Include="..\Classes\utils\base\sprite\GameObject.cpp" />
-    <ClCompile Include="..\Classes\utils\controller\input_controller.cpp" />
+    <ClCompile Include="..\Classes\utils\controller\InputController.cpp" />
     <ClCompile Include="..\Classes\utils\physics\physics_game_object.cpp" />
     <ClCompile Include="..\Classes\utils\physics\physics_shape_cache.cpp" />
     <ClCompile Include="..\Classes\utils\physics\physics_tiled_scene.cpp" />
@@ -241,7 +241,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y      </C
     <ClInclude Include="..\Classes\utils\base\scene\GridScene.h" />
     <ClInclude Include="..\Classes\utils\base\scene\TiledScene.h" />
     <ClInclude Include="..\Classes\utils\base\sprite\GameObject.h" />
-    <ClInclude Include="..\Classes\utils\controller\input_controller.h" />
+    <ClInclude Include="..\Classes\utils\controller\InputController.h" />
     <ClInclude Include="..\Classes\utils\physics\physics_game_object.h" />
     <ClInclude Include="..\Classes\utils\physics\physics_shape_cache.h" />
     <ClInclude Include="..\Classes\utils\physics\physics_tiled_scene.h" />

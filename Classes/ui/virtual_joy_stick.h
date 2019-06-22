@@ -27,7 +27,7 @@
 // forward declarations
 class on_screen_button;
 enum class button_type;
-class input_controller;
+class InputController;
 
 class virtual_joy_stick final : public Node
 {
@@ -36,9 +36,9 @@ public:
 
   virtual_joy_stick();
 
-  static virtual_joy_stick* create(input_controller* input_controller);
+  static virtual_joy_stick* create(InputController* input_controller);
 
-  bool init(input_controller* input_controller);
+  bool init(InputController* input_controller);
 
   bool left() const;
 
@@ -58,7 +58,7 @@ private:
 
   std::vector<on_screen_button*> on_screen_buttons_;
 
-  input_controller* input_controller_;
+  InputController* input_controller_;
 };
 
 #endif // __VIRTUAL_JOY_STICK_CLASS__

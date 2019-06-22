@@ -22,7 +22,7 @@
 
 #include "BasicApp.h"
 #include "../../audio/AudioHelper.h"
-#include "../../controller/input_controller.h"
+#include "../../controller/InputController.h"
 #include "../scene/BasicScene.h"
 
 BasicApp::BasicApp(const std::string& applicationName, const float designWidth, const float designHeight)
@@ -118,7 +118,7 @@ bool BasicApp::applicationDidFinishLaunching()
     _audioHelper = new AudioHelper();
     UTILS_BREAK_IF(_audioHelper == nullptr);
 
-    _inputController = input_controller::create();
+    _inputController = InputController::create();
     UTILS_BREAK_IF(_inputController == nullptr);
 
     const auto scene = initScene();
