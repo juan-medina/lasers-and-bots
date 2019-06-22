@@ -2,7 +2,7 @@
 
 harm_object::harm_object() : damage_(0) {}
 
-harm_object* harm_object::create(physics_shape_cache* physics_shape_cache, const std::string& shape,
+harm_object* harm_object::create(PhysicsShapeCache* physics_shape_cache, const std::string& shape,
                                  const std::string& sprite_frame_name, const std::string& type,
                                  const int damage)
 {
@@ -29,7 +29,7 @@ harm_object* harm_object::create(physics_shape_cache* physics_shape_cache, const
   return ret;
 }
 
-harm_object* harm_object::create(physics_shape_cache* physics_shape_cache, const std::string& shape,
+harm_object* harm_object::create(PhysicsShapeCache* physics_shape_cache, const std::string& shape,
                                  const std::string& type, const int damage)
 {
   harm_object* ret = nullptr;
@@ -80,7 +80,7 @@ harm_object* harm_object::create(const std::string& type, const int damage)
   return ret;
 }
 
-bool harm_object::init(physics_shape_cache* physics_shape_cache, const std::string& shape,
+bool harm_object::init(PhysicsShapeCache* physics_shape_cache, const std::string& shape,
                        const std::string& sprite_frame_name, const std::string& type, const int damage)
 {
   auto ret = false;
@@ -97,7 +97,7 @@ bool harm_object::init(physics_shape_cache* physics_shape_cache, const std::stri
   return ret;
 }
 
-bool harm_object::init(physics_shape_cache* physics_shape_cache, const std::string& shape,
+bool harm_object::init(PhysicsShapeCache* physics_shape_cache, const std::string& shape,
                        const std::string& type, const int damage)
 {
   auto ret = false;

@@ -34,9 +34,9 @@ public:
 
   door_object();
 
-  static door_object* create(physics_shape_cache* physics_shape_cache, AudioHelper* audio_helper);
+  static door_object* create(PhysicsShapeCache* physics_shape_cache, AudioHelper* audio_helper);
 
-  bool init(physics_shape_cache* physics_shape_cache, AudioHelper* audio_helper);
+  bool init(PhysicsShapeCache* physics_shape_cache, AudioHelper* audio_helper);
 
   bool on() override;
   bool activate() override;

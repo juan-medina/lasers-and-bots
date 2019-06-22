@@ -21,13 +21,13 @@
  ****************************************************************************/
 
 #include "physics_tiled_scene.h"
-#include "physics_shape_cache.h"
+#include "PhysicsShapeCache.h"
 
 physics_tiled_scene::physics_tiled_scene() : physics_shape_cache_(nullptr) {}
 
 physics_tiled_scene::~physics_tiled_scene()
 {
-  physics_shape_cache_->remove_all_shapes();
+  physics_shape_cache_->removeAllShapes();
   delete physics_shape_cache_;
   physics_shape_cache_ = nullptr;
 }
@@ -149,7 +149,7 @@ bool physics_tiled_scene::add_body_to_node(Node* node, const string& shape) cons
     PhysicsBody* body = nullptr;
     if (!shape.empty())
     {
-      body = physics_shape_cache_->create_body_with_name(shape);
+      body = physics_shape_cache_->createBodyWithName(shape);
     }
 
     if (body != nullptr)
@@ -186,10 +186,10 @@ bool physics_tiled_scene::add_physics_to_map()
 
     const auto shapes = map->getProperty("shapes").asString();
 
-    physics_shape_cache_ = new physics_shape_cache();
+    physics_shape_cache_ = new PhysicsShapeCache();
     UTILS_BREAK_IF(physics_shape_cache_ == nullptr);
 
-    UTILS_BREAK_IF(!physics_shape_cache_->add_shapes_with_file(shapes));
+    UTILS_BREAK_IF(!physics_shape_cache_->addShapesWithFile(shapes));
 
     for (auto& child : map->getChildren())
     {

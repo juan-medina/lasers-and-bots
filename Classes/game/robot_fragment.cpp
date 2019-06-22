@@ -21,11 +21,11 @@
  ****************************************************************************/
 
 #include "robot_fragment.h"
-#include "../utils/physics/physics_shape_cache.h"
+#include "../utils/physics/PhysicsShapeCache.h"
 
 robot_fragment::robot_fragment() : smoke_(nullptr), exploding_(false) {}
 
-robot_fragment* robot_fragment::create(physics_shape_cache* physics_shape_cache, const int fragment_number)
+robot_fragment* robot_fragment::create(PhysicsShapeCache* physics_shape_cache, const int fragment_number)
 {
   robot_fragment* ret = nullptr;
 
@@ -76,7 +76,7 @@ bool robot_fragment::create_smoke_emitter()
   return ret;
 }
 
-bool robot_fragment::init(physics_shape_cache* physics_shape_cache, const int fragment_number)
+bool robot_fragment::init(PhysicsShapeCache* physics_shape_cache, const int fragment_number)
 {
   auto ret = false;
 

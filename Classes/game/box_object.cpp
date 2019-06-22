@@ -22,7 +22,7 @@
 
 #include "box_object.h"
 
-box_object* box_object::create(physics_shape_cache* physics_shape_cache, const std::string& image,
+box_object* box_object::create(PhysicsShapeCache* physics_shape_cache, const std::string& image,
                                const std::string& shape)
 {
   box_object* ret = nullptr;
@@ -48,7 +48,7 @@ box_object* box_object::create(physics_shape_cache* physics_shape_cache, const s
   return ret;
 }
 
-bool box_object::init(physics_shape_cache* physics_shape_cache, const std::string& image,
+bool box_object::init(PhysicsShapeCache* physics_shape_cache, const std::string& image,
                       const std::string& shape)
 {
   auto ret = false;

@@ -35,10 +35,10 @@ public:
 
   robot_object();
 
-  static robot_object* create(physics_shape_cache* physics_shape_cache, AudioHelper* audio_helper,
+  static robot_object* create(PhysicsShapeCache* physics_shape_cache, AudioHelper* audio_helper,
                               virtual_joy_stick* virtual_joy_stick, const int max_shield);
 
-  bool init(physics_shape_cache* physics_shape_cache, AudioHelper* audio_helper,
+  bool init(PhysicsShapeCache* physics_shape_cache, AudioHelper* audio_helper,
             virtual_joy_stick* virtual_joy_stick, const int max_shield);
 
   void update(float delta) override;

@@ -1,7 +1,7 @@
 #include "physics_game_object.h"
-#include "physics_shape_cache.h"
+#include "PhysicsShapeCache.h"
 
-physics_game_object* physics_game_object::create(physics_shape_cache* physics_shape_cache,
+physics_game_object* physics_game_object::create(PhysicsShapeCache* physics_shape_cache,
                                                  const std::string& shape,
                                                  const std::string& sprite_frame_name,
                                                  const std::string& type)
@@ -29,7 +29,7 @@ physics_game_object* physics_game_object::create(physics_shape_cache* physics_sh
   return ret;
 }
 
-physics_game_object* physics_game_object::create(physics_shape_cache* physics_shape_cache,
+physics_game_object* physics_game_object::create(PhysicsShapeCache* physics_shape_cache,
                                                  const std::string& shape, const std::string& type)
 {
   physics_game_object* ret = nullptr;
@@ -80,7 +80,7 @@ physics_game_object* physics_game_object::create(const std::string& type)
   return ret;
 }
 
-bool physics_game_object::init(physics_shape_cache* physics_shape_cache, const std::string& shape,
+bool physics_game_object::init(PhysicsShapeCache* physics_shape_cache, const std::string& shape,
                                const std::string& sprite_frame_name, const std::string& type)
 {
   auto ret = false;
@@ -97,7 +97,7 @@ bool physics_game_object::init(physics_shape_cache* physics_shape_cache, const s
   return ret;
 }
 
-bool physics_game_object::init(physics_shape_cache* physics_shape_cache, const std::string& shape,
+bool physics_game_object::init(PhysicsShapeCache* physics_shape_cache, const std::string& shape,
                                const std::string& type)
 {
   auto ret = false;
@@ -119,7 +119,7 @@ bool physics_game_object::init(const std::string& type)
   return base_class::init(type);
 }
 
-bool physics_game_object::set_shape(physics_shape_cache* physics_shape_cache, const std::string& shape_name)
+bool physics_game_object::set_shape(PhysicsShapeCache* physics_shape_cache, const std::string& shape_name)
 {
   auto ret = false;
 
@@ -127,7 +127,7 @@ bool physics_game_object::set_shape(physics_shape_cache* physics_shape_cache, co
   {
     if (!shape_name.empty())
     {
-      const auto body = physics_shape_cache->create_body_with_name(shape_name);
+      const auto body = physics_shape_cache->createBodyWithName(shape_name);
       UTILS_BREAK_IF(body == nullptr);
 
       setPhysicsBody(body);

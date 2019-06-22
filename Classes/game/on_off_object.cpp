@@ -24,7 +24,7 @@
 
 on_off_object::on_off_object() : on_(false), activated_(false), spot_(nullptr) {}
 
-bool on_off_object::init(physics_shape_cache* physics_shape_cache, const std::string& shape,
+bool on_off_object::init(PhysicsShapeCache* physics_shape_cache, const std::string& shape,
                          const std::string& sprite_frame_name, const std::string& type, const Vec2& spot_pos,
                          const string& target /*= ""*/)
 {

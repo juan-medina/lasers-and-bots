@@ -24,7 +24,7 @@
 
 saw_object::saw_object() {}
 
-saw_object* saw_object::create(physics_shape_cache* physics_shape_cache, const std::string& image,
+saw_object* saw_object::create(PhysicsShapeCache* physics_shape_cache, const std::string& image,
                                const std::string& shape, const int damage, const float rotation_time,
                                const float movement, const float movement_time, const float stop_time)
 {
@@ -52,7 +52,7 @@ saw_object* saw_object::create(physics_shape_cache* physics_shape_cache, const s
   return ret;
 }
 
-bool saw_object::init(physics_shape_cache* physics_shape_cache, const std::string& image,
+bool saw_object::init(PhysicsShapeCache* physics_shape_cache, const std::string& image,
                       const std::string& shape, const int damage, const float rotation_time,
                       const float movement, const float movement_time, const float stop_time)
 {

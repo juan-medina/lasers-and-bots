@@ -44,7 +44,7 @@ robot_object::robot_object()
 {
 }
 
-robot_object* robot_object::create(physics_shape_cache* physics_shape_cache, AudioHelper* audio_helper,
+robot_object* robot_object::create(PhysicsShapeCache* physics_shape_cache, AudioHelper* audio_helper,
                                    virtual_joy_stick* virtual_joy_stick, const int max_shield)
 {
   robot_object* ret = nullptr;
@@ -70,7 +70,7 @@ robot_object* robot_object::create(physics_shape_cache* physics_shape_cache, Aud
   return ret;
 }
 
-bool robot_object::init(physics_shape_cache* physics_shape_cache, AudioHelper* audio_helper,
+bool robot_object::init(PhysicsShapeCache* physics_shape_cache, AudioHelper* audio_helper,
                         virtual_joy_stick* virtual_joy_stick, const int max_shield)
 {
   auto ret = false;

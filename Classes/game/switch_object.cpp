@@ -22,7 +22,7 @@
 
 #include "switch_object.h"
 
-switch_object* switch_object::create(physics_shape_cache* physics_shape_cache, const string& target)
+switch_object* switch_object::create(PhysicsShapeCache* physics_shape_cache, const string& target)
 {
   switch_object* ret = nullptr;
 
@@ -47,7 +47,7 @@ switch_object* switch_object::create(physics_shape_cache* physics_shape_cache, c
   return ret;
 }
 
-bool switch_object::init(physics_shape_cache* physics_shape_cache, const string& target)
+bool switch_object::init(PhysicsShapeCache* physics_shape_cache, const string& target)
 {
   auto ret = false;
 

@@ -38,7 +38,7 @@
 #include "../utils/audio/AudioHelper.h"
 #include "../utils/base/nodes/CustomDrawNode.h"
 #include "../utils/base/sprite/GameObject.h"
-#include "../utils/physics/physics_shape_cache.h"
+#include "../utils/physics/PhysicsShapeCache.h"
 
 game_scene::game_scene() noexcept
   : robot_(nullptr)
@@ -139,7 +139,7 @@ bool game_scene::init(BasicApp* application, const bool debug_grid, const bool d
 
     UTILS_BREAK_IF(!cache_robot_explosion());
 
-    get_physics_shape_cache()->remove_all_shapes();
+    get_physics_shape_cache()->removeAllShapes();
 
     if (debug_grid)
     {

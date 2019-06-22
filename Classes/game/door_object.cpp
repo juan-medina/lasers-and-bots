@@ -25,7 +25,7 @@
 
 door_object::door_object() : audio_helper_(nullptr) {}
 
-door_object* door_object::create(physics_shape_cache* physics_shape_cache, AudioHelper* audio_helper)
+door_object* door_object::create(PhysicsShapeCache* physics_shape_cache, AudioHelper* audio_helper)
 {
   door_object* ret = nullptr;
 
@@ -50,7 +50,7 @@ door_object* door_object::create(physics_shape_cache* physics_shape_cache, Audio
   return ret;
 }
 
-bool door_object::init(physics_shape_cache* physics_shape_cache, AudioHelper* audio_helper)
+bool door_object::init(PhysicsShapeCache* physics_shape_cache, AudioHelper* audio_helper)
 {
   auto ret = false;
 

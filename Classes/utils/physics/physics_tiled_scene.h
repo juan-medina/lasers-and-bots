@@ -26,7 +26,7 @@
 #include "../base/scene/TiledScene.h"
 
 // forward declarations
-class physics_shape_cache;
+class PhysicsShapeCache;
 
 class physics_tiled_scene : public TiledScene
 {
@@ -45,7 +45,7 @@ public:
   bool init(BasicApp* application, const std::string& tmx_file, const float gravity,
             const bool debug_physics);
 
-  physics_shape_cache* get_physics_shape_cache() const { return physics_shape_cache_; }
+  PhysicsShapeCache* get_physics_shape_cache() const { return physics_shape_cache_; }
 
 protected:
   bool add_body_to_node(Node* node, const string& shape) const;
@@ -62,7 +62,7 @@ private:
   float gravity_ = 0.0f;
   std::map<int, string> gid_to_shapes_;
 
-  physics_shape_cache* physics_shape_cache_;
+  PhysicsShapeCache* physics_shape_cache_;
 };
 
 #endif // __PHYSICS_TILED_SCENE_H__

@@ -31,15 +31,15 @@ public:
 
   harm_object();
 
-  static harm_object* create(physics_shape_cache* physics_shape_cache, const std::string& shape,
+  static harm_object* create(PhysicsShapeCache* physics_shape_cache, const std::string& shape,
                              const std::string& sprite_frame_name, const std::string& type, const int damage);
-  static harm_object* create(physics_shape_cache* physics_shape_cache, const std::string& shape,
+  static harm_object* create(PhysicsShapeCache* physics_shape_cache, const std::string& shape,
                              const std::string& type, const int damage);
   static harm_object* create(const std::string& type, const int damage);
 
-  virtual bool init(physics_shape_cache* physics_shape_cache, const std::string& shape,
+  virtual bool init(PhysicsShapeCache* physics_shape_cache, const std::string& shape,
                     const std::string& sprite_frame_name, const std::string& type, const int damage);
-  virtual bool init(physics_shape_cache* physics_shape_cache, const std::string& shape,
+  virtual bool init(PhysicsShapeCache* physics_shape_cache, const std::string& shape,
                     const std::string& type, const int damage);
   virtual bool init(const std::string& type, const int damage);
 

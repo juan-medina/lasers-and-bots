@@ -25,82 +25,82 @@
 
 #include "../utils.h"
 
-class physics_shape_cache
+class PhysicsShapeCache
 {
 public:
-  physics_shape_cache();
+  PhysicsShapeCache();
 
-  ~physics_shape_cache();
+  ~PhysicsShapeCache();
 
-  bool add_shapes_with_file(const std::string& plist);
+  bool addShapesWithFile(const std::string& plist);
 
-  bool add_shapes_with_file(const std::string& plist, float scale_factor);
+  bool addShapesWithFile(const std::string& plist, float scaleFactor);
 
-  void remove_shapes_with_file(const std::string& plist);
+  void removeShapesWithFile(const std::string& plist);
 
-  void remove_all_shapes();
+  void removeAllShapes();
 
-  PhysicsBody* create_body_with_name(const std::string& name);
+  PhysicsBody* createBodyWithName(const std::string& name);
 
 private:
   typedef enum
   {
-    fixture_polygon,
-    fixture_circle
-  } fixture_type;
+    FixturePolygon,
+    FixtureCircle
+  } FixtureType;
 
-  class polygon
+  class Polygon
   {
   public:
-    Point* vertices;
-    int num_vertices;
+    Point* _vertex;
+    int _numVertex;
   };
 
-  class fixture_data
+  class FixtureData
   {
   public:
-    fixture_type fixture_type;
+    FixtureType _fixtureType;
 
-    float density;
-    float restitution;
-    float friction;
+    float _density;
+    float _restitution;
+    float _friction;
 
-    int tag;
-    int group;
-    int category_mask;
-    int collision_mask;
-    int contact_test_mask;
+    int _tag;
+    int _group;
+    int _categoryMask;
+    int _collisionMask;
+    int _contactTestMask;
 
     // for circles
-    Point center;
-    float radius;
+    Point _center;
+    float _radius;
 
-    std::vector<polygon*> polygons;
+    std::vector<Polygon*> _polygons;
   };
 
-  class body_def
+  class BodyDef
   {
   public:
-    Point anchor_point;
-    std::vector<fixture_data*> fixtures;
+    Point _anchorPoint;
+    std::vector<FixtureData*> _fixtures;
 
-    bool is_dynamic;
-    bool affected_by_gravity;
-    bool allows_rotation;
+    bool _isDynamic;
+    bool _affectedByGravity;
+    bool _allowsRotation;
 
-    float linear_damping;
-    float angular_damping;
-    float velocity_limit;
-    float angular_velocity_limit;
+    float _linearDamping;
+    float _angularDamping;
+    float _velocityLimit;
+    float _angularVelocityLimit;
   };
 
-  static void safe_delete_body_def(body_def* body_def);
-  body_def* get_body_def(const std::string& name);
-  static void set_body_properties(PhysicsBody* body, body_def* bd);
-  static void set_shape_properties(PhysicsShape* shape, fixture_data* fd);
+  static void safeDeleteBodyDef(BodyDef* bodyDef);
+  BodyDef* getBodyDef(const std::string& name);
+  static void setBodyProperties(PhysicsBody* body, BodyDef* bd);
+  static void setShapeProperties(PhysicsShape* shape, FixtureData* fd);
 
-  std::map<std::string, body_def*> body_defs_;
-  std::map<std::string, std::vector<body_def*>> bodies_in_file_;
+  std::map<std::string, BodyDef*> _bodyDefs;
+  std::map<std::string, std::vector<BodyDef*>> _bodiesInFile;
 };
 
 #endif // __PHYSICS_SHAPE_CACHE_CLASS__

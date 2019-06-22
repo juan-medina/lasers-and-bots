@@ -29,9 +29,9 @@ class switch_object final : public on_off_object
 public:
   using base_class = on_off_object;
 
-  static switch_object* create(physics_shape_cache* physics_shape_cache, const string& target);
+  static switch_object* create(PhysicsShapeCache* physics_shape_cache, const string& target);
 
-  bool init(physics_shape_cache* physics_shape_cache, const string& target);
+  bool init(PhysicsShapeCache* physics_shape_cache, const string& target);
 
   bool on() override;
   bool activate() override;

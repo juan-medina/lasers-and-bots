@@ -31,11 +31,11 @@ public:
 
   saw_object();
 
-  static saw_object* create(physics_shape_cache* physics_shape_cache, const std::string& image,
+  static saw_object* create(PhysicsShapeCache* physics_shape_cache, const std::string& image,
                             const std::string& shape, const int damage, const float rotation_time,
                             const float movement, const float movement_time, const float stop_time);
 
-  bool init(physics_shape_cache* physics_shape_cache, const std::string& image, const std::string& shape,
+  bool init(PhysicsShapeCache* physics_shape_cache, const std::string& image, const std::string& shape,
             const int damage, const float rotation_time, const float movement, const float movement_time,
             const float stop_time);
 };

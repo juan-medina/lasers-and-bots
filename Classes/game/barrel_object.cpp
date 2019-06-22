@@ -22,7 +22,7 @@
 
 #include "barrel_object.h"
 
-barrel_object* barrel_object::create(physics_shape_cache* physics_shape_cache, const int barrel_num,
+barrel_object* barrel_object::create(PhysicsShapeCache* physics_shape_cache, const int barrel_num,
                                      const std::string& image, const std::string& shape)
 {
   barrel_object* ret = nullptr;
@@ -48,7 +48,7 @@ barrel_object* barrel_object::create(physics_shape_cache* physics_shape_cache, c
   return ret;
 }
 
-bool barrel_object::init(physics_shape_cache* physics_shape_cache, const int barrel_num,
+bool barrel_object::init(PhysicsShapeCache* physics_shape_cache, const int barrel_num,
                          const std::string& image, const std::string& shape)
 {
   auto ret = false;
