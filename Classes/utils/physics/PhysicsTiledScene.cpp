@@ -20,26 +20,26 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "physics_tiled_scene.h"
+#include "PhysicsTiledScene.h"
 #include "PhysicsShapeCache.h"
 
-physics_tiled_scene::physics_tiled_scene() : physics_shape_cache_(nullptr) {}
+PhysicsTiledScene::PhysicsTiledScene() : _physicsShapeCache(nullptr) {}
 
-physics_tiled_scene::~physics_tiled_scene()
+PhysicsTiledScene::~PhysicsTiledScene()
 {
-  physics_shape_cache_->removeAllShapes();
-  delete physics_shape_cache_;
-  physics_shape_cache_ = nullptr;
+  _physicsShapeCache->removeAllShapes();
+  delete _physicsShapeCache;
+  _physicsShapeCache = nullptr;
 }
 
-physics_tiled_scene* physics_tiled_scene::create(BasicApp* application, const std::string& tmx_file,
-                                                 const float gravity, const bool debug_physics)
+PhysicsTiledScene* PhysicsTiledScene::create(BasicApp* application, const std::string& tmxFile,
+                                             const float gravity, const bool debugPhysics)
 {
-  auto scene = new physics_tiled_scene();
+  auto scene = new PhysicsTiledScene();
 
   if (scene)
   {
-    if (scene->init(application, tmx_file, gravity, debug_physics))
+    if (scene->init(application, tmxFile, gravity, debugPhysics))
     {
       scene->autorelease();
     }
@@ -53,14 +53,14 @@ physics_tiled_scene* physics_tiled_scene::create(BasicApp* application, const st
   return scene;
 }
 
-Scene* physics_tiled_scene::scene(BasicApp* application, const std::string& tmx_file, const float gravity,
-                                  const bool debug_physics)
+Scene* PhysicsTiledScene::scene(BasicApp* application, const std::string& tmxFile, const float gravity,
+                                const bool debugPhysics)
 {
-  auto scene = new physics_tiled_scene();
+  auto scene = new PhysicsTiledScene();
 
   if (scene)
   {
-    if (scene->init(application, tmx_file, gravity, debug_physics))
+    if (scene->init(application, tmxFile, gravity, debugPhysics))
     {
       scene->autorelease();
     }
@@ -74,43 +74,43 @@ Scene* physics_tiled_scene::scene(BasicApp* application, const std::string& tmx_
   return scene;
 }
 
-bool physics_tiled_scene::init(BasicApp* application, const std::string& tmx_file, const float gravity,
-                               const bool debug_physics)
+bool PhysicsTiledScene::init(BasicApp* application, const std::string& tmxFile, const float gravity,
+                             const bool debugPhysics)
 {
   auto ret = false;
 
   do
   {
-    ret = base_class::init(application, tmx_file);
+    ret = BaseClass::init(application, tmxFile);
     UTILS_BREAK_IF(!ret);
 
-    gravity_ = gravity;
+    _gravity = gravity;
 
-    init_physics(debug_physics);
+    initPhysics(debugPhysics);
 
-    UTILS_BREAK_IF(!add_physics_to_map());
+    UTILS_BREAK_IF(!addPhysicsToMap());
   } while (false);
 
   return ret;
 }
 
-void physics_tiled_scene::init_physics(const bool debug_physics) const
+void PhysicsTiledScene::initPhysics(const bool debugPhysics) const
 {
   const auto edge = PhysicsBody::createEdgeBox(_totalSize, PhysicsMaterial(0.1f, 0.0f, 0.5f), 5);
   getTiledMap()->addComponent(edge);
 
-  if (debug_physics)
+  if (debugPhysics)
   {
     getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
   }
 
-  getPhysicsWorld()->setGravity(Vec2(0.0f, gravity_));
+  getPhysicsWorld()->setGravity(Vec2(0.0f, _gravity));
   getPhysicsWorld()->setSubsteps(4);
 }
 
-string physics_tiled_scene::get_shape_from_tile_gid(const int gid)
+string PhysicsTiledScene::getShapeFromTileGid(const int gid)
 {
-  if (gid_to_shapes_.count(gid) == 0)
+  if (_gidToShapes.count(gid) == 0)
   {
     string shape;
     const auto map = getTiledMap();
@@ -122,25 +122,25 @@ string physics_tiled_scene::get_shape_from_tile_gid(const int gid)
         shape = properties.at("shape").asString();
       }
     }
-    gid_to_shapes_[gid] = shape;
+    _gidToShapes[gid] = shape;
     return shape;
   }
 
-  return gid_to_shapes_[gid];
+  return _gidToShapes[gid];
 }
 
-Node* physics_tiled_scene::provide_physics_node(const int gid)
+Node* PhysicsTiledScene::providePhysicsNode(const int gid)
 {
   const auto node = Node::create();
-  const auto shape = get_shape_from_tile_gid(gid);
+  const auto shape = getShapeFromTileGid(gid);
   if (!shape.empty())
   {
-    add_body_to_node(node, shape);
+    addBodyToNode(node, shape);
   }
   return node;
 }
 
-bool physics_tiled_scene::add_body_to_node(Node* node, const string& shape) const
+bool PhysicsTiledScene::addBodyToNode(Node* node, const string& shape) const
 {
   auto result = false;
 
@@ -149,7 +149,7 @@ bool physics_tiled_scene::add_body_to_node(Node* node, const string& shape) cons
     PhysicsBody* body = nullptr;
     if (!shape.empty())
     {
-      body = physics_shape_cache_->createBodyWithName(shape);
+      body = _physicsShapeCache->createBodyWithName(shape);
     }
 
     if (body != nullptr)
@@ -163,20 +163,20 @@ bool physics_tiled_scene::add_body_to_node(Node* node, const string& shape) cons
   return result;
 }
 
-Node* physics_tiled_scene::create_dummy_node(experimental::TMXLayer* const layer, const Vec2& tile_pos,
-                                             const int gid)
+Node* PhysicsTiledScene::createDummyNode(experimental::TMXLayer* const layer, const Vec2& tilePos,
+                                         const int gid)
 {
-  const auto node = provide_physics_node(gid);
+  const auto node = providePhysicsNode(gid);
   node->setAnchorPoint(Vec2(0, 0));
   node->setContentSize(_blockSize);
-  node->setPosition(layer->getPositionAt(tile_pos) + (_blockSize / 2));
+  node->setPosition(layer->getPositionAt(tilePos) + (_blockSize / 2));
   node->setVisible(false);
   layer->addChild(node);
 
   return node;
 }
 
-bool physics_tiled_scene::add_physics_to_map()
+bool PhysicsTiledScene::addPhysicsToMap()
 {
   auto result = false;
 
@@ -186,10 +186,10 @@ bool physics_tiled_scene::add_physics_to_map()
 
     const auto shapes = map->getProperty("shapes").asString();
 
-    physics_shape_cache_ = new PhysicsShapeCache();
-    UTILS_BREAK_IF(physics_shape_cache_ == nullptr);
+    _physicsShapeCache = new PhysicsShapeCache();
+    UTILS_BREAK_IF(_physicsShapeCache == nullptr);
 
-    UTILS_BREAK_IF(!physics_shape_cache_->addShapesWithFile(shapes));
+    UTILS_BREAK_IF(!_physicsShapeCache->addShapesWithFile(shapes));
 
     for (auto& child : map->getChildren())
     {
@@ -203,11 +203,11 @@ bool physics_tiled_scene::add_physics_to_map()
           {
             for (auto row = 0; row < _blocks.width; row++)
             {
-              const auto tile_pos = Vec2(row, col);
-              const auto gid = layer->getTileGIDAt(tile_pos);
+              const auto tilePos = Vec2(row, col);
+              const auto gid = layer->getTileGIDAt(tilePos);
               if (gid != 0)
               {
-                create_dummy_node(layer, tile_pos, gid);
+                createDummyNode(layer, tilePos, gid);
               }
             }
           }

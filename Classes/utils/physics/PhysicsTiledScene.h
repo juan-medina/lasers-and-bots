@@ -28,41 +28,40 @@
 // forward declarations
 class PhysicsShapeCache;
 
-class physics_tiled_scene : public TiledScene
+class PhysicsTiledScene : public TiledScene
 {
 public:
-  using base_class = TiledScene;
+  using BaseClass = TiledScene;
 
-  physics_tiled_scene();
-  ~physics_tiled_scene();
+  PhysicsTiledScene();
+  ~PhysicsTiledScene();
 
-  static physics_tiled_scene* create(BasicApp* application, const std::string& tmx_file, const float gravity,
-                                     const bool debug_physics);
+  static PhysicsTiledScene* create(BasicApp* application, const std::string& tmxFile, const float gravity,
+                                   const bool debugPhysics);
 
-  static Scene* scene(BasicApp* application, const std::string& tmx_file, const float gravity,
-                      const bool debug_physics);
+  static Scene* scene(BasicApp* application, const std::string& tmxFile, const float gravity,
+                      const bool debugPhysics);
 
-  bool init(BasicApp* application, const std::string& tmx_file, const float gravity,
-            const bool debug_physics);
+  bool init(BasicApp* application, const std::string& tmxFile, const float gravity, const bool debugPhysics);
 
-  PhysicsShapeCache* get_physics_shape_cache() const { return physics_shape_cache_; }
+  PhysicsShapeCache* get_physics_shape_cache() const { return _physicsShapeCache; }
 
 protected:
-  bool add_body_to_node(Node* node, const string& shape) const;
-  virtual Node* provide_physics_node(const int gid);
-  string get_shape_from_tile_gid(const int gid);
+  bool addBodyToNode(Node* node, const string& shape) const;
+  virtual Node* providePhysicsNode(const int gid);
+  string getShapeFromTileGid(const int gid);
 
 private:
-  virtual void init_physics(const bool debug_physics) const;
-  bool add_physics_to_map();
+  virtual void initPhysics(const bool debugPhysics) const;
+  bool addPhysicsToMap();
 
   // create a dummy node to hold physic body
-  Node* create_dummy_node(experimental::TMXLayer* layer, const Vec2& tile_pos, const int gid);
+  Node* createDummyNode(experimental::TMXLayer* layer, const Vec2& tilePos, const int gid);
 
-  float gravity_ = 0.0f;
-  std::map<int, string> gid_to_shapes_;
+  float _gravity = 0.0f;
+  std::map<int, string> _gidToShapes;
 
-  PhysicsShapeCache* physics_shape_cache_;
+  PhysicsShapeCache* _physicsShapeCache;
 };
 
 #endif // __PHYSICS_TILED_SCENE_H__

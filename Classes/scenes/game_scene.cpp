@@ -249,11 +249,11 @@ void game_scene::willEnterForeground()
   }
 }
 
-Node* game_scene::provide_physics_node(const int gid)
+Node* game_scene::providePhysicsNode(const int gid)
 {
   const auto map = getTiledMap();
   const auto gid_properties = map->getPropertiesForGID(gid);
-  const auto shape = get_shape_from_tile_gid(gid);
+  const auto shape = getShapeFromTileGid(gid);
   if (gid_properties.getType() == Value::Type::MAP)
   {
     const auto& value_map = gid_properties.asValueMap();

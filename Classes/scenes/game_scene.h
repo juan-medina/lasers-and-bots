@@ -22,7 +22,7 @@
 #ifndef __MAIN_SCENE__
 #define __MAIN_SCENE__
 
-#include "../utils/physics/physics_tiled_scene.h"
+#include "../utils/physics/PhysicsTiledScene.h"
 
 // forward declarations
 class GameObject;
@@ -36,10 +36,10 @@ class level_manager;
 class background_layer;
 class CustomDrawNode;
 
-class game_scene final : public physics_tiled_scene
+class game_scene final : public PhysicsTiledScene
 {
 public:
-  using base_class = physics_tiled_scene;
+  using base_class = PhysicsTiledScene;
 
   game_scene() noexcept;
 
@@ -107,7 +107,7 @@ public:
 
 private:
   // provide a physics node for a titled gid
-  virtual Node* provide_physics_node(const int gid) override;
+  virtual Node* providePhysicsNode(const int gid) override;
 
   void update_game_time(const float delta);
 
