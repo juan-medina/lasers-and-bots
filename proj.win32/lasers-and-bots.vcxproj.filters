@@ -63,9 +63,6 @@
     <ClCompile Include="..\Classes\utils\utils.cpp">
       <Filter>src\utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\utils\base\scene\grid_scene.cpp">
-      <Filter>src\utils\base\scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\utils\base\scene\tiled_scene.cpp">
       <Filter>src\utils\base\scene</Filter>
     </ClCompile>
@@ -198,6 +195,9 @@
     <ClCompile Include="..\Classes\utils\base\scene\BasicScene.cpp">
       <Filter>src\utils\base\scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\utils\base\scene\GridScene.cpp">
+      <Filter>src\utils\base\scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -205,9 +205,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\utils\utils.h">
       <Filter>src\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\utils\base\scene\grid_scene.h">
-      <Filter>src\utils\base\scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\utils\base\scene\tiled_scene.h">
       <Filter>src\utils\base\scene</Filter>
@@ -339,6 +336,9 @@
       <Filter>src\utils\base\app</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\utils\base\scene\BasicScene.h">
+      <Filter>src\utils\base\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\base\scene\GridScene.h">
       <Filter>src\utils\base\scene</Filter>
     </ClInclude>
   </ItemGroup>

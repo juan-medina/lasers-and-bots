@@ -23,12 +23,12 @@
 #ifndef __TILED_SCENE_H__
 #define __TILED_SCENE_H__
 
-#include "grid_scene.h"
+#include "GridScene.h"
 
-class tiled_scene : public grid_scene
+class tiled_scene : public GridScene
 {
 public:
-  using base_class = grid_scene;
+  using base_class = GridScene;
 
   tiled_scene();
 

@@ -96,7 +96,7 @@ bool physics_tiled_scene::init(BasicApp* application, const std::string& tmx_fil
 
 void physics_tiled_scene::init_physics(const bool debug_physics) const
 {
-  const auto edge = PhysicsBody::createEdgeBox(total_size_, PhysicsMaterial(0.1f, 0.0f, 0.5f), 5);
+  const auto edge = PhysicsBody::createEdgeBox(_totalSize, PhysicsMaterial(0.1f, 0.0f, 0.5f), 5);
   get_tiled_map()->addComponent(edge);
 
   if (debug_physics)
@@ -168,8 +168,8 @@ Node* physics_tiled_scene::create_dummy_node(experimental::TMXLayer* const layer
 {
   const auto node = provide_physics_node(gid);
   node->setAnchorPoint(Vec2(0, 0));
-  node->setContentSize(block_size_);
-  node->setPosition(layer->getPositionAt(tile_pos) + (block_size_ / 2));
+  node->setContentSize(_blockSize);
+  node->setPosition(layer->getPositionAt(tile_pos) + (_blockSize / 2));
   node->setVisible(false);
   layer->addChild(node);
 
@@ -199,9 +199,9 @@ bool physics_tiled_scene::add_physics_to_map()
         auto physics = layer->getProperty("physics");
         if (physics.asBool())
         {
-          for (auto col = 0; col < blocks_.height; col++)
+          for (auto col = 0; col < _blocks.height; col++)
           {
-            for (auto row = 0; row < blocks_.width; row++)
+            for (auto row = 0; row < _blocks.width; row++)
             {
               const auto tile_pos = Vec2(row, col);
               const auto gid = layer->getTileGIDAt(tile_pos);

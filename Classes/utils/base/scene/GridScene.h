@@ -25,35 +25,35 @@
 
 #include "BasicScene.h"
 
-class grid_scene : public BasicScene
+class GridScene : public BasicScene
 {
 public:
-  using base_class = BasicScene;
+  using BaseClass = BasicScene;
 
-  static grid_scene* create(BasicApp* application, const Size& blocks, const Size& block_size);
+  static GridScene* create(BasicApp* application, const Size& blocks, const Size& blockSize);
 
-  static Scene* scene(BasicApp* application, const Size& blocks, const Size& block_size);
+  static Scene* scene(BasicApp* application, const Size& blocks, const Size& blockSize);
 
-  bool init(BasicApp* application, const Size& blocks, const Size& block_size);
+  bool init(BasicApp* application, const Size& blocks, const Size& blockSize);
 
-  inline Rect get_block_position(const int col, const int row) const
+  inline Rect getBlockPosition(const int col, const int row) const
   {
-    return Rect(col * block_size_.width, row * block_size_.height, block_size_.width, block_size_.height);
+    return Rect(col * _blockSize.width, row * _blockSize.height, _blockSize.width, _blockSize.height);
   }
 
-  inline Vec2 get_block_center(const int col, const int row) const
+  inline Vec2 getBlockCenter(const int col, const int row) const
   {
-    auto position = this->get_block_position(col, row);
+    const auto position = this->getBlockPosition(col, row);
 
-    return Vec2(position.getMidX(), position.getMidY());
+    return {position.getMidX(), position.getMidY()};
   }
 
 protected:
-  bool create_debug_grid(const std::string& font_name);
+  bool createDebugGrid(const std::string& font_name);
 
-  Size blocks_;
-  Size block_size_;
-  Size total_size_;
+  Size _blocks;
+  Size _blockSize;
+  Size _totalSize;
 };
 
 #endif // __GRID_SCENE_H__

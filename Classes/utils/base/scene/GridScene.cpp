@@ -20,15 +20,15 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "grid_scene.h"
+#include "GridScene.h"
 
-grid_scene* grid_scene::create(BasicApp* application, const Size& blocks, const Size& block_size)
+GridScene* GridScene::create(BasicApp* application, const Size& blocks, const Size& blockSize)
 {
-  auto scene = new grid_scene();
+  auto scene = new GridScene();
 
   if (scene)
   {
-    if (scene->init(application, blocks, block_size))
+    if (scene->init(application, blocks, blockSize))
     {
       scene->autorelease();
     }
@@ -42,13 +42,13 @@ grid_scene* grid_scene::create(BasicApp* application, const Size& blocks, const 
   return scene;
 }
 
-Scene* grid_scene::scene(BasicApp* application, const Size& blocks, const Size& block_size)
+Scene* GridScene::scene(BasicApp* application, const Size& blocks, const Size& blockSize)
 {
-  auto scene = new grid_scene();
+  auto scene = new GridScene();
 
   if (scene)
   {
-    if (scene->init(application, blocks, block_size))
+    if (scene->init(application, blocks, blockSize))
     {
       scene->autorelease();
     }
@@ -62,22 +62,22 @@ Scene* grid_scene::scene(BasicApp* application, const Size& blocks, const Size& 
   return scene;
 }
 
-bool grid_scene::init(BasicApp* application, const Size& blocks, const Size& block_size)
+bool GridScene::init(BasicApp* application, const Size& blocks, const Size& blockSize)
 {
   auto ret = false;
 
   do
   {
-    ret = base_class::init(application);
+    ret = BaseClass::init(application);
 
     UTILS_BREAK_IF(!ret);
 
-    blocks_ = blocks;
-    block_size_ = block_size;
+    _blocks = blocks;
+    _blockSize = blockSize;
 
     setAnchorPoint(Point::ZERO);
 
-    total_size_ = Size(block_size_.width * blocks_.width, block_size_.height * blocks_.height);
+    _totalSize = Size(_blockSize.width * _blocks.width, _blockSize.height * _blocks.height);
 
     ret = true;
   } while (false);
@@ -85,7 +85,7 @@ bool grid_scene::init(BasicApp* application, const Size& blocks, const Size& blo
   return ret;
 }
 
-bool grid_scene::create_debug_grid(const std::string& font_name)
+bool GridScene::createDebugGrid(const std::string& font_name)
 {
   auto ret = false;
 
@@ -94,31 +94,31 @@ bool grid_scene::create_debug_grid(const std::string& font_name)
     auto draw = DrawNode::create();
     UTILS_BREAK_IF(draw == nullptr);
 
-    auto all_ok = true;
+    auto allOk = true;
 
-    for (auto row = 0; ((row < blocks_.height) && all_ok); row++)
+    for (auto row = 0; ((row < _blocks.height) && allOk); row++)
     {
-      for (auto col = 0; ((col < blocks_.width) && all_ok); col++)
+      for (auto col = 0; ((col < _blocks.width) && allOk); col++)
       {
-        auto position = get_block_position(col, row);
+        auto position = getBlockPosition(col, row);
 
         auto from = position.origin;
         const auto to = from + position.size;
 
         draw->drawRect(from, to, Color4F(1.0f, 1.0f, 1.0f, 0.25f));
 
-        auto label = Label::createWithTTF(StringFormat("%d-%d", col, row), font_name, block_size_.width / 4);
-        all_ok = (label != nullptr);
+        auto label = Label::createWithTTF(StringFormat("%d-%d", col, row), font_name, _blockSize.width / 4);
+        allOk = (label != nullptr);
 
-        if (all_ok)
+        if (allOk)
         {
-          label->setPosition(get_block_center(col, row));
+          label->setPosition(getBlockCenter(col, row));
           addChild(label);
         }
       }
     }
 
-    UTILS_BREAK_IF(!all_ok);
+    UTILS_BREAK_IF(!allOk);
 
     addChild(draw);
 

@@ -143,7 +143,7 @@ bool game_scene::init(BasicApp* application, const bool debug_grid, const bool d
 
     if (debug_grid)
     {
-      UTILS_BREAK_IF(!create_debug_grid("fonts/tahoma.ttf"));
+      UTILS_BREAK_IF(!createDebugGrid("fonts/tahoma.ttf"));
     }
 
     UTILS_BREAK_IF(!create_physics_contacts_callback());
@@ -190,7 +190,7 @@ bool game_scene::create_game_ui()
 void game_scene::calculate_camera_bounds()
 {
   min_camera_pos_ = Vec2(_screenSize.width / 2, _screenSize.height / 2);
-  max_camera_pos_ = Vec2(total_size_.width - min_camera_pos_.x, total_size_.height - min_camera_pos_.y);
+  max_camera_pos_ = Vec2(_totalSize.width - min_camera_pos_.x, _totalSize.height - min_camera_pos_.y);
 }
 
 bool game_scene::create_physics_contacts_callback()
