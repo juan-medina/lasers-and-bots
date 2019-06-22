@@ -20,17 +20,17 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "tiled_scene.h"
+#include "TiledScene.h"
 
-tiled_scene::tiled_scene() : tiled_map_(nullptr) {}
+TiledScene::TiledScene() : _tiledMap(nullptr) {}
 
-tiled_scene* tiled_scene::create(BasicApp* application, const std::string& tmx_file)
+TiledScene* TiledScene::create(BasicApp* application, const std::string& tmxFile)
 {
-  auto scene = new tiled_scene();
+  auto scene = new TiledScene();
 
   if (scene)
   {
-    if (scene->init(application, tmx_file))
+    if (scene->init(application, tmxFile))
     {
       scene->autorelease();
     }
@@ -44,13 +44,13 @@ tiled_scene* tiled_scene::create(BasicApp* application, const std::string& tmx_f
   return scene;
 }
 
-Scene* tiled_scene::scene(BasicApp* application, const std::string& tmx_file)
+Scene* TiledScene::scene(BasicApp* application, const std::string& tmxFile)
 {
-  auto scene = new tiled_scene();
+  auto scene = new TiledScene();
 
   if (scene)
   {
-    if (scene->init(application, tmx_file))
+    if (scene->init(application, tmxFile))
     {
       scene->autorelease();
     }
@@ -64,22 +64,22 @@ Scene* tiled_scene::scene(BasicApp* application, const std::string& tmx_file)
   return scene;
 }
 
-bool tiled_scene::init(BasicApp* application, const std::string& tmx_file)
+bool TiledScene::init(BasicApp* application, const std::string& tmxFile)
 {
   auto ret = false;
 
   do
   {
-    const auto map = experimental::TMXTiledMap::create(tmx_file);
+    const auto map = experimental::TMXTiledMap::create(tmxFile);
     ret = (map != nullptr);
     UTILS_BREAK_IF(!ret);
 
-    tiled_map_ = map;
+    _tiledMap = map;
 
-    const auto tile_size = map->getTileSize();
+    const auto tileSize = map->getTileSize();
     const auto size = map->getMapSize();
 
-    UTILS_BREAK_IF(!base_class::init(application, size, tile_size));
+    UTILS_BREAK_IF(!BaseClass::init(application, size, tileSize));
 
     ret = true;
 
@@ -89,7 +89,7 @@ bool tiled_scene::init(BasicApp* application, const std::string& tmx_file)
   return ret;
 }
 
-Vec2 tiled_scene::get_object_center_position(const ValueMap& values)
+Vec2 TiledScene::getObjectCenterPosition(const ValueMap& values)
 {
   const auto width = values.at("width").asFloat();
   const auto height = values.at("height").asFloat();
@@ -99,19 +99,19 @@ Vec2 tiled_scene::get_object_center_position(const ValueMap& values)
 
   const auto angle = CC_DEGREES_TO_RADIANS(-rotation);
 
-  const auto center_x = width / 2;
-  const auto center_y = height / 2;
+  const auto centerX = width / 2;
+  const auto centerY = height / 2;
 
-  const auto cos_rotation = cosf(angle);
-  const auto sin_rotation = sinf(angle);
+  const auto cosRotation = cosf(angle);
+  const auto sinRotation = sinf(angle);
 
-  const auto rotated_center_x = center_x * cos_rotation - center_y * sin_rotation;
-  const auto rotated_center_y = center_x * sin_rotation + center_y * cos_rotation;
+  const auto rotatedCenterX = centerX * cosRotation - centerY * sinRotation;
+  const auto rotatedCenterY = centerX * sinRotation + centerY * cosRotation;
 
-  return {x + rotated_center_x - width, y + rotated_center_y};
+  return {x + rotatedCenterX - width, y + rotatedCenterY};
 }
 
-Vec2 tiled_scene::get_object_position(const ValueMap& values)
+Vec2 TiledScene::getObjectPosition(const ValueMap& values)
 {
   const auto width = values.at("width").asFloat();
   const auto height = values.at("height").asFloat();

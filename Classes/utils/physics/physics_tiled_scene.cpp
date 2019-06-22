@@ -97,7 +97,7 @@ bool physics_tiled_scene::init(BasicApp* application, const std::string& tmx_fil
 void physics_tiled_scene::init_physics(const bool debug_physics) const
 {
   const auto edge = PhysicsBody::createEdgeBox(_totalSize, PhysicsMaterial(0.1f, 0.0f, 0.5f), 5);
-  get_tiled_map()->addComponent(edge);
+  getTiledMap()->addComponent(edge);
 
   if (debug_physics)
   {
@@ -113,7 +113,7 @@ string physics_tiled_scene::get_shape_from_tile_gid(const int gid)
   if (gid_to_shapes_.count(gid) == 0)
   {
     string shape;
-    const auto map = get_tiled_map();
+    const auto map = getTiledMap();
     if (map->getPropertiesForGID(gid).getType() == Value::Type::MAP)
     {
       const auto properties = map->getPropertiesForGID(gid).asValueMap();
@@ -182,7 +182,7 @@ bool physics_tiled_scene::add_physics_to_map()
 
   do
   {
-    const auto map = get_tiled_map();
+    const auto map = getTiledMap();
 
     const auto shapes = map->getProperty("shapes").asString();
 

@@ -25,27 +25,27 @@
 
 #include "GridScene.h"
 
-class tiled_scene : public GridScene
+class TiledScene : public GridScene
 {
 public:
-  using base_class = GridScene;
+  using BaseClass = GridScene;
 
-  tiled_scene();
+  TiledScene();
 
-  static tiled_scene* create(BasicApp*, const std::string& tmx_file);
+  static TiledScene* create(BasicApp*, const std::string& tmxFile);
 
-  static Scene* scene(BasicApp*, const std::string& tmx_file);
+  static Scene* scene(BasicApp*, const std::string& tmxFile);
 
-  bool init(BasicApp*, const std::string& tmx_file);
+  bool init(BasicApp*, const std::string& tmxFile);
 
-  virtual experimental::TMXTiledMap* get_tiled_map() const noexcept { return tiled_map_; };
+  virtual experimental::TMXTiledMap* getTiledMap() const noexcept { return _tiledMap; };
 
 protected:
-  static Vec2 get_object_center_position(const ValueMap& values);
-  static Vec2 get_object_position(const ValueMap& values);
+  static Vec2 getObjectCenterPosition(const ValueMap& values);
+  static Vec2 getObjectPosition(const ValueMap& values);
 
 private:
-  experimental::TMXTiledMap* tiled_map_;
+  experimental::TMXTiledMap* _tiledMap;
 };
 
 #endif // __TILED_SCENE_H__

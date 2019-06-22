@@ -214,7 +214,7 @@ bool game_scene::create_physics_contacts_callback()
 
 void game_scene::set_map_bounds_contacts_settings() const
 {
-  const auto map = get_tiled_map();
+  const auto map = getTiledMap();
   const auto edge = map->getPhysicsBody();
   edge->setCategoryBitmask(static_cast<unsigned short>(categories::world));
   edge->setContactTestBitmask(static_cast<unsigned short>(categories::feet));
@@ -251,7 +251,7 @@ void game_scene::willEnterForeground()
 
 Node* game_scene::provide_physics_node(const int gid)
 {
-  const auto map = get_tiled_map();
+  const auto map = getTiledMap();
   const auto gid_properties = map->getPropertiesForGID(gid);
   const auto shape = get_shape_from_tile_gid(gid);
   if (gid_properties.getType() == Value::Type::MAP)
@@ -322,7 +322,7 @@ bool game_scene::add_laser(const ValueMap& values, Node* layer)
     const auto name = values.at("name").asString();
     const auto rotation = values.at("rotation").asFloat();
     const auto rotation_angle = values.at("rotation_angle").asFloat();
-    const auto position = get_object_center_position(values);
+    const auto position = getObjectCenterPosition(values);
     const auto damage = values.at("damage").asInt();
     const auto speed = values.at("speed").asFloat();
 
@@ -351,7 +351,7 @@ bool game_scene::add_robot(const ValueMap& values, Node* layer)
                                   game_ui_->get_virtual_joy_stick(), shield);
     UTILS_BREAK_IF(robot_ == nullptr);
 
-    auto position = get_object_center_position(values);
+    auto position = getObjectCenterPosition(values);
     position.y -= (robot_->getContentSize().height) / 2;
 
     robot_->setPosition(position);
@@ -384,7 +384,7 @@ bool game_scene::add_switch(const ValueMap& values, Node* layer)
 
     switch_game_object->setAnchorPoint(Vec2(0.5f, 0.f));
 
-    auto position = get_object_position(values);
+    auto position = getObjectPosition(values);
     position.y += (values.at("height").asFloat() / 2);
 
     switch_game_object->setPosition(position);
@@ -412,7 +412,7 @@ bool game_scene::add_door(const ValueMap& values, Node* layer)
 
     door_game_object->setAnchorPoint(Vec2(0.5f, 0.f));
 
-    auto position = get_object_position(values);
+    auto position = getObjectPosition(values);
     position.y += (values.at("height").asFloat() / 2);
 
     door_game_object->setPosition(position);
@@ -443,7 +443,7 @@ bool game_scene::add_barrel(const ValueMap& values, Node* layer)
     auto barrel = barrel_object::create(get_physics_shape_cache(), barrel_count_, image, shape);
     UTILS_BREAK_IF(barrel == nullptr);
 
-    const auto position = get_object_center_position(values);
+    const auto position = getObjectCenterPosition(values);
 
     barrel->setPosition(position);
     barrel->setRotation(rotation);
@@ -477,7 +477,7 @@ bool game_scene::add_saw(const ValueMap& values, Node* layer)
                                   movement_time, stop_time);
     UTILS_BREAK_IF(saw == nullptr);
 
-    const auto position = get_object_center_position(values);
+    const auto position = getObjectCenterPosition(values);
 
     saw->setPosition(position);
     saw->setAnchorPoint(Vec2(0.5f, 0.5f));
@@ -506,7 +506,7 @@ bool game_scene::add_box(const ValueMap& values, Node* layer)
     auto box = box_object::create(get_physics_shape_cache(), image, shape);
     UTILS_BREAK_IF(box == nullptr);
 
-    const auto position = get_object_center_position(values);
+    const auto position = getObjectCenterPosition(values);
 
     box->setPosition(position);
     box->setRotation(rotation);
@@ -526,7 +526,7 @@ bool game_scene::add_object(const vector<Value>::value_type& object)
   auto ret = false;
   do
   {
-    const auto map = get_tiled_map();
+    const auto map = getTiledMap();
     UTILS_BREAK_IF(map == nullptr);
 
     const auto layer_walk = map->getLayer("walk");
@@ -594,7 +594,7 @@ bool game_scene::add_objects_to_game()
 
   do
   {
-    const auto map = get_tiled_map();
+    const auto map = getTiledMap();
     const auto objects = map->getObjectGroup("objects");
 
     for (const auto& object : objects->getObjects())
@@ -656,7 +656,7 @@ bool game_scene::cache_robot_explosion()
       UTILS_BREAK_IF(robot_fragment == nullptr);
 
       robot_fragments_.push_back(robot_fragment);
-      get_tiled_map()->getLayer("walk")->addChild(robot_fragment);
+      getTiledMap()->getLayer("walk")->addChild(robot_fragment);
       robot_fragment->setPosition(-10000, 0);
     }
 

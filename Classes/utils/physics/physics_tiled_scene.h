@@ -23,15 +23,15 @@
 #ifndef __PHYSICS_TILED_SCENE_H__
 #define __PHYSICS_TILED_SCENE_H__
 
-#include "../base/scene/tiled_scene.h"
+#include "../base/scene/TiledScene.h"
 
 // forward declarations
 class physics_shape_cache;
 
-class physics_tiled_scene : public tiled_scene
+class physics_tiled_scene : public TiledScene
 {
 public:
-  using base_class = tiled_scene;
+  using base_class = TiledScene;
 
   physics_tiled_scene();
   ~physics_tiled_scene();
