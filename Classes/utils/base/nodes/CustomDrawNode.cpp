@@ -20,15 +20,15 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "custom_draw_node.h"
+#include "CustomDrawNode.h"
 
-custom_draw_node *custom_draw_node::create()
+CustomDrawNode *CustomDrawNode::create()
 {
-  custom_draw_node *node = nullptr;
+  CustomDrawNode *node = nullptr;
 
   do
   {
-    node = new custom_draw_node();
+    node = new CustomDrawNode();
     UTILS_BREAK_IF(node == nullptr);
 
     if (node->init())
@@ -46,13 +46,13 @@ custom_draw_node *custom_draw_node::create()
   return node;
 }
 
-bool custom_draw_node::init()
+bool CustomDrawNode::init()
 {
   auto ret = false;
 
   do
   {
-    ret = base_class::init();
+    ret = BaseClass::init();
 
     UTILS_BREAK_IF(!ret);
 
@@ -62,32 +62,32 @@ bool custom_draw_node::init()
   return ret;
 }
 
-void custom_draw_node::draw_color_quad(const Vec2 *vertex, const Color4F *fill_colors)
+void CustomDrawNode::drawColorQuad(const Vec2 *vertex, const Color4F *fillColors)
 {
-  auto vertex_count = 6;
-  ensureCapacity(vertex_count);
+  static const auto VERTEX_COUNT = 6;
+  ensureCapacity(VERTEX_COUNT);
 
-  V2F_C4B_T2F_Triangle *triangles = (V2F_C4B_T2F_Triangle *)(_buffer + _bufferCount);
+  auto triangles = reinterpret_cast<V2F_C4B_T2F_Triangle *>(_buffer + _bufferCount);
 
-  static Vec2 vec2_zero(0.0f, 0.0f);
+  static const Tex2F TEXT_2_F_ZERO(0.0f, 0.0f);
 
-  V2F_C4B_T2F_Triangle triangle_1 = {
-    {vertex[0], Color4B(fill_colors[0]), *(Tex2F *)&vec2_zero},
-    {vertex[1], Color4B(fill_colors[1]), *(Tex2F *)&vec2_zero},
-    {vertex[3], Color4B(fill_colors[3]), *(Tex2F *)&vec2_zero},
+  const V2F_C4B_T2F_Triangle triangle1 = {
+    {vertex[0], Color4B(fillColors[0]), TEXT_2_F_ZERO},
+    {vertex[1], Color4B(fillColors[1]), TEXT_2_F_ZERO},
+    {vertex[3], Color4B(fillColors[3]), TEXT_2_F_ZERO},
   };
 
-  *triangles++ = triangle_1;
+  *triangles++ = triangle1;
 
-  V2F_C4B_T2F_Triangle triangle_2 = {
-    {vertex[1], Color4B(fill_colors[1]), *(Tex2F *)&vec2_zero},
-    {vertex[2], Color4B(fill_colors[2]), *(Tex2F *)&vec2_zero},
-    {vertex[3], Color4B(fill_colors[3]), *(Tex2F *)&vec2_zero},
+  const V2F_C4B_T2F_Triangle triangle2 = {
+    {vertex[1], Color4B(fillColors[1]), TEXT_2_F_ZERO},
+    {vertex[2], Color4B(fillColors[2]), TEXT_2_F_ZERO},
+    {vertex[3], Color4B(fillColors[3]), TEXT_2_F_ZERO},
   };
 
-  *triangles = triangle_2;
+  *triangles = triangle2;
 
-  _bufferCount += vertex_count;
+  _bufferCount += VERTEX_COUNT;
 
   _dirty = true;
 }

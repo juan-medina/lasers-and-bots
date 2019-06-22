@@ -34,7 +34,7 @@ class robot_fragment;
 class harm_object;
 class level_manager;
 class background_layer;
-class custom_draw_node;
+class CustomDrawNode;
 
 class game_scene final : public physics_tiled_scene
 {
@@ -204,7 +204,7 @@ private:
   level_manager* level_manager_;
   std::string music_file_name_;
   background_layer* background_;
-  custom_draw_node* lights_;
+  CustomDrawNode* lights_;
 
   static constexpr float light_distance = 1500.f;
 };

@@ -27,16 +27,16 @@
 
 // forward declarations
 
-class custom_draw_node : public DrawNode
+class CustomDrawNode final : public DrawNode
 {
 public:
-  using base_class = DrawNode;
+  using BaseClass = DrawNode;
 
-  static custom_draw_node *create();
+  static CustomDrawNode *create();
 
-  bool init();
+  bool init() override;
 
-  void draw_color_quad(const Vec2 *vertex, const Color4F *fill_colors);
+  void drawColorQuad(const Vec2 *vertex, const Color4F *fillColors);
 };
 
 #endif // __CUSTOM_DRAW_NODE_H__

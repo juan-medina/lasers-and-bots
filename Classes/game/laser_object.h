@@ -27,7 +27,7 @@
 
 // forward declarations
 class AudioHelper;
-class custom_draw_node;
+class CustomDrawNode;
 
 class laser_object final : public harm_object
 {
@@ -57,7 +57,7 @@ private:
   float direction_;
 
   // laser draw node
-  custom_draw_node* draw_;
+  CustomDrawNode* draw_;
 
   // the physics world
   PhysicsWorld* physics_world_;

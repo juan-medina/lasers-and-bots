@@ -36,7 +36,7 @@
 #include "../ui/game_ui.h"
 #include "../ui/virtual_joy_stick.h"
 #include "../utils/audio/AudioHelper.h"
-#include "../utils/base/nodes/custom_draw_node.h"
+#include "../utils/base/nodes/CustomDrawNode.h"
 #include "../utils/base/sprite/GameObject.h"
 #include "../utils/physics/physics_shape_cache.h"
 
@@ -573,7 +573,7 @@ bool game_scene::add_object(const vector<Value>::value_type& object)
     {
       if (lights_ == nullptr)
       {
-        lights_ = custom_draw_node::create();
+        lights_ = CustomDrawNode::create();
         UTILS_BREAK_IF(lights_ == nullptr);
 
         lights_->setBlendFunc(BlendFunc::ADDITIVE);
@@ -1142,12 +1142,12 @@ bool game_scene::add_light(const ValueMap& values) const
     const Vec2 poly_1_vertex[] = {points[0], points[1], points[3], points[2]};
     const Color4F poly_1_vertex_colors[] = {colors[0], colors[1], colors[3], colors[2]};
 
-    lights_->draw_color_quad(&poly_1_vertex[0], &poly_1_vertex_colors[0]);
+    lights_->drawColorQuad(&poly_1_vertex[0], &poly_1_vertex_colors[0]);
 
     const Vec2 poly_2_vertex[] = {points[1], points[4], points[5], points[3]};
     const Color4F poly_2_vertex_colors[] = {colors[1], colors[4], colors[5], colors[3]};
 
-    lights_->draw_color_quad(&poly_2_vertex[0], &poly_2_vertex_colors[0]);
+    lights_->drawColorQuad(&poly_2_vertex[0], &poly_2_vertex_colors[0]);
 
     ret = true;
   } while (false);

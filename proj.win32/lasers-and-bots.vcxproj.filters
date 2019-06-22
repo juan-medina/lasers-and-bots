@@ -171,9 +171,6 @@
     <ClCompile Include="..\Classes\ui\scrolling_text.cpp">
       <Filter>src\ui</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\utils\base\nodes\custom_draw_node.cpp">
-      <Filter>src\utils\nodes</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\game\background_layer.cpp">
       <Filter>src\game</Filter>
     </ClCompile>
@@ -197,6 +194,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\utils\controller\InputController.cpp">
       <Filter>src\utils\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\utils\base\nodes\CustomDrawNode.cpp">
+      <Filter>src\utils\nodes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -314,9 +314,6 @@
     <ClInclude Include="..\Classes\ui\scrolling_text.h">
       <Filter>src\ui</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\utils\base\nodes\custom_draw_node.h">
-      <Filter>src\utils\nodes</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\game\background_layer.h">
       <Filter>src\game</Filter>
     </ClInclude>
@@ -340,6 +337,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\utils\controller\InputController.h">
       <Filter>src\utils\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\base\nodes\CustomDrawNode.h">
+      <Filter>src\utils\nodes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -23,7 +23,7 @@
 #include "laser_object.h"
 #include "../scenes/game_scene.h"
 #include "../utils/audio/AudioHelper.h"
-#include "../utils/base/nodes/custom_draw_node.h"
+#include "../utils/base/nodes/CustomDrawNode.h"
 #include "robot_object.h"
 
 int laser_object::loop_sound_ = -1;
@@ -84,7 +84,7 @@ bool laser_object::init(AudioHelper* audio_helper, const float initial_angle, co
 
     UTILS_BREAK_IF(!base_class::init("laser", damage));
 
-    draw_ = custom_draw_node::create();
+    draw_ = CustomDrawNode::create();
     UTILS_BREAK_IF(draw_ == nullptr);
 
     addChild(draw_);
@@ -185,10 +185,10 @@ void laser_object::update(const float delta)
   Color4F colors[4] = {red, red, dark_red, dark_red};
 
   Vec2 vertex_1[4] = {origin_point, final_point, v0, v2};
-  draw_->draw_color_quad(&vertex_1[0], &colors[0]);
+  draw_->drawColorQuad(&vertex_1[0], &colors[0]);
 
   Vec2 vertex_2[4] = {origin_point, final_point, v1, v3};
-  draw_->draw_color_quad(&vertex_2[0], &colors[0]);
+  draw_->drawColorQuad(&vertex_2[0], &colors[0]);
 
   // if we have actually hit something draw a dot and create an emitter
   if ((final_point_in_world.x != destination_point_in_world.x) &
