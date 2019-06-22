@@ -1,5 +1,4 @@
 #include "GameObject.h"
-#include "../../physics/physics_shape_cache.h"
 
 GameObject::GameObject() : _animation(nullptr), _type("") {}
 
