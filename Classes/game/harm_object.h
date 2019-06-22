@@ -22,12 +22,12 @@
 #ifndef __harm_object_CLASS__
 #define __harm_object_CLASS__
 
-#include "../utils/physics/physics_game_object.h"
+#include "../utils/physics/PhysicsGameObject.h"
 
-class harm_object : public physics_game_object
+class harm_object : public PhysicsGameObject
 {
 public:
-  using base_class = physics_game_object;
+  using base_class = PhysicsGameObject;
 
   harm_object();
 

@@ -22,12 +22,12 @@
 #ifndef __BARREL_CLASS__
 #define __BARREL_CLASS__
 
-#include "../utils/physics/physics_game_object.h"
+#include "../utils/physics/PhysicsGameObject.h"
 
-class barrel_object final : public physics_game_object
+class barrel_object final : public PhysicsGameObject
 {
 public:
-  using base_class = physics_game_object;
+  using base_class = PhysicsGameObject;
 
   static barrel_object* create(PhysicsShapeCache* physics_shape_cache, const int barrel_num,
                                const std::string& image, const std::string& shape);

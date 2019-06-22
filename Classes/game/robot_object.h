@@ -22,16 +22,16 @@
 #ifndef __ROBOT_CLASS__
 #define __ROBOT_CLASS__
 
-#include "../utils/physics/physics_game_object.h"
+#include "../utils/physics/PhysicsGameObject.h"
 
 // forward declarations
 class virtual_joy_stick;
 class AudioHelper;
 
-class robot_object final : public physics_game_object
+class robot_object final : public PhysicsGameObject
 {
 public:
-  using base_class = physics_game_object;
+  using base_class = PhysicsGameObject;
 
   robot_object();
 

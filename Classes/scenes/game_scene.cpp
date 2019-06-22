@@ -264,7 +264,7 @@ Node* game_scene::provide_physics_node(const int gid)
     }
   }
 
-  return physics_game_object::create(get_physics_shape_cache(), shape, "dummy");
+  return PhysicsGameObject::create(get_physics_shape_cache(), shape, "dummy");
 }
 
 void game_scene::update_game_time(const float delta)

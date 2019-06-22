@@ -22,12 +22,12 @@
 #ifndef __BOX_CLASS__
 #define __BOX_CLASS__
 
-#include "../utils/physics/physics_game_object.h"
+#include "../utils/physics/PhysicsGameObject.h"
 
-class box_object final : public physics_game_object
+class box_object final : public PhysicsGameObject
 {
 public:
-  using base_class = physics_game_object;
+  using base_class = PhysicsGameObject;
 
   static box_object* create(PhysicsShapeCache* physics_shape_cache, const std::string& image,
                             const std::string& shape);

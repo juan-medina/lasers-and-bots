@@ -105,9 +105,6 @@
     <ClCompile Include="..\Classes\game\saw_object.cpp">
       <Filter>src\game</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\utils\physics\physics_game_object.cpp">
-      <Filter>src\utils\physics</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\game\harm_object.cpp">
       <Filter>src\game</Filter>
     </ClCompile>
@@ -198,6 +195,9 @@
     <ClCompile Include="..\Classes\utils\physics\PhysicsShapeCache.cpp">
       <Filter>src\utils\physics</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\utils\physics\PhysicsGameObject.cpp">
+      <Filter>src\utils\physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -247,9 +247,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\game\saw_object.h">
       <Filter>src\game</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\utils\physics\physics_game_object.h">
-      <Filter>src\utils\physics</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\game\harm_object.h">
       <Filter>src\game</Filter>
@@ -339,6 +336,9 @@
       <Filter>src\utils\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\utils\physics\PhysicsShapeCache.h">
+      <Filter>src\utils\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\physics\PhysicsGameObject.h">
       <Filter>src\utils\physics</Filter>
     </ClInclude>
   </ItemGroup>

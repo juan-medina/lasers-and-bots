@@ -27,24 +27,24 @@
 // forward declarations
 class PhysicsShapeCache;
 
-class physics_game_object : public GameObject
+class PhysicsGameObject : public GameObject
 {
 public:
-  using base_class = GameObject;
+  using BaseClass = GameObject;
 
-  static physics_game_object* create(PhysicsShapeCache* physics_shape_cache, const std::string& shape,
-                                     const std::string& sprite_frame_name, const std::string& type);
-  static physics_game_object* create(PhysicsShapeCache* physics_shape_cache, const std::string& shape,
-                                     const std::string& type);
-  static physics_game_object* create(const std::string& type);
+  static PhysicsGameObject* create(PhysicsShapeCache* physicsShapeCache, const std::string& shape,
+                                   const std::string& spriteFrameName, const std::string& type);
+  static PhysicsGameObject* create(PhysicsShapeCache* physicsShapeCache, const std::string& shape,
+                                   const std::string& type);
+  static PhysicsGameObject* create(const std::string& type);
 
-  virtual bool init(PhysicsShapeCache* physics_shape_cache, const std::string& shape,
-                    const std::string& sprite_frame_name, const std::string& type);
-  bool init(PhysicsShapeCache* physics_shape_cache, const std::string& shape, const std::string& type);
+  virtual bool init(PhysicsShapeCache* physicsShapeCache, const std::string& shape,
+                    const std::string& spriteFrameName, const std::string& type);
+  bool init(PhysicsShapeCache* physicsShapeCache, const std::string& shape, const std::string& type);
   bool init(const std::string& type) override;
 
 private:
-  bool set_shape(PhysicsShapeCache* physics_shape_cache, const std::string& shape_name);
+  bool setShape(PhysicsShapeCache* physicsShapeCache, const std::string& shapeName);
 };
 
 #endif // __PHYSICS_GAME_OBJECT_CLASS__

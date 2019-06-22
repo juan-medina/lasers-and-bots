@@ -22,12 +22,12 @@
 #ifndef __ON_OFF_OBJECT_CLASS__
 #define __ON_OFF_OBJECT_CLASS__
 
-#include "../utils/physics/physics_game_object.h"
+#include "../utils/physics/PhysicsGameObject.h"
 
-class on_off_object : public physics_game_object
+class on_off_object : public PhysicsGameObject
 {
 public:
-  using base_class = physics_game_object;
+  using base_class = PhysicsGameObject;
 
   on_off_object();
 
