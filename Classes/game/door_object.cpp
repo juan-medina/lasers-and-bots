@@ -74,7 +74,7 @@ bool door_object::on()
 {
   if (base_class::on())
   {
-    change_frame("05_DoorOpen.png");
+    changeFrame("05_DoorOpen.png");
     audio_helper_->playEffect("sounds/slide.mp3");
     return true;
   }
@@ -86,7 +86,7 @@ bool door_object::activate()
 {
   if (base_class::activate())
   {
-    change_frame("06_DoorUnlocked.png");
+    changeFrame("06_DoorUnlocked.png");
     audio_helper_->playEffect("sounds/metal_click.mp3");
     return true;
   }

@@ -37,7 +37,7 @@
 #include "../ui/virtual_joy_stick.h"
 #include "../utils/audio/AudioHelper.h"
 #include "../utils/base/nodes/custom_draw_node.h"
-#include "../utils/base/sprite/game_object.h"
+#include "../utils/base/sprite/GameObject.h"
 #include "../utils/physics/physics_shape_cache.h"
 
 game_scene::game_scene() noexcept
@@ -912,9 +912,9 @@ void game_scene::switch_activate_switch(switch_object* switch_object)
   }
 }
 
-void game_scene::switch_activate_target(game_object* target)
+void game_scene::switch_activate_target(GameObject* target)
 {
-  const auto type = target->get_type();
+  const auto type = target->getType();
   if (type == "switch")
   {
     switch_activate_switch(dynamic_cast<switch_object*>(target));
@@ -930,7 +930,7 @@ bool game_scene::is_switch_targeting_a_switch(switch_object* switch_object)
   const auto target = switch_object->get_target();
   if (game_objects_.count(target) == 1)
   {
-    return game_objects_.at(target)->get_type() == "switch";
+    return game_objects_.at(target)->getType() == "switch";
   }
   return false;
 }
@@ -1018,7 +1018,7 @@ void game_scene::robot_touch_object_end(const PhysicsContact& contact) const
 
 void game_scene::feet_touch_object_start(const PhysicsContact& contact) const
 {
-  const auto block_game_object = get_object_from_contact<game_object>(contact, categories::walk_on);
+  const auto block_game_object = get_object_from_contact<GameObject>(contact, categories::walk_on);
   if (block_game_object != nullptr)
   {
     robot_->feet_touch_walk_object_start();
@@ -1035,7 +1035,7 @@ void game_scene::feet_touch_object_start(const PhysicsContact& contact) const
 
 void game_scene::feet_touch_object_end(const PhysicsContact& contact) const
 {
-  const auto block_game_object = get_object_from_contact<game_object>(contact, categories::walk_on);
+  const auto block_game_object = get_object_from_contact<GameObject>(contact, categories::walk_on);
   if (block_game_object != nullptr)
   {
     robot_->feet_touch_walk_object_end();

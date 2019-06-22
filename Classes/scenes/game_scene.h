@@ -25,7 +25,7 @@
 #include "../utils/physics/physics_tiled_scene.h"
 
 // forward declarations
-class game_object;
+class GameObject;
 class robot_object;
 class switch_object;
 class door_object;
@@ -124,7 +124,7 @@ private:
 
   static void switch_activate_door(door_object* door);
   void switch_activate_switch(switch_object* switch_object);
-  void switch_activate_target(game_object* target);
+  void switch_activate_target(GameObject* target);
 
   bool is_switch_targeting_a_switch(switch_object* switch_object);
 
@@ -180,7 +180,7 @@ private:
 
   robot_object* robot_;
   game_ui* game_ui_;
-  std::map<std::string, game_object*> game_objects_;
+  std::map<std::string, GameObject*> game_objects_;
   std::vector<robot_fragment*> robot_fragments_;
 
   Vec2 last_robot_position_;

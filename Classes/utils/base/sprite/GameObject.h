@@ -24,36 +24,36 @@
 
 #include "../../utils.h"
 
-class game_object : public Sprite
+class GameObject : public Sprite
 {
 public:
-  using base_class = Sprite;
+  using BaseClass = Sprite;
 
-  game_object();
+  GameObject();
 
-  static game_object* create(const std::string& sprite_frame_name, const std::string& type);
+  static GameObject* create(const std::string& spriteFrameName, const std::string& type);
 
-  static game_object* create(const std::string& type);
+  static GameObject* create(const std::string& type);
 
-  virtual bool init(const std::string& sprite_frame_name, const std::string& type);
+  virtual bool init(const std::string& spriteFrameName, const std::string& type);
 
   virtual bool init(const std::string& type);
 
-  string get_type() const { return type_; }
+  string getType() const { return _type; }
 
 protected:
-  static bool create_anim(const char* pattern, int max_frame, float speed, const char* name,
-                          int loops = infinite_loops);
+  static bool createAnim(const char* pattern, int maxFrame, float speed, const char* name,
+                          int loops = INFINITE_LOOPS);
 
-  void change_anim(const std::string& name);
+  void changeAnim(const std::string& name);
 
-  void change_frame(const string& name);
+  void changeFrame(const string& name);
 
 private:
-  static constexpr int infinite_loops = -1;
+  static constexpr int INFINITE_LOOPS = -1;
 
-  Action* animation_;
-  string type_;
+  Action* _animation;
+  string _type;
 };
 
 #endif // __GAME_OBJECT__

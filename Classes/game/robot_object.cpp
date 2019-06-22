@@ -89,9 +89,9 @@ bool robot_object::init(physics_shape_cache* physics_shape_cache, AudioHelper* a
     body->setMass(1.0f);
     body->setMoment(PHYSICS_INFINITY);
 
-    UTILS_BREAK_IF(!create_anim("Idle_%02d.png", 10, 0.05f, "idle"));
-    UTILS_BREAK_IF(!create_anim("Run_%02d.png", 8, 0.15f, "run"));
-    UTILS_BREAK_IF(!create_anim("Jump_%02d.png", 10, 0.15f, "jump", 1));
+    UTILS_BREAK_IF(!createAnim("Idle_%02d.png", 10, 0.05f, "idle"));
+    UTILS_BREAK_IF(!createAnim("Run_%02d.png", 8, 0.15f, "run"));
+    UTILS_BREAK_IF(!createAnim("Jump_%02d.png", 10, 0.15f, "jump", 1));
 
     audio_helper_ = audio_helper;
 
@@ -99,7 +99,7 @@ bool robot_object::init(physics_shape_cache* physics_shape_cache, AudioHelper* a
     audio_helper_->preLoadEffect("sounds/jump.mp3");
     audio_helper_->preLoadEffect("sounds/land.mp3");
 
-    change_anim("idle");
+    changeAnim("idle");
 
     virtual_joy_stick_ = virtual_joy_stick;
     current_shield_ = max_shield;
@@ -186,15 +186,15 @@ void robot_object::change_state(const state wanted_state)
     switch (current_state_)
     {
       case e_jumping:
-        change_anim("jump");
+        changeAnim("jump");
         walk_sound(false);
         break;
       case e_idle:
-        change_anim("idle");
+        changeAnim("idle");
         walk_sound(false);
         break;
       case e_running:
-        change_anim("run");
+        changeAnim("run");
         walk_sound(true);
         break;
       default:

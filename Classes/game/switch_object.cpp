@@ -66,7 +66,7 @@ bool switch_object::on()
 {
   if (base_class::on())
   {
-    change_frame("08_Switch (1).png");
+    changeFrame("08_Switch (1).png");
     return true;
   }
 
@@ -77,7 +77,7 @@ bool switch_object::activate()
 {
   if (base_class::activate())
   {
-    change_frame("09_Switch (3).png");
+    changeFrame("09_Switch (3).png");
     return true;
   }
 

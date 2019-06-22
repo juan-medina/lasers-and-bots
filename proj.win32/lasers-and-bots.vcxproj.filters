@@ -63,9 +63,6 @@
     <ClCompile Include="..\Classes\utils\utils.cpp">
       <Filter>src\utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\utils\base\sprite\game_object.cpp">
-      <Filter>src\utils\base\sprite</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\laser_and_bots_app.cpp">
       <Filter>src\app</Filter>
     </ClCompile>
@@ -198,6 +195,9 @@
     <ClCompile Include="..\Classes\utils\base\scene\TiledScene.cpp">
       <Filter>src\utils\base\scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\utils\base\sprite\GameObject.cpp">
+      <Filter>src\utils\base\sprite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -205,9 +205,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\utils\utils.h">
       <Filter>src\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\utils\base\sprite\game_object.h">
-      <Filter>src\utils\base\sprite</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\laser_and_bots_app.h">
       <Filter>src\app</Filter>
@@ -340,6 +337,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\utils\base\scene\TiledScene.h">
       <Filter>src\utils\base\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils\base\sprite\GameObject.h">
+      <Filter>src\utils\base\sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

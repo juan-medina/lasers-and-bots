@@ -22,15 +22,15 @@
 #ifndef __PHYSICS_GAME_OBJECT_CLASS__
 #define __PHYSICS_GAME_OBJECT_CLASS__
 
-#include "../base/sprite/game_object.h"
+#include "../base/sprite/GameObject.h"
 
 // forward declarations
 class physics_shape_cache;
 
-class physics_game_object : public game_object
+class physics_game_object : public GameObject
 {
 public:
-  using base_class = game_object;
+  using base_class = GameObject;
 
   static physics_game_object* create(physics_shape_cache* physics_shape_cache, const std::string& shape,
                                      const std::string& sprite_frame_name, const std::string& type);
