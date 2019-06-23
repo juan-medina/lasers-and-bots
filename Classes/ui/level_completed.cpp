@@ -2,7 +2,7 @@
 #include "../misc/LevelManager.h"
 #include "../utils/audio/AudioHelper.h"
 #include "game_ui.h"
-#include "text_button.h"
+#include "TextButton.h"
 
 level_completed::level_completed()
   : audio_helper_(nullptr)

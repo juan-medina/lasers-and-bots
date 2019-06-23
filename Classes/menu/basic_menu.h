@@ -29,7 +29,7 @@
 // foward declarations
 class AudioHelper;
 class slider_object;
-class text_button;
+class TextButton;
 class TextToggle;
 
 class basic_menu : public resizable_window
@@ -74,7 +74,7 @@ protected:
   void move_text_button(MenuItem* item);
   void add_button(MenuItem* item, const ccMenuCallback& callback);
 
-  text_button* add_text_button(const std::string& text, const ccMenuCallback& callback);
+  TextButton* add_text_button(const std::string& text, const ccMenuCallback& callback);
   TextToggle* add_toggle_text_button(const std::string& text, const ccMenuCallback& callback,
                                       const bool not_move = false);
   TextToggle* add_small_toggle_text_button(const std::string& text, const ccMenuCallback& callback);

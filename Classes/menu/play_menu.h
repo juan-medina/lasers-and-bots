@@ -29,7 +29,7 @@
 // foward declarations
 class AudioHelper;
 class LevelManager;
-class text_button;
+class TextButton;
 class TextToggle;
 
 class play_menu final : public basic_menu
@@ -60,8 +60,8 @@ private:
   std::map<unsigned short int, TextToggle*> level_buttons_;
   static constexpr auto star_tag = 0xFF0F;
 
-  text_button* back_item_;
-  text_button* play_item_;
+  TextButton* back_item_;
+  TextButton* play_item_;
   Label* level_name_label_;
   Label* level_time_limit_label_;
   Label* level_time_record_label_;

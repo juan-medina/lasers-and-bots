@@ -27,7 +27,7 @@
 
 // forward declarations
 class AudioHelper;
-class text_button;
+class TextButton;
 class scrolling_text;
 
 class about_menu final : public basic_menu
@@ -49,7 +49,7 @@ protected:
 private:
   void on_back();
 
-  text_button* back_item_;
+  TextButton* back_item_;
   scrolling_text* scrolling_text_;
 };
 

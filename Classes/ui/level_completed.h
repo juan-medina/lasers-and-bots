@@ -29,7 +29,7 @@
 class AudioHelper;
 class LevelManager;
 enum class CompletedResult;
-class text_button;
+class TextButton;
 
 class level_completed final : public basic_menu
 {
@@ -60,7 +60,7 @@ protected:
 
 private:
   AudioHelper* audio_helper_;
-  text_button* continue_item_;
+  TextButton* continue_item_;
   Label* level_name_label_;
 
   std::vector<Sprite*> gray_stars_;

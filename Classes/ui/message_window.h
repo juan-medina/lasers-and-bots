@@ -48,7 +48,7 @@ protected:
 
 private:
   AudioHelper* audio_helper_;
-  text_button* continue_item_;
+  TextButton* continue_item_;
   Label* sub_label_;
 };
 

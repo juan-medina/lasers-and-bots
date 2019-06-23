@@ -30,7 +30,7 @@
 class AudioHelper;
 class slider_object;
 class TextToggle;
-class text_button;
+class TextButton;
 
 class options_menu final : public basic_menu
 {
@@ -51,7 +51,7 @@ protected:
 private:
   bool desktop_application_;
 
-  text_button* back_item_;
+  TextButton* back_item_;
   TextToggle* sound_toggle_;
   TextToggle* music_toggle_;
   slider_object* sound_slider_;

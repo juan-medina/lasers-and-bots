@@ -23,7 +23,7 @@
 #include "options_menu.h"
 #include "../scenes/menu_scene.h"
 #include "../ui/slider_object.h"
-#include "../ui/text_button.h"
+#include "../ui/TextButton.h"
 #include "../ui/TextToggle.h"
 #include "../utils/audio/AudioHelper.h"
 

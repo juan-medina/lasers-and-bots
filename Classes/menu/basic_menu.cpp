@@ -22,7 +22,7 @@
 
 #include "basic_menu.h"
 #include "../ui/slider_object.h"
-#include "../ui/text_button.h"
+#include "../ui/TextButton.h"
 #include "../ui/TextToggle.h"
 #include "../utils/audio/AudioHelper.h"
 
@@ -328,13 +328,13 @@ void basic_menu::add_button(MenuItem* item, const ccMenuCallback& callback)
   buttons_.pushBack(item);
 }
 
-text_button* basic_menu::add_text_button(const std::string& text, const ccMenuCallback& callback)
+TextButton* basic_menu::add_text_button(const std::string& text, const ccMenuCallback& callback)
 {
-  text_button* result = nullptr;
+  TextButton* result = nullptr;
 
   do
   {
-    const auto item = text_button::create("08_Text_", text);
+    const auto item = TextButton::create("08_Text_", text);
 
     move_text_button(item);
     add_button(item, callback);

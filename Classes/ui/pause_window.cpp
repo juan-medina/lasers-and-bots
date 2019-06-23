@@ -23,7 +23,7 @@
 #include "pause_window.h"
 #include "../laser_and_bots_app.h"
 #include "../scenes/game_scene.h"
-#include "../ui/text_button.h"
+#include "../ui/TextButton.h"
 #include "../ui/TextToggle.h"
 #include "../utils/audio/AudioHelper.h"
 #include "game_ui.h"

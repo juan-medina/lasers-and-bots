@@ -22,7 +22,7 @@
 
 #include "main_menu.h"
 #include "../scenes/menu_scene.h"
-#include "../ui/text_button.h"
+#include "../ui/TextButton.h"
 #include "../utils/audio/AudioHelper.h"
 
 main_menu::main_menu() : back_item_(nullptr), play_item_(nullptr) {}

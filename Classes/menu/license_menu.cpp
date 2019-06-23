@@ -23,7 +23,7 @@
 #include "license_menu.h"
 #include "../scenes/menu_scene.h"
 #include "../ui/scrolling_text.h"
-#include "../ui/text_button.h"
+#include "../ui/TextButton.h"
 #include "../utils/audio/AudioHelper.h"
 
 license_menu::license_menu() : back_item_(nullptr), scrolling_text_(nullptr) {}

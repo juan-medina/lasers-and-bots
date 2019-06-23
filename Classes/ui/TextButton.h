@@ -24,21 +24,21 @@
 
 #include "../utils/utils.h"
 
-class text_button final : public MenuItemSprite
+class TextButton final : public MenuItemSprite
 {
 public:
-  using base_class = MenuItemSprite;
+  using BaseClass = MenuItemSprite;
 
-  text_button();
+  TextButton();
 
-  static text_button* create(const std::string& base, const std::string& text);
+  static TextButton* create(const std::string& base, const std::string& text);
 
   bool init(const std::string& base, const std::string& text);
 
-  void set_text(const std::string& text) const { label_->setString(text); }
+  void setText(const std::string& text) const { _label->setString(text); }
 
 private:
-  Label* label_;
+  Label* _label;
 };
 
 #endif // __TEXT_BUTTON_CLASS__

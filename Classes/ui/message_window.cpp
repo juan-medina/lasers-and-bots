@@ -1,5 +1,5 @@
 #include "message_window.h"
-#include "../ui/text_button.h"
+#include "../ui/TextButton.h"
 #include "../utils/audio/AudioHelper.h"
 
 message_window::message_window() : audio_helper_(nullptr), continue_item_(nullptr), sub_label_(nullptr) {}

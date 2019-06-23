@@ -20,17 +20,17 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "text_button.h"
+#include "TextButton.h"
 
-text_button::text_button() : label_(nullptr) {}
+TextButton::TextButton() : _label(nullptr) {}
 
-text_button* text_button::create(const std::string& base, const std::string& text)
+TextButton* TextButton::create(const std::string& base, const std::string& text)
 {
-  text_button* ret = nullptr;
+  TextButton* ret = nullptr;
 
   do
   {
-    auto object = new text_button();
+    auto object = new TextButton();
     UTILS_BREAK_IF(object == nullptr);
 
     if (object->init(base, text))
@@ -49,7 +49,7 @@ text_button* text_button::create(const std::string& base, const std::string& tex
   return ret;
 }
 
-bool text_button::init(const std::string& base, const std::string& text)
+bool TextButton::init(const std::string& base, const std::string& text)
 {
   auto ret = false;
 
@@ -59,26 +59,26 @@ bool text_button::init(const std::string& base, const std::string& text)
     UTILS_BREAK_IF(sprite == nullptr);
     sprite->setOpacity(190);
 
-    const auto sprite_click = Sprite::createWithSpriteFrameName(base + "2.png");
-    UTILS_BREAK_IF(sprite_click == nullptr);
-    sprite_click->setOpacity(190);
+    const auto spriteClick = Sprite::createWithSpriteFrameName(base + "2.png");
+    UTILS_BREAK_IF(spriteClick == nullptr);
+    spriteClick->setOpacity(190);
 
-    const auto sprite_disabled = Sprite::createWithSpriteFrameName(base + "4.png");
-    UTILS_BREAK_IF(sprite_disabled == nullptr);
-    sprite_disabled->setOpacity(190);
+    const auto spriteDisabled = Sprite::createWithSpriteFrameName(base + "4.png");
+    UTILS_BREAK_IF(spriteDisabled == nullptr);
+    spriteDisabled->setOpacity(190);
 
-    UTILS_BREAK_IF(!base_class::initWithNormalSprite(sprite, sprite_click, sprite_disabled, nullptr));
+    UTILS_BREAK_IF(!BaseClass::initWithNormalSprite(sprite, spriteClick, spriteDisabled, nullptr));
 
     setContentSize(sprite->getContentSize());
 
-    label_ = Label::createWithTTF(text, "fonts/tahoma.ttf", 120);
-    UTILS_BREAK_IF(label_ == nullptr);
+    _label = Label::createWithTTF(text, "fonts/tahoma.ttf", 120);
+    UTILS_BREAK_IF(_label == nullptr);
 
-    label_->setPosition(getContentSize().width / 2, getContentSize().height / 2 + 30);
-    label_->setTextColor(Color4B(255, 255, 255, 255));
-    label_->enableOutline(Color4B(0, 0, 0, 255), 5);
+    _label->setPosition(getContentSize().width / 2, getContentSize().height / 2 + 30);
+    _label->setTextColor(Color4B(255, 255, 255, 255));
+    _label->enableOutline(Color4B(0, 0, 0, 255), 5);
 
-    addChild(label_, 100);
+    addChild(_label, 100);
 
     ret = true;
   } while (false);

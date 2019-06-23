@@ -27,7 +27,7 @@
 
 // foward declarations
 class AudioHelper;
-class text_button;
+class TextButton;
 
 class main_menu final : public basic_menu
 {
@@ -53,8 +53,8 @@ private:
   void on_credits();
   void on_about();
 
-  text_button* back_item_;
-  text_button* play_item_;
+  TextButton* back_item_;
+  TextButton* play_item_;
 };
 
 #endif // __MAIN_MENU_CLASS__

@@ -182,7 +182,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y      </C
     <ClCompile Include="..\Classes\ui\resizable_window.cpp" />
     <ClCompile Include="..\Classes\ui\scrolling_text.cpp" />
     <ClCompile Include="..\Classes\ui\slider_object.cpp" />
-    <ClCompile Include="..\Classes\ui\text_button.cpp" />
+    <ClCompile Include="..\Classes\ui\TextButton.cpp" />
     <ClCompile Include="..\Classes\ui\TextToggle.cpp" />
     <ClCompile Include="..\Classes\ui\VirtualJoyStick.cpp" />
     <ClCompile Include="..\Classes\utils\audio\AudioHelper.cpp" />
@@ -231,7 +231,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y      </C
     <ClInclude Include="..\Classes\ui\resizable_window.h" />
     <ClInclude Include="..\Classes\ui\scrolling_text.h" />
     <ClInclude Include="..\Classes\ui\slider_object.h" />
-    <ClInclude Include="..\Classes\ui\text_button.h" />
+    <ClInclude Include="..\Classes\ui\TextButton.h" />
     <ClInclude Include="..\Classes\ui\TextToggle.h" />
     <ClInclude Include="..\Classes\ui\VirtualJoyStick.h" />
     <ClInclude Include="..\Classes\utils\audio\AudioHelper.h" />
