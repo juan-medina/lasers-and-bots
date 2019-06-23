@@ -29,16 +29,16 @@ class OnScreenButton;
 enum class ButtonType;
 class InputController;
 
-class virtual_joy_stick final : public Node
+class VirtualJoyStick final : public Node
 {
 public:
-  using base_class = Node;
+  using BaseClass = Node;
 
-  virtual_joy_stick();
+  VirtualJoyStick();
 
-  static virtual_joy_stick* create(InputController* input_controller);
+  static VirtualJoyStick* create(InputController* inputController);
 
-  bool init(InputController* input_controller);
+  bool init(InputController* inputController);
 
   bool left() const;
 
@@ -49,16 +49,16 @@ public:
   void disabled(const bool disabled);
 
 private:
-  OnScreenButton* add_on_screen_button(const ButtonType& type, const std::string& sprite_frame_name,
-                                         const std::string& label = "");
+  OnScreenButton* addOnScreenButton(const ButtonType& type, const std::string& spriteFrameName,
+                                    const std::string& label = "");
 
-  bool add_on_screen_buttons();
+  bool addOnScreenButtons();
 
-  bool is_on_screen_pushed(const ButtonType& type) const;
+  bool isOnScreenPushed(const ButtonType& type) const;
 
-  std::vector<OnScreenButton*> on_screen_buttons_;
+  std::vector<OnScreenButton*> _onScreenButtons;
 
-  InputController* input_controller_;
+  InputController* _inputController;
 };
 
 #endif // __VIRTUAL_JOY_STICK_CLASS__

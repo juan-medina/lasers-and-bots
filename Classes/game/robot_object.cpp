@@ -21,7 +21,7 @@
  ****************************************************************************/
 
 #include "robot_object.h"
-#include "../ui/virtual_joy_stick.h"
+#include "../ui/VirtualJoyStick.h"
 #include "../utils/audio/AudioHelper.h"
 
 const Vec2 robot_object::normal_movement = Vec2(1000.0f, 2600.f);
@@ -45,7 +45,7 @@ robot_object::robot_object()
 }
 
 robot_object* robot_object::create(PhysicsShapeCache* physics_shape_cache, AudioHelper* audio_helper,
-                                   virtual_joy_stick* virtual_joy_stick, const int max_shield)
+                                   VirtualJoyStick* virtual_joy_stick, const int max_shield)
 {
   robot_object* ret = nullptr;
 
@@ -71,7 +71,7 @@ robot_object* robot_object::create(PhysicsShapeCache* physics_shape_cache, Audio
 }
 
 bool robot_object::init(PhysicsShapeCache* physics_shape_cache, AudioHelper* audio_helper,
-                        virtual_joy_stick* virtual_joy_stick, const int max_shield)
+                        VirtualJoyStick* virtual_joy_stick, const int max_shield)
 {
   auto ret = false;
 

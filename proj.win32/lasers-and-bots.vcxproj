@@ -184,7 +184,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y      </C
     <ClCompile Include="..\Classes\ui\slider_object.cpp" />
     <ClCompile Include="..\Classes\ui\text_button.cpp" />
     <ClCompile Include="..\Classes\ui\text_toggle.cpp" />
-    <ClCompile Include="..\Classes\ui\virtual_joy_stick.cpp" />
+    <ClCompile Include="..\Classes\ui\VirtualJoyStick.cpp" />
     <ClCompile Include="..\Classes\utils\audio\AudioHelper.cpp" />
     <ClCompile Include="..\Classes\utils\base\app\BasicApp.cpp" />
     <ClCompile Include="..\Classes\utils\base\nodes\CustomDrawNode.cpp" />
@@ -233,7 +233,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y      </C
     <ClInclude Include="..\Classes\ui\slider_object.h" />
     <ClInclude Include="..\Classes\ui\text_button.h" />
     <ClInclude Include="..\Classes\ui\text_toggle.h" />
-    <ClInclude Include="..\Classes\ui\virtual_joy_stick.h" />
+    <ClInclude Include="..\Classes\ui\VirtualJoyStick.h" />
     <ClInclude Include="..\Classes\utils\audio\AudioHelper.h" />
     <ClInclude Include="..\Classes\utils\base\app\BasicApp.h" />
     <ClInclude Include="..\Classes\utils\base\nodes\CustomDrawNode.h" />

@@ -28,7 +28,7 @@
 #include "level_completed.h"
 #include "message_window.h"
 #include "pause_window.h"
-#include "virtual_joy_stick.h"
+#include "VirtualJoyStick.h"
 
 game_ui::game_ui()
   : virtual_joy_stick_(nullptr)
@@ -159,7 +159,7 @@ bool game_ui::init(AudioHelper* audio_helper, InputController* input_controller,
 
     addChild(menu, 100);
 
-    virtual_joy_stick_ = virtual_joy_stick::create(input_controller_);
+    virtual_joy_stick_ = VirtualJoyStick::create(input_controller_);
     addChild(virtual_joy_stick_, 100);
 
     const auto head_pos = Vec2(50.f, size.height - 50);

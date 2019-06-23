@@ -78,9 +78,6 @@
     <ClCompile Include="..\Classes\ui\game_ui.cpp">
       <Filter>src\ui</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\ui\virtual_joy_stick.cpp">
-      <Filter>src\ui</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\game\switch_object.cpp">
       <Filter>src\game</Filter>
     </ClCompile>
@@ -198,6 +195,9 @@
     <ClCompile Include="..\Classes\ui\OnScreenButton.cpp">
       <Filter>src\ui</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ui\VirtualJoyStick.cpp">
+      <Filter>src\ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -219,9 +219,6 @@
       <Filter>src\scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ui\game_ui.h">
-      <Filter>src\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ui\virtual_joy_stick.h">
       <Filter>src\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\game\switch_object.h">
@@ -339,6 +336,9 @@
       <Filter>src\misc</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ui\OnScreenButton.h">
+      <Filter>src\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui\VirtualJoyStick.h">
       <Filter>src\ui</Filter>
     </ClInclude>
   </ItemGroup>

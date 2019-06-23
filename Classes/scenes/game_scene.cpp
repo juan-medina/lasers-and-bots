@@ -34,7 +34,7 @@
 #include "../laser_and_bots_app.h"
 #include "../misc/LevelManager.h"
 #include "../ui/game_ui.h"
-#include "../ui/virtual_joy_stick.h"
+#include "../ui/VirtualJoyStick.h"
 #include "../utils/audio/AudioHelper.h"
 #include "../utils/base/nodes/CustomDrawNode.h"
 #include "../utils/base/sprite/GameObject.h"

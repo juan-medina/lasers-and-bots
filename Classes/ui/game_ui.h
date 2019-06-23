@@ -29,7 +29,7 @@
 class message_window;
 class level_completed;
 class pause_window;
-class virtual_joy_stick;
+class VirtualJoyStick;
 class AudioHelper;
 class LevelManager;
 class InputController;
@@ -52,7 +52,7 @@ public:
   void on_close(Ref* sender);
   void on_reload(Ref* sender);
 
-  inline virtual_joy_stick* get_virtual_joy_stick() const { return virtual_joy_stick_; }
+  inline VirtualJoyStick* get_virtual_joy_stick() const { return virtual_joy_stick_; }
 
   inline void set_shield_percentage(const float amount) const
   {
@@ -84,7 +84,7 @@ public:
 private:
   void on_continue();
 
-  virtual_joy_stick* virtual_joy_stick_;
+  VirtualJoyStick* virtual_joy_stick_;
   ProgressTimer* shield_bar_;
   Label* shield_label_;
   MenuItemToggle* pause_item_;

@@ -25,7 +25,7 @@
 #include "../utils/physics/PhysicsGameObject.h"
 
 // forward declarations
-class virtual_joy_stick;
+class VirtualJoyStick;
 class AudioHelper;
 
 class robot_object final : public PhysicsGameObject
@@ -36,10 +36,10 @@ public:
   robot_object();
 
   static robot_object* create(PhysicsShapeCache* physics_shape_cache, AudioHelper* audio_helper,
-                              virtual_joy_stick* virtual_joy_stick, const int max_shield);
+                              VirtualJoyStick* virtual_joy_stick, const int max_shield);
 
   bool init(PhysicsShapeCache* physics_shape_cache, AudioHelper* audio_helper,
-            virtual_joy_stick* virtual_joy_stick, const int max_shield);
+            VirtualJoyStick* virtual_joy_stick, const int max_shield);
 
   void update(float delta) override;
 
@@ -97,7 +97,7 @@ private:
   int feet_touching_count_;
 
   state current_state_;
-  virtual_joy_stick* virtual_joy_stick_;
+  VirtualJoyStick* virtual_joy_stick_;
   AudioHelper* audio_helper_;
 
   int number_of_jumps_;
