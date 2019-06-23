@@ -25,22 +25,22 @@
 #include "../menu/basic_menu.h"
 #include "../utils/utils.h"
 
-// foward declarations
+// forward declarations
 class AudioHelper;
 class LevelManager;
 enum class CompletedResult;
 class TextButton;
 
-class level_completed final : public basic_menu
+class LevelCompleted final : public basic_menu
 {
 public:
-  using base_class = basic_menu;
+  using BaseClass = basic_menu;
 
-  level_completed();
+  LevelCompleted();
 
-  static level_completed* create(AudioHelper* audio_helper, LevelManager* level_manager);
+  static LevelCompleted* create(AudioHelper* audioHelper, LevelManager* levelManager);
 
-  bool init(AudioHelper* audio_helper, LevelManager* level_manager);
+  bool init(AudioHelper* audioHelper, LevelManager* levelManager);
 
   void display(const unsigned short int level, const float time, const unsigned short int stars,
                const CompletedResult completion, const ccMenuCallback& callback);
@@ -48,30 +48,30 @@ public:
   void hide() override;
 
 private:
-  Label* add_labels(const std::string& label_text, const std::string& text, const Vec2& pos,
-                    const float separation);
+  Label* addLabels(const std::string& labelText, const std::string& text, const Vec2& pos,
+                   const float separation);
 
-  void star_sound() const;
+  void starSound() const;
 
-  void animate_label(Label* label) const;
+  void animateLabel(Label* label) const;
 
 protected:
   bool create_menu_items() override;
 
 private:
-  AudioHelper* audio_helper_;
-  TextButton* continue_item_;
-  Label* level_name_label_;
+  AudioHelper* _audioHelper;
+  TextButton* _continueItem;
+  Label* _levelNameLabel;
 
-  std::vector<Sprite*> gray_stars_;
-  std::vector<Sprite*> gold_stars_;
-  std::vector<Label*> label_stars_;
+  std::vector<Sprite*> _grayStars;
+  std::vector<Sprite*> _goldStars;
+  std::vector<Label*> _labelStars;
 
-  LevelManager* level_manager_;
-  Label* level_total_time_label_;
-  Label* level_time_limit_label_;
-  Label* level_time_record_label_;
-  Label* level_3_stars_record_label_;
+  LevelManager* _levelManager;
+  Label* _levelTotalTimeLabel;
+  Label* _levelTimeLimitLabel;
+  Label* _levelTimeRecordLabel;
+  Label* _level3StarsRecordLabel;
 };
 
 #endif // __LEVEL_COMPLETED_CLASS__

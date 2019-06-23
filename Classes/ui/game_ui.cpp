@@ -25,7 +25,7 @@
 #include "../scenes/game_scene.h"
 #include "../utils/audio/AudioHelper.h"
 #include "../utils/controller/InputController.h"
-#include "level_completed.h"
+#include "LevelCompleted.h"
 #include "MessageWindow.h"
 #include "PauseWindow.h"
 #include "VirtualJoyStick.h"
@@ -262,7 +262,7 @@ bool game_ui::init(AudioHelper* audio_helper, InputController* input_controller,
 
     addChild(message_window_);
 
-    level_completed_ = level_completed::create(audio_helper_, level_manager_);
+    level_completed_ = LevelCompleted::create(audio_helper_, level_manager_);
     UTILS_BREAK_IF(level_completed_ == nullptr);
 
     addChild(level_completed_);
