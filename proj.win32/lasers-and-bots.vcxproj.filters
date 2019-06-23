@@ -102,9 +102,6 @@
     <ClCompile Include="..\Classes\game\harm_object.cpp">
       <Filter>src\game</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\ui\message_window.cpp">
-      <Filter>src\ui</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\scenes\menu_scene.cpp">
       <Filter>src\scene</Filter>
     </ClCompile>
@@ -198,6 +195,9 @@
     <ClCompile Include="..\Classes\ui\PauseWindow.cpp">
       <Filter>src\ui</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ui\MessageWindow.cpp">
+      <Filter>src\ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -244,9 +244,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\game\harm_object.h">
       <Filter>src\game</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ui\message_window.h">
-      <Filter>src\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\scenes\menu_scene.h">
       <Filter>src\scene</Filter>
@@ -339,6 +336,9 @@
       <Filter>src\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ui\PauseWindow.h">
+      <Filter>src\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui\MessageWindow.h">
       <Filter>src\ui</Filter>
     </ClInclude>
   </ItemGroup>

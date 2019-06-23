@@ -25,21 +25,21 @@
 #include "../menu/basic_menu.h"
 #include "../utils/utils.h"
 
-// foward declarations
+// forward declarations
 class AudioHelper;
 
-class message_window final : public basic_menu
+class MessageWindow final : public basic_menu
 {
 public:
-  using base_class = basic_menu;
+  using BaseClass = basic_menu;
 
-  message_window();
+  MessageWindow();
 
-  static message_window* create(AudioHelper* audio_helper);
+  static MessageWindow* create(AudioHelper* audioHelper);
 
-  bool init(AudioHelper* audio_helper);
+  bool init(AudioHelper* audioHelper);
 
-  void display(const std::string& message, const std::string& sub_message, const ccMenuCallback& callback);
+  void display(const std::string& message, const std::string& subMessage, const ccMenuCallback& callback);
 
   void hide() override;
 
@@ -47,9 +47,9 @@ protected:
   bool create_menu_items() override;
 
 private:
-  AudioHelper* audio_helper_;
-  TextButton* continue_item_;
-  Label* sub_label_;
+  AudioHelper* _audioHelper;
+  TextButton* _continueItem;
+  Label* _subLabel;
 };
 
 #endif // __MESSAGE_WINDOW_CLASS__

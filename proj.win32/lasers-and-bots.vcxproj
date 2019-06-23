@@ -176,7 +176,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y      </C
     <ClCompile Include="..\Classes\scenes\menu_scene.cpp" />
     <ClCompile Include="..\Classes\ui\game_ui.cpp" />
     <ClCompile Include="..\Classes\ui\level_completed.cpp" />
-    <ClCompile Include="..\Classes\ui\message_window.cpp" />
+    <ClCompile Include="..\Classes\ui\MessageWindow.cpp" />
     <ClCompile Include="..\Classes\ui\OnScreenButton.cpp" />
     <ClCompile Include="..\Classes\ui\PauseWindow.cpp" />
     <ClCompile Include="..\Classes\ui\ResizableWindow.cpp" />
@@ -225,7 +225,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y      </C
     <ClInclude Include="..\Classes\scenes\menu_scene.h" />
     <ClInclude Include="..\Classes\ui\game_ui.h" />
     <ClInclude Include="..\Classes\ui\level_completed.h" />
-    <ClInclude Include="..\Classes\ui\message_window.h" />
+    <ClInclude Include="..\Classes\ui\MessageWindow.h" />
     <ClInclude Include="..\Classes\ui\OnScreenButton.h" />
     <ClInclude Include="..\Classes\ui\PauseWindow.h" />
     <ClInclude Include="..\Classes\ui\ResizableWindow.h" />

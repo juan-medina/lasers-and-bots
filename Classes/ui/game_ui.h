@@ -26,7 +26,7 @@
 #include "../utils/utils.h"
 
 // forward declarations
-class message_window;
+class MessageWindow;
 class level_completed;
 class PauseWindow;
 class VirtualJoyStick;
@@ -95,7 +95,7 @@ private:
   unsigned int time_limit_;
   ccMenuCallback continue_callback_;
   AudioHelper* audio_helper_;
-  message_window* message_window_;
+  MessageWindow* message_window_;
   level_completed* level_completed_;
   PauseWindow* pause_window_;
   LevelManager* level_manager_;

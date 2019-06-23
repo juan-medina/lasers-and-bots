@@ -26,7 +26,7 @@
 #include "../utils/audio/AudioHelper.h"
 #include "../utils/controller/InputController.h"
 #include "level_completed.h"
-#include "message_window.h"
+#include "MessageWindow.h"
 #include "PauseWindow.h"
 #include "VirtualJoyStick.h"
 
@@ -257,7 +257,7 @@ bool game_ui::init(AudioHelper* audio_helper, InputController* input_controller,
     level_name_label_->setVisible(false);
     addChild(level_name_label_, 100);
 
-    message_window_ = message_window::create(audio_helper_);
+    message_window_ = MessageWindow::create(audio_helper_);
     UTILS_BREAK_IF(message_window_ == nullptr);
 
     addChild(message_window_);
