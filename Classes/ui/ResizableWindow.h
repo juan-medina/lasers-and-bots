@@ -24,23 +24,23 @@
 
 #include "../utils/utils.h"
 
-class resizable_window : public Node
+class ResizableWindow : public Node
 {
 public:
-  using base_class = Node;
+  using BaseClass = Node;
 
-  resizable_window();
+  ResizableWindow();
 
-  static resizable_window* create(const std::string& title, const float width, const float height,
-                                  const Color3B& color = Color3B(0, 255, 255));
+  static ResizableWindow* create(const std::string& title, const float width, const float height,
+                                 const Color3B& color = Color3B(0, 255, 255));
 
   bool init(const std::string& title, const float width, const float height,
             const Color3B& color = Color3B(0, 255, 255));
 
-  void set_title(const std::string& title) const { label_title_->setString(title); }
+  void setTitle(const std::string& title) const { _labelTitle->setString(title); }
 
 private:
-  Label* label_title_;
+  Label* _labelTitle;
 };
 
 #endif // __RESIZABLE_WINDOW_CLASS__

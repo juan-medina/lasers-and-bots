@@ -123,9 +123,6 @@
     <ClCompile Include="..\Classes\menu\play_menu.cpp">
       <Filter>src\menu</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\ui\resizable_window.cpp">
-      <Filter>src\ui</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\ui\level_completed.cpp">
       <Filter>src\ui</Filter>
     </ClCompile>
@@ -198,6 +195,9 @@
     <ClCompile Include="..\Classes\ui\ScrollingText.cpp">
       <Filter>src\ui</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ui\ResizableWindow.cpp">
+      <Filter>src\ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -265,9 +265,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\menu\play_menu.h">
       <Filter>src\menu</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ui\resizable_window.h">
-      <Filter>src\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ui\level_completed.h">
       <Filter>src\ui</Filter>
@@ -339,6 +336,9 @@
       <Filter>src\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ui\ScrollingText.h">
+      <Filter>src\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui\ResizableWindow.h">
       <Filter>src\ui</Filter>
     </ClInclude>
   </ItemGroup>

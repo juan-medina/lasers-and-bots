@@ -23,7 +23,7 @@
 #ifndef __BASIC_MENU_CLASS__
 #define __BASIC_MENU_CLASS__
 
-#include "../ui/resizable_window.h"
+#include "../ui/ResizableWindow.h"
 #include "../utils/utils.h"
 
 // foward declarations
@@ -32,7 +32,7 @@ class SliderObject;
 class TextButton;
 class TextToggle;
 
-class basic_menu : public resizable_window
+class basic_menu : public ResizableWindow
 {
 public:
   enum class animation_type
@@ -41,7 +41,7 @@ public:
     fade
   };
 
-  using base_class = resizable_window;
+  using base_class = ResizableWindow;
   using float_callback = std::function<void(const float)>;
 
   basic_menu();

@@ -67,7 +67,7 @@ void message_window::display(const std::string& message, const std::string& sub_
 {
   base_class::display();
 
-  set_title(message);
+  setTitle(message);
   sub_label_->setString(sub_message);
   continue_item_->setCallback(callback);
 }

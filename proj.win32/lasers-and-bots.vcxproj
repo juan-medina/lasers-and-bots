@@ -179,7 +179,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y      </C
     <ClCompile Include="..\Classes\ui\message_window.cpp" />
     <ClCompile Include="..\Classes\ui\OnScreenButton.cpp" />
     <ClCompile Include="..\Classes\ui\pause_window.cpp" />
-    <ClCompile Include="..\Classes\ui\resizable_window.cpp" />
+    <ClCompile Include="..\Classes\ui\ResizableWindow.cpp" />
     <ClCompile Include="..\Classes\ui\ScrollingText.cpp" />
     <ClCompile Include="..\Classes\ui\SliderObject.cpp" />
     <ClCompile Include="..\Classes\ui\TextButton.cpp" />
@@ -228,7 +228,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y      </C
     <ClInclude Include="..\Classes\ui\message_window.h" />
     <ClInclude Include="..\Classes\ui\OnScreenButton.h" />
     <ClInclude Include="..\Classes\ui\pause_window.h" />
-    <ClInclude Include="..\Classes\ui\resizable_window.h" />
+    <ClInclude Include="..\Classes\ui\ResizableWindow.h" />
     <ClInclude Include="..\Classes\ui\ScrollingText.h" />
     <ClInclude Include="..\Classes\ui\SliderObject.h" />
     <ClInclude Include="..\Classes\ui\TextButton.h" />
