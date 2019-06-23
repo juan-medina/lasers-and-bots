@@ -24,64 +24,64 @@
 
 #include "../utils/utils.h"
 
-enum class button_type
+enum class ButtonType
 {
-  none,
-  up,
-  down,
-  left,
-  right,
-  button_a,
-  button_b
+  None,
+  Up,
+  Down,
+  Left,
+  Right,
+  ButtonA,
+  ButtonB
 };
 
-class on_screen_button final : public Node
+class OnScreenButton final : public Node
 {
 public:
-  using base_class = Node;
+  using BaseClass = Node;
 
-  on_screen_button();
+  OnScreenButton();
 
-  static on_screen_button* create(const button_type& type, const std::string& sprite_frame_name,
-                                  const std::string& label = "");
+  static OnScreenButton* create(const ButtonType& type, const std::string& spriteFrameName,
+                                const std::string& label = "");
 
-  bool init(const button_type& type, const std::string& sprite_frame_name, const std::string& label);
+  bool init(const ButtonType& type, const std::string& spriteFrameName, const std::string& label);
 
   const cocos2d::Size& getContentSize() const override;
 
   void pushed(const bool pushed);
 
-  inline constexpr bool is_pushed() const noexcept { return pushed_; }
+  inline constexpr bool isPushed() const noexcept { return _pushed; }
 
   void disabled(const bool disabled);
 
-  const button_type& type() const { return type_; }
+  const ButtonType& type() const { return _type; }
 
 private:
-  void on_status_change() const;
+  void onStatusChange() const;
 
-  bool is_touched_by_location(const Vec2& location) const;
+  bool isTouchedByLocation(const Vec2& location) const;
 
-  void on_touches_began(const std::vector<Touch*>& touches, Event* unused_event);
-  void on_touches_moved(const std::vector<Touch*>& touches, Event* unused_event);
-  void on_touches_ended(const std::vector<Touch*>& touches, Event* unused_event);
-  void on_touches_cancel(const std::vector<Touch*>& touches, Event* unused_event);
+  void onTouchesBegan(const std::vector<Touch*>& touches, Event* unusedEvent);
+  void onTouchesMoved(const std::vector<Touch*>& touches, Event* unusedEvent);
+  void onTouchesEnded(const std::vector<Touch*>& touches, Event* unusedEvent);
+  void onTouchesCancel(const std::vector<Touch*>& touches, Event* unusedEvent);
 
-  bool enable_touch(const bool enabled);
+  bool enableTouch(const bool enabled);
 
-  Sprite* normal_sprite_;
-  Sprite* pushed_sprite_;
-  Sprite* disabled_sprite_;
+  Sprite* _normalSprite;
+  Sprite* _pushedSprite;
+  Sprite* _disabledSprite;
 
-  Label* label_button_;
+  Label* _labelButton;
 
-  bool pushed_;
-  bool disabled_;
-  int saved_touch_id_;
+  bool _pushed;
+  bool _disabled;
+  int _savedTouchId;
 
-  EventListenerTouchAllAtOnce* touch_listener_;
+  EventListenerTouchAllAtOnce* _touchListener;
 
-  button_type type_;
+  ButtonType _type;
 };
 
 #endif // __ON_SCREEN_BUTTON_CLASS__

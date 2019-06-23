@@ -25,8 +25,8 @@
 #include "../utils/utils.h"
 
 // forward declarations
-class on_screen_button;
-enum class button_type;
+class OnScreenButton;
+enum class ButtonType;
 class InputController;
 
 class virtual_joy_stick final : public Node
@@ -49,14 +49,14 @@ public:
   void disabled(const bool disabled);
 
 private:
-  on_screen_button* add_on_screen_button(const button_type& type, const std::string& sprite_frame_name,
+  OnScreenButton* add_on_screen_button(const ButtonType& type, const std::string& sprite_frame_name,
                                          const std::string& label = "");
 
   bool add_on_screen_buttons();
 
-  bool is_on_screen_pushed(const button_type& type) const;
+  bool is_on_screen_pushed(const ButtonType& type) const;
 
-  std::vector<on_screen_button*> on_screen_buttons_;
+  std::vector<OnScreenButton*> on_screen_buttons_;
 
   InputController* input_controller_;
 };
