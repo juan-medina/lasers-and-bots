@@ -22,7 +22,7 @@
 
 #include "play_menu.h"
 #include "../laser_and_bots_app.h"
-#include "../misc/level_manager.h"
+#include "../misc/LevelManager.h"
 #include "../scenes/menu_scene.h"
 #include "../ui/game_ui.h"
 #include "../ui/text_button.h"
@@ -87,7 +87,7 @@ void play_menu::display()
   base_class::display();
 
   const auto levels = get_level_manager();
-  const auto max_level = levels->get_num_levels();
+  const auto max_level = levels->getNumLevels();
 
   for (const auto pair : level_buttons_)
   {
@@ -96,8 +96,8 @@ void play_menu::display()
 
     item->setVisible(id <= max_level);
 
-    const auto stars = levels->get_level_stars(id);
-    item->setEnabled(levels->is_level_enabled(id));
+    const auto stars = levels->getLevelStars(id);
+    item->setEnabled(levels->isLevelEnabled(id));
 
     for (auto star_counter = 0; star_counter < 3; ++star_counter)
     {
@@ -278,19 +278,19 @@ void play_menu::on_play()
 void play_menu::select_level(const unsigned short int level)
 {
   const auto levels = get_level_manager();
-  const auto level_name = levels->get_level_name(level);
-  const auto level_time_limit = levels->get_level_time_limit(level);
+  const auto level_name = levels->getLevelName(level);
+  const auto level_time_limit = levels->getLevelTimeLimit(level);
   const auto level_time_limit_string = game_ui::time_message(level_time_limit);
-  const auto level_time_record = levels->get_level_time_record(level);
+  const auto level_time_record = levels->getLevelTimeRecord(level);
   const auto level_time_record_string = game_ui::time_message(level_time_record);
-  const auto level_3_stars_record = levels->get_level_3_stars_record(level);
+  const auto level_3_stars_record = levels->getLevel3StarsRecord(level);
   const auto level_3_stars_record_string = game_ui::time_message(level_3_stars_record);
-  const auto stars = levels->get_level_stars(level);
+  const auto stars = levels->getLevelStars(level);
 
   level_name_label_->setString(level_name);
   level_time_limit_label_->setString(level_time_limit_string);
 
-  if (level_time_record != level_manager::no_time_record)
+  if (level_time_record != LevelManager::NO_TIME_RECORD)
   {
     level_time_record_label_->setString(level_time_record_string);
   }
@@ -299,7 +299,7 @@ void play_menu::select_level(const unsigned short int level)
     level_time_record_label_->setString("n/a");
   }
 
-  if (level_3_stars_record != level_manager::no_time_record)
+  if (level_3_stars_record != LevelManager::NO_TIME_RECORD)
   {
     level_3_stars_time_record_label_->setString(level_3_stars_record_string);
   }
@@ -326,7 +326,7 @@ void play_menu::select_level(const unsigned short int level)
   selected_level_ = level;
 }
 
-level_manager* play_menu::get_level_manager()
+LevelManager* play_menu::get_level_manager()
 {
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   const auto app = dynamic_cast<laser_and_bots_app*>(menu->getApplication());

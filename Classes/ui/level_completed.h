@@ -27,8 +27,8 @@
 
 // foward declarations
 class AudioHelper;
-class level_manager;
-enum class completed_result;
+class LevelManager;
+enum class CompletedResult;
 class text_button;
 
 class level_completed final : public basic_menu
@@ -38,12 +38,12 @@ public:
 
   level_completed();
 
-  static level_completed* create(AudioHelper* audio_helper, level_manager* level_manager);
+  static level_completed* create(AudioHelper* audio_helper, LevelManager* level_manager);
 
-  bool init(AudioHelper* audio_helper, level_manager* level_manager);
+  bool init(AudioHelper* audio_helper, LevelManager* level_manager);
 
   void display(const unsigned short int level, const float time, const unsigned short int stars,
-               const completed_result completion, const ccMenuCallback& callback);
+               const CompletedResult completion, const ccMenuCallback& callback);
 
   void hide() override;
 
@@ -67,7 +67,7 @@ private:
   std::vector<Sprite*> gold_stars_;
   std::vector<Label*> label_stars_;
 
-  level_manager* level_manager_;
+  LevelManager* level_manager_;
   Label* level_total_time_label_;
   Label* level_time_limit_label_;
   Label* level_time_record_label_;

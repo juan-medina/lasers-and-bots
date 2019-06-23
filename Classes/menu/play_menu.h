@@ -28,7 +28,7 @@
 
 // foward declarations
 class AudioHelper;
-class level_manager;
+class LevelManager;
 class text_button;
 class text_toggle;
 
@@ -55,7 +55,7 @@ private:
   void on_level_select(Ref* sender, const unsigned short int level);
   void on_play();
   void select_level(const unsigned short int level);
-  level_manager* get_level_manager();
+  LevelManager* get_level_manager();
 
   std::map<unsigned short int, text_toggle*> level_buttons_;
   static constexpr auto star_tag = 0xFF0F;

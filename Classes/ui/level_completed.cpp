@@ -1,5 +1,5 @@
 #include "level_completed.h"
-#include "../misc/level_manager.h"
+#include "../misc/LevelManager.h"
 #include "../utils/audio/AudioHelper.h"
 #include "game_ui.h"
 #include "text_button.h"
@@ -16,7 +16,7 @@ level_completed::level_completed()
 {
 }
 
-level_completed* level_completed::create(AudioHelper* audio_helper, level_manager* level_manager)
+level_completed* level_completed::create(AudioHelper* audio_helper, LevelManager* level_manager)
 {
   level_completed* ret = nullptr;
 
@@ -41,7 +41,7 @@ level_completed* level_completed::create(AudioHelper* audio_helper, level_manage
   return ret;
 }
 
-bool level_completed::init(AudioHelper* audio_helper, level_manager* level_manager)
+bool level_completed::init(AudioHelper* audio_helper, LevelManager* level_manager)
 {
   auto ret = false;
 
@@ -151,24 +151,24 @@ bool level_completed::init(AudioHelper* audio_helper, level_manager* level_manag
 }
 
 void level_completed::display(const unsigned short int level, const float time,
-                              const unsigned short int stars, const completed_result completion,
+                              const unsigned short int stars, const CompletedResult completion,
                               const ccMenuCallback& callback)
 {
   base_class::display();
 
-  const auto level_name = level_manager_->get_level_name(level);
-  const auto level_time_limit = level_manager_->get_level_time_limit(level);
-  const auto level_time_record = level_manager_->get_level_time_record(level);
-  const auto level_3_stars_record = level_manager_->get_level_3_stars_record(level);
+  const auto level_name = level_manager_->getLevelName(level);
+  const auto level_time_limit = level_manager_->getLevelTimeLimit(level);
+  const auto level_time_record = level_manager_->getLevelTimeRecord(level);
+  const auto level_3_stars_record = level_manager_->getLevel3StarsRecord(level);
 
   level_total_time_label_->setString(game_ui::time_message(time));
   level_time_limit_label_->setString(game_ui::time_message(level_time_limit));
 
-  if (level_time_record != level_manager::no_time_record)
+  if (level_time_record != LevelManager::NO_TIME_RECORD)
   {
     level_time_record_label_->setString(game_ui::time_message(level_time_record));
-    if ((completion == completed_result::new_level_record) ||
-        (completion == completed_result::new_level_record_and_3_stars_record))
+    if ((completion == CompletedResult::NewLevelRecord) ||
+        (completion == CompletedResult::NewLevelRecordAnd3StarsRecord))
     {
       animate_label(level_time_record_label_);
     }
@@ -178,11 +178,11 @@ void level_completed::display(const unsigned short int level, const float time,
     level_time_record_label_->setString("n/a");
   }
 
-  if (level_3_stars_record != level_manager::no_time_record)
+  if (level_3_stars_record != LevelManager::NO_TIME_RECORD)
   {
     level_3_stars_record_label_->setString(game_ui::time_message(level_3_stars_record));
-    if ((completion == completed_result::new_level_3_stars_record) ||
-        (completion == completed_result::new_level_record_and_3_stars_record))
+    if ((completion == CompletedResult::NewLevel3StarsRecord) ||
+        (completion == CompletedResult::NewLevelRecordAnd3StarsRecord))
     {
       animate_label(level_3_stars_record_label_);
     }

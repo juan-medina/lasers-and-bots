@@ -170,7 +170,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y      </C
     <ClCompile Include="..\Classes\menu\main_menu.cpp" />
     <ClCompile Include="..\Classes\menu\options_menu.cpp" />
     <ClCompile Include="..\Classes\menu\play_menu.cpp" />
-    <ClCompile Include="..\Classes\misc\level_manager.cpp" />
+    <ClCompile Include="..\Classes\misc\LevelManager.cpp" />
     <ClCompile Include="..\Classes\scenes\game_scene.cpp" />
     <ClCompile Include="..\Classes\scenes\loading_scene.cpp" />
     <ClCompile Include="..\Classes\scenes\menu_scene.cpp" />
@@ -219,7 +219,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y      </C
     <ClInclude Include="..\Classes\menu\main_menu.h" />
     <ClInclude Include="..\Classes\menu\options_menu.h" />
     <ClInclude Include="..\Classes\menu\play_menu.h" />
-    <ClInclude Include="..\Classes\misc\level_manager.h" />
+    <ClInclude Include="..\Classes\misc\LevelManager.h" />
     <ClInclude Include="..\Classes\scenes\game_scene.h" />
     <ClInclude Include="..\Classes\scenes\loading_scene.h" />
     <ClInclude Include="..\Classes\scenes\menu_scene.h" />

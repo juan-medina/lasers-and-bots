@@ -32,7 +32,7 @@
 #include "../game/saw_object.h"
 #include "../game/switch_object.h"
 #include "../laser_and_bots_app.h"
-#include "../misc/level_manager.h"
+#include "../misc/LevelManager.h"
 #include "../ui/game_ui.h"
 #include "../ui/virtual_joy_stick.h"
 #include "../utils/audio/AudioHelper.h"
@@ -120,7 +120,7 @@ bool game_scene::init(BasicApp* application, const bool debug_grid, const bool d
     level_ = level;
 
     level_manager_ = dynamic_cast<laser_and_bots_app*>(application)->get_level_manager();
-    const auto level_map = level_manager_->get_level_map(level_);
+    const auto level_map = level_manager_->getLevelMap(level_);
 
     background_ = background_layer::create();
     background_->setPosition(0.f, 0.f);
@@ -231,9 +231,9 @@ void game_scene::pre_load_sounds() const
 
 void game_scene::get_level_settings()
 {
-  time_limit_ = level_manager_->get_level_time_limit(level_);
-  level_name_ = level_manager_->get_level_name(level_);
-  music_file_name_ = level_manager_->get_level_music(level_);
+  time_limit_ = level_manager_->getLevelTimeLimit(level_);
+  level_name_ = level_manager_->getLevelName(level_);
+  music_file_name_ = level_manager_->getLevelMusic(level_);
 }
 
 void game_scene::cache_objects_textures()
@@ -700,7 +700,7 @@ void game_scene::game_over(const bool win)
     if (win)
     {
       const auto stars = calculate_stars();
-      const auto completion = level_manager_->set_level_completed(level_, stars, total_time_);
+      const auto completion = level_manager_->setLevelCompleted(level_, stars, total_time_);
 
       getAudioHelper()->playEffect("sounds/victory.mp3");
       game_ui_->display_level_completed(level_, total_time_, stars, completion,
@@ -851,7 +851,7 @@ void game_scene::continue_button()
   game_ui_->disable_buttons(true);
 
   auto app = dynamic_cast<laser_and_bots_app*>(_application);
-  app->to_play_menu(level_manager_->get_next_level(level_));
+  app->to_play_menu(level_manager_->getNextLevel(level_));
 }
 
 void game_scene::onEnter()

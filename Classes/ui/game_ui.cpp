@@ -21,7 +21,7 @@
  ****************************************************************************/
 
 #include "game_ui.h"
-#include "../misc/level_manager.h"
+#include "../misc/LevelManager.h"
 #include "../scenes/game_scene.h"
 #include "../utils/audio/AudioHelper.h"
 #include "../utils/controller/InputController.h"
@@ -52,7 +52,7 @@ game_ui::game_ui()
 }
 
 game_ui* game_ui::create(AudioHelper* audio_helper, InputController* input_controller,
-                         level_manager* level_manager, const unsigned short int level)
+                         LevelManager* level_manager, const unsigned short int level)
 {
   game_ui* ret = nullptr;
 
@@ -78,7 +78,7 @@ game_ui* game_ui::create(AudioHelper* audio_helper, InputController* input_contr
 }
 
 bool game_ui::init(AudioHelper* audio_helper, InputController* input_controller,
-                   level_manager* level_manager, const unsigned short int level)
+                   LevelManager* level_manager, const unsigned short int level)
 {
   auto ret = false;
 
@@ -246,7 +246,7 @@ bool game_ui::init(AudioHelper* audio_helper, InputController* input_controller,
     countdown_label_->setVisible(false);
     addChild(countdown_label_, 100);
 
-    level_name_label_ = Label::createWithTTF(level_manager_->get_level_name(level_), "fonts/tahoma.ttf", 500);
+    level_name_label_ = Label::createWithTTF(level_manager_->getLevelName(level_), "fonts/tahoma.ttf", 500);
     UTILS_BREAK_IF(level_name_label_ == nullptr);
 
     level_name_label_->setTextColor(Color4B(0, 255, 255, 255));
@@ -355,7 +355,7 @@ void game_ui::display_message(const std::string& message, const std::string& sub
 }
 
 void game_ui::display_level_completed(const unsigned short int level, const float time,
-                                      const unsigned short int stars, const completed_result completion,
+                                      const unsigned short int stars, const CompletedResult completion,
                                       const ccMenuCallback& callback)
 {
   continue_callback_ = callback;

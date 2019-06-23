@@ -26,7 +26,7 @@
 #include "utils/base/app/BasicApp.h"
 
 // forward declarations
-class level_manager;
+class LevelManager;
 class InputController;
 
 // this game application
@@ -58,7 +58,7 @@ public:
 
   void applicationDidEnterBackground() override;
 
-  level_manager* get_level_manager() const { return level_manager_; }
+  LevelManager* get_level_manager() const { return level_manager_; }
 
   void change_video_mode(const bool full_screen);
 
@@ -86,7 +86,7 @@ private:
 
   float music_volume_;
   float effects_volume_;
-  level_manager* level_manager_;
+  LevelManager* level_manager_;
   bool want_restart_;
   bool to_options_;
 };

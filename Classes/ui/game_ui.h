@@ -31,9 +31,9 @@ class level_completed;
 class pause_window;
 class virtual_joy_stick;
 class AudioHelper;
-class level_manager;
+class LevelManager;
 class InputController;
-enum class completed_result;
+enum class CompletedResult;
 
 class game_ui final : public Node
 {
@@ -43,9 +43,9 @@ public:
   game_ui();
 
   static game_ui* create(AudioHelper* audio_helper, InputController* input_controller,
-                         level_manager* level_manager, const unsigned short int level);
+                         LevelManager* level_manager, const unsigned short int level);
 
-  bool init(AudioHelper* audio_helper, InputController* input_controller, level_manager* level_manager,
+  bool init(AudioHelper* audio_helper, InputController* input_controller, LevelManager* level_manager,
             const unsigned short int level);
 
   void on_pause(Ref* sender);
@@ -72,7 +72,7 @@ public:
                        const ccMenuCallback& callback);
 
   void display_level_completed(const unsigned short int level, const float time,
-                               const unsigned short int stars, const completed_result completion,
+                               const unsigned short int stars, const CompletedResult completion,
                                const ccMenuCallback& callback);
 
   void update_countdown(const int value) const;
@@ -98,7 +98,7 @@ private:
   message_window* message_window_;
   level_completed* level_completed_;
   pause_window* pause_window_;
-  level_manager* level_manager_;
+  LevelManager* level_manager_;
   unsigned short int level_;
   InputController* input_controller_;
 };

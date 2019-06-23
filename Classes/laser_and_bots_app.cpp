@@ -21,7 +21,7 @@
  ****************************************************************************/
 
 #include "laser_and_bots_app.h"
-#include "misc/level_manager.h"
+#include "misc/LevelManager.h"
 #include "scenes/loading_scene.h"
 #include "scenes/menu_scene.h"
 #include "utils/audio/AudioHelper.h"
@@ -229,7 +229,7 @@ void laser_and_bots_app::setup_level_manager()
 {
   if (level_manager_ == nullptr)
   {
-    level_manager_ = new level_manager();
+    level_manager_ = new LevelManager();
   }
 
   level_manager_->init();

@@ -129,9 +129,6 @@
     <ClCompile Include="..\Classes\menu\play_menu.cpp">
       <Filter>src\menu</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\misc\level_manager.cpp">
-      <Filter>src\misc</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\ui\resizable_window.cpp">
       <Filter>src\ui</Filter>
     </ClCompile>
@@ -197,6 +194,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\utils\physics\PhysicsTiledScene.cpp">
       <Filter>src\utils\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\misc\LevelManager.cpp">
+      <Filter>src\misc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -272,9 +272,6 @@
     <ClInclude Include="..\Classes\menu\play_menu.h">
       <Filter>src\menu</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\misc\level_manager.h">
-      <Filter>src\misc</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\ui\resizable_window.h">
       <Filter>src\ui</Filter>
     </ClInclude>
@@ -340,6 +337,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\utils\physics\PhysicsTiledScene.h">
       <Filter>src\utils\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\misc\LevelManager.h">
+      <Filter>src\misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
