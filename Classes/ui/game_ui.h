@@ -28,7 +28,7 @@
 // forward declarations
 class message_window;
 class level_completed;
-class pause_window;
+class PauseWindow;
 class VirtualJoyStick;
 class AudioHelper;
 class LevelManager;
@@ -97,7 +97,7 @@ private:
   AudioHelper* audio_helper_;
   message_window* message_window_;
   level_completed* level_completed_;
-  pause_window* pause_window_;
+  PauseWindow* pause_window_;
   LevelManager* level_manager_;
   unsigned short int level_;
   InputController* input_controller_;

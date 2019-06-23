@@ -27,7 +27,7 @@
 #include "../utils/controller/InputController.h"
 #include "level_completed.h"
 #include "message_window.h"
-#include "pause_window.h"
+#include "PauseWindow.h"
 #include "VirtualJoyStick.h"
 
 game_ui::game_ui()
@@ -267,7 +267,7 @@ bool game_ui::init(AudioHelper* audio_helper, InputController* input_controller,
 
     addChild(level_completed_);
 
-    pause_window_ = pause_window::create(audio_helper_);
+    pause_window_ = PauseWindow::create(audio_helper_);
     UTILS_BREAK_IF(pause_window_ == nullptr);
 
     addChild(pause_window_);

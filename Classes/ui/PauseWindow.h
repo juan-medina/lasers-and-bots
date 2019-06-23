@@ -25,40 +25,38 @@
 #include "../menu/basic_menu.h"
 #include "../utils/utils.h"
 
-// foward declarations
+// forward declarations
 class AudioHelper;
 class TextToggle;
 
-class pause_window final : public basic_menu
+class PauseWindow final : public basic_menu
 {
 public:
-  using base_class = basic_menu;
+  using BaseClass = basic_menu;
 
-  pause_window();
+  PauseWindow();
 
-  static pause_window* create(AudioHelper* audio_helper);
+  static PauseWindow* create(AudioHelper* audioHelper);
 
-  bool init(AudioHelper* audio_helper);
+  bool init(AudioHelper* audioHelper);
 
   void display() override;
 
   void hide() override;
 
 private:
-  void on_music_toggle();
-  void on_sfx_toggle();
-  void on_resume();
-  void on_reload();
-  void on_exit();
+  void onMusicToggle();
+  void onSfxToggle();
+  void onResume();
+  void onReload();
+  void onExit() override;
   bool create_menu_items() override;
 
-  AudioHelper* audio_helper_;
-  Vector<MenuItem*> buttons_;
-  float current_text_button_y_;
-  float current_image_button_x_;
+  AudioHelper* _audioHelper;
+  Vector<MenuItem*> _buttons;
 
-  TextToggle* toggle_music_item_;
-  TextToggle* toggle_sfx_item_;
+  TextToggle* _toggleMusicItem;
+  TextToggle* _toggleSfxItem;
 };
 
 #endif // __PAUSE_WINDOW_CLASS__
