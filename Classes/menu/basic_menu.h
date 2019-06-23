@@ -28,7 +28,7 @@
 
 // foward declarations
 class AudioHelper;
-class slider_object;
+class SliderObject;
 class TextButton;
 class TextToggle;
 
@@ -79,7 +79,7 @@ protected:
                                       const bool not_move = false);
   TextToggle* add_small_toggle_text_button(const std::string& text, const ccMenuCallback& callback);
   TextToggle* add_toggle_image_button(const std::string& image, const ccMenuCallback& callback);
-  slider_object* add_slider(MenuItem* attach_to, const float_callback& callback);
+  SliderObject* add_slider(MenuItem* attach_to, const float_callback& callback);
   MenuItem* add_row_label(const std::string& text, MenuItem* attach_to, const float left_space);
 
 private:

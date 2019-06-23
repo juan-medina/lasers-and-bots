@@ -28,7 +28,7 @@
 
 // foward declarations
 class AudioHelper;
-class slider_object;
+class SliderObject;
 class TextToggle;
 class TextButton;
 
@@ -54,8 +54,8 @@ private:
   TextButton* back_item_;
   TextToggle* sound_toggle_;
   TextToggle* music_toggle_;
-  slider_object* sound_slider_;
-  slider_object* music_slider_;
+  SliderObject* sound_slider_;
+  SliderObject* music_slider_;
   TextToggle* full_screen_toggle_;
   TextToggle* windowed_toggle_;
   TextToggle* debug_grid_toggle_;

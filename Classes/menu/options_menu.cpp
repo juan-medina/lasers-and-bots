@@ -22,7 +22,7 @@
 
 #include "options_menu.h"
 #include "../scenes/menu_scene.h"
-#include "../ui/slider_object.h"
+#include "../ui/SliderObject.h"
 #include "../ui/TextButton.h"
 #include "../ui/TextToggle.h"
 #include "../utils/audio/AudioHelper.h"
@@ -96,10 +96,10 @@ void options_menu::display()
   music_toggle_->setSelectedIndex(helper->getMusicMuted() ? 0 : 1);
   sound_toggle_->setSelectedIndex(helper->getEffectsMuted() ? 0 : 1);
 
-  music_slider_->set_percentage(helper->getMusicVolume() * 100.f);
+  music_slider_->setPercentage(helper->getMusicVolume() * 100.f);
   music_slider_->enable(!helper->getMusicMuted());
 
-  sound_slider_->set_percentage(helper->getSoundVolume() * 100.f);
+  sound_slider_->setPercentage(helper->getSoundVolume() * 100.f);
   sound_slider_->enable(!helper->getEffectsMuted());
 
   if (desktop_application_)

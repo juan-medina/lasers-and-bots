@@ -21,7 +21,7 @@
  ****************************************************************************/
 
 #include "basic_menu.h"
-#include "../ui/slider_object.h"
+#include "../ui/SliderObject.h"
 #include "../ui/TextButton.h"
 #include "../ui/TextToggle.h"
 #include "../utils/audio/AudioHelper.h"
@@ -399,13 +399,13 @@ TextToggle* basic_menu::add_toggle_image_button(const std::string& image, const 
   return result;
 }
 
-slider_object* basic_menu::add_slider(MenuItem* attach_to, const float_callback& callback)
+SliderObject* basic_menu::add_slider(MenuItem* attach_to, const float_callback& callback)
 {
-  slider_object* result = nullptr;
+  SliderObject* result = nullptr;
 
   do
   {
-    const auto slider = slider_object::create("15_slider_empty.png", "15_slider_full.png", callback);
+    const auto slider = SliderObject::create("15_slider_empty.png", "15_slider_full.png", callback);
     UTILS_BREAK_IF(slider == nullptr);
 
     slider->setColor(Color3B(0, 255, 255));
@@ -537,12 +537,12 @@ void basic_menu::stop_selection_animation(DrawNode* draw)
 
 bool basic_menu::is_selected_item_slider() const
 {
-  return dynamic_cast<slider_object*>(selected_menu_item_) != nullptr;
+  return dynamic_cast<SliderObject*>(selected_menu_item_) != nullptr;
 }
 
 void basic_menu::change_slider_value(const float increase) const
 {
-  const auto slider = dynamic_cast<slider_object*>(selected_menu_item_);
-  const auto value = slider->get_percentage();
-  slider->set_percentage(value + increase);
+  const auto slider = dynamic_cast<SliderObject*>(selected_menu_item_);
+  const auto value = slider->getPercentage();
+  slider->setPercentage(value + increase);
 }

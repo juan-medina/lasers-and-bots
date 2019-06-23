@@ -24,51 +24,50 @@
 
 #include "../utils/utils.h"
 
-class slider_object final : public MenuItemSprite
+class SliderObject final : public MenuItemSprite
 {
 public:
-  using base_class = MenuItemSprite;
-  using slider_change_callback = std::function<void(const float)>;
+  using BaseClass = MenuItemSprite;
+  using SliderChangeCallback = std::function<void(const float)>;
 
-  slider_object();
+  SliderObject();
 
-  static slider_object* create(const std::string& background, const std::string& progress,
-                               const slider_change_callback& callback);
+  static SliderObject* create(const std::string& background, const std::string& progress,
+                              const SliderChangeCallback& callback);
 
-  bool init(const std::string& background, const std::string& progress,
-            const slider_change_callback& callback);
+  bool init(const std::string& background, const std::string& progress, const SliderChangeCallback& callback);
 
-  void set_percentage(const float percentage);
-  float get_percentage() const;
+  void setPercentage(const float percentage);
+  float getPercentage() const;
 
-  bool is_enabled() const { return enabled_; }
+  bool isEnabled() const override { return _enabled; }
 
   void enable(const bool enabled);
   void setColor(const Color3B& color) override;
 
 private:
-  ProgressTimer* progress_;
-  Label* label_;
-  bool enabled_;
+  ProgressTimer* _progress;
+  Label* _label;
+  bool _enabled;
 
-  bool enable_touch(const bool enabled);
+  bool enableTouch(const bool enabled);
 
-  bool on_touch_began(Touch* touch, Event* unused_event);
-  void on_touch_moved(Touch* touch, Event* unused_event);
-  void on_touch_ended(Touch* touch, Event* unused_event);
-  void on_touch_cancel(Touch* touch, Event* unused_event);
+  bool onTouchBegan(Touch* touch, Event* unusedEvent);
+  void onTouchMoved(Touch* touch, Event* unusedEvent);
+  void onTouchEnded(Touch* touch, Event* unusedEvent);
+  void onTouchCancel(Touch* touch, Event* unusedEvent);
 
-  bool is_touched_by_location(Node* node, const Vec2& location) const;
-  void update_location(const Vec2& location);
+  bool isTouchedByLocation(Node* node, const Vec2& location) const;
+  void updateLocation(const Vec2& location);
 
-  EventListenerTouchOneByOne* touch_listener_;
-  Vec2 touch_begin_at_;
-  float percent_begin_touch_;
-  Sprite* arrow_;
-  float last_percentage_;
+  EventListenerTouchOneByOne* _touchListener;
+  Vec2 _touchBeginAt;
+  float _percentBeginTouch;
+  Sprite* _arrow;
+  float _lastPercentage;
 
-  void on_percentage_change(const float percentage) const;
-  std::function<void(const float)> callback_;
+  void onPercentageChange(const float percentage) const;
+  std::function<void(const float)> _callback;
 };
 
 #endif // __SLIDER_OBJECT_CLASS__
