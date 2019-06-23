@@ -20,26 +20,26 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "scrolling_text.h"
+#include "ScrollingText.h"
 #include "ui/UIRichText.h"
 
 using namespace cocos2d::ui;
 
-scrolling_text::scrolling_text()
-  : rich_text_(nullptr), auto_scroll_(false), auto_scroll_direction_{1.f}, scroll_pos_(0.f)
+ScrollingText::ScrollingText()
+  : _richText(nullptr), _autoScroll(false), _autoScrollDirection{1.f}, _scrollPos(0.f)
 {
 }
 
-scrolling_text* scrolling_text::create(const Size& size, const std::string text_file, const bool centered)
+ScrollingText* ScrollingText::create(const Size& size, const std::string textFile, const bool centered)
 {
-  scrolling_text* ret = nullptr;
+  ScrollingText* ret = nullptr;
 
   do
   {
-    auto object = new scrolling_text();
+    auto object = new ScrollingText();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(size, text_file, centered))
+    if (object->init(size, textFile, centered))
     {
       object->autorelease();
     }
@@ -55,7 +55,7 @@ scrolling_text* scrolling_text::create(const Size& size, const std::string text_
   return ret;
 }
 
-bool scrolling_text::init(const Size& size, const std::string text_file, const bool centered /* = false*/)
+bool ScrollingText::init(const Size& size, const std::string textFile, const bool centered /* = false*/)
 {
   auto ret = false;
 
@@ -88,19 +88,19 @@ bool scrolling_text::init(const Size& size, const std::string text_file, const b
                                      Value(static_cast<int>(RichText::HorizontalAlignment::LEFT))));
     }
 
-    const auto file_utils = FileUtils::getInstance();
-    const auto text = file_utils->getStringFromFile(text_file);
+    const auto fileUtils = FileUtils::getInstance();
+    const auto text = fileUtils->getStringFromFile(textFile);
 
-    rich_text_ = RichText::createWithXML(text, defaults);
-    UTILS_BREAK_IF(rich_text_ == nullptr);
+    _richText = RichText::createWithXML(text, defaults);
+    UTILS_BREAK_IF(_richText == nullptr);
 
-    rich_text_->ignoreContentAdaptWithSize(false);
-    rich_text_->setContentSize(size);
-    rich_text_->formatText();
-    rich_text_->setAnchorPoint(Vec2(0, 1));
-    rich_text_->setPosition(Vec2(0, size.height));
+    _richText->ignoreContentAdaptWithSize(false);
+    _richText->setContentSize(size);
+    _richText->formatText();
+    _richText->setAnchorPoint(Vec2(0, 1));
+    _richText->setPosition(Vec2(0, size.height));
 
-    clip->addChild(rich_text_);
+    clip->addChild(_richText);
 
     scheduleUpdate();
 
@@ -110,39 +110,39 @@ bool scrolling_text::init(const Size& size, const std::string text_file, const b
   return ret;
 }
 
-void scrolling_text::update(float delta)
+void ScrollingText::update(float delta)
 {
-  base_class::update(delta);
-  rich_text_->setPosition(Vec2(0, getContentSize().height + scroll_pos_));
+  BaseClass::update(delta);
+  _richText->setPosition(Vec2(0, getContentSize().height + _scrollPos));
 
-  if (auto_scroll_)
+  if (_autoScroll)
   {
-    scroll_pos_ += ((delta * 100) * auto_scroll_direction_);
-    if (scroll_pos_ > (rich_text_->getContentSize().height - getContentSize().height))
+    _scrollPos += ((delta * 100) * _autoScrollDirection);
+    if (_scrollPos > (_richText->getContentSize().height - getContentSize().height))
     {
-      auto_scroll_ = false;
+      _autoScroll = false;
     }
   }
 }
 
-void scrolling_text::set_scroll(const float scroll)
+void ScrollingText::setScroll(const float scroll)
 {
-  scroll_pos_ = scroll;
+  _scrollPos = scroll;
 }
 
-void scrolling_text::auto_scroll_in(const float time)
+void ScrollingText::autoScrollIn(const float time)
 {
-  set_scroll(0.f);
-  auto_scroll_ = false;
+  setScroll(0.f);
+  _autoScroll = false;
 
-  const auto start = CallFunc::create(CC_CALLBACK_0(scrolling_text::start_scroll, this));
+  const auto start = CallFunc::create(CC_CALLBACK_0(ScrollingText::startScroll, this));
   const auto delay = DelayTime::create(time);
-  const auto delay_start = Sequence::create(delay, start, nullptr);
+  const auto delayStart = Sequence::create(delay, start, nullptr);
 
-  runAction(delay_start);
+  runAction(delayStart);
 }
 
-void scrolling_text::start_scroll()
+void ScrollingText::startScroll()
 {
-  auto_scroll_ = true;
+  _autoScroll = true;
 }

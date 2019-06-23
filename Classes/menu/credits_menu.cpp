@@ -22,7 +22,7 @@
 
 #include "credits_menu.h"
 #include "../scenes/menu_scene.h"
-#include "../ui/scrolling_text.h"
+#include "../ui/ScrollingText.h"
 #include "../ui/TextButton.h"
 #include "../utils/audio/AudioHelper.h"
 
@@ -80,7 +80,7 @@ bool credits_menu::create_menu_items()
     set_default_menu_item(back_item_);
 
     const auto scrolling_size = Size(getContentSize().width - 310, getContentSize().height - 440);
-    scrolling_text_ = scrolling_text::create(scrolling_size, "credits/credits.xml", true);
+    scrolling_text_ = ScrollingText::create(scrolling_size, "credits/credits.xml", true);
     UTILS_BREAK_IF(scrolling_text_ == nullptr);
     addChild(scrolling_text_);
 
@@ -96,7 +96,7 @@ bool credits_menu::create_menu_items()
 void credits_menu::display()
 {
   base_class ::display();
-  scrolling_text_->auto_scroll_in(5.f);
+  scrolling_text_->autoScrollIn(5.f);
 }
 
 void credits_menu::on_back()

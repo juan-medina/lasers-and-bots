@@ -33,30 +33,30 @@ class RichText;
 }
 } // namespace cocos2d
 
-class scrolling_text final : public Layer
+class ScrollingText final : public Layer
 {
 public:
-  using base_class = Layer;
+  using BaseClass = Layer;
 
-  scrolling_text();
+  ScrollingText();
 
-  static scrolling_text* create(const Size& size, const std::string text_file, const bool centered = false);
+  static ScrollingText* create(const Size& size, const std::string textFile, const bool centered = false);
 
-  bool init(const Size& size, const std::string text_file, const bool centered);
+  bool init(const Size& size, const std::string textFile, const bool centered);
 
   virtual void update(float delta) override;
 
-  void set_scroll(const float scroll);
+  void setScroll(const float scroll);
 
-  void auto_scroll_in(const float time);
+  void autoScrollIn(const float time);
 
 private:
-  void start_scroll();
+  void startScroll();
 
-  cocos2d::ui::RichText* rich_text_;
-  bool auto_scroll_;
-  float auto_scroll_direction_;
-  float scroll_pos_;
+  cocos2d::ui::RichText* _richText;
+  bool _autoScroll;
+  float _autoScrollDirection;
+  float _scrollPos;
 };
 
 #endif // __SCROLLING_TEXT_CLASS__

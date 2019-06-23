@@ -141,9 +141,6 @@
     <ClCompile Include="..\Classes\menu\license_menu.cpp">
       <Filter>src\menu</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\ui\scrolling_text.cpp">
-      <Filter>src\ui</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\game\background_layer.cpp">
       <Filter>src\game</Filter>
     </ClCompile>
@@ -196,6 +193,9 @@
       <Filter>src\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\ui\SliderObject.cpp">
+      <Filter>src\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ui\ScrollingText.cpp">
       <Filter>src\ui</Filter>
     </ClCompile>
   </ItemGroup>
@@ -284,9 +284,6 @@
     <ClInclude Include="..\Classes\menu\license_menu.h">
       <Filter>src\menu</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\ui\scrolling_text.h">
-      <Filter>src\ui</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\game\background_layer.h">
       <Filter>src\game</Filter>
     </ClInclude>
@@ -339,6 +336,9 @@
       <Filter>src\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ui\SliderObject.h">
+      <Filter>src\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui\ScrollingText.h">
       <Filter>src\ui</Filter>
     </ClInclude>
   </ItemGroup>
