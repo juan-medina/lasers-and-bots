@@ -24,21 +24,21 @@
 
 #include "../utils/utils.h"
 
-class text_toggle final : public MenuItemToggle
+class TextToggle final : public MenuItemToggle
 {
 public:
-  using base_class = MenuItemToggle;
+  using BaseClass = MenuItemToggle;
 
-  text_toggle();
+  TextToggle();
 
-  static text_toggle* create(const std::string& base, const std::string& text);
+  static TextToggle* create(const std::string& base, const std::string& text);
 
   bool init(const std::string& base, const std::string& text);
 
-  void set_text(const std::string& text) const { label_->setString(text); }
+  void setText(const std::string& text) const { _label->setString(text); }
 
 private:
-  Label* label_;
+  Label* _label;
 };
 
 #endif // __TEXT_TOGGLE_CLASS__

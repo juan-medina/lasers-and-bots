@@ -30,7 +30,7 @@
 class AudioHelper;
 class LevelManager;
 class text_button;
-class text_toggle;
+class TextToggle;
 
 class play_menu final : public basic_menu
 {
@@ -57,7 +57,7 @@ private:
   void select_level(const unsigned short int level);
   LevelManager* get_level_manager();
 
-  std::map<unsigned short int, text_toggle*> level_buttons_;
+  std::map<unsigned short int, TextToggle*> level_buttons_;
   static constexpr auto star_tag = 0xFF0F;
 
   text_button* back_item_;

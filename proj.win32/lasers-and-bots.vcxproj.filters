@@ -132,9 +132,6 @@
     <ClCompile Include="..\Classes\ui\text_button.cpp">
       <Filter>src\ui</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\ui\text_toggle.cpp">
-      <Filter>src\ui</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\ui\level_completed.cpp">
       <Filter>src\ui</Filter>
     </ClCompile>
@@ -196,6 +193,9 @@
       <Filter>src\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\ui\VirtualJoyStick.cpp">
+      <Filter>src\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ui\TextToggle.cpp">
       <Filter>src\ui</Filter>
     </ClCompile>
   </ItemGroup>
@@ -275,9 +275,6 @@
     <ClInclude Include="..\Classes\ui\text_button.h">
       <Filter>src\ui</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\ui\text_toggle.h">
-      <Filter>src\ui</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\ui\level_completed.h">
       <Filter>src\ui</Filter>
     </ClInclude>
@@ -339,6 +336,9 @@
       <Filter>src\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ui\VirtualJoyStick.h">
+      <Filter>src\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui\TextToggle.h">
       <Filter>src\ui</Filter>
     </ClInclude>
   </ItemGroup>

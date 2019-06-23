@@ -24,7 +24,7 @@
 #include "../scenes/menu_scene.h"
 #include "../ui/slider_object.h"
 #include "../ui/text_button.h"
-#include "../ui/text_toggle.h"
+#include "../ui/TextToggle.h"
 #include "../utils/audio/AudioHelper.h"
 
 options_menu::options_menu()
@@ -282,8 +282,8 @@ void options_menu::update_labels()
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   const auto helper = get_audio_helper();
 
-  sound_toggle_->set_text(helper->getEffectsMuted() ? "Disabled" : "Enabled");
-  music_toggle_->set_text(helper->getMusicMuted() ? "Disabled" : "Enabled");
-  debug_physics_toggle_->set_text(menu->is_debug_physics() ? "Enabled" : "Disabled");
-  debug_grid_toggle_->set_text(menu->is_debug_grid() ? "Enabled" : "Disabled");
+  sound_toggle_->setText(helper->getEffectsMuted() ? "Disabled" : "Enabled");
+  music_toggle_->setText(helper->getMusicMuted() ? "Disabled" : "Enabled");
+  debug_physics_toggle_->setText(menu->is_debug_physics() ? "Enabled" : "Disabled");
+  debug_grid_toggle_->setText(menu->is_debug_grid() ? "Enabled" : "Disabled");
 }

@@ -23,7 +23,7 @@
 #include "basic_menu.h"
 #include "../ui/slider_object.h"
 #include "../ui/text_button.h"
-#include "../ui/text_toggle.h"
+#include "../ui/TextToggle.h"
 #include "../utils/audio/AudioHelper.h"
 
 basic_menu::basic_menu()
@@ -345,14 +345,14 @@ text_button* basic_menu::add_text_button(const std::string& text, const ccMenuCa
   return result;
 }
 
-text_toggle* basic_menu::add_toggle_text_button(const std::string& text, const ccMenuCallback& callback,
+TextToggle* basic_menu::add_toggle_text_button(const std::string& text, const ccMenuCallback& callback,
                                                 const bool not_move /*= false*/)
 {
-  text_toggle* result = nullptr;
+  TextToggle* result = nullptr;
 
   do
   {
-    const auto item = text_toggle::create("08_Text_", text);
+    const auto item = TextToggle::create("08_Text_", text);
     UTILS_BREAK_IF(item == nullptr);
 
     if (!not_move)
@@ -367,13 +367,13 @@ text_toggle* basic_menu::add_toggle_text_button(const std::string& text, const c
   return result;
 }
 
-text_toggle* basic_menu::add_small_toggle_text_button(const std::string& text, const ccMenuCallback& callback)
+TextToggle* basic_menu::add_small_toggle_text_button(const std::string& text, const ccMenuCallback& callback)
 {
-  text_toggle* result = nullptr;
+  TextToggle* result = nullptr;
 
   do
   {
-    const auto item = text_toggle::create("02_joystick_empty_0", text);
+    const auto item = TextToggle::create("02_joystick_empty_0", text);
 
     add_button(item, callback);
 
@@ -383,13 +383,13 @@ text_toggle* basic_menu::add_small_toggle_text_button(const std::string& text, c
   return result;
 }
 
-text_toggle* basic_menu::add_toggle_image_button(const std::string& image, const ccMenuCallback& callback)
+TextToggle* basic_menu::add_toggle_image_button(const std::string& image, const ccMenuCallback& callback)
 {
-  text_toggle* result = nullptr;
+  TextToggle* result = nullptr;
 
   do
   {
-    const auto item = text_toggle::create(image, "");
+    const auto item = TextToggle::create(image, "");
 
     add_button(item, callback);
 

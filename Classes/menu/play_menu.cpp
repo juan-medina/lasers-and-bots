@@ -26,7 +26,7 @@
 #include "../scenes/menu_scene.h"
 #include "../ui/game_ui.h"
 #include "../ui/text_button.h"
-#include "../ui/text_toggle.h"
+#include "../ui/TextToggle.h"
 #include "../utils/audio/AudioHelper.h"
 
 play_menu::play_menu()

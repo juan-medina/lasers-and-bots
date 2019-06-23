@@ -24,7 +24,7 @@
 #include "../laser_and_bots_app.h"
 #include "../scenes/game_scene.h"
 #include "../ui/text_button.h"
-#include "../ui/text_toggle.h"
+#include "../ui/TextToggle.h"
 #include "../utils/audio/AudioHelper.h"
 #include "game_ui.h"
 

@@ -29,7 +29,7 @@
 // foward declarations
 class AudioHelper;
 class slider_object;
-class text_toggle;
+class TextToggle;
 class text_button;
 
 class options_menu final : public basic_menu
@@ -52,14 +52,14 @@ private:
   bool desktop_application_;
 
   text_button* back_item_;
-  text_toggle* sound_toggle_;
-  text_toggle* music_toggle_;
+  TextToggle* sound_toggle_;
+  TextToggle* music_toggle_;
   slider_object* sound_slider_;
   slider_object* music_slider_;
-  text_toggle* full_screen_toggle_;
-  text_toggle* windowed_toggle_;
-  text_toggle* debug_grid_toggle_;
-  text_toggle* debug_physics_toggle_;
+  TextToggle* full_screen_toggle_;
+  TextToggle* windowed_toggle_;
+  TextToggle* debug_grid_toggle_;
+  TextToggle* debug_physics_toggle_;
 
   void on_back();
   void on_music();

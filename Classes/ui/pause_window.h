@@ -27,7 +27,7 @@
 
 // foward declarations
 class AudioHelper;
-class text_toggle;
+class TextToggle;
 
 class pause_window final : public basic_menu
 {
@@ -57,8 +57,8 @@ private:
   float current_text_button_y_;
   float current_image_button_x_;
 
-  text_toggle* toggle_music_item_;
-  text_toggle* toggle_sfx_item_;
+  TextToggle* toggle_music_item_;
+  TextToggle* toggle_sfx_item_;
 };
 
 #endif // __PAUSE_WINDOW_CLASS__
