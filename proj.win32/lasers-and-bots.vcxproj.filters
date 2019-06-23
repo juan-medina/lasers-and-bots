@@ -75,9 +75,6 @@
     <ClCompile Include="..\Classes\scenes\game_scene.cpp">
       <Filter>src\scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\ui\game_ui.cpp">
-      <Filter>src\ui</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\game\switch_object.cpp">
       <Filter>src\game</Filter>
     </ClCompile>
@@ -198,6 +195,9 @@
     <ClCompile Include="..\Classes\ui\LevelCompleted.cpp">
       <Filter>src\ui</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ui\GameUI.cpp">
+      <Filter>src\ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -217,9 +217,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\scenes\game_scene.h">
       <Filter>src\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ui\game_ui.h">
-      <Filter>src\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\game\switch_object.h">
       <Filter>src\game</Filter>
@@ -339,6 +336,9 @@
       <Filter>src\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ui\LevelCompleted.h">
+      <Filter>src\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui\GameUI.h">
       <Filter>src\ui</Filter>
     </ClInclude>
   </ItemGroup>

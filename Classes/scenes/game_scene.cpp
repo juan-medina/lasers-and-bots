@@ -33,7 +33,7 @@
 #include "../game/switch_object.h"
 #include "../laser_and_bots_app.h"
 #include "../misc/LevelManager.h"
-#include "../ui/game_ui.h"
+#include "../ui/GameUI.h"
 #include "../ui/VirtualJoyStick.h"
 #include "../utils/audio/AudioHelper.h"
 #include "../utils/base/nodes/CustomDrawNode.h"
@@ -174,7 +174,7 @@ bool game_scene::create_game_ui()
 
   do
   {
-    game_ui_ = game_ui::create(getAudioHelper(), getInputController(), level_manager_, level_);
+    game_ui_ = GameUI::create(getAudioHelper(), getInputController(), level_manager_, level_);
     UTILS_BREAK_IF(game_ui_ == nullptr);
 
     game_ui_->setAnchorPoint(Vec2(0.f, 0.f));
@@ -245,7 +245,7 @@ void game_scene::willEnterForeground()
 {
   if (paused_)
   {
-    game_ui_->display_pause_window();
+    game_ui_->displayPauseWindow();
   }
 }
 
@@ -270,13 +270,13 @@ Node* game_scene::providePhysicsNode(const int gid)
 void game_scene::update_game_time(const float delta)
 {
   total_time_ += delta;
-  game_ui_->update_time(total_time_, time_limit_);
+  game_ui_->updateTime(total_time_, time_limit_);
 }
 
 bool game_scene::update_robot_shield_and_check_if_depleted() const
 {
   const auto shield_percentage = robot_->get_shield_percentage();
-  game_ui_->set_shield_percentage(shield_percentage);
+  game_ui_->setShieldPercentage(shield_percentage);
 
   return shield_percentage != 0.0f;
 }
@@ -348,7 +348,7 @@ bool game_scene::add_robot(const ValueMap& values, Node* layer)
   {
     const auto shield = values.at("shield").asInt();
     robot_ = robot_object::create(get_physics_shape_cache(), getAudioHelper(),
-                                  game_ui_->get_virtual_joy_stick(), shield);
+                                  game_ui_->getVirtualJoyStick(), shield);
     UTILS_BREAK_IF(robot_ == nullptr);
 
     auto position = getObjectCenterPosition(values);
@@ -670,7 +670,7 @@ void game_scene::explode_robot()
 {
   getAudioHelper()->playEffect("sounds/explosion.mp3");
 
-  game_ui_->disable_buttons(true);
+  game_ui_->disableButtons(true);
   doing_final_anim_ = true;
 
   move_fragments_to_robot();
@@ -695,7 +695,7 @@ void game_scene::game_over(const bool win)
   do
   {
     pause();
-    game_ui_->disable_buttons(true);
+    game_ui_->disableButtons(true);
 
     if (win)
     {
@@ -703,13 +703,13 @@ void game_scene::game_over(const bool win)
       const auto completion = level_manager_->setLevelCompleted(level_, stars, total_time_);
 
       getAudioHelper()->playEffect("sounds/victory.mp3");
-      game_ui_->display_level_completed(level_, total_time_, stars, completion,
+      game_ui_->displayLevelCompleted(level_, total_time_, stars, completion,
                                         CC_CALLBACK_0(game_scene::continue_button, this));
     }
     else
     {
       getAudioHelper()->playEffect("sounds/fail.mp3");
-      game_ui_->display_message("Game Over", "\n\n\n\n\nOops, we are going to\nneed a new robot.",
+      game_ui_->displayMessage("Game Over", "\n\n\n\n\nOops, we are going to\nneed a new robot.",
                                 CC_CALLBACK_0(game_scene::reload, this));
     }
   } while (false);
@@ -718,7 +718,7 @@ void game_scene::game_over(const bool win)
 void game_scene::delay_start()
 {
   pause();
-  game_ui_->disable_buttons(true);
+  game_ui_->disableButtons(true);
 
   const auto start = CallFunc::create(CC_CALLBACK_0(game_scene::start, this));
   const auto delay = DelayTime::create(4.6f);
@@ -743,7 +743,7 @@ void game_scene::delay_start()
 
 void game_scene::set_countdown_number_in_ui(Ref* sender, const int value) const
 {
-  game_ui_->update_countdown(value);
+  game_ui_->updateCountdown(value);
 }
 
 void game_scene::start()
@@ -751,7 +751,7 @@ void game_scene::start()
   getAudioHelper()->playMusic(music_file_name_);
 
   resume();
-  game_ui_->disable_buttons(false);
+  game_ui_->disableButtons(false);
 }
 
 void game_scene::close()
@@ -772,7 +772,7 @@ void game_scene::pause()
     return;
   }
 
-  game_ui_->change_pause_button();
+  game_ui_->changePauseButton();
 
   getPhysicsWorld()->setAutoStep(false);
 
@@ -788,7 +788,7 @@ void game_scene::pause()
 
   getAudioHelper()->pauseMusic();
 
-  game_ui_->get_virtual_joy_stick()->pause();
+  game_ui_->getVirtualJoyStick()->pause();
 
   if (doing_final_anim_)
   {
@@ -817,7 +817,7 @@ void game_scene::resume()
 
   getAudioHelper()->resumeMusic();
 
-  game_ui_->get_virtual_joy_stick()->resume();
+  game_ui_->getVirtualJoyStick()->resume();
 
   paused_ = false;
 }
@@ -838,7 +838,7 @@ void game_scene::reload()
 {
   pause();
 
-  game_ui_->disable_buttons(true);
+  game_ui_->disableButtons(true);
 
   auto app = dynamic_cast<laser_and_bots_app*>(_application);
   app->to_game(level_);
@@ -848,7 +848,7 @@ void game_scene::continue_button()
 {
   pause();
 
-  game_ui_->disable_buttons(true);
+  game_ui_->disableButtons(true);
 
   auto app = dynamic_cast<laser_and_bots_app*>(_application);
   app->to_play_menu(level_manager_->getNextLevel(level_));

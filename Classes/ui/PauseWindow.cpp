@@ -26,7 +26,7 @@
 #include "../ui/TextButton.h"
 #include "../ui/TextToggle.h"
 #include "../utils/audio/AudioHelper.h"
-#include "game_ui.h"
+#include "GameUI.h"
 
 PauseWindow::PauseWindow() : _audioHelper(nullptr), _toggleMusicItem(nullptr), _toggleSfxItem(nullptr) {}
 
@@ -99,7 +99,7 @@ void PauseWindow::hide()
 void PauseWindow::onMusicToggle()
 {
   const auto musicMuted = _toggleMusicItem->getSelectedIndex() == 0;
-  const auto ui = dynamic_cast<game_ui*>(getParent());
+  const auto ui = dynamic_cast<GameUI*>(getParent());
   const auto game = dynamic_cast<game_scene*>(ui->getParent());
   auto app = dynamic_cast<laser_and_bots_app*>(game->getApplication());
 
@@ -110,7 +110,7 @@ void PauseWindow::onMusicToggle()
 void PauseWindow::onSfxToggle()
 {
   const auto sfxMuted = _toggleSfxItem->getSelectedIndex() == 0;
-  const auto ui = dynamic_cast<game_ui*>(getParent());
+  const auto ui = dynamic_cast<GameUI*>(getParent());
   const auto game = dynamic_cast<game_scene*>(ui->getParent());
   auto app = dynamic_cast<laser_and_bots_app*>(game->getApplication());
 
@@ -120,20 +120,20 @@ void PauseWindow::onSfxToggle()
 
 void PauseWindow::onResume()
 {
-  auto ui = dynamic_cast<game_ui*>(getParent());
-  ui->on_pause(this);
+  auto ui = dynamic_cast<GameUI*>(getParent());
+  ui->onPause(this);
 }
 
 void PauseWindow::onReload()
 {
-  auto ui = dynamic_cast<game_ui*>(getParent());
-  ui->on_reload(this);
+  auto ui = dynamic_cast<GameUI*>(getParent());
+  ui->onReload(this);
 }
 
 void PauseWindow::onExit()
 {
-  auto ui = dynamic_cast<game_ui*>(getParent());
-  ui->on_close(this);
+  auto ui = dynamic_cast<GameUI*>(getParent());
+  ui->onClose(this);
 }
 
 bool PauseWindow::create_menu_items()

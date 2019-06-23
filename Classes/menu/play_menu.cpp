@@ -24,7 +24,7 @@
 #include "../laser_and_bots_app.h"
 #include "../misc/LevelManager.h"
 #include "../scenes/menu_scene.h"
-#include "../ui/game_ui.h"
+#include "../ui/GameUI.h"
 #include "../ui/TextButton.h"
 #include "../ui/TextToggle.h"
 #include "../utils/audio/AudioHelper.h"
@@ -280,11 +280,11 @@ void play_menu::select_level(const unsigned short int level)
   const auto levels = get_level_manager();
   const auto level_name = levels->getLevelName(level);
   const auto level_time_limit = levels->getLevelTimeLimit(level);
-  const auto level_time_limit_string = game_ui::time_message(level_time_limit);
+  const auto level_time_limit_string = GameUI::timeMessage(level_time_limit);
   const auto level_time_record = levels->getLevelTimeRecord(level);
-  const auto level_time_record_string = game_ui::time_message(level_time_record);
+  const auto level_time_record_string = GameUI::timeMessage(level_time_record);
   const auto level_3_stars_record = levels->getLevel3StarsRecord(level);
-  const auto level_3_stars_record_string = game_ui::time_message(level_3_stars_record);
+  const auto level_3_stars_record_string = GameUI::timeMessage(level_3_stars_record);
   const auto stars = levels->getLevelStars(level);
 
   level_name_label_->setString(level_name);

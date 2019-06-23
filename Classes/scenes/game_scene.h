@@ -29,7 +29,7 @@ class GameObject;
 class robot_object;
 class switch_object;
 class door_object;
-class game_ui;
+class GameUI;
 class robot_fragment;
 class harm_object;
 class LevelManager;
@@ -179,7 +179,7 @@ private:
   void start();
 
   robot_object* robot_;
-  game_ui* game_ui_;
+  GameUI* game_ui_;
   std::map<std::string, GameObject*> game_objects_;
   std::vector<robot_fragment*> robot_fragments_;
 
