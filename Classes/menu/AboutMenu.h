@@ -23,17 +23,17 @@
 #ifndef __ABOUT_MENU_CLASS__
 #define __ABOUT_MENU_CLASS__
 
-#include "basic_menu.h"
+#include "BasicMenu.h"
 
 // forward declarations
 class AudioHelper;
 class TextButton;
 class ScrollingText;
 
-class AboutMenu final : public basic_menu
+class AboutMenu final : public BasicMenu
 {
 public:
-  using BaseClass = basic_menu;
+  using BaseClass = BasicMenu;
 
   AboutMenu();
 
@@ -44,7 +44,7 @@ public:
   virtual void display() override;
 
 protected:
-  bool create_menu_items() override;
+  bool createMenuItems() override;
 
 private:
   void onBack();

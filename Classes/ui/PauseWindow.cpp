@@ -70,7 +70,7 @@ bool PauseWindow::init(AudioHelper* audioHelper)
     darkAll->setPosition(-size.width / 2, -size.height / 2);
 
     _audioHelper = audioHelper;
-    UTILS_BREAK_IF(!BaseClass::init("Pause", audioHelper, 1300.f, 1800.0f, animation_type::fade));
+    UTILS_BREAK_IF(!BaseClass::init("Pause", audioHelper, 1300.f, 1800.0f, AnimationType::Fade));
 
     _audioHelper->preLoadEffect("sounds/select.mp3");
 
@@ -136,21 +136,21 @@ void PauseWindow::onExit()
   ui->onClose(this);
 }
 
-bool PauseWindow::create_menu_items()
+bool PauseWindow::createMenuItems()
 {
   auto result = false;
 
   do
   {
-    UTILS_BREAK_IF(add_text_button("Exit", CC_CALLBACK_0(PauseWindow::onExit, this)) == nullptr);
+    UTILS_BREAK_IF(addTextButton("Exit", CC_CALLBACK_0(PauseWindow::onExit, this)) == nullptr);
 
-    const auto resumeButton = add_text_button("Resume", CC_CALLBACK_0(PauseWindow::onResume, this));
+    const auto resumeButton = addTextButton("Resume", CC_CALLBACK_0(PauseWindow::onResume, this));
     UTILS_BREAK_IF(resumeButton == nullptr);
 
-    const auto restartButton = add_text_button("Restart", CC_CALLBACK_0(PauseWindow::onReload, this));
+    const auto restartButton = addTextButton("Restart", CC_CALLBACK_0(PauseWindow::onReload, this));
     UTILS_BREAK_IF(restartButton == nullptr);
 
-    _toggleSfxItem = add_toggle_image_button("13_sound_0", CC_CALLBACK_0(PauseWindow::onSfxToggle, this));
+    _toggleSfxItem = addToggleImageButton("13_sound_0", CC_CALLBACK_0(PauseWindow::onSfxToggle, this));
     UTILS_BREAK_IF(_toggleSfxItem == nullptr);
 
     const auto sfxPosition =
@@ -160,7 +160,7 @@ bool PauseWindow::create_menu_items()
 
     _toggleSfxItem->setPosition(sfxPosition);
 
-    _toggleMusicItem = add_toggle_image_button("12_music_0", CC_CALLBACK_0(PauseWindow::onMusicToggle, this));
+    _toggleMusicItem = addToggleImageButton("12_music_0", CC_CALLBACK_0(PauseWindow::onMusicToggle, this));
     UTILS_BREAK_IF(_toggleMusicItem == nullptr);
 
     const auto musicPosition =
@@ -170,7 +170,7 @@ bool PauseWindow::create_menu_items()
 
     _toggleMusicItem->setPosition(musicPosition);
 
-    set_default_menu_item(resumeButton);
+    setDefaultMenuItem(resumeButton);
 
     result = true;
   } while (false);

@@ -26,7 +26,7 @@
 #include "../utils/base/scene/BasicScene.h"
 
 // forward declarations
-class basic_menu;
+class BasicMenu;
 class main_menu;
 class options_menu;
 class play_menu;
@@ -96,7 +96,7 @@ private:
   bool add_robot();
   bool add_laser();
 
-  basic_menu* current_menu_;
+  BasicMenu* current_menu_;
   main_menu* main_menu_;
   options_menu* options_menu_;
   play_menu* play_menu_;

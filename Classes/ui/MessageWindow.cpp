@@ -45,7 +45,7 @@ bool MessageWindow::init(AudioHelper* audioHelper)
     addChild(darkAll, 0);
     darkAll->setPosition(-size.width / 2, -size.height / 2);
 
-    UTILS_BREAK_IF(!BaseClass::init("message", audioHelper, 1800.f, 1300.f, animation_type::fade));
+    UTILS_BREAK_IF(!BaseClass::init("message", audioHelper, 1800.f, 1300.f, AnimationType::Fade));
 
     _subLabel = Label::createWithTTF("", "fonts/tahoma.ttf", 100);
     UTILS_BREAK_IF(_subLabel == nullptr);
@@ -77,15 +77,15 @@ void MessageWindow::hide()
   BaseClass::hide();
 }
 
-bool MessageWindow::create_menu_items()
+bool MessageWindow::createMenuItems()
 {
   auto result = false;
   do
   {
-    _continueItem = add_text_button("Continue", nullptr);
+    _continueItem = addTextButton("Continue", nullptr);
     UTILS_BREAK_IF(_continueItem == nullptr);
 
-    set_default_menu_item(_continueItem);
+    setDefaultMenuItem(_continueItem);
 
     result = true;
   } while (false);

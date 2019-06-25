@@ -23,17 +23,17 @@
 #ifndef __LICENSE_MENU_CLASS__
 #define __LICENSE_MENU_CLASS__
 
-#include "basic_menu.h"
+#include "BasicMenu.h"
 
 // forward declarations
 class AudioHelper;
 class TextButton;
 class ScrollingText;
 
-class license_menu final : public basic_menu
+class license_menu final : public BasicMenu
 {
 public:
-  using base_class = basic_menu;
+  using base_class = BasicMenu;
 
   license_menu();
 
@@ -44,7 +44,7 @@ public:
   virtual void display() override;
 
 protected:
-  bool create_menu_items() override;
+  bool createMenuItems() override;
 
 private:
   void on_back();

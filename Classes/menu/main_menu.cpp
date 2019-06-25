@@ -68,31 +68,31 @@ bool main_menu::init(AudioHelper* audio_helper)
 
 void main_menu::display()
 {
-  const auto need_select_play = get_selected_menu_item() == nullptr;
+  const auto need_select_play = getSelectedMenuItem() == nullptr;
   base_class::display();
 
   if (need_select_play)
   {
-    select_menu_item(play_item_);
+    selectMenuItem(play_item_);
   }
 }
 
-bool main_menu::create_menu_items()
+bool main_menu::createMenuItems()
 {
   auto result = false;
   do
   {
-    back_item_ = add_text_button("Exit", CC_CALLBACK_0(main_menu::on_exit, this));
+    back_item_ = addTextButton("Exit", CC_CALLBACK_0(main_menu::on_exit, this));
     UTILS_BREAK_IF(back_item_ == nullptr);
 
-    UTILS_BREAK_IF(add_text_button("Credits", CC_CALLBACK_0(main_menu::on_credits, this)) == nullptr);
-    UTILS_BREAK_IF(add_text_button("About", CC_CALLBACK_0(main_menu::on_about, this)) == nullptr);
-    UTILS_BREAK_IF(add_text_button("Options", CC_CALLBACK_0(main_menu::on_options, this)) == nullptr);
+    UTILS_BREAK_IF(addTextButton("Credits", CC_CALLBACK_0(main_menu::on_credits, this)) == nullptr);
+    UTILS_BREAK_IF(addTextButton("About", CC_CALLBACK_0(main_menu::on_about, this)) == nullptr);
+    UTILS_BREAK_IF(addTextButton("Options", CC_CALLBACK_0(main_menu::on_options, this)) == nullptr);
 
-    play_item_ = add_text_button("PLAY!", CC_CALLBACK_0(main_menu::on_play, this));
+    play_item_ = addTextButton("PLAY!", CC_CALLBACK_0(main_menu::on_play, this));
     UTILS_BREAK_IF(play_item_ == nullptr);
 
-    set_default_menu_item(back_item_);
+    setDefaultMenuItem(back_item_);
 
     result = true;
   } while (false);
@@ -101,7 +101,7 @@ bool main_menu::create_menu_items()
 
 void main_menu::on_options()
 {
-  get_audio_helper()->playEffect("sounds/select.mp3");
+  getAudioHelper()->playEffect("sounds/select.mp3");
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   menu->display_options_menu();
@@ -109,7 +109,7 @@ void main_menu::on_options()
 
 void main_menu::on_play()
 {
-  get_audio_helper()->playEffect("sounds/select.mp3");
+  getAudioHelper()->playEffect("sounds/select.mp3");
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   menu->display_play_menu();
@@ -117,7 +117,7 @@ void main_menu::on_play()
 
 void main_menu::on_exit()
 {
-  get_audio_helper()->playEffect("sounds/select.mp3");
+  getAudioHelper()->playEffect("sounds/select.mp3");
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   menu->exit_app();
@@ -125,7 +125,7 @@ void main_menu::on_exit()
 
 void main_menu::on_credits()
 {
-  get_audio_helper()->playEffect("sounds/select.mp3");
+  getAudioHelper()->playEffect("sounds/select.mp3");
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   menu->display_credits_menu();
@@ -133,7 +133,7 @@ void main_menu::on_credits()
 
 void main_menu::on_about()
 {
-  get_audio_helper()->playEffect("sounds/select.mp3");
+  getAudioHelper()->playEffect("sounds/select.mp3");
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   menu->display_about_menu();

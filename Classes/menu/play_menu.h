@@ -24,7 +24,7 @@
 #define __PLAY_MENU_CLASS__
 
 #include "../utils/utils.h"
-#include "basic_menu.h"
+#include "BasicMenu.h"
 
 // foward declarations
 class AudioHelper;
@@ -32,12 +32,12 @@ class LevelManager;
 class TextButton;
 class TextToggle;
 
-class play_menu final : public basic_menu
+class play_menu final : public BasicMenu
 {
 public:
   play_menu();
 
-  using base_class = basic_menu;
+  using base_class = BasicMenu;
 
   static play_menu* create(AudioHelper* audio_helper, const unsigned short int selected_level);
 
@@ -46,7 +46,7 @@ public:
   void display() override;
 
 protected:
-  bool create_menu_items() override;
+  bool createMenuItems() override;
 
 private:
   Label* add_labels(const std::string& label_text, const std::string& text, const Vec2& pos,

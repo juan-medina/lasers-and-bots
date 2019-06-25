@@ -67,14 +67,14 @@ bool AboutMenu::init(AudioHelper* audioHelper)
   return ret;
 }
 
-bool AboutMenu::create_menu_items()
+bool AboutMenu::createMenuItems()
 {
   auto result = false;
   do
   {
-    _backItem = add_text_button("Back", CC_CALLBACK_0(AboutMenu::onBack, this));
+    _backItem = addTextButton("Back", CC_CALLBACK_0(AboutMenu::onBack, this));
     UTILS_BREAK_IF(_backItem == nullptr);
-    set_default_menu_item(_backItem);
+    setDefaultMenuItem(_backItem);
 
     const auto scrollingSize = Size(getContentSize().width - 310, getContentSize().height - 440);
     _scrollingText = ScrollingText::create(scrollingSize, "credits/about.xml");
@@ -92,7 +92,7 @@ bool AboutMenu::create_menu_items()
 
 void AboutMenu::onBack()
 {
-  get_audio_helper()->playEffect("sounds/select.mp3");
+  getAudioHelper()->playEffect("sounds/select.mp3");
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   menu->display_main_menu();

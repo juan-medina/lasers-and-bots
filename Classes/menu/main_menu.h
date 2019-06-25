@@ -23,16 +23,16 @@
 #ifndef __MAIN_MENU_CLASS__
 #define __MAIN_MENU_CLASS__
 
-#include "basic_menu.h"
+#include "BasicMenu.h"
 
 // foward declarations
 class AudioHelper;
 class TextButton;
 
-class main_menu final : public basic_menu
+class main_menu final : public BasicMenu
 {
 public:
-  using base_class = basic_menu;
+  using base_class = BasicMenu;
 
   main_menu();
 
@@ -44,7 +44,7 @@ public:
   ;
 
 protected:
-  bool create_menu_items() override;
+  bool createMenuItems() override;
 
 private:
   void on_options();

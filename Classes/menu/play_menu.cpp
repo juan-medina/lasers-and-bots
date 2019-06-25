@@ -108,18 +108,18 @@ void play_menu::display()
     }
   }
   select_level(selected_level_);
-  select_menu_item(level_buttons_.at(selected_level_));
+  selectMenuItem(level_buttons_.at(selected_level_));
 }
 
-bool play_menu::create_menu_items()
+bool play_menu::createMenuItems()
 {
   auto result = false;
   do
   {
-    back_item_ = add_text_button("Back", CC_CALLBACK_0(play_menu::on_back, this));
+    back_item_ = addTextButton("Back", CC_CALLBACK_0(play_menu::on_back, this));
     UTILS_BREAK_IF(back_item_ == nullptr);
 
-    play_item_ = add_text_button("Play", CC_CALLBACK_0(play_menu::on_play, this));
+    play_item_ = addTextButton("Play", CC_CALLBACK_0(play_menu::on_play, this));
     UTILS_BREAK_IF(play_item_ == nullptr);
 
     play_item_->setPosition(-550 + play_item_->getContentSize().width / 2, play_item_->getPosition().y);
@@ -173,7 +173,7 @@ bool play_menu::create_menu_items()
     {
       auto text = StringFormat("%02d", button_count);
       auto button =
-        add_small_toggle_text_button(text, CC_CALLBACK_1(play_menu::on_level_select, this, button_count));
+        addSmallToggleTextButton(text, CC_CALLBACK_1(play_menu::on_level_select, this, button_count));
       UTILS_BREAK_IF(button == nullptr);
 
       button->setPosition(button_pos);
@@ -206,7 +206,7 @@ bool play_menu::create_menu_items()
       }
     }
 
-    set_default_menu_item(back_item_);
+    setDefaultMenuItem(back_item_);
 
     result = true;
   } while (false);
@@ -245,7 +245,7 @@ Label* play_menu::add_labels(const std::string& label_text, const std::string& t
 
 void play_menu::on_back()
 {
-  get_audio_helper()->playEffect("sounds/select.mp3");
+  getAudioHelper()->playEffect("sounds/select.mp3");
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   menu->display_main_menu();
@@ -253,7 +253,7 @@ void play_menu::on_back()
 
 void play_menu::on_level_select(Ref*, const unsigned short int level)
 {
-  get_audio_helper()->playEffect("sounds/select.mp3");
+  getAudioHelper()->playEffect("sounds/select.mp3");
 
   if (level == selected_level_)
   {
@@ -263,12 +263,12 @@ void play_menu::on_level_select(Ref*, const unsigned short int level)
   {
     select_level(level);
   }
-  select_menu_item(play_item_);
+  selectMenuItem(play_item_);
 }
 
 void play_menu::on_play()
 {
-  get_audio_helper()->playEffect("sounds/select.mp3");
+  getAudioHelper()->playEffect("sounds/select.mp3");
 
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());

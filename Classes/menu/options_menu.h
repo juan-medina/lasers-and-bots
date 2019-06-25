@@ -24,7 +24,7 @@
 #define __OPTIONS_MENU_CLASS__
 
 #include "../utils/utils.h"
-#include "basic_menu.h"
+#include "BasicMenu.h"
 
 // foward declarations
 class AudioHelper;
@@ -32,10 +32,10 @@ class SliderObject;
 class TextToggle;
 class TextButton;
 
-class options_menu final : public basic_menu
+class options_menu final : public BasicMenu
 {
 public:
-  using base_class = basic_menu;
+  using base_class = BasicMenu;
 
   options_menu();
 
@@ -46,7 +46,7 @@ public:
   void display() override;
 
 protected:
-  bool create_menu_items() override;
+  bool createMenuItems() override;
 
 private:
   bool desktop_application_;

@@ -69,15 +69,15 @@ bool credits_menu::init(AudioHelper* audio_helper)
   return ret;
 }
 
-bool credits_menu::create_menu_items()
+bool credits_menu::createMenuItems()
 {
   auto result = false;
   do
   {
-    back_item_ = add_text_button("Back", CC_CALLBACK_0(credits_menu::on_back, this));
+    back_item_ = addTextButton("Back", CC_CALLBACK_0(credits_menu::on_back, this));
     UTILS_BREAK_IF(back_item_ == nullptr);
 
-    set_default_menu_item(back_item_);
+    setDefaultMenuItem(back_item_);
 
     const auto scrolling_size = Size(getContentSize().width - 310, getContentSize().height - 440);
     scrolling_text_ = ScrollingText::create(scrolling_size, "credits/credits.xml", true);
@@ -101,7 +101,7 @@ void credits_menu::display()
 
 void credits_menu::on_back()
 {
-  get_audio_helper()->playEffect("sounds/select.mp3");
+  getAudioHelper()->playEffect("sounds/select.mp3");
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   menu->display_main_menu();

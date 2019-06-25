@@ -22,17 +22,17 @@
 #ifndef __PAUSE_WINDOW_CLASS__
 #define __PAUSE_WINDOW_CLASS__
 
-#include "../menu/basic_menu.h"
+#include "../menu/BasicMenu.h"
 #include "../utils/utils.h"
 
 // forward declarations
 class AudioHelper;
 class TextToggle;
 
-class PauseWindow final : public basic_menu
+class PauseWindow final : public BasicMenu
 {
 public:
-  using BaseClass = basic_menu;
+  using BaseClass = BasicMenu;
 
   PauseWindow();
 
@@ -50,7 +50,7 @@ private:
   void onResume();
   void onReload();
   void onExit() override;
-  bool create_menu_items() override;
+  bool createMenuItems() override;
 
   AudioHelper* _audioHelper;
   Vector<MenuItem*> _buttons;

@@ -91,7 +91,7 @@ void options_menu::display()
 {
   base_class::display();
 
-  const auto helper = get_audio_helper();
+  const auto helper = getAudioHelper();
 
   music_toggle_->setSelectedIndex(helper->getMusicMuted() ? 0 : 1);
   sound_toggle_->setSelectedIndex(helper->getEffectsMuted() ? 0 : 1);
@@ -117,65 +117,65 @@ void options_menu::display()
   update_labels();
 }
 
-bool options_menu::create_menu_items()
+bool options_menu::createMenuItems()
 {
   auto result = false;
   do
   {
     static auto const labels_starts = 800.0f;
-    back_item_ = add_text_button("Back", CC_CALLBACK_0(options_menu::on_back, this));
+    back_item_ = addTextButton("Back", CC_CALLBACK_0(options_menu::on_back, this));
     UTILS_BREAK_IF(back_item_ == nullptr);
 
-    debug_grid_toggle_ = add_toggle_text_button("Enabled", CC_CALLBACK_0(options_menu::on_debug_grid, this));
+    debug_grid_toggle_ = addToggleTextButton("Enabled", CC_CALLBACK_0(options_menu::on_debug_grid, this));
     UTILS_BREAK_IF(debug_grid_toggle_ == nullptr);
     debug_grid_toggle_->setPosition(Vec2(-400, debug_grid_toggle_->getPosition().y));
-    UTILS_BREAK_IF(add_row_label("Debug Grid", debug_grid_toggle_, labels_starts) == nullptr);
+    UTILS_BREAK_IF(addRowLabel("Debug Grid", debug_grid_toggle_, labels_starts) == nullptr);
 
     debug_physics_toggle_ =
-      add_toggle_text_button("Enabled", CC_CALLBACK_0(options_menu::on_debug_physics, this));
+      addToggleTextButton("Enabled", CC_CALLBACK_0(options_menu::on_debug_physics, this));
     UTILS_BREAK_IF(debug_physics_toggle_ == nullptr);
     debug_physics_toggle_->setPosition(
       Vec2(debug_grid_toggle_->getPosition().x, debug_physics_toggle_->getPosition().y));
-    UTILS_BREAK_IF(add_row_label("Debug Physics", debug_physics_toggle_, labels_starts) == nullptr);
+    UTILS_BREAK_IF(addRowLabel("Debug Physics", debug_physics_toggle_, labels_starts) == nullptr);
 
     if (desktop_application_)
     {
       full_screen_toggle_ =
-        add_toggle_text_button("Full Screen", CC_CALLBACK_0(options_menu::on_full_screen, this));
+        addToggleTextButton("Full Screen", CC_CALLBACK_0(options_menu::on_full_screen, this));
       UTILS_BREAK_IF(full_screen_toggle_ == nullptr);
 
       full_screen_toggle_->setPosition(
         Vec2(debug_grid_toggle_->getPosition().x, full_screen_toggle_->getPosition().y));
 
-      UTILS_BREAK_IF(add_row_label("Video Mode", full_screen_toggle_, labels_starts) == nullptr);
+      UTILS_BREAK_IF(addRowLabel("Video Mode", full_screen_toggle_, labels_starts) == nullptr);
 
       windowed_toggle_ =
-        add_toggle_text_button("Windowed", CC_CALLBACK_0(options_menu::on_windowed, this), true);
+        addToggleTextButton("Windowed", CC_CALLBACK_0(options_menu::on_windowed, this), true);
       UTILS_BREAK_IF(windowed_toggle_ == nullptr);
 
       windowed_toggle_->setPosition(full_screen_toggle_->getPosition() +
                                     Vec2(full_screen_toggle_->getContentSize().width + 125, 0.f));
     }
 
-    sound_toggle_ = add_toggle_text_button("Enabled", CC_CALLBACK_0(options_menu::on_sound, this));
+    sound_toggle_ = addToggleTextButton("Enabled", CC_CALLBACK_0(options_menu::on_sound, this));
     UTILS_BREAK_IF(sound_toggle_ == nullptr);
 
     sound_toggle_->setPosition(Vec2(debug_grid_toggle_->getPosition().x, sound_toggle_->getPosition().y));
-    UTILS_BREAK_IF(add_row_label("Sound", sound_toggle_, labels_starts) == nullptr);
+    UTILS_BREAK_IF(addRowLabel("Sound", sound_toggle_, labels_starts) == nullptr);
 
-    sound_slider_ = add_slider(sound_toggle_, CC_CALLBACK_1(options_menu::on_sound_slider_change, this));
+    sound_slider_ = addSlider(sound_toggle_, CC_CALLBACK_1(options_menu::on_sound_slider_change, this));
     UTILS_BREAK_IF(sound_slider_ == nullptr);
 
-    music_toggle_ = add_toggle_text_button("Enabled", CC_CALLBACK_0(options_menu::on_music, this));
+    music_toggle_ = addToggleTextButton("Enabled", CC_CALLBACK_0(options_menu::on_music, this));
     UTILS_BREAK_IF(music_toggle_ == nullptr);
 
     music_toggle_->setPosition(sound_toggle_->getPosition().x, music_toggle_->getPosition().y);
-    UTILS_BREAK_IF(add_row_label("Music", music_toggle_, labels_starts) == nullptr);
+    UTILS_BREAK_IF(addRowLabel("Music", music_toggle_, labels_starts) == nullptr);
 
-    music_slider_ = add_slider(music_toggle_, CC_CALLBACK_1(options_menu::on_music_slider_change, this));
+    music_slider_ = addSlider(music_toggle_, CC_CALLBACK_1(options_menu::on_music_slider_change, this));
     UTILS_BREAK_IF(music_slider_ == nullptr);
 
-    set_default_menu_item(back_item_);
+    setDefaultMenuItem(back_item_);
 
     result = true;
   } while (false);
@@ -184,7 +184,7 @@ bool options_menu::create_menu_items()
 
 void options_menu::on_back()
 {
-  get_audio_helper()->playEffect("sounds/select.mp3");
+  getAudioHelper()->playEffect("sounds/select.mp3");
   hide();
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   menu->display_main_menu();
@@ -192,7 +192,7 @@ void options_menu::on_back()
 
 void options_menu::on_music()
 {
-  get_audio_helper()->playEffect("sounds/select.mp3");
+  getAudioHelper()->playEffect("sounds/select.mp3");
 
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   const auto disable = music_toggle_->getSelectedIndex() == 0;
@@ -208,7 +208,7 @@ void options_menu::on_sound()
   sound_slider_->enable(!disable);
   menu->change_sound(disable);
 
-  get_audio_helper()->playEffect("sounds/select.mp3");
+  getAudioHelper()->playEffect("sounds/select.mp3");
   update_labels();
 }
 
@@ -232,7 +232,7 @@ void options_menu::on_full_screen()
     full_screen_toggle_->setSelectedIndex(1);
     return;
   }
-  get_audio_helper()->playEffect("sounds/select.mp3");
+  getAudioHelper()->playEffect("sounds/select.mp3");
 
   const auto full_screen = full_screen_toggle_->getSelectedIndex() == 1;
   windowed_toggle_->setSelectedIndex(full_screen ? 0 : 1);
@@ -248,7 +248,7 @@ void options_menu::on_windowed()
     return;
   }
 
-  get_audio_helper()->playEffect("sounds/select.mp3");
+  getAudioHelper()->playEffect("sounds/select.mp3");
 
   const auto full_screen = windowed_toggle_->getSelectedIndex() == 0;
   full_screen_toggle_->setSelectedIndex(full_screen ? 1 : 0);
@@ -257,7 +257,7 @@ void options_menu::on_windowed()
 
 void options_menu::on_debug_grid()
 {
-  get_audio_helper()->playEffect("sounds/select.mp3");
+  getAudioHelper()->playEffect("sounds/select.mp3");
 
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   const auto debug = debug_grid_toggle_->getSelectedIndex() == 1;
@@ -268,7 +268,7 @@ void options_menu::on_debug_grid()
 
 void options_menu::on_debug_physics()
 {
-  get_audio_helper()->playEffect("sounds/select.mp3");
+  getAudioHelper()->playEffect("sounds/select.mp3");
 
   const auto menu = dynamic_cast<menu_scene*>(getParent());
   const auto debug = debug_physics_toggle_->getSelectedIndex() == 1;
@@ -280,7 +280,7 @@ void options_menu::on_debug_physics()
 void options_menu::update_labels()
 {
   const auto menu = dynamic_cast<menu_scene*>(getParent());
-  const auto helper = get_audio_helper();
+  const auto helper = getAudioHelper();
 
   sound_toggle_->setText(helper->getEffectsMuted() ? "Disabled" : "Enabled");
   music_toggle_->setText(helper->getMusicMuted() ? "Disabled" : "Enabled");

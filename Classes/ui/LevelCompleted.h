@@ -22,7 +22,7 @@
 #ifndef __LEVEL_COMPLETED_CLASS__
 #define __LEVEL_COMPLETED_CLASS__
 
-#include "../menu/basic_menu.h"
+#include "../menu/BasicMenu.h"
 #include "../utils/utils.h"
 
 // forward declarations
@@ -31,10 +31,10 @@ class LevelManager;
 enum class CompletedResult;
 class TextButton;
 
-class LevelCompleted final : public basic_menu
+class LevelCompleted final : public BasicMenu
 {
 public:
-  using BaseClass = basic_menu;
+  using BaseClass = BasicMenu;
 
   LevelCompleted();
 
@@ -56,7 +56,7 @@ private:
   void animateLabel(Label* label) const;
 
 protected:
-  bool create_menu_items() override;
+  bool createMenuItems() override;
 
 private:
   AudioHelper* _audioHelper;

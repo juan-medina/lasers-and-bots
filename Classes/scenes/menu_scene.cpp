@@ -475,27 +475,27 @@ void menu_scene::handle_input() const
   {
     if (controller->singlePressUp())
     {
-      current_menu_->move_selection_up();
+      current_menu_->moveSelectionUp();
     }
     if (controller->singlePressDown())
     {
-      current_menu_->move_selection_down();
+      current_menu_->moveSelectionDown();
     }
     if (controller->singlePressLeft())
     {
-      current_menu_->move_selection_left();
+      current_menu_->moveSelectionLeft();
     }
     if (controller->singlePressRight())
     {
-      current_menu_->move_selection_right();
+      current_menu_->moveSelectionRight();
     }
     if (controller->singlePressButtonA() || controller->singlePressButtonStart())
     {
-      current_menu_->activate_selection();
+      current_menu_->activateSelection();
     }
     if (controller->singlePressButtonB() || controller->singlePressButtonBack())
     {
-      current_menu_->selection_back();
+      current_menu_->selectionBack();
     }
   }
 }

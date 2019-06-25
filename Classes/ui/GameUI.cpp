@@ -423,27 +423,27 @@ void GameUI::update(float delta)
   {
     if (_inputController->singlePressUp())
     {
-      _pauseWindow->move_selection_up();
+      _pauseWindow->moveSelectionUp();
     }
     if (_inputController->singlePressDown())
     {
-      _pauseWindow->move_selection_down();
+      _pauseWindow->moveSelectionDown();
     }
     if (_inputController->singlePressLeft())
     {
-      _pauseWindow->move_selection_left();
+      _pauseWindow->moveSelectionLeft();
     }
     if (_inputController->singlePressRight())
     {
-      _pauseWindow->move_selection_right();
+      _pauseWindow->moveSelectionRight();
     }
     if (_inputController->singlePressButtonA())
     {
-      _pauseWindow->activate_selection();
+      _pauseWindow->activateSelection();
     }
     if (_inputController->singlePressButtonB() || _inputController->singlePressButtonBack())
     {
-      _pauseWindow->selection_back();
+      _pauseWindow->selectionBack();
     }
   }
 }

@@ -164,7 +164,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y      </C
     <ClCompile Include="..\Classes\game\laser_object.cpp" />
     <ClCompile Include="..\Classes\game\robot_object.cpp" />
     <ClCompile Include="..\Classes\menu\AboutMenu.cpp" />
-    <ClCompile Include="..\Classes\menu\basic_menu.cpp" />
+    <ClCompile Include="..\Classes\menu\BasicMenu.cpp" />
     <ClCompile Include="..\Classes\menu\credits_menu.cpp" />
     <ClCompile Include="..\Classes\menu\license_menu.cpp" />
     <ClCompile Include="..\Classes\menu\main_menu.cpp" />
@@ -213,7 +213,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y      </C
     <ClInclude Include="..\Classes\game\laser_object.h" />
     <ClInclude Include="..\Classes\game\robot_object.h" />
     <ClInclude Include="..\Classes\menu\AboutMenu.h" />
-    <ClInclude Include="..\Classes\menu\basic_menu.h" />
+    <ClInclude Include="..\Classes\menu\BasicMenu.h" />
     <ClInclude Include="..\Classes\menu\credits_menu.h" />
     <ClInclude Include="..\Classes\menu\license_menu.h" />
     <ClInclude Include="..\Classes\menu\main_menu.h" />

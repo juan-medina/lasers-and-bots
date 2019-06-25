@@ -22,16 +22,16 @@
 #ifndef __MESSAGE_WINDOW_CLASS__
 #define __MESSAGE_WINDOW_CLASS__
 
-#include "../menu/basic_menu.h"
+#include "../menu/BasicMenu.h"
 #include "../utils/utils.h"
 
 // forward declarations
 class AudioHelper;
 
-class MessageWindow final : public basic_menu
+class MessageWindow final : public BasicMenu
 {
 public:
-  using BaseClass = basic_menu;
+  using BaseClass = BasicMenu;
 
   MessageWindow();
 
@@ -44,7 +44,7 @@ public:
   void hide() override;
 
 protected:
-  bool create_menu_items() override;
+  bool createMenuItems() override;
 
 private:
   AudioHelper* _audioHelper;

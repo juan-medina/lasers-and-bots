@@ -58,7 +58,7 @@ bool LevelCompleted::init(AudioHelper* audioHelper, LevelManager* levelManager)
     addChild(darkAll, 0);
     darkAll->setPosition(-size.width / 2, -size.height / 2);
 
-    UTILS_BREAK_IF(!BaseClass::init("Level Completed", audioHelper, 1800.f, 2100.f, animation_type::fade));
+    UTILS_BREAK_IF(!BaseClass::init("Level Completed", audioHelper, 1800.f, 2100.f, AnimationType::Fade));
 
     _audioHelper->preLoadEffect("sounds/star.mp3");
 
@@ -250,15 +250,15 @@ void LevelCompleted::animateLabel(Label* label) const
   label->runAction(repeat);
 }
 
-bool LevelCompleted::create_menu_items()
+bool LevelCompleted::createMenuItems()
 {
   auto result = false;
   do
   {
-    _continueItem = add_text_button("Continue", nullptr);
+    _continueItem = addTextButton("Continue", nullptr);
     UTILS_BREAK_IF(_continueItem == nullptr);
 
-    set_default_menu_item(_continueItem);
+    setDefaultMenuItem(_continueItem);
 
     result = true;
   } while (false);
