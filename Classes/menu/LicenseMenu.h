@@ -30,16 +30,16 @@ class AudioHelper;
 class TextButton;
 class ScrollingText;
 
-class license_menu final : public BasicMenu
+class LicenseMenu final : public BasicMenu
 {
 public:
-  using base_class = BasicMenu;
+  using BaseClass = BasicMenu;
 
-  license_menu();
+  LicenseMenu();
 
-  static license_menu* create(AudioHelper* audio_helper);
+  static LicenseMenu* create(AudioHelper* audioHelper);
 
-  bool init(AudioHelper* audio_helper);
+  bool init(AudioHelper* audioHelper);
 
   virtual void display() override;
 
@@ -47,10 +47,10 @@ protected:
   bool createMenuItems() override;
 
 private:
-  void on_back();
+  void onBack();
 
-  TextButton* back_item_;
-  ScrollingText* scrolling_text_;
+  TextButton* _backItem;
+  ScrollingText* _scrollingText;
 };
 
 #endif // __LICENSE_MENU_CLASS__

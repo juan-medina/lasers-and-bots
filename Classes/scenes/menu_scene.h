@@ -32,7 +32,7 @@ class options_menu;
 class play_menu;
 class CreditsMenu;
 class AboutMenu;
-class license_menu;
+class LicenseMenu;
 class InputController;
 
 enum class menu_to_display
@@ -102,7 +102,7 @@ private:
   play_menu* play_menu_;
   CreditsMenu* credits_menu_;
   AboutMenu* about_menu_;
-  license_menu* license_menu_;
+  LicenseMenu* license_menu_;
 
   Node* background_;
   bool paused_;

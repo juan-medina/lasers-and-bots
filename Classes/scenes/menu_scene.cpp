@@ -23,8 +23,8 @@
 #include "menu_scene.h"
 #include "../laser_and_bots_app.h"
 #include "../menu/AboutMenu.h"
-#include "../menu/credits_menu.h"
-#include "../menu/license_menu.h"
+#include "../menu/CreditsMenu.h"
+#include "../menu/LicenseMenu.h"
 #include "../menu/main_menu.h"
 #include "../menu/options_menu.h"
 #include "../menu/play_menu.h"
@@ -148,7 +148,7 @@ bool menu_scene::init(BasicApp* application, const menu_to_display menu,
 
     addChild(about_menu_, 0);
 
-    license_menu_ = license_menu::create(getAudioHelper());
+    license_menu_ = LicenseMenu::create(getAudioHelper());
     UTILS_BREAK_IF(license_menu_ == nullptr);
 
     addChild(license_menu_, 0);

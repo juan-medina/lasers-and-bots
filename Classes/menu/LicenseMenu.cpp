@@ -20,24 +20,24 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "license_menu.h"
+#include "LicenseMenu.h"
 #include "../scenes/menu_scene.h"
 #include "../ui/ScrollingText.h"
 #include "../ui/TextButton.h"
 #include "../utils/audio/AudioHelper.h"
 
-license_menu::license_menu() : back_item_(nullptr), scrolling_text_(nullptr) {}
+LicenseMenu::LicenseMenu() : _backItem(nullptr), _scrollingText(nullptr) {}
 
-license_menu* license_menu::create(AudioHelper* audio_helper)
+LicenseMenu* LicenseMenu::create(AudioHelper* audioHelper)
 {
-  license_menu* ret = nullptr;
+  LicenseMenu* ret = nullptr;
 
   do
   {
-    auto object = new license_menu();
+    auto object = new LicenseMenu();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(audio_helper))
+    if (object->init(audioHelper))
     {
       object->autorelease();
     }
@@ -53,13 +53,13 @@ license_menu* license_menu::create(AudioHelper* audio_helper)
   return ret;
 }
 
-bool license_menu::init(AudioHelper* audio_helper)
+bool LicenseMenu::init(AudioHelper* audioHelper)
 {
   auto ret = false;
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init("License", audio_helper, 5100.f, 3000.f));
+    UTILS_BREAK_IF(!BaseClass::init("License", audioHelper, 5100.f, 3000.f));
 
     ret = true;
   } while (false);
@@ -67,22 +67,22 @@ bool license_menu::init(AudioHelper* audio_helper)
   return ret;
 }
 
-bool license_menu::createMenuItems()
+bool LicenseMenu::createMenuItems()
 {
   auto result = false;
   do
   {
-    back_item_ = addTextButton("Accept", CC_CALLBACK_0(license_menu::on_back, this));
-    UTILS_BREAK_IF(back_item_ == nullptr);
-    setDefaultMenuItem(back_item_);
+    _backItem = addTextButton("Accept", CC_CALLBACK_0(LicenseMenu::onBack, this));
+    UTILS_BREAK_IF(_backItem == nullptr);
+    setDefaultMenuItem(_backItem);
 
-    const auto scrolling_size = Size(getContentSize().width - 310, getContentSize().height - 440);
-    scrolling_text_ = ScrollingText::create(scrolling_size, "credits/license.xml");
-    UTILS_BREAK_IF(scrolling_text_ == nullptr);
-    addChild(scrolling_text_);
+    const auto scrollingSize = Size(getContentSize().width - 310, getContentSize().height - 440);
+    _scrollingText = ScrollingText::create(scrollingSize, "credits/license.xml");
+    UTILS_BREAK_IF(_scrollingText == nullptr);
+    addChild(_scrollingText);
 
-    auto text_position = Vec2(-getContentSize().width / 2, -getContentSize().height / 2) + Vec2(130, 250);
-    scrolling_text_->setPosition(text_position);
+    const auto textPosition = Vec2(-getContentSize().width / 2, -getContentSize().height / 2) + Vec2(130, 250);
+    _scrollingText->setPosition(textPosition);
 
     result = true;
 
@@ -90,7 +90,7 @@ bool license_menu::createMenuItems()
   return result;
 }
 
-void license_menu::on_back()
+void LicenseMenu::onBack()
 {
   getAudioHelper()->playEffect("sounds/select.mp3");
   hide();
@@ -98,8 +98,8 @@ void license_menu::on_back()
   menu->display_main_menu();
 }
 
-void license_menu::display()
+void LicenseMenu::display()
 {
-  base_class ::display();
-  scrolling_text_->autoScrollIn(5.f);
+  BaseClass ::display();
+  _scrollingText->autoScrollIn(5.f);
 }
