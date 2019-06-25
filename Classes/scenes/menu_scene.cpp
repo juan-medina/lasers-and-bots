@@ -25,7 +25,7 @@
 #include "../menu/AboutMenu.h"
 #include "../menu/CreditsMenu.h"
 #include "../menu/LicenseMenu.h"
-#include "../menu/main_menu.h"
+#include "../menu/MainMenu.h"
 #include "../menu/options_menu.h"
 #include "../menu/play_menu.h"
 #include "../utils/audio/AudioHelper.h"
@@ -123,7 +123,7 @@ bool menu_scene::init(BasicApp* application, const menu_to_display menu,
 
     addChild(version_label, 0);
 
-    main_menu_ = main_menu::create(getAudioHelper());
+    main_menu_ = MainMenu::create(getAudioHelper());
     UTILS_BREAK_IF(main_menu_ == nullptr);
 
     addChild(main_menu_, 0);

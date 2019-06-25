@@ -27,7 +27,7 @@
 
 // forward declarations
 class BasicMenu;
-class main_menu;
+class MainMenu;
 class options_menu;
 class play_menu;
 class CreditsMenu;
@@ -97,7 +97,7 @@ private:
   bool add_laser();
 
   BasicMenu* current_menu_;
-  main_menu* main_menu_;
+  MainMenu* main_menu_;
   options_menu* options_menu_;
   play_menu* play_menu_;
   CreditsMenu* credits_menu_;

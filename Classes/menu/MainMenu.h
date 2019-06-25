@@ -25,20 +25,20 @@
 
 #include "BasicMenu.h"
 
-// foward declarations
+// forward declarations
 class AudioHelper;
 class TextButton;
 
-class main_menu final : public BasicMenu
+class MainMenu final : public BasicMenu
 {
 public:
-  using base_class = BasicMenu;
+  using BaseClass = BasicMenu;
 
-  main_menu();
+  MainMenu();
 
-  static main_menu* create(AudioHelper* audio_helper);
+  static MainMenu* create(AudioHelper* audioHelper);
 
-  bool init(AudioHelper* audio_helper);
+  bool init(AudioHelper* audioHelper);
 
   void display() override;
   ;
@@ -47,14 +47,14 @@ protected:
   bool createMenuItems() override;
 
 private:
-  void on_options();
-  void on_play();
-  void on_exit();
-  void on_credits();
-  void on_about();
+  void onOptions();
+  void onPlay();
+  void onExitClick();
+  void onCredits();
+  void onAbout();
 
-  TextButton* back_item_;
-  TextButton* play_item_;
+  TextButton* _backItem;
+  TextButton* _playItem;
 };
 
 #endif // __MAIN_MENU_CLASS__

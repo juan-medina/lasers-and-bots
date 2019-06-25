@@ -20,23 +20,23 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "main_menu.h"
+#include "MainMenu.h"
 #include "../scenes/menu_scene.h"
 #include "../ui/TextButton.h"
 #include "../utils/audio/AudioHelper.h"
 
-main_menu::main_menu() : back_item_(nullptr), play_item_(nullptr) {}
+MainMenu::MainMenu() : _backItem(nullptr), _playItem(nullptr) {}
 
-main_menu* main_menu::create(AudioHelper* audio_helper)
+MainMenu* MainMenu::create(AudioHelper* audioHelper)
 {
-  main_menu* ret = nullptr;
+  MainMenu* ret = nullptr;
 
   do
   {
-    auto object = new main_menu();
+    auto object = new MainMenu();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(audio_helper))
+    if (object->init(audioHelper))
     {
       object->autorelease();
     }
@@ -52,13 +52,13 @@ main_menu* main_menu::create(AudioHelper* audio_helper)
   return ret;
 }
 
-bool main_menu::init(AudioHelper* audio_helper)
+bool MainMenu::init(AudioHelper* audioHelper)
 {
   auto ret = false;
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init("Main Menu", audio_helper, 1300.f, 2200.f));
+    UTILS_BREAK_IF(!BaseClass::init("Main Menu", audioHelper, 1300.f, 2200.f));
 
     ret = true;
   } while (false);
@@ -66,40 +66,40 @@ bool main_menu::init(AudioHelper* audio_helper)
   return ret;
 }
 
-void main_menu::display()
+void MainMenu::display()
 {
-  const auto need_select_play = getSelectedMenuItem() == nullptr;
-  base_class::display();
+  const auto needSelectPlay = getSelectedMenuItem() == nullptr;
+  BaseClass::display();
 
-  if (need_select_play)
+  if (needSelectPlay)
   {
-    selectMenuItem(play_item_);
+    selectMenuItem(_playItem);
   }
 }
 
-bool main_menu::createMenuItems()
+bool MainMenu::createMenuItems()
 {
   auto result = false;
   do
   {
-    back_item_ = addTextButton("Exit", CC_CALLBACK_0(main_menu::on_exit, this));
-    UTILS_BREAK_IF(back_item_ == nullptr);
+    _backItem = addTextButton("Exit", CC_CALLBACK_0(MainMenu::onExitClick, this));
+    UTILS_BREAK_IF(_backItem == nullptr);
 
-    UTILS_BREAK_IF(addTextButton("Credits", CC_CALLBACK_0(main_menu::on_credits, this)) == nullptr);
-    UTILS_BREAK_IF(addTextButton("About", CC_CALLBACK_0(main_menu::on_about, this)) == nullptr);
-    UTILS_BREAK_IF(addTextButton("Options", CC_CALLBACK_0(main_menu::on_options, this)) == nullptr);
+    UTILS_BREAK_IF(addTextButton("Credits", CC_CALLBACK_0(MainMenu::onCredits, this)) == nullptr);
+    UTILS_BREAK_IF(addTextButton("About", CC_CALLBACK_0(MainMenu::onAbout, this)) == nullptr);
+    UTILS_BREAK_IF(addTextButton("Options", CC_CALLBACK_0(MainMenu::onOptions, this)) == nullptr);
 
-    play_item_ = addTextButton("PLAY!", CC_CALLBACK_0(main_menu::on_play, this));
-    UTILS_BREAK_IF(play_item_ == nullptr);
+    _playItem = addTextButton("PLAY!", CC_CALLBACK_0(MainMenu::onPlay, this));
+    UTILS_BREAK_IF(_playItem == nullptr);
 
-    setDefaultMenuItem(back_item_);
+    setDefaultMenuItem(_backItem);
 
     result = true;
   } while (false);
   return result;
 }
 
-void main_menu::on_options()
+void MainMenu::onOptions()
 {
   getAudioHelper()->playEffect("sounds/select.mp3");
   hide();
@@ -107,7 +107,7 @@ void main_menu::on_options()
   menu->display_options_menu();
 }
 
-void main_menu::on_play()
+void MainMenu::onPlay()
 {
   getAudioHelper()->playEffect("sounds/select.mp3");
   hide();
@@ -115,7 +115,7 @@ void main_menu::on_play()
   menu->display_play_menu();
 }
 
-void main_menu::on_exit()
+void MainMenu::onExitClick()
 {
   getAudioHelper()->playEffect("sounds/select.mp3");
   hide();
@@ -123,7 +123,7 @@ void main_menu::on_exit()
   menu->exit_app();
 }
 
-void main_menu::on_credits()
+void MainMenu::onCredits()
 {
   getAudioHelper()->playEffect("sounds/select.mp3");
   hide();
@@ -131,7 +131,7 @@ void main_menu::on_credits()
   menu->display_credits_menu();
 }
 
-void main_menu::on_about()
+void MainMenu::onAbout()
 {
   getAudioHelper()->playEffect("sounds/select.mp3");
   hide();
