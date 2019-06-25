@@ -20,24 +20,24 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "about_menu.h"
+#include "AboutMenu.h"
 #include "../scenes/menu_scene.h"
 #include "../ui/ScrollingText.h"
 #include "../ui/TextButton.h"
 #include "../utils/audio/AudioHelper.h"
 
-about_menu::about_menu() : back_item_(nullptr), scrolling_text_(nullptr) {}
+AboutMenu::AboutMenu() : _backItem(nullptr), _scrollingText(nullptr) {}
 
-about_menu* about_menu::create(AudioHelper* audio_helper)
+AboutMenu* AboutMenu::create(AudioHelper* audioHelper)
 {
-  about_menu* ret = nullptr;
+  AboutMenu* ret = nullptr;
 
   do
   {
-    auto object = new about_menu();
+    auto object = new AboutMenu();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(audio_helper))
+    if (object->init(audioHelper))
     {
       object->autorelease();
     }
@@ -53,13 +53,13 @@ about_menu* about_menu::create(AudioHelper* audio_helper)
   return ret;
 }
 
-bool about_menu::init(AudioHelper* audio_helper)
+bool AboutMenu::init(AudioHelper* audioHelper)
 {
   auto ret = false;
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init("About", audio_helper, 4700.f, 3000.f));
+    UTILS_BREAK_IF(!BaseClass::init("About", audioHelper, 4700.f, 3000.f));
 
     ret = true;
   } while (false);
@@ -67,22 +67,22 @@ bool about_menu::init(AudioHelper* audio_helper)
   return ret;
 }
 
-bool about_menu::create_menu_items()
+bool AboutMenu::create_menu_items()
 {
   auto result = false;
   do
   {
-    back_item_ = add_text_button("Back", CC_CALLBACK_0(about_menu::on_back, this));
-    UTILS_BREAK_IF(back_item_ == nullptr);
-    set_default_menu_item(back_item_);
+    _backItem = add_text_button("Back", CC_CALLBACK_0(AboutMenu::onBack, this));
+    UTILS_BREAK_IF(_backItem == nullptr);
+    set_default_menu_item(_backItem);
 
-    const auto scrolling_size = Size(getContentSize().width - 310, getContentSize().height - 440);
-    scrolling_text_ = ScrollingText::create(scrolling_size, "credits/about.xml");
-    UTILS_BREAK_IF(scrolling_text_ == nullptr);
-    addChild(scrolling_text_);
+    const auto scrollingSize = Size(getContentSize().width - 310, getContentSize().height - 440);
+    _scrollingText = ScrollingText::create(scrollingSize, "credits/about.xml");
+    UTILS_BREAK_IF(_scrollingText == nullptr);
+    addChild(_scrollingText);
 
-    auto text_position = Vec2(-getContentSize().width / 2, -getContentSize().height / 2) + Vec2(130, 250);
-    scrolling_text_->setPosition(text_position);
+    const auto textPosition = Vec2(-getContentSize().width / 2, -getContentSize().height / 2) + Vec2(130, 250);
+    _scrollingText->setPosition(textPosition);
 
     result = true;
 
@@ -90,7 +90,7 @@ bool about_menu::create_menu_items()
   return result;
 }
 
-void about_menu::on_back()
+void AboutMenu::onBack()
 {
   get_audio_helper()->playEffect("sounds/select.mp3");
   hide();
@@ -98,8 +98,8 @@ void about_menu::on_back()
   menu->display_main_menu();
 }
 
-void about_menu::display()
+void AboutMenu::display()
 {
-  base_class ::display();
-  scrolling_text_->autoScrollIn(5.f);
+  BaseClass ::display();
+  _scrollingText->autoScrollIn(5.f);
 }

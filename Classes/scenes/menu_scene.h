@@ -31,7 +31,7 @@ class main_menu;
 class options_menu;
 class play_menu;
 class credits_menu;
-class about_menu;
+class AboutMenu;
 class license_menu;
 class InputController;
 
@@ -101,7 +101,7 @@ private:
   options_menu* options_menu_;
   play_menu* play_menu_;
   credits_menu* credits_menu_;
-  about_menu* about_menu_;
+  AboutMenu* about_menu_;
   license_menu* license_menu_;
 
   Node* background_;

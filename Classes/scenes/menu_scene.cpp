@@ -22,7 +22,7 @@
 
 #include "menu_scene.h"
 #include "../laser_and_bots_app.h"
-#include "../menu/about_menu.h"
+#include "../menu/AboutMenu.h"
 #include "../menu/credits_menu.h"
 #include "../menu/license_menu.h"
 #include "../menu/main_menu.h"
@@ -143,7 +143,7 @@ bool menu_scene::init(BasicApp* application, const menu_to_display menu,
 
     addChild(credits_menu_, 0);
 
-    about_menu_ = about_menu::create(getAudioHelper());
+    about_menu_ = AboutMenu::create(getAudioHelper());
     UTILS_BREAK_IF(about_menu_ == nullptr);
 
     addChild(about_menu_, 0);
