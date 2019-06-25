@@ -26,22 +26,22 @@
 #include "../utils/utils.h"
 #include "BasicMenu.h"
 
-// foward declarations
+// forward declarations
 class AudioHelper;
 class LevelManager;
 class TextButton;
 class TextToggle;
 
-class play_menu final : public BasicMenu
+class PlayMenu final : public BasicMenu
 {
 public:
-  play_menu();
+  PlayMenu();
 
-  using base_class = BasicMenu;
+  using BaseClass = BasicMenu;
 
-  static play_menu* create(AudioHelper* audio_helper, const unsigned short int selected_level);
+  static PlayMenu* create(AudioHelper* audioHelper, const unsigned short int selectedLevel);
 
-  bool init(AudioHelper* audio_helper, const unsigned short int selected_level);
+  bool init(AudioHelper* audioHelper, const unsigned short int selectedLevel);
 
   void display() override;
 
@@ -49,25 +49,25 @@ protected:
   bool createMenuItems() override;
 
 private:
-  Label* add_labels(const std::string& label_text, const std::string& text, const Vec2& pos,
-                    const float separation);
-  void on_back();
-  void on_level_select(Ref* sender, const unsigned short int level);
-  void on_play();
-  void select_level(const unsigned short int level);
-  LevelManager* get_level_manager();
+  Label* addLabels(const std::string& labelText, const std::string& text, const Vec2& pos,
+                   const float separation);
+  void onBack();
+  void onLevelSelect(Ref* sender, const unsigned short int level);
+  void onPlay();
+  void selectLevel(const unsigned short int level);
+  LevelManager* getLevelManager();
 
-  std::map<unsigned short int, TextToggle*> level_buttons_;
-  static constexpr auto star_tag = 0xFF0F;
+  std::map<unsigned short int, TextToggle*> _levelButtons;
+  static constexpr auto STAR_TAG = 0xFF0F;
 
-  TextButton* back_item_;
-  TextButton* play_item_;
-  Label* level_name_label_;
-  Label* level_time_limit_label_;
-  Label* level_time_record_label_;
-  Label* level_3_stars_time_record_label_;
-  Label* level_stars_label_;
-  unsigned short int selected_level_;
+  TextButton* _backItem;
+  TextButton* _playItem;
+  Label* _levelNameLabel;
+  Label* _levelTimeLimitLabel;
+  Label* _levelTimeRecordLabel;
+  Label* _level3StarsTimeRecordLabel;
+  Label* _levelStarsLabel;
+  unsigned short int _selectedLevel;
 };
 
 #endif // __PLAY_MENU_CLASS__

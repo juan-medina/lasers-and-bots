@@ -27,7 +27,7 @@
 #include "../menu/LicenseMenu.h"
 #include "../menu/MainMenu.h"
 #include "../menu/OptionsMenu.h"
-#include "../menu/play_menu.h"
+#include "../menu/PlayMenu.h"
 #include "../utils/audio/AudioHelper.h"
 #include "../utils/controller/InputController.h"
 
@@ -133,7 +133,7 @@ bool menu_scene::init(BasicApp* application, const menu_to_display menu,
 
     addChild(options_menu_, 0);
 
-    play_menu_ = play_menu::create(getAudioHelper(), selected_level);
+    play_menu_ = PlayMenu::create(getAudioHelper(), selected_level);
     UTILS_BREAK_IF(play_menu_ == nullptr);
 
     addChild(play_menu_, 0);

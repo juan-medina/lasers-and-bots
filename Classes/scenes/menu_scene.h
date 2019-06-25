@@ -29,7 +29,7 @@
 class BasicMenu;
 class MainMenu;
 class OptionsMenu;
-class play_menu;
+class PlayMenu;
 class CreditsMenu;
 class AboutMenu;
 class LicenseMenu;
@@ -99,7 +99,7 @@ private:
   BasicMenu* current_menu_;
   MainMenu* main_menu_;
   OptionsMenu* options_menu_;
-  play_menu* play_menu_;
+  PlayMenu* play_menu_;
   CreditsMenu* credits_menu_;
   AboutMenu* about_menu_;
   LicenseMenu* license_menu_;
