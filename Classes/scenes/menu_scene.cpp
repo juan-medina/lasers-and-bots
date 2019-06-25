@@ -138,7 +138,7 @@ bool menu_scene::init(BasicApp* application, const menu_to_display menu,
 
     addChild(play_menu_, 0);
 
-    credits_menu_ = credits_menu::create(getAudioHelper());
+    credits_menu_ = CreditsMenu::create(getAudioHelper());
     UTILS_BREAK_IF(credits_menu_ == nullptr);
 
     addChild(credits_menu_, 0);

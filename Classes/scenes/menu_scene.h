@@ -30,7 +30,7 @@ class BasicMenu;
 class main_menu;
 class options_menu;
 class play_menu;
-class credits_menu;
+class CreditsMenu;
 class AboutMenu;
 class license_menu;
 class InputController;
@@ -100,7 +100,7 @@ private:
   main_menu* main_menu_;
   options_menu* options_menu_;
   play_menu* play_menu_;
-  credits_menu* credits_menu_;
+  CreditsMenu* credits_menu_;
   AboutMenu* about_menu_;
   license_menu* license_menu_;
 

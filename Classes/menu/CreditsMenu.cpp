@@ -20,7 +20,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "credits_menu.h"
+#include "CreditsMenu.h"
 #include "../scenes/menu_scene.h"
 #include "../ui/ScrollingText.h"
 #include "../ui/TextButton.h"
@@ -28,18 +28,18 @@
 
 using namespace cocos2d::ui;
 
-credits_menu::credits_menu() : back_item_(nullptr) {}
+CreditsMenu::CreditsMenu() : _backItem(nullptr), _scrollingText(nullptr) {}
 
-credits_menu* credits_menu::create(AudioHelper* audio_helper)
+CreditsMenu* CreditsMenu::create(AudioHelper* audioHelper)
 {
-  credits_menu* ret = nullptr;
+  CreditsMenu* ret = nullptr;
 
   do
   {
-    auto object = new credits_menu();
+    auto object = new CreditsMenu();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(audio_helper))
+    if (object->init(audioHelper))
     {
       object->autorelease();
     }
@@ -55,13 +55,13 @@ credits_menu* credits_menu::create(AudioHelper* audio_helper)
   return ret;
 }
 
-bool credits_menu::init(AudioHelper* audio_helper)
+bool CreditsMenu::init(AudioHelper* audioHelper)
 {
   auto ret = false;
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init("Credits", audio_helper, 5000.f, 3000.f));
+    UTILS_BREAK_IF(!BaseClass::init("Credits", audioHelper, 5000.f, 3000.f));
 
     ret = true;
   } while (false);
@@ -69,23 +69,23 @@ bool credits_menu::init(AudioHelper* audio_helper)
   return ret;
 }
 
-bool credits_menu::createMenuItems()
+bool CreditsMenu::createMenuItems()
 {
   auto result = false;
   do
   {
-    back_item_ = addTextButton("Back", CC_CALLBACK_0(credits_menu::on_back, this));
-    UTILS_BREAK_IF(back_item_ == nullptr);
+    _backItem = addTextButton("Back", CC_CALLBACK_0(CreditsMenu::onBack, this));
+    UTILS_BREAK_IF(_backItem == nullptr);
 
-    setDefaultMenuItem(back_item_);
+    setDefaultMenuItem(_backItem);
 
-    const auto scrolling_size = Size(getContentSize().width - 310, getContentSize().height - 440);
-    scrolling_text_ = ScrollingText::create(scrolling_size, "credits/credits.xml", true);
-    UTILS_BREAK_IF(scrolling_text_ == nullptr);
-    addChild(scrolling_text_);
+    const auto scrollingSize = Size(getContentSize().width - 310, getContentSize().height - 440);
+    _scrollingText = ScrollingText::create(scrollingSize, "credits/credits.xml", true);
+    UTILS_BREAK_IF(_scrollingText == nullptr);
+    addChild(_scrollingText);
 
-    auto text_position = Vec2(-getContentSize().width / 2, -getContentSize().height / 2) + Vec2(130, 250);
-    scrolling_text_->setPosition(text_position);
+    const auto textPosition = Vec2(-getContentSize().width / 2, -getContentSize().height / 2) + Vec2(130, 250);
+    _scrollingText->setPosition(textPosition);
 
     result = true;
 
@@ -93,13 +93,13 @@ bool credits_menu::createMenuItems()
   return result;
 }
 
-void credits_menu::display()
+void CreditsMenu::display()
 {
-  base_class ::display();
-  scrolling_text_->autoScrollIn(5.f);
+  BaseClass ::display();
+  _scrollingText->autoScrollIn(5.f);
 }
 
-void credits_menu::on_back()
+void CreditsMenu::onBack()
 {
   getAudioHelper()->playEffect("sounds/select.mp3");
   hide();

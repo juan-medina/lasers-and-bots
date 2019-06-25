@@ -111,9 +111,6 @@
     <ClCompile Include="..\Classes\menu\play_menu.cpp">
       <Filter>src\menu</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\menu\credits_menu.cpp">
-      <Filter>src\menu</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\game\on_off_object.cpp">
       <Filter>src\game</Filter>
     </ClCompile>
@@ -198,6 +195,9 @@
     <ClCompile Include="..\Classes\menu\BasicMenu.cpp">
       <Filter>src\menu</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\menu\CreditsMenu.cpp">
+      <Filter>src\menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -252,9 +252,6 @@
       <Filter>src\menu</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\menu\play_menu.h">
-      <Filter>src\menu</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\menu\credits_menu.h">
       <Filter>src\menu</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\game\on_off_object.h">
@@ -339,6 +336,9 @@
       <Filter>src\menu</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\menu\BasicMenu.h">
+      <Filter>src\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\menu\CreditsMenu.h">
       <Filter>src\menu</Filter>
     </ClInclude>
   </ItemGroup>
