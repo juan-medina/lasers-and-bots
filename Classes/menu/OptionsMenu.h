@@ -26,22 +26,22 @@
 #include "../utils/utils.h"
 #include "BasicMenu.h"
 
-// foward declarations
+// forward declarations
 class AudioHelper;
 class SliderObject;
 class TextToggle;
 class TextButton;
 
-class options_menu final : public BasicMenu
+class OptionsMenu final : public BasicMenu
 {
 public:
   using base_class = BasicMenu;
 
-  options_menu();
+  OptionsMenu();
 
-  static options_menu* create(AudioHelper* audio_helper, const bool is_desktop_application);
+  static OptionsMenu* create(AudioHelper* audioHelper, const bool isDesktopApplication);
 
-  bool init(AudioHelper* audio_helper, const bool is_desktop_application);
+  bool init(AudioHelper* audioHelper, const bool isDesktopApplication);
 
   void display() override;
 
@@ -49,28 +49,28 @@ protected:
   bool createMenuItems() override;
 
 private:
-  bool desktop_application_;
+  bool _desktopApplication;
 
-  TextButton* back_item_;
-  TextToggle* sound_toggle_;
-  TextToggle* music_toggle_;
-  SliderObject* sound_slider_;
-  SliderObject* music_slider_;
-  TextToggle* full_screen_toggle_;
-  TextToggle* windowed_toggle_;
-  TextToggle* debug_grid_toggle_;
-  TextToggle* debug_physics_toggle_;
+  TextButton* _backItem;
+  TextToggle* _soundToggle;
+  TextToggle* _musicToggle;
+  SliderObject* _soundSlider;
+  SliderObject* _musicSlider;
+  TextToggle* _fullScreenToggle;
+  TextToggle* _windowedToggle;
+  TextToggle* _debugGridToggle;
+  TextToggle* _debugPhysicsToggle;
 
-  void on_back();
-  void on_music();
-  void on_sound();
-  void on_music_slider_change(const float percentage);
-  void on_sound_slider_change(const float percentage);
-  void on_full_screen();
-  void on_windowed();
-  void on_debug_grid();
-  void on_debug_physics();
-  void update_labels();
+  void onBack();
+  void onMusic();
+  void onSound();
+  void onMusicSliderChange(const float percentage);
+  void onSoundSliderChange(const float percentage);
+  void onFullScreen();
+  void onWindowed();
+  void onDebugGrid();
+  void onDebugPhysics();
+  void updateLabels();
 };
 
 #endif // __OPTIONS_MENU_CLASS__

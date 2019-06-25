@@ -168,7 +168,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y      </C
     <ClCompile Include="..\Classes\menu\CreditsMenu.cpp" />
     <ClCompile Include="..\Classes\menu\LicenseMenu.cpp" />
     <ClCompile Include="..\Classes\menu\MainMenu.cpp" />
-    <ClCompile Include="..\Classes\menu\options_menu.cpp" />
+    <ClCompile Include="..\Classes\menu\OptionsMenu.cpp" />
     <ClCompile Include="..\Classes\menu\play_menu.cpp" />
     <ClCompile Include="..\Classes\misc\LevelManager.cpp" />
     <ClCompile Include="..\Classes\scenes\game_scene.cpp" />
@@ -217,7 +217,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y      </C
     <ClInclude Include="..\Classes\menu\CreditsMenu.h" />
     <ClInclude Include="..\Classes\menu\LicenseMenu.h" />
     <ClInclude Include="..\Classes\menu\MainMenu.h" />
-    <ClInclude Include="..\Classes\menu\options_menu.h" />
+    <ClInclude Include="..\Classes\menu\OptionsMenu.h" />
     <ClInclude Include="..\Classes\menu\play_menu.h" />
     <ClInclude Include="..\Classes\misc\LevelManager.h" />
     <ClInclude Include="..\Classes\scenes\game_scene.h" />

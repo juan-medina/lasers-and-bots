@@ -102,9 +102,6 @@
     <ClCompile Include="..\Classes\scenes\menu_scene.cpp">
       <Filter>src\scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\menu\options_menu.cpp">
-      <Filter>src\menu</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\menu\play_menu.cpp">
       <Filter>src\menu</Filter>
     </ClCompile>
@@ -198,6 +195,9 @@
     <ClCompile Include="..\Classes\menu\MainMenu.cpp">
       <Filter>src\menu</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\menu\OptionsMenu.cpp">
+      <Filter>src\menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -244,9 +244,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\scenes\menu_scene.h">
       <Filter>src\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\menu\options_menu.h">
-      <Filter>src\menu</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\menu\play_menu.h">
       <Filter>src\menu</Filter>
@@ -339,6 +336,9 @@
       <Filter>src\menu</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\menu\MainMenu.h">
+      <Filter>src\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\menu\OptionsMenu.h">
       <Filter>src\menu</Filter>
     </ClInclude>
   </ItemGroup>

@@ -28,7 +28,7 @@
 // forward declarations
 class BasicMenu;
 class MainMenu;
-class options_menu;
+class OptionsMenu;
 class play_menu;
 class CreditsMenu;
 class AboutMenu;
@@ -98,7 +98,7 @@ private:
 
   BasicMenu* current_menu_;
   MainMenu* main_menu_;
-  options_menu* options_menu_;
+  OptionsMenu* options_menu_;
   play_menu* play_menu_;
   CreditsMenu* credits_menu_;
   AboutMenu* about_menu_;
