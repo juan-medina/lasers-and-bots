@@ -78,7 +78,7 @@ list(APPEND GAME_SOURCE
         Classes/menu/BasicMenu.cpp
         Classes/menu/CreditsMenu.cpp
         Classes/scenes/game_scene.cpp
-        Classes/scenes/loading_scene.cpp
+        Classes/scenes/LoadingScene.cpp
         Classes/scenes/menu_scene.cpp
         Classes/ui/MessageWindow.cpp
         Classes/ui/OnScreenButton.cpp
@@ -126,7 +126,7 @@ list(APPEND GAME_HEADER
         Classes/menu/LicenseMenu.h
         Classes/menu/MainMenu.h
         Classes/scenes/game_scene.h
-        Classes/scenes/loading_scene.h
+        Classes/scenes/LoadingScene.h
         Classes/scenes/menu_scene.h
         Classes/ui/LevelCompleted.h
         Classes/ui/MessageWindow.h

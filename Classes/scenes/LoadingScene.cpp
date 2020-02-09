@@ -20,20 +20,20 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "loading_scene.h"
+#include "LoadingScene.h"
 #include "../utils/audio/AudioHelper.h"
 #include "../utils/base/app/BasicApp.h"
 #include "game_scene.h"
 #include "menu_scene.h"
 
-Scene* loading_scene::game(BasicApp* application, const bool debug_grid, const bool debug_physics,
-                           const unsigned short int level)
+Scene* LoadingScene::game(BasicApp* application, const bool debug_grid, const bool debug_physics,
+                          const unsigned short int level)
 {
-  loading_scene* ret = nullptr;
+  LoadingScene* ret = nullptr;
 
   do
   {
-    auto object = new loading_scene();
+    auto object = new LoadingScene();
     UTILS_BREAK_IF(object == nullptr);
 
     if (object->init(application, load_to::to_game, debug_grid, debug_physics, menu_to_display::main_menu,
@@ -53,14 +53,14 @@ Scene* loading_scene::game(BasicApp* application, const bool debug_grid, const b
   return ret;
 }
 
-Scene* loading_scene::menu(BasicApp* application, const menu_to_display menu,
-                           const unsigned short int selected_level)
+Scene* LoadingScene::menu(BasicApp* application, const menu_to_display menu,
+                          const unsigned short int selected_level)
 {
-  loading_scene* ret = nullptr;
+  LoadingScene* ret = nullptr;
 
   do
   {
-    auto object = new loading_scene();
+    auto object = new LoadingScene();
     UTILS_BREAK_IF(object == nullptr);
 
     if (object->init(application, load_to::to_menu, false, false, menu, selected_level))
@@ -79,7 +79,7 @@ Scene* loading_scene::menu(BasicApp* application, const menu_to_display menu,
   return ret;
 }
 
-loading_scene::loading_scene()
+LoadingScene::LoadingScene()
   : type_(load_to::to_game)
   , debug_grid_(false)
   , debug_physics_(false)
@@ -88,13 +88,13 @@ loading_scene::loading_scene()
 {
 }
 
-loading_scene::~loading_scene()
+LoadingScene::~LoadingScene()
 {
   base_class::removeAllChildrenWithCleanup(true);
 }
 
-bool loading_scene::init(BasicApp* application, const load_to& type, const bool debug_grid,
-                         const bool debug_physics, const menu_to_display menu, const unsigned short int level)
+bool LoadingScene::init(BasicApp* application, const load_to& type, const bool debug_grid,
+                        const bool debug_physics, const menu_to_display menu, const unsigned short int level)
 {
   auto ret = false;
 
@@ -130,7 +130,7 @@ bool loading_scene::init(BasicApp* application, const load_to& type, const bool 
     const auto delay_exit = DelayTime::create(0.15f);
     UTILS_BREAK_IF(delay_exit == nullptr);
 
-    const auto func = CallFunc::create(CC_CALLBACK_0(loading_scene::go_to_scene, this));
+    const auto func = CallFunc::create(CC_CALLBACK_0(LoadingScene::go_to_scene, this));
     UTILS_BREAK_IF(func == nullptr);
 
     const auto sequence = Sequence::create(delay_exit, func, NULL);
@@ -147,7 +147,7 @@ bool loading_scene::init(BasicApp* application, const load_to& type, const bool 
   return ret;
 }
 
-void loading_scene::go_to_scene() const
+void LoadingScene::go_to_scene() const
 {
   do
   {

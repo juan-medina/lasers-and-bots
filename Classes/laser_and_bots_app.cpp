@@ -22,7 +22,7 @@
 
 #include "laser_and_bots_app.h"
 #include "misc/LevelManager.h"
-#include "scenes/loading_scene.h"
+#include "scenes/LoadingScene.h"
 #include "scenes/menu_scene.h"
 #include "utils/audio/AudioHelper.h"
 
@@ -78,7 +78,7 @@ Scene* laser_and_bots_app::game_scene(const unsigned short int level)
   getAudioHelper()->setSoundVolume(effects_volume_);
   setup_level_manager();
 
-  return loading_scene::game(this, debug_grid_, debug_physics_, level);
+  return LoadingScene::game(this, debug_grid_, debug_physics_, level);
 }
 
 Scene* laser_and_bots_app::main_menu_scene()
@@ -94,7 +94,7 @@ Scene* laser_and_bots_app::main_menu_scene()
   getAudioHelper()->setSoundVolume(effects_volume_);
   setup_level_manager();
 
-  return loading_scene::menu(this, menu_to_display::main_menu, 1);
+  return LoadingScene::menu(this, menu_to_display::main_menu, 1);
 }
 
 Scene* laser_and_bots_app::license_scene()
@@ -110,7 +110,7 @@ Scene* laser_and_bots_app::license_scene()
   getAudioHelper()->setSoundVolume(effects_volume_);
   setup_level_manager();
 
-  return loading_scene::menu(this, menu_to_display::license_menu, 1);
+  return LoadingScene::menu(this, menu_to_display::license_menu, 1);
 }
 Scene* laser_and_bots_app::play_menu_scene(const unsigned short int selected_level)
 {
@@ -126,7 +126,7 @@ Scene* laser_and_bots_app::play_menu_scene(const unsigned short int selected_lev
   getAudioHelper()->setMusicVolume(music_volume_);
   getAudioHelper()->setSoundVolume(effects_volume_);
 
-  return loading_scene::menu(this, menu_to_display::play_menu, selected_level);
+  return LoadingScene::menu(this, menu_to_display::play_menu, selected_level);
 }
 
 Scene* laser_and_bots_app::options_menu_scene()
@@ -143,7 +143,7 @@ Scene* laser_and_bots_app::options_menu_scene()
   getAudioHelper()->setMusicVolume(music_volume_);
   getAudioHelper()->setSoundVolume(effects_volume_);
 
-  return loading_scene::menu(this, menu_to_display::options_menu, 1);
+  return LoadingScene::menu(this, menu_to_display::options_menu, 1);
 }
 
 void laser_and_bots_app::set_effects_muted(const bool effects_muted)

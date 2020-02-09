@@ -28,14 +28,14 @@
 // forward declarations
 enum class menu_to_display;
 
-class loading_scene final : public BasicScene
+class LoadingScene final : public BasicScene
 {
 public:
   using base_class = BasicScene;
 
-  loading_scene();
+  LoadingScene();
 
-  ~loading_scene();
+  ~LoadingScene();
 
   static Scene* game(BasicApp* application, const bool debug_grid, const bool debug_physics,
                      const unsigned short int level);
