@@ -134,6 +134,7 @@ void PauseWindow::onExit()
 {
   auto ui = dynamic_cast<GameUI*>(getParent());
   ui->onClose(this);
+  BaseClass::onExit();
 }
 
 bool PauseWindow::createMenuItems()
