@@ -80,6 +80,10 @@ bool BasicApp::applicationDidFinishLaunching()
       director->setOpenGLView(openGlView);
     }
 
+#ifdef CC_ICON_SET_SUPPORT
+    openGlView->setIcon("icon/icon.png");
+#endif
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
     if (!_fullScreen)
     {
