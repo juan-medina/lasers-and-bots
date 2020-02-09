@@ -37,7 +37,6 @@
 #include "../ui/VirtualJoyStick.h"
 #include "../utils/audio/AudioHelper.h"
 #include "../utils/base/nodes/CustomDrawNode.h"
-#include "../utils/base/sprite/GameObject.h"
 #include "../utils/physics/PhysicsShapeCache.h"
 
 game_scene::game_scene() noexcept
