@@ -180,3 +180,7 @@ tests/*/project/proj.android/.settings/org.eclipse.buildship.core.prefs
 tmp/
 temp/
 /proj.win32/lasers-and-bots.sln.DotSettings.user
+/proj.linux/bin/
+/proj.linux/CMakeFiles/
+/proj.linux/engine/
+/proj.linux/lib/

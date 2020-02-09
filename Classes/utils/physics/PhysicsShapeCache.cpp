@@ -37,7 +37,7 @@ bool PhysicsShapeCache::addShapesWithFile(const std::string& plist)
 
 bool PhysicsShapeCache::addShapesWithFile(const std::string& plist, const float scaleFactor)
 {
-  CCASSERT(bodies_in_file_.find(plist) == bodies_in_file_.end(), "file already loaded");
+  CCASSERT(_bodiesInFile.find(plist) == _bodiesInFile.end(), "file already loaded");
 
   auto dict = FileUtils::getInstance()->getValueMapFromFile(plist);
   if (dict.empty())

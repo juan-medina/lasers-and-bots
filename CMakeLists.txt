@@ -45,90 +45,100 @@ endif()
 
 # add cross-platforms source files and header files
 list(APPEND GAME_SOURCE
-        Classes/game/barrel_object.cpp
-        Classes/game/box_object.cpp
-        Classes/game/door_object.cpp
-        Classes/game/harm_object.cpp
-        Classes/game/laser_object.cpp
-        Classes/game/robot_fragment.cpp
-        Classes/game/robot_object.cpp
-        Classes/game/saw_object.cpp
-        Classes/game/switch_object.cpp
+        Classes/misc/LevelManager.cpp
         Classes/laser_and_bots_app.cpp
-        Classes/menu/about_menu.cpp
-        Classes/menu/basic_menu.cpp
-        Classes/menu/credits_menu.cpp
-        Classes/menu/main_menu.cpp
-        Classes/menu/options_menu.cpp
-        Classes/menu/play_menu.cpp
-        Classes/misc/level_manager.cpp
+        Classes/utils/base/nodes/CustomDrawNode.cpp
+        Classes/utils/base/sprite/GameObject.cpp
+        Classes/utils/base/app/BasicApp.cpp
+        Classes/utils/base/scene/TiledScene.cpp
+        Classes/utils/base/scene/BasicScene.cpp
+        Classes/utils/base/scene/GridScene.cpp
+        Classes/utils/audio/AudioHelper.cpp
+        Classes/utils/physics/PhysicsGameObject.cpp
+        Classes/utils/physics/PhysicsTiledScene.cpp
+        Classes/utils/physics/PhysicsShapeCache.cpp
+        Classes/utils/controller/InputController.cpp
+        Classes/utils/utils.cpp
+        Classes/game/box_object.cpp
+        Classes/game/robot_object.cpp
+        Classes/game/barrel_object.cpp
+        Classes/game/harm_object.cpp
+        Classes/game/saw_object.cpp
+        Classes/game/background_layer.cpp
+        Classes/game/switch_object.cpp
+        Classes/game/laser_object.cpp
+        Classes/game/door_object.cpp
+        Classes/game/robot_fragment.cpp
+        Classes/game/on_off_object.cpp
+        Classes/menu/OptionsMenu.cpp
+        Classes/menu/MainMenu.cpp
+        Classes/menu/PlayMenu.cpp
+        Classes/menu/AboutMenu.cpp
+        Classes/menu/LicenseMenu.cpp
+        Classes/menu/BasicMenu.cpp
+        Classes/menu/CreditsMenu.cpp
         Classes/scenes/game_scene.cpp
         Classes/scenes/loading_scene.cpp
         Classes/scenes/menu_scene.cpp
-        Classes/ui/game_ui.cpp
-        Classes/ui/level_completed.cpp
-        Classes/ui/message_window.cpp
-        Classes/ui/on_screen_button.cpp
-        Classes/ui/pause_window.cpp
-        Classes/ui/resizable_window.cpp
-        Classes/ui/slider_object.cpp
-        Classes/ui/text_button.cpp
-        Classes/ui/text_toggle.cpp
-        Classes/ui/virtual_joy_stick.cpp
-        Classes/utils/audio/audio_helper.cpp
-        Classes/utils/base/app/basic_app.cpp
-        Classes/utils/base/scene/basic_scene.cpp
-        Classes/utils/base/scene/grid_scene.cpp
-        Classes/utils/base/scene/tiled_scene.cpp
-        Classes/utils/base/sprite/game_object.cpp
-        Classes/utils/controller/input_controller.cpp
-        Classes/utils/physics/physics_game_object.cpp
-        Classes/utils/physics/physics_shape_cache.cpp
-        Classes/utils/physics/physics_tiled_scene.cpp
-        Classes/utils/utils.cpp
+        Classes/ui/MessageWindow.cpp
+        Classes/ui/OnScreenButton.cpp
+        Classes/ui/LevelCompleted.cpp
+        Classes/ui/TextToggle.cpp
+        Classes/ui/SliderObject.cpp
+        Classes/ui/TextButton.cpp
+        Classes/ui/ResizableWindow.cpp
+        Classes/ui/PauseWindow.cpp
+        Classes/ui/VirtualJoyStick.cpp
+        Classes/ui/ScrollingText.cpp
+        Classes/ui/GameUI.cpp
      )
 list(APPEND GAME_HEADER
+        Classes/misc/LevelManager.h
+        Classes/laser_and_bots_app.h
+        Classes/utils/base/nodes/CustomDrawNode.h
+        Classes/utils/base/sprite/GameObject.h
+        Classes/utils/base/app/BasicApp.h
+        Classes/utils/base/scene/BasicScene.h
+        Classes/utils/base/scene/GridScene.h
+        Classes/utils/base/scene/TiledScene.h
+        Classes/utils/audio/AudioHelper.h
+        Classes/utils/utils.h
+        Classes/utils/physics/PhysicsTiledScene.h
+        Classes/utils/physics/PhysicsGameObject.h
+        Classes/utils/physics/PhysicsShapeCache.h
+        Classes/utils/controller/InputController.h
+        Classes/game/switch_object.h
         Classes/game/barrel_object.h
-        Classes/game/box_object.h
-        Classes/game/door_object.h
-        Classes/game/harm_object.h
-        Classes/game/laser_object.h
         Classes/game/robot_fragment.h
         Classes/game/robot_object.h
         Classes/game/saw_object.h
-        Classes/game/switch_object.h
-        Classes/laser_and_bots_app.h
-        Classes/menu/about_menu.h
-        Classes/menu/basic_menu.h
-        Classes/menu/credits_menu.h
-        Classes/menu/main_menu.h
-        Classes/menu/options_menu.h
-        Classes/menu/play_menu.h
-        Classes/misc/level_manager.h
+        Classes/game/background_layer.h
+        Classes/game/laser_object.h
+        Classes/game/door_object.h
+        Classes/game/on_off_object.h
+        Classes/game/box_object.h
+        Classes/game/harm_object.h
+        Classes/menu/BasicMenu.h
+        Classes/menu/AboutMenu.h
+        Classes/menu/OptionsMenu.h
+        Classes/menu/PlayMenu.h
+        Classes/menu/CreditsMenu.h
+        Classes/menu/LicenseMenu.h
+        Classes/menu/MainMenu.h
         Classes/scenes/game_scene.h
         Classes/scenes/loading_scene.h
         Classes/scenes/menu_scene.h
-        Classes/ui/game_ui.h
-        Classes/ui/level_completed.h
-        Classes/ui/message_window.h
-        Classes/ui/on_screen_button.h
-        Classes/ui/pause_window.h
-        Classes/ui/resizable_window.h
-        Classes/ui/slider_object.h
-        Classes/ui/text_button.h
-        Classes/ui/text_toggle.h
-        Classes/ui/virtual_joy_stick.h
-        Classes/utils/audio/audio_helper.h
-        Classes/utils/base/app/basic_app.h
-        Classes/utils/base/scene/basic_scene.h
-        Classes/utils/base/scene/grid_scene.h
-        Classes/utils/base/scene/tiled_scene.h
-        Classes/utils/base/sprite/game_object.h
-        Classes/utils/controller/input_controller.h
-        Classes/utils/physics/physics_game_object.h
-        Classes/utils/physics/physics_shape_cache.h
-        Classes/utils/physics/physics_tiled_scene.h
-        Classes/utils/utils.h
+        Classes/ui/LevelCompleted.h
+        Classes/ui/MessageWindow.h
+        Classes/ui/SliderObject.h
+        Classes/ui/GameUI.h
+        Classes/ui/ResizableWindow.h
+        Classes/ui/VirtualJoyStick.h
+        Classes/ui/PauseWindow.h
+        Classes/ui/TextToggle.h
+        Classes/ui/OnScreenButton.h
+        Classes/ui/TextButton.h
+        Classes/ui/ScrollingText.h
      )
 
 if(ANDROID)
@@ -138,6 +148,7 @@ if(ANDROID)
          proj.android/app/jni/hellocpp/main.cpp
          )
 elseif(LINUX)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -no-pie -fexceptions -std=c++11 -Wno-deprecated-declarations -Wno-reorder")
     list(APPEND GAME_SOURCE
          proj.linux/main.cpp
          )

@@ -184,7 +184,7 @@ void BasicApp::setWindowSize(const float scale)
 bool BasicApp::isDesktop()
 {
   const auto platform = getTargetPlatform();
-  return (platform == Platform::OS_WINDOWS) || (platform == Platform::OS_MAC);
+  return (platform == Platform::OS_WINDOWS) || (platform == Platform::OS_MAC) || (platform == Platform::OS_LINUX);
 }
 
 std::string BasicApp::getGameVersionString() const
