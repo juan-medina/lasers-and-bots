@@ -35,30 +35,30 @@ public:
 
   LoadingScene();
 
-  ~LoadingScene();
+  ~LoadingScene() override;
 
-  static Scene* game(BasicApp* application, const bool debug_grid, const bool debug_physics,
+  static Scene* game(BasicApp* application, const bool debugGrid, const bool debugPhysics,
                      const unsigned short int level);
   static Scene* menu(BasicApp* application, const menu_to_display menu,
-                     const unsigned short int selected_level);
+                     const unsigned short int selectedLevel);
 
 private:
-  enum class load_to
+  enum class LoadTo
   {
-    to_game,
-    to_menu
+    ToGame,
+    ToMenu
   };
 
-  bool init(BasicApp* application, const load_to& type, const bool debug_grid, const bool debug_physics,
+  bool init(BasicApp* application, const LoadTo& type, const bool debug_grid, const bool debug_physics,
             const menu_to_display menu, const unsigned short int level);
 
   void go_to_scene() const;
 
-  load_to type_;
-  bool debug_grid_;
-  bool debug_physics_;
-  menu_to_display menu_;
-  unsigned short int level_;
+  LoadTo _type;
+  bool _debugGrid;
+  bool _debugPhysics;
+  menu_to_display _menu;
+  unsigned short int _level;
 };
 
 #endif // __LOADING_SCENE_H__
