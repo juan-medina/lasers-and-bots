@@ -21,9 +21,10 @@
  ****************************************************************************/
 
 #include "MainMenu.h"
-#include "../scenes/menu_scene.h"
+
 #include "../ui/TextButton.h"
 #include "../utils/audio/AudioHelper.h"
+#include "scenes/MenuScene.h"
 
 MainMenu::MainMenu() : _backItem(nullptr), _playItem(nullptr) {}
 
@@ -103,38 +104,38 @@ void MainMenu::onOptions()
 {
   getAudioHelper()->playEffect("sounds/select.mp3");
   hide();
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->display_options_menu();
+  const auto menu = dynamic_cast<MenuScene*>(getParent());
+  menu->displayOptionsMenu();
 }
 
 void MainMenu::onPlay()
 {
   getAudioHelper()->playEffect("sounds/select.mp3");
   hide();
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->display_play_menu();
+  const auto menu = dynamic_cast<MenuScene*>(getParent());
+  menu->displayPlayMenu();
 }
 
 void MainMenu::onExitClick()
 {
   getAudioHelper()->playEffect("sounds/select.mp3");
   hide();
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->exit_app();
+  const auto menu = dynamic_cast<MenuScene*>(getParent());
+  menu->exitApp();
 }
 
 void MainMenu::onCredits()
 {
   getAudioHelper()->playEffect("sounds/select.mp3");
   hide();
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->display_credits_menu();
+  const auto menu = dynamic_cast<MenuScene*>(getParent());
+  menu->displayCreditsMenu();
 }
 
 void MainMenu::onAbout()
 {
   getAudioHelper()->playEffect("sounds/select.mp3");
   hide();
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->display_about_menu();
+  const auto menu = dynamic_cast<MenuScene*>(getParent());
+  menu->displayAboutMenu();
 }

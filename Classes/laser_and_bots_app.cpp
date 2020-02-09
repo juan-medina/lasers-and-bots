@@ -21,9 +21,10 @@
  ****************************************************************************/
 
 #include "laser_and_bots_app.h"
+
 #include "misc/LevelManager.h"
 #include "scenes/LoadingScene.h"
-#include "scenes/menu_scene.h"
+#include "scenes/MenuScene.h"
 #include "utils/audio/AudioHelper.h"
 
 laser_and_bots_app::laser_and_bots_app()
@@ -58,12 +59,12 @@ laser_and_bots_app::~laser_and_bots_app()
   delete level_manager_;
 }
 
-Scene* laser_and_bots_app::initScene()
+Scene *laser_and_bots_app::initScene()
 {
   return to_options_ ? options_menu_scene() : license_scene();
 }
 
-Scene* laser_and_bots_app::game_scene(const unsigned short int level)
+Scene *laser_and_bots_app::game_scene(const unsigned short int level)
 {
   effects_muted_ = UserDefault::getInstance()->getBoolForKey("effects_muted", effects_muted_);
   music_muted_ = UserDefault::getInstance()->getBoolForKey("music_muted", music_muted_);
@@ -81,7 +82,7 @@ Scene* laser_and_bots_app::game_scene(const unsigned short int level)
   return LoadingScene::game(this, debug_grid_, debug_physics_, level);
 }
 
-Scene* laser_and_bots_app::main_menu_scene()
+Scene *laser_and_bots_app::main_menu_scene()
 {
   effects_muted_ = UserDefault::getInstance()->getBoolForKey("effects_muted", effects_muted_);
   music_muted_ = UserDefault::getInstance()->getBoolForKey("music_muted", music_muted_);
@@ -94,10 +95,10 @@ Scene* laser_and_bots_app::main_menu_scene()
   getAudioHelper()->setSoundVolume(effects_volume_);
   setup_level_manager();
 
-  return LoadingScene::menu(this, menu_to_display::main_menu, 1);
+  return LoadingScene::menu(this, MenuToDisplay::MainMenu, 1);
 }
 
-Scene* laser_and_bots_app::license_scene()
+Scene *laser_and_bots_app::license_scene()
 {
   effects_muted_ = UserDefault::getInstance()->getBoolForKey("effects_muted", effects_muted_);
   music_muted_ = UserDefault::getInstance()->getBoolForKey("music_muted", music_muted_);
@@ -110,9 +111,9 @@ Scene* laser_and_bots_app::license_scene()
   getAudioHelper()->setSoundVolume(effects_volume_);
   setup_level_manager();
 
-  return LoadingScene::menu(this, menu_to_display::license_menu, 1);
+  return LoadingScene::menu(this, MenuToDisplay::LicenseMenu, 1);
 }
-Scene* laser_and_bots_app::play_menu_scene(const unsigned short int selected_level)
+Scene *laser_and_bots_app::play_menu_scene(const unsigned short int selected_level)
 {
   effects_muted_ = UserDefault::getInstance()->getBoolForKey("effects_muted", effects_muted_);
   music_muted_ = UserDefault::getInstance()->getBoolForKey("music_muted", music_muted_);
@@ -126,10 +127,10 @@ Scene* laser_and_bots_app::play_menu_scene(const unsigned short int selected_lev
   getAudioHelper()->setMusicVolume(music_volume_);
   getAudioHelper()->setSoundVolume(effects_volume_);
 
-  return LoadingScene::menu(this, menu_to_display::play_menu, selected_level);
+  return LoadingScene::menu(this, MenuToDisplay::PlayMenu, selected_level);
 }
 
-Scene* laser_and_bots_app::options_menu_scene()
+Scene *laser_and_bots_app::options_menu_scene()
 {
   effects_muted_ = UserDefault::getInstance()->getBoolForKey("effects_muted", effects_muted_);
   music_muted_ = UserDefault::getInstance()->getBoolForKey("music_muted", music_muted_);
@@ -143,7 +144,7 @@ Scene* laser_and_bots_app::options_menu_scene()
   getAudioHelper()->setMusicVolume(music_volume_);
   getAudioHelper()->setSoundVolume(effects_volume_);
 
-  return LoadingScene::menu(this, menu_to_display::options_menu, 1);
+  return LoadingScene::menu(this, MenuToDisplay::OptionsMenu, 1);
 }
 
 void laser_and_bots_app::set_effects_muted(const bool effects_muted)

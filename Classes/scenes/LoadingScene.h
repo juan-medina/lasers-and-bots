@@ -26,7 +26,7 @@
 #include "../utils/base/scene/BasicScene.h"
 
 // forward declarations
-enum class menu_to_display;
+enum class MenuToDisplay;
 
 class LoadingScene final : public BasicScene
 {
@@ -37,10 +37,10 @@ public:
 
   ~LoadingScene() override;
 
-  static Scene* game(BasicApp* application, const bool debugGrid, const bool debugPhysics,
+  static Scene *game(BasicApp *application, const bool debugGrid, const bool debugPhysics,
                      const unsigned short int level);
-  static Scene* menu(BasicApp* application, const menu_to_display menu,
-                     const unsigned short int selectedLevel);
+
+  static Scene *menu(BasicApp *application, const MenuToDisplay menu, const unsigned short int selectedLevel);
 
 private:
   enum class LoadTo
@@ -49,15 +49,15 @@ private:
     ToMenu
   };
 
-  bool init(BasicApp* application, const LoadTo& type, const bool debug_grid, const bool debug_physics,
-            const menu_to_display menu, const unsigned short int level);
+  bool init(BasicApp *application, const LoadTo &type, const bool debug_grid, const bool debug_physics,
+            const MenuToDisplay menu, const unsigned short int level);
 
   void go_to_scene() const;
 
   LoadTo _type;
   bool _debugGrid;
   bool _debugPhysics;
-  menu_to_display _menu;
+  MenuToDisplay _menu;
   unsigned short int _level;
 };
 

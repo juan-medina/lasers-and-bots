@@ -21,10 +21,11 @@
  ****************************************************************************/
 
 #include "CreditsMenu.h"
-#include "../scenes/menu_scene.h"
+
 #include "../ui/ScrollingText.h"
 #include "../ui/TextButton.h"
 #include "../utils/audio/AudioHelper.h"
+#include "scenes/MenuScene.h"
 
 using namespace cocos2d::ui;
 
@@ -84,7 +85,8 @@ bool CreditsMenu::createMenuItems()
     UTILS_BREAK_IF(_scrollingText == nullptr);
     addChild(_scrollingText);
 
-    const auto textPosition = Vec2(-getContentSize().width / 2, -getContentSize().height / 2) + Vec2(130, 250);
+    const auto textPosition =
+      Vec2(-getContentSize().width / 2, -getContentSize().height / 2) + Vec2(130, 250);
     _scrollingText->setPosition(textPosition);
 
     result = true;
@@ -95,7 +97,7 @@ bool CreditsMenu::createMenuItems()
 
 void CreditsMenu::display()
 {
-  BaseClass ::display();
+  BaseClass::display();
   _scrollingText->autoScrollIn(5.f);
 }
 
@@ -103,6 +105,6 @@ void CreditsMenu::onBack()
 {
   getAudioHelper()->playEffect("sounds/select.mp3");
   hide();
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->display_main_menu();
+  const auto menu = dynamic_cast<MenuScene*>(getParent());
+  menu->displayMainMenu();
 }

@@ -21,13 +21,14 @@
  ****************************************************************************/
 
 #include "PlayMenu.h"
+
 #include "../laser_and_bots_app.h"
 #include "../misc/LevelManager.h"
-#include "../scenes/menu_scene.h"
 #include "../ui/GameUI.h"
 #include "../ui/TextButton.h"
 #include "../ui/TextToggle.h"
 #include "../utils/audio/AudioHelper.h"
+#include "scenes/MenuScene.h"
 
 PlayMenu::PlayMenu()
   : _backItem(nullptr)
@@ -246,8 +247,8 @@ void PlayMenu::onBack()
 {
   getAudioHelper()->playEffect("sounds/select.mp3");
   hide();
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->display_main_menu();
+  const auto menu = dynamic_cast<MenuScene*>(getParent());
+  menu->displayMainMenu();
 }
 
 void PlayMenu::onLevelSelect(Ref*, const unsigned short int level)
@@ -270,8 +271,8 @@ void PlayMenu::onPlay()
   getAudioHelper()->playEffect("sounds/select.mp3");
 
   hide();
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->go_to_game(_selectedLevel);
+  const auto menu = dynamic_cast<MenuScene*>(getParent());
+  menu->goToGame(_selectedLevel);
 }
 
 void PlayMenu::selectLevel(const unsigned short int level)
@@ -327,7 +328,7 @@ void PlayMenu::selectLevel(const unsigned short int level)
 
 LevelManager* PlayMenu::getLevelManager()
 {
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
+  const auto menu = dynamic_cast<MenuScene*>(getParent());
   const auto app = dynamic_cast<laser_and_bots_app*>(menu->getApplication());
   return app->get_level_manager();
 }

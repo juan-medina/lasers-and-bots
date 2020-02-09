@@ -21,23 +21,23 @@
  ****************************************************************************/
 
 #include "LoadingScene.h"
+
 #include "../utils/audio/AudioHelper.h"
 #include "../utils/base/app/BasicApp.h"
+#include "MenuScene.h"
 #include "game_scene.h"
-#include "menu_scene.h"
 
-Scene* LoadingScene::game(BasicApp* application, const bool debugGrid, const bool debugPhysics,
+Scene *LoadingScene::game(BasicApp *application, const bool debugGrid, const bool debugPhysics,
                           const unsigned short int level)
 {
-  LoadingScene* ret = nullptr;
+  LoadingScene *ret = nullptr;
 
   do
   {
     auto object = new LoadingScene();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(application, LoadTo::ToGame, debugGrid, debugPhysics, menu_to_display::main_menu,
-                     level))
+    if (object->init(application, LoadTo::ToGame, debugGrid, debugPhysics, MenuToDisplay::MainMenu, level))
     {
       object->autorelease();
     }
@@ -53,10 +53,10 @@ Scene* LoadingScene::game(BasicApp* application, const bool debugGrid, const boo
   return ret;
 }
 
-Scene* LoadingScene::menu(BasicApp* application, const menu_to_display menu,
+Scene *LoadingScene::menu(BasicApp *application, const MenuToDisplay menu,
                           const unsigned short int selectedLevel)
 {
-  LoadingScene* ret = nullptr;
+  LoadingScene *ret = nullptr;
 
   do
   {
@@ -80,11 +80,7 @@ Scene* LoadingScene::menu(BasicApp* application, const menu_to_display menu,
 }
 
 LoadingScene::LoadingScene()
-  : _type(LoadTo::ToGame)
-  , _debugGrid(false)
-  , _debugPhysics(false)
-  , _menu(menu_to_display::main_menu)
-  , _level(-1)
+  : _type(LoadTo::ToGame), _debugGrid(false), _debugPhysics(false), _menu(MenuToDisplay::MainMenu), _level(-1)
 {
 }
 
@@ -93,18 +89,18 @@ LoadingScene::~LoadingScene()
   base_class::removeAllChildrenWithCleanup(true);
 }
 
-bool LoadingScene::init(BasicApp* application, const LoadTo& type, const bool debug_grid,
-                        const bool debug_physics, const menu_to_display menu, const unsigned short int level)
+bool LoadingScene::init(BasicApp *application, const LoadTo &type, const bool debug_grid,
+                        const bool debug_physics, const MenuToDisplay menu, const unsigned short int level)
 {
   auto ret = false;
 
   do
   {
-      _type = type;
-      _menu = menu;
-      _level = level;
-      _debugGrid = debug_grid;
-      _debugPhysics = debug_physics;
+    _type = type;
+    _menu = menu;
+    _level = level;
+    _debugGrid = debug_grid;
+    _debugPhysics = debug_physics;
 
     UTILS_BREAK_IF(!base_class::init(application));
 
@@ -151,7 +147,7 @@ void LoadingScene::go_to_scene() const
 {
   do
   {
-    Scene* scene = nullptr;
+    Scene *scene = nullptr;
 
     switch (_type)
     {
@@ -159,7 +155,7 @@ void LoadingScene::go_to_scene() const
         scene = game_scene::scene(_application, _debugGrid, _debugPhysics, _level);
         break;
       case LoadTo::ToMenu:
-        scene = menu_scene::scene(_application, _menu, _level);
+        scene = MenuScene::scene(_application, _menu, _level);
         break;
       default:
         break;

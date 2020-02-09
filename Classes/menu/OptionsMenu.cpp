@@ -21,11 +21,12 @@
  ****************************************************************************/
 
 #include "OptionsMenu.h"
-#include "../scenes/menu_scene.h"
+
 #include "../ui/SliderObject.h"
 #include "../ui/TextButton.h"
 #include "../ui/TextToggle.h"
 #include "../utils/audio/AudioHelper.h"
+#include "scenes/MenuScene.h"
 
 OptionsMenu::OptionsMenu()
   : _desktopApplication(false)
@@ -104,15 +105,15 @@ void OptionsMenu::display()
 
   if (_desktopApplication)
   {
-    const auto menu = dynamic_cast<menu_scene*>(getParent());
-    _fullScreenToggle->setSelectedIndex(menu->is_full_screen() ? 1 : 0);
-    _windowedToggle->setSelectedIndex(menu->is_full_screen() ? 0 : 1);
+    const auto menu = dynamic_cast<MenuScene*>(getParent());
+    _fullScreenToggle->setSelectedIndex(menu->isFullScreen() ? 1 : 0);
+    _windowedToggle->setSelectedIndex(menu->isFullScreen() ? 0 : 1);
   }
 
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
+  const auto menu = dynamic_cast<MenuScene*>(getParent());
 
-  _debugPhysicsToggle->setSelectedIndex(menu->is_debug_physics() ? 1 : 0);
-  _debugGridToggle->setSelectedIndex(menu->is_debug_grid() ? 1 : 0);
+  _debugPhysicsToggle->setSelectedIndex(menu->isDebugPhysics() ? 1 : 0);
+  _debugGridToggle->setSelectedIndex(menu->isDebugGrid() ? 1 : 0);
 
   updateLabels();
 }
@@ -131,8 +132,7 @@ bool OptionsMenu::createMenuItems()
     _debugGridToggle->setPosition(Vec2(-400, _debugGridToggle->getPosition().y));
     UTILS_BREAK_IF(addRowLabel("Debug Grid", _debugGridToggle, LABELS_STARTS) == nullptr);
 
-    _debugPhysicsToggle =
-      addToggleTextButton("Enabled", CC_CALLBACK_0(OptionsMenu::onDebugPhysics, this));
+    _debugPhysicsToggle = addToggleTextButton("Enabled", CC_CALLBACK_0(OptionsMenu::onDebugPhysics, this));
     UTILS_BREAK_IF(_debugPhysicsToggle == nullptr);
     _debugPhysicsToggle->setPosition(
       Vec2(_debugGridToggle->getPosition().x, _debugPhysicsToggle->getPosition().y));
@@ -140,8 +140,7 @@ bool OptionsMenu::createMenuItems()
 
     if (_desktopApplication)
     {
-      _fullScreenToggle =
-        addToggleTextButton("Full Screen", CC_CALLBACK_0(OptionsMenu::onFullScreen, this));
+      _fullScreenToggle = addToggleTextButton("Full Screen", CC_CALLBACK_0(OptionsMenu::onFullScreen, this));
       UTILS_BREAK_IF(_fullScreenToggle == nullptr);
 
       _fullScreenToggle->setPosition(
@@ -149,12 +148,11 @@ bool OptionsMenu::createMenuItems()
 
       UTILS_BREAK_IF(addRowLabel("Video Mode", _fullScreenToggle, LABELS_STARTS) == nullptr);
 
-      _windowedToggle =
-        addToggleTextButton("Windowed", CC_CALLBACK_0(OptionsMenu::onWindowed, this), true);
+      _windowedToggle = addToggleTextButton("Windowed", CC_CALLBACK_0(OptionsMenu::onWindowed, this), true);
       UTILS_BREAK_IF(_windowedToggle == nullptr);
 
       _windowedToggle->setPosition(_fullScreenToggle->getPosition() +
-                                    Vec2(_fullScreenToggle->getContentSize().width + 125, 0.f));
+                                   Vec2(_fullScreenToggle->getContentSize().width + 125, 0.f));
     }
 
     _soundToggle = addToggleTextButton("Enabled", CC_CALLBACK_0(OptionsMenu::onSound, this));
@@ -186,27 +184,27 @@ void OptionsMenu::onBack()
 {
   getAudioHelper()->playEffect("sounds/select.mp3");
   hide();
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->display_main_menu();
+  const auto menu = dynamic_cast<MenuScene*>(getParent());
+  menu->displayMainMenu();
 }
 
 void OptionsMenu::onMusic()
 {
   getAudioHelper()->playEffect("sounds/select.mp3");
 
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
+  const auto menu = dynamic_cast<MenuScene*>(getParent());
   const auto disable = _musicToggle->getSelectedIndex() == 0;
   _musicSlider->enable(!disable);
-  menu->change_music(disable);
+  menu->changeMusic(disable);
   updateLabels();
 }
 
 void OptionsMenu::onSound()
 {
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
+  const auto menu = dynamic_cast<MenuScene*>(getParent());
   const auto disable = _soundToggle->getSelectedIndex() == 0;
   _soundSlider->enable(!disable);
-  menu->change_sound(disable);
+  menu->changeSound(disable);
 
   getAudioHelper()->playEffect("sounds/select.mp3");
   updateLabels();
@@ -214,20 +212,20 @@ void OptionsMenu::onSound()
 
 void OptionsMenu::onMusicSliderChange(const float percentage)
 {
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->change_music_volume(percentage / 100);
+  const auto menu = dynamic_cast<MenuScene*>(getParent());
+  menu->changeMusicVolume(percentage / 100);
 }
 
 void OptionsMenu::onSoundSliderChange(const float percentage)
 {
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->change_sound_volume(percentage / 100);
+  const auto menu = dynamic_cast<MenuScene*>(getParent());
+  menu->changeSoundVolume(percentage / 100);
 }
 
 void OptionsMenu::onFullScreen()
 {
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  if (menu->is_full_screen())
+  const auto menu = dynamic_cast<MenuScene*>(getParent());
+  if (menu->isFullScreen())
   {
     _fullScreenToggle->setSelectedIndex(1);
     return;
@@ -236,13 +234,13 @@ void OptionsMenu::onFullScreen()
 
   const auto fullScreen = _fullScreenToggle->getSelectedIndex() == 1;
   _windowedToggle->setSelectedIndex(fullScreen ? 0 : 1);
-  menu->change_application_video_mode(fullScreen);
+  menu->changeApplicationVideoMode(fullScreen);
 }
 
 void OptionsMenu::onWindowed()
 {
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  if (!menu->is_full_screen())
+  const auto menu = dynamic_cast<MenuScene*>(getParent());
+  if (!menu->isFullScreen())
   {
     _windowedToggle->setSelectedIndex(1);
     return;
@@ -252,16 +250,16 @@ void OptionsMenu::onWindowed()
 
   const auto full_screen = _windowedToggle->getSelectedIndex() == 0;
   _fullScreenToggle->setSelectedIndex(full_screen ? 1 : 0);
-  menu->change_application_video_mode(full_screen);
+  menu->changeApplicationVideoMode(full_screen);
 }
 
 void OptionsMenu::onDebugGrid()
 {
   getAudioHelper()->playEffect("sounds/select.mp3");
 
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
+  const auto menu = dynamic_cast<MenuScene*>(getParent());
   const auto debug = _debugGridToggle->getSelectedIndex() == 1;
-  menu->set_debug_grid(debug);
+  menu->setDebugGrid(debug);
 
   updateLabels();
 }
@@ -270,20 +268,20 @@ void OptionsMenu::onDebugPhysics()
 {
   getAudioHelper()->playEffect("sounds/select.mp3");
 
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
+  const auto menu = dynamic_cast<MenuScene*>(getParent());
   const auto debug = _debugPhysicsToggle->getSelectedIndex() == 1;
-  menu->set_debug_physics(debug);
+  menu->setDebugPhysics(debug);
 
   updateLabels();
 }
 
 void OptionsMenu::updateLabels()
 {
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
+  const auto menu = dynamic_cast<MenuScene*>(getParent());
   const auto helper = getAudioHelper();
 
   _soundToggle->setText(helper->getEffectsMuted() ? "Disabled" : "Enabled");
   _musicToggle->setText(helper->getMusicMuted() ? "Disabled" : "Enabled");
-  _debugPhysicsToggle->setText(menu->is_debug_physics() ? "Enabled" : "Disabled");
-  _debugGridToggle->setText(menu->is_debug_grid() ? "Enabled" : "Disabled");
+  _debugPhysicsToggle->setText(menu->isDebugPhysics() ? "Enabled" : "Disabled");
+  _debugGridToggle->setText(menu->isDebugGrid() ? "Enabled" : "Disabled");
 }

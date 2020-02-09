@@ -20,7 +20,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "menu_scene.h"
+#include "MenuScene.h"
+
 #include "../laser_and_bots_app.h"
 #include "../menu/AboutMenu.h"
 #include "../menu/CreditsMenu.h"
@@ -31,32 +32,32 @@
 #include "../utils/audio/AudioHelper.h"
 #include "../utils/controller/InputController.h"
 
-menu_scene::menu_scene()
-  : current_menu_(nullptr)
-  , main_menu_(nullptr)
-  , options_menu_(nullptr)
-  , play_menu_(nullptr)
-  , credits_menu_(nullptr)
-  , about_menu_(nullptr)
-  , license_menu_(nullptr)
-  , background_(nullptr)
-  , paused_(false)
-  , saved_level_(-1)
-  , input_controller_(nullptr)
+MenuScene::MenuScene()
+  : _currentMenu(nullptr)
+  , _mainMenu(nullptr)
+  , _optionsMenu(nullptr)
+  , _playMenu(nullptr)
+  , _creditsMenu(nullptr)
+  , _aboutMenu(nullptr)
+  , _licenseMenu(nullptr)
+  , _background(nullptr)
+  , _paused(false)
+  , _savedLevel(-1)
+  , _inputController(nullptr)
 {
 }
 
-Scene* menu_scene::scene(BasicApp* application, const menu_to_display menu,
-                         const unsigned short int selected_level)
+Scene *MenuScene::scene(BasicApp *application, const MenuToDisplay menu,
+                        const unsigned short int selectedLevel)
 {
-  menu_scene* ret = nullptr;
+  MenuScene *ret = nullptr;
 
   do
   {
-    auto object = new menu_scene();
+    auto object = new MenuScene();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(application, menu, selected_level))
+    if (object->init(application, menu, selectedLevel))
     {
       object->autorelease();
     }
@@ -72,13 +73,12 @@ Scene* menu_scene::scene(BasicApp* application, const menu_to_display menu,
   return ret;
 }
 
-menu_scene::~menu_scene()
+MenuScene::~MenuScene()
 {
   base_class::removeAllChildrenWithCleanup(true);
 }
 
-bool menu_scene::init(BasicApp* application, const menu_to_display menu,
-                      const unsigned short int selected_level)
+bool MenuScene::init(BasicApp *application, const MenuToDisplay menu, const unsigned short int selectedLevel)
 {
   auto ret = false;
 
@@ -92,11 +92,11 @@ bool menu_scene::init(BasicApp* application, const menu_to_display menu,
     getAudioHelper()->preLoadEffect("sounds/select.mp3");
     getAudioHelper()->preLoadEffect("sounds/SlideClosed.mp3");
     getAudioHelper()->preLoadMusic("sounds/Cellar-I.mp3", "sounds/Cellar-L.mp3");
-    const auto& size = Director::getInstance()->getWinSize();
+    const auto &size = Director::getInstance()->getWinSize();
 
-    UTILS_BREAK_IF(!add_background());
-    UTILS_BREAK_IF(!add_robot());
-    UTILS_BREAK_IF(!add_laser());
+    UTILS_BREAK_IF(!addBackground());
+    UTILS_BREAK_IF(!addRobot());
+    UTILS_BREAK_IF(!addLaser());
 
     auto label = Label::createWithTTF("Lasers and Bots", "fonts/tahoma.ttf", 500);
     UTILS_BREAK_IF(label == nullptr);
@@ -112,60 +112,60 @@ bool menu_scene::init(BasicApp* application, const menu_to_display menu,
 
     const auto version = _application->getGameVersionString();
 
-    auto version_label = Label::createWithTTF(version, "fonts/tahoma.ttf", 120);
-    UTILS_BREAK_IF(version_label == nullptr);
+    auto versionLabel = Label::createWithTTF(version, "fonts/tahoma.ttf", 120);
+    UTILS_BREAK_IF(versionLabel == nullptr);
 
-    version_label->setHorizontalAlignment(TextHAlignment::RIGHT);
-    version_label->setAnchorPoint(Vec2(1, 0));
-    version_label->setPosition(Vec2(size.width - 60, 60));
-    version_label->setTextColor(Color4B(255, 255, 255, 255));
-    version_label->enableOutline(Color4B(0, 0, 0, 255), 5);
+    versionLabel->setHorizontalAlignment(TextHAlignment::RIGHT);
+    versionLabel->setAnchorPoint(Vec2(1, 0));
+    versionLabel->setPosition(Vec2(size.width - 60, 60));
+    versionLabel->setTextColor(Color4B(255, 255, 255, 255));
+    versionLabel->enableOutline(Color4B(0, 0, 0, 255), 5);
 
-    addChild(version_label, 0);
+    addChild(versionLabel, 0);
 
-    main_menu_ = MainMenu::create(getAudioHelper());
-    UTILS_BREAK_IF(main_menu_ == nullptr);
+    _mainMenu = MainMenu::create(getAudioHelper());
+    UTILS_BREAK_IF(_mainMenu == nullptr);
 
-    addChild(main_menu_, 0);
+    addChild(_mainMenu, 0);
 
-    options_menu_ = OptionsMenu::create(getAudioHelper(), application->isDesktop());
-    UTILS_BREAK_IF(options_menu_ == nullptr);
+    _optionsMenu = OptionsMenu::create(getAudioHelper(), application->isDesktop());
+    UTILS_BREAK_IF(_optionsMenu == nullptr);
 
-    addChild(options_menu_, 0);
+    addChild(_optionsMenu, 0);
 
-    play_menu_ = PlayMenu::create(getAudioHelper(), selected_level);
-    UTILS_BREAK_IF(play_menu_ == nullptr);
+    _playMenu = PlayMenu::create(getAudioHelper(), selectedLevel);
+    UTILS_BREAK_IF(_playMenu == nullptr);
 
-    addChild(play_menu_, 0);
+    addChild(_playMenu, 0);
 
-    credits_menu_ = CreditsMenu::create(getAudioHelper());
-    UTILS_BREAK_IF(credits_menu_ == nullptr);
+    _creditsMenu = CreditsMenu::create(getAudioHelper());
+    UTILS_BREAK_IF(_creditsMenu == nullptr);
 
-    addChild(credits_menu_, 0);
+    addChild(_creditsMenu, 0);
 
-    about_menu_ = AboutMenu::create(getAudioHelper());
-    UTILS_BREAK_IF(about_menu_ == nullptr);
+    _aboutMenu = AboutMenu::create(getAudioHelper());
+    UTILS_BREAK_IF(_aboutMenu == nullptr);
 
-    addChild(about_menu_, 0);
+    addChild(_aboutMenu, 0);
 
-    license_menu_ = LicenseMenu::create(getAudioHelper());
-    UTILS_BREAK_IF(license_menu_ == nullptr);
+    _licenseMenu = LicenseMenu::create(getAudioHelper());
+    UTILS_BREAK_IF(_licenseMenu == nullptr);
 
-    addChild(license_menu_, 0);
+    addChild(_licenseMenu, 0);
 
     switch (menu)
     {
-      case menu_to_display::main_menu:
-        display_main_menu();
+      case MenuToDisplay::MainMenu:
+        displayMainMenu();
         break;
-      case menu_to_display::play_menu:
-        display_play_menu();
+      case MenuToDisplay::PlayMenu:
+        displayPlayMenu();
         break;
-      case menu_to_display::options_menu:
-        display_options_menu();
+      case MenuToDisplay::OptionsMenu:
+        displayOptionsMenu();
         break;
-      case menu_to_display::license_menu:
-        display_license_menu();
+      case MenuToDisplay::LicenseMenu:
+        displayLicenseMenu();
         break;
     }
 
@@ -179,16 +179,16 @@ bool menu_scene::init(BasicApp* application, const menu_to_display menu,
   return ret;
 }
 
-bool menu_scene::add_background()
+bool MenuScene::addBackground()
 {
   auto result = false;
 
   do
   {
-    background_ = experimental::TMXTiledMap::create("maps/intro.tmx");
-    UTILS_BREAK_IF(background_ == nullptr);
+    _background = experimental::TMXTiledMap::create("maps/intro.tmx");
+    UTILS_BREAK_IF(_background == nullptr);
 
-    addChild(background_);
+    addChild(_background);
 
     result = true;
   } while (false);
@@ -196,7 +196,7 @@ bool menu_scene::add_background()
   return result;
 }
 
-bool menu_scene::add_robot()
+bool MenuScene::addRobot()
 {
   auto ret = false;
 
@@ -211,7 +211,7 @@ bool menu_scene::add_robot()
     const auto speed = 0.10f;
 
     auto cache = SpriteFrameCache::getInstance();
-    Vector<SpriteFrame*> frames(max_frame);
+    Vector<SpriteFrame *> frames(max_frame);
 
     auto loaded = 0;
     for (unsigned short int num = 1; num <= max_frame; num++)
@@ -235,7 +235,7 @@ bool menu_scene::add_robot()
 
     robot->runAction(Animate::create(anim));
 
-    const auto& size = Director::getInstance()->getWinSize();
+    const auto &size = Director::getInstance()->getWinSize();
     robot->setPosition(Vec2(size.width / 2, -25.f));
 
     addChild(robot);
@@ -246,13 +246,13 @@ bool menu_scene::add_robot()
   return ret;
 }
 
-bool menu_scene::add_laser()
+bool MenuScene::addLaser()
 {
   auto result = false;
 
   do
   {
-    const auto& size = Director::getInstance()->getWinSize();
+    const auto &size = Director::getInstance()->getWinSize();
 
     const auto draw_node = DrawNode::create();
     UTILS_BREAK_IF(draw_node == nullptr);
@@ -287,19 +287,19 @@ bool menu_scene::add_laser()
   return result;
 }
 
-void menu_scene::go_to_game(const unsigned short int level)
+void MenuScene::goToGame(const unsigned short int level)
 {
   const auto delay = DelayTime::create(1.15f);
-  const auto func = CallFunc::create(CC_CALLBACK_0(menu_scene::delay_to_game, this));
+  const auto func = CallFunc::create(CC_CALLBACK_0(MenuScene::delayToGame, this));
   const auto sequence = Sequence::create(delay, func, nullptr);
-  saved_level_ = level;
+  _savedLevel = level;
 
   runAction(sequence);
 }
 
-void menu_scene::exit_app()
+void MenuScene::exitApp()
 {
-  auto app = dynamic_cast<laser_and_bots_app*>(getApplication());
+  auto app = dynamic_cast<laser_and_bots_app *>(getApplication());
 
   const auto delay = DelayTime::create(1.15f);
   const auto func = CallFunc::create(CC_CALLBACK_0(laser_and_bots_app::close, app));
@@ -308,45 +308,45 @@ void menu_scene::exit_app()
   runAction(sequence);
 }
 
-void menu_scene::display_options_menu()
+void MenuScene::displayOptionsMenu()
 {
-  current_menu_ = options_menu_;
-  options_menu_->display();
+  _currentMenu = _optionsMenu;
+  _optionsMenu->display();
 }
 
-void menu_scene::display_main_menu()
+void MenuScene::displayMainMenu()
 {
-  current_menu_ = main_menu_;
-  main_menu_->display();
+  _currentMenu = _mainMenu;
+  _mainMenu->display();
 }
 
-void menu_scene::display_play_menu()
+void MenuScene::displayPlayMenu()
 {
-  current_menu_ = play_menu_;
-  play_menu_->display();
+  _currentMenu = _playMenu;
+  _playMenu->display();
 }
 
-void menu_scene::display_credits_menu()
+void MenuScene::displayCreditsMenu()
 {
-  current_menu_ = credits_menu_;
-  credits_menu_->display();
+  _currentMenu = _creditsMenu;
+  _creditsMenu->display();
 }
 
-void menu_scene::display_about_menu()
+void MenuScene::displayAboutMenu()
 {
-  current_menu_ = about_menu_;
-  about_menu_->display();
+  _currentMenu = _aboutMenu;
+  _aboutMenu->display();
 }
 
-void menu_scene::display_license_menu()
+void MenuScene::displayLicenseMenu()
 {
-  current_menu_ = license_menu_;
-  license_menu_->display();
+  _currentMenu = _licenseMenu;
+  _licenseMenu->display();
 }
 
-void menu_scene::change_music(const bool disabled) const
+void MenuScene::changeMusic(const bool disabled) const
 {
-  const auto app = dynamic_cast<laser_and_bots_app*>(getApplication());
+  const auto app = dynamic_cast<laser_and_bots_app *>(getApplication());
   const auto helper = getAudioHelper();
 
   if (!disabled)
@@ -361,29 +361,29 @@ void menu_scene::change_music(const bool disabled) const
   }
 }
 
-void menu_scene::change_sound(const bool disabled) const
+void MenuScene::changeSound(const bool disabled) const
 {
-  const auto app = dynamic_cast<laser_and_bots_app*>(getApplication());
+  const auto app = dynamic_cast<laser_and_bots_app *>(getApplication());
   app->set_effects_muted(disabled);
 }
 
-void menu_scene::change_music_volume(const float volume) const
+void MenuScene::changeMusicVolume(const float volume) const
 {
-  const auto app = dynamic_cast<laser_and_bots_app*>(getApplication());
+  const auto app = dynamic_cast<laser_and_bots_app *>(getApplication());
   app->set_music_volume(volume);
 }
 
-void menu_scene::change_sound_volume(const float volume) const
+void MenuScene::changeSoundVolume(const float volume) const
 {
-  const auto app = dynamic_cast<laser_and_bots_app*>(getApplication());
+  const auto app = dynamic_cast<laser_and_bots_app *>(getApplication());
   app->set_effects_volume(volume);
 }
 
-void menu_scene::update(float delta)
+void MenuScene::update(float delta)
 {
-  handle_input();
+  handleInput();
 
-  const auto pos = background_->getPosition();
+  const auto pos = _background->getPosition();
   auto new_pos = pos - Vec2(delta * 600, 0);
 
   if (new_pos.x < (-256 * 2))
@@ -391,83 +391,83 @@ void menu_scene::update(float delta)
     new_pos = Vec2::ZERO;
   }
 
-  background_->setPosition(new_pos);
+  _background->setPosition(new_pos);
 }
 
-void menu_scene::pause()
+void MenuScene::pause()
 {
   base_class::pause();
-  if (!paused_)
+  if (!_paused)
   {
     const auto helper = getAudioHelper();
     if (helper != nullptr)
     {
       helper->pauseMusic();
     }
-    paused_ = true;
+    _paused = true;
   }
 }
 
-void menu_scene::resume()
+void MenuScene::resume()
 {
   base_class::resume();
-  if (paused_)
+  if (_paused)
   {
     const auto helper = getAudioHelper();
     if (helper != nullptr)
     {
       helper->resumeMusic();
     }
-    paused_ = false;
+    _paused = false;
   }
 }
 
-void menu_scene::didEnterBackground()
+void MenuScene::didEnterBackground()
 {
   pause();
 }
 
-void menu_scene::willEnterForeground()
+void MenuScene::willEnterForeground()
 {
   resume();
 }
 
-bool menu_scene::is_full_screen() const
+bool MenuScene::isFullScreen() const
 {
   return getApplication()->isFullScreen();
 }
 
-void menu_scene::change_application_video_mode(const bool full_screen) const
+void MenuScene::changeApplicationVideoMode(const bool fullScreen) const
 {
-  auto app = dynamic_cast<laser_and_bots_app*>(getApplication());
-  app->change_video_mode(full_screen);
+  auto app = dynamic_cast<laser_and_bots_app *>(getApplication());
+  app->change_video_mode(fullScreen);
 }
 
-bool menu_scene::is_debug_grid() const
+bool MenuScene::isDebugGrid() const
 {
-  const auto app = dynamic_cast<laser_and_bots_app*>(getApplication());
+  const auto app = dynamic_cast<laser_and_bots_app *>(getApplication());
   return app->is_debug_grid();
 }
 
-void menu_scene::set_debug_grid(const bool debug_grid) const
+void MenuScene::setDebugGrid(const bool debugGrid) const
 {
-  const auto app = dynamic_cast<laser_and_bots_app*>(getApplication());
-  app->set_debug_grid(debug_grid);
+  const auto app = dynamic_cast<laser_and_bots_app *>(getApplication());
+  app->set_debug_grid(debugGrid);
 }
 
-bool menu_scene::is_debug_physics() const
+bool MenuScene::isDebugPhysics() const
 {
-  const auto app = dynamic_cast<laser_and_bots_app*>(getApplication());
+  const auto app = dynamic_cast<laser_and_bots_app *>(getApplication());
   return app->is_debug_physics();
 }
 
-void menu_scene::set_debug_physics(const bool debug_physics) const
+void MenuScene::setDebugPhysics(const bool debugPhysics) const
 {
-  const auto app = dynamic_cast<laser_and_bots_app*>(getApplication());
-  app->set_debug_physics(debug_physics);
+  const auto app = dynamic_cast<laser_and_bots_app *>(getApplication());
+  app->set_debug_physics(debugPhysics);
 }
 
-void menu_scene::handle_input() const
+void MenuScene::handleInput() const
 {
   const auto controller = getInputController();
 
@@ -475,33 +475,33 @@ void menu_scene::handle_input() const
   {
     if (controller->singlePressUp())
     {
-      current_menu_->moveSelectionUp();
+      _currentMenu->moveSelectionUp();
     }
     if (controller->singlePressDown())
     {
-      current_menu_->moveSelectionDown();
+      _currentMenu->moveSelectionDown();
     }
     if (controller->singlePressLeft())
     {
-      current_menu_->moveSelectionLeft();
+      _currentMenu->moveSelectionLeft();
     }
     if (controller->singlePressRight())
     {
-      current_menu_->moveSelectionRight();
+      _currentMenu->moveSelectionRight();
     }
     if (controller->singlePressButtonA() || controller->singlePressButtonStart())
     {
-      current_menu_->activateSelection();
+      _currentMenu->activateSelection();
     }
     if (controller->singlePressButtonB() || controller->singlePressButtonBack())
     {
-      current_menu_->selectionBack();
+      _currentMenu->selectionBack();
     }
   }
 }
 
-void menu_scene::delay_to_game() const
+void MenuScene::delayToGame() const
 {
-  auto app = dynamic_cast<laser_and_bots_app*>(getApplication());
-  app->to_game(saved_level_);
+  auto app = dynamic_cast<laser_and_bots_app *>(getApplication());
+  app->to_game(_savedLevel);
 }

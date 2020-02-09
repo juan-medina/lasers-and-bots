@@ -27,46 +27,64 @@
 
 // forward declarations
 class BasicMenu;
+
 class MainMenu;
+
 class OptionsMenu;
+
 class PlayMenu;
+
 class CreditsMenu;
+
 class AboutMenu;
+
 class LicenseMenu;
+
 class InputController;
 
-enum class menu_to_display
+enum class MenuToDisplay
 {
-  main_menu,
-  play_menu,
-  options_menu,
-  license_menu
+  MainMenu,
+  PlayMenu,
+  OptionsMenu,
+  LicenseMenu
 };
 
-class menu_scene final : public BasicScene
+class MenuScene final : public BasicScene
 {
 public:
   using base_class = BasicScene;
 
-  menu_scene();
+  MenuScene();
 
-  ~menu_scene();
+  ~MenuScene();
 
-  static Scene* scene(BasicApp* application, const menu_to_display menu,
-                      const unsigned short int selected_level);
+  static Scene *scene(BasicApp *application, const MenuToDisplay menu,
+                      const unsigned short int selectedLevel);
 
-  void go_to_game(const unsigned short int level);
-  void exit_app();
-  void display_options_menu();
-  void display_main_menu();
-  void display_play_menu();
-  void display_credits_menu();
-  void display_about_menu();
-  void display_license_menu();
-  void change_music(const bool disabled) const;
-  void change_sound(const bool disabled) const;
-  void change_music_volume(const float volume) const;
-  void change_sound_volume(const float volume) const;
+  void goToGame(const unsigned short int level);
+
+  void exitApp();
+
+  void displayOptionsMenu();
+
+  void displayMainMenu();
+
+  void displayPlayMenu();
+
+  void displayCreditsMenu();
+
+  void displayAboutMenu();
+
+  void displayLicenseMenu();
+
+  void changeMusic(const bool disabled) const;
+
+  void changeSound(const bool disabled) const;
+
+  void changeMusicVolume(const float volume) const;
+
+  void changeSoundVolume(const float volume) const;
 
   void update(float delta) override;
 
@@ -75,40 +93,47 @@ public:
   void resume() override;
 
   void didEnterBackground() override;
+
   void willEnterForeground() override;
 
-  bool is_full_screen() const;
+  bool isFullScreen() const;
 
-  void change_application_video_mode(const bool full_screen) const;
+  void changeApplicationVideoMode(const bool fullScreen) const;
 
-  bool is_debug_grid() const;
-  void set_debug_grid(const bool debug_grid) const;
+  bool isDebugGrid() const;
 
-  bool is_debug_physics() const;
-  void set_debug_physics(const bool debug_physics) const;
+  void setDebugGrid(const bool debugGrid) const;
+
+  bool isDebugPhysics() const;
+
+  void setDebugPhysics(const bool debugPhysics) const;
 
 private:
-  void handle_input() const;
-  void delay_to_game() const;
-  bool init(BasicApp* application, const menu_to_display menu, const unsigned short int selected_level);
+  void handleInput() const;
 
-  bool add_background();
-  bool add_robot();
-  bool add_laser();
+  void delayToGame() const;
 
-  BasicMenu* current_menu_;
-  MainMenu* main_menu_;
-  OptionsMenu* options_menu_;
-  PlayMenu* play_menu_;
-  CreditsMenu* credits_menu_;
-  AboutMenu* about_menu_;
-  LicenseMenu* license_menu_;
+  bool init(BasicApp *application, const MenuToDisplay menu, const unsigned short int selectedLevel);
 
-  Node* background_;
-  bool paused_;
-  unsigned short int saved_level_;
+  bool addBackground();
 
-  InputController* input_controller_;
+  bool addRobot();
+
+  bool addLaser();
+
+  BasicMenu *_currentMenu;
+  MainMenu *_mainMenu;
+  OptionsMenu *_optionsMenu;
+  PlayMenu *_playMenu;
+  CreditsMenu *_creditsMenu;
+  AboutMenu *_aboutMenu;
+  LicenseMenu *_licenseMenu;
+
+  Node *_background;
+  bool _paused;
+  unsigned short int _savedLevel;
+
+  InputController *_inputController;
 };
 
 #endif // __MENU_SCENE_H__

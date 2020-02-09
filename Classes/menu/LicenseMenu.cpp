@@ -21,10 +21,11 @@
  ****************************************************************************/
 
 #include "LicenseMenu.h"
-#include "../scenes/menu_scene.h"
+
 #include "../ui/ScrollingText.h"
 #include "../ui/TextButton.h"
 #include "../utils/audio/AudioHelper.h"
+#include "scenes/MenuScene.h"
 
 LicenseMenu::LicenseMenu() : _backItem(nullptr), _scrollingText(nullptr) {}
 
@@ -81,7 +82,8 @@ bool LicenseMenu::createMenuItems()
     UTILS_BREAK_IF(_scrollingText == nullptr);
     addChild(_scrollingText);
 
-    const auto textPosition = Vec2(-getContentSize().width / 2, -getContentSize().height / 2) + Vec2(130, 250);
+    const auto textPosition =
+      Vec2(-getContentSize().width / 2, -getContentSize().height / 2) + Vec2(130, 250);
     _scrollingText->setPosition(textPosition);
 
     result = true;
@@ -94,12 +96,12 @@ void LicenseMenu::onBack()
 {
   getAudioHelper()->playEffect("sounds/select.mp3");
   hide();
-  const auto menu = dynamic_cast<menu_scene*>(getParent());
-  menu->display_main_menu();
+  const auto menu = dynamic_cast<MenuScene*>(getParent());
+  menu->displayMainMenu();
 }
 
 void LicenseMenu::display()
 {
-  BaseClass ::display();
+  BaseClass::display();
   _scrollingText->autoScrollIn(5.f);
 }
