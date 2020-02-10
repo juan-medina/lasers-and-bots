@@ -146,28 +146,28 @@ void BasicMenu::hide()
 
   _moving = true;
 
-  static auto const time = 0.5f;
-  const auto call_back = CallFunc::create(CC_CALLBACK_0(BasicMenu::onMovementEnd, this));
+  static auto const TIME = 0.5f;
+  const auto callBack = CallFunc::create(CC_CALLBACK_0(BasicMenu::onMovementEnd, this));
 
   if (_animationType == AnimationType::Slide)
   {
     const auto& size = Director::getInstance()->getVisibleSize();
     const auto move = Vec2(size.width, 0);
 
-    const auto elasticOut = EaseElasticInOut::create(MoveBy::create(time * 2, move), time);
+    const auto elasticOut = EaseElasticInOut::create(MoveBy::create(TIME * 2, move), TIME);
     const auto fade = FadeTo::create(0.0f, 0);
     const auto hide = Hide::create();
 
-    const auto moveOut = Sequence::create(elasticOut, fade, hide, call_back, nullptr);
+    const auto moveOut = Sequence::create(elasticOut, fade, hide, callBack, nullptr);
     runAction(moveOut);
 
     getAudioHelper()->playEffect("sounds/SlideClosed.mp3");
   }
   else
   {
-    const auto fadeOutWindow = FadeTo::create(time, 0);
+    const auto fadeOutWindow = FadeTo::create(TIME, 0);
     const auto hide = Hide::create();
-    const auto fadeHide = Sequence::create(fadeOutWindow, hide, call_back, nullptr);
+    const auto fadeHide = Sequence::create(fadeOutWindow, hide, callBack, nullptr);
 
     runAction(fadeHide);
   }

@@ -63,7 +63,7 @@ bool VirtualJoyStick::init(InputController* inputController)
     _inputController = inputController;
 
 #if (GAME_PLATFORM == MOBILE_GAME)
-    UTILS_BREAK_IF(!add_on_screen_buttons());
+    UTILS_BREAK_IF(!addOnScreenButton());
 #endif
 
     ret = true;

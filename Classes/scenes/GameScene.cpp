@@ -473,7 +473,7 @@ bool GameScene::addSaw(const ValueMap& values, Node* layer)
     const auto stopTime = values.at("stop_time").asFloat();
 
     auto saw = SawObject::create(getPhysicsShapeCache(), image, shape, damage, rotationTime, movement,
-                                  movementTime, stopTime);
+                                 movementTime, stopTime);
     UTILS_BREAK_IF(saw == nullptr);
 
     const auto position = getObjectCenterPosition(values);
@@ -791,9 +791,9 @@ void GameScene::pause()
 
   if (_doingFinalAnim)
   {
-    for (auto robot_fragment : _robotFragments)
+    for (auto robotFragment : _robotFragments)
     {
-      robot_fragment->pause();
+      robotFragment->pause();
     }
   }
 }
@@ -1017,7 +1017,7 @@ void GameScene::robotTouchObjectEnd(const PhysicsContact& contact) const
 
 void GameScene::feetTouchObjectStart(const PhysicsContact& contact) const
 {
-  const auto blockGameObject = getObjectFromContact<GameObject>(contact, Categories::walk_on);
+  const auto blockGameObject = getObjectFromContact<GameObject>(contact, Categories::walkOn);
   if (blockGameObject != nullptr)
   {
     _robot->feetTouchWalkObjectStart();
@@ -1034,7 +1034,7 @@ void GameScene::feetTouchObjectStart(const PhysicsContact& contact) const
 
 void GameScene::feetTouchObjectEnd(const PhysicsContact& contact) const
 {
-  const auto blockGameObject = getObjectFromContact<GameObject>(contact, Categories::walk_on);
+  const auto blockGameObject = getObjectFromContact<GameObject>(contact, Categories::walkOn);
   if (blockGameObject != nullptr)
   {
     _robot->feetTouchWalkObjectEnd();

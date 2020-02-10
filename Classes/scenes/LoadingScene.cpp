@@ -123,13 +123,13 @@ bool LoadingScene::init(BasicApp *application, const LoadTo &type, const bool de
 
     addChild(label, 0);
 
-    const auto delay_exit = DelayTime::create(0.15f);
-    UTILS_BREAK_IF(delay_exit == nullptr);
+    const auto delayExit = DelayTime::create(0.15f);
+    UTILS_BREAK_IF(delayExit == nullptr);
 
     const auto func = CallFunc::create(CC_CALLBACK_0(LoadingScene::goToScene, this));
     UTILS_BREAK_IF(func == nullptr);
 
-    const auto sequence = Sequence::create(delay_exit, func, NULL);
+    const auto sequence = Sequence::create(delayExit, func, NULL);
     UTILS_BREAK_IF(sequence == nullptr);
 
     runAction(sequence);

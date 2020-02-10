@@ -206,15 +206,15 @@ bool MenuScene::addRobot()
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("robot/robot_1.plist");
 
     const auto pattern = std::string("Run_%02d.png");
-    const auto max_frame = 8;
+    const auto maxFrame = 8;
     const auto loops = -1;
     const auto speed = 0.10f;
 
     auto cache = SpriteFrameCache::getInstance();
-    Vector<SpriteFrame *> frames(max_frame);
+    Vector<SpriteFrame *> frames(maxFrame);
 
     auto loaded = 0;
-    for (unsigned short int num = 1; num <= max_frame; num++)
+    for (unsigned short int num = 1; num <= maxFrame; num++)
     {
       const auto frame = cache->getSpriteFrameByName(StringFormat(pattern, num));
       UTILS_BREAK_IF(frame == nullptr);
@@ -222,7 +222,7 @@ bool MenuScene::addRobot()
       frames.pushBack(frame);
       loaded++;
     }
-    UTILS_BREAK_IF(loaded != max_frame);
+    UTILS_BREAK_IF(loaded != maxFrame);
 
     auto anim = Animation::createWithSpriteFrames(frames);
     UTILS_BREAK_IF(anim == nullptr);

@@ -99,16 +99,16 @@ bool PhysicsShapeCache::addShapesWithFile(const std::string& plist, const float 
         {
           auto poly = new Polygon();
           fd->_polygons.push_back(poly);
-          auto& polygon_array = polygonItem.asValueVector();
-          poly->_numVertex = static_cast<int>(polygon_array.size());
+          auto& polygonArray = polygonItem.asValueVector();
+          poly->_numVertex = static_cast<int>(polygonArray.size());
           auto* vertices = poly->_vertex = new cocos2d::Point[poly->_numVertex];
-          auto v_index = 0;
-          for (auto& point_string : polygon_array)
+          auto vIndex = 0;
+          for (auto& pointString : polygonArray)
           {
-            const auto offset = PointFromString(point_string.asString());
-            vertices[v_index].x = offset.x / scaleFactor;
-            vertices[v_index].y = offset.y / scaleFactor;
-            v_index++;
+            const auto offset = PointFromString(pointString.asString());
+            vertices[vIndex].x = offset.x / scaleFactor;
+            vertices[vIndex].y = offset.y / scaleFactor;
+            vIndex++;
           }
         }
       }

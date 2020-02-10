@@ -248,9 +248,9 @@ void OptionsMenu::onWindowed()
 
   getAudioHelper()->playEffect("sounds/select.mp3");
 
-  const auto full_screen = _windowedToggle->getSelectedIndex() == 0;
-  _fullScreenToggle->setSelectedIndex(full_screen ? 1 : 0);
-  menu->changeApplicationVideoMode(full_screen);
+  const auto fullScreen = _windowedToggle->getSelectedIndex() == 0;
+  _fullScreenToggle->setSelectedIndex(fullScreen ? 1 : 0);
+  menu->changeApplicationVideoMode(fullScreen);
 }
 
 void OptionsMenu::onDebugGrid()

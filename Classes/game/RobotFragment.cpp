@@ -114,8 +114,8 @@ void RobotFragment::explode(const Vec2& velocity)
   body->setLinearDamping(0.5f);
   body->setAngularDamping(0.25f);
 
-  const auto angular_velocity = random(2.5f, 4.5f) * (rand() % 2) * 2 - 1;
-  body->setAngularVelocity(angular_velocity);
+  const auto angularVelocity = random(2.5f, 4.5f) * (rand() % 2) * 2 - 1;
+  body->setAngularVelocity(angularVelocity);
 
   _smoke->start();
 }

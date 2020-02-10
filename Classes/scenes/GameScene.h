@@ -77,7 +77,7 @@ public:
     box = 512u,
     feet = 1024u,
     harm = spikes | acid | saw,
-    walk_on = harm | blocks | barrel | box
+    walkOn = harm | blocks | barrel | box
   };
 
   void pause() override;

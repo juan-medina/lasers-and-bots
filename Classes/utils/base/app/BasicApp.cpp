@@ -76,7 +76,7 @@ bool BasicApp::applicationDidFinishLaunching()
           GLViewImpl::createWithRect(_applicationName, Rect(Vec2::ZERO, Size(_windowWidth, _windowHeight)));
       }
 #else
-      open_gl_view = GLViewImpl::create(application_name_);
+      openGlView = GLViewImpl::create(_applicationName);
 #endif
       director->setOpenGLView(openGlView);
     }
