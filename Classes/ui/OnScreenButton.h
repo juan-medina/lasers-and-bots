@@ -19,8 +19,8 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __ON_SCREEN_BUTTON_CLASS__
-#define __ON_SCREEN_BUTTON_CLASS__
+#ifndef __ONSCREENBUTTON_H__
+#define __ONSCREENBUTTON_H__
 
 #include "../utils/utils.h"
 
@@ -49,11 +49,11 @@ public:
 
   const cocos2d::Size& getContentSize() const override;
 
-  void pushed(const bool pushed);
+  void pushed(bool pushed);
 
   inline constexpr bool isPushed() const noexcept { return _pushed; }
 
-  void disabled(const bool disabled);
+  void disabled(bool disabled);
 
   const ButtonType& type() const { return _type; }
 
@@ -67,7 +67,7 @@ private:
   void onTouchesEnded(const std::vector<Touch*>& touches, Event* unusedEvent);
   void onTouchesCancel(const std::vector<Touch*>& touches, Event* unusedEvent);
 
-  bool enableTouch(const bool enabled);
+  bool enableTouch(bool enabled);
 
   Sprite* _normalSprite;
   Sprite* _pushedSprite;
@@ -84,4 +84,4 @@ private:
   ButtonType _type;
 };
 
-#endif // __ON_SCREEN_BUTTON_CLASS__
+#endif //__ONSCREENBUTTON_H__

@@ -90,7 +90,7 @@ list(APPEND GAME_SOURCE
         Classes/ui/PauseWindow.cpp
         Classes/ui/VirtualJoyStick.cpp
         Classes/ui/ScrollingText.cpp
-        Classes/ui/GameUI.cpp
+        Classes/ui/GameUi.cpp
         )
 list(APPEND GAME_HEADER
         Classes/misc/LevelManager.h
@@ -131,7 +131,7 @@ list(APPEND GAME_HEADER
         Classes/ui/LevelCompleted.h
         Classes/ui/MessageWindow.h
         Classes/ui/SliderObject.h
-        Classes/ui/GameUI.h
+        Classes/ui/GameUi.h
         Classes/ui/ResizableWindow.h
         Classes/ui/VirtualJoyStick.h
         Classes/ui/PauseWindow.h

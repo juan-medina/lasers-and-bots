@@ -24,11 +24,11 @@
 
 #include "../laser_and_bots_app.h"
 #include "../misc/LevelManager.h"
-#include "../ui/GameUI.h"
 #include "../ui/TextButton.h"
 #include "../ui/TextToggle.h"
 #include "../utils/audio/AudioHelper.h"
 #include "scenes/MenuScene.h"
+#include "ui/GameUi.h"
 
 PlayMenu::PlayMenu()
   : _backItem(nullptr)
@@ -280,11 +280,11 @@ void PlayMenu::selectLevel(const unsigned short int level)
   const auto levels = getLevelManager();
   const auto levelName = levels->getLevelName(level);
   const auto levelTimeLimit = levels->getLevelTimeLimit(level);
-  const auto levelTimeLimitString = GameUI::timeMessage(levelTimeLimit);
+  const auto levelTimeLimitString = GameUi::timeMessage(levelTimeLimit);
   const auto levelTimeRecord = levels->getLevelTimeRecord(level);
-  const auto levelTimeRecordString = GameUI::timeMessage(levelTimeRecord);
+  const auto levelTimeRecordString = GameUi::timeMessage(levelTimeRecord);
   const auto level3StarsRecord = levels->getLevel3StarsRecord(level);
-  const auto level3StarsRecordString = GameUI::timeMessage(level3StarsRecord);
+  const auto level3StarsRecordString = GameUi::timeMessage(level3StarsRecord);
   const auto stars = levels->getLevelStars(level);
 
   _levelNameLabel->setString(levelName);

@@ -19,8 +19,8 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __SLIDER_OBJECT_CLASS__
-#define __SLIDER_OBJECT_CLASS__
+#ifndef __SLIDEROBJECT_H__
+#define __SLIDEROBJECT_H__
 
 #include "../utils/utils.h"
 
@@ -37,12 +37,12 @@ public:
 
   bool init(const std::string& background, const std::string& progress, const SliderChangeCallback& callback);
 
-  void setPercentage(const float percentage);
+  void setPercentage(float percentage);
   float getPercentage() const;
 
   bool isEnabled() const override { return _enabled; }
 
-  void enable(const bool enabled);
+  void enable(bool enabled);
   void setColor(const Color3B& color) override;
 
 private:
@@ -50,7 +50,7 @@ private:
   Label* _label;
   bool _enabled;
 
-  bool enableTouch(const bool enabled);
+  bool enableTouch(bool enabled);
 
   bool onTouchBegan(Touch* touch, Event* unusedEvent);
   void onTouchMoved(Touch* touch, Event* unusedEvent);
@@ -66,8 +66,8 @@ private:
   Sprite* _arrow;
   float _lastPercentage;
 
-  void onPercentageChange(const float percentage) const;
+  void onPercentageChange(float percentage) const;
   std::function<void(const float)> _callback;
 };
 
-#endif // __SLIDER_OBJECT_CLASS__
+#endif //__SLIDEROBJECT_H__

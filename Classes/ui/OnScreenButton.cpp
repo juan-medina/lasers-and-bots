@@ -219,17 +219,8 @@ void OnScreenButton::onTouchesMoved(const std::vector<Touch*>& touches, Event* u
     if (touch->getID() == _savedTouchId)
     {
       const auto location = touch->getLocation();
-
-      if (isTouchedByLocation(location))
-      {
-        pushed(true);
-        return;
-      }
-      else
-      {
-        pushed(false);
-        return;
-      }
+      pushed(isTouchedByLocation(location));
+      return;
     }
   }
 }

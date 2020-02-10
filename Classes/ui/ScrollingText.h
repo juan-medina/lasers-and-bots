@@ -19,8 +19,8 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __SCROLLING_TEXT_CLASS__
-#define __SCROLLING_TEXT_CLASS__
+#ifndef __SCROLLINGTEXT_H__
+#define __SCROLLINGTEXT_H__
 
 #include "../utils/utils.h"
 
@@ -40,15 +40,15 @@ public:
 
   ScrollingText();
 
-  static ScrollingText* create(const Size& size, const std::string textFile, const bool centered = false);
+  static ScrollingText* create(const Size& size, const std::string& textFile, bool centered = false);
 
-  bool init(const Size& size, const std::string textFile, const bool centered);
+  bool init(const Size& size, const std::string& textFile, bool centered);
 
-  virtual void update(float delta) override;
+  void update(float delta) override;
 
-  void setScroll(const float scroll);
+  void setScroll(float scroll);
 
-  void autoScrollIn(const float time);
+  void autoScrollIn(float time);
 
 private:
   void startScroll();
@@ -59,4 +59,4 @@ private:
   float _scrollPos;
 };
 
-#endif // __SCROLLING_TEXT_CLASS__
+#endif //__SCROLLINGTEXT_H__

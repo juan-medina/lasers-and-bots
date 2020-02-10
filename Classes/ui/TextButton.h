@@ -19,8 +19,8 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __TEXT_BUTTON_CLASS__
-#define __TEXT_BUTTON_CLASS__
+#ifndef __TEXTBUTTON_H__
+#define __TEXTBUTTON_H__
 
 #include "../utils/utils.h"
 
@@ -41,4 +41,4 @@ private:
   Label* _label;
 };
 
-#endif // __TEXT_BUTTON_CLASS__
+#endif //__TEXTBUTTON_H__

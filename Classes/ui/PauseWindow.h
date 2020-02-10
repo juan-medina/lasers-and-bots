@@ -19,8 +19,8 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __PAUSE_WINDOW_CLASS__
-#define __PAUSE_WINDOW_CLASS__
+#ifndef __PAUSEWINDOW_H__
+#define __PAUSEWINDOW_H__
 
 #include "../menu/BasicMenu.h"
 #include "../utils/utils.h"
@@ -59,4 +59,4 @@ private:
   TextToggle* _toggleSfxItem;
 };
 
-#endif // __PAUSE_WINDOW_CLASS__
+#endif //__PAUSEWINDOW_H__

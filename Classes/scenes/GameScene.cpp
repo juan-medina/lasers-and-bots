@@ -34,11 +34,11 @@
 #include "../game/switch_object.h"
 #include "../laser_and_bots_app.h"
 #include "../misc/LevelManager.h"
-#include "../ui/GameUI.h"
 #include "../ui/VirtualJoyStick.h"
 #include "../utils/audio/AudioHelper.h"
 #include "../utils/base/nodes/CustomDrawNode.h"
 #include "../utils/physics/PhysicsShapeCache.h"
+#include "ui/GameUi.h"
 
 GameScene::GameScene() noexcept
   : _robot(nullptr)
@@ -173,7 +173,7 @@ bool GameScene::createGameUi()
 
   do
   {
-    _gameUI = GameUI::create(getAudioHelper(), getInputController(), _levelManager, _level);
+    _gameUI = GameUi::create(getAudioHelper(), getInputController(), _levelManager, _level);
     UTILS_BREAK_IF(_gameUI == nullptr);
 
     _gameUI->setAnchorPoint(Vec2(0.f, 0.f));

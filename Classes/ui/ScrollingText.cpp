@@ -21,6 +21,7 @@
  ****************************************************************************/
 
 #include "ScrollingText.h"
+
 #include "ui/UIRichText.h"
 
 using namespace cocos2d::ui;
@@ -30,7 +31,8 @@ ScrollingText::ScrollingText()
 {
 }
 
-ScrollingText* ScrollingText::create(const Size& size, const std::string textFile, const bool centered)
+ScrollingText* ScrollingText::create(const Size& size, const std::string& textFile,
+                                     const bool centered /* = false*/)
 {
   ScrollingText* ret = nullptr;
 
@@ -55,7 +57,7 @@ ScrollingText* ScrollingText::create(const Size& size, const std::string textFil
   return ret;
 }
 
-bool ScrollingText::init(const Size& size, const std::string textFile, const bool centered /* = false*/)
+bool ScrollingText::init(const Size& size, const std::string& textFile, const bool centered /* = false*/)
 {
   auto ret = false;
 

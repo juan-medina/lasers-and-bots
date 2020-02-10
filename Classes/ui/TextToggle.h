@@ -19,8 +19,8 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __TEXT_TOGGLE_CLASS__
-#define __TEXT_TOGGLE_CLASS__
+#ifndef __TEXTTOGGLE_H__
+#define __TEXTTOGGLE_H__
 
 #include "../utils/utils.h"
 
@@ -41,4 +41,4 @@ private:
   Label* _label;
 };
 
-#endif // __TEXT_TOGGLE_CLASS__
+#endif //__TEXTTOGGLE_H__

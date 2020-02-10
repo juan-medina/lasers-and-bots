@@ -19,8 +19,8 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __LEVEL_COMPLETED_CLASS__
-#define __LEVEL_COMPLETED_CLASS__
+#ifndef __LEVELCOMPLETED_H__
+#define __LEVELCOMPLETED_H__
 
 #include "../menu/BasicMenu.h"
 #include "../utils/utils.h"
@@ -42,14 +42,13 @@ public:
 
   bool init(AudioHelper* audioHelper, LevelManager* levelManager);
 
-  void display(const unsigned short int level, const float time, const unsigned short int stars,
-               const CompletedResult completion, const ccMenuCallback& callback);
+  void display(unsigned short int level, float time, unsigned short int stars, CompletedResult completion,
+               const ccMenuCallback& callback);
 
   void hide() override;
 
 private:
-  Label* addLabels(const std::string& labelText, const std::string& text, const Vec2& pos,
-                   const float separation);
+  Label* addLabels(const std::string& labelText, const std::string& text, const Vec2& pos, float separation);
 
   void starSound() const;
 
@@ -74,4 +73,4 @@ private:
   Label* _level3StarsRecordLabel;
 };
 
-#endif // __LEVEL_COMPLETED_CLASS__
+#endif //__LEVELCOMPLETED_H__

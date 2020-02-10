@@ -19,8 +19,8 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __RESIZABLE_WINDOW_CLASS__
-#define __RESIZABLE_WINDOW_CLASS__
+#ifndef __RESIZABLEWINDOW_H__
+#define __RESIZABLEWINDOW_H__
 
 #include "../utils/utils.h"
 
@@ -31,11 +31,10 @@ public:
 
   ResizableWindow();
 
-  static ResizableWindow* create(const std::string& title, const float width, const float height,
+  static ResizableWindow* create(const std::string& title, float width, float height,
                                  const Color3B& color = Color3B(0, 255, 255));
 
-  bool init(const std::string& title, const float width, const float height,
-            const Color3B& color = Color3B(0, 255, 255));
+  bool init(const std::string& title, float width, float height, const Color3B& color = Color3B(0, 255, 255));
 
   void setTitle(const std::string& title) const { _labelTitle->setString(title); }
 
@@ -43,4 +42,4 @@ private:
   Label* _labelTitle;
 };
 
-#endif // __RESIZABLE_WINDOW_CLASS__
+#endif //__RESIZABLEWINDOW_H__

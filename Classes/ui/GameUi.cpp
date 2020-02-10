@@ -20,7 +20,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "GameUI.h"
+#include "GameUi.h"
 
 #include "../misc/LevelManager.h"
 #include "../utils/audio/AudioHelper.h"
@@ -31,7 +31,7 @@
 #include "VirtualJoyStick.h"
 #include "scenes/GameScene.h"
 
-GameUI::GameUI()
+GameUi::GameUi()
   : _virtualJoyStick(nullptr)
   , _shieldBar(nullptr)
   , _shieldLabel(nullptr)
@@ -52,14 +52,14 @@ GameUI::GameUI()
 {
 }
 
-GameUI* GameUI::create(AudioHelper* audioHelper, InputController* inputController, LevelManager* levelManager,
+GameUi* GameUi::create(AudioHelper* audioHelper, InputController* inputController, LevelManager* levelManager,
                        const unsigned short int level)
 {
-  GameUI* ret = nullptr;
+  GameUi* ret = nullptr;
 
   do
   {
-    auto object = new GameUI();
+    auto object = new GameUi();
     UTILS_BREAK_IF(object == nullptr);
 
     if (object->init(audioHelper, inputController, levelManager, level))
@@ -78,7 +78,7 @@ GameUI* GameUI::create(AudioHelper* audioHelper, InputController* inputControlle
   return ret;
 }
 
-bool GameUI::init(AudioHelper* audioHelper, InputController* inputController, LevelManager* levelManager,
+bool GameUi::init(AudioHelper* audioHelper, InputController* inputController, LevelManager* levelManager,
                   const unsigned short int level)
 {
   auto ret = false;
@@ -105,7 +105,7 @@ bool GameUI::init(AudioHelper* audioHelper, InputController* inputController, Le
     const auto closeClick = Sprite::createWithSpriteFrameName("01_Exit_2.png");
     UTILS_BREAK_IF(closeClick == nullptr);
 
-    const auto closeItem = MenuItemSprite::create(close, closeClick, CC_CALLBACK_1(GameUI::onClose, this));
+    const auto closeItem = MenuItemSprite::create(close, closeClick, CC_CALLBACK_1(GameUi::onClose, this));
     UTILS_BREAK_IF(closeItem == nullptr);
 
     closeItem->setPosition(size.width / 2 - close->getContentSize().width / 2,
@@ -136,7 +136,7 @@ bool GameUI::init(AudioHelper* audioHelper, InputController* inputController, Le
     UTILS_BREAK_IF(playItem == nullptr);
 
     _pauseItem =
-      MenuItemToggle::createWithCallback(CC_CALLBACK_1(GameUI::onPause, this), pauseItem, playItem, nullptr);
+      MenuItemToggle::createWithCallback(CC_CALLBACK_1(GameUi::onPause, this), pauseItem, playItem, nullptr);
     UTILS_BREAK_IF(_pauseItem == nullptr);
 
     const auto gap = Vec2(close->getContentSize().width * 1.25f, 0.f);
@@ -149,7 +149,7 @@ bool GameUI::init(AudioHelper* audioHelper, InputController* inputController, Le
     UTILS_BREAK_IF(reloadClick == nullptr);
 
     const auto reloadItem =
-      MenuItemSprite::create(reload, reloadClick, CC_CALLBACK_1(GameUI::onReload, this));
+      MenuItemSprite::create(reload, reloadClick, CC_CALLBACK_1(GameUi::onReload, this));
     UTILS_BREAK_IF(reloadItem == nullptr);
 
     reloadItem->setPosition(_pauseItem->getPosition() - gap);
@@ -280,7 +280,7 @@ bool GameUI::init(AudioHelper* audioHelper, InputController* inputController, Le
   return ret;
 }
 
-void GameUI::onPause(Ref* sender) const
+void GameUi::onPause(Ref* sender) const
 {
   _audioHelper->playEffect("sounds/select.mp3");
   const auto scene = dynamic_cast<GameScene*>(Director::getInstance()->getRunningScene());
@@ -298,33 +298,33 @@ void GameUI::onPause(Ref* sender) const
   }
 }
 
-void GameUI::onClose(Ref* sender) const
+void GameUi::onClose(Ref* sender) const
 {
   _audioHelper->playEffect("sounds/select.mp3");
   const auto scene = dynamic_cast<GameScene*>(Director::getInstance()->getRunningScene());
   scene->close();
 }
 
-void GameUI::onReload(Ref* sender) const
+void GameUi::onReload(Ref* sender) const
 {
   _audioHelper->playEffect("sounds/select.mp3");
   const auto scene = dynamic_cast<GameScene*>(Director::getInstance()->getRunningScene());
   scene->reload();
 }
 
-void GameUI::changePauseButton() const
+void GameUi::changePauseButton() const
 {
   _pauseItem->setSelectedIndex(1);
 }
 
-void GameUI::disableButtons(const bool disabled) const
+void GameUi::disableButtons(const bool disabled) const
 {
   _pauseItem->setEnabled(!disabled);
   _pauseItem->setSelectedIndex(0);
   _virtualJoyStick->disabled(disabled);
 }
 
-void GameUI::updateTime(const float time, const unsigned int timeLimit)
+void GameUi::updateTime(const float time, const unsigned int timeLimit)
 {
   _timeLimit = timeLimit;
   const auto timeLeft = timeLimit - time;
@@ -336,7 +336,7 @@ void GameUI::updateTime(const float time, const unsigned int timeLimit)
   _timeLabel->setString(timeMessage(time));
 }
 
-string GameUI::timeMessage(const float time)
+string GameUi::timeMessage(const float time)
 {
   float whole;
   const auto fractional = std::modf(time, &whole);
@@ -347,22 +347,22 @@ string GameUI::timeMessage(const float time)
   return StringFormat("%02d:%02d%c%02d", minutes, seconds, '.', milliseconds);
 }
 
-void GameUI::displayMessage(const std::string& message, const std::string& subMessage,
+void GameUi::displayMessage(const std::string& message, const std::string& subMessage,
                             const ccMenuCallback& callback)
 {
   _continueCallback = callback;
-  _messageWindow->display(message, subMessage, CC_CALLBACK_0(GameUI::onContinue, this));
+  _messageWindow->display(message, subMessage, CC_CALLBACK_0(GameUi::onContinue, this));
 }
 
-void GameUI::displayLevelCompleted(const unsigned short int level, const float time,
+void GameUi::displayLevelCompleted(const unsigned short int level, const float time,
                                    const unsigned short int stars, const CompletedResult completion,
                                    const ccMenuCallback& callback)
 {
   _continueCallback = callback;
-  _levelCompleted->display(level, time, stars, completion, CC_CALLBACK_0(GameUI::onContinue, this));
+  _levelCompleted->display(level, time, stars, completion, CC_CALLBACK_0(GameUi::onContinue, this));
 }
 
-void GameUI::updateCountdown(const int value) const
+void GameUi::updateCountdown(const int value) const
 {
   const auto text = StringFormat("%d", value);
   if (value >= 0)
@@ -392,12 +392,12 @@ void GameUI::updateCountdown(const int value) const
   _countdownLabel->runAction(scale);
 }
 
-void GameUI::displayPauseWindow() const
+void GameUi::displayPauseWindow() const
 {
   _pauseWindow->display();
 }
 
-void GameUI::update(float delta)
+void GameUi::update(float delta)
 {
   if (_continueCallback != nullptr)
   {
@@ -449,7 +449,7 @@ void GameUI::update(float delta)
   }
 }
 
-void GameUI::onContinue()
+void GameUi::onContinue()
 {
   if (_continueCallback != nullptr)
   {

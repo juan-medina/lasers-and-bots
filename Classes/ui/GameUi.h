@@ -20,8 +20,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __GAME_UI__CLASS__
-#define __GAME_UI__CLASS__
+#ifndef __GAMEUI_H__
+#define __GAMEUI_H__
 
 #include "../utils/utils.h"
 
@@ -35,18 +35,18 @@ class LevelManager;
 class InputController;
 enum class CompletedResult;
 
-class GameUI final : public Node
+class GameUi final : public Node
 {
 public:
   using BaseClass = Node;
 
-  GameUI();
+  GameUi();
 
-  static GameUI* create(AudioHelper* audioHelper, InputController* inputController,
-                        LevelManager* levelManager, const unsigned short int level);
+  static GameUi* create(AudioHelper* audioHelper, InputController* inputController,
+                        LevelManager* levelManager, unsigned short int level);
 
   bool init(AudioHelper* audioHelper, InputController* inputController, LevelManager* levelManager,
-            const unsigned short int level);
+            unsigned short int level);
 
   void onPause(Ref* sender) const;
   void onClose(Ref* sender) const;
@@ -62,19 +62,19 @@ public:
   }
 
   void changePauseButton() const;
-  void disableButtons(const bool disabled) const;
+  void disableButtons(bool disabled) const;
 
-  void updateTime(const float time, const unsigned int timeLimit);
+  void updateTime(float time, unsigned int timeLimit);
 
-  static string timeMessage(const float time);
+  static string timeMessage(float time);
 
   void displayMessage(const std::string& message, const std::string& subMessage,
                       const ccMenuCallback& callback);
 
-  void displayLevelCompleted(const unsigned short int level, const float time, const unsigned short int stars,
-                             const CompletedResult completion, const ccMenuCallback& callback);
+  void displayLevelCompleted(unsigned short int level, float time, unsigned short int stars,
+                             CompletedResult completion, const ccMenuCallback& callback);
 
-  void updateCountdown(const int value) const;
+  void updateCountdown(int value) const;
 
   void displayPauseWindow() const;
 
@@ -102,4 +102,4 @@ private:
   InputController* _inputController;
 };
 
-#endif // __GAME_UI__CLASS__
+#endif //__GAMEUI_H__

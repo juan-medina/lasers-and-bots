@@ -1,8 +1,9 @@
 #include "LevelCompleted.h"
+
 #include "../misc/LevelManager.h"
 #include "../utils/audio/AudioHelper.h"
+#include "GameUi.h"
 #include "TextButton.h"
-#include "GameUI.h"
 
 LevelCompleted::LevelCompleted()
   : _audioHelper(nullptr)
@@ -160,12 +161,12 @@ void LevelCompleted::display(const unsigned short int level, const float time, c
   const auto levelTimeRecord = _levelManager->getLevelTimeRecord(level);
   const auto level3StarsRecord = _levelManager->getLevel3StarsRecord(level);
 
-  _levelTotalTimeLabel->setString(GameUI::timeMessage(time));
-  _levelTimeLimitLabel->setString(GameUI::timeMessage(levelTimeLimit));
+  _levelTotalTimeLabel->setString(GameUi::timeMessage(time));
+  _levelTimeLimitLabel->setString(GameUi::timeMessage(levelTimeLimit));
 
   if (levelTimeRecord != LevelManager::NO_TIME_RECORD)
   {
-    _levelTimeRecordLabel->setString(GameUI::timeMessage(levelTimeRecord));
+    _levelTimeRecordLabel->setString(GameUi::timeMessage(levelTimeRecord));
     if ((completion == CompletedResult::NewLevelRecord) ||
         (completion == CompletedResult::NewLevelRecordAnd3StarsRecord))
     {
@@ -179,7 +180,7 @@ void LevelCompleted::display(const unsigned short int level, const float time, c
 
   if (level3StarsRecord != LevelManager::NO_TIME_RECORD)
   {
-    _level3StarsRecordLabel->setString(GameUI::timeMessage(level3StarsRecord));
+    _level3StarsRecordLabel->setString(GameUi::timeMessage(level3StarsRecord));
     if ((completion == CompletedResult::NewLevel3StarsRecord) ||
         (completion == CompletedResult::NewLevelRecordAnd3StarsRecord))
     {
@@ -205,7 +206,7 @@ void LevelCompleted::display(const unsigned short int level, const float time, c
 
       if (startCounter == 1)
       {
-        const auto starTex = "under\n " + GameUI::timeMessage(levelTimeLimit);
+        const auto starTex = "under\n " + GameUi::timeMessage(levelTimeLimit);
         _labelStars.at(startCounter)->setString(starTex);
       }
 

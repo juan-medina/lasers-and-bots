@@ -19,8 +19,8 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __MESSAGE_WINDOW_CLASS__
-#define __MESSAGE_WINDOW_CLASS__
+#ifndef __MESSAGEWINDOW_H__
+#define __MESSAGEWINDOW_H__
 
 #include "../menu/BasicMenu.h"
 #include "../utils/utils.h"
@@ -52,4 +52,4 @@ private:
   Label* _subLabel;
 };
 
-#endif // __MESSAGE_WINDOW_CLASS__
+#endif //__MESSAGEWINDOW_H__

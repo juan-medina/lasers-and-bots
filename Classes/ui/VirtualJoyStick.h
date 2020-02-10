@@ -19,8 +19,8 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __VIRTUAL_JOY_STICK_CLASS__
-#define __VIRTUAL_JOY_STICK_CLASS__
+#ifndef __VIRTUALJOYSTICK_H__
+#define __VIRTUALJOYSTICK_H__
 
 #include "../utils/utils.h"
 
@@ -46,7 +46,7 @@ public:
 
   bool jump() const;
 
-  void disabled(const bool disabled);
+  void disabled(bool disabled);
 
 private:
   OnScreenButton* addOnScreenButton(const ButtonType& type, const std::string& spriteFrameName,
@@ -61,4 +61,4 @@ private:
   InputController* _inputController;
 };
 
-#endif // __VIRTUAL_JOY_STICK_CLASS__
+#endif //__VIRTUALJOYSTICK_H__
