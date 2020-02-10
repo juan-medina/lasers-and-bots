@@ -21,10 +21,11 @@
  ****************************************************************************/
 
 #include "laser_object.h"
-#include "../scenes/game_scene.h"
+
 #include "../utils/audio/AudioHelper.h"
 #include "../utils/base/nodes/CustomDrawNode.h"
 #include "robot_object.h"
+#include "scenes/GameScene.h"
 
 int laser_object::loop_sound_ = -1;
 
@@ -157,7 +158,7 @@ void laser_object::update(const float delta)
 
   if (touch_shape != nullptr)
   {
-    if (touch_shape->getCategoryBitmask() == static_cast<unsigned short>(game_scene::categories::robot))
+    if (touch_shape->getCategoryBitmask() == static_cast<unsigned short>(GameScene::Categories::robot))
     {
       const auto robot = dynamic_cast<robot_object*>(touch_shape->getBody()->getNode());
       robot->damage_shield(get_damage());
@@ -178,7 +179,7 @@ void laser_object::update(const float delta)
   const auto v0 = final_point - (n + t);
   const auto v1 = final_point + (n - t);
   const auto v2 = origin_point - (n + t);
-  const auto v3 = origin_point + (n - t);  
+  const auto v3 = origin_point + (n - t);
 
   static const auto red = Color4F::RED;
   static const auto dark_red = Color4F(0.8f, 0.f, 0.f, 1.f);

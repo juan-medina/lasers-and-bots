@@ -21,14 +21,15 @@
  ****************************************************************************/
 
 #include "GameUI.h"
+
 #include "../misc/LevelManager.h"
-#include "../scenes/game_scene.h"
 #include "../utils/audio/AudioHelper.h"
 #include "../utils/controller/InputController.h"
 #include "LevelCompleted.h"
 #include "MessageWindow.h"
 #include "PauseWindow.h"
 #include "VirtualJoyStick.h"
+#include "scenes/GameScene.h"
 
 GameUI::GameUI()
   : _virtualJoyStick(nullptr)
@@ -282,8 +283,8 @@ bool GameUI::init(AudioHelper* audioHelper, InputController* inputController, Le
 void GameUI::onPause(Ref* sender) const
 {
   _audioHelper->playEffect("sounds/select.mp3");
-  const auto scene = dynamic_cast<game_scene*>(Director::getInstance()->getRunningScene());
-  scene->toggle_pause();
+  const auto scene = dynamic_cast<GameScene*>(Director::getInstance()->getRunningScene());
+  scene->togglePause();
 
   if (scene->is_paused())
   {
@@ -300,14 +301,14 @@ void GameUI::onPause(Ref* sender) const
 void GameUI::onClose(Ref* sender) const
 {
   _audioHelper->playEffect("sounds/select.mp3");
-  const auto scene = dynamic_cast<game_scene*>(Director::getInstance()->getRunningScene());
+  const auto scene = dynamic_cast<GameScene*>(Director::getInstance()->getRunningScene());
   scene->close();
 }
 
 void GameUI::onReload(Ref* sender) const
 {
   _audioHelper->playEffect("sounds/select.mp3");
-  const auto scene = dynamic_cast<game_scene*>(Director::getInstance()->getRunningScene());
+  const auto scene = dynamic_cast<GameScene*>(Director::getInstance()->getRunningScene());
   scene->reload();
 }
 
@@ -418,7 +419,7 @@ void GameUI::update(float delta)
     }
   }
 
-  const auto scene = dynamic_cast<game_scene*>(Director::getInstance()->getRunningScene());
+  const auto scene = dynamic_cast<GameScene*>(Director::getInstance()->getRunningScene());
   if (scene->is_paused())
   {
     if (_inputController->singlePressUp())

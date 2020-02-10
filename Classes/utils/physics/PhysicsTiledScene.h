@@ -44,7 +44,7 @@ public:
 
   bool init(BasicApp* application, const std::string& tmxFile, const float gravity, const bool debugPhysics);
 
-  PhysicsShapeCache* get_physics_shape_cache() const { return _physicsShapeCache; }
+  PhysicsShapeCache* _getPhysicsShapeCache() const { return _physicsShapeCache; }
 
 protected:
   bool addBodyToNode(Node* node, const string& shape) const;

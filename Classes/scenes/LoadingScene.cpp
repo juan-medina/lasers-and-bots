@@ -24,8 +24,8 @@
 
 #include "../utils/audio/AudioHelper.h"
 #include "../utils/base/app/BasicApp.h"
+#include "GameScene.h"
 #include "MenuScene.h"
-#include "game_scene.h"
 
 Scene *LoadingScene::game(BasicApp *application, const bool debugGrid, const bool debugPhysics,
                           const unsigned short int level)
@@ -152,7 +152,7 @@ void LoadingScene::go_to_scene() const
     switch (_type)
     {
       case LoadTo::ToGame:
-        scene = game_scene::scene(_application, _debugGrid, _debugPhysics, _level);
+        scene = GameScene::scene(_application, _debugGrid, _debugPhysics, _level);
         break;
       case LoadTo::ToMenu:
         scene = MenuScene::scene(_application, _menu, _level);
