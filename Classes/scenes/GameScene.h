@@ -19,8 +19,8 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __MAIN_SCENE__
-#define __MAIN_SCENE__
+#ifndef __GAMESCENE_H__
+#define __GAMESCENE_H__
 
 #include "../utils/physics/PhysicsTiledScene.h"
 
@@ -43,12 +43,11 @@ public:
 
   GameScene() noexcept;
 
-  static Scene* scene(BasicApp* application, const bool debugGrid, const bool debugPhysics, const int level);
+  static Scene* scene(BasicApp* application, bool debugGrid, bool debugPhysics, int level);
 
-  static GameScene* create(BasicApp* application, const bool debugGrid, const bool debugPhysics,
-                           const int level);
+  static GameScene* create(BasicApp* application, bool debugGrid, bool debugPhysics, int level);
 
-  bool init(BasicApp* application, const bool debugGrid, const bool debugPhysics, unsigned short level);
+  bool init(BasicApp* application, bool debugGrid, bool debugPhysics, unsigned short level);
 
   bool createGameUi();
 
@@ -94,32 +93,32 @@ public:
   // enter scene
   void onEnter() override;
 
-  void updateUIPosition(const Vec2& finalPos) const;
+  void updateUiPosition(const Vec2& finalPos) const;
 
   void updateBackgroundPosition(const Vec2& finalPos) const;
 
   void close();
 
-  bool is_paused() const noexcept { return _paused; }
+  bool isPaused() const noexcept { return _paused; }
 
   void willEnterForeground() override;
 
 private:
   // provide a physics node for a titled gid
-  Node* providePhysicsNode(const int gid) override;
+  Node* providePhysicsNode(int gid) override;
 
-  void updateGameTime(const float delta);
+  void updateGameTime(float delta);
 
   bool updateRobotShieldAndCheckIfDepleted() const;
 
-  void checkRobotMovement(const float delta);
+  void checkRobotMovement(float delta);
 
-  bool constexpr doWeNeedGameUpdates() const { return !(_paused || _doingFinalAnim_); }
+  bool constexpr doWeNeedGameUpdates() const { return !(_paused || _doingFinalAnim); }
 
   void update(float delta) override;
 
   // move the camera following the robot clamping on the map
-  void cameraFollowRobot(const Vec2& robotPosition, const float delta);
+  void cameraFollowRobot(const Vec2& robotPosition, float delta);
 
   static void switchActivateDoor(door_object* door);
   void switchActivateSwitch(switch_object* switchObject);
@@ -145,7 +144,7 @@ private:
 
   // get an game object from a contact
   template <class Type>
-  static Type* getObjectFromContact(const PhysicsContact& contact, const Categories category);
+  static Type* getObjectFromContact(const PhysicsContact& contact, Categories category);
 
   bool addLaser(const ValueMap& values, Node* layer);
   bool addRobot(const ValueMap& values, Node* layer);
@@ -169,16 +168,16 @@ private:
 
   void explodeRobot();
 
-  void gameOver(const bool win);
+  void gameOver(bool win);
 
   void delayStart();
 
-  void setCountdownNumberInUI(Ref* sender, const int value) const;
+  void setCountdownNumberInUi(Ref* sender, int value) const;
 
   void start();
 
   robot_object* _robot;
-  GameUi* _gameUI;
+  GameUi* _gameUi;
   std::map<std::string, GameObject*> _gameObjects;
   std::vector<robot_fragment*> _robotFragments;
 
@@ -189,7 +188,7 @@ private:
   Vec2 _maxCameraPos;
 
   bool _paused;
-  bool _doingFinalAnim_;
+  bool _doingFinalAnim;
   bool _doingDelayStart;
   bool _closing;
 
@@ -208,4 +207,4 @@ private:
   static constexpr float LIGHT_DISTANCE = 1500.f;
 };
 
-#endif // __MAIN_SCENE__
+#endif //__GAMESCENE_H__

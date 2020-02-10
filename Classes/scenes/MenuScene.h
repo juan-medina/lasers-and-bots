@@ -20,8 +20,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __MENU_SCENE_H__
-#define __MENU_SCENE_H__
+#ifndef __MENUSCENE_H__
+#define __MENUSCENE_H__
 
 #include "../utils/base/scene/BasicScene.h"
 
@@ -57,12 +57,11 @@ public:
 
   MenuScene();
 
-  ~MenuScene();
+  ~MenuScene() override;
 
-  static Scene *scene(BasicApp *application, const MenuToDisplay menu,
-                      const unsigned short int selectedLevel);
+  static Scene *scene(BasicApp *application, MenuToDisplay menu, unsigned short int selectedLevel);
 
-  void goToGame(const unsigned short int level);
+  void goToGame(unsigned short int level);
 
   void exitApp();
 
@@ -78,13 +77,13 @@ public:
 
   void displayLicenseMenu();
 
-  void changeMusic(const bool disabled) const;
+  void changeMusic(bool disabled) const;
 
-  void changeSound(const bool disabled) const;
+  void changeSound(bool disabled) const;
 
-  void changeMusicVolume(const float volume) const;
+  void changeMusicVolume(float volume) const;
 
-  void changeSoundVolume(const float volume) const;
+  void changeSoundVolume(float volume) const;
 
   void update(float delta) override;
 
@@ -98,22 +97,22 @@ public:
 
   bool isFullScreen() const;
 
-  void changeApplicationVideoMode(const bool fullScreen) const;
+  void changeApplicationVideoMode(bool fullScreen) const;
 
   bool isDebugGrid() const;
 
-  void setDebugGrid(const bool debugGrid) const;
+  void setDebugGrid(bool debugGrid) const;
 
   bool isDebugPhysics() const;
 
-  void setDebugPhysics(const bool debugPhysics) const;
+  void setDebugPhysics(bool debugPhysics) const;
 
 private:
   void handleInput() const;
 
   void delayToGame() const;
 
-  bool init(BasicApp *application, const MenuToDisplay menu, const unsigned short int selectedLevel);
+  bool init(BasicApp *application, MenuToDisplay menu, unsigned short int selectedLevel);
 
   bool addBackground();
 
@@ -136,4 +135,4 @@ private:
   InputController *_inputController;
 };
 
-#endif // __MENU_SCENE_H__
+#endif //__MENUSCENE_H__

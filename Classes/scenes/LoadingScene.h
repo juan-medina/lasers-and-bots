@@ -20,8 +20,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __LOADING_SCENE_H__
-#define __LOADING_SCENE_H__
+#ifndef __LOADINGSCENE_H__
+#define __LOADINGSCENE_H__
 
 #include "../utils/base/scene/BasicScene.h"
 
@@ -37,10 +37,9 @@ public:
 
   ~LoadingScene() override;
 
-  static Scene *game(BasicApp *application, const bool debugGrid, const bool debugPhysics,
-                     const unsigned short int level);
+  static Scene *game(BasicApp *application, bool debugGrid, bool debugPhysics, unsigned short int level);
 
-  static Scene *menu(BasicApp *application, const MenuToDisplay menu, const unsigned short int selectedLevel);
+  static Scene *menu(BasicApp *application, MenuToDisplay menu, unsigned short int selectedLevel);
 
 private:
   enum class LoadTo
@@ -49,10 +48,10 @@ private:
     ToMenu
   };
 
-  bool init(BasicApp *application, const LoadTo &type, const bool debug_grid, const bool debug_physics,
-            const MenuToDisplay menu, const unsigned short int level);
+  bool init(BasicApp *application, const LoadTo &type, bool debugGrid, bool debugPhysics, MenuToDisplay menu,
+            unsigned short int level);
 
-  void go_to_scene() const;
+  void goToScene() const;
 
   LoadTo _type;
   bool _debugGrid;
@@ -61,4 +60,4 @@ private:
   unsigned short int _level;
 };
 
-#endif // __LOADING_SCENE_H__
+#endif //__LOADINGSCENE_H__

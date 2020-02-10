@@ -89,8 +89,8 @@ LoadingScene::~LoadingScene()
   BaseClass::removeAllChildrenWithCleanup(true);
 }
 
-bool LoadingScene::init(BasicApp *application, const LoadTo &type, const bool debug_grid,
-                        const bool debug_physics, const MenuToDisplay menu, const unsigned short int level)
+bool LoadingScene::init(BasicApp *application, const LoadTo &type, const bool debugGrid,
+                        const bool debugPhysics, const MenuToDisplay menu, const unsigned short int level)
 {
   auto ret = false;
 
@@ -99,8 +99,8 @@ bool LoadingScene::init(BasicApp *application, const LoadTo &type, const bool de
     _type = type;
     _menu = menu;
     _level = level;
-    _debugGrid = debug_grid;
-    _debugPhysics = debug_physics;
+    _debugGrid = debugGrid;
+    _debugPhysics = debugPhysics;
 
     UTILS_BREAK_IF(!BaseClass::init(application));
 
@@ -126,7 +126,7 @@ bool LoadingScene::init(BasicApp *application, const LoadTo &type, const bool de
     const auto delay_exit = DelayTime::create(0.15f);
     UTILS_BREAK_IF(delay_exit == nullptr);
 
-    const auto func = CallFunc::create(CC_CALLBACK_0(LoadingScene::go_to_scene, this));
+    const auto func = CallFunc::create(CC_CALLBACK_0(LoadingScene::goToScene, this));
     UTILS_BREAK_IF(func == nullptr);
 
     const auto sequence = Sequence::create(delay_exit, func, NULL);
@@ -143,7 +143,7 @@ bool LoadingScene::init(BasicApp *application, const LoadTo &type, const bool de
   return ret;
 }
 
-void LoadingScene::go_to_scene() const
+void LoadingScene::goToScene() const
 {
   do
   {

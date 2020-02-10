@@ -286,7 +286,7 @@ void GameUi::onPause(Ref* sender) const
   const auto scene = dynamic_cast<GameScene*>(Director::getInstance()->getRunningScene());
   scene->togglePause();
 
-  if (scene->is_paused())
+  if (scene->isPaused())
   {
     _pauseItem->setSelectedIndex(1);
     _pauseWindow->display();
@@ -420,7 +420,7 @@ void GameUi::update(float delta)
   }
 
   const auto scene = dynamic_cast<GameScene*>(Director::getInstance()->getRunningScene());
-  if (scene->is_paused())
+  if (scene->isPaused())
   {
     if (_inputController->singlePressUp())
     {

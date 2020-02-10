@@ -254,20 +254,20 @@ bool MenuScene::addLaser()
   {
     const auto &size = Director::getInstance()->getWinSize();
 
-    const auto draw_node = DrawNode::create();
-    UTILS_BREAK_IF(draw_node == nullptr);
+    const auto drawNode = DrawNode::create();
+    UTILS_BREAK_IF(drawNode == nullptr);
 
     const auto from = Vec2(-100, size.height / 2);
     const auto to = Vec2((size.width / 2) - 200, 12);
 
-    draw_node->drawSegment(from, to, 8, Color4F::RED);
-    draw_node->drawDot(to, 12, Color4F::RED);
+    drawNode->drawSegment(from, to, 8, Color4F::RED);
+    drawNode->drawDot(to, 12, Color4F::RED);
 
     const auto blink = Sequence::create(FadeTo::create(0.5f, 64), FadeTo::create(0.5f, 185.f), nullptr);
-    const auto repeat_blink = RepeatForever::create(blink);
-    draw_node->runAction(repeat_blink);
+    const auto repeatBlink = RepeatForever::create(blink);
+    drawNode->runAction(repeatBlink);
 
-    addChild(draw_node);
+    addChild(drawNode);
 
     auto spark_ = ParticleFire::create();
     spark_->setDuration(ParticleSystem::DURATION_INFINITY);
@@ -384,14 +384,14 @@ void MenuScene::update(float delta)
   handleInput();
 
   const auto pos = _background->getPosition();
-  auto new_pos = pos - Vec2(delta * 600, 0);
+  auto newPos = pos - Vec2(delta * 600, 0);
 
-  if (new_pos.x < (-256 * 2))
+  if (newPos.x < (-256 * 2))
   {
-    new_pos = Vec2::ZERO;
+    newPos = Vec2::ZERO;
   }
 
-  _background->setPosition(new_pos);
+  _background->setPosition(newPos);
 }
 
 void MenuScene::pause()

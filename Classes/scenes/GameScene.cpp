@@ -42,13 +42,13 @@
 
 GameScene::GameScene() noexcept
   : _robot(nullptr)
-  , _gameUI(nullptr)
+  , _gameUi(nullptr)
   , _lastRobotPosition(Vec2::ZERO)
   , _lastCameraPosition(Vec2::ZERO)
   , _minCameraPos(Vec2::ZERO)
   , _maxCameraPos(Vec2::ZERO)
   , _paused(false)
-  , _doingFinalAnim_(false)
+  , _doingFinalAnim(false)
   , _doingDelayStart(false)
   , _closing(false)
   , _totalTime(0.f)
@@ -93,7 +93,7 @@ GameScene* GameScene::create(BasicApp* application, const bool debugGrid, const 
     auto object = new GameScene();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(application, debugPhysics, debugGrid, level))
+    if (object->init(application, debugGrid, debugPhysics, level))
     {
       object->autorelease();
     }
@@ -173,12 +173,12 @@ bool GameScene::createGameUi()
 
   do
   {
-    _gameUI = GameUi::create(getAudioHelper(), getInputController(), _levelManager, _level);
-    UTILS_BREAK_IF(_gameUI == nullptr);
+    _gameUi = GameUi::create(getAudioHelper(), getInputController(), _levelManager, _level);
+    UTILS_BREAK_IF(_gameUi == nullptr);
 
-    _gameUI->setAnchorPoint(Vec2(0.f, 0.f));
+    _gameUi->setAnchorPoint(Vec2(0.f, 0.f));
 
-    addChild(_gameUI);
+    addChild(_gameUi);
 
     ret = true;
   } while (false);
@@ -244,7 +244,7 @@ void GameScene::willEnterForeground()
 {
   if (_paused)
   {
-    _gameUI->displayPauseWindow();
+    _gameUi->displayPauseWindow();
   }
 }
 
@@ -269,13 +269,13 @@ Node* GameScene::providePhysicsNode(const int gid)
 void GameScene::updateGameTime(const float delta)
 {
   _totalTime += delta;
-  _gameUI->updateTime(_totalTime, _timeLimit);
+  _gameUi->updateTime(_totalTime, _timeLimit);
 }
 
 bool GameScene::updateRobotShieldAndCheckIfDepleted() const
 {
   const auto shieldPercentage = _robot->get_shield_percentage();
-  _gameUI->setShieldPercentage(shieldPercentage);
+  _gameUi->setShieldPercentage(shieldPercentage);
 
   return shieldPercentage != 0.0f;
 }
@@ -293,7 +293,7 @@ void GameScene::checkRobotMovement(const float delta)
 
 void GameScene::update(float delta)
 {
-  _gameUI->update(delta);
+  _gameUi->update(delta);
 
   if (doWeNeedGameUpdates())
   {
@@ -347,7 +347,7 @@ bool GameScene::addRobot(const ValueMap& values, Node* layer)
   {
     const auto shield = values.at("shield").asInt();
     _robot =
-      robot_object::create(getPhysicsShapeCache(), getAudioHelper(), _gameUI->getVirtualJoyStick(), shield);
+      robot_object::create(getPhysicsShapeCache(), getAudioHelper(), _gameUi->getVirtualJoyStick(), shield);
     UTILS_BREAK_IF(_robot == nullptr);
 
     auto position = getObjectCenterPosition(values);
@@ -669,8 +669,8 @@ void GameScene::explodeRobot()
 {
   getAudioHelper()->playEffect("sounds/explosion.mp3");
 
-  _gameUI->disableButtons(true);
-  _doingFinalAnim_ = true;
+  _gameUi->disableButtons(true);
+  _doingFinalAnim = true;
 
   moveFragmentsToRobot();
 
@@ -694,7 +694,7 @@ void GameScene::gameOver(const bool win)
   do
   {
     pause();
-    _gameUI->disableButtons(true);
+    _gameUi->disableButtons(true);
 
     if (win)
     {
@@ -702,13 +702,13 @@ void GameScene::gameOver(const bool win)
       const auto completion = _levelManager->setLevelCompleted(_level, stars, _totalTime);
 
       getAudioHelper()->playEffect("sounds/victory.mp3");
-      _gameUI->displayLevelCompleted(_level, _totalTime, stars, completion,
+      _gameUi->displayLevelCompleted(_level, _totalTime, stars, completion,
                                      CC_CALLBACK_0(GameScene::continueButton, this));
     }
     else
     {
       getAudioHelper()->playEffect("sounds/fail.mp3");
-      _gameUI->displayMessage("Game Over", "\n\n\n\n\nOops, we are going to\nneed a new robot.",
+      _gameUi->displayMessage("Game Over", "\n\n\n\n\nOops, we are going to\nneed a new robot.",
                               CC_CALLBACK_0(GameScene::reload, this));
     }
   } while (false);
@@ -717,18 +717,18 @@ void GameScene::gameOver(const bool win)
 void GameScene::delayStart()
 {
   pause();
-  _gameUI->disableButtons(true);
+  _gameUi->disableButtons(true);
 
   const auto start = CallFunc::create(CC_CALLBACK_0(GameScene::start, this));
   const auto delay = DelayTime::create(4.6f);
 
   const auto delayStartSequence = Sequence::create(delay, start, nullptr);
 
-  const auto count3 = CallFuncN::create(CC_CALLBACK_1(GameScene::setCountdownNumberInUI, this, 3));
-  const auto count2 = CallFuncN::create(CC_CALLBACK_1(GameScene::setCountdownNumberInUI, this, 2));
-  const auto count1 = CallFuncN::create(CC_CALLBACK_1(GameScene::setCountdownNumberInUI, this, 1));
-  const auto count0 = CallFuncN::create(CC_CALLBACK_1(GameScene::setCountdownNumberInUI, this, 0));
-  const auto countGo = CallFuncN::create(CC_CALLBACK_1(GameScene::setCountdownNumberInUI, this, -1));
+  const auto count3 = CallFuncN::create(CC_CALLBACK_1(GameScene::setCountdownNumberInUi, this, 3));
+  const auto count2 = CallFuncN::create(CC_CALLBACK_1(GameScene::setCountdownNumberInUi, this, 2));
+  const auto count1 = CallFuncN::create(CC_CALLBACK_1(GameScene::setCountdownNumberInUi, this, 1));
+  const auto count0 = CallFuncN::create(CC_CALLBACK_1(GameScene::setCountdownNumberInUi, this, 0));
+  const auto countGo = CallFuncN::create(CC_CALLBACK_1(GameScene::setCountdownNumberInUi, this, -1));
 
   const auto countSequence =
     Sequence::create(count3, DelayTime::create(1.f), count2, DelayTime::create(1.f), count1,
@@ -740,9 +740,9 @@ void GameScene::delayStart()
   runAction(countSequence);
 }
 
-void GameScene::setCountdownNumberInUI(Ref* sender, const int value) const
+void GameScene::setCountdownNumberInUi(Ref* sender, const int value) const
 {
-  _gameUI->updateCountdown(value);
+  _gameUi->updateCountdown(value);
 }
 
 void GameScene::start()
@@ -750,7 +750,7 @@ void GameScene::start()
   getAudioHelper()->playMusic(_musicFileName);
 
   resume();
-  _gameUI->disableButtons(false);
+  _gameUi->disableButtons(false);
 }
 
 void GameScene::close()
@@ -771,7 +771,7 @@ void GameScene::pause()
     return;
   }
 
-  _gameUI->changePauseButton();
+  _gameUi->changePauseButton();
 
   getPhysicsWorld()->setAutoStep(false);
 
@@ -787,9 +787,9 @@ void GameScene::pause()
 
   getAudioHelper()->pauseMusic();
 
-  _gameUI->getVirtualJoyStick()->pause();
+  _gameUi->getVirtualJoyStick()->pause();
 
-  if (_doingFinalAnim_)
+  if (_doingFinalAnim)
   {
     for (auto robot_fragment : _robotFragments)
     {
@@ -816,7 +816,7 @@ void GameScene::resume()
 
   getAudioHelper()->resumeMusic();
 
-  _gameUI->getVirtualJoyStick()->resume();
+  _gameUi->getVirtualJoyStick()->resume();
 
   _paused = false;
 }
@@ -837,7 +837,7 @@ void GameScene::reload()
 {
   pause();
 
-  _gameUI->disableButtons(true);
+  _gameUi->disableButtons(true);
 
   auto app = dynamic_cast<laser_and_bots_app*>(_application);
   app->to_game(_level);
@@ -847,7 +847,7 @@ void GameScene::continueButton()
 {
   pause();
 
-  _gameUI->disableButtons(true);
+  _gameUi->disableButtons(true);
 
   auto app = dynamic_cast<laser_and_bots_app*>(_application);
   app->to_play_menu(_levelManager->getNextLevel(_level));
@@ -865,10 +865,10 @@ void GameScene::onEnter()
   }
 }
 
-void GameScene::updateUIPosition(const Vec2& finalPos) const
+void GameScene::updateUiPosition(const Vec2& finalPos) const
 {
-  const auto UIPos = Vec2(finalPos.x - (_screenSize.width / 2), finalPos.y - (_screenSize.height / 2));
-  _gameUI->setPosition(UIPos);
+  const auto uiPos = Vec2(finalPos.x - (_screenSize.width / 2), finalPos.y - (_screenSize.height / 2));
+  _gameUi->setPosition(uiPos);
 }
 
 void GameScene::updateBackgroundPosition(const Vec2& finalPos) const
@@ -887,7 +887,7 @@ void GameScene::cameraFollowRobot(const Vec2& robotPosition, const float delta)
     getDefaultCamera()->setPosition(finalPos);
     getDefaultCamera()->update(delta);
 
-    updateUIPosition(finalPos);
+    updateUiPosition(finalPos);
     updateBackgroundPosition(finalPos);
 
     _lastCameraPosition = finalPos;
