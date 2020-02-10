@@ -75,7 +75,7 @@ Scene *MenuScene::scene(BasicApp *application, const MenuToDisplay menu,
 
 MenuScene::~MenuScene()
 {
-  base_class::removeAllChildrenWithCleanup(true);
+  BaseClass::removeAllChildrenWithCleanup(true);
 }
 
 bool MenuScene::init(BasicApp *application, const MenuToDisplay menu, const unsigned short int selectedLevel)
@@ -84,7 +84,7 @@ bool MenuScene::init(BasicApp *application, const MenuToDisplay menu, const unsi
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init(application));
+    UTILS_BREAK_IF(!BaseClass::init(application));
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ui/ui-0.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ui/ui-1.plist");
@@ -396,7 +396,7 @@ void MenuScene::update(float delta)
 
 void MenuScene::pause()
 {
-  base_class::pause();
+  BaseClass::pause();
   if (!_paused)
   {
     const auto helper = getAudioHelper();
@@ -410,7 +410,7 @@ void MenuScene::pause()
 
 void MenuScene::resume()
 {
-  base_class::resume();
+  BaseClass::resume();
   if (_paused)
   {
     const auto helper = getAudioHelper();

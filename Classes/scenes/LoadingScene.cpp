@@ -86,7 +86,7 @@ LoadingScene::LoadingScene()
 
 LoadingScene::~LoadingScene()
 {
-  base_class::removeAllChildrenWithCleanup(true);
+  BaseClass::removeAllChildrenWithCleanup(true);
 }
 
 bool LoadingScene::init(BasicApp *application, const LoadTo &type, const bool debug_grid,
@@ -102,7 +102,7 @@ bool LoadingScene::init(BasicApp *application, const LoadTo &type, const bool de
     _debugGrid = debug_grid;
     _debugPhysics = debug_physics;
 
-    UTILS_BREAK_IF(!base_class::init(application));
+    UTILS_BREAK_IF(!BaseClass::init(application));
 
     const auto size = Director::getInstance()->getWinSize();
 

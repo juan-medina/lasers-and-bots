@@ -39,7 +39,7 @@ class CustomDrawNode;
 class GameScene final : public PhysicsTiledScene
 {
 public:
-  using base_class = PhysicsTiledScene;
+  using BaseClass = PhysicsTiledScene;
 
   GameScene() noexcept;
 

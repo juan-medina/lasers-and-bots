@@ -126,7 +126,7 @@ bool GameScene::init(BasicApp* application, const bool debugGrid, const bool deb
     addChild(_background);
 
     // load the map
-    UTILS_BREAK_IF(!base_class::init(application, levelFileMap, GRAVITY, debugPhysics));
+    UTILS_BREAK_IF(!BaseClass::init(application, levelFileMap, GRAVITY, debugPhysics));
 
     calculateCameraBounds();
 
@@ -764,7 +764,7 @@ void GameScene::close()
 void GameScene::pause()
 {
   _paused = true;
-  base_class::pause();
+  BaseClass::pause();
 
   if (_closing)
   {
@@ -800,7 +800,7 @@ void GameScene::pause()
 
 void GameScene::resume()
 {
-  base_class::resume();
+  BaseClass::resume();
 
   getPhysicsWorld()->setAutoStep(true);
 
@@ -855,7 +855,7 @@ void GameScene::continueButton()
 
 void GameScene::onEnter()
 {
-  base_class::onEnter();
+  BaseClass::onEnter();
 
   if (_doingDelayStart)
   {

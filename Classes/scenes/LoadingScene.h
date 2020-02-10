@@ -31,7 +31,7 @@ enum class MenuToDisplay;
 class LoadingScene final : public BasicScene
 {
 public:
-  using base_class = BasicScene;
+  using BaseClass = BasicScene;
 
   LoadingScene();
 

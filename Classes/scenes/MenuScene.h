@@ -53,7 +53,7 @@ enum class MenuToDisplay
 class MenuScene final : public BasicScene
 {
 public:
-  using base_class = BasicScene;
+  using BaseClass = BasicScene;
 
   MenuScene();
 
