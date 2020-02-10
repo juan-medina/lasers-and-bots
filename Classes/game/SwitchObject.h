@@ -19,20 +19,22 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __BOX_CLASS__
-#define __BOX_CLASS__
+#ifndef __SWITCHOBJECT_H__
+#define __SWITCHOBJECT_H__
 
-#include "../utils/physics/PhysicsGameObject.h"
+#include "OnOffObject.h"
 
-class box_object final : public PhysicsGameObject
+class SwitchObject final : public OnOffObject
 {
 public:
-  using base_class = PhysicsGameObject;
+  using BaseClass = OnOffObject;
 
-  static box_object* create(PhysicsShapeCache* physics_shape_cache, const std::string& image,
-                            const std::string& shape);
+  static SwitchObject* create(PhysicsShapeCache* physicsShapeCache, const string& target);
 
-  bool init(PhysicsShapeCache* physics_shape_cache, const std::string& image, const std::string& shape);
+  bool init(PhysicsShapeCache* physicsShapeCache, const string& target);
+
+  bool on() override;
+  bool activate() override;
 };
 
-#endif // __BOX_CLASS__
+#endif //__SWITCHOBJECT_H__

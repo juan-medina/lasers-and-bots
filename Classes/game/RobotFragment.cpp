@@ -20,21 +20,22 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "robot_fragment.h"
+#include "RobotFragment.h"
+
 #include "../utils/physics/PhysicsShapeCache.h"
 
-robot_fragment::robot_fragment() : smoke_(nullptr), exploding_(false) {}
+RobotFragment::RobotFragment() : _smoke(nullptr), _exploding(false) {}
 
-robot_fragment* robot_fragment::create(PhysicsShapeCache* physics_shape_cache, const int fragment_number)
+RobotFragment* RobotFragment::create(PhysicsShapeCache* physicsShapeCache, const int fragmentNumber)
 {
-  robot_fragment* ret = nullptr;
+  RobotFragment* ret = nullptr;
 
   do
   {
-    auto object = new robot_fragment();
+    auto object = new RobotFragment();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(physics_shape_cache, fragment_number))
+    if (object->init(physicsShapeCache, fragmentNumber))
     {
       object->autorelease();
     }
@@ -50,25 +51,25 @@ robot_fragment* robot_fragment::create(PhysicsShapeCache* physics_shape_cache, c
   return ret;
 }
 
-bool robot_fragment::create_smoke_emitter()
+bool RobotFragment::createSmokeEmitter()
 {
   auto ret = false;
 
   do
   {
-    smoke_ = ParticleFire::create();
-    UTILS_BREAK_IF(smoke_ == nullptr);
+    _smoke = ParticleFire::create();
+    UTILS_BREAK_IF(_smoke == nullptr);
 
-    smoke_->setDuration(ParticleSystem::DURATION_INFINITY);
-    smoke_->setScale(2.f);
-    smoke_->setBlendAdditive(true);
-    smoke_->setOpacityModifyRGB(true);
-    smoke_->setOpacity(127);
-    smoke_->stop();
-    smoke_->setAnchorPoint(Vec2(0.0f, 0.0f));
+    _smoke->setDuration(ParticleSystem::DURATION_INFINITY);
+    _smoke->setScale(2.f);
+    _smoke->setBlendAdditive(true);
+    _smoke->setOpacityModifyRGB(true);
+    _smoke->setOpacity(127);
+    _smoke->stop();
+    _smoke->setAnchorPoint(Vec2(0.0f, 0.0f));
 
     const auto size = getContentSize();
-    smoke_->setPosition(Vec2(size.width / 2, size.height / 2));
+    _smoke->setPosition(Vec2(size.width / 2, size.height / 2));
 
     ret = true;
   } while (false);
@@ -76,23 +77,23 @@ bool robot_fragment::create_smoke_emitter()
   return ret;
 }
 
-bool robot_fragment::init(PhysicsShapeCache* physics_shape_cache, const int fragment_number)
+bool RobotFragment::init(PhysicsShapeCache* physicsShapeCache, const int fragmentNumber)
 {
   auto ret = false;
 
   do
   {
-    const auto shape_name = StringFormat("Fragment_%02d", fragment_number);
-    const auto image_name = shape_name + ".png";
+    const auto shapeName = StringFormat("Fragment_%02d", fragmentNumber);
+    const auto imageName = shapeName + ".png";
 
-    UTILS_BREAK_IF(!base_class::init(physics_shape_cache, shape_name, image_name, "fragment"));
+    UTILS_BREAK_IF(!BaseClass::init(physicsShapeCache, shapeName, imageName, "fragment"));
 
     setAnchorPoint(Vec2(0.5f, 0.5f));
 
-    UTILS_BREAK_IF(!create_smoke_emitter());
+    UTILS_BREAK_IF(!createSmokeEmitter());
 
     setVisible(false);
-    addChild(smoke_);
+    addChild(_smoke);
 
     ret = true;
   } while (false);
@@ -100,9 +101,9 @@ bool robot_fragment::init(PhysicsShapeCache* physics_shape_cache, const int frag
   return ret;
 }
 
-void robot_fragment::explode(const Vec2& velocity)
+void RobotFragment::explode(const Vec2& velocity)
 {
-  exploding_ = true;
+  _exploding = true;
   setVisible(true);
 
   const auto body = getPhysicsBody();
@@ -116,22 +117,22 @@ void robot_fragment::explode(const Vec2& velocity)
   const auto angular_velocity = random(2.5f, 4.5f) * (rand() % 2) * 2 - 1;
   body->setAngularVelocity(angular_velocity);
 
-  smoke_->start();
+  _smoke->start();
 }
 
-void robot_fragment::pause()
+void RobotFragment::pause()
 {
-  if (smoke_ != nullptr)
+  if (_smoke != nullptr)
   {
-    smoke_->pause();
+    _smoke->pause();
   }
 }
 
-void robot_fragment::update(float delta)
+void RobotFragment::update(float delta)
 {
-  if (exploding_)
+  if (_exploding)
   {
     const auto rotation = getRotation();
-    smoke_->setRotation(-rotation);
+    _smoke->setRotation(-rotation);
   }
 }

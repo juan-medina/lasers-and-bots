@@ -23,7 +23,7 @@
 #import "AppController.h"
 #import "RootViewController.h"
 #import "cocos2d.h"
-#import "laser_and_bots_app.h"
+#import "LaserAndBotsApp.h"
 
 @implementation AppController
 
@@ -33,7 +33,7 @@
 #pragma mark Application lifecycle
 
 // cocos2d application instance
-static laser_and_bots_app s_sharedApplication;
+static LaserAndBotsApp s_sharedApplication;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

@@ -20,18 +20,18 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "switch_object.h"
+#include "SwitchObject.h"
 
-switch_object* switch_object::create(PhysicsShapeCache* physics_shape_cache, const string& target)
+SwitchObject* SwitchObject::create(PhysicsShapeCache* physicsShapeCache, const string& target)
 {
-  switch_object* ret = nullptr;
+  SwitchObject* ret = nullptr;
 
   do
   {
-    auto object = new switch_object();
+    auto object = new SwitchObject();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(physics_shape_cache, target))
+    if (object->init(physicsShapeCache, target))
     {
       object->autorelease();
     }
@@ -47,14 +47,14 @@ switch_object* switch_object::create(PhysicsShapeCache* physics_shape_cache, con
   return ret;
 }
 
-bool switch_object::init(PhysicsShapeCache* physics_shape_cache, const string& target)
+bool SwitchObject::init(PhysicsShapeCache* physicsShapeCache, const string& target)
 {
   auto ret = false;
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init(physics_shape_cache, "08_Switch", "09_Switch (2).png", "switch",
-                                     Vec2(37, 30), target));
+    UTILS_BREAK_IF(
+      !BaseClass::init(physicsShapeCache, "08_Switch", "09_Switch (2).png", "switch", Vec2(37, 30), target));
 
     ret = true;
   } while (false);
@@ -62,9 +62,9 @@ bool switch_object::init(PhysicsShapeCache* physics_shape_cache, const string& t
   return ret;
 }
 
-bool switch_object::on()
+bool SwitchObject::on()
 {
-  if (base_class::on())
+  if (BaseClass::on())
   {
     changeFrame("08_Switch (1).png");
     return true;
@@ -73,9 +73,9 @@ bool switch_object::on()
   return false;
 }
 
-bool switch_object::activate()
+bool SwitchObject::activate()
 {
-  if (base_class::activate())
+  if (BaseClass::activate())
   {
     changeFrame("09_Switch (3).png");
     return true;

@@ -22,7 +22,6 @@
 
 #include "MenuScene.h"
 
-#include "../laser_and_bots_app.h"
 #include "../menu/AboutMenu.h"
 #include "../menu/CreditsMenu.h"
 #include "../menu/LicenseMenu.h"
@@ -31,6 +30,7 @@
 #include "../menu/PlayMenu.h"
 #include "../utils/audio/AudioHelper.h"
 #include "../utils/controller/InputController.h"
+#include "LaserAndBotsApp.h"
 
 MenuScene::MenuScene()
   : _currentMenu(nullptr)
@@ -299,10 +299,10 @@ void MenuScene::goToGame(const unsigned short int level)
 
 void MenuScene::exitApp()
 {
-  auto app = dynamic_cast<laser_and_bots_app *>(getApplication());
+  auto app = dynamic_cast<LaserAndBotsApp *>(getApplication());
 
   const auto delay = DelayTime::create(1.15f);
-  const auto func = CallFunc::create(CC_CALLBACK_0(laser_and_bots_app::close, app));
+  const auto func = CallFunc::create(CC_CALLBACK_0(LaserAndBotsApp::close, app));
   const auto sequence = Sequence::create(delay, func, nullptr);
 
   runAction(sequence);
@@ -346,37 +346,37 @@ void MenuScene::displayLicenseMenu()
 
 void MenuScene::changeMusic(const bool disabled) const
 {
-  const auto app = dynamic_cast<laser_and_bots_app *>(getApplication());
+  const auto app = dynamic_cast<LaserAndBotsApp *>(getApplication());
   const auto helper = getAudioHelper();
 
   if (!disabled)
   {
-    app->set_music_muted(disabled);
+    app->setMusicMuted(disabled);
     helper->resumeMusic();
   }
   else
   {
     helper->pauseMusic();
-    app->set_music_muted(disabled);
+    app->setMusicMuted(disabled);
   }
 }
 
 void MenuScene::changeSound(const bool disabled) const
 {
-  const auto app = dynamic_cast<laser_and_bots_app *>(getApplication());
-  app->set_effects_muted(disabled);
+  const auto app = dynamic_cast<LaserAndBotsApp *>(getApplication());
+  app->setEffectsMuted(disabled);
 }
 
 void MenuScene::changeMusicVolume(const float volume) const
 {
-  const auto app = dynamic_cast<laser_and_bots_app *>(getApplication());
-  app->set_music_volume(volume);
+  const auto app = dynamic_cast<LaserAndBotsApp *>(getApplication());
+  app->setMusicVolume(volume);
 }
 
 void MenuScene::changeSoundVolume(const float volume) const
 {
-  const auto app = dynamic_cast<laser_and_bots_app *>(getApplication());
-  app->set_effects_volume(volume);
+  const auto app = dynamic_cast<LaserAndBotsApp *>(getApplication());
+  app->setEffectsVolume(volume);
 }
 
 void MenuScene::update(float delta)
@@ -439,32 +439,32 @@ bool MenuScene::isFullScreen() const
 
 void MenuScene::changeApplicationVideoMode(const bool fullScreen) const
 {
-  auto app = dynamic_cast<laser_and_bots_app *>(getApplication());
-  app->change_video_mode(fullScreen);
+  auto app = dynamic_cast<LaserAndBotsApp *>(getApplication());
+  app->changeVideoMode(fullScreen);
 }
 
 bool MenuScene::isDebugGrid() const
 {
-  const auto app = dynamic_cast<laser_and_bots_app *>(getApplication());
-  return app->is_debug_grid();
+  const auto app = dynamic_cast<LaserAndBotsApp *>(getApplication());
+  return app->isDebugGrid();
 }
 
 void MenuScene::setDebugGrid(const bool debugGrid) const
 {
-  const auto app = dynamic_cast<laser_and_bots_app *>(getApplication());
-  app->set_debug_grid(debugGrid);
+  const auto app = dynamic_cast<LaserAndBotsApp *>(getApplication());
+  app->setDebugGrid(debugGrid);
 }
 
 bool MenuScene::isDebugPhysics() const
 {
-  const auto app = dynamic_cast<laser_and_bots_app *>(getApplication());
-  return app->is_debug_physics();
+  const auto app = dynamic_cast<LaserAndBotsApp *>(getApplication());
+  return app->isDebugPhysics();
 }
 
 void MenuScene::setDebugPhysics(const bool debugPhysics) const
 {
-  const auto app = dynamic_cast<laser_and_bots_app *>(getApplication());
-  app->set_debug_physics(debugPhysics);
+  const auto app = dynamic_cast<LaserAndBotsApp *>(getApplication());
+  app->setDebugPhysics(debugPhysics);
 }
 
 void MenuScene::handleInput() const
@@ -502,6 +502,6 @@ void MenuScene::handleInput() const
 
 void MenuScene::delayToGame() const
 {
-  auto app = dynamic_cast<laser_and_bots_app *>(getApplication());
-  app->to_game(_savedLevel);
+  auto app = dynamic_cast<LaserAndBotsApp *>(getApplication());
+  app->toGame(_savedLevel);
 }

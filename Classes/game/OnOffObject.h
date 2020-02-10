@@ -19,21 +19,43 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __BARREL_CLASS__
-#define __BARREL_CLASS__
+#ifndef __ONOFFOBJECT_H__
+#define __ONOFFOBJECT_H__
 
 #include "../utils/physics/PhysicsGameObject.h"
 
-class barrel_object final : public PhysicsGameObject
+class OnOffObject : public PhysicsGameObject
 {
 public:
-  using base_class = PhysicsGameObject;
+  using BaseClass = PhysicsGameObject;
 
-  static barrel_object* create(PhysicsShapeCache* physics_shape_cache, const int barrel_num,
-                               const std::string& image, const std::string& shape);
+  OnOffObject();
 
-  bool init(PhysicsShapeCache* physics_shape_cache, const int barrel_num, const std::string& image,
-            const std::string& shape);
+  bool init(PhysicsShapeCache* physicsShapeCache, const std::string& shape,
+            const std::string& spriteFrameName, const std::string& type, const Vec2& spotPos,
+            const string& target = "");
+
+  bool isOn() const { return _on; }
+
+  bool isOff() const { return !isOn(); }
+
+  bool isActivated() const { return _activated; }
+
+  bool isUnactivated() const { return !isActivated(); }
+
+  virtual bool on();
+  virtual bool activate();
+
+  string getTarget() const { return _target; }
+
+protected:
+  void changeSpotColor(const Color3B& color) const;
+
+private:
+  bool _on;
+  bool _activated;
+  string _target;
+  Sprite* _spot;
 };
 
-#endif // __BARREL_CLASS__
+#endif //__ONOFFOBJECT_H__

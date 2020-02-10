@@ -20,24 +20,24 @@
  THE SOFTWARE.
  ****************************************************************************/
 
+#include "LaserAndBotsApp.h"
 #include "cocos2d.h"
-#include "laser_and_bots_app.h"
 
 USING_NS_CC;
 
 int main(int argc, char *argv[])
 {
-  auto to_options = false;
+  auto toOptions = false;
   do
   {
-    const auto app = new laser_and_bots_app();
-    const auto result = app->run(to_options);
-    const auto restart = app->want_a_restart();
+    const auto app = new LaserAndBotsApp();
+    const auto result = app->run(toOptions);
+    const auto restart = app->wantARestart();
     delete app;
 
     if (restart)
     {
-      to_options = true;
+      toOptions = true;
     }
     else
     {

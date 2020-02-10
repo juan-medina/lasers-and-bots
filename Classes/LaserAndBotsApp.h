@@ -20,8 +20,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef _APP_DELEGATE_H_
-#define _APP_DELEGATE_H_
+#ifndef __LASERANDBOTSAPP_H__
+#define __LASERANDBOTSAPP_H__
 
 #include "utils/base/app/BasicApp.h"
 
@@ -30,65 +30,65 @@ class LevelManager;
 class InputController;
 
 // this game application
-class laser_and_bots_app final : public BasicApp
+class LaserAndBotsApp final : public BasicApp
 {
 public:
-  using base_class = BasicApp;
+  using BaseClass = BasicApp;
 
-  laser_and_bots_app();
+  LaserAndBotsApp();
 
-  ~laser_and_bots_app();
+  ~LaserAndBotsApp() override;
 
   Scene* initScene() override;
 
-  Scene* game_scene(const unsigned short int level);
-  Scene* main_menu_scene();
-  Scene* license_scene();
-  Scene* play_menu_scene(const unsigned short int selected_level);
-  Scene* options_menu_scene();
+  Scene* gameScene(unsigned short int level);
+  Scene* mainMenuScene();
+  Scene* licenseScene();
+  Scene* playMenuScene(unsigned short int selectedLevel);
+  Scene* optionsMenuScene();
 
-  void set_effects_muted(const bool effects_muted);
-  void set_music_muted(const bool music_muted);
-  void set_music_volume(const float music_volume);
-  void set_effects_volume(const float effects_volume);
+  void setEffectsMuted(bool effectsMuted);
+  void setMusicMuted(bool musicMuted);
+  void setMusicVolume(float musicVolume);
+  void setEffectsVolume(float effectsVolume);
 
-  void to_game(const unsigned short int level);
-  void to_main_menu();
-  void to_play_menu(const unsigned short int level);
+  void toGame(unsigned short int level);
+  void toMainMenu();
+  void toPlayMenu(unsigned short int level);
 
   void applicationDidEnterBackground() override;
 
-  LevelManager* get_level_manager() const { return level_manager_; }
+  LevelManager* getLevelManager() const { return _levelManager; }
 
-  void change_video_mode(const bool full_screen);
+  void changeVideoMode(bool fullScreen);
 
-  bool want_a_restart() const { return want_restart_; }
+  bool wantARestart() const { return _wantRestart; }
 
-  void close_with_restart();
+  void closeWithRestart();
 
-  int run(const bool to_options);
+  int run(bool toOptions);
 
-  bool is_debug_grid() const { return debug_grid_; }
+  bool isDebugGrid() const { return _debugGrid; }
 
-  void set_debug_grid(const bool debug_grid);
+  void setDebugGrid(bool debugGrid);
 
-  bool is_debug_physics() const { return debug_physics_; }
+  bool isDebugPhysics() const { return _debugPhysics; }
 
-  void set_debug_physics(const bool debug_physics);
+  void setDebugPhysics(bool debugPhysics);
 
 private:
-  void setup_level_manager();
+  void setupLevelManager();
 
-  bool effects_muted_;
-  bool music_muted_;
-  bool debug_grid_;
-  bool debug_physics_;
+  bool _effectsMuted;
+  bool _musicMuted;
+  bool _debugGrid;
+  bool _debugPhysics;
 
-  float music_volume_;
-  float effects_volume_;
-  LevelManager* level_manager_;
-  bool want_restart_;
-  bool to_options_;
+  float _musicVolume;
+  float _effectsVolume;
+  LevelManager* _levelManager;
+  bool _wantRestart;
+  bool _toOptions;
 };
 
-#endif // _APP_DELEGATE_H_
+#endif //__LASERANDBOTSAPP_H__

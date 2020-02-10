@@ -26,14 +26,14 @@
 
 // forward declarations
 class GameObject;
-class robot_object;
-class switch_object;
-class door_object;
+class RobotObject;
+class SwitchObject;
+class DoorObject;
 class GameUi;
-class robot_fragment;
-class harm_object;
+class RobotFragment;
+class HarmObject;
 class LevelManager;
-class background_layer;
+class BackgroundLayer;
 class CustomDrawNode;
 
 class GameScene final : public PhysicsTiledScene
@@ -120,16 +120,16 @@ private:
   // move the camera following the robot clamping on the map
   void cameraFollowRobot(const Vec2& robotPosition, float delta);
 
-  static void switchActivateDoor(door_object* door);
-  void switchActivateSwitch(switch_object* switchObject);
+  static void switchActivateDoor(DoorObject* door);
+  void switchActivateSwitch(SwitchObject* switchObject);
   void switchActivateTarget(GameObject* target);
 
-  bool isSwitchTargetingASwitch(switch_object* switchObject);
+  bool isSwitchTargetingASwitch(SwitchObject* switchObject);
 
-  void robotTouchSwitch(switch_object* switchObject);
-  void robotTouchDoor(door_object* doorGameObject);
-  void robotTouchHarmObjectStart(harm_object* harmObject) const;
-  void robotTouchHarmObjectEnd(harm_object* harmObject) const;
+  void robotTouchSwitch(SwitchObject* switchObject);
+  void robotTouchDoor(DoorObject* doorGameObject);
+  void robotTouchHarmObjectStart(HarmObject* harmObject) const;
+  void robotTouchHarmObjectEnd(HarmObject* harmObject) const;
   void robotTouchObjectStart(const PhysicsContact& contact);
   void robotTouchObjectEnd(const PhysicsContact& contact) const;
 
@@ -176,10 +176,10 @@ private:
 
   void start();
 
-  robot_object* _robot;
+  RobotObject* _robot;
   GameUi* _gameUi;
   std::map<std::string, GameObject*> _gameObjects;
-  std::vector<robot_fragment*> _robotFragments;
+  std::vector<RobotFragment*> _robotFragments;
 
   Vec2 _lastRobotPosition;
   Vec2 _lastCameraPosition;
@@ -201,7 +201,7 @@ private:
 
   LevelManager* _levelManager;
   std::string _musicFileName;
-  background_layer* _background;
+  BackgroundLayer* _background;
   CustomDrawNode* _lightsNode;
 
   static constexpr float LIGHT_DISTANCE = 1500.f;

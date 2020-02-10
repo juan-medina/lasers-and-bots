@@ -19,22 +19,35 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __SWITCH_CLASS__
-#define __SWITCH_CLASS__
+#ifndef __ROBOTFRAGMENT_H__
+#define __ROBOTFRAGMENT_H__
 
-#include "on_off_object.h"
+#include "../utils/physics/PhysicsGameObject.h"
 
-class switch_object final : public on_off_object
+class RobotFragment final : public PhysicsGameObject
 {
 public:
-  using base_class = on_off_object;
+  using BaseClass = PhysicsGameObject;
 
-  static switch_object* create(PhysicsShapeCache* physics_shape_cache, const string& target);
+  RobotFragment();
 
-  bool init(PhysicsShapeCache* physics_shape_cache, const string& target);
+  static RobotFragment* create(PhysicsShapeCache* physicsShapeCache, int fragmentNumber);
 
-  bool on() override;
-  bool activate() override;
+  bool createSmokeEmitter();
+
+  bool init(PhysicsShapeCache* physicsShapeCache, int fragmentNumber);
+
+  void explode(const Vec2& velocity);
+
+  void pause() override;
+
+protected:
+  void update(float delta) override;
+
+private:
+  ParticleSystemQuad* _smoke;
+
+  bool _exploding;
 };
 
-#endif // __SWITCH_CLASS__
+#endif //__ROBOTFRAGMENT_H__

@@ -19,43 +19,30 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __ON_OFF_OBJECT_CLASS__
-#define __ON_OFF_OBJECT_CLASS__
+#ifndef __DOOROBJECT_H__
+#define __DOOROBJECT_H__
 
-#include "../utils/physics/PhysicsGameObject.h"
+#include "OnOffObject.h"
 
-class on_off_object : public PhysicsGameObject
+// forward declarations
+class AudioHelper;
+
+class DoorObject final : public OnOffObject
 {
 public:
-  using base_class = PhysicsGameObject;
+  using BaseClass = OnOffObject;
 
-  on_off_object();
+  DoorObject();
 
-  bool init(PhysicsShapeCache* physics_shape_cache, const std::string& shape,
-            const std::string& sprite_frame_name, const std::string& type, const Vec2& spot_pos,
-            const string& target = "");
+  static DoorObject* create(PhysicsShapeCache* physicsShapeCache, AudioHelper* audioHelper);
 
-  bool is_on() const { return on_; }
+  bool init(PhysicsShapeCache* physicsShapeCache, AudioHelper* audioHelper);
 
-  bool is_off() const { return !is_on(); }
-
-  bool is_activated() const { return activated_; }
-
-  bool is_unactivated() const { return !is_activated(); }
-
-  virtual bool on();
-  virtual bool activate();
-
-  string get_target() const { return target_; }
-
-protected:
-  void change_spot_color(const Color3B& color) const;
+  bool on() override;
+  bool activate() override;
 
 private:
-  bool on_;
-  bool activated_;
-  string target_;
-  Sprite* spot_;
+  AudioHelper* _audioHelper;
 };
 
-#endif // __ON_OFF_OBJECT_CLASS__
+#endif //__DOOROBJECT_H__

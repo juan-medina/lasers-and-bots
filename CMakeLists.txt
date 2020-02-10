@@ -46,7 +46,7 @@ endif ()
 # add cross-platforms source files and header files
 list(APPEND GAME_SOURCE
         Classes/misc/LevelManager.cpp
-        Classes/laser_and_bots_app.cpp
+        Classes/LaserAndBotsApp.cpp
         Classes/utils/base/nodes/CustomDrawNode.cpp
         Classes/utils/base/sprite/GameObject.cpp
         Classes/utils/base/app/BasicApp.cpp
@@ -59,17 +59,17 @@ list(APPEND GAME_SOURCE
         Classes/utils/physics/PhysicsShapeCache.cpp
         Classes/utils/controller/InputController.cpp
         Classes/utils/utils.cpp
-        Classes/game/box_object.cpp
-        Classes/game/robot_object.cpp
-        Classes/game/barrel_object.cpp
-        Classes/game/harm_object.cpp
-        Classes/game/saw_object.cpp
-        Classes/game/background_layer.cpp
-        Classes/game/switch_object.cpp
-        Classes/game/laser_object.cpp
-        Classes/game/door_object.cpp
-        Classes/game/robot_fragment.cpp
-        Classes/game/on_off_object.cpp
+        Classes/game/BoxObject.cpp
+        Classes/game/RobotObject.cpp
+        Classes/game/BarrelObject.cpp
+        Classes/game/HarmObject.cpp
+        Classes/game/SawObject.cpp
+        Classes/game/BackgroundLayer.cpp
+        Classes/game/SwitchObject.cpp
+        Classes/game/LaserObject.cpp
+        Classes/game/DoorObject.cpp
+        Classes/game/RobotFragment.cpp
+        Classes/game/OnOffObject.cpp
         Classes/menu/OptionsMenu.cpp
         Classes/menu/MainMenu.cpp
         Classes/menu/PlayMenu.cpp
@@ -94,7 +94,7 @@ list(APPEND GAME_SOURCE
         )
 list(APPEND GAME_HEADER
         Classes/misc/LevelManager.h
-        Classes/laser_and_bots_app.h
+        Classes/LaserAndBotsApp.h
         Classes/utils/base/nodes/CustomDrawNode.h
         Classes/utils/base/sprite/GameObject.h
         Classes/utils/base/app/BasicApp.h
@@ -107,17 +107,17 @@ list(APPEND GAME_HEADER
         Classes/utils/physics/PhysicsGameObject.h
         Classes/utils/physics/PhysicsShapeCache.h
         Classes/utils/controller/InputController.h
-        Classes/game/switch_object.h
-        Classes/game/barrel_object.h
-        Classes/game/robot_fragment.h
-        Classes/game/robot_object.h
-        Classes/game/saw_object.h
-        Classes/game/background_layer.h
-        Classes/game/laser_object.h
-        Classes/game/door_object.h
-        Classes/game/on_off_object.h
-        Classes/game/box_object.h
-        Classes/game/harm_object.h
+        Classes/game/SwitchObject.h
+        Classes/game/BarrelObject.h
+        Classes/game/RobotFragment.h
+        Classes/game/RobotObject.h
+        Classes/game/SawObject.h
+        Classes/game/BackgroundLayer.h
+        Classes/game/LaserObject.h
+        Classes/game/DoorObject.h
+        Classes/game/OnOffObject.h
+        Classes/game/BoxObject.h
+        Classes/game/HarmObject.h
         Classes/menu/BasicMenu.h
         Classes/menu/AboutMenu.h
         Classes/menu/OptionsMenu.h

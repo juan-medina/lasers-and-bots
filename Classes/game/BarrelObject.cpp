@@ -20,19 +20,19 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "barrel_object.h"
+#include "BarrelObject.h"
 
-barrel_object* barrel_object::create(PhysicsShapeCache* physics_shape_cache, const int barrel_num,
-                                     const std::string& image, const std::string& shape)
+BarrelObject* BarrelObject::create(PhysicsShapeCache* physicsShapeCache, const int barrelNum,
+                                   const std::string& image, const std::string& shape)
 {
-  barrel_object* ret = nullptr;
+  BarrelObject* ret = nullptr;
 
   do
   {
-    auto object = new barrel_object();
+    auto object = new BarrelObject();
     UTILS_BREAK_IF(object == nullptr);
 
-    if (object->init(physics_shape_cache, barrel_num, image, shape))
+    if (object->init(physicsShapeCache, barrelNum, image, shape))
     {
       object->autorelease();
     }
@@ -48,56 +48,55 @@ barrel_object* barrel_object::create(PhysicsShapeCache* physics_shape_cache, con
   return ret;
 }
 
-bool barrel_object::init(PhysicsShapeCache* physics_shape_cache, const int barrel_num,
-                         const std::string& image, const std::string& shape)
+bool BarrelObject::init(PhysicsShapeCache* physicsShapeCache, const int barrelNum, const std::string& image,
+                        const std::string& shape)
 {
   auto ret = false;
 
   do
   {
-    UTILS_BREAK_IF(!base_class::init(physics_shape_cache, shape, image, "barrel"));
+    UTILS_BREAK_IF(!BaseClass::init(physicsShapeCache, shape, image, "barrel"));
 
     setAnchorPoint(Vec2(0.5f, 0.5f));
 
     // making look like random but is not, base on how may barrels we added
 
-    const auto gap = barrel_num * 10.f;
-    auto step_time = 0.f;
+    const auto gap = barrelNum * 10.f;
+    auto stepTime = 0.f;
     auto step = 0.f;
     auto amount = 0.f;
 
     amount = 50.f;
     step = amount + gap;
-    step_time = step / amount;
-    const auto move_down_step_1 = MoveBy::create(step_time, Vec3(0.0f, step, 0.0f));
-    UTILS_BREAK_IF(move_down_step_1 == nullptr);
+    stepTime = step / amount;
+    const auto moveDownStep1 = MoveBy::create(stepTime, Vec3(0.0f, step, 0.0f));
+    UTILS_BREAK_IF(moveDownStep1 == nullptr);
 
     amount = 40.f;
     step = -(amount + gap);
-    step_time = step / -amount;
-    const auto move_up_step_1 = MoveBy::create(step_time, Vec3(0.0f, step, 0.0f));
-    UTILS_BREAK_IF(move_up_step_1 == nullptr);
+    stepTime = step / -amount;
+    const auto moveUpStep1 = MoveBy::create(stepTime, Vec3(0.0f, step, 0.0f));
+    UTILS_BREAK_IF(moveUpStep1 == nullptr);
 
     amount = 30.f;
     step = amount + gap;
-    step_time = step / amount;
-    const auto move_down_step_2 = MoveBy::create(step_time, Vec3(0.0f, step, 0.0f));
-    UTILS_BREAK_IF(move_down_step_2 == nullptr);
+    stepTime = step / amount;
+    const auto moveDownStep2 = MoveBy::create(stepTime, Vec3(0.0f, step, 0.0f));
+    UTILS_BREAK_IF(moveDownStep2 == nullptr);
 
     amount = 40.f;
     step = -(amount + gap);
-    step_time = step / -amount;
-    const auto move_up_step_2 = MoveBy::create(step_time, Vec3(0.0f, step, 0.0f));
-    UTILS_BREAK_IF(move_up_step_2 == nullptr);
+    stepTime = step / -amount;
+    const auto moveUpStep2 = MoveBy::create(stepTime, Vec3(0.0f, step, 0.0f));
+    UTILS_BREAK_IF(moveUpStep2 == nullptr);
 
-    const auto movement =
-      Sequence::create(move_down_step_1, move_up_step_1, move_down_step_2, move_up_step_2, nullptr);
+    const auto movement = Sequence::create(moveDownStep1, moveUpStep1, moveDownStep2, moveUpStep2, nullptr);
     UTILS_BREAK_IF(movement == nullptr);
 
-    const auto repeat_movement = RepeatForever::create(movement);
-    UTILS_BREAK_IF(repeat_movement == nullptr);
+    const auto repeatMovement = RepeatForever::create(movement);
+    UTILS_BREAK_IF(repeatMovement == nullptr);
 
-    runAction(repeat_movement);
+    runAction(repeatMovement);
 
     ret = true;
   } while (false);

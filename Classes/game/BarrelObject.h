@@ -19,35 +19,21 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __ROBOT_FRAGMENT_CLASS__
-#define __ROBOT_FRAGMENT_CLASS__
+#ifndef __BARRELOBJECT_H__
+#define __BARRELOBJECT_H__
 
 #include "../utils/physics/PhysicsGameObject.h"
 
-class robot_fragment final : public PhysicsGameObject
+class BarrelObject final : public PhysicsGameObject
 {
 public:
-  using base_class = PhysicsGameObject;
+  using BaseClass = PhysicsGameObject;
 
-  robot_fragment();
+  static BarrelObject* create(PhysicsShapeCache* physicsShapeCache, int barrelNum, const std::string& image,
+                              const std::string& shape);
 
-  static robot_fragment* create(PhysicsShapeCache* physics_shape_cache, const int fragment_number);
-
-  bool create_smoke_emitter();
-
-  bool init(PhysicsShapeCache* physics_shape_cache, const int fragment_number);
-
-  void explode(const Vec2& velocity);
-
-  void pause() override;
-
-protected:
-  void update(float delta) override;
-
-private:
-  ParticleSystemQuad* smoke_;
-
-  bool exploding_;
+  bool init(PhysicsShapeCache* physicsShapeCache, int barrelNum, const std::string& image,
+            const std::string& shape);
 };
 
-#endif // __ROBOT_FRAGMENT_CLASS__
+#endif //__BARRELOBJECT_H__

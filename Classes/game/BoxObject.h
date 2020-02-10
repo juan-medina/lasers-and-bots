@@ -19,48 +19,21 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
+#ifndef __BOXOBJECT_H__
+#define __BOXOBJECT_H__
 
-#include "box_object.h"
+#include "../utils/physics/PhysicsGameObject.h"
 
-box_object* box_object::create(PhysicsShapeCache* physics_shape_cache, const std::string& image,
-                               const std::string& shape)
+class BoxObject final : public PhysicsGameObject
 {
-  box_object* ret = nullptr;
+public:
+  using BaseClass = PhysicsGameObject;
 
-  do
-  {
-    auto object = new box_object();
-    UTILS_BREAK_IF(object == nullptr);
+  static BoxObject* create(PhysicsShapeCache* physicsShapeCache, const std::string& image,
+                           const std::string& shape);
 
-    if (object->init(physics_shape_cache, image, shape))
-    {
-      object->autorelease();
-    }
-    else
-    {
-      delete object;
-      object = nullptr;
-    }
+  bool init(PhysicsShapeCache* physicsShapeCache, const std::string& image,
+            const std::string& shape) override;
+};
 
-    ret = object;
-  } while (false);
-
-  return ret;
-}
-
-bool box_object::init(PhysicsShapeCache* physics_shape_cache, const std::string& image,
-                      const std::string& shape)
-{
-  auto ret = false;
-
-  do
-  {
-    UTILS_BREAK_IF(!base_class::init(physics_shape_cache, shape, image, "box"));
-
-    setAnchorPoint(Vec2(0.5f, 0.5f));
-
-    ret = true;
-  } while (false);
-
-  return ret;
-}
+#endif //__BOXOBJECT_H__

@@ -22,22 +22,22 @@
 
 #include "GameScene.h"
 
-#include "../game/background_layer.h"
-#include "../game/barrel_object.h"
-#include "../game/box_object.h"
-#include "../game/door_object.h"
-#include "../game/harm_object.h"
-#include "../game/laser_object.h"
-#include "../game/robot_fragment.h"
-#include "../game/robot_object.h"
-#include "../game/saw_object.h"
-#include "../game/switch_object.h"
-#include "../laser_and_bots_app.h"
 #include "../misc/LevelManager.h"
 #include "../ui/VirtualJoyStick.h"
 #include "../utils/audio/AudioHelper.h"
 #include "../utils/base/nodes/CustomDrawNode.h"
 #include "../utils/physics/PhysicsShapeCache.h"
+#include "LaserAndBotsApp.h"
+#include "game/BackgroundLayer.h"
+#include "game/BarrelObject.h"
+#include "game/BoxObject.h"
+#include "game/DoorObject.h"
+#include "game/HarmObject.h"
+#include "game/LaserObject.h"
+#include "game/RobotFragment.h"
+#include "game/RobotObject.h"
+#include "game/SawObject.h"
+#include "game/SwitchObject.h"
 #include "ui/GameUi.h"
 
 GameScene::GameScene() noexcept
@@ -118,10 +118,10 @@ bool GameScene::init(BasicApp* application, const bool debugGrid, const bool deb
   {
     _level = level;
 
-    _levelManager = dynamic_cast<laser_and_bots_app*>(application)->get_level_manager();
+    _levelManager = dynamic_cast<LaserAndBotsApp*>(application)->getLevelManager();
     const auto levelFileMap = _levelManager->getLevelMap(_level);
 
-    _background = background_layer::create();
+    _background = BackgroundLayer::create();
     _background->setPosition(0.f, 0.f);
     addChild(_background);
 
@@ -259,7 +259,7 @@ Node* GameScene::providePhysicsNode(const int gid)
     if (valueMap.count("damage") == 1)
     {
       const auto damage = valueMap.at("damage").asInt();
-      return harm_object::create(getPhysicsShapeCache(), shape, "dummy", damage);
+      return HarmObject::create(getPhysicsShapeCache(), shape, "dummy", damage);
     }
   }
 
@@ -274,7 +274,7 @@ void GameScene::updateGameTime(const float delta)
 
 bool GameScene::updateRobotShieldAndCheckIfDepleted() const
 {
-  const auto shieldPercentage = _robot->get_shield_percentage();
+  const auto shieldPercentage = _robot->getShieldPercentage();
   _gameUi->setShieldPercentage(shieldPercentage);
 
   return shieldPercentage != 0.0f;
@@ -325,7 +325,7 @@ bool GameScene::addLaser(const ValueMap& values, Node* layer)
     const auto damage = values.at("damage").asInt();
     const auto speed = values.at("speed").asFloat();
 
-    auto laser = laser_object::create(getAudioHelper(), rotation, rotationAngle, speed, damage);
+    auto laser = LaserObject::create(getAudioHelper(), rotation, rotationAngle, speed, damage);
     UTILS_BREAK_IF(laser == nullptr);
 
     laser->setPosition(position);
@@ -347,7 +347,7 @@ bool GameScene::addRobot(const ValueMap& values, Node* layer)
   {
     const auto shield = values.at("shield").asInt();
     _robot =
-      robot_object::create(getPhysicsShapeCache(), getAudioHelper(), _gameUi->getVirtualJoyStick(), shield);
+      RobotObject::create(getPhysicsShapeCache(), getAudioHelper(), _gameUi->getVirtualJoyStick(), shield);
     UTILS_BREAK_IF(_robot == nullptr);
 
     auto position = getObjectCenterPosition(values);
@@ -373,7 +373,7 @@ bool GameScene::addSwitch(const ValueMap& values, Node* layer)
     const auto target = values.at("target").asString();
     const auto isActivated = values.count("activated") == 0 ? false : values.at("activated").asBool();
 
-    auto switchGameObject = switch_object::create(getPhysicsShapeCache(), target);
+    auto switchGameObject = SwitchObject::create(getPhysicsShapeCache(), target);
     UTILS_BREAK_IF(switchGameObject == nullptr);
 
     if (isActivated)
@@ -405,7 +405,7 @@ bool GameScene::addDoor(const ValueMap& values, Node* layer)
   do
   {
     const auto name = values.at("name").asString();
-    auto doorGameObject = door_object::create(getPhysicsShapeCache(), getAudioHelper());
+    auto doorGameObject = DoorObject::create(getPhysicsShapeCache(), getAudioHelper());
 
     UTILS_BREAK_IF(doorGameObject == nullptr);
 
@@ -439,7 +439,7 @@ bool GameScene::addBarrel(const ValueMap& values, Node* layer)
     const auto shape = values.at("shape").asString();
     const auto rotation = values.at("rotation").asFloat();
 
-    auto barrel = barrel_object::create(getPhysicsShapeCache(), _barrelCount, image, shape);
+    auto barrel = BarrelObject::create(getPhysicsShapeCache(), _barrelCount, image, shape);
     UTILS_BREAK_IF(barrel == nullptr);
 
     const auto position = getObjectCenterPosition(values);
@@ -472,7 +472,7 @@ bool GameScene::addSaw(const ValueMap& values, Node* layer)
     const auto movementTime = values.at("movement_time").asFloat();
     const auto stopTime = values.at("stop_time").asFloat();
 
-    auto saw = saw_object::create(getPhysicsShapeCache(), image, shape, damage, rotationTime, movement,
+    auto saw = SawObject::create(getPhysicsShapeCache(), image, shape, damage, rotationTime, movement,
                                   movementTime, stopTime);
     UTILS_BREAK_IF(saw == nullptr);
 
@@ -502,7 +502,7 @@ bool GameScene::addBox(const ValueMap& values, Node* layer)
     const auto shape = values.at("shape").asString();
     const auto rotation = values.at("rotation").asFloat();
 
-    auto box = box_object::create(getPhysicsShapeCache(), image, shape);
+    auto box = BoxObject::create(getPhysicsShapeCache(), image, shape);
     UTILS_BREAK_IF(box == nullptr);
 
     const auto position = getObjectCenterPosition(values);
@@ -614,7 +614,7 @@ unsigned short int GameScene::calculateStars() const
   if (_totalTime <= _timeLimit)
   {
     stars = 2;
-    if (_robot->get_shield_percentage() == 100.f)
+    if (_robot->getShieldPercentage() == 100.f)
     {
       stars = 3;
     }
@@ -651,7 +651,7 @@ bool GameScene::cacheRobotExplosion()
   {
     for (auto fragmentNumber = 1; fragmentNumber <= 6; ++fragmentNumber)
     {
-      const auto robotFragment = robot_fragment::create(getPhysicsShapeCache(), fragmentNumber);
+      const auto robotFragment = RobotFragment::create(getPhysicsShapeCache(), fragmentNumber);
       UTILS_BREAK_IF(robotFragment == nullptr);
 
       _robotFragments.push_back(robotFragment);
@@ -757,8 +757,8 @@ void GameScene::close()
 {
   _closing = true;
   pause();
-  const auto application = dynamic_cast<laser_and_bots_app*>(getApplication());
-  application->to_main_menu();
+  const auto application = dynamic_cast<LaserAndBotsApp*>(getApplication());
+  application->toMainMenu();
 }
 
 void GameScene::pause()
@@ -839,8 +839,8 @@ void GameScene::reload()
 
   _gameUi->disableButtons(true);
 
-  auto app = dynamic_cast<laser_and_bots_app*>(_application);
-  app->to_game(_level);
+  auto app = dynamic_cast<LaserAndBotsApp*>(_application);
+  app->toGame(_level);
 }
 
 void GameScene::continueButton()
@@ -849,8 +849,8 @@ void GameScene::continueButton()
 
   _gameUi->disableButtons(true);
 
-  auto app = dynamic_cast<laser_and_bots_app*>(_application);
-  app->to_play_menu(_levelManager->getNextLevel(_level));
+  auto app = dynamic_cast<LaserAndBotsApp*>(_application);
+  app->toPlayMenu(_levelManager->getNextLevel(_level));
 }
 
 void GameScene::onEnter()
@@ -873,7 +873,7 @@ void GameScene::updateUiPosition(const Vec2& finalPos) const
 
 void GameScene::updateBackgroundPosition(const Vec2& finalPos) const
 {
-  _background->update_scroll(finalPos);
+  _background->updateScroll(finalPos);
 }
 
 void GameScene::cameraFollowRobot(const Vec2& robotPosition, const float delta)
@@ -894,17 +894,17 @@ void GameScene::cameraFollowRobot(const Vec2& robotPosition, const float delta)
   }
 }
 
-void GameScene::switchActivateDoor(door_object* door)
+void GameScene::switchActivateDoor(DoorObject* door)
 {
-  if (door->is_unactivated())
+  if (door->isUnactivated())
   {
     door->activate();
   }
 }
 
-void GameScene::switchActivateSwitch(switch_object* switchObject)
+void GameScene::switchActivateSwitch(SwitchObject* switchObject)
 {
-  if (switchObject->is_unactivated())
+  if (switchObject->isUnactivated())
   {
     getAudioHelper()->playEffect("sounds/metal_click.mp3");
     switchObject->activate();
@@ -916,17 +916,17 @@ void GameScene::switchActivateTarget(GameObject* target)
   const auto type = target->getType();
   if (type == "switch")
   {
-    switchActivateSwitch(dynamic_cast<switch_object*>(target));
+    switchActivateSwitch(dynamic_cast<SwitchObject*>(target));
   }
   else if (type == "door")
   {
-    switchActivateDoor(dynamic_cast<door_object*>(target));
+    switchActivateDoor(dynamic_cast<DoorObject*>(target));
   }
 }
 
-bool GameScene::isSwitchTargetingASwitch(switch_object* switchObject)
+bool GameScene::isSwitchTargetingASwitch(SwitchObject* switchObject)
 {
-  const auto target = switchObject->get_target();
+  const auto target = switchObject->getTarget();
   if (_gameObjects.count(target) == 1)
   {
     return _gameObjects.at(target)->getType() == "switch";
@@ -934,11 +934,11 @@ bool GameScene::isSwitchTargetingASwitch(switch_object* switchObject)
   return false;
 }
 
-void GameScene::robotTouchSwitch(switch_object* switchObject)
+void GameScene::robotTouchSwitch(SwitchObject* switchObject)
 {
-  if (switchObject->is_activated())
+  if (switchObject->isActivated())
   {
-    if (switchObject->is_off())
+    if (switchObject->isOff())
     {
       switchObject->on();
       if (isSwitchTargetingASwitch(switchObject))
@@ -946,7 +946,7 @@ void GameScene::robotTouchSwitch(switch_object* switchObject)
         getAudioHelper()->playEffect("sounds/metal_click.mp3");
       }
 
-      const auto target = switchObject->get_target();
+      const auto target = switchObject->getTarget();
       if (_gameObjects.count(target) == 1)
       {
         const auto targetObject = _gameObjects.at(target);
@@ -956,11 +956,11 @@ void GameScene::robotTouchSwitch(switch_object* switchObject)
   }
 }
 
-void GameScene::robotTouchDoor(door_object* doorGameObject)
+void GameScene::robotTouchDoor(DoorObject* doorGameObject)
 {
-  if (doorGameObject->is_activated())
+  if (doorGameObject->isActivated())
   {
-    if (doorGameObject->is_off())
+    if (doorGameObject->isOff())
     {
       doorGameObject->on();
     }
@@ -971,33 +971,33 @@ void GameScene::robotTouchDoor(door_object* doorGameObject)
   }
 }
 
-void GameScene::robotTouchHarmObjectStart(harm_object* harmObject) const
+void GameScene::robotTouchHarmObjectStart(HarmObject* harmObject) const
 {
-  _robot->start_periodic_damage(harmObject->get_damage());
+  _robot->startPeriodicDamage(harmObject->getDamage());
 }
 
-void GameScene::robotTouchHarmObjectEnd(harm_object* harmObject) const
+void GameScene::robotTouchHarmObjectEnd(HarmObject* harmObject) const
 {
-  _robot->stop_periodic_damage(harmObject->get_damage());
+  _robot->stopPeriodicDamage(harmObject->getDamage());
 }
 
 void GameScene::robotTouchObjectStart(const PhysicsContact& contact)
 {
-  const auto door = getObjectFromContact<door_object>(contact, Categories::door);
+  const auto door = getObjectFromContact<DoorObject>(contact, Categories::door);
   if (door != nullptr)
   {
     robotTouchDoor(door);
   }
   else
   {
-    const auto switchGameObject = getObjectFromContact<switch_object>(contact, Categories::switches);
+    const auto switchGameObject = getObjectFromContact<SwitchObject>(contact, Categories::switches);
     if (switchGameObject != nullptr)
     {
       robotTouchSwitch(switchGameObject);
     }
     else
     {
-      const auto harmGameObject = getObjectFromContact<harm_object>(contact, Categories::harm);
+      const auto harmGameObject = getObjectFromContact<HarmObject>(contact, Categories::harm);
       if (harmGameObject != nullptr)
       {
         robotTouchHarmObjectStart(harmGameObject);
@@ -1008,7 +1008,7 @@ void GameScene::robotTouchObjectStart(const PhysicsContact& contact)
 
 void GameScene::robotTouchObjectEnd(const PhysicsContact& contact) const
 {
-  const auto harmGameObject = getObjectFromContact<harm_object>(contact, Categories::harm);
+  const auto harmGameObject = getObjectFromContact<HarmObject>(contact, Categories::harm);
   if (harmGameObject != nullptr)
   {
     robotTouchHarmObjectEnd(harmGameObject);
@@ -1020,14 +1020,14 @@ void GameScene::feetTouchObjectStart(const PhysicsContact& contact) const
   const auto blockGameObject = getObjectFromContact<GameObject>(contact, Categories::walk_on);
   if (blockGameObject != nullptr)
   {
-    _robot->feet_touch_walk_object_start();
+    _robot->feetTouchWalkObjectStart();
   }
   else
   {
     const auto map = getObjectFromContact<experimental::TMXTiledMap>(contact, Categories::world);
     if (map != nullptr)
     {
-      _robot->feet_touch_walk_object_start();
+      _robot->feetTouchWalkObjectStart();
     }
   }
 }
@@ -1037,14 +1037,14 @@ void GameScene::feetTouchObjectEnd(const PhysicsContact& contact) const
   const auto blockGameObject = getObjectFromContact<GameObject>(contact, Categories::walk_on);
   if (blockGameObject != nullptr)
   {
-    _robot->feet_touch_walk_object_end();
+    _robot->feetTouchWalkObjectEnd();
   }
   else
   {
     const auto map = getObjectFromContact<experimental::TMXTiledMap>(contact, Categories::world);
     if (map != nullptr)
     {
-      _robot->feet_touch_walk_object_end();
+      _robot->feetTouchWalkObjectEnd();
     }
   }
 }
@@ -1053,14 +1053,14 @@ bool GameScene::onContactBegin(PhysicsContact& contact)
 {
   if (doWeNeedGameUpdates())
   {
-    const auto robot = getObjectFromContact<robot_object>(contact, Categories::robot);
+    const auto robot = getObjectFromContact<RobotObject>(contact, Categories::robot);
     if (robot != nullptr)
     {
       robotTouchObjectStart(contact);
     }
     else
     {
-      const auto feetNode = getObjectFromContact<robot_object>(contact, Categories::feet);
+      const auto feetNode = getObjectFromContact<RobotObject>(contact, Categories::feet);
       if (feetNode != nullptr)
       {
         feetTouchObjectStart(contact);
@@ -1075,14 +1075,14 @@ void GameScene::onContactSeparate(PhysicsContact& contact) const
 {
   if (doWeNeedGameUpdates())
   {
-    const auto robot = getObjectFromContact<robot_object>(contact, Categories::robot);
+    const auto robot = getObjectFromContact<RobotObject>(contact, Categories::robot);
     if (robot != nullptr)
     {
       robotTouchObjectEnd(contact);
     }
     else
     {
-      const auto feetNode = getObjectFromContact<robot_object>(contact, Categories::feet);
+      const auto feetNode = getObjectFromContact<RobotObject>(contact, Categories::feet);
       if (feetNode != nullptr)
       {
         feetTouchObjectEnd(contact);

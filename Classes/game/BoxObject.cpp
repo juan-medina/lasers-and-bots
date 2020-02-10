@@ -19,30 +19,47 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __DOOR_CLASS__
-#define __DOOR_CLASS__
 
-#include "on_off_object.h"
+#include "BoxObject.h"
 
-// forward declarations
-class AudioHelper;
-
-class door_object final : public on_off_object
+BoxObject* BoxObject::create(PhysicsShapeCache* physicsShapeCache, const std::string& image,
+                             const std::string& shape)
 {
-public:
-  using base_class = on_off_object;
+  BoxObject* ret = nullptr;
 
-  door_object();
+  do
+  {
+    auto object = new BoxObject();
+    UTILS_BREAK_IF(object == nullptr);
 
-  static door_object* create(PhysicsShapeCache* physics_shape_cache, AudioHelper* audio_helper);
+    if (object->init(physicsShapeCache, image, shape))
+    {
+      object->autorelease();
+    }
+    else
+    {
+      delete object;
+      object = nullptr;
+    }
 
-  bool init(PhysicsShapeCache* physics_shape_cache, AudioHelper* audio_helper);
+    ret = object;
+  } while (false);
 
-  bool on() override;
-  bool activate() override;
+  return ret;
+}
 
-private:
-  AudioHelper* audio_helper_;
-};
+bool BoxObject::init(PhysicsShapeCache* physicsShapeCache, const std::string& image, const std::string& shape)
+{
+  auto ret = false;
 
-#endif // __DOOR_CLASS__
+  do
+  {
+    UTILS_BREAK_IF(!BaseClass::init(physicsShapeCache, shape, image, "box"));
+
+    setAnchorPoint(Vec2(0.5f, 0.5f));
+
+    ret = true;
+  } while (false);
+
+  return ret;
+}

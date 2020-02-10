@@ -19,34 +19,57 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __harm_object_CLASS__
-#define __harm_object_CLASS__
 
-#include "../utils/physics/PhysicsGameObject.h"
+#ifndef __LASEROBJECT_H__
+#define __LASEROBJECT_H__
 
-class harm_object : public PhysicsGameObject
+#include "HarmObject.h"
+
+// forward declarations
+class AudioHelper;
+class CustomDrawNode;
+
+class LaserObject final : public HarmObject
 {
 public:
-  using base_class = PhysicsGameObject;
+  using BaseClass = HarmObject;
 
-  harm_object();
+  LaserObject();
 
-  static harm_object* create(PhysicsShapeCache* physics_shape_cache, const std::string& shape,
-                             const std::string& sprite_frame_name, const std::string& type, const int damage);
-  static harm_object* create(PhysicsShapeCache* physics_shape_cache, const std::string& shape,
-                             const std::string& type, const int damage);
-  static harm_object* create(const std::string& type, const int damage);
+  static LaserObject* create(AudioHelper* audioHelper, float initialAngle, float rotationAngle,
+                             float speedFactor, int damage);
 
-  virtual bool init(PhysicsShapeCache* physics_shape_cache, const std::string& shape,
-                    const std::string& sprite_frame_name, const std::string& type, const int damage);
-  virtual bool init(PhysicsShapeCache* physics_shape_cache, const std::string& shape,
-                    const std::string& type, const int damage);
-  virtual bool init(const std::string& type, const int damage);
+  bool init(AudioHelper* audioHelper, float initialAngle, float rotationAngle, float speedFactor, int damage);
 
-  int get_damage() const { return damage_; }
+  void update(float delta) override;
+
+  void pause() override;
+
+  void resume() override;
 
 private:
-  int damage_;
+  void updateSpark(const Vec2& point);
+
+  float _angle;
+  float _initialAngle;
+  float _finalAngle;
+  float _direction;
+
+  // laser draw node
+  CustomDrawNode* _draw;
+
+  // the physics world
+  PhysicsWorld* _physicsWorld;
+
+  static constexpr float MAX_LASER_LENGTH = 10000.0f;
+
+  ParticleSystemQuad* _spark;
+
+  static int LOOP_SOUND;
+
+  float _speedFactor;
+
+  AudioHelper* _audioHelper;
 };
 
-#endif // __harm_object_CLASS__
+#endif //__LASEROBJECT_H__

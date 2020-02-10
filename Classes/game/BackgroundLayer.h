@@ -19,25 +19,35 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __SAW_CLASS__
-#define __SAW_CLASS__
 
-#include "harm_object.h"
+#ifndef __BACKGROUNDLAYER_H__
+#define __BACKGROUNDLAYER_H__
 
-class saw_object final : public harm_object
+#include "../utils/utils.h"
+
+// forward declarations
+
+class BackgroundLayer final : public Layer
 {
 public:
-  using base_class = harm_object;
+  using BaseClass = Layer;
 
-  saw_object();
+  BackgroundLayer();
 
-  static saw_object* create(PhysicsShapeCache* physics_shape_cache, const std::string& image,
-                            const std::string& shape, const int damage, const float rotation_time,
-                            const float movement, const float movement_time, const float stop_time);
+  static BackgroundLayer* create();
 
-  bool init(PhysicsShapeCache* physics_shape_cache, const std::string& image, const std::string& shape,
-            const int damage, const float rotation_time, const float movement, const float movement_time,
-            const float stop_time);
+  void updateScroll(const Vec2& position);
+
+private:
+  bool init();
+
+  static constexpr auto LAYER_SCALE = 4.0f;
+
+  Layer* _bottomLayer;
+
+  std::vector<Sprite*> _layers;
+
+  cocos2d::Size _screenSize;
 };
 
-#endif // __SAW_CLASS__
+#endif //__BACKGROUNDLAYER_H__

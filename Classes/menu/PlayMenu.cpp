@@ -22,11 +22,11 @@
 
 #include "PlayMenu.h"
 
-#include "../laser_and_bots_app.h"
 #include "../misc/LevelManager.h"
 #include "../ui/TextButton.h"
 #include "../ui/TextToggle.h"
 #include "../utils/audio/AudioHelper.h"
+#include "LaserAndBotsApp.h"
 #include "scenes/MenuScene.h"
 #include "ui/GameUi.h"
 
@@ -329,6 +329,6 @@ void PlayMenu::selectLevel(const unsigned short int level)
 LevelManager* PlayMenu::getLevelManager()
 {
   const auto menu = dynamic_cast<MenuScene*>(getParent());
-  const auto app = dynamic_cast<laser_and_bots_app*>(menu->getApplication());
-  return app->get_level_manager();
+  const auto app = dynamic_cast<LaserAndBotsApp*>(menu->getApplication());
+  return app->getLevelManager();
 }

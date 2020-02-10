@@ -40,7 +40,7 @@ public:
 
   virtual bool init(PhysicsShapeCache* physicsShapeCache, const std::string& shape,
                     const std::string& spriteFrameName, const std::string& type);
-  bool init(PhysicsShapeCache* physicsShapeCache, const std::string& shape, const std::string& type);
+  virtual bool init(PhysicsShapeCache* physicsShapeCache, const std::string& shape, const std::string& type);
   bool init(const std::string& type) override;
 
 private:

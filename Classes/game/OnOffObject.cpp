@@ -20,49 +20,41 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "door_object.h"
-#include "../utils/audio/AudioHelper.h"
+#include "OnOffObject.h"
 
-door_object::door_object() : audio_helper_(nullptr) {}
+OnOffObject::OnOffObject() : _on(false), _activated(false), _spot(nullptr) {}
 
-door_object* door_object::create(PhysicsShapeCache* physics_shape_cache, AudioHelper* audio_helper)
-{
-  door_object* ret = nullptr;
-
-  do
-  {
-    auto object = new door_object();
-    UTILS_BREAK_IF(object == nullptr);
-
-    if (object->init(physics_shape_cache, audio_helper))
-    {
-      object->autorelease();
-    }
-    else
-    {
-      delete object;
-      object = nullptr;
-    }
-
-    ret = object;
-  } while (false);
-
-  return ret;
-}
-
-bool door_object::init(PhysicsShapeCache* physics_shape_cache, AudioHelper* audio_helper)
+bool OnOffObject::init(PhysicsShapeCache* physicsShapeCache, const std::string& shape,
+                       const std::string& spriteFrameName, const std::string& type, const Vec2& spotPos,
+                       const string& target /*= ""*/)
 {
   auto ret = false;
 
   do
   {
-    UTILS_BREAK_IF(
-      !base_class::init(physics_shape_cache, "04_Door", "04_DoorLocked.png", "door", Vec2(140, 14)));
+    UTILS_BREAK_IF(!BaseClass::init(physicsShapeCache, shape, spriteFrameName, type));
 
-    audio_helper_ = audio_helper;
+    _spot = createWithSpriteFrameName("10_spot.png");
 
-    audio_helper_->preLoadEffect("sounds/metal_click.mp3");
-    audio_helper_->preLoadEffect("sounds/slide.mp3");
+    UTILS_BREAK_IF(_spot == nullptr);
+
+    _spot->setPosition(spotPos.x, getContentSize().height - spotPos.y);
+
+    _spot->setVisible(true);
+    _spot->setColor(Color3B::RED);
+    _spot->setOpacity(255);
+    _spot->setBlendFunc(BlendFunc::ADDITIVE);
+
+    const auto fadeDown = FadeTo::create(0.5, 90);
+    const auto fadeUp = FadeTo::create(0.5, 255);
+    const auto blink = Sequence::create(fadeDown, fadeUp, nullptr);
+    const auto repeat = RepeatForever::create(blink);
+
+    _spot->runAction(repeat);
+
+    addChild(_spot);
+
+    _target = target;
 
     ret = true;
   } while (false);
@@ -70,26 +62,31 @@ bool door_object::init(PhysicsShapeCache* physics_shape_cache, AudioHelper* audi
   return ret;
 }
 
-bool door_object::on()
+bool OnOffObject::on()
 {
-  if (base_class::on())
+  if (isOff())
   {
-    changeFrame("05_DoorOpen.png");
-    audio_helper_->playEffect("sounds/slide.mp3");
+    _on = true;
+    changeSpotColor(Color3B::GREEN);
     return true;
   }
 
   return false;
 }
 
-bool door_object::activate()
+bool OnOffObject::activate()
 {
-  if (base_class::activate())
+  if (isUnactivated())
   {
-    changeFrame("06_DoorUnlocked.png");
-    audio_helper_->playEffect("sounds/metal_click.mp3");
+    _activated = true;
+    changeSpotColor(Color3B::YELLOW);
     return true;
   }
 
   return false;
+}
+
+void OnOffObject::changeSpotColor(const Color3B& color) const
+{
+  _spot->setColor(color);
 }

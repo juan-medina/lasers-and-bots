@@ -20,12 +20,12 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include <memory>
-
 #include <android/log.h>
 #include <jni.h>
 
-#include "laser_and_bots_app.h"
+#include <memory>
+
+#include "LaserAndBotsApp.h"
 
 #define LOG_TAG "main"
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
@@ -38,5 +38,5 @@ std::unique_ptr<laser_and_bots_app> appDelegate;
 void cocos_android_app_init(JNIEnv* env)
 {
   LOGD("cocos_android_app_init");
-  appDelegate.reset(new laser_and_bots_app());
+  appDelegate.reset(new LaserAndBotsApp());
 }

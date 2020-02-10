@@ -19,8 +19,8 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __ROBOT_CLASS__
-#define __ROBOT_CLASS__
+#ifndef __ROBOTOBJECT_H__
+#define __ROBOTOBJECT_H__
 
 #include "../utils/physics/PhysicsGameObject.h"
 
@@ -28,38 +28,38 @@
 class VirtualJoyStick;
 class AudioHelper;
 
-class robot_object final : public PhysicsGameObject
+class RobotObject final : public PhysicsGameObject
 {
 public:
-  using base_class = PhysicsGameObject;
+  using BaseClass = PhysicsGameObject;
 
-  robot_object();
+  RobotObject();
 
-  static robot_object* create(PhysicsShapeCache* physics_shape_cache, AudioHelper* audio_helper,
-                              VirtualJoyStick* virtual_joy_stick, const int max_shield);
+  static RobotObject* create(PhysicsShapeCache* physicsShapeCache, AudioHelper* audioHelper,
+                             VirtualJoyStick* virtualJoyStick, int maxShield);
 
-  bool init(PhysicsShapeCache* physics_shape_cache, AudioHelper* audio_helper,
-            VirtualJoyStick* virtual_joy_stick, const int max_shield);
+  bool init(PhysicsShapeCache* physicsShapeCache, AudioHelper* audioHelper, VirtualJoyStick* virtualJoyStick,
+            int maxShield);
 
   void update(float delta) override;
 
-  void on_land_on_block();
+  void onLandOnBlock();
 
-  void feet_touch_walk_object_start();
-  void feet_touch_walk_object_end();
+  void feetTouchWalkObjectStart();
+  void feetTouchWalkObjectEnd();
 
-  float get_shield_percentage() const;
+  float getShieldPercentage() const;
 
-  void damage_shield(const int amount);
+  void damageShield(int amount);
 
-  void start_periodic_damage(const int amount);
-  void stop_periodic_damage(const int amount);
+  void startPeriodicDamage(int amount);
+  void stopPeriodicDamage(int amount);
 
   void pause() override;
   void resume() override;
 
 private:
-  enum state
+  enum State
   {
     e_falling,
     e_jumping,
@@ -67,40 +67,40 @@ private:
     e_running
   };
 
-  void move_to_left(bool to_left);
-  void move_to_right(bool to_right);
-  void jump(bool to_jump);
+  void moveToLeft(bool toLeft);
+  void moveToRight(bool toRight);
+  void jump(bool toJump);
 
-  void walk_sound(const bool active);
+  void walkSound(bool active);
 
-  state decide_state() const;
-  void change_state(state wanted_state);
+  State decideState() const;
+  void changeState(State wantedState);
 
-  void move_robot() const;
+  void moveRobot() const;
 
   // our normal movement
-  static const Vec2 normal_movement;
-  static const int blink_on_damage_action_tag;
+  static const Vec2 NORMAL_MOVEMENT;
+  static const int BLINK_ON_DAMAGE_ACTION_TAG;
 
-  bool to_left_;
-  bool to_right_;
-  bool jumping_;
+  bool _toLeft;
+  bool _toRight;
+  bool _jumping;
 
-  int walk_sound_;
+  int _walkSound;
 
-  int current_shield_;
-  int max_shield_;
+  int _currentShield;
+  int _maxShield;
 
-  int periodic_damage_;
+  int _periodicDamage;
 
-  bool feet_touch_anything_;
-  int feet_touching_count_;
+  bool _feetTouchAnything;
+  int _feetTouchingCount;
 
-  state current_state_;
-  VirtualJoyStick* virtual_joy_stick_;
-  AudioHelper* audio_helper_;
+  State _currentState;
+  VirtualJoyStick* _virtualJoyStick;
+  AudioHelper* _audioHelper;
 
-  int number_of_jumps_;
+  int _numberOfJumps;
 };
 
-#endif // __ROBOT_CLASS__
+#endif //__ROBOTOBJECT_H__
