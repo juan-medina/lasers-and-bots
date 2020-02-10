@@ -20,8 +20,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __BASIC_SCENE_H__
-#define __BASIC_SCENE_H__
+#ifndef __BASICSCENE_H__
+#define __BASICSCENE_H__
 
 #include "../../utils.h"
 
@@ -59,4 +59,4 @@ protected:
   BasicApp* _application;
 };
 
-#endif // __BASIC_SCENE_H__
+#endif //__BASICSCENE_H__

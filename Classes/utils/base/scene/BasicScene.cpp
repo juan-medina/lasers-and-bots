@@ -21,6 +21,7 @@
  ****************************************************************************/
 
 #include "BasicScene.h"
+
 #include "../../audio/AudioHelper.h"
 #include "../../base/app/BasicApp.h"
 #include "../../controller/InputController.h"

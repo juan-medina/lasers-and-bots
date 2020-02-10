@@ -21,6 +21,7 @@
  ****************************************************************************/
 
 #include "PhysicsTiledScene.h"
+
 #include "PhysicsShapeCache.h"
 
 PhysicsTiledScene::PhysicsTiledScene() : _physicsShapeCache(nullptr) {}
@@ -37,7 +38,7 @@ PhysicsTiledScene* PhysicsTiledScene::create(BasicApp* application, const std::s
 {
   auto scene = new PhysicsTiledScene();
 
-  if (scene)
+  if (scene != nullptr)
   {
     if (scene->init(application, tmxFile, gravity, debugPhysics))
     {
@@ -58,7 +59,7 @@ Scene* PhysicsTiledScene::scene(BasicApp* application, const std::string& tmxFil
 {
   auto scene = new PhysicsTiledScene();
 
-  if (scene)
+  if (scene != nullptr)
   {
     if (scene->init(application, tmxFile, gravity, debugPhysics))
     {

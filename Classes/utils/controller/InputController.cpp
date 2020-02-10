@@ -31,12 +31,10 @@ InputController::InputController()
   , _keyButtonB(false)
   , _keyButtonStart(false)
   , _keyButtonBack(false)
-  ,
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-  _wasControllerMenuPressed(false)
-  ,
+  , _wasControllerMenuPressed(false)
 #endif
-  _controllerLeft(false)
+  , _controllerLeft(false)
   , _controllerRight(false)
   , _controllerUp(false)
   , _controllerDown(false)
@@ -138,7 +136,6 @@ void InputController::onControllerKeyDown(Controller* controller, const int keyC
     case Controller::Key::BUTTON_DPAD_LEFT:
     case Controller::Key::BUTTON_LEFT_SHOULDER:
       _controllerLeft = true;
-      ;
       break;
     case Controller::Key::BUTTON_DPAD_RIGHT:
     case Controller::Key::BUTTON_RIGHT_SHOULDER:
@@ -152,7 +149,7 @@ void InputController::onControllerKeyDown(Controller* controller, const int keyC
       break;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
     case Controller::Key::BUTTON_PAUSE:
-      was_controller_menu_pressed_ = true;
+      _wasControllerMenuPressed = true;
       break;
 #endif
     case Controller::Key::BUTTON_START:
@@ -302,7 +299,6 @@ void InputController::onKeyPressed(const EventKeyboard::KeyCode keyCode, Event*)
     case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
     case EventKeyboard::KeyCode::KEY_A:
       _keyLeft = true;
-      ;
       break;
     case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
     case EventKeyboard::KeyCode::KEY_D:
@@ -340,7 +336,6 @@ void InputController::onKeyReleased(const EventKeyboard::KeyCode keyCode, Event*
     case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
     case EventKeyboard::KeyCode::KEY_A:
       _keyLeft = false;
-      ;
       break;
     case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
     case EventKeyboard::KeyCode::KEY_S:

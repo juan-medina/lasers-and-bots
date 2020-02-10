@@ -20,8 +20,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __CUSTOM_DRAW_NODE_H__
-#define __CUSTOM_DRAW_NODE_H__
+#ifndef __CUSTOMDRAWNODE_H__
+#define __CUSTOMDRAWNODE_H__
 
 #include "../../utils.h"
 
@@ -39,4 +39,4 @@ public:
   void drawColorQuad(const Vec2 *vertex, const Color4F *fillColors);
 };
 
-#endif // __CUSTOM_DRAW_NODE_H__
+#endif //__CUSTOMDRAWNODE_H__

@@ -28,7 +28,7 @@ TiledScene* TiledScene::create(BasicApp* application, const std::string& tmxFile
 {
   auto scene = new TiledScene();
 
-  if (scene)
+  if (scene != nullptr)
   {
     if (scene->init(application, tmxFile))
     {
@@ -48,7 +48,7 @@ Scene* TiledScene::scene(BasicApp* application, const std::string& tmxFile)
 {
   auto scene = new TiledScene();
 
-  if (scene)
+  if (scene != nullptr)
   {
     if (scene->init(application, tmxFile))
     {

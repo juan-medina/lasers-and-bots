@@ -20,8 +20,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __PHYSICS_SHAPE_CACHE_CLASS__
-#define __PHYSICS_SHAPE_CACHE_CLASS__
+#ifndef __PHYSICSSHAPECACHE_H__
+#define __PHYSICSSHAPECACHE_H__
 
 #include "../utils.h"
 
@@ -103,4 +103,4 @@ private:
   std::map<std::string, std::vector<BodyDef*>> _bodiesInFile;
 };
 
-#endif // __PHYSICS_SHAPE_CACHE_CLASS__
+#endif //__PHYSICSSHAPECACHE_H__

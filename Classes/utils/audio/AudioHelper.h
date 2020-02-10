@@ -20,8 +20,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AUDIO_HELPER_H__
-#define __AUDIO_HELPER_H__
+#ifndef __AUDIOHELPER_H__
+#define __AUDIOHELPER_H__
 
 #include "../utils.h"
 
@@ -32,12 +32,11 @@ public:
   using BaseClass = Ref;
 
   AudioHelper();
-  ~AudioHelper();
+  ~AudioHelper() override;
 
-  int playEffect(const std::string& fileName, const bool loop = false, const float volume = 1.0f) const;
-  void playMusic(const std::string& loopFileName, const float volume = 1.0f);
-  void playMusic(const std::string& introFileName, const std::string& loopFileName,
-                 const float volume = 1.0f);
+  int playEffect(const std::string& fileName, bool loop = false, float volume = 1.0f) const;
+  void playMusic(const std::string& loopFileName, float volume = 1.0f);
+  void playMusic(const std::string& introFileName, const std::string& loopFileName, float volume = 1.0f);
 
   void preLoadEffect(const std::string& fileName) const;
   void preLoadMusic(const std::string& loopFileName) const;
@@ -51,9 +50,9 @@ public:
 
   void appExit();
 
-  void stopSound(const int sound);
-  void pauseSound(const int sound);
-  void resumeSound(const int sound);
+  void stopSound(int sound);
+  void pauseSound(int sound);
+  void resumeSound(int sound);
 
   bool getMusicMuted() const noexcept { return _musicMuted; }
 
@@ -67,14 +66,14 @@ public:
 
   float getMusicVolume() const noexcept { return _musicVolume; }
 
-  void setMusicVolume(const float musicVolume) noexcept;
+  void setMusicVolume(float musicVolume) noexcept;
 
   float getSoundVolume() const noexcept { return _soundVolume; }
 
   void setSoundVolume(const float soundVolume) noexcept { _soundVolume = soundVolume; }
 
 private:
-  void onMusicIntroEnds(const int id, const std::string& filePath);
+  void onMusicIntroEnds(int id, const std::string& filePath);
   bool init();
 
   bool _initiated;
@@ -83,11 +82,11 @@ private:
 
   struct LastMusic
   {
-    int loopId;
-    int introId;
-    std::string introFileName;
-    std::string loopFileName;
-    float volume;
+    int _loopId;
+    int _introId;
+    std::string _introFileName;
+    std::string _loopFileName;
+    float _volume;
   };
 
   LastMusic _lastMusic;
@@ -96,4 +95,4 @@ private:
   float _soundVolume;
 };
 
-#endif // __AUDIO_HELPER_H__
+#endif //__AUDIOHELPER_H__

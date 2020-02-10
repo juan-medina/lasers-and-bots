@@ -19,8 +19,8 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __PHYSICS_GAME_OBJECT_CLASS__
-#define __PHYSICS_GAME_OBJECT_CLASS__
+#ifndef __PHYSICSGAMEOBJECT_H__
+#define __PHYSICSGAMEOBJECT_H__
 
 #include "../base/sprite/GameObject.h"
 
@@ -47,4 +47,4 @@ private:
   bool setShape(PhysicsShapeCache* physicsShapeCache, const std::string& shapeName);
 };
 
-#endif // __PHYSICS_GAME_OBJECT_CLASS__
+#endif //__PHYSICSGAMEOBJECT_H__

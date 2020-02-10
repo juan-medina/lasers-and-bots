@@ -85,7 +85,7 @@ bool GridScene::init(BasicApp* application, const Size& blocks, const Size& bloc
   return ret;
 }
 
-bool GridScene::createDebugGrid(const std::string& font_name)
+bool GridScene::createDebugGrid(const std::string& fontName)
 {
   auto ret = false;
 
@@ -107,7 +107,7 @@ bool GridScene::createDebugGrid(const std::string& font_name)
 
         draw->drawRect(from, to, Color4F(1.0f, 1.0f, 1.0f, 0.25f));
 
-        auto label = Label::createWithTTF(StringFormat("%d-%d", col, row), font_name, _blockSize.width / 4);
+        auto label = Label::createWithTTF(StringFormat("%d-%d", col, row), fontName, _blockSize.width / 4);
         allOk = (label != nullptr);
 
         if (allOk)

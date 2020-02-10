@@ -21,6 +21,7 @@
  ****************************************************************************/
 
 #include "BasicApp.h"
+
 #include "../../audio/AudioHelper.h"
 #include "../../controller/InputController.h"
 #include "../scene/BasicScene.h"
@@ -188,13 +189,15 @@ void BasicApp::setWindowSize(const float scale)
 bool BasicApp::isDesktop()
 {
   const auto platform = getTargetPlatform();
-  return (platform == Platform::OS_WINDOWS) || (platform == Platform::OS_MAC) || (platform == Platform::OS_LINUX);
+  return (platform == Platform::OS_WINDOWS) || (platform == Platform::OS_MAC) ||
+         (platform == Platform::OS_LINUX);
 }
 
 std::string BasicApp::getGameVersionString() const
 {
-  return StringFormat("Version: %d.%d.%d build %d (%s)", _gameVersion.major, _gameVersion.minor,
-                      _gameVersion.patch, _gameVersion.build, getPlatformName(_gameVersion.platform).c_str());
+  return StringFormat("Version: %d.%d.%d build %d (%s)", _gameVersion._major, _gameVersion._minor,
+                      _gameVersion._patch, _gameVersion._build,
+                      getPlatformName(_gameVersion._platform).c_str());
 }
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
@@ -251,11 +254,11 @@ bool BasicApp::readVersion()
     const auto version = versionData.at("version").asValueMap();
     UTILS_BREAK_IF(version.empty());
 
-    _gameVersion.major = version.at("major").asInt();
-    _gameVersion.minor = version.at("minor").asInt();
-    _gameVersion.patch = version.at("patch").asInt();
-    _gameVersion.build = version.at("build").asInt();
-    _gameVersion.platform = getTargetPlatform();
+    _gameVersion._major = version.at("major").asInt();
+    _gameVersion._minor = version.at("minor").asInt();
+    _gameVersion._patch = version.at("patch").asInt();
+    _gameVersion._build = version.at("build").asInt();
+    _gameVersion._platform = getTargetPlatform();
 
     result = true;
   } while (false);
@@ -263,7 +266,7 @@ bool BasicApp::readVersion()
   return result;
 }
 
-std::string BasicApp::getPlatformName(const Platform platform)
+std::string BasicApp::getPlatformName(const Platform& platform)
 {
   switch (platform)
   {

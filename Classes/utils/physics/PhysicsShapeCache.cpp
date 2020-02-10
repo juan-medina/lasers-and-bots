@@ -59,10 +59,10 @@ bool PhysicsShapeCache::addShapesWithFile(const std::string& plist, const float 
   std::vector<BodyDef*> bodies(bodyDict.size());
   auto num = 0;
 
-  for (auto iterator = bodyDict.cbegin(); iterator != bodyDict.cend(); ++iterator)
+  for (const auto& iterator : bodyDict)
   {
-    const auto& bodyData = iterator->second.asValueMap();
-    auto bodyName = iterator->first;
+    const auto& bodyData = iterator.second.asValueMap();
+    auto bodyName = iterator.first;
     auto bodyDefObject = new BodyDef();
     bodies[num++] = bodyDefObject;
     _bodyDefs.insert(std::make_pair(bodyName, bodyDefObject));
@@ -211,21 +211,19 @@ void PhysicsShapeCache::removeShapesWithFile(const std::string& plist)
 {
   auto bodies = _bodiesInFile.at(plist);
 
-  for (auto iterator = bodies.begin(); iterator != bodies.end(); ++iterator)
+  for (auto& body : bodies)
   {
-    safeDeleteBodyDef(*iterator);
+    safeDeleteBodyDef(body);
   }
 
   _bodiesInFile.erase(plist);
-
-  return;
 }
 
 void PhysicsShapeCache::removeAllShapes()
 {
-  for (auto iterator = _bodyDefs.cbegin(); iterator != _bodyDefs.cend(); ++iterator)
+  for (const auto& bodyDef : _bodyDefs)
   {
-    safeDeleteBodyDef(iterator->second);
+    safeDeleteBodyDef(bodyDef.second);
   }
   _bodyDefs.clear();
   _bodiesInFile.clear();

@@ -138,7 +138,7 @@ bool GameScene::init(BasicApp* application, const bool debugGrid, const bool deb
 
     UTILS_BREAK_IF(!cacheRobotExplosion());
 
-    _getPhysicsShapeCache()->removeAllShapes();
+    getPhysicsShapeCache()->removeAllShapes();
 
     if (debugGrid)
     {
@@ -259,11 +259,11 @@ Node* GameScene::providePhysicsNode(const int gid)
     if (valueMap.count("damage") == 1)
     {
       const auto damage = valueMap.at("damage").asInt();
-      return harm_object::create(_getPhysicsShapeCache(), shape, "dummy", damage);
+      return harm_object::create(getPhysicsShapeCache(), shape, "dummy", damage);
     }
   }
 
-  return PhysicsGameObject::create(_getPhysicsShapeCache(), shape, "dummy");
+  return PhysicsGameObject::create(getPhysicsShapeCache(), shape, "dummy");
 }
 
 void GameScene::updateGameTime(const float delta)
@@ -347,7 +347,7 @@ bool GameScene::addRobot(const ValueMap& values, Node* layer)
   {
     const auto shield = values.at("shield").asInt();
     _robot =
-      robot_object::create(_getPhysicsShapeCache(), getAudioHelper(), _gameUI->getVirtualJoyStick(), shield);
+      robot_object::create(getPhysicsShapeCache(), getAudioHelper(), _gameUI->getVirtualJoyStick(), shield);
     UTILS_BREAK_IF(_robot == nullptr);
 
     auto position = getObjectCenterPosition(values);
@@ -373,7 +373,7 @@ bool GameScene::addSwitch(const ValueMap& values, Node* layer)
     const auto target = values.at("target").asString();
     const auto isActivated = values.count("activated") == 0 ? false : values.at("activated").asBool();
 
-    auto switchGameObject = switch_object::create(_getPhysicsShapeCache(), target);
+    auto switchGameObject = switch_object::create(getPhysicsShapeCache(), target);
     UTILS_BREAK_IF(switchGameObject == nullptr);
 
     if (isActivated)
@@ -405,7 +405,7 @@ bool GameScene::addDoor(const ValueMap& values, Node* layer)
   do
   {
     const auto name = values.at("name").asString();
-    auto doorGameObject = door_object::create(_getPhysicsShapeCache(), getAudioHelper());
+    auto doorGameObject = door_object::create(getPhysicsShapeCache(), getAudioHelper());
 
     UTILS_BREAK_IF(doorGameObject == nullptr);
 
@@ -439,7 +439,7 @@ bool GameScene::addBarrel(const ValueMap& values, Node* layer)
     const auto shape = values.at("shape").asString();
     const auto rotation = values.at("rotation").asFloat();
 
-    auto barrel = barrel_object::create(_getPhysicsShapeCache(), _barrelCount, image, shape);
+    auto barrel = barrel_object::create(getPhysicsShapeCache(), _barrelCount, image, shape);
     UTILS_BREAK_IF(barrel == nullptr);
 
     const auto position = getObjectCenterPosition(values);
@@ -472,7 +472,7 @@ bool GameScene::addSaw(const ValueMap& values, Node* layer)
     const auto movementTime = values.at("movement_time").asFloat();
     const auto stopTime = values.at("stop_time").asFloat();
 
-    auto saw = saw_object::create(_getPhysicsShapeCache(), image, shape, damage, rotationTime, movement,
+    auto saw = saw_object::create(getPhysicsShapeCache(), image, shape, damage, rotationTime, movement,
                                   movementTime, stopTime);
     UTILS_BREAK_IF(saw == nullptr);
 
@@ -502,7 +502,7 @@ bool GameScene::addBox(const ValueMap& values, Node* layer)
     const auto shape = values.at("shape").asString();
     const auto rotation = values.at("rotation").asFloat();
 
-    auto box = box_object::create(_getPhysicsShapeCache(), image, shape);
+    auto box = box_object::create(getPhysicsShapeCache(), image, shape);
     UTILS_BREAK_IF(box == nullptr);
 
     const auto position = getObjectCenterPosition(values);
@@ -651,7 +651,7 @@ bool GameScene::cacheRobotExplosion()
   {
     for (auto fragmentNumber = 1; fragmentNumber <= 6; ++fragmentNumber)
     {
-      const auto robotFragment = robot_fragment::create(_getPhysicsShapeCache(), fragmentNumber);
+      const auto robotFragment = robot_fragment::create(getPhysicsShapeCache(), fragmentNumber);
       UTILS_BREAK_IF(robotFragment == nullptr);
 
       _robotFragments.push_back(robotFragment);

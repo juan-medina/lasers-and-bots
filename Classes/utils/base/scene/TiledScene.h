@@ -20,8 +20,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __TILED_SCENE_H__
-#define __TILED_SCENE_H__
+#ifndef __TILEDSCENE_H__
+#define __TILEDSCENE_H__
 
 #include "GridScene.h"
 
@@ -48,4 +48,4 @@ private:
   experimental::TMXTiledMap* _tiledMap;
 };
 
-#endif // __TILED_SCENE_H__
+#endif //__TILEDSCENE_H__

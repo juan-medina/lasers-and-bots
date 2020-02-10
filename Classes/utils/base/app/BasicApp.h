@@ -20,8 +20,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __BASIC_APP_H__
-#define __BASIC_APP_H__
+#ifndef __BASICAPP_H__
+#define __BASICAPP_H__
 
 #include "../../utils.h"
 
@@ -35,7 +35,7 @@ class BasicApp : public Application
 public:
   using BaseClass = Application;
 
-  explicit BasicApp(const std::string& applicationName, const float designWidth, const float designHeight);
+  explicit BasicApp(const std::string& applicationName, float designWidth, float designHeight);
 
   void initGLContextAttrs() override;
 
@@ -57,7 +57,7 @@ public:
 
   AudioHelper* getAudioHelper() const { return _audioHelper; }
 #if (GAME_PLATFORM == DESKTOP_GAME)
-  void setWindowSize(const float scale);
+  void setWindowSize(float scale);
 #endif
   void setFullScreen(const bool fullScreen) { _fullScreen = fullScreen; }
 
@@ -78,7 +78,7 @@ private:
 #endif
 
   bool readVersion();
-  static std::string getPlatformName(const Platform platform);
+  static std::string getPlatformName(const Platform& platform);
 
   AudioHelper* _audioHelper;
   InputController* _inputController;
@@ -93,14 +93,14 @@ private:
 
   struct GameVersion
   {
-    unsigned short int major;
-    unsigned short int minor;
-    unsigned short int patch;
-    unsigned int build;
-    Platform platform;
+    unsigned short int _major;
+    unsigned short int _minor;
+    unsigned short int _patch;
+    unsigned int _build;
+    Platform _platform;
   };
 
   GameVersion _gameVersion;
 };
 
-#endif // __BASIC_APP_H__
+#endif //__BASICAPP_H__

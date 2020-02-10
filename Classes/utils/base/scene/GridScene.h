@@ -20,8 +20,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __GRID_SCENE_H__
-#define __GRID_SCENE_H__
+#ifndef __GRIDSCENE_H__
+#define __GRIDSCENE_H__
 
 #include "BasicScene.h"
 
@@ -49,11 +49,11 @@ public:
   }
 
 protected:
-  bool createDebugGrid(const std::string& font_name);
+  bool createDebugGrid(const std::string& fontName);
 
   Size _blocks;
   Size _blockSize;
   Size _totalSize;
 };
 
-#endif // __GRID_SCENE_H__
+#endif //__GRIDSCENE_H__

@@ -20,8 +20,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __PHYSICS_TILED_SCENE_H__
-#define __PHYSICS_TILED_SCENE_H__
+#ifndef __PHYSICSTILEDSCENE_H__
+#define __PHYSICSTILEDSCENE_H__
 
 #include "../base/scene/TiledScene.h"
 
@@ -34,29 +34,28 @@ public:
   using BaseClass = TiledScene;
 
   PhysicsTiledScene();
-  ~PhysicsTiledScene();
+  ~PhysicsTiledScene() override;
 
-  static PhysicsTiledScene* create(BasicApp* application, const std::string& tmxFile, const float gravity,
-                                   const bool debugPhysics);
+  static PhysicsTiledScene* create(BasicApp* application, const std::string& tmxFile, float gravity,
+                                   bool debugPhysics);
 
-  static Scene* scene(BasicApp* application, const std::string& tmxFile, const float gravity,
-                      const bool debugPhysics);
+  static Scene* scene(BasicApp* application, const std::string& tmxFile, float gravity, bool debugPhysics);
 
-  bool init(BasicApp* application, const std::string& tmxFile, const float gravity, const bool debugPhysics);
+  bool init(BasicApp* application, const std::string& tmxFile, float gravity, bool debugPhysics);
 
-  PhysicsShapeCache* _getPhysicsShapeCache() const { return _physicsShapeCache; }
+  PhysicsShapeCache* getPhysicsShapeCache() const { return _physicsShapeCache; }
 
 protected:
   bool addBodyToNode(Node* node, const string& shape) const;
-  virtual Node* providePhysicsNode(const int gid);
-  string getShapeFromTileGid(const int gid);
+  virtual Node* providePhysicsNode(int gid);
+  string getShapeFromTileGid(int gid);
 
 private:
-  virtual void initPhysics(const bool debugPhysics) const;
+  virtual void initPhysics(bool debugPhysics) const;
   bool addPhysicsToMap();
 
   // create a dummy node to hold physic body
-  Node* createDummyNode(experimental::TMXLayer* layer, const Vec2& tilePos, const int gid);
+  Node* createDummyNode(experimental::TMXLayer* layer, const Vec2& tilePos, int gid);
 
   float _gravity = 0.0f;
   std::map<int, string> _gidToShapes;
@@ -64,4 +63,4 @@ private:
   PhysicsShapeCache* _physicsShapeCache;
 };
 
-#endif // __PHYSICS_TILED_SCENE_H__
+#endif //__PHYSICSTILEDSCENE_H__

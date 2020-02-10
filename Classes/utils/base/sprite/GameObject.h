@@ -19,8 +19,8 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __GAME_OBJECT__
-#define __GAME_OBJECT__
+#ifndef __GAMEOBJECT_H__
+#define __GAMEOBJECT_H__
 
 #include "../../utils.h"
 
@@ -56,4 +56,4 @@ private:
   string _type;
 };
 
-#endif // __GAME_OBJECT__
+#endif //__GAMEOBJECT_H__

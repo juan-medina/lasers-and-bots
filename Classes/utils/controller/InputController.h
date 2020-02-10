@@ -19,8 +19,8 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __INPUT_CONTROLLER_CLASS__
-#define __INPUT_CONTROLLER_CLASS__
+#ifndef __INPUTCONTROLLER_H__
+#define __INPUTCONTROLLER_H__
 
 #include "../utils.h"
 
@@ -30,7 +30,7 @@ public:
   using BaseClass = Ref;
 
   InputController();
-  ~InputController();
+  ~InputController() override;
 
   static InputController* create();
 
@@ -107,4 +107,4 @@ private:
   bool _initiated;
 };
 
-#endif // __INPUT_CONTROLLER_CLASS__
+#endif //__INPUTCONTROLLER_H__
