@@ -20,8 +20,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __CREDITS_MENU_CLASS__
-#define __CREDITS_MENU_CLASS__
+#ifndef __CREDITSMENU_H__
+#define __CREDITSMENU_H__
 
 #include "BasicMenu.h"
 
@@ -41,7 +41,7 @@ public:
 
   bool init(AudioHelper* audioHelper);
 
-  virtual void display() override;
+  void display() override;
 
 protected:
   bool createMenuItems() override;
@@ -53,4 +53,4 @@ private:
   ScrollingText* _scrollingText;
 };
 
-#endif // __CREDITS_MENU_CLASS__
+#endif //__CREDITSMENU_H__

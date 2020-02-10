@@ -20,8 +20,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __LEVEL_MANAGER_H__
-#define __LEVEL_MANAGER_H__
+#ifndef __LEVELMANAGER_H__
+#define __LEVELMANAGER_H__
 
 #include "../utils/utils.h"
 
@@ -40,24 +40,23 @@ public:
   using BaseClass = Ref;
 
   LevelManager();
-  ~LevelManager();
+  ~LevelManager() override;
 
   bool init();
   void end();
 
   const unsigned short int& getNumLevels() const { return _numLevels; }
 
-  unsigned short int getLevelStars(const unsigned short int level) const;
-  bool isLevelEnabled(const unsigned short int level) const;
-  std::string getLevelMap(const unsigned short int level) const;
-  std::string getLevelName(const unsigned short int level) const;
-  int getLevelTimeLimit(const unsigned short int level) const;
-  std::string getLevelMusic(const unsigned short int level) const;
-  CompletedResult setLevelCompleted(const unsigned short int level, const unsigned short int stars,
-                                    const float time) const;
-  float getLevelTimeRecord(const unsigned short int level) const;
-  float getLevel3StarsRecord(const unsigned short int level) const;
-  unsigned short int getNextLevel(const unsigned short int level) const;
+  unsigned short int getLevelStars(unsigned short int level) const;
+  bool isLevelEnabled(unsigned short int level) const;
+  std::string getLevelMap(unsigned short int level) const;
+  std::string getLevelName(unsigned short int level) const;
+  int getLevelTimeLimit(unsigned short int level) const;
+  std::string getLevelMusic(unsigned short int level) const;
+  CompletedResult setLevelCompleted(unsigned short int level, unsigned short int stars, float time) const;
+  float getLevelTimeRecord(unsigned short int level) const;
+  float getLevel3StarsRecord(unsigned short int level) const;
+  unsigned short int getNextLevel(unsigned short int level) const;
 
   static constexpr auto NO_TIME_RECORD = 999999.f;
 
@@ -68,4 +67,4 @@ private:
   ValueMap _levelData;
 };
 
-#endif // __LEVEL_MANAGER_H__
+#endif //__LEVELMANAGER_H__

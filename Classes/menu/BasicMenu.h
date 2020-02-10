@@ -20,8 +20,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __BASIC_MENU_CLASS__
-#define __BASIC_MENU_CLASS__
+#ifndef __BASICMENU_H__
+#define __BASICMENU_H__
 
 #include "../ui/ResizableWindow.h"
 #include "../utils/utils.h"
@@ -46,7 +46,7 @@ public:
 
   BasicMenu();
 
-  bool init(const std::string& name, AudioHelper* audioHelper, const float width, const float height,
+  bool init(const std::string& name, AudioHelper* audioHelper, float width, float height,
             AnimationType animationType = AnimationType::Slide);
 
   virtual void display();
@@ -76,11 +76,11 @@ protected:
 
   TextButton* addTextButton(const std::string& text, const ccMenuCallback& callback);
   TextToggle* addToggleTextButton(const std::string& text, const ccMenuCallback& callback,
-                                  const bool notMove = false);
+                                  bool notMove = false);
   TextToggle* addSmallToggleTextButton(const std::string& text, const ccMenuCallback& callback);
   TextToggle* addToggleImageButton(const std::string& image, const ccMenuCallback& callback);
   SliderObject* addSlider(MenuItem* attachTo, const FloatCallback& callback);
-  MenuItem* addRowLabel(const std::string& text, MenuItem* attachTo, const float leftSpace);
+  MenuItem* addRowLabel(const std::string& text, MenuItem* attachTo, float leftSpace);
 
 private:
   void onMovementEnd();
@@ -106,44 +106,44 @@ private:
   using CompareFunction = std::function<bool(MenuItem*)>;
   using DistanceFunction = std::function<float(MenuItem*)>;
 
-  const CompareFunction compareUp = [&](MenuItem* item) {
+  const CompareFunction _compareUp = [&](MenuItem* item) {
     return item->getPosition().y > this->_selectedMenuItem->getPosition().y;
   };
 
-  const CompareFunction compareDown = [&](MenuItem* item) {
+  const CompareFunction _compareDown = [&](MenuItem* item) {
     return item->getPosition().y < this->_selectedMenuItem->getPosition().y;
   };
 
-  const CompareFunction compareRight = [&](MenuItem* item) {
+  const CompareFunction _compareRight = [&](MenuItem* item) {
     return item->getPosition().x > this->_selectedMenuItem->getPosition().x;
   };
 
-  const CompareFunction compareLeft = [&](MenuItem* item) {
+  const CompareFunction _compareLeft = [&](MenuItem* item) {
     return item->getPosition().x < this->_selectedMenuItem->getPosition().x;
   };
 
-  const DistanceFunction distanceUp = [&](MenuItem* item) {
+  const DistanceFunction _distanceUp = [&](MenuItem* item) {
     const auto pos1 = item->getPosition() + Vec2(0, item->getContentSize().height / 2);
     const auto pos2 =
       this->_selectedMenuItem->getPosition() - Vec2(0, this->_selectedMenuItem->getContentSize().width / 2);
     return pos1.distance(pos2);
   };
 
-  const DistanceFunction distanceDown = [&](MenuItem* item) {
+  const DistanceFunction _distanceDown = [&](MenuItem* item) {
     const auto pos1 = item->getPosition() - Vec2(0, item->getContentSize().height / 2);
     const auto pos2 =
       this->_selectedMenuItem->getPosition() + Vec2(0, this->_selectedMenuItem->getContentSize().width / 2);
     return pos1.distance(pos2);
   };
 
-  const DistanceFunction distanceRight = [&](MenuItem* item) {
+  const DistanceFunction _distanceRight = [&](MenuItem* item) {
     const auto pos1 = item->getPosition() - Vec2(item->getContentSize().width / 2, 0);
     const auto pos2 =
       this->_selectedMenuItem->getPosition() + Vec2(this->_selectedMenuItem->getContentSize().width / 2, 0);
     return pos1.distance(pos2);
   };
 
-  const DistanceFunction distanceLeft = [&](MenuItem* item) {
+  const DistanceFunction _distanceLeft = [&](MenuItem* item) {
     const auto pos1 = item->getPosition() + Vec2(item->getContentSize().width / 2, 0);
     const auto pos2 =
       this->_selectedMenuItem->getPosition() - Vec2(this->_selectedMenuItem->getContentSize().width / 2, 0);
@@ -160,9 +160,9 @@ private:
 
   bool isSelectedItemSlider() const;
 
-  void changeSliderValue(const float increase) const;
+  void changeSliderValue(float increase) const;
 
   AnimationType _animationType;
 };
 
-#endif // __BASIC_MENU_CLASS__
+#endif //__BASICMENU_H__

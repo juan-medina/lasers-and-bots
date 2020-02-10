@@ -20,8 +20,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __OPTIONS_MENU_CLASS__
-#define __OPTIONS_MENU_CLASS__
+#ifndef __OPTIONSMENU_H__
+#define __OPTIONSMENU_H__
 
 #include "../utils/utils.h"
 #include "BasicMenu.h"
@@ -35,13 +35,13 @@ class TextButton;
 class OptionsMenu final : public BasicMenu
 {
 public:
-  using base_class = BasicMenu;
+  using BaseClass = BasicMenu;
 
   OptionsMenu();
 
-  static OptionsMenu* create(AudioHelper* audioHelper, const bool isDesktopApplication);
+  static OptionsMenu* create(AudioHelper* audioHelper, bool isDesktopApplication);
 
-  bool init(AudioHelper* audioHelper, const bool isDesktopApplication);
+  bool init(AudioHelper* audioHelper, bool isDesktopApplication);
 
   void display() override;
 
@@ -64,8 +64,8 @@ private:
   void onBack();
   void onMusic();
   void onSound();
-  void onMusicSliderChange(const float percentage);
-  void onSoundSliderChange(const float percentage);
+  void onMusicSliderChange(float percentage);
+  void onSoundSliderChange(float percentage);
   void onFullScreen();
   void onWindowed();
   void onDebugGrid();
@@ -73,4 +73,4 @@ private:
   void updateLabels();
 };
 
-#endif // __OPTIONS_MENU_CLASS__
+#endif //__OPTIONSMENU_H__

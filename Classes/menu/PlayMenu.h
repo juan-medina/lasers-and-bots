@@ -20,8 +20,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __PLAY_MENU_CLASS__
-#define __PLAY_MENU_CLASS__
+#ifndef __PLAYMENU_H__
+#define __PLAYMENU_H__
 
 #include "../utils/utils.h"
 #include "BasicMenu.h"
@@ -39,9 +39,9 @@ public:
 
   using BaseClass = BasicMenu;
 
-  static PlayMenu* create(AudioHelper* audioHelper, const unsigned short int selectedLevel);
+  static PlayMenu* create(AudioHelper* audioHelper, unsigned short int selectedLevel);
 
-  bool init(AudioHelper* audioHelper, const unsigned short int selectedLevel);
+  bool init(AudioHelper* audioHelper, unsigned short int selectedLevel);
 
   void display() override;
 
@@ -49,12 +49,11 @@ protected:
   bool createMenuItems() override;
 
 private:
-  Label* addLabels(const std::string& labelText, const std::string& text, const Vec2& pos,
-                   const float separation);
+  Label* addLabels(const std::string& labelText, const std::string& text, const Vec2& pos, float separation);
   void onBack();
-  void onLevelSelect(Ref* sender, const unsigned short int level);
+  void onLevelSelect(Ref* sender, unsigned short int level);
   void onPlay();
-  void selectLevel(const unsigned short int level);
+  void selectLevel(unsigned short int level);
   LevelManager* getLevelManager();
 
   std::map<unsigned short int, TextToggle*> _levelButtons;
@@ -70,4 +69,4 @@ private:
   unsigned short int _selectedLevel;
 };
 
-#endif // __PLAY_MENU_CLASS__
+#endif //__PLAYMENU_H__

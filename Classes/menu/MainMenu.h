@@ -20,8 +20,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __MAIN_MENU_CLASS__
-#define __MAIN_MENU_CLASS__
+#ifndef __MAINMENU_H__
+#define __MAINMENU_H__
 
 #include "BasicMenu.h"
 
@@ -41,7 +41,6 @@ public:
   bool init(AudioHelper* audioHelper);
 
   void display() override;
-  ;
 
 protected:
   bool createMenuItems() override;
@@ -57,4 +56,4 @@ private:
   TextButton* _playItem;
 };
 
-#endif // __MAIN_MENU_CLASS__
+#endif //__MAINMENU_H__

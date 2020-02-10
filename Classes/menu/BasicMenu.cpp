@@ -21,6 +21,7 @@
  ****************************************************************************/
 
 #include "BasicMenu.h"
+
 #include "../ui/SliderObject.h"
 #include "../ui/TextButton.h"
 #include "../ui/TextToggle.h"
@@ -221,7 +222,7 @@ void BasicMenu::moveSelectionLeft()
   {
     if (!_selectionLocked)
     {
-      moveSelection(compareLeft, distanceLeft);
+      moveSelection(_compareLeft, _distanceLeft);
     }
     else if (isSelectedItemSlider())
     {
@@ -236,7 +237,7 @@ void BasicMenu::moveSelectionRight()
   {
     if (!_selectionLocked)
     {
-      moveSelection(compareRight, distanceRight);
+      moveSelection(_compareRight, _distanceRight);
     }
     else if (isSelectedItemSlider())
     {
@@ -251,7 +252,7 @@ void BasicMenu::moveSelectionUp()
   {
     if (!_selectionLocked)
     {
-      moveSelection(compareUp, distanceUp);
+      moveSelection(_compareUp, _distanceUp);
     }
     else if (isSelectedItemSlider())
     {
@@ -266,7 +267,7 @@ void BasicMenu::moveSelectionDown()
   {
     if (!_selectionLocked)
     {
-      moveSelection(compareDown, distanceDown);
+      moveSelection(_compareDown, _distanceDown);
     }
     else if (isSelectedItemSlider())
     {

@@ -80,7 +80,7 @@ bool OptionsMenu::init(AudioHelper* audioHelper, const bool isDesktopApplication
     {
       height += 400.f;
     }
-    UTILS_BREAK_IF(!base_class::init("Options", audioHelper, width, height));
+    UTILS_BREAK_IF(!BaseClass::init("Options", audioHelper, width, height));
 
     ret = true;
   } while (false);
@@ -90,7 +90,7 @@ bool OptionsMenu::init(AudioHelper* audioHelper, const bool isDesktopApplication
 
 void OptionsMenu::display()
 {
-  base_class::display();
+  BaseClass::display();
 
   const auto helper = getAudioHelper();
 
