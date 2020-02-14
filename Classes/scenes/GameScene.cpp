@@ -755,6 +755,11 @@ void GameScene::start()
 
 void GameScene::close()
 {
+  if (_closing)
+  {
+    return;
+  }
+
   _closing = true;
   pause();
   const auto application = dynamic_cast<LaserAndBotsApp*>(getApplication());
@@ -835,6 +840,8 @@ void GameScene::togglePause()
 
 void GameScene::reload()
 {
+  _closing = true;
+
   pause();
 
   _gameUi->disableButtons(true);
@@ -845,6 +852,8 @@ void GameScene::reload()
 
 void GameScene::continueButton()
 {
+  _closing = true;
+
   pause();
 
   _gameUi->disableButtons(true);
